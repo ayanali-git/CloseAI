@@ -102,12 +102,17 @@ function GuestChatContent() {
     router.push(`/gc/${guestChatId}`);
   };
 
-  const handleSend = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!message.trim() && uploadedFiles.length === 0) return;
-    handleStartGuestChat(message, uploadedFiles);
+  const handleSend = (promptOverride?: string) => {
+    const promptToSend = promptOverride ?? message;
+    if (!promptToSend.trim() && uploadedFiles.length === 0) return;
+    handleStartGuestChat(promptToSend, uploadedFiles);
     setMessage("");
     setUploadedFiles([]);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSend();
   };
 
   const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -316,7 +321,7 @@ function GuestChatContent() {
             user={null}
             resetKey={newChatKey}
             onPromptSelect={(prompt) => {
-              setMessage(prompt);
+              handleStartGuestChat(prompt, []);
             }}
           >
             <div className="w-full flex flex-col items-center gap-6">
@@ -349,8 +354,14 @@ function GuestChatContent() {
                   <button
                     type="button"
                     onClick={() => {
-                      setMessage("What can you do?");
-                      chatInputRef.current?.focus();
+                      const prompt = "What can you do?";
+                      setMessage(prompt);
+                      requestAnimationFrame(() => {
+                        chatInputRef.current?.focus();
+                      });
+                      setTimeout(() => {
+                        handleStartGuestChat(prompt, []);
+                      }, 250);
                     }}
                     className="h-11 px-4 rounded-full text-sm sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
                   >
