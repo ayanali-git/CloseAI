@@ -177,7 +177,7 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="inline-flex items-center justify-center px-6 py-3 bg-foreground text-background font-medium rounded-full hover:opacity/90 transition-opacity text-base group cursor-pointer"
+              className="inline-flex items-center justify-center h-12 px-4 bg-foreground text-background font-medium rounded-full hover:opacity-90 transition-opacity text-base group cursor-pointer"
             >
               <span>Send Message</span>
               <AnimatedArrow size={18} />

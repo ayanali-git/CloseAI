@@ -307,13 +307,10 @@ html:not(.dark) .gooey-title {
   background-color: #383838 !important;
 }
 
-/* Animated Shimmer for Thinking / Loading text (Single smooth wave) */
+/* Animated Shimmer for Thinking / Loading text (Continuous smooth wave) */
 @keyframes shimmer-sweep {
   0% {
     background-position: 120% 0;
-  }
-  75% {
-    background-position: -80% 0;
   }
   100% {
     background-position: -80% 0;
@@ -329,11 +326,12 @@ html:not(.dark) .gooey-title {
     rgba(160, 160, 165, 0.4) 65%,
     rgba(160, 160, 165, 0.4) 100%
   );
-  background-size: 220% 100%;
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer-sweep 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: shimmer-sweep 2s linear infinite;
+  will-change: background-position;
   display: inline-block;
 }
 
@@ -346,7 +344,7 @@ html:not(.dark) .animate-shimmer-text {
     rgba(130, 130, 135, 0.4) 65%,
     rgba(130, 130, 135, 0.4) 100%
   );
-  background-size: 220% 100%;
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

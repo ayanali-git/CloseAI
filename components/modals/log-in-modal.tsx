@@ -223,7 +223,7 @@ export function LoginModal({
           <button
             type="button"
             onClick={handleGoogleAuth}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center gap-2.5 hover:opacity/90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center gap-2.5 hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
               <path
@@ -250,7 +250,7 @@ export function LoginModal({
           <button
             type="button"
             onClick={handleGithubAuth}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center gap-2.5 hover:opacity/90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center gap-2.5 hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none"
           >
             <svg
               className="w-4 h-4 shrink-0 fill-current"
@@ -293,7 +293,6 @@ export function LoginModal({
               onBlur={() => handleBlur("email")}
               placeholder="Email"
               autoComplete="email"
-              autoFocus
               className={cn(
                 "h-11 rounded-full bg-card border px-4 placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all",
                 errors.email && (touched.email || submitted)
@@ -309,7 +308,7 @@ export function LoginModal({
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity/90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none"
           >
             {loading ? (
               <Loader className="w-5 h-5 animate-spin text-background" />

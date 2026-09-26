@@ -62,17 +62,17 @@ export default function FoundationPage() {
       </div>
 
       {/* Grant Application Box */}
-      <div className="rounded-3xl border border-border/80 dark:border-none bg-gradient-to-br from-card via-card to-secondary/30 p-10 sm:p-14 text-center flex flex-col items-center">
-        <h2 className="text-2xl sm:text-4xl font-semibold text-foreground mb-4">
-          Apply for Academic & Non-Profit Grants
+      <div className="rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center">
+        <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4">
+          Apply for funding and mentorship
         </h2>
         <p className="text-muted-foreground text-md max-w-lg mb-8">
           Researchers and educational institutions can apply for subsidized API access and direct engineering mentorship.
         </p>
-        <Button asChild className="group rounded-full px-8 h-12 bg-foreground text-background hover:opacity/90">
+        <Button asChild className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
             <span>Submit Proposal</span>
-            <AnimatedArrow size={18} />
+            <AnimatedArrow size={18} strokeWidth={2.5} />
           </Link>
         </Button>
       </div>

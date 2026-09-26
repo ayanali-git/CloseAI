@@ -348,7 +348,7 @@ export default function UpgradePage() {
                     <Button
                       className={`w-full h-11 rounded-full text-md font-medium transition-all cursor-pointer ${
                         plan.popular
-                          ? "bg-foreground text-background hover:opacity/90"
+                          ? "bg-foreground text-background hover:opacity-90"
                           : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"
                       } ${loading !== null ? 'disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed cursor-not-allowed' : ''}`}
                       onClick={() => handleUpgrade(plan.id)}

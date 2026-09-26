@@ -97,23 +97,8 @@ export default function GuestChatSessionPage() {
     }
   }, [messages]);
 
-  // Load existing saved guest messages from localStorage
-  useEffect(() => {
-    if (!chatId) return;
-    try {
-      const saved = localStorage.getItem(`guest_chat_${chatId}`);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setMessages(parsed);
-        }
-      }
-    } catch (e) {
-      console.error("Error reading saved guest chat:", e);
-    }
-  }, [chatId]);
-
-  // Handle auto-send for the first message redirected from /gc
+  // On mount: check for initial auto-send handoff from /gc.
+  // If no handoff data exists (e.g. on page reload or direct visit), redirect back to /gc.
   useEffect(() => {
     if (!chatId || autoSendTriggeredRef.current) return;
     autoSendTriggeredRef.current = true;
@@ -135,12 +120,17 @@ export default function GuestChatSessionPage() {
             data.model || selectedModel,
             data.think ?? thinkMode
           );
+          return;
         }
       }
+
+      // No active session handoff found (reload or direct visit) -> redirect to /gc
+      router.replace("/gc");
     } catch (e) {
-      console.error("Error processing guest auto-send:", e);
+      console.error("Error processing guest session:", e);
+      router.replace("/gc");
     }
-  }, [chatId]);
+  }, [chatId, router]);
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -225,23 +215,15 @@ export default function GuestChatSessionPage() {
       await new Promise((r) => setTimeout(r, intervalMs));
     }
 
-    // Final update with complete content
-    let finalHistory: Message[] = [];
+    // Final update with complete content (in-memory only, non-persistent)
     setMessages((prev) => {
       const copy = [...prev];
       const lastIdx = copy.length - 1;
       if (copy[lastIdx] && copy[lastIdx].id === assistantId) {
         copy[lastIdx] = { ...copy[lastIdx], content: fullText };
       }
-      finalHistory = copy;
       return copy;
     });
-
-    try {
-      localStorage.setItem(`guest_chat_${chatId}`, JSON.stringify(finalHistory));
-    } catch (e) {
-      console.error("Failed to save guest chat to localStorage:", e);
-    }
 
     setIsTyping(false);
   };
@@ -421,15 +403,6 @@ export default function GuestChatSessionPage() {
     const remaining = messages.filter((m) => !idsToRemove.has(m.id));
     setMessages(remaining);
 
-    try {
-      localStorage.setItem(
-        `guest_chat_${chatId}`,
-        JSON.stringify(remaining)
-      );
-    } catch (e) {
-      console.error(e);
-    }
-
     toast.success("Message deleted");
     if (remaining.length === 0) {
       router.push("/gc");
@@ -565,7 +538,7 @@ export default function GuestChatSessionPage() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-11 flex items-center gap-1.5 px-3 rounded-full hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-11 flex items-center gap-1.5 px-4 rounded-full hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <AnimatedChevron
@@ -596,7 +569,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-3 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>
@@ -606,7 +579,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-3 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -629,14 +602,14 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-10 px-3 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:flex h-10 px-3 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
@@ -701,7 +674,7 @@ export default function GuestChatSessionPage() {
                                 isAutoScrollPinnedRef.current = true;
                                 scrollToBottom("smooth");
                               }}
-                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 hover:bg-secondary dark:hover:bg-[#383838] active:scale-95 text-foreground flex items-center justify-center transition-all cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
+                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] active:scale-95 text-foreground flex items-center justify-center transition-all cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
                               aria-label="Scroll to bottom"
                             >
                               <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />

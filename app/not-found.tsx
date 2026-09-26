@@ -19,7 +19,7 @@ export default function NotFound() {
           </p>
         </div>
         <div className="flex items-center justify-center gap-3 pt-2">
-          <Button asChild className="rounded-full px-6 bg-foreground text-background hover:opacity/90">
+          <Button asChild className="rounded-full px-6 bg-foreground text-background hover:opacity-90">
             <Link href="/c">Go to Chat</Link>
           </Button>
           <Button asChild variant="outline" className="rounded-full px-6 border-border">

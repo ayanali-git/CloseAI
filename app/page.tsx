@@ -38,6 +38,46 @@ export default function LandingPage() {
   const [hoveredResearch, setHoveredResearch] = useState<number | null>(null);
   const [hoveredBusiness, setHoveredBusiness] = useState<number | null>(null);
 
+  // Dynamic bottom offset to ensure bottom of left card part (image) aligns horizontally with Item 3 card part at max scroll
+  const [spotlightBottomOffset, setSpotlightBottomOffset] =
+    useState<number>(16);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const leftCardImgRef = useRef<HTMLDivElement>(null);
+  const item3Ref = useRef<HTMLAnchorElement>(null);
+  const rightCardImgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateSpotlightOffset = () => {
+      if (typeof window === "undefined") return;
+      if (window.innerWidth < 768) {
+        setSpotlightBottomOffset(0);
+        return;
+      }
+      if (
+        leftColRef.current &&
+        leftCardImgRef.current &&
+        item3Ref.current &&
+        rightCardImgRef.current
+      ) {
+        const leftDistance =
+          leftColRef.current.getBoundingClientRect().bottom -
+          leftCardImgRef.current.getBoundingClientRect().bottom;
+        const rightDistance =
+          item3Ref.current.getBoundingClientRect().bottom -
+          rightCardImgRef.current.getBoundingClientRect().bottom;
+        const diff = Math.max(0, Math.round(leftDistance - rightDistance));
+        setSpotlightBottomOffset(diff);
+      }
+    };
+
+    updateSpotlightOffset();
+    window.addEventListener("resize", updateSpotlightOffset);
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(updateSpotlightOffset);
+    }
+    return () => window.removeEventListener("resize", updateSpotlightOffset);
+  }, []);
+
   const getCardColor = (hoveredIndex: number | null, i: number) => {
     if (hoveredIndex === null) return "text-foreground";
     return hoveredIndex === i ? "text-foreground" : "text-muted-foreground";
@@ -108,17 +148,9 @@ export default function LandingPage() {
         },
   ];
 
-  // Recent News: blobs avatars
-  const newsAvatar = (seed: string) =>
-    `https://api.dicebear.com/10.x/blobs/svg?seed=${encodeURIComponent(seed)}`;
-
-  // Latest Research: waves avatars
-  const researchAvatar = (seed: string) =>
-    `https://api.dicebear.com/10.x/waves/svg?seed=${encodeURIComponent(seed)}`;
-
-  // closeAI for Business: squircles avatars
-  const businessAvatar = (seed: string) =>
-    `https://api.dicebear.com/10.x/squircles/svg?seed=${encodeURIComponent(
+  // DiceBear glass avatars
+  const glassAvatar = (seed: string) =>
+    `https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=${encodeURIComponent(
       seed
     )}`;
 
@@ -144,7 +176,7 @@ export default function LandingPage() {
               onClick={() =>
                 textareaRef.current?.focus({ preventScroll: true })
               }
-              className="relative w-full rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text"
+              className="relative w-full rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text"
             >
               <textarea
                 ref={textareaRef}
@@ -156,6 +188,7 @@ export default function LandingPage() {
                     handleHeroSubmit(e);
                   }
                 }}
+                autoFocus
                 placeholder="Ask about anything"
                 rows={3}
                 disabled={isSubmitting}
@@ -171,8 +204,8 @@ export default function LandingPage() {
                   className={cn(
                     "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all shrink-0",
                     heroPrompt.trim().length > 0 && !isSubmitting
-                      ? "bg-foreground text-background cursor-pointer hover:opacity/90 active:scale-95"
-                      : "bg-white hover:bg-secondary dark:bg-[#212121] text-foreground dark:text-white border border-border/80 dark:border-neutral-700/60 cursor-not-allowed opacity-60"
+                      ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
+                      : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Send prompt"
                 >
@@ -217,9 +250,9 @@ export default function LandingPage() {
                     handlePillClick(pill.prompt);
                   }}
                   className={cn(
-                    "h-12 px-3 rounded-full text-md sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-neutral-700/60",
+                    "h-12 px-4 rounded-full text-md sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none",
                     pill.disabled
-                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary text-black/60 dark:bg-[#2f2f2f]/60 dark:text-white/60"
+                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-black/60 dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60 dark:text-white/60"
                       : isSelected
                       ? "cursor-pointer bg-secondary text-black dark:bg-[#383838] dark:text-white"
                       : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
@@ -241,97 +274,108 @@ export default function LandingPage() {
         </section>
 
         {/* ---------------------------------------------------------------- */}
-        {/* FEATURED SPOTLIGHT (Sticky Left + Scrolling Right) */}
+        {/* FEATURED SPOTLIGHT (Sticky Left + Scrolling Right on Medium & Large Screens, Stacked on Mobile) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[2000px] mx-auto pt-6 pb-28">
+        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
           <div
-            className="relative flex flex-col lg:flex-row justify-center gap-8 lg:gap-14"
+            className="relative flex flex-col md:flex-row justify-between gap-8 md:gap-10 lg:gap-12 xl:gap-14"
             onMouseLeave={() => setHoveredSpotlight(null)}
           >
             {/* STICKY LEFT COLUMN TRACK: Astra GPT-6 Spotlight */}
-            <div className="w-full lg:w-[52%] relative">
-              <div className="lg:sticky lg:top-24">
-                <Link
-                  href="/research/overview"
-                  onMouseEnter={() => setHoveredSpotlight(0)}
-                  onMouseLeave={() => setHoveredSpotlight(null)}
-                  className={cn(
-                    "block transition-opacity duration-200",
-                    getOpacity(hoveredSpotlight, 0)
-                  )}
-                >
-                  {/* Big Card */}
-                  <div className="relative w-full aspect-[16/10] rounded-md border border-border/80 dark:border-none overflow-hidden bg-black transition-all duration-300">
-                    <Image
-                      src="/assets/images/gpt-6.png"
-                      alt="GPT-6 Astra"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-
-                  {/* Left Title & Tag Below Card */}
-                  <div className="mt-4 flex flex-col justify-between h-[92px] max-w-2xl">
-                    <h2
-                      className={cn(
-                        "text-xl sm:text-2xl md:text-3xl font-bold tracking-tight leading-snug transition-colors",
-                        getCardColor(hoveredSpotlight, 0)
-                      )}
-                    >
-                      GPT-6 Astra: A New Generation of Intelligence
-                    </h2>
-                    <div className="flex items-center gap-2 mb-5 text-md text-muted-foreground">
-                      <span className="font-semibold text-foreground">
-                        Product
-                      </span>
-                      <span>·</span>
-                      <span>Jan 05, 2026</span>
-                      <span>·</span>
-                      <span>18 min read</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            </div>
-
-            {/* SCROLLING RIGHT COLUMN: 3 Items Stream (one by one) */}
-            <div className="w-full lg:w-[23%] flex flex-col gap-8 lg:gap-10">
-              {/* Item 1 */}
+            <div
+              ref={leftColRef}
+              className="w-full md:w-[56%] lg:w-[58%] xl:w-[75%] relative md:sticky md:top-24 md:self-start"
+            >
               <Link
-                href="/product/features"
-                onMouseEnter={() => setHoveredSpotlight(1)}
+                href="/research/overview"
+                onMouseEnter={() => setHoveredSpotlight(0)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
                   "block transition-opacity duration-200",
-                  getOpacity(hoveredSpotlight, 1)
+                  getOpacity(hoveredSpotlight, 0)
                 )}
               >
-                <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-background">
+                {/* Big Card */}
+                <div
+                  ref={leftCardImgRef}
+                  className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-sm overflow-hidden bg-black transition-all duration-300"
+                >
                   <Image
-                    src="/assets/images/system-card.png"
-                    alt="GPT-6 Astra System Cards"
+                    src="/assets/images/gpt-6.png"
+                    alt="GPT-6 Astra"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+
+                {/* Left Title & Tag Below Card */}
+                <div className="mt-4 flex flex-col gap-5 max-w-3xl">
+                  <h2
+                    className={cn(
+                      "2xl:whitespace-nowrap text-4xl sm:text-5xl font-bold tracking-tight leading-snug transition-colors",
+                      getCardColor(hoveredSpotlight, 0)
+                    )}
+                  >
+                    GPT-6 Astra: A New Generation of Intelligence
+                  </h2>
+                  <div className="flex items-center gap-2 text-sm xl:text-md text-muted-foreground">
+                    <span className="font-semibold text-foreground">
+                      Research
+                    </span>
+                    <span>·</span>
+                    <span>Jan 05, 2026</span>
+                    <span>·</span>
+                    <span>18 min read</span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* SCROLLING RIGHT COLUMN: 3 Items Stream (one by one) */}
+            <div
+              className="w-full md:w-[36%] lg:w-[38%] xl:w-[25%] flex flex-col gap-8 lg:gap-10"
+              style={
+                spotlightBottomOffset > 0
+                  ? { paddingBottom: `${spotlightBottomOffset}px` }
+                  : undefined
+              }
+            >
+              {/* Item 1 */}
+              <Link
+                href="/product/features"
+                onMouseEnter={() => setHoveredSpotlight(3)}
+                onMouseLeave={() => setHoveredSpotlight(null)}
+                className={cn(
+                  "flex flex-col transition-opacity duration-200",
+                  getOpacity(hoveredSpotlight, 3)
+                )}
+              >
+                <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black">
+                  <Image
+                    src="/assets/images/sol-and-luna.png"
+                    alt="Introducing GPT-6 Sol and Luna"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <div className="mt-4 flex flex-col justify-between h-[92px]">
+                <div className="mt-3 md:mt-4 flex flex-col gap-5">
                   <h3
                     className={cn(
-                      "text-lg sm:text-xl md:text-2xl font-semibold leading-snug transition-colors",
-                      getCardColor(hoveredSpotlight, 1)
+                      "whitespace-nowrap text-base xl:text-2xl font-semibold leading-snug transition-colors",
+                      getCardColor(hoveredSpotlight, 3)
                     )}
                   >
-                    GPT-6 Astra: System Cards
+                    Introducing GPT-6 Sol and Luna
                   </h3>
-                  <div className="flex items-center gap-2 mb-5 text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm sm:text-md text-muted-foreground">
                     <span className="font-semibold text-foreground">
                       Product
                     </span>
                     <span>·</span>
-                    <span>Mar 15, 2026</span>
+                    <span>Apr 20, 2026</span>
                     <span>·</span>
-                    <span>5 min read</span>
+                    <span>7 min read</span>
                   </div>
                 </div>
               </Link>
@@ -342,30 +386,30 @@ export default function LandingPage() {
                 onMouseEnter={() => setHoveredSpotlight(2)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
-                  "block transition-opacity duration-200",
+                  "flex flex-col transition-opacity duration-200",
                   getOpacity(hoveredSpotlight, 2)
                 )}
               >
-                <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-black">
+                <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black">
                   <Image
-                    src="/assets/images/images-2.5.png"
+                    src="/assets/images/images-black-2.5.png"
                     alt="Introducing CloseAI images 2.5"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <div className="mt-4 flex flex-col justify-between h-[92px]">
+                <div className="mt-3 md:mt-4 flex flex-col gap-5">
                   <h3
                     className={cn(
-                      "text-lg sm:text-xl md:text-2xl font-semibold leading-snug transition-colors",
+                      "whitespace-nowrap text-base xl:text-2xl font-semibold leading-snug transition-colors",
                       getCardColor(hoveredSpotlight, 2)
                     )}
                   >
                     Introducing CloseAI Images 2.5
                   </h3>
-                  <div className="flex items-center gap-2 mb-5 text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm sm:text-md text-muted-foreground">
                     <span className="font-semibold text-foreground">
-                      Security
+                      Product
                     </span>
                     <span>·</span>
                     <span>Feb 10, 2026</span>
@@ -377,39 +421,43 @@ export default function LandingPage() {
 
               {/* Item 3 */}
               <Link
+                ref={item3Ref}
                 href="/product/features"
-                onMouseEnter={() => setHoveredSpotlight(3)}
+                onMouseEnter={() => setHoveredSpotlight(1)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
-                  "block transition-opacity duration-200",
-                  getOpacity(hoveredSpotlight, 3)
+                  "flex flex-col transition-opacity duration-200",
+                  getOpacity(hoveredSpotlight, 1)
                 )}
               >
-                <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-black">
+                <div
+                  ref={rightCardImgRef}
+                  className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-background"
+                >
                   <Image
-                    src="/assets/images/hugging-face.png"
-                    alt="The Hugging Face Incident"
+                    src="/assets/images/system-card.png"
+                    alt="GPT-6 Astra System Cards"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <div className="mt-4 flex flex-col justify-between h-[92px]">
+                <div className="mt-3 md:mt-4 flex flex-col gap-5">
                   <h3
                     className={cn(
-                      "text-lg sm:text-xl md:text-2xl font-semibold leading-snug transition-colors",
-                      getCardColor(hoveredSpotlight, 3)
+                      "whitespace-nowrap text-base xl:text-2xl font-semibold leading-snug transition-colors",
+                      getCardColor(hoveredSpotlight, 1)
                     )}
                   >
-                    The Hugging Face Incident
+                    GPT-6 Astra: System Cards
                   </h3>
-                  <div className="flex items-center gap-2 mb-5 text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm sm:text-md text-muted-foreground">
                     <span className="font-semibold text-foreground">
-                      Product
+                      Publication
                     </span>
                     <span>·</span>
-                    <span>Apr 20, 2026</span>
+                    <span>Mar 15, 2026</span>
                     <span>·</span>
-                    <span>7 min read</span>
+                    <span>5 min read</span>
                   </div>
                 </div>
               </Link>
@@ -418,10 +466,10 @@ export default function LandingPage() {
         </section>
 
         {/* ---------------------------------------------------------------- */}
-        {/* LATEST NEWS & UPDATES */}
+        {/* LATEST NEWS & UPDATES (2-column horizontal card layout) */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
-          <div className="flex items-center justify-between mb-8 ">
+          <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               Recent News
             </h2>
@@ -435,44 +483,50 @@ export default function LandingPage() {
           </div>
 
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-8 sm:gap-y-10"
             onMouseLeave={() => setHoveredNews(null)}
           >
             {[
               {
                 title:
+                  "New benchmark records on SWE-bench and Olympiad mathematics",
+                category: "Research",
+                date: "Jul 15, 2026",
+                seed: "New benchmark records on SWE-bench and Olympiad mathematics",
+              },
+              {
+                title:
                   "Global partnership for frontier AI research infrastructure",
                 category: "Company",
                 date: "May 05, 2026",
+                seed: "Global partnership for frontier AI research infrastructure",
               },
               {
                 title:
                   "Frontier safety commitments and verifiable alignment benchmarks",
                 category: "Research",
                 date: "Jun 10, 2026",
-              },
-              {
-                title:
-                  "New benchmark records on SWE-bench and Olympiad mathematics",
-                category: "Research",
-                date: "Jul 15, 2026",
+                seed: "Frontier safety commitments and verifiable alignment benchmarks",
               },
               {
                 title:
                   "Advancements in live audio synthesis and spatial perception",
                 category: "Product",
                 date: "Aug 20, 2026",
+                seed: "Advancements in live audio synthesis and spatial perception",
+              },
+              {
+                title: "Expanding developer grants for open frontier research",
+                category: "Foundation",
+                date: "Nov 30, 2026",
+                seed: "Expanding developer grants for open frontier research",
               },
               {
                 title:
                   "Enterprise privacy safeguards with zero unauthorized retention",
                 category: "Company",
                 date: "Sep 25, 2026",
-              },
-              {
-                title: "Expanding developer grants for open frontier research",
-                category: "Foundation",
-                date: "Nov 30, 2026",
+                seed: "Enterprise privacy safeguards with zero unauthorized retention",
               },
             ].map((news, i) => (
               <Link
@@ -480,35 +534,34 @@ export default function LandingPage() {
                 href="/company/blog"
                 onMouseEnter={() => setHoveredNews(i)}
                 onMouseLeave={() => setHoveredNews(null)}
-                className="flex flex-col rounded-md overflow-hidden bg-card border border-border/80 dark:border-none transition-all"
+                className={cn(
+                  "group flex items-center gap-4 sm:gap-6 transition-opacity duration-200 cursor-pointer",
+                  getOpacity(hoveredNews, i)
+                )}
               >
-                {/* Visual Thumbnail: DiceBear blobs avatar */}
-                <div className="relative h-40 w-full bg-secondary overflow-hidden flex items-end p-4">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* Visual Thumbnail: DiceBear glass avatar */}
+                <div className="relative w-[30%] md:w-[36%] lg:w-[38%] xl:w-[40%] aspect-square rounded-sm overflow-hidden bg-muted/20 shrink-0">
                   <img
-                    src={newsAvatar(news.title)}
-                    alt="avatar"
-                    className={cn(
-                      "absolute inset-0 h-full w-full object-cover transition-opacity",
-                      hoveredNews === null || hoveredNews === i
-                        ? "opacity-100"
-                        : "opacity-85"
-                    )}
+                    src={glassAvatar(news.seed)}
+                    alt={news.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <span className="relative text-[15px] font-semibold text-white/90 uppercase tracking-wider bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-md">
-                    {news.category}
-                  </span>
                 </div>
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="flex flex-col justify-center min-w-0">
                   <h3
                     className={cn(
-                      "text-base sm:text-lg md:text-xl font-medium leading-snug mb-3 transition-colors",
+                      "text-base sm:text-lg font-medium leading-snug tracking-tight text-foreground transition-colors",
                       getCardColor(hoveredNews, i)
                     )}
                   >
                     {news.title}
                   </h3>
-                  <p className="text-md text-muted-foreground">{news.date}</p>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mt-2">
+                    <span className="font-medium text-foreground">
+                      {news.category}
+                    </span>
+                    <span>{news.date}</span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -516,7 +569,7 @@ export default function LandingPage() {
         </section>
 
         {/* ---------------------------------------------------------------- */}
-        {/* FRONTIER RESEARCH SHOWCASE                                       */}
+        {/* FRONTIER RESEARCH SHOWCASE (3-column square cards)  */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
@@ -533,24 +586,30 @@ export default function LandingPage() {
           </div>
 
           <div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8"
             onMouseLeave={() => setHoveredResearch(null)}
           >
             {[
               {
                 title:
                   "The next generation model architecture and self-verifying chain",
+                category: "Research",
+                date: "Sep 08, 2026",
                 seed: "The next generation model architecture and self-verifying chain",
               },
               {
                 title:
                   "Unit Distance Problem & Discrete Mathematics Optimization",
+                category: "Research",
+                date: "Sep 06, 2026",
                 seed: "Unit Distance Problem & Discrete Mathematics Optimization",
               },
               {
                 title:
-                  "Introducing closeAI-Rosalind for Molecular Biology & Therapeutics",
-                seed: "Introducing closeAI-Rosalind for Molecular Biology & Therapeutics",
+                  "Introducing closeAI-Rosalind for Molecular Biology & Therapeutic",
+                category: "Publication",
+                date: "Aug 01, 2026",
+                seed: "Introducing closeAI-Rosalind for Molecular Biology & Therapeutic",
               },
             ].map((paper, i) => (
               <Link
@@ -558,29 +617,34 @@ export default function LandingPage() {
                 href="/research/overview"
                 onMouseEnter={() => setHoveredResearch(i)}
                 onMouseLeave={() => setHoveredResearch(null)}
-                className="flex flex-col rounded-md overflow-hidden bg-card border border-border/80 dark:border-none transition-all"
+                className={cn(
+                  "group flex flex-col transition-opacity duration-200 cursor-pointer",
+                  getOpacity(hoveredResearch, i)
+                )}
               >
-                {/* Visual Thumbnail: DiceBear waves avatar */}
-                <div className="relative h-44 w-full overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* Visual Thumbnail: DiceBear glass avatar */}
+                <div className="relative w-full aspect-square rounded-sm overflow-hidden bg-muted/20">
                   <img
-                    src={researchAvatar(paper.seed)}
-                    alt="avatar"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    src={glassAvatar(paper.seed)}
+                    alt={paper.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="mt-4 flex flex-col gap-2">
                   <h3
                     className={cn(
-                      "text-base sm:text-lg md:text-xl font-semibold leading-snug mb-3 transition-colors",
+                      "text-base sm:text-lg font-medium leading-snug tracking-tight text-foreground transition-colors",
                       getCardColor(hoveredResearch, i)
                     )}
                   >
                     {paper.title}
                   </h3>
-                  <p className="text-md text-muted-foreground">
-                    Research Paper
-                  </p>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                    <span className="font-medium text-foreground">
+                      {paper.category}
+                    </span>
+                    <span>{paper.date}</span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -588,12 +652,12 @@ export default function LandingPage() {
         </section>
 
         {/* ---------------------------------------------------------------- */}
-        {/* BUSINESS & ENTERPRISE PARTNERS */}
+        {/* BUSINESS & ENTERPRISE PARTNERS (3-column square cards) */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
-              closeAI for Business
+              CloseAI for Business
             </h2>
             <Link
               href="/business/enterprise"
@@ -605,23 +669,29 @@ export default function LandingPage() {
           </div>
 
           <div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
             onMouseLeave={() => setHoveredBusiness(null)}
           >
             {[
               {
                 title:
                   "Accelerating deep learning experimentation with closeAI infrastructure",
+                category: "Startup",
+                date: "Aug 10, 2026",
                 seed: "Accelerating deep learning experimentation with closeAI infrastructure",
               },
               {
                 title:
                   "Scaling private institutional financial analysis with frontier security",
+                category: "Enterprise",
+                date: "Aug 10, 2026",
                 seed: "Scaling private institutional financial analysis with frontier security",
               },
               {
                 title:
                   "Empowering millions with autonomous multi-agent task execution",
+                category: "Case study",
+                date: "Aug 10, 2026",
                 seed: "Empowering millions with autonomous multi-agent task execution",
               },
             ].map((study, i) => (
@@ -630,27 +700,34 @@ export default function LandingPage() {
                 href="/business/enterprise"
                 onMouseEnter={() => setHoveredBusiness(i)}
                 onMouseLeave={() => setHoveredBusiness(null)}
-                className="flex flex-col rounded-md overflow-hidden bg-card border border-border/80 dark:border-none transition-all"
+                className={cn(
+                  "group flex flex-col transition-opacity duration-200 cursor-pointer",
+                  getOpacity(hoveredBusiness, i)
+                )}
               >
-                {/* Visual Thumbnail: DiceBear squircles avatar */}
-                <div className="relative h-40 w-full overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* Visual Thumbnail: DiceBear glass avatar */}
+                <div className="relative w-full aspect-square rounded-sm overflow-hidden bg-muted/20">
                   <img
-                    src={businessAvatar(study.seed)}
-                    alt="avatar"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    src={glassAvatar(study.seed)}
+                    alt={study.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="mt-4 flex flex-col gap-2">
                   <p
                     className={cn(
-                      "text-base sm:text-lg md:text-xl font-medium mb-1 transition-colors",
+                      "text-base sm:text-lg font-medium leading-snug tracking-tight text-foreground transition-colors",
                       getCardColor(hoveredBusiness, i)
                     )}
                   >
                     {study.title}
                   </p>
-                  <p className="text-md text-muted-foreground">Case study</p>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                    <span className="font-medium text-foreground">
+                      {study.category}
+                    </span>
+                    <span>{study.date}</span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -661,11 +738,11 @@ export default function LandingPage() {
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-16">
-          <div className="rounded-md bg-card border border-border/80 dark:border-none p-12 sm:p-16 text-center flex flex-col items-center justify-center space-y-6">
-            <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-foreground">
+          <div className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center justify-center space-y-6">
+            <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
             </h2>
-            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-md">
+            <p className="text-muted-foreground text-sm xl:text-xl max-w-md">
               Experience the frontier intelligence designed to think, create,
               and build alongside you.
             </p>
@@ -673,7 +750,7 @@ export default function LandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full px-4 h-12 text-md font-normal bg-foreground text-background hover:opacity/90 transition-opacity cursor-pointer"
+                className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} className="flex items-center">
                   <span>Explore Now</span>

@@ -129,10 +129,10 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity/90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none gap-2"
+              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none gap-2"
             >
               {isLoggingOut ? (
-                <Loader className="w-5 h-5 animate-spin text-background" />
+                <Loader className="w-4 h-4 animate-spin text-background" />
               ) : (
                 "Log out"
               )}
@@ -197,7 +197,7 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity/90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center gap-2"
+              className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center gap-2"
             >
               {isLoggingOut ? (
                 <Loader className="w-4 h-4 animate-spin text-background" />

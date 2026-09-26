@@ -1342,7 +1342,7 @@ export function Sidebar({
             <div
               className={cn(
                 "h-14 pt-[env(safe-area-inset-top,0px)] flex items-center justify-between relative z-20 shrink-0",
-                !user ? "pl-[10px] pr-2" : "px-3"
+                !user ? "pl-[10px] pr-2" : "  "
               )}
             >
               <Link
@@ -1528,7 +1528,7 @@ export function Sidebar({
                             onClick={() => {
                               onOpenLoginModal?.();
                             }}
-                            className="h-10 px-3 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center"
+                            className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center"
                           >
                             Log in
                           </button>
@@ -1537,7 +1537,7 @@ export function Sidebar({
                             onClick={() => {
                               onOpenLoginModal?.();
                             }}
-                            className="h-10 px-3 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center text-center"
+                            className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
                           >
                             Sign up for free
                           </button>
@@ -1854,7 +1854,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => onOpenLoginModal?.()}
-                        className="w-full mt-1 h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="w-full mt-1 h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>

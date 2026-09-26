@@ -123,7 +123,7 @@ export default function PricingPage() {
               asChild
               className={`w-full h-11 rounded-full text-md font-medium transition-all ${
                 plan.popular
-                  ? "bg-foreground text-background hover:opacity/90"
+                  ? "bg-foreground text-background hover:opacity-90"
                   : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"
               }`}
             >

@@ -792,7 +792,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("advanced");
             }}
-            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-muted-foreground [@media(hover:hover)]:hover:text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <span>Advanced</span>
             <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -1041,7 +1041,7 @@ export function PlusMenuContent({
               alignOffset={-133}
               avoidCollisions={true}
               collisionPadding={12}
-              className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 select-none outline-none"
+              className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none"
             >
               {/* Row 1: Model */}
               <DropdownMenuSub>
@@ -1063,7 +1063,7 @@ export function PlusMenuContent({
                   alignOffset={-133}
                   avoidCollisions={true}
                   collisionPadding={12}
-                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 select-none outline-none"
+                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none"
                 >
                   {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -1122,7 +1122,7 @@ export function PlusMenuContent({
                   alignOffset={-161}
                   avoidCollisions={true}
                   collisionPadding={12}
-                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 select-none outline-none"
+                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none"
                 >
                   {TIERS.map((tier, idx) => (
                     <DropdownMenuItem
@@ -1159,7 +1159,7 @@ export function PlusMenuContent({
                   alignOffset={-84}
                   avoidCollisions={true}
                   collisionPadding={12}
-                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 select-none outline-none"
+                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none"
                 >
                   {SPEED_OPTIONS.map((s, idx) => (
                     <DropdownMenuItem
@@ -1181,7 +1181,7 @@ export function PlusMenuContent({
 
               {/* Row 4: Advanced Submenu */}
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
+                <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
                   <span className="shrink-0">Advanced</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent
@@ -1189,7 +1189,7 @@ export function PlusMenuContent({
                   alignOffset={-48}
                   avoidCollisions={true}
                   collisionPadding={12}
-                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-3 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60 select-none outline-none cursor-pointer"
+                  className="w-[241px] max-w-[calc(100vw-24px)] rounded-2xl p-3 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none cursor-pointer"
                   onPointerDown={(e) => {
                     e.stopPropagation();
                     (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.();
@@ -1300,7 +1300,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("advanced");
           }}
-          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-muted-foreground [@media(hover:hover)]:hover:text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span>Advanced</span>
           <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -1708,7 +1708,7 @@ export function PlusMenuContent({
 
             {/* Row 4: Advanced Submenu */}
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
+              <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
                 <span className="shrink-0">Advanced</span>
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent

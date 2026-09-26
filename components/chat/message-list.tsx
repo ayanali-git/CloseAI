@@ -395,7 +395,7 @@ function MessageAttachmentItem({
     return (
       <ImagePreview src={imgSrc} alt={displayName}>
         <div
-          className="relative flex leading-[0] overflow-clip rounded-2xl sm:rounded-3xl bg-bubble dark:bg-[#2F2F2F] border border-border/80 max-w-[100px] sm:max-w-[200px] cursor-pointer select-none hover:opacity/90 transition-opacity"
+          className="relative flex leading-[0] overflow-clip rounded-2xl sm:rounded-3xl bg-bubble dark:bg-[#2F2F2F] border border-border/80 max-w-[100px] sm:max-w-[200px] cursor-pointer select-none hover:opacity-90 transition-opacity"
           title={`Preview ${displayName}`}
         >
           <img
@@ -414,7 +414,7 @@ function MessageAttachmentItem({
     <button
       type="button"
       onClick={() => onPreview?.(file)}
-      className="flex self-end items-center gap-2.5 bg-bubble dark:bg-[#2F2F2F] hover:opacity/90 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-2xl sm:rounded-3xl border border-border/80 transition-colors cursor-pointer group select-none text-left"
+      className="flex self-end items-center gap-2.5 bg-bubble dark:bg-[#2F2F2F] hover:opacity-90 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-2xl sm:rounded-3xl border border-border/80 transition-colors cursor-pointer group select-none text-left"
       title={`Preview ${displayName}`}
     >
       <Icon className="w-5 h-5 shrink-0 text-muted-foreground" weight="fill" />
@@ -875,7 +875,7 @@ export function MessageList({
                         className={cn(
                           "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all",
                           editDraftText.trim()
-                            ? "bg-white text-black hover:opacity/90 active:scale-95 cursor-pointer"
+                            ? "bg-white text-black hover:opacity-90 active:scale-95 cursor-pointer"
                             : "bg-white/20 text-white/40 cursor-not-allowed"
                         )}
                       >
@@ -1192,7 +1192,7 @@ export function MessageList({
                             <ImagePreview
                               src={src}
                               alt={alt || "Image preview"}
-                              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity/90 transition-opacity"
+                              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-90 transition-opacity"
                             />
                           </div>
                         );
@@ -1442,7 +1442,7 @@ export function MessageList({
                                       className={cn(
                                         "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                         (changePrompts[msgId] || "").trim()
-                                          ? "bg-foreground text-background cursor-pointer hover:opacity/90 active:scale-95"
+                                          ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
                                           : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                       )}
                                       aria-label="Send change request"
@@ -1589,7 +1589,7 @@ export function MessageList({
                                                 (
                                                   changePrompts[msgId] || ""
                                                 ).trim()
-                                                  ? "bg-foreground text-background cursor-pointer hover:opacity/90 active:scale-95"
+                                                  ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
                                                   : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                               )}
                                               aria-label="Send change request"

@@ -74,19 +74,19 @@ export default function SafetyPage() {
       </div>
 
       {/* CTA Box */}
-      <div className="rounded-3xl border border-border/80 dark:border-none bg-card p-8 sm:p-12 text-center flex flex-col items-center">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-3">
-          Review our Model System Cards
+      <div className="rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center">
+        <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-3">
+          Review our System Cards
         </h2>
         <p className="text-muted-foreground text-md max-w-lg mb-6">
           Detailed technical reports on training mitigations, bias benchmarks, and safety evaluation suites across our model family.
         </p>
         <Link
           href="/research/overview"
-          className="group inline-flex items-center text-md font-semibold uppercase tracking-wider text-foreground"
+          className="group inline-flex items-center rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer"
         >
           <span>Explore here</span>
-          <AnimatedArrow size={18} />
+          <AnimatedArrow size={18} strokeWidth={2.5} />
         </Link>
       </div>
     </div>

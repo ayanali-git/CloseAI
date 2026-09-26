@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { Sidebar } from "@/components/chat/sidebar";
 import { WelcomeScreen } from "@/components/chat/welcome-screen";
-import { ChatInput } from "@/components/chat/chat-input";
+import { ChatInput, ChatInputHandle } from "@/components/chat/chat-input";
 import { LoginModal } from "@/components/modals/log-in-modal";
 import {
   Popover,
@@ -14,7 +14,10 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import { PanelRight } from "lucide-react";
-import { AnimatedChevron, AnimatedArrowUpRight } from "@/components/ui/animated";
+import {
+  AnimatedChevron,
+  AnimatedArrowUpRight,
+} from "@/components/ui/animated";
 import {
   Tooltip,
   TooltipContent,
@@ -49,14 +52,13 @@ function GuestChatContent() {
   const [selectedModelTier, setSelectedModelTier] = useState(4);
   const [thinkMode, setThinkMode] = useState(false);
   const autoCreateTriggeredRef = useRef(false);
+  const chatInputRef = useRef<ChatInputHandle>(null);
 
   // Modals
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
 
   const photoInputRef = useRef<HTMLInputElement>(null);
-
-
 
   // If authenticated user lands on /gc, redirect to /c
   useEffect(() => {
@@ -73,7 +75,10 @@ function GuestChatContent() {
     }
   }, [queryPrompt]);
 
-  const handleStartGuestChat = (promptText: string, filesToSend: File[] = []) => {
+  const handleStartGuestChat = (
+    promptText: string,
+    filesToSend: File[] = []
+  ) => {
     if (!promptText.trim() && filesToSend.length === 0) return;
     const guestChatId = crypto.randomUUID();
 
@@ -146,7 +151,9 @@ function GuestChatContent() {
   }, []);
 
   if (!loading && user) {
-    return <div className="flex h-full w-full bg-background text-foreground overflow-hidden" />;
+    return (
+      <div className="flex h-full w-full bg-background text-foreground overflow-hidden" />
+    );
   }
 
   return (
@@ -224,7 +231,7 @@ function GuestChatContent() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-10 flex items-center gap-1.5 px-3 rounded-full hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-10 flex items-center gap-1.5 px-4 rounded-full hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <AnimatedChevron
@@ -246,7 +253,8 @@ function GuestChatContent() {
                       Try advanced features for free
                     </h4>
                     <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
-                      Get smarter responses, upload files, create images, and more by logging in.
+                      Get smarter responses, upload files, create images, and
+                      more by logging in.
                     </p>
                     <div className="flex items-center gap-2.5 mt-4">
                       <button
@@ -255,7 +263,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-3 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>
@@ -265,7 +273,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-3 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -288,14 +296,14 @@ function GuestChatContent() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-10 px-3 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:flex h-10 px-3 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
@@ -313,6 +321,7 @@ function GuestChatContent() {
           >
             <div className="w-full flex flex-col items-center gap-6">
               <ChatInput
+                ref={chatInputRef}
                 message={message}
                 onMessageChange={setMessage}
                 onSend={handleSend}
@@ -334,22 +343,20 @@ function GuestChatContent() {
                 showDisclaimer={false}
               />
 
-              {/* Suggestion pill: bottom gap matches upper welcome message gap (space-y-6 / 24px) */}
-              <div className="w-full flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMessage("What can you do?");
-                  }}
-                  className={cn(
-                    "h-11 px-4 rounded-full text-sm sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-neutral-700/60 select-none cursor-pointer",
-                    message.trim() === "What can you do?"
-                      ? "bg-secondary text-black dark:bg-[#383838] dark:text-white"
-                      : "bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
-                  )}
-                >
-                  What can you do?
-                </button>
+              {/* Suggestion pill — only visible when input is empty */}
+              <div className="w-full flex justify-center h-11">
+                {message.trim().length === 0 && uploadedFiles.length === 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMessage("What can you do?");
+                      chatInputRef.current?.focus();
+                    }}
+                    className="h-11 px-4 rounded-full text-sm sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                  >
+                    What can you do?
+                  </button>
+                )}
               </div>
             </div>
           </WelcomeScreen>
@@ -403,10 +410,7 @@ function GuestChatContent() {
       />
 
       {/* Login Modal */}
-      <LoginModal
-        open={showLoginModal}
-        onOpenChange={setShowLoginModal}
-      />
+      <LoginModal open={showLoginModal} onOpenChange={setShowLoginModal} />
     </div>
   );
 }

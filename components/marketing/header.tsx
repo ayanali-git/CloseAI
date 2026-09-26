@@ -594,14 +594,14 @@ export function MarketingHeader() {
       {/* FULLSCREEN SEARCH OVERLAY */}
       {isSearchOpen && (
         <div
-          className="fixed inset-y-0 left-0 top-14 z-40 bg-background overflow-y-auto overscroll-contain px-6 sm:px-8 py-12 sm:py-16 select-none"
-          style={{
-            right: scrollbarWidth > 0 ? `${scrollbarWidth}px` : 0,
-            width:
-              scrollbarWidth > 0 ? `calc(100% - ${scrollbarWidth}px)` : "100%",
-          }}
+          className="fixed inset-0 top-14 z-40 bg-background overflow-y-auto overscroll-y-contain [scrollbar-gutter:stable] px-6 sm:px-8 py-12 sm:py-16 select-none"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const isScrollbarClick =
+                e.clientX >= rect.left + e.currentTarget.clientWidth;
+              if (isScrollbarClick) return;
+
               setIsSearchOpen(false);
               setSearchQuery("");
               setSubmittedQuery("");
@@ -631,8 +631,8 @@ export function MarketingHeader() {
                   className={cn(
                     "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
                     searchQuery.trim().length > 0
-                      ? "bg-foreground text-background cursor-pointer hover:opacity/90 active:scale-95"
-                      : "bg-white/50 dark:bg-[#212121]/50 border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
+                      ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
+                      : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
                 >
@@ -989,18 +989,18 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="h-10 px-3 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer outline-none select-none"
+                  className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
                 >
                   <span>Log Out</span>
                 </button>
 
                 <Button
                   asChild
-                  className="group rounded-full h-10 px-3 text-[15px] font-normal bg-foreground text-background hover:opacity/90 transition-opacity cursor-pointer"
+                  className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <Link href="/c" className="flex items-center">
                     <span>Open Chat</span>
-                    <AnimatedArrow size={18} />
+                    <AnimatedArrow size={18} strokeWidth={2} />
                   </Link>
                 </Button>
               </>
@@ -1009,17 +1009,17 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLoginModalOpen(true)}
-                  className="h-10 px-3 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity/90 flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
+                  className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
                 >
                   <span>Log In</span>
                 </button>
 
                 <Link
                   href="/gc"
-                  className="group rounded-full h-10 px-3 text-[15px] font-normal bg-white hover:bg-secondary text-black border border-border/80 dark:border-neutral-700/60 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-colors cursor-pointer hidden sm:inline-flex items-center gap-0.5"
+                  className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Try CloseAI</span>
-                  <AnimatedArrowUpRight size={18} />
+                  <AnimatedArrowUpRight size={18} strokeWidth={2} />
                 </Link>
               </>
             )}
@@ -1690,7 +1690,7 @@ export function MarketingHeader() {
                           setMobileNavOpen(false);
                           setLoginModalOpen(true);
                         }}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log In
                       </button>

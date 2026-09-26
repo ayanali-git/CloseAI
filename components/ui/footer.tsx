@@ -481,9 +481,9 @@ export function Footer() {
                 e.preventDefault();
                 e.stopPropagation();
               }}
-              className="flex items-center text-base gap-1.5 px-4 py-2 rounded-full bg-white/50 dark:bg-[#212121]/50 hover:bg-secondary dark:hover:bg-[#2f2f2f] text-muted-foreground transition-colors cursor-not-allowed select-none whitespace-nowrap"
+              className="group flex items-center text-base gap-1.5 px-4 py-2 rounded-full cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-black/60 dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60 dark:text-white/60 text-muted-foreground transition-colors whitespace-nowrap"
             >
-              <Globe className="w-4 h-4 shrink-0" />
+              <Globe className="w-4 h-4 text-muted-foreground shrink-0" />
               <AnimatedComingSoonText
                 label="English (United States)"
                 comingSoonText="Coming soon"

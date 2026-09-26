@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback, forwardRef } from "react";
+import React, { useRef, useEffect, useState, useCallback, forwardRef, useImperativeHandle } from "react";
 import {
   Plus,
   ArrowUp,
@@ -102,7 +102,7 @@ function FilePreviewCard({
         title={`Preview ${file.name}`}
       >
         <ImagePreview src={imageUrl || ""} alt={file.name}>
-          <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity/90 transition-all cursor-pointer">
+          <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity-90 transition-all cursor-pointer">
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -165,7 +165,11 @@ function FilePreviewCard({
   );
 }
 
-export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function ChatInput(
+export interface ChatInputHandle {
+  focus: () => void;
+}
+
+export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function ChatInput(
   {
     message,
     onMessageChange,
@@ -195,6 +199,15 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
   ref
 ) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  useImperativeHandle(ref, () => ({
+  focus: () => {
+    textareaRef.current?.focus();
+    const len = textareaRef.current?.value.length ?? 0;
+    try {
+      textareaRef.current?.setSelectionRange(len, len);
+    } catch (e) {}
+  },
+}), []);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
@@ -603,7 +616,7 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
         className={cn(
           "rounded-2xl p-1.5 select-none outline-none",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60"
+            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
@@ -745,8 +758,10 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
                 : isUploading
                 ? "bg-secondary dark:bg-neutral-800 text-foreground cursor-wait opacity-90"
                 : hasContent
-                ? "bg-foreground text-background cursor-pointer hover:opacity/90 active:scale-95"
-                : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
+                ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
+                : isGuest
+                ? "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
+                : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}
           >
@@ -768,7 +783,6 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
 
   return (
     <div
-      ref={ref}
       className={cn(
         "w-full select-none transition-all duration-200 relative",
         centered ? "max-w-2xl mx-auto px-6" : "max-w-3xl mx-auto px-6"
@@ -793,7 +807,7 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
         className={cn(
           "relative transition-all duration-200",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-neutral-700/60"
+            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           "rounded-3xl",
@@ -895,7 +909,7 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
                 rows={1}
                 disabled={isTyping || isUploading}
                 className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
+                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
                   isFullyExpanded ? "min-h-[280px]" : "min-h-[44px]",
                   isBigContent && "pr-14 sm:pr-16"
                 )}
@@ -981,7 +995,7 @@ export const ChatInput = forwardRef<HTMLDivElement, ChatInputProps>(function Cha
                 placeholder={placeholder}
                 rows={1}
                 disabled={isTyping || isUploading}
-                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
+                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
               />
             </div>
 

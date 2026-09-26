@@ -21,7 +21,7 @@ export function ImagePreview({
   alt = "Preview image",
   width = 400,
   height = 400,
-  className = "cursor-pointer rounded-xl hover:opacity/90 transition-opacity",
+  className = "cursor-pointer rounded-xl hover:opacity-90 transition-opacity",
   children,
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
