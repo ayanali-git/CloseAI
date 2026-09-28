@@ -586,7 +586,7 @@ export function MarketingHeader() {
       {/* Backdrop blur overlay when mega menu is active */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 top-14 z-40 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm pointer-events-none",
+          "fixed inset-y-0 left-0 top-14 z-40 bg-background/50 pointer-events-none",
           activeMenu ? "opacity-100 pointer-events-auto" : "opacity-0"
         )}
         style={{
