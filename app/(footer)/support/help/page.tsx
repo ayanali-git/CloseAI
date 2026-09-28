@@ -152,7 +152,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('getting-started')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-2xl cursor-pointer text-left transition-all duration-200",
+            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200",
             selectedCategory === 'getting-started'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -171,7 +171,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('account-billing')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-2xl cursor-pointer text-left transition-all duration-200",
+            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200",
             selectedCategory === 'account-billing'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -190,7 +190,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('troubleshooting')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-2xl cursor-pointer text-left transition-all duration-200",
+            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200",
             selectedCategory === 'troubleshooting'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -229,9 +229,9 @@ export default function HelpPage() {
         </div>
 
         {filteredFAQs.length === 0 ? (
-          <div className="text-center py-12 px-4 rounded-2xl bg-card">
+          <div className="text-center py-12 px-4 rounded-3xl bg-card">
             <p className="text-xl text-foreground font-medium mb-1">
-              No matching questions found
+              No questions found
             </p>
             <p className="text-base text-muted-foreground mb-4">
               We couldn&apos;t find anything matching &quot;{searchQuery}&quot;
@@ -242,9 +242,9 @@ export default function HelpPage() {
                 setSearchQuery('');
                 setSelectedCategory(null);
               }}
-              className="text-base font-medium text-muted-foreground hover:text-foreground"
+              className="text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary px-4 py-2 rounded-sm transition-colors"
             >
-              Reset filters & search
+              Reset filter & search
             </button>
           </div>
         ) : (
@@ -255,7 +255,7 @@ export default function HelpPage() {
                 <div
                   key={faq.id}
                   className={cn(
-                    "group rounded-2xl border-b transition-all duration-200 overflow-hidden",
+                    "group rounded-3xl border-b transition-all duration-200 overflow-hidden",
                     isOpen
                       ? "bg-secondary"
                       : "border-b border-border/80 hover:bg-secondary"

@@ -12,7 +12,7 @@
     --popover-foreground: 0 0% 0%;
     --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 90%;
+    --secondary: 0 0% 85%;
     --secondary-foreground: 0 0% 0%;
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 40%;
@@ -25,8 +25,46 @@
     --ring: 0 0% 15%;
     --radius: 0.75rem;
     --sidebar: 0 0% 98%;
-    --bubble: 0 0% 96%;
+    --bubble: 0 0% 0%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 0 0% 0%;
+    --send-btn-foreground: 0 0% 100%;
     --emerald: 160 84% 39%;
+  }
+
+  html.contrast-more {
+    --border: 0 0% 62%;
+    --muted-foreground: 0 0% 22%;
+  }
+
+  html.dark.contrast-more {
+    --border: 0 0% 42%;
+    --muted-foreground: 0 0% 82%;
+  }
+
+  html.contrast-less {
+    --border: 0 0% 88%;
+    --muted-foreground: 0 0% 62%;
+  }
+
+  html.dark.contrast-less {
+    --border: 0 0% 10%;
+    --muted-foreground: 0 0% 42%;
+  }
+
+  html[data-accent="blue"] {
+    --ring: 217 91% 60%;
+    --bubble: 217 90% 90%;
+  }
+
+  html[data-accent="green"] {
+    --ring: 142 71% 45%;
+    --bubble: 142 50% 88%;
+  }
+
+  html[data-accent="purple"] {
+    --ring: 270 70% 55%;
+    --bubble: 270 70% 92%;
   }
 
   .dark {
@@ -38,7 +76,7 @@
     --popover-foreground: 0 0% 100%;
     --primary: 0 0% 100%;
     --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 20%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 65%;
@@ -50,8 +88,77 @@
     --input: 0 0% 14%;
     --ring: 0 0% 80%;
     --sidebar: 0 0% 3%;
-    --bubble: 0 0% 10%;
+    --bubble: 0 0% 100%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 0 0% 100%;
+    --send-btn-foreground: 0 0% 0%;
     --emerald: 160 84% 39%;
+  }
+
+  /* Blue Accent — vibrant royal blue (#2563eb) */
+  html[data-accent="blue"], [data-accent="blue"] {
+    --ring: 221 83% 53%;
+    --bubble: 221 83% 53%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 221 83% 53%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  html.dark[data-accent="blue"], .dark[data-accent="blue"], .dark [data-accent="blue"] {
+    --ring: 221 83% 53%;
+    --bubble: 221 83% 53%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 221 83% 53%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  /* Green Accent */
+  html[data-accent="green"], [data-accent="green"] {
+    --ring: 142 71% 45%;
+    --bubble: 142 71% 40%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 142 71% 40%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  html.dark[data-accent="green"], .dark[data-accent="green"], .dark [data-accent="green"] {
+    --ring: 142 71% 45%;
+    --bubble: 142 71% 40%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 142 71% 40%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  /* Purple Accent */
+  html[data-accent="purple"], [data-accent="purple"] {
+    --ring: 270 70% 55%;
+    --bubble: 270 70% 55%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 270 70% 55%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  html.dark[data-accent="purple"], .dark[data-accent="purple"], .dark [data-accent="purple"] {
+    --ring: 270 70% 55%;
+    --bubble: 270 70% 55%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 270 70% 55%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  /* White Accent (Default) */
+  html[data-accent="white"], [data-accent="white"] {
+    --bubble: 0 0% 0%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 0 0% 0%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  html.dark[data-accent="white"], .dark[data-accent="white"], .dark [data-accent="white"] {
+    --bubble: 0 0% 18.4%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 0 0% 100%;
+    --send-btn-foreground: 0 0% 0%;
   }
 }
 

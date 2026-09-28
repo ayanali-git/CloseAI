@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { LogoutModal } from "@/components/modals/log-out-modal";
 import { LoginModal } from "@/components/modals/log-in-modal";
 import { cn } from "@/lib/utils";
+import { openSettings } from "@/lib/settings-hash";
 
 type MegaMenuCategory =
   | "research"
@@ -230,16 +231,10 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     category: "Page",
     title: "Download App",
     description:
-      "Get native Apps for macOS, Windows, iOS, and Android for instant keyboard shortcuts and offline access.",
+      "Get native Apps for macOS, Windows, iOS, and Android for instant offline access.",
     url: "/product/docs",
     date: "Jun 2026",
-    keywords: [
-      "download",
-      "app",
-      "mobile",
-      "ios",
-      "android",
-    ],
+    keywords: ["download", "app", "mobile", "ios", "android"],
   },
   {
     id: "comp-about",
@@ -401,13 +396,26 @@ export function MarketingHeader() {
       const errorCode = params.get("error_code");
       const errorDesc = params.get("error_description");
 
-      if (auth === "signup" || auth === "login" || error || errorCode || errorDesc) {
+      if (
+        auth === "signup" ||
+        auth === "login" ||
+        error ||
+        errorCode ||
+        errorDesc
+      ) {
         setLoginModalOpen(true);
         if (error || errorCode || errorDesc) {
           let message = "Unable to complete sign in. Please try again.";
-          if (errorCode === "bad_oauth_state" || errorDesc?.toLowerCase().includes("state")) {
-            message = "Your sign-in session expired or was interrupted. Please try signing in again.";
-          } else if (errorCode === "access_denied" || error === "access_denied") {
+          if (
+            errorCode === "bad_oauth_state" ||
+            errorDesc?.toLowerCase().includes("state")
+          ) {
+            message =
+              "Your sign-in session expired or was interrupted. Please try signing in again.";
+          } else if (
+            errorCode === "access_denied" ||
+            error === "access_denied"
+          ) {
             message = "Sign-in was cancelled. Please try again when ready.";
           } else if (errorDesc) {
             message = decodeURIComponent(errorDesc.replace(/\+/g, " "));
@@ -645,7 +653,7 @@ export function MarketingHeader() {
             {submittedQuery.trim().length > 0 && (
               <div className="space-y-10">
                 {/* Your search Query Heading */}
-                <div className="space-y-2 pb-6 border-b border-border/60">
+                <div className="space-y-2 pb-6 border-b border-border/50">
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                     Your search
                   </p>
@@ -762,7 +770,9 @@ export function MarketingHeader() {
         ref={headerRef}
         className="fixed top-0 left-0 z-50 w-full bg-background select-none transition-colors duration-200"
         style={{
-          right: `max(${isLocked && scrollbarWidth > 0 ? `${scrollbarWidth}px` : "0px"}, var(--scrollbar-compensation, 0px))`,
+          right: `max(${
+            isLocked && scrollbarWidth > 0 ? `${scrollbarWidth}px` : "0px"
+          }, var(--scrollbar-compensation, 0px))`,
           width:
             isLocked && scrollbarWidth > 0
               ? `calc(100% - ${scrollbarWidth}px)`
@@ -994,15 +1004,13 @@ export function MarketingHeader() {
                   <span>Log Out</span>
                 </button>
 
-                <Button
-                  asChild
+                <Link
+                  href="/c"
                   className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
-                  <Link href="/c" className="flex items-center">
-                    <span>Open Chat</span>
-                    <AnimatedArrow size={18} strokeWidth={2} />
-                  </Link>
-                </Button>
+                  <span>Open Chat</span>
+                  <AnimatedArrow size={18} strokeWidth={2} />
+                </Link>
               </>
             ) : (
               <>
@@ -1013,9 +1021,11 @@ export function MarketingHeader() {
                 >
                   <span>Log In</span>
                 </button>
-
+                
                 <Link
                   href="/gc"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Try CloseAI</span>
@@ -1665,6 +1675,15 @@ export function MarketingHeader() {
                 <div className="pt-8 border-t border-border/50 space-y-4 pb-4">
                   {user ? (
                     <>
+                      <Link
+                        href="/c"
+                        onClick={() => setMobileNavOpen(false)}
+                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                      >
+                        <span>Open Chat</span>
+                        <AnimatedArrow size={26} strokeWidth={2.5} />
+                      </Link>
+
                       <button
                         onClick={() => {
                           setMobileNavOpen(false);
@@ -1674,17 +1693,20 @@ export function MarketingHeader() {
                       >
                         Log Out
                       </button>
-                      <Link
-                        href="/c"
-                        onClick={() => setMobileNavOpen(false)}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
-                      >
-                        <span>Open Chat</span>
-                        <AnimatedArrow size={26} strokeWidth={2.5} />
-                      </Link>
                     </>
                   ) : (
                     <>
+                      <Link
+                        href="/gc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileNavOpen(false)}
+                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                      >
+                        <span>Try CloseAI</span>
+                        <AnimatedArrowUpRight size={26} strokeWidth={2.5} />
+                      </Link>
+
                       <button
                         onClick={() => {
                           setMobileNavOpen(false);
@@ -1694,14 +1716,6 @@ export function MarketingHeader() {
                       >
                         Log In
                       </button>
-                      <Link
-                        href="/gc"
-                        onClick={() => setMobileNavOpen(false)}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
-                      >
-                        <span>Try CloseAI</span>
-                        <AnimatedArrowUpRight size={26} strokeWidth={2.5} />
-                      </Link>
                     </>
                   )}
                 </div>
@@ -2094,45 +2108,6 @@ export function MarketingHeader() {
                             </Link>
                           ))}
                         </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {mobileSubMenu === "account" && (
-                    <div className="space-y-6">
-                      <div>
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
-                          Account
-                        </div>
-                        <div className="space-y-3 nav-dropdown-group">
-                          {[
-                            { label: "Open Chat", href: "/c" },
-                            { label: "Settings & Profile", href: "/settings" },
-                            { label: "Upgrade Plan", href: "/upgrade" },
-                          ].map((item, i) => (
-                            <Link
-                              key={i}
-                              href={item.href}
-                              onClick={() => setMobileNavOpen(false)}
-                              className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pt-4 border-t border-border/80">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setMobileNavOpen(false);
-                            setLogoutModalOpen(true);
-                          }}
-                          className="block text-xl font-medium text-red-500 hover:opacity-80 transition-opacity py-1 cursor-pointer"
-                        >
-                          Log Out
-                        </button>
                       </div>
                     </div>
                   )}

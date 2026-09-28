@@ -48,6 +48,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
 import { cn } from "@/lib/utils";
+import { withChatPreferences } from "@/lib/user-preferences";
+import { isSettingsHash, withCurrentHash } from "@/lib/settings-hash";
 import toast from "@/lib/toast";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
 
@@ -224,7 +226,9 @@ export default function ActiveChatPage() {
   }, [activePreviewFile]);
   const autoSendTriggeredRef = useRef(false);
   const hasInitialHashRef = useRef(
-    typeof window !== "undefined" && Boolean(window.location.hash)
+    typeof window !== "undefined" &&
+      Boolean(window.location.hash) &&
+      !isSettingsHash(window.location.hash)
   );
   const isAutoScrollPinnedRef = useRef(!hasInitialHashRef.current);
 
@@ -374,7 +378,7 @@ export default function ActiveChatPage() {
     if (!hasInitialHashRef.current || messages.length === 0) return;
 
     const hash = typeof window !== "undefined" ? window.location.hash : "";
-    if (!hash) return;
+    if (!hash || isSettingsHash(hash)) return;
     const cleanId = decodeURIComponent(hash.replace(/^#/, "")).trim();
     if (!cleanId) return;
 
@@ -472,14 +476,14 @@ export default function ActiveChatPage() {
     if (loading) return;
     if (!user) {
       if (isSigningOut) return;
-      router.replace("/gc");
+      router.replace(withCurrentHash("/gc"));
       return;
     }
     if (chatId) {
       loadChat();
       loadChats();
     }
-  }, [user, loading, isSigningOut, chatId, router]);
+  }, [user?.id, loading, isSigningOut, chatId, router]);
 
   // Auto-focus chat input on load / reload (matching s/[id] behavior)
   useEffect(() => {
@@ -529,7 +533,16 @@ export default function ActiveChatPage() {
         return;
       }
       setCurrentChatTitle(details.title || "");
-      setMessages(details.messages || []);
+      const dbMessages = details.messages || [];
+      setMessages(dbMessages);
+      setPendingMessage((prev) => {
+        if (!prev) return null;
+        const existsInDb = dbMessages.some(
+          (m: any) =>
+            m.role === "user" && m.content?.trim() === prev.content?.trim()
+        );
+        return existsInDb ? null : prev;
+      });
 
       // Auto-heal truncated titles for existing chats
       const firstMsg = details.messages
@@ -609,6 +622,7 @@ export default function ActiveChatPage() {
       const filtered = list.filter(
         (m) =>
           m.id !== userMessage.id &&
+          m.id !== assistantId &&
           !(
             m.role === "user" &&
             m.content === userMessage.content &&
@@ -709,13 +723,15 @@ export default function ActiveChatPage() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          chatId,
-          message: promptText,
-          files: [],
-          model: modelOverride || selectedModel,
-          think: isThink,
-        }),
+        body: JSON.stringify(
+          withChatPreferences({
+            chatId,
+            message: promptText,
+            files: [],
+            model: modelOverride || selectedModel,
+            think: isThink,
+          })
+        ),
       });
 
       if (!response.ok) {
@@ -810,14 +826,16 @@ export default function ActiveChatPage() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          chatId,
-          message: newContent,
-          files: [],
-          truncateMessageId: messageId,
-          model: selectedModel,
-          think: currentThinkMode,
-        }),
+        body: JSON.stringify(
+          withChatPreferences({
+            chatId,
+            message: newContent,
+            files: [],
+            truncateMessageId: messageId,
+            model: selectedModel,
+            think: currentThinkMode,
+          })
+        ),
       });
 
       if (!response.ok) {
@@ -1001,13 +1019,15 @@ export default function ActiveChatPage() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          chatId,
-          message: messageContent,
-          files: fileData,
-          model: selectedModel,
-          think: currentThinkMode,
-        }),
+        body: JSON.stringify(
+          withChatPreferences({
+            chatId,
+            message: messageContent,
+            files: fileData,
+            model: selectedModel,
+            think: currentThinkMode,
+          })
+        ),
       });
 
       if (!response.ok) {

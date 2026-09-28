@@ -10,6 +10,7 @@ import { AuthProvider } from '@/components/auth-provider';
 import { SubscriptionProvider } from '@/components/subscription-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { SettingsHost } from '@/components/modals/settings/settings-modal';
 
 export const metadata: Metadata = {
   title: 'CloseAI | Research & More',
@@ -75,6 +76,11 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(localStorage.getItem('closeai-contrast')==='more'){document.documentElement.classList.add('contrast-more')}var a=localStorage.getItem('closeai-accent');if(a==='blue'||a==='green'||a==='purple'||a==='white'){document.documentElement.dataset.accent=a}}catch(e){}})();`,
+          }}
+        />
       </head>
       <body
         data-guest-card-dismissed={isGuestCardDismissed ? "true" : undefined}
@@ -90,6 +96,7 @@ export default async function RootLayout({
             <AuthProvider initialUser={initialUser}>
               <SubscriptionProvider initialPlan={initialPlan}>
                 {children}
+                <SettingsHost />
                 <ToasterProvider />
               </SubscriptionProvider>
             </AuthProvider>

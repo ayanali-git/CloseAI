@@ -750,7 +750,7 @@ export default function LandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer"
+                className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} className="flex items-center">
                   <span>Explore Now</span>

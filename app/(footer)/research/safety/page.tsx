@@ -83,7 +83,7 @@ export default function SafetyPage() {
         </p>
         <Link
           href="/research/overview"
-          className="group inline-flex items-center rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer"
+          className="group inline-flex items-center rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer"
         >
           <span>Explore here</span>
           <AnimatedArrow size={18} strokeWidth={2.5} />

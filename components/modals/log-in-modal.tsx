@@ -34,7 +34,7 @@ export function LoginModal({
   onOpenChange,
   forceModal,
   initialError,
-  title = "Log In or Sign Up",
+  title = "Log in or Sign up",
   description = "To continue with CloseAI",
 }: LoginModalProps) {
   const router = useRouter();

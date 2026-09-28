@@ -7,7 +7,10 @@ export async function POST(request: NextRequest) {
     try {
         const { user, error: authError } = await getServerAuthUser(request);
 
-        const { message, chatId, files, truncateMessageId, model, think, previousMessages: clientPreviousMessages } = await request.json();
+        const { message, chatId, files, truncateMessageId, model, think, previousMessages: clientPreviousMessages, assistantContext } = await request.json();
+        const userContext = typeof assistantContext === 'string'
+            ? assistantContext.trim().slice(0, 4000)
+            : undefined;
 
         if (!message || typeof message !== 'string') {
             return NextResponse.json({ error: 'Message is required' }, { status: 400 });
@@ -30,7 +33,7 @@ export async function POST(request: NextRequest) {
             let aiResponse;
             const chosenModel = model || "gemini-3.8 flash";
             try {
-                aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, chosenModel, !!think);
+                aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, chosenModel, !!think, userContext);
             } catch (aiError: any) {
                 console.error('Guest AI generation error:', aiError);
                 aiResponse = {
@@ -163,7 +166,7 @@ export async function POST(request: NextRequest) {
         const genStartTime = Date.now();
         let aiResponse;
         try {
-            aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, model || "gemini-3.8 flash", !!think);
+            aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, model || "gemini-3.8 flash", !!think, userContext);
         } catch (aiError: any) {
             console.error('AI generation error:', aiError);
             aiResponse = {

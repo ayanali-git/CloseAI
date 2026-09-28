@@ -54,7 +54,8 @@ function NewChatContent() {
     if (!user) {
       if (isSigningOut) return;
       const search = typeof window !== "undefined" ? window.location.search : "";
-      router.replace(`/gc${search}`);
+      const hash = typeof window !== "undefined" ? window.location.hash : "";
+      router.replace(`/gc${search}${hash}`);
       return;
     }
 

@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
 import { cn } from "@/lib/utils";
+import { withCurrentHash } from "@/lib/settings-hash";
 import toast from "@/lib/toast";
 
 function GuestChatContent() {
@@ -63,7 +64,9 @@ function GuestChatContent() {
   // If authenticated user lands on /gc, redirect to /c
   useEffect(() => {
     if (!loading && user) {
-      router.replace("/c");
+      router.replace(
+        withCurrentHash(`/c${window.location.search}`)
+      );
     }
   }, [user, loading, router]);
 
@@ -197,7 +200,7 @@ function GuestChatContent() {
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
           {/* Left area */}
-          <div className="flex items-center gap-2 pointer-events-auto mt-3 pl-3 sm:pl-0">
+          <div className="flex items-center gap-2 pointer-events-auto">
             {!sidebarOpen && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -210,7 +213,7 @@ function GuestChatContent() {
                     onMouseEnter={() => setIsSidebarBtnHovered(true)}
                     onMouseLeave={() => setIsSidebarBtnHovered(false)}
                     onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/50 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-10 h-10 rounded-full bg-white border border-border/80 dark:border-none dark:bg-[#383838] text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-4 h-4" />

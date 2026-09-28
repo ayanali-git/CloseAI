@@ -123,7 +123,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
       className="
         relative my-4
         rounded-2xl sm:rounded-3xl
-        bg-bubble dark:bg-[#2F2F2F]
+        bg-[#f4f4f4] dark:bg-[#2F2F2F]
         text-left
         isolate
         overflow-visible
@@ -133,7 +133,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
         className="
           flex items-center justify-between
           px-4 py-2
-          bg-bubble/50 dark:bg-[#2F2F2F]/50
+          bg-[#f4f4f4]/50 dark:bg-[#2F2F2F]/50
           text-xs font-sans
           text-neutral-600 dark:text-neutral-300
           select-none
@@ -161,7 +161,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
       </div>
 
       {/* Code content */}
-      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-bubble dark:bg-[#2F2F2F]">
+      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-[#f4f4f4] dark:bg-[#2F2F2F]">
         <div
           className="
            p-3.5 sm:p-4

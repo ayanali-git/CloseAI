@@ -38,6 +38,10 @@ import { ImagePreview } from "@/components/ui/image-preview";
 import { getFileIconInfo } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
+import {
+  getDictationEnabled,
+  PREFERENCE_EVENT,
+} from "@/lib/user-preferences";
 
 interface ChatInputProps {
   message: string;
@@ -224,6 +228,31 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const cursorPositionRef = useRef<number | null>(null);
   const [currentModel, setCurrentModel] = useState(selectedModel);
   const [previewFile, setPreviewFile] = useState<File | null>(null);
+  const [dictationEnabled, setDictationEnabled] = useState(true);
+
+  useEffect(() => {
+    const syncDictation = () => setDictationEnabled(getDictationEnabled());
+    syncDictation();
+    window.addEventListener(PREFERENCE_EVENT, syncDictation);
+    window.addEventListener("storage", syncDictation);
+    return () => {
+      window.removeEventListener(PREFERENCE_EVENT, syncDictation);
+      window.removeEventListener("storage", syncDictation);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!dictationEnabled && isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          /* ignore */
+        }
+      }
+      setIsListening(false);
+    }
+  }, [dictationEnabled, isListening]);
 
   useEffect(() => {
     if (selectedModel) {
@@ -704,6 +733,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       </Tooltip>
 
       {/* Dictate / Mic */}
+      {dictationEnabled ? (
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -733,6 +763,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           {isListening ? "Stop dictation" : "Start dictation"}
         </TooltipContent>
       </Tooltip>
+      ) : null}
 
       {/* Send / Stop Button */}
       <Tooltip>
@@ -754,11 +785,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             className={cn(
               "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               isTyping
-                ? "bg-foreground text-background cursor-pointer hover:opacity-85 active:scale-95"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-85 active:scale-95"
                 : isUploading
                 ? "bg-secondary dark:bg-neutral-800 text-foreground cursor-wait opacity-90"
                 : hasContent
-                ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-95"
                 : isGuest
                 ? "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"

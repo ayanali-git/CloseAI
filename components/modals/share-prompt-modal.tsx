@@ -182,7 +182,7 @@ export function SharePromptModal({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
+            className="p-2 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
             aria-label="Close"
           >
             <XIcon className="w-5 h-5" weight="bold" />
@@ -238,7 +238,7 @@ export function SharePromptModal({
 
               {/* Prompt Text — identical bubble styling (bg / rounding / padding) to a real sent message bubble */}
               {promptText && (
-                <p className="bg-bubble dark:bg-[#2F2F2F] text-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] whitespace-pre-wrap break-words">
+                <p className="bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] whitespace-pre-wrap break-words">
                   {promptText}
                 </p>
               )}

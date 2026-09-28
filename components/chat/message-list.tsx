@@ -78,6 +78,7 @@ export interface MessageListProps {
   user: User | null;
   isTyping: boolean;
   isGuest?: boolean;
+  autoScroll?: boolean;
   pendingMessage: {
     content: string;
     files: any[];
@@ -195,11 +196,13 @@ function preprocessContent(text: string): string {
 function CodeBlock({ language, code }: { language: string; code: string }) {
   const [copied, setCopied] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     setCopied(true);
+    setTooltipOpen(true);
     toast.success("Code copied to clipboard");
     setTimeout(() => setCopied(false), 2000);
   };
@@ -250,7 +253,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
       className="
         relative my-4
         rounded-2xl sm:rounded-3xl
-        bg-bubble dark:bg-[#2F2F2F]
+        bg-[#f4f4f4] dark:bg-[#2F2F2F]
         text-left
         isolate
         overflow-visible
@@ -269,7 +272,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
           sticky -top-3.5 z-10
           flex items-center justify-between
           px-4 py-2
-          bg-bubble dark:bg-[#2F2F2F]
+          bg-[#f4f4f4] dark:bg-[#2F2F2F]
           text-xs font-sans
         text-neutral-600 dark:text-neutral-300
           select-none
@@ -279,42 +282,51 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
             : "rounded-t-2xl sm:rounded-t-3xl"
         )}
       >
-        <span className="font-mono text-base lowercase font-medium tracking-wide text-foreground">
+        <span className="font-mono text-base lowercase font-normal tracking-wide text-foreground">
           {displayLang}
         </span>
 
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="
-            group/copy-btn
-            flex items-center gap-1.5
-            px-2 py-2
-            rounded-2xl sm:rounded-3xl
-            text-base
-            hover:bg-neutral-200/80
-            dark:hover:bg-white/10
-            transition-colors
-            cursor-pointer
-            outline-none
-          "
+        <Tooltip
+          open={tooltipOpen}
+          onOpenChange={(open) => {
+            // While "Copied" is showing, ignore close events so it stays visible
+            if (!open && copied) return;
+            setTooltipOpen(open);
+          }}
         >
-          {copied ? (
-            <>
-              <Check className="w-4 h-4 text-muted-foreground group-hover/copy-btn:text-foreground transition-colors" />
-              <span className="font-medium text-foreground">Copied</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-4 h-4 text-muted-foreground group-hover/copy-btn:text-foreground transition-colors" />
-              <span className="font-medium text-foreground">Copy</span>
-            </>
-          )}
-        </button>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="
+              group/copy-btn
+              flex items-center gap-1.5
+              px-3 py-3
+              rounded-full
+              text-base
+              hover:bg-neutral-200/80
+              dark:hover:bg-white/10
+              transition-colors
+              cursor-pointer
+              outline-none
+              "
+              aria-label={copied ? "Copied" : "Copy code"}
+            >
+              {copied ? (
+                <Check className="w-4 h-4 text-muted-foreground group-hover/copy-btn:text-foreground transition-colors" />
+              ) : (
+                <Copy className="w-4 h-4 text-muted-foreground group-hover/copy-btn:text-foreground transition-colors" />
+              )}
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom" sideOffset={4} className="text-md">
+            {copied ? "Copied" : "Copy"}
+          </TooltipContent>
+        </Tooltip>
       </div>
 
       {/* Code content */}
-      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-bubble dark:bg-[#2F2F2F]">
+      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-[#f4f4f4] dark:bg-[#2F2F2F]">
         <div
           className="
            p-3.5 sm:p-4
@@ -395,7 +407,7 @@ function MessageAttachmentItem({
     return (
       <ImagePreview src={imgSrc} alt={displayName}>
         <div
-          className="relative flex leading-[0] overflow-clip rounded-2xl sm:rounded-3xl bg-bubble dark:bg-[#2F2F2F] border border-border/80 max-w-[100px] sm:max-w-[200px] cursor-pointer select-none hover:opacity-90 transition-opacity"
+          className="relative flex leading-[0] overflow-clip rounded-2xl sm:rounded-3xl bg-[#f4f4f4] dark:bg-[#2F2F2F] border border-border/80 max-w-[100px] sm:max-w-[200px] cursor-pointer select-none hover:opacity-90 transition-opacity"
           title={`Preview ${displayName}`}
         >
           <img
@@ -414,7 +426,7 @@ function MessageAttachmentItem({
     <button
       type="button"
       onClick={() => onPreview?.(file)}
-      className="flex self-end items-center gap-2.5 bg-bubble dark:bg-[#2F2F2F] hover:opacity-90 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-2xl sm:rounded-3xl border border-border/80 transition-colors cursor-pointer group select-none text-left"
+      className="flex self-end items-center gap-2.5 bg-[#f4f4f4] dark:bg-[#2F2F2F] hover:opacity-90 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-2xl sm:rounded-3xl border border-border/80 transition-colors cursor-pointer group select-none text-left"
       title={`Preview ${displayName}`}
     >
       <Icon className="w-5 h-5 shrink-0 text-muted-foreground" weight="fill" />
@@ -543,6 +555,7 @@ export function MessageList({
   user,
   isTyping,
   isGuest,
+  autoScroll = true,
   pendingMessage,
   onRegenerate,
   onSendMessage,
@@ -551,7 +564,7 @@ export function MessageList({
   onDeleteMessage,
   showMessageActions = true,
 }: MessageListProps) {
-  const isGuestMode = isGuest ?? (!user);
+  const isGuestMode = isGuest ?? !user;
   const scrollBottomRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -726,15 +739,7 @@ export function MessageList({
     }
   };
 
-  // Auto-scroll on new messages or typing
-  useEffect(() => {
-    if (scrollBottomRef.current) {
-      scrollBottomRef.current.scrollIntoView({
-        behavior: "auto",
-        block: "end",
-      });
-    }
-  }, [messages.length, isTyping, pendingMessage]);
+  // Auto-scroll is handled by the parent scroll container in app/c/[id]/page.tsx
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -833,7 +838,7 @@ export function MessageList({
 
                 {isEditing ? (
                   /* Inline Editor */
-                  <div className="w-full bg-bubble dark:bg-[#2F2F2F] rounded-2xl sm:rounded-3xl p-3 sm:p-4 border">
+                  <div className="w-full bg-bubble rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-transparent">
                     <textarea
                       ref={editTextareaRef}
                       value={editDraftText}
@@ -857,14 +862,14 @@ export function MessageList({
                         Math.max(editDraftText.split("\n").length, 2),
                         8
                       )}
-                      className="w-full bg-transparent border-0 outline-none focus:outline-none focus:ring-0 resize-none text-[15px] sm:text-[15.5px] leading-relaxed text-background dark:text-foreground placeholder:text-muted-foreground select-text"
+                      className="w-full bg-transparent border-0 outline-none focus:outline-none focus:ring-0 resize-none text-[15px] sm:text-[15.5px] leading-relaxed text-bubble-foreground placeholder:text-bubble-foreground/50 select-text"
                       autoFocus
                     />
                     <div className="flex items-center justify-end gap-2 mt-2 pt-1 select-none">
                       <button
                         type="button"
                         onClick={cancelEditing}
-                        className="px-3.5 py-1.5 rounded-full text-[15px] font-medium bg-white/10 hover:bg-white/20 active:bg-white/25 text-white transition-colors cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full text-[15px] font-medium bg-bubble-foreground/10 hover:bg-bubble-foreground/20 active:bg-bubble-foreground/25 text-bubble-foreground transition-colors cursor-pointer"
                       >
                         Cancel
                       </button>
@@ -875,8 +880,8 @@ export function MessageList({
                         className={cn(
                           "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all",
                           editDraftText.trim()
-                            ? "bg-white text-black hover:opacity-90 active:scale-95 cursor-pointer"
-                            : "bg-white/20 text-white/40 cursor-not-allowed"
+                            ? "bg-bubble-foreground text-bubble hover:opacity-90 active:scale-95 cursor-pointer"
+                            : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed"
                         )}
                       >
                         Send
@@ -886,7 +891,7 @@ export function MessageList({
                 ) : (
                   <>
                     {/* User Bubble Capsule */}
-                    <div className="bg-bubble dark:bg-[#2F2F2F] text-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words">
+                    <div className="bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words">
                       {msg.content}
                     </div>
 
@@ -1442,7 +1447,7 @@ export function MessageList({
                                       className={cn(
                                         "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                         (changePrompts[msgId] || "").trim()
-                                          ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
+                                          ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-95"
                                           : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                       )}
                                       aria-label="Send change request"
@@ -1589,7 +1594,7 @@ export function MessageList({
                                                 (
                                                   changePrompts[msgId] || ""
                                                 ).trim()
-                                                  ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
+                                                  ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-95"
                                                   : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                               )}
                                               aria-label="Send change request"
@@ -1654,53 +1659,58 @@ export function MessageList({
         })}
 
         {/* Optimistic Pending User Message */}
-        {pendingMessage && (
-          <div className="flex flex-col items-end group [transform:translateZ(0)]">
-            {pendingMessage.files.length > 0 && (
-              <div className="flex flex-wrap gap-2.5 mb-2.5 justify-end items-end">
-                {pendingMessage.files.map((file, i) => (
-                  <MessageAttachmentItem
-                    key={i}
-                    file={file}
-                    onPreview={setPreviewFile}
-                  />
-                ))}
+        {pendingMessage &&
+          !messages.some(
+            (m) =>
+              m.role === "user" &&
+              m.content?.trim() === pendingMessage.content?.trim()
+          ) && (
+            <div className="flex flex-col items-end group [transform:translateZ(0)]">
+              {pendingMessage.files.length > 0 && (
+                <div className="flex flex-wrap gap-2.5 mb-2.5 justify-end items-end">
+                  {pendingMessage.files.map((file, i) => (
+                    <MessageAttachmentItem
+                      key={i}
+                      file={file}
+                      onPreview={setPreviewFile}
+                    />
+                  ))}
+                </div>
+              )}
+              <div className="bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words">
+                {pendingMessage.content}
               </div>
-            )}
-            <div className="bg-bubble dark:bg-[#2F2F2F] text-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words">
-              {pendingMessage.content}
-            </div>
 
-            {/* User Hover Actions Toolbar — Copy button during pending/thinking (Edit hidden while thinking) */}
-            <div className="flex items-center gap-1 mt-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-within:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      copyToClipboard(pendingMessage.content, "pending-msg")
-                    }
-                    className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                    aria-label="Copy prompt"
+              {/* User Hover Actions Toolbar — Copy button during pending/thinking (Edit hidden while thinking) */}
+              <div className="flex items-center gap-1 mt-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-within:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        copyToClipboard(pendingMessage.content, "pending-msg")
+                      }
+                      className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                      aria-label="Copy prompt"
+                    >
+                      {copiedId === "pending-msg" ? (
+                        <Check className="w-4 h-4" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    sideOffset={4}
+                    className="text-md"
                   >
-                    {copiedId === "pending-msg" ? (
-                      <Check className="w-4 h-4" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="bottom"
-                  sideOffset={4}
-                  className="text-md"
-                >
-                  Copy
-                </TooltipContent>
-              </Tooltip>
+                    Copy
+                  </TooltipContent>
+                </Tooltip>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
         {/* Typing / Thinking Indicator — shown while AI is thinking before first token */}
         {isTyping &&

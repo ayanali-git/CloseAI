@@ -32,6 +32,12 @@ export interface BottomSheetProps {
   forceModal?: boolean;
   /** Whether the modal body should be scrollable internally. Defaults to false so content cannot scroll off-screen. */
   scrollable?: boolean;
+  /** Extra classes for the inner content wrapper. */
+  contentClassName?: string;
+  /** Remove default content padding so children can control layout (e.g. split-pane modals). */
+  unpadded?: boolean;
+  /** Max fraction of viewport height for numeric snap points on mobile. Defaults to 0.75. */
+  maxSnap?: number;
 }
 
 // Global scroll-lock reference counter to avoid race conditions when switching between modals
@@ -87,6 +93,9 @@ export function BottomSheet({
   dismissThreshold = 120,
   forceModal = false,
   scrollable = false,
+  contentClassName,
+  unpadded = false,
+  maxSnap = 0.75,
 }: BottomSheetProps) {
   const [snap, setSnap] = useState(defaultSnap);
   const [mounted, setMounted] = useState(false);
@@ -139,13 +148,16 @@ export function BottomSheet({
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onOpenChange(false);
-      }
+      if (event.key !== "Escape") return;
+      const sheets = document.querySelectorAll("[data-bottom-sheet='true']");
+      const top = sheets[sheets.length - 1];
+      if (sheetRef.current !== top) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      onOpenChange(false);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
   }, [open, onOpenChange]);
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
@@ -176,12 +188,14 @@ export function BottomSheet({
   };
 
   const snapValue = snapPoints[snap];
+  const clampCap = Math.min(Math.max(maxSnap, 0.35), 0.98);
   const clampedSnap =
-    typeof snapValue === "number" ? Math.min(snapValue, 0.75) : snapValue;
+    typeof snapValue === "number" ? Math.min(snapValue, clampCap) : snapValue;
+  const maxHeightCss = `${Math.round(clampCap * 100)}dvh`;
   const heightStyle = isMobileScreen
     ? clampedSnap === "auto"
-      ? { maxHeight: "75dvh" }
-      : { height: `${clampedSnap * 100}dvh`, maxHeight: "75dvh" }
+      ? { maxHeight: maxHeightCss }
+      : { height: `${clampedSnap * 100}dvh`, maxHeight: maxHeightCss }
     : {};
 
   if (!mounted) return null;
@@ -199,6 +213,12 @@ export function BottomSheet({
               {...gate}
               data-bottom-sheet-backdrop="true"
               className="pointer-events-auto fixed inset-0 z-[100] bg-background/80 cursor-default"
+              onClick={() => {
+                const sheets = document.querySelectorAll("[data-bottom-sheet='true']");
+                const top = sheets[sheets.length - 1];
+                if (sheetRef.current !== top) return;
+                onOpenChange(false);
+              }}
             />
           )}
         </PresenceGate>
@@ -305,14 +325,20 @@ export function BottomSheet({
                 )}
                 <div
                   className={cn(
-                    "flex-1 min-h-0 px-6 bottom-sheet-content",
-                    !showTopBar && "pt-6",
+                    "flex-1 min-h-0 bottom-sheet-content",
+                    !unpadded && "px-6",
+                    !unpadded && !showTopBar && "pt-6",
                     scrollable
                       ? "overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                      : "overflow-visible"
+                      : unpadded
+                      ? "overflow-hidden"
+                      : "overflow-visible",
+                    contentClassName
                   )}
                   style={{
-                    paddingBottom: isMobileScreen
+                    paddingBottom: unpadded
+                      ? 0
+                      : isMobileScreen
                       ? "max(1.5rem, calc(1rem + env(safe-area-inset-bottom, 0px)))"
                       : "1.5rem",
                   }}

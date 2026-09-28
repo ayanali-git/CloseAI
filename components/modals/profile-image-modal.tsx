@@ -188,7 +188,7 @@ export function ProfileImageModal({
           </span>
         </div>
 
-        {/* Action Buttons: Save changes and Cancel */}
+        {/* Action Buttons: Update photo and Cancel */}
         <div className="w-full space-y-2 pt-1">
           <button
             type="button"
@@ -199,7 +199,7 @@ export function ProfileImageModal({
             {loading ? (
               <Loader className="w-4 h-4 animate-spin mr-2" />
             ) : null}
-            {selectedFile ? "Save changes" : "Choose photo"}
+            {selectedFile ? "Update photo" : "Choose photo"}
           </button>
 
           <button

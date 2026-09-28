@@ -485,7 +485,7 @@ export function Footer() {
             >
               <Globe className="w-4 h-4 text-muted-foreground shrink-0" />
               <AnimatedComingSoonText
-                label="English (United States)"
+                label="English"
                 comingSoonText="Coming soon"
                 align="start"
               />

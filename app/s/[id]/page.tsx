@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageList } from "@/components/chat/message-list";
 import TocNavigator, { getTargetElement } from "@/components/chat/toc-navigator";
 import { ChatInput } from "@/components/chat/chat-input";
+import { isSettingsHash } from "@/lib/settings-hash";
 import { chatService, Message } from "@/lib/chat-service";
 import { supabase } from "@/lib/supabase";
 import { CloseAIIcon } from "@/components/brand/logo";
@@ -190,7 +191,9 @@ export default function PublicSharedChatPage() {
   const [selectedModelTier, setSelectedModelTier] = useState(4);
 
   const hasInitialHashRef = useRef(
-    typeof window !== "undefined" && Boolean(window.location.hash)
+    typeof window !== "undefined" &&
+      Boolean(window.location.hash) &&
+      !isSettingsHash(window.location.hash)
   );
   const isAutoScrollPinnedRef = useRef(!hasInitialHashRef.current);
 
@@ -267,7 +270,7 @@ export default function PublicSharedChatPage() {
     if (isLoading || isError || messages.length === 0) return;
 
     const hash = typeof window !== "undefined" ? window.location.hash : "";
-    if (hash) {
+    if (hash && !isSettingsHash(hash)) {
       const cleanId = decodeURIComponent(hash.replace(/^#/, "")).trim();
       if (cleanId) {
         const scrollToTarget = () => {

@@ -52,7 +52,14 @@ const config: Config = {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         sidebar: 'hsl(var(--sidebar))',
-        bubble: 'hsl(var(--bubble))',
+        bubble: {
+          DEFAULT: 'hsl(var(--bubble))',
+          foreground: 'hsl(var(--bubble-foreground))',
+        },
+        'send-btn': {
+          DEFAULT: 'hsl(var(--send-btn))',
+          foreground: 'hsl(var(--send-btn-foreground))',
+        },
         emerald: {
           DEFAULT: 'hsl(var(--emerald))',
           500: 'hsl(var(--emerald))',

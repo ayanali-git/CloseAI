@@ -22,6 +22,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
+import { withChatPreferences } from "@/lib/user-preferences";
+import { withCurrentHash } from "@/lib/settings-hash";
 import toast from "@/lib/toast";
 
 export default function GuestChatSessionPage() {
@@ -30,10 +32,8 @@ export default function GuestChatSessionPage() {
   const router = useRouter();
   const { user, loading } = useAuth();
 
-  const {
-    sidebarOpen,
-    toggleSidebar: handleToggleSidebar,
-  } = useSidebarContext();
+  const { sidebarOpen, toggleSidebar: handleToggleSidebar } =
+    useSidebarContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -53,6 +53,7 @@ export default function GuestChatSessionPage() {
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const autoSendTriggeredRef = useRef(false);
   const streamAbortControllerRef = useRef<boolean>(false);
@@ -80,10 +81,20 @@ export default function GuestChatSessionPage() {
     }
   };
 
+  // Recompute scroll-to-bottom visibility whenever content height changes
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const ro = new ResizeObserver(() => {
+      handleScroll();
+    });
+    ro.observe(contentRef.current);
+    return () => ro.disconnect();
+  }, []);
+
   // If authenticated user lands on guest chat, redirect to /c
   useEffect(() => {
     if (!loading && user) {
-      router.replace("/c");
+      router.replace(withCurrentHash(`/c${window.location.search}`));
     }
   }, [user, loading, router]);
 
@@ -131,16 +142,6 @@ export default function GuestChatSessionPage() {
       router.replace("/gc");
     }
   }, [chatId, router]);
-
-  // Auto-scroll on new messages
-  useEffect(() => {
-    if (scrollContainerRef.current && isAutoScrollPinnedRef.current) {
-      scrollContainerRef.current.scrollTo({
-        top: scrollContainerRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [messages, pendingMessage, isTyping]);
 
   const handleStop = () => {
     streamAbortControllerRef.current = true;
@@ -208,10 +209,6 @@ export default function GuestChatSessionPage() {
         return copy;
       });
 
-      if (isAutoScrollPinnedRef.current && scrollContainerRef.current) {
-        scrollContainerRef.current.scrollTop =
-          scrollContainerRef.current.scrollHeight;
-      }
       await new Promise((r) => setTimeout(r, intervalMs));
     }
 
@@ -262,27 +259,39 @@ export default function GuestChatSessionPage() {
     setMessage("");
     setUploadedFiles([]);
 
+    // Scroll once to show the sent message — nothing scrolls after this
+    requestAnimationFrame(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTo({
+          top: scrollContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    });
+
     const reqStart = Date.now();
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: promptText,
-          model: modelToUse,
-          think: thinkToUse,
-          files: filesToSend.map((f: any) => ({
-            name: f.name,
-            size: f.size,
-            type: f.type,
-            url: f.url,
-          })),
-          previousMessages: history.map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-        }),
+        body: JSON.stringify(
+          withChatPreferences({
+            message: promptText,
+            model: modelToUse,
+            think: thinkToUse,
+            files: filesToSend.map((f: any) => ({
+              name: f.name,
+              size: f.size,
+              type: f.type,
+              url: f.url,
+            })),
+            previousMessages: history.map((m) => ({
+              role: m.role,
+              content: m.content,
+            })),
+          })
+        ),
       });
 
       if (!res.ok) {
@@ -464,7 +473,9 @@ export default function GuestChatSessionPage() {
   };
 
   if (!loading && user) {
-    return <div className="flex h-full w-full bg-background text-foreground overflow-hidden" />;
+    return (
+      <div className="flex h-full w-full bg-background text-foreground overflow-hidden" />
+    );
   }
 
   return (
@@ -512,7 +523,7 @@ export default function GuestChatSessionPage() {
                     onMouseEnter={() => setIsSidebarBtnHovered(true)}
                     onMouseLeave={() => setIsSidebarBtnHovered(false)}
                     onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/50 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-10 h-10 rounded-full bg-white border border-border/80 dark:border-none dark:bg-[#383838] text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-4 h-4" />
@@ -560,7 +571,8 @@ export default function GuestChatSessionPage() {
                       Try advanced features for free
                     </h4>
                     <p className="text-[13px] text-muted-foreground mt-1.5 leading-relaxed">
-                      Get smarter responses, upload files, create images, and more by logging in.
+                      Get smarter responses, upload files, create images, and
+                      more by logging in.
                     </p>
                     <div className="flex items-center gap-2.5 mt-4">
                       <button
@@ -623,12 +635,13 @@ export default function GuestChatSessionPage() {
           className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           <div className="flex-1 flex flex-col min-h-full">
-            <div className="flex-1 pb-4 sm:pb-6">
+            <div ref={contentRef} className="flex-1 pb-4 sm:pb-6">
               <MessageList
                 messages={messages}
                 user={null}
                 isTyping={isTyping}
                 isGuest={true}
+                autoScroll={false}
                 pendingMessage={pendingMessage}
                 onRegenerate={handleRegenerate}
                 onSendMessage={handleSend}
@@ -674,13 +687,17 @@ export default function GuestChatSessionPage() {
                                 isAutoScrollPinnedRef.current = true;
                                 scrollToBottom("smooth");
                               }}
-                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] active:scale-95 text-foreground flex items-center justify-center transition-all cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
+                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] text-foreground flex items-center justify-center transition-all cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
                               aria-label="Scroll to bottom"
                             >
                               <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                             </button>
                           </TooltipTrigger>
-                          <TooltipContent side="top" sideOffset={8} className="text-md">
+                          <TooltipContent
+                            side="top"
+                            sideOffset={8}
+                            className="text-md"
+                          >
                             Scroll to bottom
                           </TooltipContent>
                         </Tooltip>
@@ -705,10 +722,7 @@ export default function GuestChatSessionPage() {
       />
 
       {/* Login Modal */}
-      <LoginModal
-        open={showLoginModal}
-        onOpenChange={setShowLoginModal}
-      />
+      <LoginModal open={showLoginModal} onOpenChange={setShowLoginModal} />
 
       {/* Clear Chat Confirmation Modal */}
       <ClearChatModal
