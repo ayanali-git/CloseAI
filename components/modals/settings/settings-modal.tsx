@@ -35,7 +35,7 @@ import {
 import { applyStoredAppearance } from "@/lib/user-preferences";
 import { NativeDropdownMenu, type DropdownOption } from "@/components/ui/native-dropdown-menu";
 import { cn } from "@/lib/utils";
-import { NAV } from "@/lib/settings-nav";
+import { NAV } from "@/lib/settings-panel";
 
 const TITLES: Record<SettingsSection, string> = {
   general: "Settings",
@@ -50,6 +50,24 @@ const TITLES: Record<SettingsSection, string> = {
 
 const PANE_MOTION =
   "transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none";
+
+/**
+ * Dark-mode hover / selected background.
+ * Same colors the native dropdown menu uses for its highlighted row, so every
+ * hover in the settings modal looks identical to the dropdown hover:
+ *   guest     -> #383838 (modal surface is #2f2f2f, so hover is lighter)
+ *   logged-in -> #2f2f2f
+ * Full class strings are written out so Tailwind can detect them.
+ */
+const DARK_HOVER_BG = {
+  guest: "dark:hover:bg-[#383838]",
+  auth: "dark:hover:bg-[#2f2f2f]",
+} as const;
+
+const DARK_SELECTED_BG = {
+  guest: "dark:bg-[#383838]",
+  auth: "dark:bg-[#2f2f2f]",
+} as const;
 
 export function SettingsModal({
   open,
@@ -71,6 +89,10 @@ export function SettingsModal({
   const [isNavOverflowing, setIsNavOverflowing] = useState(false);
   const visibleNav = NAV.filter((item) => !item.auth || user);
   const isGuest = !loading && !user;
+
+  // Dark hover / selected bg, same rule as the native dropdown menu
+  const darkHover = isGuest ? DARK_HOVER_BG.guest : DARK_HOVER_BG.auth;
+  const darkSelected = isGuest ? DARK_SELECTED_BG.guest : DARK_SELECTED_BG.auth;
 
   // Search works on every screen size (same header on mobile and desktop)
   const normalizedQuery = query.trim().toLowerCase();
@@ -200,7 +222,10 @@ export function SettingsModal({
               <button
                 type="button"
                 onClick={() => closeSettings()}
-                className="w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer transition-colors"
+                className={cn(
+                  "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer transition-colors",
+                  darkHover
+                )}
                 aria-label="Close settings"
               >
                 <X className="w-5 h-5" />
@@ -252,8 +277,10 @@ export function SettingsModal({
                         ? "py-3"
                         : "py-2",
                       selected
-                        ? "bg-secondary text-foreground"
-                        : "text-muted-foreground hover:bg-secondary/70"
+                        ? // Selected row: same lighter bg as the dropdown highlight
+                          cn("bg-secondary text-foreground", darkSelected)
+                        : // Hover row: same lighter bg as the dropdown highlight
+                          cn("text-muted-foreground hover:bg-secondary/70", darkHover)
                     )}
                   >
                     <Icon className="w-4 h-4 shrink-0 group-hover:text-foreground" />
@@ -292,7 +319,10 @@ export function SettingsModal({
                 <button
                   type="button"
                   onClick={() => openSettings("root")}
-                  className="w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer transition-colors"
+                  className={cn(
+                    "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer transition-colors",
+                    darkHover
+                  )}
                   aria-label="Back to settings"
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -386,12 +416,18 @@ export function SettingsSelect<T extends string>({
   onChange: (value: T) => void;
   ariaLabel: string;
 }) {
+  const { user, loading } = useAuth();
+  const isGuest = !loading && !user;
+
   return (
     <NativeDropdownMenu
       value={value}
       options={options}
       onChange={onChange}
       ariaLabel={ariaLabel}
+      // Trigger hover (the "System v" button) uses the same dark hover bg as
+      // the dropdown rows instead of the much darker bg-secondary.
+      triggerClassName={isGuest ? DARK_HOVER_BG.guest : DARK_HOVER_BG.auth}
     />
   );
 }

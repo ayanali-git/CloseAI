@@ -4,6 +4,7 @@ import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { AnimatedChevron } from "@/components/ui/animated";
 import { Check } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 export interface DropdownOption<T extends string = string> {
@@ -26,7 +27,12 @@ export interface NativeDropdownMenuProps<T extends string = string> {
   itemClassName?: string;
   disabled?: boolean;
   alignItemWithTrigger?: boolean;
-  /** Same logic as chat input: guest = solid bg, logged-in = frosted glass */
+  /**
+   * guest = solid bg (same surface as the guest settings modal / chat input),
+   * logged-in = frosted glass.
+   * When omitted, it is decided from the current auth state, so every
+   * dropdown follows the same rule without each caller passing it.
+   */
   isGuest?: boolean;
 }
 
@@ -168,10 +174,15 @@ export function NativeDropdownMenu<T extends string = string>({
   itemClassName,
   disabled = false,
   alignItemWithTrigger = true,
-  isGuest = false,
+  isGuest: isGuestProp,
 }: NativeDropdownMenuProps<T>) {
   const [open, setOpen] = React.useState(false);
   const isSmallOrTouch = useIsSmallOrTouch();
+
+  // Guest = solid surface (no backdrop blur). An explicit prop wins; otherwise
+  // follow the auth state, same rule the settings modal uses for its surface.
+  const { user, loading } = useAuth();
+  const isGuest = isGuestProp ?? (!loading && !user);
 
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const popupRef = React.useRef<HTMLDivElement>(null);
@@ -507,6 +518,9 @@ export function NativeDropdownMenu<T extends string = string>({
         disabled={disabled}
         className={cn(
           "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
+          // Dark mode: same lighter highlight as the dropdown rows
+          // (instead of the much darker bg-secondary).
+          isGuest ? "dark:hover:bg-[#383838]" : "dark:hover:bg-[#2f2f2f]",
           triggerClassName,
           className
         )}
@@ -553,8 +567,11 @@ export function NativeDropdownMenu<T extends string = string>({
               // Nothing to scroll -> the popup itself must not pan/drag either
               !isScrollable && "touch-none overscroll-none",
               isGuest
-                ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-                : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+                ? // Guest: solid surface, exactly like the guest settings modal.
+                  // No translucent bg and no backdrop blur.
+                  "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80 dark:!border-none backdrop-blur-none"
+                : // Logged-in: frosted glass
+                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
               contentClassName
             )}
           >
