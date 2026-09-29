@@ -101,39 +101,6 @@ export function LoginModal({
     setErrors(validate());
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTouched({ email: true });
-
-    const newErrors = validate();
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0) {
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email.trim(),
-        password: "CloseAIUser123!",
-        options: {
-          emailRedirectTo: getAuthCallbackUrl("/c"),
-        },
-      });
-
-      if (error) throw error;
-
-      toast.success("Account created successfully!");
-      onOpenChange(false);
-      router.push("/c");
-    } catch (error: any) {
-      toast.error(error.message || "Failed to sign up");
-      setLoading(false);
-    }
-  };
-
   const handleGoogleAuth = async () => {
     try {
       await supabase.auth.signOut();
@@ -176,7 +143,7 @@ export function LoginModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[440px] !bg-white dark:!bg-[#2f2f2f] !border !border-border/80"
+      className="max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
@@ -184,7 +151,7 @@ export function LoginModal({
         <button
           type="button"
           onClick={() => onOpenChange(false)}
-          className="absolute top-0 right-0 w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
+          className="absolute top-0 right-0 p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
@@ -210,10 +177,10 @@ export function LoginModal({
             <button
               type="button"
               onClick={() => setAuthError(null)}
-              className="text-destructive/70 hover:text-destructive hover:bg-destructive/15 p-1 rounded-sm border border-transparent hover:bg-destructive/30 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-colors cursor-pointer shrink-0"
+              className="text-destructive/70 hover:text-destructive hover:bg-destructive/15 p-1.5 rounded-sm border border-transparent hover:bg-destructive/30 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-colors cursor-pointer shrink-0"
               aria-label="Dismiss"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-2.5 h-2.5" />
             </button>
           </div>
         )}
@@ -269,7 +236,7 @@ export function LoginModal({
         {/* OR Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-border" />
+            <div className="w-full border-t border-border/80 dark:border-white/10" />
           </div>
           <div className="relative flex justify-center text-base">
             <span className="bg-white dark:bg-[#2f2f2f] px-3 text-muted-foreground font-normal tracking-wider">
@@ -279,7 +246,7 @@ export function LoginModal({
         </div>
 
         {/* Email Only Signup / Login Form */}
-        <form onSubmit={handleSignup} noValidate className="space-y-3">
+        <form noValidate className="space-y-3">
           <div>
             <Input
               type="email"
@@ -294,7 +261,7 @@ export function LoginModal({
               placeholder="Email"
               autoComplete="email"
               className={cn(
-                "h-11 rounded-full bg-card border px-4 placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all",
+                "h-12 rounded-full bg-muted border border-border/80 dark:border-white/10 px-4 placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all",
                 errors.email && (touched.email || submitted)
                   ? "border-red-500/80 focus:ring-red-500 focus-visible:ring-red-500"
                   : "border-border/80 focus:ring-blue-500 focus-visible:ring-blue-500"

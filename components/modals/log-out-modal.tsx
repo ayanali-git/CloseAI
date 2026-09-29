@@ -64,7 +64,11 @@ export function LogoutModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className={isAuthVariant ? "max-w-[440px]" : "max-w-[600px]"}
+      className={
+        isAuthVariant
+          ? "max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
+          : "max-w-[600px]"
+      }
       forceModal={forceModal}
     >
       {isAuthVariant ? (
@@ -75,7 +79,7 @@ export function LogoutModal({
             type="button"
             disabled={isLoggingOut}
             onClick={() => onOpenChange(false)}
-            className="absolute top-0 right-0 w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
+            className="absolute top-0 right-0 p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -86,7 +90,7 @@ export function LogoutModal({
             <h2 className="text-2xl font-normal tracking-tight text-foreground">
               {title}
             </h2>
-            <p className="text-base text-muted-foreground mt-1">
+            <p className="text-base text-muted-foreground mt-1.5">
               {description}
             </p>
           </div>

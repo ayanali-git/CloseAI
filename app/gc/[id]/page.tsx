@@ -541,7 +541,7 @@ export default function GuestChatSessionPage() {
             )}
 
             {/* Desktop Only: CloseAI with AnimatedChevron and Popover */}
-            <div className="hidden xl:block">
+            <div className="hidden xl:block -ml-2">
               <Popover
                 open={modelDropdownOpen}
                 onOpenChange={setModelDropdownOpen}
@@ -549,7 +549,7 @@ export default function GuestChatSessionPage() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-11 flex items-center gap-1.5 px-4 rounded-full hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-11 flex items-center gap-1.5 px-3 rounded-sm hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <AnimatedChevron
@@ -561,9 +561,9 @@ export default function GuestChatSessionPage() {
                 </PopoverTrigger>
                 <PopoverContent
                   align="start"
-                  sideOffset={8}
+                  sideOffset={5}
                   animate={false}
-                  className="w-[310px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
+                  className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
                 >
                   <div className="h-32 w-full bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]" />
                   <div className="p-4">

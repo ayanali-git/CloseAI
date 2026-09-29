@@ -231,7 +231,7 @@ function GuestChatContent() {
             )}
 
             {/* Desktop Only: CloseAI with AnimatedChevron and Popover */}
-            <div className="hidden xl:block">
+            <div className="hidden xl:block -ml-2">
               <Popover
                 open={modelDropdownOpen}
                 onOpenChange={setModelDropdownOpen}
@@ -239,7 +239,7 @@ function GuestChatContent() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-10 flex items-center gap-1.5 px-4 rounded-full hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-10 flex items-center gap-1.5 px-3 rounded-sm hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <AnimatedChevron
@@ -251,9 +251,9 @@ function GuestChatContent() {
                 </PopoverTrigger>
                 <PopoverContent
                   align="start"
-                  sideOffset={8}
+                  sideOffset={5}
                   animate={false}
-                  className="w-[310px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
+                  className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
                 >
                   <div className="h-32 w-full bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]" />
                   <div className="p-4">
@@ -366,7 +366,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 250);
                     }}
-                    className="h-11 px-4 rounded-full text-sm sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                    className="h-12 px-4 rounded-full text-sm sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
                   >
                     What can you do?
                   </button>

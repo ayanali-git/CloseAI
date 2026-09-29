@@ -653,7 +653,7 @@ export function MarketingHeader() {
             {submittedQuery.trim().length > 0 && (
               <div className="space-y-10">
                 {/* Your search Query Heading */}
-                <div className="space-y-2 pb-6 border-b border-border/50">
+                <div className="space-y-2 pb-6">
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                     Your search
                   </p>
@@ -664,7 +664,7 @@ export function MarketingHeader() {
 
                 {/* Our sources (Shown ONLY when results exist) */}
                 {searchResults.length > 0 && (
-                  <div className="space-y-4">
+                  <div className="space-y-4 pt-4 border-t border-border/50">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                       Our sources
                     </p>
@@ -711,8 +711,8 @@ export function MarketingHeader() {
                   className={cn(
                     "pb-4 space-y-6",
                     searchResults.length > 0
-                      ? "pt-8 border-t border-border/60"
-                      : "pt-2"
+                      ? "pt-8"
+                      : "pt-4 border-t border-border/50"
                   )}
                 >
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
@@ -738,7 +738,7 @@ export function MarketingHeader() {
                   <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Button
                       asChild
-                      className="group rounded-full px-5 h-10 text-[15px] font-normal bg-white/50 dark:bg-[#212121]/50 hover:bg-secondary dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                      className="group rounded-full px-5 h-10 text-[15px] font-normal bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     >
                       <Link
                         href={user ? "/c" : "/gc"}

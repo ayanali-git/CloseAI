@@ -87,7 +87,7 @@ export default function EnterprisePage() {
         </p>
         <Button asChild className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
-            <span>Schedule Demo</span>
+            <span>Schedule Now</span>
             <AnimatedArrow size={18} strokeWidth={2.5} />
           </Link>
         </Button>

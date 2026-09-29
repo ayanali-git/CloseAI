@@ -32,17 +32,12 @@ export function ClearChatModal({
     onOpenLogin();
   };
 
-  const handleSignup = () => {
-    onOpenChange(false);
-    (onOpenSignup || onOpenLogin)();
-  };
-
   return (
     <BottomSheet
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[440px]"
+      className="max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
@@ -50,33 +45,27 @@ export function ClearChatModal({
         <button
           type="button"
           onClick={() => onOpenChange(false)}
-          className="absolute top-0 right-0 w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
+          className="absolute top-0 right-0 p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header */}
-        <div className="text-center pt-2">
+        <div className="text-center">
           <h2 className="text-2xl font-normal tracking-tight text-foreground">
             Clear chat
           </h2>
-          <p className="text-base text-muted-foreground mt-2 leading-relaxed px-2 sm:px-4">
+          <p className="text-base text-muted-foreground mt-1.5 leading-relaxed px-2 sm:px-4">
             To start a new chat, your current conversation will be discarded.{" "}
-            <span
-              onClick={handleSignup}
-              className="font-semibold text-foreground hover:opacity-80 active:opacity-70 transition-opacity cursor-pointer"
-            >
-              Log in
-            </span>{" "}
-            or{" "}
-            <span
+            <button
+              type="button"
               onClick={handleLogin}
-              className="font-semibold text-foreground hover:opacity-80 active:opacity-70 transition-opacity cursor-pointer"
+              className="font-normal text-foreground hover:opacity-90 transition-opacity cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             >
-              Sign up
-            </span>{" "}
-            to save chats.
+              Sign up for free
+            </button>{" "}
+            to save your chats.
           </p>
         </div>
 
@@ -85,7 +74,7 @@ export function ClearChatModal({
           <button
             type="button"
             onClick={handleNewChat}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-[#2f2f2f] text-foreground hover:bg-secondary dark:hover:bg-[#383838] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none"
           >
             New chat
           </button>
@@ -93,7 +82,7 @@ export function ClearChatModal({
           <button
             type="button"
             onClick={handleLogin}
-            className="w-full h-11 rounded-full bg-secondary/80 dark:bg-[#2f2f2f] hover:bg-secondary dark:hover:bg-[#383838] text-foreground font-medium text-base flex items-center justify-center border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] flex items-center justify-center border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer select-none"
           >
             Log in
           </button>

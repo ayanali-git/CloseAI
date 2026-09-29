@@ -15,12 +15,12 @@ function getClientIp(req: NextRequest): string {
 
 export async function GET(req: NextRequest) {
   const ip = getClientIp(req);
-  const cookieVal = req.cookies.get("guest_card_dismissed")?.value;
+  const cookieVal = req.cookies.get("guest_card")?.value;
   const isDismissed = dismissedIps.has(ip) || cookieVal === "true";
 
   const res = NextResponse.json({ dismissed: isDismissed, ip });
   if (isDismissed && cookieVal !== "true") {
-    res.cookies.set("guest_card_dismissed", "true", {
+    res.cookies.set("guest_card", "true", {
       path: "/",
       maxAge: 31536000,
       sameSite: "lax",
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   dismissedIps.add(ip);
 
   const res = NextResponse.json({ success: true, ip });
-  res.cookies.set("guest_card_dismissed", "true", {
+  res.cookies.set("guest_card", "true", {
     path: "/",
     maxAge: 31536000,
     sameSite: "lax",

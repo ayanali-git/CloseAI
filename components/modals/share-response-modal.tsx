@@ -9,7 +9,7 @@ import {
   XIcon,
   DotsThreeIcon,
 } from "@phosphor-icons/react";
-import { Copy } from "lucide-react";
+import { Copy, X } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -348,7 +348,7 @@ export function ShareResponseModal({
             className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
             aria-label="Close"
           >
-            <XIcon className="w-4 h-4" weight="bold" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 

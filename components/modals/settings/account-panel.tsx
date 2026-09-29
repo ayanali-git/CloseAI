@@ -59,7 +59,7 @@ export function AccountPanel() {
         <button
           type="button"
           onClick={() => setLogoutOpen(true)}
-          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 cursor-pointer flex items-center justify-center"
+          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:scale-[0.99] cursor-pointer flex items-center justify-center"
         >
           Log out
         </button>

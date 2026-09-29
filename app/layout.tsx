@@ -50,7 +50,7 @@ export default async function RootLayout({
 }) {
   const cookieStore = cookies();
   const initialPlan = cookieStore.get('user_plan')?.value || 'free';
-  const isGuestCardDismissed = cookieStore.get('guest_card_dismissed')?.value === 'true';
+  const isGuestCardDismissed = cookieStore.get('guest_card')?.value === 'true';
 
   let initialUser = null;
   try {

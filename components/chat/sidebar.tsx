@@ -271,7 +271,7 @@ export function Sidebar({
     if (typeof window !== "undefined") {
       const isDismissed =
         document.body.getAttribute("data-guest-card-dismissed") === "true" ||
-        document.cookie.includes("guest_card_dismissed=true");
+        document.cookie.includes("guest_card=true");
       if (isDismissed) {
         setIsGuestCardDismissed(true);
         document.body.setAttribute("data-guest-card-dismissed", "true");
@@ -369,26 +369,24 @@ export function Sidebar({
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <Link
             href="/support/help"
-            className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <HelpCircle className="w-4 h-4 text-muted-foreground" />
+            <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
             <span>Help center</span>
           </Link>
           <Link
             href="/company/blog"
-            className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <PenLine className="w-4 h-4 text-muted-foreground" />
+            <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
             <span>Release notes</span>
           </Link>
-          <button
-            type="button"
-            onClick={() => toast.info("App coming soon")}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-medium transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-pointer select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+          <div
+            className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-pointer select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
           >
-            <Download className="w-4 h-4 text-muted-foreground shrink-0" />
-            <span>Download app</span>
-          </button>
+            <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+            <AnimatedComingSoonText label="Download apps" comingSoonText="Coming soon" />
+          </div>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <Link
             href="/company/contact"
@@ -1104,7 +1102,7 @@ export function Sidebar({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-md"
                       >
                         Web search
@@ -1455,8 +1453,8 @@ export function Sidebar({
                     <HoverCardContent
                       side="right"
                       align="start"
-                      sideOffset={24}
-                      className="w-[310px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 select-none"
+                      sideOffset={15}
+                      className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 select-none"
                     >
                       {/* Web Search Simple Sky Blue & Soft Lilac Gradient Banner */}
                       <div className="h-32 w-full bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]" />
@@ -1812,7 +1810,7 @@ export function Sidebar({
                               );
                               try {
                                 document.cookie =
-                                  "guest_card_dismissed=true; path=/; max-age=31536000; SameSite=Lax";
+                                  "guest_card=true; path=/; max-age=31536000; SameSite=Lax";
                               } catch {}
                             }
                             fetch("/api/guest-card", {

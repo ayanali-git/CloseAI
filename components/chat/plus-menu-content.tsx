@@ -976,7 +976,7 @@ export function PlusMenuContent({
           Log in to use
         </div>
 
-        {/* 3. Create image */}
+        {/* 3. Create images */}
         <DropdownMenuItem
           onClick={() => {
             if (onOpenLoginModal) onOpenLoginModal();
@@ -984,7 +984,7 @@ export function PlusMenuContent({
           className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <AnimatedComingSoonText label="Create image" comingSoonText="Coming soon" />
+          <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
         </DropdownMenuItem>
 
         {/* 4. Attach files */}

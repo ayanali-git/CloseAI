@@ -163,10 +163,10 @@ export function PlansPanel() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-[15px] font-medium text-foreground">
-                    {plan.name}
+                    {plan.name}{" "}
                     {isCurrent ? (
-                      <span className="ml-2 text-xs text-muted-foreground font-normal">
-                        Current
+                      <span className="text-xs text-muted-foreground font-normal">
+                      · Current
                       </span>
                     ) : null}
                   </p>

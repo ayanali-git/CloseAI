@@ -52,7 +52,7 @@ function useIsSmallOrTouch() {
 }
 
 const VIEWPORT_PAD = 8; // minimum gap between the popup and the screen edges
-const POPUP_CHROME_GUESS = 14; // popup padding + border, only used for the first hidden frame
+const POPUP_CHROME_GUESS = 12;
 const MAX_FRAMES = 60; // safety limit before the popup is shown anyway (~1s)
 const STABLE_FRAMES = 3; // frames the row must stay on the label before we reveal the popup
 const WATCH_FRAMES = 60; // keep re-aligning for ~1s after reveal (late layout shifts)
@@ -60,6 +60,8 @@ const COOLDOWN_FRAMES = 3; // frames to wait after moving the popup, so Base UI 
 const LAYOUT_EPSILON = 1; // px tolerance when comparing two layouts
 const RESIDUAL_EPSILON = 0.75; // px tolerance for "row is on the label"
 const MAX_CORRECTIONS = 8; // feedback nudges per open
+const SCROLL_NOISE = 0.5; // px of upward scroll ignored as sub-pixel noise
+const GROW_SNAP = 1; // px: this close to the max height -> jump to it (no sliver, no stray scrollbar)
 
 /** Flip to true to log the alignment loop in the console while debugging. */
 const DEBUG_ALIGN = false;
@@ -124,7 +126,7 @@ function computeLayout(
   const listRect = list.getBoundingClientRect();
   const itemRect = item.getBoundingClientRect();
 
-  // Popup padding + border around the list
+  // Popup padding around the list
   const chromeTop = listRect.top - popupRect.top;
   const chromeBottom = popupRect.bottom - listRect.bottom;
 
@@ -194,6 +196,14 @@ export function NativeDropdownMenu<T extends string = string>({
   const [ready, setReady] = React.useState(false);
 
   /**
+   * True once the user touches / scrolls the popup (reset on every open).
+   * - the alignment loop stops moving the popup under their finger
+   * - the grow-on-scroll effect starts reacting to scrolling (and ignores the
+   *   loop's own scrollTop corrections before that)
+   */
+  const interactedRef = React.useRef(false);
+
+  /**
    * Whether the list content is taller than the list box.
    * - true  -> list scrolls normally (overflow-y-auto)
    * - false -> list is "fixed": no scrollbar, no touch pan, no wheel scroll,
@@ -236,6 +246,7 @@ export function NativeDropdownMenu<T extends string = string>({
   const handleOpenChange = (next: boolean) => {
     if (next) {
       // Every open starts from the safe "scrollable" state, then we measure.
+      interactedRef.current = false;
       isScrollableRef.current = true;
       setIsScrollable(true);
     }
@@ -291,7 +302,6 @@ export function NativeDropdownMenu<T extends string = string>({
     let lastCorrection = 0;
     let lastAbsDelta = Infinity;
     let correctionsDisabled = false;
-    let interacted = false;
 
     const getEls = () => {
       const trigger = triggerRef.current;
@@ -329,7 +339,7 @@ export function NativeDropdownMenu<T extends string = string>({
       } else {
         const els = getEls();
 
-        if (els && !interacted) {
+        if (els && !interactedRef.current) {
           const { trigger, popup, list, item } = els;
 
           const desired = computeLayout(trigger, popup, list, item);
@@ -398,7 +408,8 @@ export function NativeDropdownMenu<T extends string = string>({
       if (frame >= MAX_FRAMES) show();
 
       const done =
-        shownAt >= 0 && (interacted || frame - shownAt >= WATCH_FRAMES);
+        shownAt >= 0 &&
+        (interactedRef.current || frame - shownAt >= WATCH_FRAMES);
       if (!done) raf = requestAnimationFrame(tick);
     };
 
@@ -406,7 +417,7 @@ export function NativeDropdownMenu<T extends string = string>({
     const onInteract = (e: Event) => {
       const popup = popupRef.current;
       if (popup && e.target instanceof Node && popup.contains(e.target)) {
-        interacted = true;
+        interactedRef.current = true;
       }
     };
 
@@ -424,6 +435,99 @@ export function NativeDropdownMenu<T extends string = string>({
       document.removeEventListener("wheel", onInteract, true);
     };
   }, [open, isSmallOrTouch, selectedIndex, applyLayout, updateScrollable]);
+
+  /* ------------------------------------------------------------------ */
+  /* Small / touch: grow on scroll (same idea as Base UI's desktop mode) */
+  /*                                                                     */
+  /* When the list is taller than the room it gets next to the trigger,  */
+  /* the popup opens pinned to a screen edge, shows only part of the     */
+  /* list and has a scrollbar. Base UI only has "grow on scroll" in its  */
+  /* mouse-only aligned mode, so here we do it by hand. The popup grows  */
+  /* AWAY from the pinned edge, by the distance the user scrolls:        */
+  /*  - pinned to the TOP (selected row far down the list):              */
+  /*      scroll up   -> the list gets taller at the BOTTOM              */
+  /*  - pinned to the BOTTOM (selected row near the top of the list):    */
+  /*      scroll down -> the list gets taller at the TOP                 */
+  /* It stops when every row fits (scrollbar gone) or the popup reaches  */
+  /* the screen edge on the growing side.                                */
+  /*                                                                     */
+  /* Growing at the bottom only changes the list's max-height.           */
+  /* Growing at the top also pulls the popup up (negative margin, so the */
+  /* Positioner never sees a size change) and puts scrollTop back by the */
+  /* same amount, so the rows still follow the finger 1:1.               */
+  /* ------------------------------------------------------------------ */
+  React.useEffect(() => {
+    if (!open || !isSmallOrTouch || !ready) return;
+
+    const list = listRef.current;
+    const popup = popupRef.current;
+    if (!list || !popup) return;
+
+    let prevTop = list.scrollTop;
+    let shiftUp = 0; // how far the popup top has been pulled up so far
+
+    // Set the DOM directly (not through state) so it lands in the same frame
+    // as the scroll. Keep layoutRef in sync so nothing reads a stale height.
+    const setListHeight = (h: number) => {
+      list.style.maxHeight = `${h}px`;
+      const current = layoutRef.current;
+      if (current) layoutRef.current = { ...current, maxHeight: h };
+    };
+
+    const onScroll = () => {
+      // Stay inside the real scroll range (iOS rubber-banding goes outside it)
+      const top = clamp(list.scrollTop, 0, list.scrollHeight - list.clientHeight);
+      const moved = top - prevTop; // > 0 scrolled down, < 0 scrolled up
+
+      // Tiny move: ignore it (prevTop is kept, so small moves add up).
+      if (Math.abs(moved) < SCROLL_NOISE) return;
+      prevTop = top;
+
+      // Before the first touch / wheel, scroll events are the alignment
+      // loop's own corrections, not the user.
+      if (!interactedRef.current) return;
+
+      const listRect = list.getBoundingClientRect();
+      const popupRect = popup.getBoundingClientRect();
+
+      if (moved < 0) {
+        // Scrolled UP -> grow at the bottom. The popup top stays where it is.
+        const chromeBottom = popupRect.bottom - listRect.bottom;
+        // Tallest the list may get: all rows, or down to the bottom screen gap.
+        const cap = Math.min(
+          list.scrollHeight,
+          getViewportHeight() - VIEWPORT_PAD - chromeBottom - listRect.top
+        );
+        if (cap - listRect.height < GROW_SNAP) return; // already as tall as it can be
+
+        let next = Math.min(cap, listRect.height - moved);
+        if (cap - next < GROW_SNAP) next = cap;
+        setListHeight(next);
+      } else {
+        // Scrolled DOWN -> grow at the top. The popup bottom stays where it is.
+        // Room = gap above the popup, and the rows hidden above the list top.
+        const room = Math.min(popupRect.top - VIEWPORT_PAD, top);
+        if (room < GROW_SNAP) return;
+
+        let grow = Math.min(room, moved);
+        if (room - grow < GROW_SNAP) grow = room;
+
+        shiftUp += grow;
+        popup.style.marginTop = `${-shiftUp}px`;
+        setListHeight(listRect.height + grow);
+        // Give back the scroll we just converted into height. The rows stay
+        // under the finger; our own scroll event then reads as "no move".
+        list.scrollTop = top - grow;
+        prevTop = list.scrollTop;
+      }
+    };
+
+    list.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      list.removeEventListener("scroll", onScroll);
+      popup.style.marginTop = "";
+    };
+  }, [open, isSmallOrTouch, ready]);
 
   /* ------------------------------------------------------------------ */
   /* Keep `isScrollable` in sync (desktop + after any size change)       */
@@ -517,7 +621,7 @@ export function NativeDropdownMenu<T extends string = string>({
         aria-label={ariaLabel}
         disabled={disabled}
         className={cn(
-          "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
+          "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
           isGuest ? "dark:hover:bg-[#383838]" : "dark:hover:bg-[#2f2f2f]",
@@ -569,9 +673,9 @@ export function NativeDropdownMenu<T extends string = string>({
               isGuest
                 ? // Guest: solid surface, exactly like the guest settings modal.
                   // No translucent bg and no backdrop blur.
-                  "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80 backdrop-blur-none"
-                : // Logged-in: frosted glass
-                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+                  "!bg-white dark:!bg-[#2f2f2f] ring-1 ring-border/80 dark:ring-white/10 backdrop-blur-none"
+                : // Logged-in: frosted glass (no outline in dark mode, as before)
+                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm ring-1 ring-border/80 dark:ring-0",
               contentClassName
             )}
           >

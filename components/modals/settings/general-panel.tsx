@@ -6,6 +6,7 @@ import { Switch } from "@/components/ui/switch";
 import { SettingsRow } from "@/components/modals/settings/settings-modal";
 import { NativeDropdownMenu } from "@/components/ui/native-dropdown-menu";
 import { ChatActivityHeatmap } from "@/components/modals/settings/chat-activity";
+import { useAuth } from "@/hooks/use-auth";
 import {
   getAccentColor,
   getContrastMode,
@@ -21,6 +22,12 @@ import {
 
 export function GeneralPanel() {
   const { theme, setTheme } = useTheme();
+  const { user } = useAuth();
+  // Contrast, Accent color and Dictation are for signed-in users only.
+  // Using `Boolean(user)` (instead of `!isGuest`) means these rows never
+  // flash on screen while auth is still loading.
+  const isAuthed = Boolean(user);
+
   const [mounted, setMounted] = useState(false);
   const [contrast, setContrast] = useState<ContrastMode>("system");
   const [accent, setAccent] = useState<AccentColor>("white");
@@ -38,7 +45,8 @@ export function GeneralPanel() {
   if (!mounted) {
     return (
       <div className="space-y-1">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {/* Guests see 2 rows (Appearance, Language); signed-in users see 5 */}
+        {Array.from({ length: isAuthed ? 5 : 2 }).map((_, i) => (
           <div
             key={i}
             className="h-14 border-b border-border/80 last:border-0 flex items-center justify-between"
@@ -66,38 +74,42 @@ export function GeneralPanel() {
         />
       </SettingsRow>
 
-      <SettingsRow label="Contrast">
-        <NativeDropdownMenu
-          ariaLabel="Contrast"
-          value={contrast}
-          onChange={(value) => {
-            setContrast(value);
-            setContrastMode(value);
-          }}
-          options={[
-            { value: "system", label: "System" },
-            { value: "less", label: "Less" },
-            { value: "more", label: "More" },
-          ]}
-        />
-      </SettingsRow>
+      {isAuthed ? (
+        <SettingsRow label="Contrast">
+          <NativeDropdownMenu
+            ariaLabel="Contrast"
+            value={contrast}
+            onChange={(value) => {
+              setContrast(value);
+              setContrastMode(value);
+            }}
+            options={[
+              { value: "system", label: "System" },
+              { value: "less", label: "Less" },
+              { value: "more", label: "More" },
+            ]}
+          />
+        </SettingsRow>
+      ) : null}
 
-      <SettingsRow label="Accent color">
-        <NativeDropdownMenu
-          ariaLabel="Accent color"
-          value={accent}
-          onChange={(value) => {
-            setAccent(value);
-            setAccentColor(value);
-          }}
-          options={[
-            { value: "white", label: "White" },
-            { value: "blue", label: "Blue" },
-            { value: "green", label: "Green" },
-            { value: "purple", label: "Purple" },
-          ]}
-        />
-      </SettingsRow>
+      {isAuthed ? (
+        <SettingsRow label="Accent color">
+          <NativeDropdownMenu
+            ariaLabel="Accent color"
+            value={accent}
+            onChange={(value) => {
+              setAccent(value);
+              setAccentColor(value);
+            }}
+            options={[
+              { value: "white", label: "White" },
+              { value: "blue", label: "Blue" },
+              { value: "green", label: "Green" },
+              { value: "purple", label: "Purple" },
+            ]}
+          />
+        </SettingsRow>
+      ) : null}
 
       <SettingsRow label="Language">
         <NativeDropdownMenu
@@ -124,18 +136,20 @@ export function GeneralPanel() {
         />
       </SettingsRow>
 
-      <SettingsRow
-        label="Enable Dictation"
-        description="Use dictation in the chat composer."
-      >
-        <Switch
-          checked={dictation}
-          onCheckedChange={(checked) => {
-            setDictation(checked);
-            setDictationEnabled(checked);
-          }}
-        />
-      </SettingsRow>
+      {isAuthed ? (
+        <SettingsRow
+          label="Enable Dictation"
+          description="Use dictation in the chat composer."
+        >
+          <Switch
+            checked={dictation}
+            onCheckedChange={(checked) => {
+              setDictation(checked);
+              setDictationEnabled(checked);
+            }}
+          />
+        </SettingsRow>
+      ) : null}
     </div>
   );
 }

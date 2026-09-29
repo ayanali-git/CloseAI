@@ -82,12 +82,17 @@ export function SettingsModal({
   const visibleNav = NAV.filter((item) => !item.auth || user);
   const isGuest = !loading && !user;
 
+  // The search bar is only for signed-in users. `Boolean(user)` (instead of
+  // `!isGuest`) means it never flashes on screen while auth is still loading.
+  const showSearch = Boolean(user);
+
   // Dark hover / selected bg, same rule as the native dropdown menu
   const darkHover = isGuest ? DARK_HOVER_BG.guest : DARK_HOVER_BG.auth;
   const darkSelected = isGuest ? DARK_SELECTED_BG.guest : DARK_SELECTED_BG.auth;
 
-  // Search works on every screen size (same header on mobile and desktop)
-  const normalizedQuery = query.trim().toLowerCase();
+  // Search works on every screen size for signed-in users (same header on
+  // mobile and desktop). Guests never filter, even if a stale query exists.
+  const normalizedQuery = showSearch ? query.trim().toLowerCase() : "";
   const filteredNav = normalizedQuery
     ? visibleNav.filter((item) =>
         item.label.toLowerCase().includes(normalizedQuery)
@@ -101,10 +106,11 @@ export function SettingsModal({
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Reset search whenever the modal closes
+  // Reset search whenever the modal closes or the search bar goes away
+  // (e.g. the user signs out while the modal is open)
   useEffect(() => {
-    if (!open) setQuery("");
-  }, [open]);
+    if (!open || !showSearch) setQuery("");
+  }, [open, showSearch]);
 
   const [lastSection, setLastSection] = useState<SettingsSection>("general");
   if (section !== "root" && section !== lastSection) {
@@ -187,10 +193,14 @@ export function SettingsModal({
         maxSnap={0.92}
         unpadded
         className={cn(
-          "min-[1025px]:max-w-[880px] min-[1025px]:h-[min(640px,85vh)] rounded-t-3xl min-[1025px]:rounded-3xl",
+          "rounded-t-3xl min-[1025px]:rounded-3xl",
+          // Guests get a taller modal so the 12-item language dropdown has room
+          isGuest
+            ? "min-[1025px]:max-w-[900px] min-[1025px]:h-[min(500px,90vh)]"
+            : "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(800px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
-            "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80"
+            "bg-white dark:bg-[#2f2f2f] border border-border/80"
         )}
       >
         {/* Mobile: both panes are stacked and slide horizontally (like a native
@@ -209,44 +219,47 @@ export function SettingsModal({
               "min-[1025px]:border-r dark:min-[1025px]:border-white/10"
             )}
           >
-            {/* Same header on every screen size: close button top-left + rounded search bar */}
+            {/* Same header on every screen size: close button top-left, plus a
+                rounded search bar for signed-in users only */}
             <div className="flex flex-col gap-3 px-3 pt-2 pb-3 min-[1025px]:pt-3">
               <button
                 type="button"
                 onClick={() => closeSettings()}
                 className={cn(
-                  "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer transition-colors",
+                  "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer transition-colors",
                   darkHover
                 )}
                 aria-label="Close settings"
               >
                 <X className="w-5 h-5" />
               </button>
-              <div className="relative">
-                <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape" && query) {
-                      e.stopPropagation();
-                      setQuery("");
-                    }
-                  }}
-                  placeholder="Search"
-                  aria-label="Search"
-                  // 16px on small screens so iOS Safari doesn't zoom the page on focus
-                  className="w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] text-foreground placeholder:text-muted-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
-                />
-              </div>
+              {showSearch ? (
+                <div className="group relative">
+                  <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground cursor-text" />
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape" && query) {
+                        e.stopPropagation();
+                        setQuery("");
+                      }
+                    }}
+                    placeholder="Search"
+                    aria-label="Search"
+                    // 16px on small screens so iOS Safari doesn't zoom the page on focus
+                    className="w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] focus:placeholder:text-foreground placeholder:text-muted-foreground outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                  />
+                </div>
+              ) : null}
             </div>
 
             <nav
               ref={setNavEl}
               className={cn(
                 // min-h-0 lets the list shrink to the sheet so overflow can be detected
-                "flex-1 min-h-0 px-2 pb-4",
+                "flex-1 min-h-0 px-2 pt-1.5 pb-4",
                 isNavOverflowing
                   ? "overflow-y-auto overscroll-contain"
                   : // Everything fits: no scrollbar, no touch drag, no rubber-band
@@ -264,7 +277,7 @@ export function SettingsModal({
                     // has slid out of view, not here.
                     onClick={() => openSettings(item.id)}
                     className={cn(
-                      "group w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer transition-colors",
+                      "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:z-10 transition-colors",
                       isMobile
                         ? "py-3"
                         : "py-2",
@@ -304,7 +317,7 @@ export function SettingsModal({
             <div
               className={cn(
                 "shrink-0 flex items-center gap-2 px-3 min-[1025px]:px-6 pt-2 min-[1025px]:pt-4 pb-3 border-b transition-colors duration-200",
-                showHeaderBorder ? "border-border/80" : "border-transparent"
+                showHeaderBorder ? "border-border/80 dark:border-white/10" : "border-transparent"
               )}
             >
               {isMobile ? (
@@ -312,7 +325,7 @@ export function SettingsModal({
                   type="button"
                   onClick={() => openSettings("root")}
                   className={cn(
-                    "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer transition-colors",
+                    "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary cursor-pointer transition-colors",
                     darkHover
                   )}
                   aria-label="Back to settings"
@@ -383,7 +396,7 @@ export function SettingsRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-3 border-b border-border/80 last:border-b-0">
+    <div className="flex items-center justify-between gap-4 py-3 border-b border-border/80  last:border-b-0">
       <div className="min-w-0 pr-3">
         <p className="text-[15px] text-foreground leading-snug">{label}</p>
         {description ? (
