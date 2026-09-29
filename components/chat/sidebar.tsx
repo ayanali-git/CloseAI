@@ -81,6 +81,9 @@ import { LogoutModal } from "@/components/modals/log-out-modal";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
 import toast from "@/lib/toast";
 import { openSettings } from "@/lib/settings-hash";
+import { motion } from "framer-motion";
+
+const SIDEBAR_SPRING = { type: "spring", damping: 30, stiffness: 320 } as const;
 
 interface SidebarProps {
   user: User | null;
@@ -212,21 +215,6 @@ const groupChats = (chats: Chat[]) => {
   return groups;
 };
 
-/**
- * Sidebar geometry — keeps every icon/avatar in the SAME spot collapsed and expanded.
- *
- * Collapsed rail = 50px. Rail buttons are 40px boxes centered in it (x 5–45), so:
- *   icon left edge   = (50 - 16) / 2 = 17px   (16px icons)
- *   avatar left edge = (50 - 32) / 2 = 9px    (32px avatar)
- *
- * Expanded rows sit inside a px-2 (8px) container, so:
- *   icon rows (New chat, Create Images, Web search, Pricing, Help, Settings): pl-[9px]   (8 + 9 = 17)
- *   search input: icon left-[9px], text pl-[35px]  (9 + 16 icon + 10 gap) = "New chat" text
- *   guest logo header: pl-[5px] (40px box at x 5–45, same box as the rail emblem)
- *   profile dock (signed in): px-[5px] + row pl-[4px] (5 + 4 = 9), persistent avatar left-[9px]
- *
- * If the rail width ever changes, update these together.
- */
 export function Sidebar({
   user,
   chats,
@@ -246,7 +234,11 @@ export function Sidebar({
   onOpenAdvancedFeaturesModal,
   onWebSearchHover,
 }: SidebarProps) {
-  const { signOut } = useAuth();
+  const { signOut, loading: authLoading } = useAuth();
+  // True while the session is still being restored on reload (user not known yet).
+  const isAuthLoading = authLoading && !user;
+  // Show the profile skeleton at the same time as the chat skeleton
+  const showProfileSkeleton = isAuthLoading || (!!user && isLoading);
   const { plan: userPlan } = useSubscription();
   const { theme, setTheme } = useTheme();
   const [showSearch, setShowSearch] = useState(false);
@@ -884,18 +876,24 @@ export function Sidebar({
       />
 
       {/* Main Sidebar (Expands smoothly from 50px to 250px on Desktop, slides over on Mobile) */}
-      <aside
+      <motion.aside
         suppressHydrationWarning
+        initial={false}
+        animate={{ x: isMobileScreen && !isOpen ? "-100%" : 0 }}
+        transition={
+          mounted && isMobileScreen ? SIDEBAR_SPRING : { duration: 0 }
+        }
         className={cn(
           "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/50 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
           mounted &&
             "transition-[width] duration-300 ease-in-out will-change-[width]",
-          isOpen
-            ? "fixed xl:relative inset-y-0 left-0 z-50 xl:z-20 w-[77.5%] max-w-[77.5%] sm:w-[250px] sm:max-w-[250px]"
-            : "hidden xl:flex xl:relative xl:w-[50px]",
-          isOpen &&
-            mounted &&
-            "animate-in slide-in-from-left-full xl:animate-none"
+          // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
+          // xl and up: normal in-flow sidebar (50px rail / 250px open), same as before.
+          "fixed xl:relative inset-y-0 left-0 w-[77.5%] max-w-[77.5%] sm:w-[250px] sm:max-w-[250px]",
+          isOpen ? "z-50 xl:z-20" : "max-xl:z-50 xl:w-[50px]",
+          // Before mount we don't know the screen size yet, so keep the closed
+          // drawer out of sight (no flash on mobile page load).
+          !mounted && !isOpen && "max-xl:invisible"
         )}
       >
         {/* Full-height border resize/toggle handle */}
@@ -908,7 +906,7 @@ export function Sidebar({
         {/* Persistent Non-Blinking Profile Avatar for Authenticated Users.
             left-[9px] = (50px rail - 32px avatar) / 2 → centered in the 40px hover box
             when collapsed, and lines up with the profile row when expanded. */}
-        {user && (
+        {user && !showProfileSkeleton && (
           <div
             suppressHydrationWarning
             className="absolute left-[9px] z-30 pointer-events-none select-none transition-none"
@@ -927,7 +925,7 @@ export function Sidebar({
             data-sidebar-rail
             suppressHydrationWarning
             className={cn(
-              "w-[50px] h-full flex flex-col items-center shrink-0 absolute top-0 left-0 z-10",
+              "w-[50px] h-full flex flex-col items-center shrink-0 absolute top-0 left-0 z-10 max-xl:hidden",
               mounted && "transition-opacity duration-200",
               !isOpen
                 ? "opacity-100 pointer-events-auto"
@@ -1119,7 +1117,11 @@ export function Sidebar({
 
             {/* Rail Bottom Dock (mt-auto) */}
             <div className="mt-auto w-full pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 flex flex-col items-center gap-1.5 relative z-20">
-              {user ? (
+              {isAuthLoading ? (
+                <div className="w-10 h-10 flex items-center justify-center animate-pulse">
+                  <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80" />
+                </div>
+              ) : user ? (
                 <>
                   {/* Collapsed View Download Button */}
                   <Tooltip>
@@ -1158,9 +1160,13 @@ export function Sidebar({
                             className="w-10 h-10 rounded-sm flex items-center justify-center hover:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none"
                             aria-label="Account menu"
                           >
-                            <div className="relative z-50 shrink-0 opacity-0">
-                              {renderAvatarContent()}
-                            </div>
+                            {showProfileSkeleton ? (
+                              <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+                            ) : (
+                              <div className="relative z-50 shrink-0 opacity-0">
+                                {renderAvatarContent()}
+                              </div>
+                            )}
                           </button>
                         </DropdownMenuTrigger>
                       </TooltipTrigger>
@@ -1270,7 +1276,7 @@ export function Sidebar({
               mounted && "transition-opacity duration-200",
               isOpen
                 ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
+                : "opacity-0 pointer-events-none max-xl:opacity-100"
             )}
             aria-hidden={!isOpen}
           >
@@ -1613,10 +1619,21 @@ export function Sidebar({
             <div
               className={cn(
                 "mt-auto w-full pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 relative z-20 select-none",
-                user ? "px-[5px] border-t border-border/50" : "px-2"
+                user || isAuthLoading
+                  ? "px-[5px] border-t border-border/50"
+                  : "px-2"
               )}
             >
-              {user ? (
+              {isAuthLoading ? (
+                /* Profile skeleton while the session loads */
+                <div className="w-full h-10 flex items-center gap-2.5 pl-[4px] pr-2 animate-pulse">
+                  <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
+                  <div className="flex-1 space-y-1.5">
+                    <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
+                    <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                  </div>
+                </div>
+              ) : user ? (
                 /* Authenticated User Profile Row */
                 <div className="w-full h-10 flex items-center justify-between relative">
                   <DropdownMenu
@@ -1634,23 +1651,36 @@ export function Sidebar({
                           >
                             {/* Profile Section */}
                             <div className="h-10 flex items-center justify-start min-w-0 flex-1 gap-2.5 text-left">
-                              {/* Non-blinking avatar placeholder */}
-                              <div className="relative z-50 shrink-0 opacity-0">
-                                {renderAvatarContent()}
-                              </div>
+                              {showProfileSkeleton ? (
+                                <>
+                                  {/* Skeleton: avatar + name + plan */}
+                                  <div className="w-8 h-8 rounded-full shrink-0 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+                                  <div className="flex-1 min-w-0 space-y-1.5 animate-pulse">
+                                    <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
+                                    <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  {/* Non-blinking avatar placeholder */}
+                                  <div className="relative z-50 shrink-0 opacity-0">
+                                    {renderAvatarContent()}
+                                  </div>
 
-                              {/* Expanded User Details */}
-                              <div className="flex-1 min-w-0 transition-all duration-200 overflow-hidden whitespace-nowrap">
-                                <p className="text-md font-medium text-foreground truncate leading-snug">
-                                  {displayName}
-                                </p>
-                                <p
-                                  className="text-sm text-muted-foreground leading-none"
-                                  suppressHydrationWarning
-                                >
-                                  {planDisplay}
-                                </p>
-                              </div>
+                                  {/* Expanded User Details */}
+                                  <div className="flex-1 min-w-0 transition-all duration-200 overflow-hidden whitespace-nowrap">
+                                    <p className="text-md font-medium text-foreground truncate leading-snug">
+                                      {displayName}
+                                    </p>
+                                    <p
+                                      className="text-sm text-muted-foreground leading-none"
+                                      suppressHydrationWarning
+                                    >
+                                      {planDisplay}
+                                    </p>
+                                  </div>
+                                </>
+                              )}
                             </div>
 
                             {/* Download App Button */}
@@ -1813,7 +1843,7 @@ export function Sidebar({
             </div>
           </div>
         </div>
-      </aside>
+      </motion.aside>
 
       {/* Logout Confirmation Modal — mounted here, outside the isOpen branch,
           so it renders whether the sidebar is expanded or collapsed to the rail. */}

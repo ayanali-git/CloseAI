@@ -569,7 +569,7 @@ export function NativeDropdownMenu<T extends string = string>({
               isGuest
                 ? // Guest: solid surface, exactly like the guest settings modal.
                   // No translucent bg and no backdrop blur.
-                  "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80 dark:!border-none backdrop-blur-none"
+                  "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80 backdrop-blur-none"
                 : // Logged-in: frosted glass
                   "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
               contentClassName

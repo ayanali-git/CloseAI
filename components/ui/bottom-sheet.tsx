@@ -112,7 +112,9 @@ export function BottomSheet({
 
   // When forceModal is true, always use centered modal layout (never bottom sheet)
   const isMobileScreen = forceModal ? false : isMobileScreenRaw;
-  const showTopBar = (isMobileScreen && !forceModal) || Boolean(title || description);
+  const showTopBar =
+    (isMobileScreen && !forceModal) || Boolean(title || description);
+  const isBigScreen = !isMobileScreenRaw;
 
   useEffect(() => {
     setMounted(true);
@@ -206,15 +208,17 @@ export function BottomSheet({
         <PresenceGate key="backdrop">
           {({ gate }) => (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={isBigScreen ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={DRAWER}
+              transition={isBigScreen ? { duration: 0 } : DRAWER}
               {...gate}
               data-bottom-sheet-backdrop="true"
               className="pointer-events-auto fixed inset-0 z-[100] bg-background/80 cursor-default"
               onClick={() => {
-                const sheets = document.querySelectorAll("[data-bottom-sheet='true']");
+                const sheets = document.querySelectorAll(
+                  "[data-bottom-sheet='true']"
+                );
                 const top = sheets[sheets.length - 1];
                 if (sheetRef.current !== top) return;
                 onOpenChange(false);
@@ -229,7 +233,9 @@ export function BottomSheet({
             <div
               className={cn(
                 "fixed inset-0 z-[100] flex pointer-events-none cursor-default",
-                isMobileScreen ? "items-end justify-center" : "items-center justify-center p-4"
+                isMobileScreen
+                  ? "items-end justify-center"
+                  : "items-center justify-center p-4"
               )}
             >
               <motion.div
@@ -242,7 +248,9 @@ export function BottomSheet({
                 dragMomentum={false}
                 onDragEnd={onDragEnd}
                 initial={
-                  reduce
+                  isBigScreen
+                    ? false
+                    : reduce
                     ? { opacity: 0 }
                     : isMobileScreen
                     ? { y: "100%" }
@@ -262,7 +270,13 @@ export function BottomSheet({
                     ? { y: "100%" }
                     : { opacity: 0, scale: 0.96, y: 8 }
                 }
-                transition={reduce ? { duration: 0.18, ease: EASE_DRAWER } : DRAWER}
+                transition={
+                  isBigScreen
+                    ? { duration: 0 }
+                    : reduce
+                    ? { duration: 0.18, ease: EASE_DRAWER }
+                    : DRAWER
+                }
                 onAnimationComplete={() => {
                   if (sheetRef.current)
                     heightRef.current = sheetRef.current.offsetHeight;

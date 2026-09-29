@@ -348,7 +348,7 @@ export function ShareResponseModal({
             className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
             aria-label="Close"
           >
-            <XIcon className="w-5 h-5" weight="bold" />
+            <XIcon className="w-4 h-4" weight="bold" />
           </button>
         </div>
 

@@ -51,14 +51,6 @@ const TITLES: Record<SettingsSection, string> = {
 const PANE_MOTION =
   "transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none";
 
-/**
- * Dark-mode hover / selected background.
- * Same colors the native dropdown menu uses for its highlighted row, so every
- * hover in the settings modal looks identical to the dropdown hover:
- *   guest     -> #383838 (modal surface is #2f2f2f, so hover is lighter)
- *   logged-in -> #2f2f2f
- * Full class strings are written out so Tailwind can detect them.
- */
 const DARK_HOVER_BG = {
   guest: "dark:hover:bg-[#383838]",
   auth: "dark:hover:bg-[#2f2f2f]",
@@ -198,7 +190,7 @@ export function SettingsModal({
           "min-[1025px]:max-w-[880px] min-[1025px]:h-[min(640px,85vh)] rounded-t-3xl min-[1025px]:rounded-3xl",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
-            "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80 dark:!border-none"
+            "!bg-white dark:!bg-[#2f2f2f] !border !border-border/80"
         )}
       >
         {/* Mobile: both panes are stacked and slide horizontally (like a native

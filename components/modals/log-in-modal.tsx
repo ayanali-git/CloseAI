@@ -176,7 +176,7 @@ export function LoginModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[440px]"
+      className="max-w-[440px] !bg-white dark:!bg-[#2f2f2f] !border !border-border/80"
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
@@ -184,7 +184,7 @@ export function LoginModal({
         <button
           type="button"
           onClick={() => onOpenChange(false)}
-          className="absolute top-0 right-0 w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
+          className="absolute top-0 right-0 w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
@@ -210,7 +210,7 @@ export function LoginModal({
             <button
               type="button"
               onClick={() => setAuthError(null)}
-              className="text-destructive/70 hover:text-destructive hover:bg-destructive/15 p-1 rounded-full border border-transparent hover:bg-destructive/30 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-colors cursor-pointer shrink-0"
+              className="text-destructive/70 hover:text-destructive hover:bg-destructive/15 p-1 rounded-sm border border-transparent hover:bg-destructive/30 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-colors cursor-pointer shrink-0"
               aria-label="Dismiss"
             >
               <X className="w-3.5 h-3.5" />
@@ -272,7 +272,7 @@ export function LoginModal({
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-base">
-            <span className="bg-card px-3 text-muted-foreground font-normal tracking-wider">
+            <span className="bg-white dark:bg-[#2f2f2f] px-3 text-muted-foreground font-normal tracking-wider">
               or
             </span>
           </div>
@@ -323,7 +323,7 @@ export function LoginModal({
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 align-baseline text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-muted-foreground hover:text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Terms of Use</span>
               <AnimatedArrowUpRight size={14} className="shrink-0" />
@@ -333,7 +333,7 @@ export function LoginModal({
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 align-baseline text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-muted-foreground hover:text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Privacy Policy</span>
               <AnimatedArrowUpRight size={14} className="shrink-0" />
