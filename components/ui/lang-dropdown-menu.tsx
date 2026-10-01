@@ -308,7 +308,7 @@ export function LangDropdownMenu({
                   style={
                     filteredLanguages.length > 0 && triggerRect
                       ? {
-                          maxHeight: `${Math.min(1000, Math.max(300, triggerRect.top - 18))}px`,
+                          maxHeight: `${Math.min(1000, Math.max(300, triggerRect.top - 15))}px`,
                         }
                       : undefined
                   }

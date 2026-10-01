@@ -5,7 +5,6 @@ import { useTheme } from "next-themes";
 import { Switch } from "@/components/ui/switch";
 import { SettingsRow } from "@/components/modals/settings/settings-modal";
 import { NativeDropdownMenu } from "@/components/ui/native-dropdown-menu";
-import { ChatActivityHeatmap } from "@/components/modals/settings/chat-activity";
 import { useAuth } from "@/hooks/use-auth";
 import {
   getAccentColor,

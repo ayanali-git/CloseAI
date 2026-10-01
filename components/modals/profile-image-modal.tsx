@@ -129,7 +129,8 @@ export function ProfileImageModal({
         if (!loading) onOpenChange(isOpen);
       }}
       snapPoints={["auto"]}
-      className="max-w-[600px]"
+      maxSnap={0.96}
+      className="max-w-[440px]"
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">
         {/* Header */}
@@ -140,11 +141,11 @@ export function ProfileImageModal({
         </div>
 
         <div className="relative w-full overflow-hidden">
-          <div className="absolute bottom-0 left-0 right-0 h-[30%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-[28%] min-h-[48px] max-h-[60px] z-10 pointer-events-none" />
 
           <div
             className={cn(
-              "relative z-0 max-h-[160px] sm:max-h-[200px] min-h-[140px] sm:min-h-[180px] flex items-center justify-center p-5 sm:p-6 overflow-hidden select-none"
+              "relative z-0 max-h-[200px] min-h-[160px] flex items-center justify-center p-4 sm:p-5 overflow-hidden select-none"
             )}
           >
             <div
@@ -206,7 +207,7 @@ export function ProfileImageModal({
             type="button"
             onClick={() => onOpenChange(false)}
             disabled={loading}
-            className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary/60 transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary transition-all cursor-pointer select-none"
           >
             Cancel
           </button>

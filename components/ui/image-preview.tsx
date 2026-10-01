@@ -95,7 +95,7 @@ export function ImagePreview({
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                  className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                   title="Close preview"
                   aria-label="Close preview"
                 >

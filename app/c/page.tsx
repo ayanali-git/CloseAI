@@ -247,7 +247,7 @@ function NewChatContent() {
                   <button
                     type="button"
                     onClick={() => handleToggleSidebar()}
-                    className="xl:hidden w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/50 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/50 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-4 h-4" />
@@ -302,7 +302,7 @@ function NewChatContent() {
 
         {/* Bottom Disclaimer for Empty State */}
         <div className="w-full text-center pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-1 px-4 select-none shrink-0 z-20">
-          <p className="max-w-3xl mx-auto text-[11.5px] sm:text-[12px] text-muted-foreground font-normal tracking-tight leading-normal">
+          <p className="max-w-3xl mx-auto text-sm text-muted-foreground font-normal tracking-tighter leading-tight">
             CloseAI is AI. By using, you agree to our{" "}
             <Link
               href="/support/terms"

@@ -410,7 +410,7 @@ function DrawerCloseTrigger({
       }}
       aria-label="Close drawer"
       className={cn(
-        "drawer__close-trigger p-2.5 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "drawer__close-trigger p-3 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className
       )}
       {...props}
@@ -559,7 +559,7 @@ function FileItemRow({
       title={`Preview ${fileName}`}
     >
       {/* File Icon Squircle */}
-      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border border-border/80 dark:border-none overflow-hidden">
+      <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-border/80 dark:border-none overflow-hidden">
         {isImg && fileUrl ? (
           <img
             src={fileUrl}
@@ -725,7 +725,7 @@ export function FilePreviewViewer({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors cursor-pointer outline-none"
+              className="p-3 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors cursor-pointer outline-none"
               title="Close preview"
               aria-label="Close preview"
             >
@@ -886,7 +886,7 @@ export function FilesDrawer({
                 <button
                   type="button"
                   onClick={() => handleOpenChange(false)}
-                  className="p-2.5 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none"
+                  className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none"
                   aria-label="Close"
                 >
                   <X className="w-5 h-5" />

@@ -1218,7 +1218,7 @@ export default function ActiveChatPage() {
                   <button
                     type="button"
                     onClick={handleDownloadActiveFile}
-                    className="w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     title="Download file"
                     aria-label="Download file"
                   >
@@ -1229,7 +1229,7 @@ export default function ActiveChatPage() {
                 <button
                   type="button"
                   onClick={handleClosePreview}
-                  className="w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                  className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                   title="Close preview"
                   aria-label="Close preview"
                 >
@@ -1253,7 +1253,7 @@ export default function ActiveChatPage() {
                         onMouseEnter={() => setIsSidebarBtnHovered(true)}
                         onMouseLeave={() => setIsSidebarBtnHovered(false)}
                         onBlur={() => setIsSidebarBtnHovered(false)}
-                        className="xl:hidden w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                        className="xl:hidden w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-4 h-4" />
@@ -1295,14 +1295,14 @@ export default function ActiveChatPage() {
                           setTimeout(() => setIsSharing(false), 300);
                         }
                       }}
-                      className="group h-9 px-2.5 sm:px-3 gap-1.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-foreground flex items-center justify-center text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed"
+                      className="group w-11 sm:w-auto h-11 px-0 sm:px-4 gap-0 sm:gap-1.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-foreground flex items-center justify-center text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed"
                     >
                       {isSharing ? (
                         <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
                       ) : (
                         <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
                       )}
-                      <span className="inline hidden sm:block">Share</span>
+                      <span className="hidden sm:inline">Share</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent
@@ -1320,7 +1320,7 @@ export default function ActiveChatPage() {
                     <TooltipTrigger asChild>
                       <DropdownMenuTrigger asChild>
                         <button
-                          className="group w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                          className="group w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                           aria-label="More options"
                         >
                           <MoreHorizontal className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -1498,7 +1498,7 @@ export default function ActiveChatPage() {
                                   isAutoScrollPinnedRef.current = true;
                                   scrollToBottom("smooth");
                                 }}
-                                className="group w-10 h-10 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
+                                className="group w-11 h-11 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
                                 aria-label="Scroll to bottom"
                               >
                                 <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />

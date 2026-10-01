@@ -5,8 +5,12 @@ import Link from 'next/link';
 import { AnimatedArrow } from '@/components/ui/animated';
 import { Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/use-auth';
+import { openSettings } from '@/lib/settings-hash';
+import { openLoginModal } from '@/components/auth-provider';
 
-export default function PricingPage() {
+export default function PlansPage() {
+  const { user } = useAuth();
   const plans = [
     {
       id: "free",
@@ -67,22 +71,22 @@ export default function PricingPage() {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-16">
         <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-foreground mb-6">
-          Simple, transparent pricing.
+          Simple, transparent plans.
         </h1>
         <p className="text-lg text-muted-foreground">
           Start for free, then scale with limitless reasoning as your needs grow.
         </p>
       </div>
 
-      {/* Pricing Cards Grid */}
+      {/* Plans Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className={`relative rounded-3xl p-8 flex flex-col justify-between border transition-all ${
+            className={`relative rounded-3xl p-8 flex flex-col justify-between border transition-colors ${
               plan.popular
                 ? "bg-card border-foreground/30 scale-[1.02]"
-                : "bg-card/60 border-border/70"
+                : "bg-card/60 border-border/80"
             }`}
           >
             {plan.popular && (
@@ -120,17 +124,24 @@ export default function PricingPage() {
             </div>
 
             <Button
-              asChild
-              className={`w-full h-11 rounded-full text-md font-medium transition-all ${
+              type="button"
+              onClick={() => {
+                if (user) {
+                  openSettings("plans");
+                } else {
+                  openLoginModal();
+                }
+              }}
+              className={`w-full h-11 rounded-full text-md font-medium transition-colors cursor-pointer ${
                 plan.popular
                   ? "bg-foreground text-background hover:opacity-90"
                   : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"
               }`}
             >
-              <Link href={plan.href} className="group flex items-center justify-center">
+              <span className="group flex items-center justify-center">
                 <span>{plan.cta}</span>
                 <AnimatedArrow size={18} />
-              </Link>
+              </span>
             </Button>
           </div>
         ))}

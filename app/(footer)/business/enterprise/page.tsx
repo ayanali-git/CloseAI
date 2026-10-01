@@ -45,7 +45,7 @@ export default function EnterprisePage() {
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <Button type="button" className="rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white">
-            <Link href="/product/pricing">View Pricing</Link>
+            <Link href="/product/plans">View Plans</Link>
           </Button>
           <Button asChild size="lg" className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
             <Link href="/company/contact" className="inline-flex items-center justify-center">

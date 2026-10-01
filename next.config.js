@@ -13,9 +13,29 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/pricing',
-        destination: '/product/pricing',
+        source: '/plans',
+        destination: '/product/plans',
         permanent: true,
+      },
+      {
+        source: '/pricing',
+        destination: '/product/plans',
+        permanent: true,
+      },
+      {
+        source: '/product/pricing',
+        destination: '/product/plans',
+        permanent: true,
+      },
+      {
+        source: '/settings',
+        destination: '/#settings',
+        permanent: false,
+      },
+      {
+        source: '/upgrade',
+        destination: '/product/plans',
+        permanent: false,
       },
     ];
   },

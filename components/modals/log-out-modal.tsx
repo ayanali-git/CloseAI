@@ -64,10 +64,11 @@ export function LogoutModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
+      maxSnap={0.96}
       className={
         isAuthVariant
           ? "max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
-          : "max-w-[600px]"
+          : "max-w-[440px]"
       }
       forceModal={forceModal}
     >
@@ -133,7 +134,7 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none gap-2"
+              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none gap-2"
             >
               {isLoggingOut ? (
                 <Loader className="w-4 h-4 animate-spin text-background" />
@@ -156,11 +157,11 @@ export function LogoutModal({
           {/* User Card */}
           {hasUser && (
             <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-800 border border-border/80 dark:border-none">
-              <div className="absolute bottom-0 left-0 right-0 h-[30%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-[28%] min-h-[48px] max-h-[60px] z-10 pointer-events-none" />
 
               <div
                 className={cn(
-                  "relative z-0 max-h-[200px] sm:max-h-[400px] min-h-[150px] sm:min-h-[300px] flex items-center justify-center p-5 sm:p-6 overflow-hidden select-text"
+                  "relative z-0 max-h-[200px] min-h-[160px] flex items-center justify-center p-5 sm:p-6 overflow-hidden select-text"
                 )}
               >
                 <div className="flex items-center gap-3.5 select-none">
@@ -213,7 +214,7 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={() => onOpenChange(false)}
-              className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary/60 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none"
+              className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none"
             >
               Cancel
             </button>

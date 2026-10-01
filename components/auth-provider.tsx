@@ -5,6 +5,7 @@ import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { AUTH_COOKIE_NAME } from '@/lib/auth-cookie';
 import { useRouter } from 'next/navigation';
+import { LoginModal } from '@/components/modals/log-in-modal';
 
 export interface AuthContextType {
   user: User | null;
@@ -14,6 +15,18 @@ export interface AuthContextType {
   isSigningOut: boolean;
   signOut: (redirectTo?: string) => Promise<void>;
   refreshSession: () => Promise<Session | null>;
+  openLoginModal: () => void;
+  closeLoginModal: () => void;
+}
+
+export function openLoginModal(): void {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent('closeai-open-login'));
+}
+
+export function closeLoginModal(): void {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent('closeai-close-login'));
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -24,6 +37,8 @@ export const AuthContext = createContext<AuthContextType>({
   isSigningOut: false,
   signOut: async (_redirectTo?: string) => { },
   refreshSession: async () => null,
+  openLoginModal: () => { },
+  closeLoginModal: () => { },
 });
 
 export function hasActiveAuthCookie(): boolean {
@@ -249,6 +264,88 @@ export function AuthProvider({
     }
   };
 
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [authModalError, setAuthModalError] = useState<string | null>(null);
+
+  const openLoginModalHandler = useCallback(() => {
+    setLoginModalOpen(true);
+  }, []);
+
+  const closeLoginModalHandler = useCallback(() => {
+    setLoginModalOpen(false);
+  }, []);
+
+  useEffect(() => {
+    const handleCustomOpen = () => setLoginModalOpen(true);
+    const handleCustomClose = () => setLoginModalOpen(false);
+    window.addEventListener('closeai-open-login', handleCustomOpen);
+    window.addEventListener('closeai-close-login', handleCustomClose);
+    return () => {
+      window.removeEventListener('closeai-open-login', handleCustomOpen);
+      window.removeEventListener('closeai-close-login', handleCustomClose);
+    };
+  }, []);
+
+  // Auto-open login modal from URL query params (e.g. /?auth=login, /?auth=signup, or OAuth errors)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const checkUrlAuth = () => {
+      const params = new URLSearchParams(window.location.search);
+      const auth = params.get('auth');
+      const error = params.get('error');
+      const errorCode = params.get('error_code');
+      const errorDesc = params.get('error_description');
+
+      if (auth === 'login' || auth === 'signup' || error || errorCode || errorDesc) {
+        setLoginModalOpen(true);
+        if (error || errorCode || errorDesc) {
+          let message = 'Unable to complete sign in. Please try again.';
+          if (errorCode === 'bad_oauth_state' || errorDesc?.toLowerCase().includes('state')) {
+            message = 'Your sign-in session expired or was interrupted. Please try signing in again.';
+          } else if (errorCode === 'access_denied' || error === 'access_denied') {
+            message = 'Sign-in was cancelled. Please try again when ready.';
+          } else if (errorDesc) {
+            message = decodeURIComponent(errorDesc.replace(/\+/g, ' '));
+          }
+          setAuthModalError(message);
+        }
+        // Clean address bar query param without triggering full reload or scroll
+        const nextUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, '', nextUrl);
+      }
+    };
+
+    checkUrlAuth();
+    window.addEventListener('popstate', checkUrlAuth);
+    return () => window.removeEventListener('popstate', checkUrlAuth);
+  }, []);
+
+  // Intercept all links targeting /?auth=login, /?auth=signup, or containing auth=login / auth=signup
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest?.('a');
+      if (!target) return;
+
+      const href = target.getAttribute('href');
+      if (!href) return;
+
+      if (
+        href === '/?auth=login' ||
+        href === '/?auth=signup' ||
+        href.includes('auth=login') ||
+        href.includes('auth=signup')
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        setLoginModalOpen(true);
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick, true);
+    return () => document.removeEventListener('click', handleDocumentClick, true);
+  }, []);
+
   const value = {
     user,
     session,
@@ -257,11 +354,21 @@ export function AuthProvider({
     isSigningOut,
     signOut,
     refreshSession,
+    openLoginModal: openLoginModalHandler,
+    closeLoginModal: closeLoginModalHandler,
   };
 
   return (
     <AuthContext.Provider value={value}>
       {children}
+      <LoginModal
+        open={loginModalOpen}
+        onOpenChange={(isOpen) => {
+          setLoginModalOpen(isOpen);
+          if (!isOpen) setAuthModalError(null);
+        }}
+        initialError={authModalError}
+      />
     </AuthContext.Provider>
   );
 }

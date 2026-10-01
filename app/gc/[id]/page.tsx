@@ -14,8 +14,8 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { PanelRight, ArrowDown } from "lucide-react";
-import { AnimatedChevron } from "@/components/ui/animated";
+import { PanelRight, ArrowDown, ChevronDown } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 import {
   Tooltip,
   TooltipContent,
@@ -54,6 +54,7 @@ export default function GuestChatSessionPage() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const dockRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const autoSendTriggeredRef = useRef(false);
   const streamAbortControllerRef = useRef<boolean>(false);
@@ -68,7 +69,7 @@ export default function GuestChatSessionPage() {
     const distanceToBottom = scrollHeight - scrollTop - clientHeight;
     const isAtBottom = distanceToBottom <= 25;
     isAutoScrollPinnedRef.current = isAtBottom;
-    setShowScrollBottom(!isAtBottom);
+    setShowScrollBottom((prev) => (prev !== !isAtBottom ? !isAtBottom : prev));
   };
 
   const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
@@ -77,19 +78,56 @@ export default function GuestChatSessionPage() {
         top: scrollContainerRef.current.scrollHeight,
         behavior,
       });
-      setShowScrollBottom(false);
+      if (behavior === "auto") {
+        setShowScrollBottom(false);
+        isAutoScrollPinnedRef.current = true;
+      }
     }
   };
+
+  const forceScrollToBottom = () => {
+    if (!scrollContainerRef.current) return;
+    scrollContainerRef.current.scrollTop =
+      scrollContainerRef.current.scrollHeight;
+    setShowScrollBottom(false);
+    isAutoScrollPinnedRef.current = true;
+  };
+
+  // Recompute scroll-to-bottom visibility when dock height changes
+  useEffect(() => {
+    if (!dockRef.current) return;
+    const ro = new ResizeObserver(() => handleScroll());
+    ro.observe(dockRef.current);
+    return () => ro.disconnect();
+  }, []);
 
   // Recompute scroll-to-bottom visibility whenever content height changes
   useEffect(() => {
     if (!contentRef.current) return;
     const ro = new ResizeObserver(() => {
       handleScroll();
+      if (isAutoScrollPinnedRef.current) {
+        forceScrollToBottom();
+      }
     });
     ro.observe(contentRef.current);
     return () => ro.disconnect();
   }, []);
+
+  // Ensure view stays pinned to bottom on messages/pendingMessage update when pinned
+  useEffect(() => {
+    if (isAutoScrollPinnedRef.current) {
+      forceScrollToBottom();
+      const t1 = setTimeout(forceScrollToBottom, 60);
+      const t2 = setTimeout(forceScrollToBottom, 180);
+      const t3 = setTimeout(forceScrollToBottom, 320);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+      };
+    }
+  }, [messages, pendingMessage]);
 
   // If authenticated user lands on guest chat, redirect to /c
   useEffect(() => {
@@ -208,6 +246,11 @@ export default function GuestChatSessionPage() {
         }
         return copy;
       });
+
+      if (isAutoScrollPinnedRef.current && scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop =
+          scrollContainerRef.current.scrollHeight;
+      }
 
       await new Promise((r) => setTimeout(r, intervalMs));
     }
@@ -510,7 +553,7 @@ export default function GuestChatSessionPage() {
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
           {/* Left area */}
-          <div className="flex items-center gap-2 pointer-events-auto mt-3 pl-3 sm:pl-0">
+          <div className="flex items-center gap-2 pointer-events-auto">
             {!sidebarOpen && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -523,7 +566,7 @@ export default function GuestChatSessionPage() {
                     onMouseEnter={() => setIsSidebarBtnHovered(true)}
                     onMouseLeave={() => setIsSidebarBtnHovered(false)}
                     onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-10 h-10 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-4 h-4" />
@@ -541,7 +584,7 @@ export default function GuestChatSessionPage() {
             )}
 
             {/* Desktop Only: CloseAI with AnimatedChevron and Popover */}
-            <div className="hidden xl:block -ml-2">
+            <div className="group hidden xl:block -ml-2">
               <Popover
                 open={modelDropdownOpen}
                 onOpenChange={setModelDropdownOpen}
@@ -552,11 +595,7 @@ export default function GuestChatSessionPage() {
                     className="h-11 flex items-center gap-1.5 px-3 rounded-sm hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
-                    <AnimatedChevron
-                      open={modelDropdownOpen}
-                      disableHover
-                      size={18}
-                    />
+                    <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
                   </button>
                 </PopoverTrigger>
                 <PopoverContent
@@ -565,7 +604,13 @@ export default function GuestChatSessionPage() {
                   animate={false}
                   className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
                 >
-                  <div className="h-32 w-full bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]" />
+                  <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
+                    <img
+                      src="https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=Try%20advanced%20features%20for%20free"
+                      alt="Try advanced features for free"
+                      className="w-full h-full object-cover select-none pointer-events-none"
+                    />
+                  </div>
                   <div className="p-4">
                     <h4 className="text-[15.5px] font-semibold text-foreground tracking-tight leading-snug">
                       Try advanced features for free
@@ -581,7 +626,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>
@@ -591,7 +636,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -614,25 +659,25 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="hidden sm:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
           </div>
         </header>
 
-        {/* Guest Message Stream (Scrollable with hidden scrollbar) */}
+        {/* Full-Height Scrollable Message Stream — scrollbar runs full height without heading strip */}
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-scroll overscroll-y-contain [scrollbar-gutter:stable]"
         >
           <div className="flex-1 flex flex-col min-h-full">
             <div ref={contentRef} className="flex-1 pb-4 sm:pb-6">
@@ -651,7 +696,10 @@ export default function GuestChatSessionPage() {
             </div>
 
             {/* Sticky input dock at bottom */}
-            <div className="sticky bottom-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto">
+            <div
+              ref={dockRef}
+              className="sticky bottom-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
+            >
               <div className="pointer-events-auto">
                 <ChatInput
                   message={message}
@@ -675,35 +723,37 @@ export default function GuestChatSessionPage() {
                   centered={false}
                   showDisclaimer={true}
                 >
-                  {/* Dynamic Floating Scroll-to-Bottom Button */}
-                  {showScrollBottom && (
-                    <div className="absolute bottom-full mb-3 inset-x-0 flex justify-center pointer-events-none z-30">
-                      <div className="pointer-events-auto">
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                isAutoScrollPinnedRef.current = true;
-                                scrollToBottom("smooth");
-                              }}
-                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
-                              aria-label="Scroll to bottom"
+                  {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
+                  <AnimatePresence>
+                    {showScrollBottom && (
+                      <div className="absolute bottom-full mb-3 inset-x-0 flex justify-center pointer-events-none z-30">
+                        <div className="pointer-events-auto">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  isAutoScrollPinnedRef.current = true;
+                                  scrollToBottom("smooth");
+                                }}
+                                className="group w-11 h-11 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
+                                aria-label="Scroll to bottom"
+                              >
+                                <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent
+                              side="top"
+                              sideOffset={8}
+                              className="text-md"
                             >
-                              <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent
-                            side="top"
-                            sideOffset={8}
-                            className="text-md"
-                          >
-                            Scroll to bottom
-                          </TooltipContent>
-                        </Tooltip>
+                              Scroll to bottom
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </AnimatePresence>
                 </ChatInput>
               </div>
             </div>

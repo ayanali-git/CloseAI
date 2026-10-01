@@ -1433,7 +1433,7 @@ export function MessageList({
                                           handleSendChangePrompt(msgId);
                                         }
                                       }}
-                                      className="w-full bg-transparent text-foreground placeholder:text-muted-foreground/60 text-sm outline-none py-1 font-normal min-w-0"
+                                      className="w-full bg-transparent placeholder:text-muted-foreground text-sm outline-none py-1 font-normal min-w-0"
                                       autoFocus
                                     />
                                     <button
@@ -1576,7 +1576,7 @@ export function MessageList({
                                                   handleSendChangePrompt(msgId);
                                                 }
                                               }}
-                                              className="w-full bg-transparent text-foreground placeholder:text-muted-foreground/60 text-sm outline-none py-1 font-normal min-w-0"
+                                              className="w-full bg-transparent placeholder:text-muted-foreground text-sm outline-none py-1 font-normal min-w-0"
                                               autoFocus
                                             />
                                             <button

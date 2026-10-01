@@ -192,7 +192,7 @@ export default function LandingPage() {
                 placeholder="Ask about anything"
                 rows={3}
                 disabled={isSubmitting}
-                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground text-foreground dark:text-white transition-colors outline-none border-none ring-0 leading-relaxed"
+                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed"
               />
               <div
                 className="flex items-center justify-end pt-3"
@@ -202,7 +202,7 @@ export default function LandingPage() {
                   type="submit"
                   disabled={!heroPrompt.trim() || isSubmitting}
                   className={cn(
-                    "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all shrink-0",
+                    "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
                     heroPrompt.trim().length > 0 && !isSubmitting
                       ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
                       : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
@@ -252,7 +252,7 @@ export default function LandingPage() {
                   className={cn(
                     "h-12 px-4 rounded-full text-md sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none",
                     pill.disabled
-                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-black/60 dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60 dark:text-white/60"
+                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60"
                       : isSelected
                       ? "cursor-pointer bg-secondary text-black dark:bg-[#383838] dark:text-white"
                       : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"

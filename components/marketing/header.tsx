@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { LogoutModal } from "@/components/modals/log-out-modal";
-import { LoginModal } from "@/components/modals/log-in-modal";
 import { cn } from "@/lib/utils";
 import { openSettings } from "@/lib/settings-hash";
 
@@ -144,10 +143,10 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
     id: "prod-pricing",
     category: "Products",
-    title: "Pricing & Subscription Plans",
+    title: "Subscription Plans",
     description:
       "Flexible plans for individuals, teams, and enterprises including Free, Pro, and Ultra Pro tiers.",
-    url: "/product/pricing",
+    url: "/product/plans",
     keywords: [
       "pricing",
       "pro",
@@ -338,7 +337,7 @@ const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
 export function MarketingHeader() {
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, signOut, openLoginModal } = useAuth();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [activeMenu, setActiveMenu] = useState<MegaMenuCategory>(null);
@@ -384,52 +383,6 @@ export function MarketingHeader() {
   }, [activeMenu]);
 
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const [authModalError, setAuthModalError] = useState<string | null>(null);
-
-  // Auto-open login modal from URL query params or OAuth callback errors
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const auth = params.get("auth");
-      const error = params.get("error");
-      const errorCode = params.get("error_code");
-      const errorDesc = params.get("error_description");
-
-      if (
-        auth === "signup" ||
-        auth === "login" ||
-        error ||
-        errorCode ||
-        errorDesc
-      ) {
-        setLoginModalOpen(true);
-        if (error || errorCode || errorDesc) {
-          let message = "Unable to complete sign in. Please try again.";
-          if (
-            errorCode === "bad_oauth_state" ||
-            errorDesc?.toLowerCase().includes("state")
-          ) {
-            message =
-              "Your sign-in session expired or was interrupted. Please try signing in again.";
-          } else if (
-            errorCode === "access_denied" ||
-            error === "access_denied"
-          ) {
-            message = "Sign-in was cancelled. Please try again when ready.";
-          } else if (errorDesc) {
-            message = decodeURIComponent(errorDesc.replace(/\+/g, " "));
-          }
-          setAuthModalError(message);
-        }
-      }
-
-      // Clean the address bar if auth or error params were present
-      if (auth || error || errorCode || errorDesc) {
-        window.history.replaceState({}, "", window.location.pathname);
-      }
-    }
-  }, []);
 
   const isLocked = isSearchOpen || mobileNavOpen;
 
@@ -637,7 +590,7 @@ export function MarketingHeader() {
                   type="submit"
                   disabled={!searchQuery.trim()}
                   className={cn(
-                    "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
+                    "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
                     searchQuery.trim().length > 0
                       ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-95"
                       : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
@@ -738,7 +691,7 @@ export function MarketingHeader() {
                   <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Button
                       asChild
-                      className="group rounded-full px-5 h-10 text-[15px] font-normal bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                      className="group rounded-full px-5 h-11 text-[15px] font-normal bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     >
                       <Link
                         href={user ? "/c" : "/gc"}
@@ -1000,14 +953,14 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
                 >
                   <span>Log Out</span>
                 </button>
 
                 <Link
                   href="/c"
-                  className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Open Chat</span>
                   <AnimatedArrow size={18} strokeWidth={2} />
@@ -1017,8 +970,8 @@ export function MarketingHeader() {
               <>
                 <button
                   type="button"
-                  onClick={() => setLoginModalOpen(true)}
-                  className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
+                  onClick={() => openLoginModal()}
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
                 >
                   <span>Log In</span>
                 </button>
@@ -1027,7 +980,7 @@ export function MarketingHeader() {
                   href="/gc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Try CloseAI</span>
                   <AnimatedArrowUpRight size={18} strokeWidth={2} />
@@ -1322,11 +1275,11 @@ export function MarketingHeader() {
                       </li>
                       <li>
                         <Link
-                          href="/product/pricing"
+                          href="/product/plans"
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
-                          Pricing
+                          Plans
                         </Link>
                       </li>
                       <li>
@@ -1366,7 +1319,7 @@ export function MarketingHeader() {
                       </li>
                       <li>
                         <Link
-                          href="/product/pricing"
+                          href="/product/plans"
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
@@ -1711,7 +1664,7 @@ export function MarketingHeader() {
                       <button
                         onClick={() => {
                           setMobileNavOpen(false);
-                          setLoginModalOpen(true);
+                          openLoginModal();
                         }}
                         className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
@@ -1889,8 +1842,8 @@ export function MarketingHeader() {
                               href: "/business/enterprise",
                             },
                             {
-                              label: "Pricing",
-                              href: "/product/pricing",
+                              label: "Plans",
+                              href: "/product/plans",
                             },
                             {
                               label: "Contact Sales",
@@ -1925,7 +1878,7 @@ export function MarketingHeader() {
                             },
                             {
                               label: "CloseAI Academy & Guides",
-                              href: "/product/pricing",
+                              href: "/product/plans",
                             },
                           ].map((adv, i) => (
                             <Link
@@ -2134,16 +2087,6 @@ export function MarketingHeader() {
         userEmail={user?.email}
         userAvatar={user?.user_metadata?.avatar_url}
         variant="auth"
-      />
-
-      {/* Login Modal (Unified Auth) */}
-      <LoginModal
-        open={loginModalOpen}
-        onOpenChange={(isOpen) => {
-          setLoginModalOpen(isOpen);
-          if (!isOpen) setAuthModalError(null);
-        }}
-        initialError={authModalError}
       />
 
       {/* Spacer to preserve 56px (h-14) in document flow for fixed header */}

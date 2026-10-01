@@ -142,7 +142,7 @@ function FilePreviewCard({
       title={`Preview ${file.name}`}
     >
       {/* File type icon */}
-      <div className="w-10 h-10 rounded-xl overflow-hidden border border-border/80 dark:border-none flex items-center justify-center shrink-0">
+      <div className="w-11 h-11 rounded-xl overflow-hidden border border-border/80 dark:border-none flex items-center justify-center shrink-0">
         <Icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" weight="fill" />
       </div>
 
@@ -224,6 +224,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const [menuAlignOffset, setMenuAlignOffset] = useState(0);
   const [menuWidth, setMenuWidth] = useState<number | undefined>(undefined);
   const [tooltipSideOffset, setTooltipSideOffset] = useState(8);
+  const [isPlusTooltipOpen, setIsPlusTooltipOpen] = useState(false);
+  const plusHoverTimerRef = useRef<NodeJS.Timeout | null>(null);
   const recognitionRef = useRef<any>(null);
   const cursorPositionRef = useRef<number | null>(null);
   const [currentModel, setCurrentModel] = useState(selectedModel);
@@ -513,6 +515,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   useEffect(() => {
     return () => {
       recognitionRef.current?.stop();
+      if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
     };
   }, []);
 
@@ -611,19 +614,37 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       open={plusMenuOpen}
       onOpenChange={(open) => {
         if (open) updateMenuPosition();
+        if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
+        setIsPlusTooltipOpen(false);
         setPlusMenuOpen(open);
       }}
     >
-      <Tooltip open={plusMenuOpen ? false : undefined}>
+      <Tooltip open={!plusMenuOpen && isPlusTooltipOpen}>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
             <button
               ref={plusButtonRef}
               type="button"
               disabled={isTyping || isUploading}
-              onMouseEnter={updateMenuPosition}
+              onMouseEnter={() => {
+                updateMenuPosition();
+                if (plusMenuOpen) return;
+                if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
+                plusHoverTimerRef.current = setTimeout(() => {
+                  setIsPlusTooltipOpen(true);
+                }, 150);
+              }}
+              onMouseLeave={() => {
+                if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
+                setIsPlusTooltipOpen(false);
+              }}
+              onClick={(e) => {
+                if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
+                setIsPlusTooltipOpen(false);
+                (e.currentTarget as HTMLElement)?.blur();
+              }}
               onKeyDown={handlePillButtonKeyDown}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Attach files and more"
             >
               <Plus className="w-5 h-5" />
@@ -636,6 +657,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       </Tooltip>
 
       <DropdownMenuContent
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+        }}
         side="top"
         align="start"
         sideOffset={menuSideOffset}
@@ -709,9 +733,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
-              "h-9 sm:h-10 px-2 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "h-10 sm:h-11 px-2 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               thinkMode
-                ? "bg-secondary dark:bg-[#383838] text-foreground"
+                ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
             )}
             aria-label="Think mode"
@@ -720,7 +744,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               className={cn(
                 "w-5 h-5 transition-colors",
                 thinkMode
-                  ? "text-foreground"
+                  ? "text-send-btn-foreground"
                   : "text-muted-foreground group-hover/think-btn:text-foreground"
               )}
             />
@@ -745,7 +769,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
-              "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               isListening
                 ? "bg-red-500/15 text-red-500 hover:bg-red-500/25 ring-red-500/30"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
@@ -783,7 +807,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onKeyDown={handlePillButtonKeyDown}
             disabled={(!hasContent && !isTyping) || isUploading}
             className={cn(
-              "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               isTyping
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-85 active:scale-95"
                 : isUploading
@@ -940,7 +964,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 rows={1}
                 disabled={isTyping || isUploading}
                 className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
+                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
                   isFullyExpanded ? "min-h-[280px]" : "min-h-[44px]",
                   isBigContent && "pr-14 sm:pr-16"
                 )}
@@ -958,7 +982,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                           setIsFullyExpanded((prev) => !prev);
                         }}
                         onKeyDown={handlePillButtonKeyDown}
-                        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] transition-all shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] transition-all shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         aria-label={isFullyExpanded ? "Collapse" : "Expand"}
                       >
                         {isFullyExpanded ? (
@@ -1026,7 +1050,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 placeholder={placeholder}
                 rows={1}
                 disabled={isTyping || isUploading}
-                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
+                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
               />
             </div>
 
@@ -1040,7 +1064,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       {/* Responsive Disclaimer */}
       {showDisclaimer && (
         <div className="text-center pt-2 pb-0.5 px-3 select-none">
-          <p className="text-[13px] sm:text-base text-muted-foreground font-normal tracking-tight leading-tight">
+          <p className="text-sm text-muted-foreground font-normal tracking-tight leading-tight">
             CloseAI can make mistakes. Verify important info.
           </p>
         </div>

@@ -458,14 +458,14 @@ export default function PublicSharedChatPage() {
                 type="button"
                 disabled={isSharing}
                 onClick={handleShareClick}
-                className="group h-9 px-2.5 sm:px-3 gap-1.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed"
+                className="group w-11 sm:w-auto h-11 px-0 sm:px-4 gap-0 sm:gap-1.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed"
               >
                 {isSharing ? (
                   <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
                 ) : (
                   <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
                 )}
-                <span className="inline hidden sm:block">Share</span>
+                <span className="hidden sm:inline">Share</span>
               </button>
             </TooltipTrigger>
             <TooltipContent side="bottom" sideOffset={6} className="text-md">
@@ -478,7 +478,7 @@ export default function PublicSharedChatPage() {
               <button
                 type="button"
                 onClick={() => window.open("/c", "_blank")}
-                className="group w-9 h-9 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                className="group w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                 aria-label="New chat"
               >
                 <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -574,7 +574,7 @@ export default function PublicSharedChatPage() {
                                   onClick={() => {
                                     scrollToBottom();
                                   }}
-                                  className="group w-10 h-10 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
+                                  className="group w-11 h-11 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
                                   aria-label="Scroll to bottom"
                                 >
                                   <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />

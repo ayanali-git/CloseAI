@@ -160,7 +160,7 @@ export function CountDropdownMenu({
           "w-full h-12 rounded-full bg-background border border-border/80 px-4",
           "flex items-center gap-3 text-left cursor-pointer select-none",
           "transition-colors",
-          "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+          "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className
         )}
         aria-haspopup="listbox"
@@ -229,7 +229,7 @@ export function CountDropdownMenu({
                         role="option"
                         aria-selected={isSelected}
                         onClick={() => handleSelect(country)}
-                        className="relative w-full flex items-center gap-3 px-3 py-3 rounded-sm hover:bg-secondary text-foreground text-left cursor-pointer transition-colors focus-visible:outline-none focus:z-10 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                        className="relative w-full flex items-center gap-3 px-3 py-3 rounded-sm hover:bg-secondary text-foreground text-left cursor-pointer transition-colors focus-visible:outline-none focus:z-10 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img

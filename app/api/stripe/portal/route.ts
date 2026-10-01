@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
         const appUrl = getAppUrl(request);
         const session = await createPortalSession(
             profile.customer_id,
-            `${appUrl}/upgrade`
+            `${appUrl}/product/plans`
         );
 
         return NextResponse.json({ url: session.url });

@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
             customerId,
             priceId,
             user.id,
-            `${appUrl}/upgrade?success=true&session_id={CHECKOUT_SESSION_ID}`,
-            `${appUrl}/upgrade?canceled=true`
+            `${appUrl}/product/plans?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            `${appUrl}/product/plans?canceled=true`
         );
 
         return NextResponse.json({ url: session.url });

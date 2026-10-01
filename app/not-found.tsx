@@ -23,17 +23,6 @@ const TOP_ROWS: PromptItem[][] = [
   ],
   // Top Row 2 (to right)
   [
-    { text: "Plan a trip to explore Seoul like a local" },
-    { text: "कैमरे पर अच्छा दिखने वाला आउटफिट चुनने में मेरी मदद करें" },
-    { text: "Write a text asking a friend to be my plus-one at a wedding" },
-    { text: "Ayúdame a redactar un correo de seguimiento tras una entrevista" },
-    { text: "Planeje um dia de saúde mental pra eu recarregar as energias" },
-    { text: "Aide-moi à rédiger un e-mail de relance après un entretien" },
-    { text: "Daftar pencetak gol terbanyak Liga Champions dan sorotan pertandingan" },
-    { text: "Hilf mir, eine Nachfass-E-Mail nach einem Vorstellungsgespräch zu schreiben" },
-  ],
-  // Top Row 3 (to left)
-  [
     { text: "Buenos sitios para brunch cerca de mí con mesas al aire libre" },
     { text: "Help me write a follow-up email after an interview" },
     { text: "면접 후에 보낼 감사 이메일을 작성해줘" },
@@ -43,7 +32,7 @@ const TOP_ROWS: PromptItem[][] = [
     { text: "短い買い物リスト付きの1週間の献立を作って" },
     { text: "Write a python script to automate file organization" },
   ],
-  // Top Row 4 (to right)
+  // Top Row 3 (to left)
   [
     { text: "Consejos para preparar una maratón desde cero" },
     { text: "Brief me on the latest breakthrough in fusion energy" },
@@ -81,17 +70,6 @@ const BOTTOM_ROWS: PromptItem[][] = [
   ],
   // Bottom Row 3 (to right)
   [
-    { text: "Ideas for a modern living room interior with neutral tones" },
-    { text: "Panduan langkah demi langkah membuat portofolio web developer" },
-    { text: "Estratégias simples para manter o foco durante os estudos" },
-    { text: "Recherche d'inspiration pour une histoire courte de science-fiction" },
-    { text: "10-minütige Dehnübungen gegen Rückenschmerzen im Büro" },
-    { text: "React 19 의 새로운 훅과 주요 변경사항 요약" },
-    { text: "Best practices for writing clean and maintainable code" },
-    { text: "दैनिक जीवन में तनाव कम करने के 5 प्रभावी उपाय" },
-  ],
-  // Bottom Row 4 (to left)
-  [
     { text: "Explain general relativity with thought experiments" },
     { text: "Strategien für ein erfolgreiches Gehaltsgespräch" },
     { text: "Dicas de fotografia urbana com smartphone" },
@@ -128,6 +106,7 @@ function PromptCardRow({
     const checkCards = () => {
       const containerRect = container.getBoundingClientRect();
       const cards = container.querySelectorAll<HTMLElement>('[data-prompt-card]');
+      const isDark = document.documentElement.classList.contains("dark");
 
       cards.forEach((card) => {
         const cardRect = card.getBoundingClientRect();
@@ -143,21 +122,42 @@ function PromptCardRow({
         // Mute factor: 0 = original, 1 = fully muted
         const muteFactor = Math.max(0, Math.min(1, 1 - visibleRatio));
 
-        // bg: #2f2f2f (47) → #0d0d0d (13)
-        const bgVal = lerp(47, 13, muteFactor);
-        card.style.backgroundColor = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
+        if (isDark) {
+          // Dark mode:
+          // bg: #2f2f2f (47) → #0d0d0d (13)
+          const bgVal = lerp(47, 13, muteFactor);
+          card.style.backgroundColor = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
 
-        // border: rgba(255,255,255,0.1) → match bg
-        const borderAlpha = lerp(10, 0, muteFactor); // 10% → 0% white opacity
-        card.style.borderColor = muteFactor > 0.5
-          ? `rgb(${bgVal}, ${bgVal}, ${bgVal})`
-          : `rgba(255, 255, 255, ${borderAlpha / 100})`;
+          // border: rgba(255,255,255,0.1) → match bg
+          const borderAlpha = lerp(10, 0, muteFactor); // 10% → 0% white opacity
+          card.style.borderColor = muteFactor > 0.5
+            ? `rgb(${bgVal}, ${bgVal}, ${bgVal})`
+            : `rgba(255, 255, 255, ${borderAlpha / 100})`;
 
-        // text: #fff (255) → #a6a6a6 (166)
-        const span = card.querySelector('span') as HTMLElement | null;
-        if (span) {
-          const textVal = lerp(255, 166, muteFactor);
-          span.style.color = `rgb(${textVal}, ${textVal}, ${textVal})`;
+          // text: #fff (255) → #a6a6a6 (166)
+          const span = card.querySelector('span') as HTMLElement | null;
+          if (span) {
+            const textVal = lerp(255, 166, muteFactor);
+            span.style.color = `rgb(${textVal}, ${textVal}, ${textVal})`;
+          }
+        } else {
+          // Light mode:
+          // bg: #ffffff (255) → #f5f5f5 (245)
+          const bgVal = lerp(255, 245, muteFactor);
+          card.style.backgroundColor = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
+
+          // border: rgba(0,0,0,0.1) → match bg
+          const borderAlpha = lerp(10, 0, muteFactor);
+          card.style.borderColor = muteFactor > 0.5
+            ? `rgb(${bgVal}, ${bgVal}, ${bgVal})`
+            : `rgba(0, 0, 0, ${borderAlpha / 100})`;
+
+          // text: #0d0d0d (13) → #9ca3af (156)
+          const span = card.querySelector('span') as HTMLElement | null;
+          if (span) {
+            const textVal = lerp(13, 156, muteFactor);
+            span.style.color = `rgb(${textVal}, ${textVal}, ${textVal})`;
+          }
         }
       });
 
@@ -181,13 +181,13 @@ function PromptCardRow({
             href={`/gc?p=${encodeURIComponent(item.text)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group shrink-0 w-[250px] sm:w-[275px] md:w-[300px] h-[70px] sm:h-[80px] px-3 py-1.5 sm:py-3 rounded-sm bg-white hover:bg-secondary border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] flex flex-col justify-center transition-colors duration-150 cursor-pointer select-none text-left whitespace-normal overflow-hidden"
+            className="group shrink-0 w-[250px] sm:w-[275px] md:w-[300px] h-[70px] sm:h-[80px] px-3 py-1.5 sm:py-3 rounded-sm bg-white hover:bg-secondary border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] flex flex-col justify-center transition-colors duration-150 cursor-pointer select-none text-left whitespace-normal overflow-hidden"
           >
             <span className="text-[14px] sm:text-base leading-[1.3] text-foreground transition-colors line-clamp-4 whitespace-normal break-words">
-              {item.text}{" "}
+              {item.text}
               <AnimatedArrowUpRight
                 size={15}
-                className="inline-flex align-middle shrink-0 text-foreground transition-colors -translate-y-[0.5px]"
+                className="inline-flex align-middle shrink-0 text-muted-foreground group-hover:text-foreground transition-colors -translate-y-[0.5px]"
               />
             </span>
           </Link>
@@ -201,7 +201,7 @@ export default function NotFound() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
-    <div className="relative w-screen h-[100dvh] overflow-hidden bg-black text-foreground flex flex-col justify-between items-center select-none">
+    <div className="relative w-screen h-[100dvh] overflow-hidden bg-background text-foreground flex flex-col justify-between items-center select-none">
       <style>{`
         @keyframes marquee-to-left {
           0% { transform: translate3d(0, 0, 0); }
@@ -228,6 +228,12 @@ export default function NotFound() {
         .marquee-row:hover .marquee-track-left,
         .marquee-row:hover .marquee-track-right {
           animation-play-state: paused;
+        }
+        .dark [data-prompt-card]:hover {
+          background-color: #383838 !important;
+        }
+        html:not(.dark) [data-prompt-card]:hover {
+          background-color: #f4f4f5 !important;
         }
         .mask-top-fade {
           -webkit-mask-image: linear-gradient(
@@ -278,26 +284,26 @@ export default function NotFound() {
       </div>
 
       {/* Center 404 Section: Dead center of the viewport */}
-      <main className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none select-none px-4">
-        <div className="pointer-events-auto text-center flex flex-col items-center max-w-lg w-full">
-          <h1 className="text-8xl sm:text-9xl md:text-[140px] font-bold tracking-tight text-[#b4b4b4] leading-none select-none font-sans">
+      <main className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4">
+        <div className="pointer-events-none text-center flex flex-col items-center max-w-lg w-full pb-10 sm:pb-20">
+          <h1 className="text-[202px] sm:text-[404px] font-bold text-foreground/10 dark:text-[#b4b4b4] leading-none select-none pointer-events-none">
             404
           </h1>
-          <p className="text-xl font-semibold text-white mt-2 sm:mt-3 select-none tracking-tight font-sans">
+          <p className="text-[22px] sm:text-[44px] font-semibold text-foreground/90 dark:text-[#b4b4b4] leading-none select-none pointer-events-none">
             Page not found
           </p>
 
-          <div className="flex items-center justify-center gap-3 mt-6 sm:mt-8">
+          <div className="pointer-events-auto flex items-center justify-center gap-3 mt-6 sm:mt-8">
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>
             <Link
               href="/gc"
-              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Ask CloseAI
               <AnimatedArrowUpRight size={15} />

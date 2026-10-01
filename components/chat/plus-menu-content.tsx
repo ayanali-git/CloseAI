@@ -11,6 +11,8 @@ import {
   Image as ImageIcon,
   FilePlus,
   Sparkles,
+  Files,
+  Images,
 } from "lucide-react";
 import {
   DropdownMenuItem,
@@ -955,7 +957,7 @@ export function PlusMenuContent({
           onClick={onAddPhotos}
           className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
-          <Paperclip className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Images className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
         </DropdownMenuItem>
 
@@ -968,7 +970,7 @@ export function PlusMenuContent({
           className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <AnimatedComingSoonText label="Web search" comingSoonText="Coming soon" />
+          <span>Web search</span>
         </DropdownMenuItem>
 
         {/* Divider with text: Log in to use */}
@@ -994,7 +996,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
-          <FilePlus className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Files className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
         </DropdownMenuItem>
 

@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
                 code: 'LIMIT_EXCEEDED',
                 limit: usageCheck.limit,
                 remaining: usageCheck.remaining,
-                upgradeUrl: '/upgrade',
+                upgradeUrl: '/product/plans',
             }, { status: 429 });
         }
 
