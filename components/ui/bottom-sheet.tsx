@@ -193,7 +193,10 @@ export function BottomSheet({
   const clampCap = Math.min(Math.max(maxSnap, 0.35), 0.98);
   const clampedSnap =
     typeof snapValue === "number" ? Math.min(snapValue, clampCap) : snapValue;
-  const maxHeightCss = `${Math.round(clampCap * 100)}dvh`;
+  const maxHeightCss =
+    clampedSnap === "auto"
+      ? `${Math.round(Math.max(clampCap, 0.95) * 100)}dvh`
+      : `${Math.round(clampCap * 100)}dvh`;
   const heightStyle = isMobileScreen
     ? clampedSnap === "auto"
       ? { maxHeight: maxHeightCss }

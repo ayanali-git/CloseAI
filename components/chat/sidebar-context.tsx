@@ -6,6 +6,8 @@ import { Chat, chatService } from '@/lib/chat-service';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/hooks/use-auth';
 
+const DESKTOP_BREAKPOINT = 1280;
+
 interface SidebarContextType {
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,8 +39,15 @@ export function SidebarProvider({
 }) {
   const { user } = useAuth();
   const pathname = usePathname();
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(defaultOpen);
-  const [mounted, setMounted] = useState<boolean>(false);
+
+  // Desktop preference memory (persisted to cookie on desktop)
+  const desktopPreferenceRef = useRef<boolean>(defaultOpen);
+  const isDesktopRef = useRef<boolean>(true);
+  const prevPathnameRef = useRef<string | null>(null);
+
+  // Initial state MUST match server-rendered defaultOpen for hydration
+  const [sidebarOpen, setSidebarOpenRaw] = useState<boolean>(defaultOpen);
+
   const [chats, setChats] = useState<Chat[]>([]);
   const [isChatsLoading, setIsChatsLoading] = useState<boolean>(true);
   const deletedChatIdsRef = useRef<Set<string>>(new Set());
@@ -61,14 +70,10 @@ export function SidebarProvider({
 
   const deleteChat = useCallback(
     async (chatIdToDelete: string) => {
-      // 1. Immediately track as deleted
       deletedChatIdsRef.current.add(chatIdToDelete);
-      // 2. Instantly remove from local sidebar state (0ms)
       setChats((prev) => prev.filter((c) => c.id !== chatIdToDelete));
-      // 3. Delete in database asynchronously
       try {
         await chatService.deleteChat(supabase, chatIdToDelete);
-        // Retain in deleted set for 5s to prevent concurrent loadChats races
         setTimeout(() => {
           deletedChatIdsRef.current.delete(chatIdToDelete);
         }, 5000);
@@ -91,6 +96,7 @@ export function SidebarProvider({
     }
   }, [user, loadChats]);
 
+  // Persist sidebar state to cookie only for desktop
   const persistSidebarState = (open: boolean) => {
     try {
       if (typeof document !== 'undefined') {
@@ -99,44 +105,78 @@ export function SidebarProvider({
     } catch (e) {}
   };
 
-  // Set mounted on client; on medium and small screens (< 1280px), mobile drawer is closed by default
+  // On mount: sync desktop preference and set initial pathname
   useEffect(() => {
-    setMounted(true);
-    if (window.innerWidth < 1280) {
-      setSidebarOpen(false);
-    }
-  }, []);
+    const isDesktop = window.innerWidth >= DESKTOP_BREAKPOINT;
+    isDesktopRef.current = isDesktop;
 
-  // Whenever user navigates on medium and small screens (< 1280px), automatically close the mobile drawer
+    if (isDesktop) {
+      desktopPreferenceRef.current = defaultOpen;
+      setSidebarOpenRaw(defaultOpen);
+    } else {
+      setSidebarOpenRaw(false);
+    }
+
+    prevPathnameRef.current = pathname;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // On navigation: automatically close the mobile drawer on route changes,
+  // but skip on the first render (so no flash-close on mount) and leave desktop untouched.
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1280) {
-      setSidebarOpen(false);
+    if (prevPathnameRef.current === null) {
+      prevPathnameRef.current = pathname;
+      return;
+    }
+    if (pathname === prevPathnameRef.current) return;
+    prevPathnameRef.current = pathname;
+
+    if (typeof window !== 'undefined' && window.innerWidth < DESKTOP_BREAKPOINT) {
+      setSidebarOpenRaw(false);
     }
   }, [pathname]);
 
-  // Handle window resize between medium and big screens
+  // Handle window resize crossing between mobile and desktop
   useEffect(() => {
+    let prevIsDesktop = isDesktopRef.current;
+
     const handleResize = () => {
-      if (window.innerWidth < 1280) {
-        setSidebarOpen(false);
+      const nowDesktop = window.innerWidth >= DESKTOP_BREAKPOINT;
+      if (nowDesktop === prevIsDesktop) return; // Didn't cross the breakpoint
+
+      isDesktopRef.current = nowDesktop;
+      prevIsDesktop = nowDesktop;
+
+      if (nowDesktop) {
+        // Mobile → Desktop: restore the user's desktop preference!
+        setSidebarOpenRaw(desktopPreferenceRef.current);
+      } else {
+        // Desktop → Mobile: close the overlay drawer (do not touch desktop cookie)
+        setSidebarOpenRaw(false);
       }
     };
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const toggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => {
+    setSidebarOpenRaw((prev) => {
       const next = !prev;
-      persistSidebarState(next);
+      if (isDesktopRef.current) {
+        desktopPreferenceRef.current = next;
+        persistSidebarState(next);
+      }
       return next;
     });
   }, []);
 
   const handleSetSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> = useCallback((action) => {
-    setSidebarOpen((prev) => {
+    setSidebarOpenRaw((prev) => {
       const next = typeof action === 'function' ? action(prev) : action;
-      persistSidebarState(next);
+      if (isDesktopRef.current) {
+        desktopPreferenceRef.current = next;
+        persistSidebarState(next);
+      }
       return next;
     });
   }, []);

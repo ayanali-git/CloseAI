@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { CloseAIIcon } from "@/components/brand/logo";
 import { Globe, ArrowUpRight, Copy, Copyright } from "lucide-react";
-import { AnimatedArrowUpRight, AnimatedComingSoonText } from "@/components/ui/animated";
+import { AnimatedArrowUpRight } from "@/components/ui/animated";
+import { LangDropdownMenu } from "@/components/ui/lang-dropdown-menu";
 
 export function Footer() {
   return (
@@ -395,7 +396,6 @@ export function Footer() {
                     className="inline-flex items-center gap-1 text-foreground transition-colors"
                   >
                     <span>Deployment Safety</span>
-                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
                 <li>
@@ -463,36 +463,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright, Center Language, & Social Links (Single divider above) */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-[15px] text-muted-foreground">
-          {/* Left: Brand & Copyright */}
-          <div className="flex flex-wrap items-center justify-center text-base md:justify-start gap-x-1 text-center md:text-left">
-            <Copyright className="w-4 h-4" />
-            <span className="text-muted-foreground/80">
-              2026 CloseAI. All rights reserved.
-            </span>
-          </div>
-
-          {/* Center: Language Switcher (disabled — Coming soon on hover/tap) */}
-          <div className="flex items-center justify-center">
-            <button
-              type="button"
-              aria-disabled="true"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-              className="group flex items-center text-base gap-1.5 px-4 py-2 rounded-full cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-black/60 dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60 dark:text-white/60 text-muted-foreground transition-colors whitespace-nowrap"
-            >
-              <Globe className="w-4 h-4 text-muted-foreground shrink-0" />
-              <AnimatedComingSoonText
-                label="English"
-                comingSoonText="Coming soon"
-                align="start"
-              />
-            </button>
-          </div>
-
-          {/* Right / Middle: Social Links with ArrowUpRight Icons */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-base text-muted-foreground">
+          {/* Center: Social Links with ArrowUpRight Icons */}
           <div className="footer-group flex flex-wrap text-base items-center justify-center md:justify-end gap-x-5 gap-y-2">
             <a
               href="https://x.com/ayanali_x"
@@ -530,6 +502,18 @@ export function Footer() {
               <span>LinkedIn</span>
               <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </a>
+          </div>
+          {/* Left: Brand & Copyright */}
+          <div className="flex flex-wrap items-center justify-center text-base md:justify-start gap-x-1 text-center md:text-left">
+            <Copyright className="w-4 h-4" />
+            <span className="text-muted-foreground">
+              2026 CloseAI. All rights reserved.
+            </span>
+          </div>
+
+          {/* Right: Language Switcher */}
+          <div className="flex items-center justify-center">
+            <LangDropdownMenu />
           </div>
         </div>
       </div>

@@ -23,7 +23,10 @@ function NewChatContent() {
   const { user, loading, isSigningOut } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const queryPrompt = searchParams?.get("q")?.trim() || "";
+  const queryPrompt =
+    searchParams?.get("p")?.trim() ||
+    searchParams?.get("q")?.trim() ||
+    "";
 
   const {
     sidebarOpen,
@@ -84,7 +87,7 @@ function NewChatContent() {
     setMessage("");
     setUploadedFiles([]);
     setNewChatKey((k) => k + 1);
-    if (typeof window !== "undefined" && window.innerWidth < 1025) {
+    if (typeof window !== "undefined" && window.innerWidth < 1280) {
       setSidebarOpen(false);
     }
   };

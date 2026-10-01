@@ -12,6 +12,7 @@ export interface DropdownOption<T extends string = string> {
   label: string;
   disabled?: boolean;
   indicatorColor?: string;
+  divider?: boolean;
 }
 
 export interface NativeDropdownMenuProps<T extends string = string> {
@@ -41,7 +42,7 @@ function useIsSmallOrTouch() {
   const [isSmall, setIsSmall] = React.useState(false);
 
   React.useEffect(() => {
-    const mq = window.matchMedia("(max-width: 1024px), (pointer: coarse)");
+    const mq = window.matchMedia("(max-width: 1024px)");
     const update = () => setIsSmall(mq.matches);
     update();
     mq.addEventListener("change", update);
@@ -688,7 +689,7 @@ export function NativeDropdownMenu<T extends string = string>({
                 isScrollable
                   ? "overflow-y-auto overscroll-contain"
                   : "overflow-hidden touch-none overscroll-none",
-                !isSmallOrTouch && "max-h-[300px]"
+                !isSmallOrTouch && "max-h-[var(--available-height,360px)]"
               )}
               style={
                 isSmallOrTouch && layout
@@ -697,38 +698,42 @@ export function NativeDropdownMenu<T extends string = string>({
               }
             >
               {options.map((option, index) => (
-                <SelectPrimitive.Item
-                  key={option.value}
-                  value={option.value}
-                  disabled={option.disabled}
-                  data-option-index={index}
-                  className={cn(
-                    "relative flex w-full cursor-pointer select-none items-center justify-between rounded-sm px-3 py-2 text-[15px] outline-none transition-colors",
-                    "text-foreground/90 hover:bg-secondary hover:text-foreground",
-                    "focus:bg-secondary focus:text-foreground",
-                    "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
-                    isGuest
-                      ? "dark:hover:bg-[#383838] dark:focus:bg-[#383838] dark:data-[highlighted]:bg-[#383838]"
-                      : "dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] dark:data-[highlighted]:bg-[#2f2f2f]",
-                    "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-                    itemClassName
-                  )}
-                >
-                  <div className="inline-flex items-center gap-2 truncate">
-                    {option.indicatorColor && (
-                      <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0"
-                        style={{ backgroundColor: option.indicatorColor }}
-                      />
+                <React.Fragment key={option.value}>
+                  <SelectPrimitive.Item
+                    value={option.value}
+                    disabled={option.disabled}
+                    data-option-index={index}
+                    className={cn(
+                      "relative flex w-full cursor-pointer select-none items-center justify-between rounded-sm px-3 py-2 text-[15px] outline-none transition-colors",
+                      "text-foreground/90 hover:bg-secondary hover:text-foreground",
+                      "focus:bg-secondary focus:text-foreground",
+                      "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
+                      isGuest
+                        ? "dark:hover:bg-[#383838] dark:focus:bg-[#383838] dark:data-[highlighted]:bg-[#383838]"
+                        : "dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] dark:data-[highlighted]:bg-[#2f2f2f]",
+                      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+                      itemClassName
                     )}
-                    <SelectPrimitive.ItemText className="truncate">
-                      {option.label}
-                    </SelectPrimitive.ItemText>
-                  </div>
-                  <SelectPrimitive.ItemIndicator className="ml-auto flex items-center justify-center">
-                    <Check className="w-4 h-4 shrink-0 text-foreground" />
-                  </SelectPrimitive.ItemIndicator>
-                </SelectPrimitive.Item>
+                  >
+                    <div className="inline-flex items-center gap-2 truncate">
+                      {option.indicatorColor && (
+                        <span
+                          className="w-2.5 h-2.5 rounded-full shrink-0"
+                          style={{ backgroundColor: option.indicatorColor }}
+                        />
+                      )}
+                      <SelectPrimitive.ItemText className="truncate">
+                        {option.label}
+                      </SelectPrimitive.ItemText>
+                    </div>
+                    <SelectPrimitive.ItemIndicator className="ml-auto flex items-center justify-center">
+                      <Check className="w-4 h-4 shrink-0 text-foreground" />
+                    </SelectPrimitive.ItemIndicator>
+                  </SelectPrimitive.Item>
+                  {option.divider && (
+                    <SelectPrimitive.Separator className="my-1.5 -mx-1 h-[1px] bg-neutral-200 dark:bg-[#383838] border-0 shrink-0 block" />
+                  )}
+                </React.Fragment>
               ))}
             </SelectPrimitive.List>
           </SelectPrimitive.Popup>

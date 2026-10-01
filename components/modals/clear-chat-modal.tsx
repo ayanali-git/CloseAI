@@ -74,7 +74,7 @@ export function ClearChatModal({
           <button
             type="button"
             onClick={handleNewChat}
-            className="w-full h-11 rounded-full bg-[#2f2f2f] text-foreground hover:bg-secondary dark:hover:bg-[#383838] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-[#2f2f2f] text-foreground hover:bg-secondary dark:hover:bg-[#383838] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-colors cursor-pointer select-none"
           >
             New chat
           </button>

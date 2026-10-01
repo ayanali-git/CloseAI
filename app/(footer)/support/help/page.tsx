@@ -229,23 +229,10 @@ export default function HelpPage() {
         </div>
 
         {filteredFAQs.length === 0 ? (
-          <div className="text-center py-12 px-4 rounded-3xl bg-card">
-            <p className="text-xl text-foreground font-medium mb-1">
+          <div className="text-center py-12 px-4">
+            <p className="text-base text-foreground font-medium mb-1">
               No questions found
             </p>
-            <p className="text-base text-muted-foreground mb-4">
-              We couldn&apos;t find anything matching &quot;{searchQuery}&quot;
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory(null);
-              }}
-              className="text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary px-4 py-2 rounded-sm transition-colors"
-            >
-              Reset filter & search
-            </button>
           </div>
         ) : (
           <div>

@@ -523,7 +523,7 @@ export default function GuestChatSessionPage() {
                     onMouseEnter={() => setIsSidebarBtnHovered(true)}
                     onMouseLeave={() => setIsSidebarBtnHovered(false)}
                     onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-10 h-10 rounded-full bg-white border border-border/80 dark:border-none dark:bg-[#383838] text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-10 h-10 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-4 h-4" />
@@ -581,7 +581,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>
@@ -591,7 +591,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -614,14 +614,14 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
@@ -687,7 +687,7 @@ export default function GuestChatSessionPage() {
                                 isAutoScrollPinnedRef.current = true;
                                 scrollToBottom("smooth");
                               }}
-                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] text-foreground flex items-center justify-center transition-all cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
+                              className="group w-10 h-10 rounded-full bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
                               aria-label="Scroll to bottom"
                             >
                               <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />

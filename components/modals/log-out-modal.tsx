@@ -79,7 +79,7 @@ export function LogoutModal({
             type="button"
             disabled={isLoggingOut}
             onClick={() => onOpenChange(false)}
-            className="absolute top-0 right-0 p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
+            className="absolute top-0 right-0 p-3 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />

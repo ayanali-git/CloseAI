@@ -7,13 +7,13 @@ import {
   ChevronRight,
   CreditCard,
   Lock,
-  Search,
   Settings2,
   Sparkles,
   User,
   UserCircle,
   X,
 } from "lucide-react";
+import { AnimatedSearchClose } from "@/components/ui/animated";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { LoginModal } from "@/components/modals/log-in-modal";
 import { AccountPanel } from "@/components/modals/settings/account-panel";
@@ -75,6 +75,9 @@ export function SettingsModal({
   // True once the section content has been scrolled away from the top.
   const [scrolled, setScrolled] = useState(false);
   const [query, setQuery] = useState("");
+  const [isSearchTabFocused, setIsSearchTabFocused] = useState(false);
+  const isSearchKeyboardNavRef = useRef(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [navEl, setNavEl] = useState<HTMLElement | null>(null);
@@ -106,10 +109,35 @@ export function SettingsModal({
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Track Tab navigation vs mouse click for search bar focus ring
+  useEffect(() => {
+    if (!open) {
+      setIsSearchTabFocused(false);
+      return;
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        isSearchKeyboardNavRef.current = true;
+      }
+    };
+    const handleMouseDown = () => {
+      isSearchKeyboardNavRef.current = false;
+    };
+    window.addEventListener("keydown", handleKeyDown, true);
+    window.addEventListener("mousedown", handleMouseDown, true);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown, true);
+      window.removeEventListener("mousedown", handleMouseDown, true);
+    };
+  }, [open]);
+
   // Reset search whenever the modal closes or the search bar goes away
   // (e.g. the user signs out while the modal is open)
   useEffect(() => {
-    if (!open || !showSearch) setQuery("");
+    if (!open || !showSearch) {
+      setQuery("");
+      setIsSearchTabFocused(false);
+    }
   }, [open, showSearch]);
 
   const [lastSection, setLastSection] = useState<SettingsSection>("general");
@@ -194,10 +222,9 @@ export function SettingsModal({
         unpadded
         className={cn(
           "rounded-t-3xl min-[1025px]:rounded-3xl",
-          // Guests get a taller modal so the 12-item language dropdown has room
           isGuest
-            ? "min-[1025px]:max-w-[900px] min-[1025px]:h-[min(500px,90vh)]"
-            : "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(800px,90vh)]",
+            ? "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(500px,90vh)]"
+            : "min-[1025px]:max-w-[750px] min-[1025px]:h-[min(500px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
             "bg-white dark:bg-[#2f2f2f] border border-border/80"
@@ -235,21 +262,66 @@ export function SettingsModal({
               </button>
               {showSearch ? (
                 <div className="group relative">
-                  <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground cursor-text" />
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    onClick={() => {
+                      if (query) {
+                        setQuery("");
+                        searchInputRef.current?.focus();
+                      } else {
+                        searchInputRef.current?.focus();
+                      }
+                    }}
+                    className={cn(
+                      "absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
+                      query
+                        ? "text-foreground cursor-pointer hover:opacity-80"
+                        : "text-muted-foreground group-focus-within:text-foreground cursor-text"
+                    )}
+                    aria-label={query ? "Clear search" : "Search"}
+                  >
+                    <AnimatedSearchClose
+                      isOpen={Boolean(query.trim())}
+                      size={16}
+                    />
+                  </button>
                   <input
+                    ref={searchInputRef}
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => {
+                      if (e.key === "Tab" && !isSearchTabFocused && !e.shiftKey) {
+                        e.preventDefault();
+                        setIsSearchTabFocused(true);
+                        return;
+                      }
                       if (e.key === "Escape" && query) {
                         e.stopPropagation();
                         setQuery("");
                       }
                     }}
+                    onFocus={() => {
+                      if (isSearchKeyboardNavRef.current) {
+                        setIsSearchTabFocused(true);
+                      }
+                    }}
+                    onBlur={() => {
+                      setIsSearchTabFocused(false);
+                    }}
+                    onMouseDown={() => {
+                      isSearchKeyboardNavRef.current = false;
+                      setIsSearchTabFocused(false);
+                    }}
                     placeholder="Search"
                     aria-label="Search"
                     // 16px on small screens so iOS Safari doesn't zoom the page on focus
-                    className="w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] focus:placeholder:text-foreground placeholder:text-muted-foreground outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                    className={cn(
+                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] focus:placeholder:text-foreground placeholder:text-muted-foreground outline-none focus:outline-none transition-colors",
+                      isSearchTabFocused &&
+                        "ring-2 ring-ring ring-offset-2 ring-offset-background"
+                    )}
                   />
                 </div>
               ) : null}
@@ -259,7 +331,7 @@ export function SettingsModal({
               ref={setNavEl}
               className={cn(
                 // min-h-0 lets the list shrink to the sheet so overflow can be detected
-                "flex-1 min-h-0 px-2 pt-1.5 pb-4",
+                "flex-1 min-h-0 px-2 pt-1 pb-4",
                 isNavOverflowing
                   ? "overflow-y-auto overscroll-contain"
                   : // Everything fits: no scrollbar, no touch drag, no rubber-band
@@ -285,7 +357,7 @@ export function SettingsModal({
                         ? // Selected row: same lighter bg as the dropdown highlight
                           cn("bg-secondary text-foreground", darkSelected)
                         : // Hover row: same lighter bg as the dropdown highlight
-                          cn("text-muted-foreground hover:bg-secondary/70", darkHover)
+                          cn("text-muted-foreground hover:bg-secondary", darkHover)
                     )}
                   >
                     <Icon className="w-4 h-4 shrink-0 group-hover:text-foreground" />
@@ -357,8 +429,6 @@ export function SettingsModal({
           </section>
         </div>
       </BottomSheet>
-
-      <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
     </>
   );
 }
@@ -396,7 +466,7 @@ export function SettingsRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-3 border-b border-border/80  last:border-b-0">
+    <div className="flex items-center justify-between gap-4 py-3 border-b border-border/80 last:border-b-0">
       <div className="min-w-0 pr-3">
         <p className="text-[15px] text-foreground leading-snug">{label}</p>
         {description ? (

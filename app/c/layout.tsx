@@ -1,11 +1,17 @@
 import React from 'react';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { SidebarProvider } from '@/components/chat/sidebar-context';
 
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
+  const userAgent = headers().get('user-agent') || '';
+  const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
   const cookieStore = cookies();
   const sidebarCookie = cookieStore.get('sidebar_open');
-  const defaultOpen = sidebarCookie !== undefined ? sidebarCookie.value === 'true' : true;
+  const defaultOpen = isMobile
+    ? false
+    : sidebarCookie !== undefined
+    ? sidebarCookie.value === 'true'
+    : true;
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>

@@ -623,7 +623,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               disabled={isTyping || isUploading}
               onMouseEnter={updateMenuPosition}
               onKeyDown={handlePillButtonKeyDown}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Attach files and more"
             >
               <Plus className="w-5 h-5" />

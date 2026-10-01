@@ -160,17 +160,13 @@ export function applyStoredAppearance() {
   document.documentElement.dataset.accent = getAccentColor();
 }
 
+import languagesData from "@/data/languages.json";
+
 const LANGUAGE_NAMES: Record<string, string> = {
-  en: "English",
-  es: "Spanish",
-  fr: "French",
-  de: "German",
-  pt: "Portuguese",
-  ar: "Arabic",
-  zh: "Chinese",
-  ja: "Japanese",
-  hi: "Hindi",
-  gu: "Gujarati",
+  en: "English (India)",
+  ...Object.fromEntries(
+    (languagesData as Array<{ code: string; name: string }>).map((l) => [l.code, l.name])
+  ),
 };
 
 export function buildAssistantContext(): string {

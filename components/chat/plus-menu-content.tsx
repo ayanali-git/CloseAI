@@ -953,7 +953,7 @@ export function PlusMenuContent({
         {/* 1. Attach photos */}
         <DropdownMenuItem
           onClick={onAddPhotos}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <Paperclip className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
@@ -965,7 +965,7 @@ export function PlusMenuContent({
             if (onOpenLoginModal) onOpenLoginModal();
             else if (onOpenWebSearchModal) onOpenWebSearchModal();
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Web search" comingSoonText="Coming soon" />
@@ -981,7 +981,7 @@ export function PlusMenuContent({
           onClick={() => {
             if (onOpenLoginModal) onOpenLoginModal();
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
@@ -992,7 +992,7 @@ export function PlusMenuContent({
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.();
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <FilePlus className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
@@ -1025,7 +1025,7 @@ export function PlusMenuContent({
               onMouseEnter={() => setIsSelectModelsHovered(true)}
               onMouseLeave={() => setIsSelectModelsHovered(false)}
               chevronClassName="-ml-0.5"
-              className="flex items-center px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+              className="flex items-center px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
             >
               <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
               <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1050,7 +1050,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsModelSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Model</span>
                   <ModelMarqueeText
@@ -1073,7 +1073,7 @@ export function PlusMenuContent({
                         onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                         {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
@@ -1091,7 +1091,7 @@ export function PlusMenuContent({
                         onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                         {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
@@ -1108,7 +1108,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsEffortSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Effort</span>
                   <ModelMarqueeText
@@ -1130,7 +1130,7 @@ export function PlusMenuContent({
                       onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                       onMouseEnter={() => setHoveredTierIdx(idx)}
                       onMouseLeave={() => setHoveredTierIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
                       {tierIndex === idx && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
@@ -1146,7 +1146,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsSpeedSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="shrink-0 font-medium mr-1.5">Speed</span>
                   <ModelMarqueeText
@@ -1167,7 +1167,7 @@ export function PlusMenuContent({
                       onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.()}
                       onMouseEnter={() => setHoveredSpeedIdx(idx)}
                       onMouseLeave={() => setHoveredSpeedIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
                       {speed === s.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
@@ -1181,7 +1181,7 @@ export function PlusMenuContent({
 
               {/* Row 4: Advanced Submenu */}
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
+                <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
                   <span className="shrink-0">Advanced</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent

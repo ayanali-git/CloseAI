@@ -16,9 +16,30 @@ import {
   setContrastMode,
   setDictationEnabled,
   setLanguagePref,
+  PREFERENCE_EVENT,
   type AccentColor,
   type ContrastMode,
 } from "@/lib/user-preferences";
+import languagesData from "@/data/languages.json";
+import type { DropdownOption } from "@/components/ui/native-dropdown-menu";
+
+interface LanguageItem {
+  code: string;
+  name: string;
+  nativeName: string;
+}
+
+const languageOptions: DropdownOption[] = [
+  { value: "auto", label: "Auto-detect" },
+  { value: "hi", label: "Hindi" },
+  { value: "gu", label: "Gujarati", divider: true },
+  ...((languagesData as LanguageItem[])
+    .filter((l) => l.code !== "hi" && l.code !== "gu")
+    .map((l) => ({
+      value: l.code,
+      label: l.name,
+    }))),
+];
 
 export function GeneralPanel() {
   const { theme, setTheme } = useTheme();
@@ -36,10 +57,15 @@ export function GeneralPanel() {
 
   useEffect(() => {
     setMounted(true);
-    setContrast(getContrastMode());
-    setAccent(getAccentColor());
-    setLanguage(getLanguagePref());
-    setDictation(getDictationEnabled());
+    const syncPrefs = () => {
+      setContrast(getContrastMode());
+      setAccent(getAccentColor());
+      setLanguage(getLanguagePref());
+      setDictation(getDictationEnabled());
+    };
+    syncPrefs();
+    window.addEventListener(PREFERENCE_EVENT, syncPrefs);
+    return () => window.removeEventListener(PREFERENCE_EVENT, syncPrefs);
   }, []);
 
   if (!mounted) {
@@ -119,20 +145,8 @@ export function GeneralPanel() {
             setLanguage(value);
             setLanguagePref(value);
           }}
-          options={[
-            { value: "auto", label: "Auto-detect" },
-            { value: "ar", label: "Arabic" },
-            { value: "zh", label: "Chinese" },
-            { value: "en", label: "English" },
-            { value: "fr", label: "French" },
-            { value: "de", label: "German" },
-            { value: "gu", label: "Gujarati" },
-            { value: "hi", label: "Hindi" },
-            { value: "it", label: "Italian" },
-            { value: "ja", label: "Japanese" },
-            { value: "pt", label: "Portuguese" },
-            { value: "es", label: "Spanish" },
-          ]}
+          options={languageOptions}
+          contentClassName="min-w-[190px]"
         />
       </SettingsRow>
 

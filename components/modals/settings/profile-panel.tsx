@@ -56,6 +56,7 @@ export function ProfilePanel() {
   const { plan, usage, loading: subLoading } = useSubscription();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
+  const usersubtitle = `@${username} · ${plan}`;
   const [saving, setSaving] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -176,7 +177,7 @@ export function ProfilePanel() {
         </div>
         <h3 className="mt-3 text-lg font-medium text-foreground">{displayName}</h3>
         <p className="text-sm text-muted-foreground">
-          @{handle} · {planLabel}
+          {usersubtitle}
         </p>
       </div>
 

@@ -322,6 +322,11 @@ export function Sidebar({
     "User";
   const planDisplay =
     userPlan === "ultra" ? "Ultra Pro" : userPlan === "pro" ? "Pro" : "Free";
+  const username =
+    user?.user_metadata?.username?.trim() ||
+    user?.user_metadata?.user_name?.trim() ||
+    user?.email?.split("@")[0] ||
+    "user";
   const userEmail = user?.email || (user ? "" : "Not signed in");
   const avatarUrl =
     user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
@@ -331,18 +336,22 @@ export function Sidebar({
   >("main");
   const [isMobileScreen, setIsMobileScreen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isReadyToAnimate, setIsReadyToAnimate] = useState(false);
 
   useEffect(() => {
-    const raf = requestAnimationFrame(() => {
-      setMounted(true);
-    });
+    setIsMobileScreen(window.innerWidth < 1280);
+    setMounted(true);
+
+    const timer = setTimeout(() => {
+      setIsReadyToAnimate(true);
+    }, 120);
+
     const checkMobile = () => {
       setIsMobileScreen(window.innerWidth < 1280);
     };
-    checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => {
-      cancelAnimationFrame(raf);
+      clearTimeout(timer);
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
@@ -389,17 +398,6 @@ export function Sidebar({
           </div>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <Link
-            href="/company/contact"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
-          >
-            <div className="flex items-center gap-2.5">
-              <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-              <span>Report a bug</span>
-            </div>
-          </Link>
-          <Link
             href="/support/terms"
             target="_blank"
             rel="noopener noreferrer"
@@ -422,6 +420,18 @@ export function Sidebar({
               <span>Privacy Policy</span>
             </div>
             <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+          </Link>
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
+          <Link
+            href="/company/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          >
+            <div className="flex items-center gap-2.5">
+              <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+              <span>Report a bug</span>
+            </div>
           </Link>
         </div>
       );
@@ -447,16 +457,24 @@ export function Sidebar({
             <span className="truncate">{userEmail}</span>
           </div>
           <div className="flex items-center justify-between px-2 py-2 rounded-xl bg-secondary/50">
-            <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
-                <AvatarFallback className="text-[14px] font-semibold">
+                <AvatarFallback className="text-[14px] font-semibold bg-secondary text-foreground">
                   {displayName.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              <span className="text-md font-medium truncate">
-                {displayName}
-              </span>
+              <div className="flex-1 min-w-0 text-left">
+                <p className="text-md font-medium truncate text-foreground leading-tight">
+                  {displayName}
+                </p>
+                <p
+                  className="text-sm text-muted-foreground leading-tight truncate"
+                  suppressHydrationWarning
+                >
+                  @{username}
+                </p>
+              </div>
             </div>
             <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />
           </div>
@@ -495,7 +513,10 @@ export function Sidebar({
               <p className="text-md font-medium truncate text-foreground leading-tight">
                 {displayName}
               </p>
-              <p className="text-sm text-muted-foreground leading-tight">
+              <p
+                className="text-sm text-muted-foreground leading-tight truncate"
+                suppressHydrationWarning
+              >
                 {planDisplay}
               </p>
             </div>
@@ -514,14 +535,17 @@ export function Sidebar({
                 <p className="text-md font-medium truncate text-foreground leading-tight">
                   {displayName}
                 </p>
-                <p className="text-sm text-muted-foreground leading-tight">
+                <p
+                  className="text-sm text-muted-foreground leading-tight truncate"
+                  suppressHydrationWarning
+                >
                   {planDisplay}
                 </p>
               </div>
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-102}
+              alignOffset={-108}
               className="w-64 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
             >
               <div className="flex items-center gap-2 px-2 py-2 text-md text-muted-foreground hover:text-foreground select-none">
@@ -529,16 +553,24 @@ export function Sidebar({
                 <span className="truncate">{userEmail}</span>
               </div>
               <DropdownMenuItem className="flex items-center justify-between px-2 py-2 rounded-xl cursor-pointer">
-                <div className="flex items-center gap-2.5 min-w-0">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                     <AvatarImage src={avatarUrl} />
-                    <AvatarFallback className="text-[14px] font-semibold">
+                    <AvatarFallback className="text-[14px] font-semibold bg-secondary text-foreground">
                       {displayName.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <span className="text-md font-medium truncate">
-                    {displayName}
-                  </span>
+                  <div className="flex-1 min-w-0 text-left">
+                    <p className="text-md font-medium truncate text-foreground leading-tight">
+                      {displayName}
+                    </p>
+                    <p
+                      className="text-sm text-muted-foreground leading-tight truncate"
+                      suppressHydrationWarning
+                    >
+                      @{username}
+                    </p>
+                  </div>
                 </div>
                 <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />
               </DropdownMenuItem>
@@ -622,7 +654,7 @@ export function Sidebar({
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-225}
+              alignOffset={-238}
               className="w-56 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
             >
               <DropdownMenuItem asChild>
@@ -653,19 +685,6 @@ export function Sidebar({
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link
-                  href="/company/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-                    <span>Report a bug</span>
-                  </div>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
                   href="/support/terms"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -690,6 +709,20 @@ export function Sidebar({
                     <span>Privacy Policy</span>
                   </div>
                   <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/company/contact"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                    <span>Report a bug</span>
+                  </div>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
@@ -719,7 +752,7 @@ export function Sidebar({
         key={chat.id}
         onClick={() => {
           onChatSelect(chat.id);
-          if (typeof window !== "undefined" && window.innerWidth < 1280) {
+          if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
             onToggle();
           }
         }}
@@ -865,7 +898,7 @@ export function Sidebar({
       {/* Mobile overlay backdrop */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-sidebar/50 xl:hidden transition-opacity duration-200",
+          "fixed inset-0 z-40 bg-sidebar/80 xl:hidden transition-opacity duration-200",
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -879,15 +912,17 @@ export function Sidebar({
         initial={false}
         animate={{ x: isMobileScreen && !isOpen ? "-100%" : 0 }}
         transition={
-          mounted && isMobileScreen ? SIDEBAR_SPRING : { duration: 0 }
+          isReadyToAnimate && mounted && isMobileScreen
+            ? SIDEBAR_SPRING
+            : { duration: 0 }
         }
         className={cn(
-          "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/50 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
+          "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/80 dark:border-white/10 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
           mounted &&
             "transition-[width] duration-300 ease-in-out will-change-[width]",
           // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
           // xl and up: normal in-flow sidebar (50px rail / 250px open), same as before.
-          "fixed xl:relative inset-y-0 left-0 w-[77.5%] max-w-[77.5%] sm:w-[250px] sm:max-w-[250px]",
+          "fixed xl:relative inset-y-0 left-0 w-[78%] max-w-[78%] sm:w-[250px] sm:max-w-[250px]",
           isOpen ? "z-50 xl:z-20" : "max-xl:z-50 xl:w-[50px]",
           // Before mount we don't know the screen size yet, so keep the closed
           // drawer out of sight (no flash on mobile page load).
@@ -980,6 +1015,7 @@ export function Sidebar({
                       onClick={() => {
                         onNewChat();
                         if (
+                          isOpen &&
                           typeof window !== "undefined" &&
                           window.innerWidth < 1280
                         ) {
@@ -1332,13 +1368,67 @@ export function Sidebar({
                   </Tooltip>
                 )}
 
+                {user ? (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-10 h-10 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                        onClick={() => setShowSearch(!showSearch)}
+                      >
+                        <AnimatedSearchClose open={showSearch} size={18} />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      sideOffset={5}
+                      className="text-md"
+                    >
+                      Search chats
+                    </TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onOpenLoginModal?.();
+                          if (
+                            isOpen &&
+                            typeof window !== "undefined" &&
+                            window.innerWidth < 1280
+                          ) {
+                            onToggle();
+                          }
+                        }}
+                        className="xl:hidden w-10 h-10 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground h dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                        aria-label="Search chats"
+                      >
+                        <Search className="w-4 h-4" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      sideOffset={5}
+                      className="text-md"
+                    >
+                      Search chats
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       variant="ghost"
                       size="icon"
                       style={{ cursor: "ew-resize" }}
-                      className="w-10 h-10 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary !cursor-ew-resize [&_*]:!cursor-ew-resize"
+                      className={cn(
+                        "w-10 h-10 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary !cursor-ew-resize [&_*]:!cursor-ew-resize",
+                        !user && "hidden xl:inline-flex"
+                      )}
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
                         setIsCloseBtnHovered(false);
@@ -1384,6 +1474,7 @@ export function Sidebar({
                 onClick={() => {
                   onNewChat();
                   if (
+                    isOpen &&
                     typeof window !== "undefined" &&
                     window.innerWidth < 1280
                   ) {
@@ -1436,6 +1527,7 @@ export function Sidebar({
                         onClick={() => {
                           onOpenLoginModal?.();
                           if (
+                            isOpen &&
                             typeof window !== "undefined" &&
                             window.innerWidth < 1280
                           ) {
@@ -1472,7 +1564,7 @@ export function Sidebar({
                             onClick={() => {
                               onOpenLoginModal?.();
                             }}
-                            className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center"
+                            className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
                           >
                             Log in
                           </button>
@@ -1481,7 +1573,7 @@ export function Sidebar({
                             onClick={() => {
                               onOpenLoginModal?.();
                             }}
-                            className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
+                            className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
                           >
                             Sign up for free
                           </button>
@@ -1495,7 +1587,7 @@ export function Sidebar({
 
             {/* Chat History Stream (Only for authenticated users) */}
             {user ? (
-              <div className="flex-1 px-2 overflow-y-auto border-t border-border/50 sidebar-scroll min-h-0">
+              <div className="flex-1 px-2 overflow-y-auto border-t border-border/80 dark:border-white/10  sidebar-scroll min-h-0">
                 {isLoading ? (
                   <div className="space-y-5 py-3 px-1 select-none">
                     {/* PINNED Skeleton Group */}
@@ -1618,7 +1710,7 @@ export function Sidebar({
               className={cn(
                 "mt-auto w-full pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 relative z-20 select-none",
                 user || isAuthLoading
-                  ? "px-[5px] border-t border-border/50"
+                  ? "px-[5px] border-t border-border/80 dark:border-white/10"
                   : "px-2"
               )}
             >
@@ -1655,7 +1747,7 @@ export function Sidebar({
                                   <div className="w-8 h-8 rounded-full shrink-0 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
                                   <div className="flex-1 min-w-0 space-y-1.5 animate-pulse">
                                     <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
-                                    <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                                    <div className="h-2.5 w-12 rounded bg-secondary/70 dark:bg-neutral-800/60" />
                                   </div>
                                 </>
                               ) : (
@@ -1671,10 +1763,10 @@ export function Sidebar({
                                       {displayName}
                                     </p>
                                     <p
-                                      className="text-sm text-muted-foreground leading-none"
+                                      className="text-sm text-muted-foreground leading-none truncate"
                                       suppressHydrationWarning
                                     >
-                                      {planDisplay}
+                                      {username}
                                     </p>
                                   </div>
                                 </>
@@ -1817,7 +1909,7 @@ export function Sidebar({
                               method: "POST",
                             }).catch(() => {});
                           }}
-                          className="w-7 h-7 -mr-1 -mt-1 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
+                          className="p-1.5 -mr-1 -mt-1 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
                           aria-label="Close"
                         >
                           <X className="w-4 h-4" />
@@ -1830,7 +1922,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => onOpenLoginModal?.()}
-                        className="w-full mt-1 h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="w-full mt-1 h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>

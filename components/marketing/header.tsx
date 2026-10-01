@@ -586,7 +586,7 @@ export function MarketingHeader() {
       {/* Backdrop blur overlay when mega menu is active */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 top-14 z-40 bg-background/50 pointer-events-none",
+          "fixed inset-y-0 left-0 top-14 z-40 bg-background/80 pointer-events-none",
           activeMenu ? "opacity-100 pointer-events-auto" : "opacity-0"
         )}
         style={{
@@ -746,12 +746,13 @@ export function MarketingHeader() {
                         className="flex items-center gap-1.5"
                       >
                         <span>Ask CloseAI</span>
-                        <AnimatedArrowUpRight className="w-4 h-4" />
                       </Link>
                     </Button>
 
                     <Link
                       href="/product/api-docs"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
                       className="inline-flex items-center gap-1.5 text-md font-normal text-muted-foreground hover:text-foreground transition-colors px-2 py-1"
                     >

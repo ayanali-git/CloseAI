@@ -198,7 +198,7 @@ export default function ActiveChatPage() {
     const shouldReopenSidebar =
       prevSidebarOpenRef.current !== null
         ? prevSidebarOpenRef.current
-        : typeof window !== "undefined" && window.innerWidth >= 1025;
+        : typeof window !== "undefined" && window.innerWidth >= 1280;
     const shouldReopenDrawer = prevFilesDrawerOpenRef.current === true;
 
     requestAnimationFrame(() => {

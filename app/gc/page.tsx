@@ -32,7 +32,10 @@ function GuestChatContent() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const queryPrompt = searchParams?.get("q")?.trim() || "";
+  const queryPrompt =
+    searchParams?.get("p")?.trim() ||
+    searchParams?.get("q")?.trim() ||
+    "";
 
   const {
     sidebarOpen,
@@ -213,7 +216,7 @@ function GuestChatContent() {
                     onMouseEnter={() => setIsSidebarBtnHovered(true)}
                     onMouseLeave={() => setIsSidebarBtnHovered(false)}
                     onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-10 h-10 rounded-full bg-white border border-border/80 dark:border-none dark:bg-[#383838] text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-10 h-10 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-4 h-4" />
@@ -271,7 +274,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>
@@ -281,7 +284,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -304,14 +307,14 @@ function GuestChatContent() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-sm font-medium transition-all cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-sm font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="hidden sm:flex h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
@@ -366,7 +369,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 250);
                     }}
-                    className="h-12 px-4 rounded-full text-sm sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                    className="h-12 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
                   >
                     What can you do?
                   </button>
