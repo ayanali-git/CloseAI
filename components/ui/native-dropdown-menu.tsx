@@ -674,9 +674,9 @@ export function NativeDropdownMenu<T extends string = string>({
               isGuest
                 ? // Guest: solid surface, exactly like the guest settings modal.
                   // No translucent bg and no backdrop blur.
-                  "!bg-white dark:!bg-[#2f2f2f] ring-1 ring-border/80 dark:ring-white/10 backdrop-blur-none"
+                  "!bg-white dark:!bg-[#2f2f2f] border border-border/80 dark:border-white/10 backdrop-blur-none"
                 : // Logged-in: frosted glass (no outline in dark mode, as before)
-                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm ring-1 ring-border/80 dark:ring-0",
+                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
               contentClassName
             )}
           >
@@ -687,7 +687,7 @@ export function NativeDropdownMenu<T extends string = string>({
                 // Scrollable only when the rows really overflow.
                 // Otherwise: no scrollbar, no touch pan, no wheel scroll.
                 isScrollable
-                  ? "overflow-y-auto overscroll-contain"
+                  ? "overflow-y-auto overscroll-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                   : "overflow-hidden touch-none overscroll-none",
                 !isSmallOrTouch && "max-h-[var(--available-height,360px)]"
               )}

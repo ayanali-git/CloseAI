@@ -451,7 +451,7 @@ export function Sidebar({
       side="right"
       align="start"
       sideOffset={15}
-      className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none overflow-hidden text-left z-50 select-none shadow-lg"
+      className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none overflow-hidden text-left z-50 select-none"
     >
       {/* Web Search Simple Sky Blue & Soft Lilac Gradient Banner with DiceBear Glass SVG */}
       <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
@@ -2223,7 +2223,7 @@ export function Sidebar({
                           onToggle();
                         }
                       }}
-                      className="h-12 px-5 rounded-full flex items-center gap-2.5 bg-send-btn text-send-btn-foreground hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer font-semibold text-[15px] select-none shadow-sm"
+                      className="h-11 px-4 rounded-full flex items-center gap-2.5 bg-send-btn text-send-btn-foreground hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer font-semibold text-[15px] select-none"
                       aria-label="Chat"
                     >
                       <SquarePen className="w-5 h-5 shrink-0" />

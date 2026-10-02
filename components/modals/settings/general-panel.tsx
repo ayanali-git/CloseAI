@@ -43,7 +43,8 @@ const languageOptions: DropdownOption[] = [
 export function GeneralPanel() {
   const { theme, setTheme } = useTheme();
   const { user } = useAuth();
-  // Contrast, Accent color and Dictation are for signed-in users only.
+  // Contrast and Dictation are for signed-in users only.
+  // Appearance, Accent color, and Language are available for all users (including guests).
   // Using `Boolean(user)` (instead of `!isGuest`) means these rows never
   // flash on screen while auth is still loading.
   const isAuthed = Boolean(user);
@@ -70,8 +71,8 @@ export function GeneralPanel() {
   if (!mounted) {
     return (
       <div className="space-y-1">
-        {/* Guests see 2 rows (Appearance, Language); signed-in users see 5 */}
-        {Array.from({ length: isAuthed ? 5 : 2 }).map((_, i) => (
+        {/* Guests see 3 rows (Appearance, Accent color, Language); signed-in users see 5 */}
+        {Array.from({ length: isAuthed ? 5 : 3 }).map((_, i) => (
           <div
             key={i}
             className="h-14 border-b border-border/80 last:border-0 flex items-center justify-between"
@@ -117,24 +118,22 @@ export function GeneralPanel() {
         </SettingsRow>
       ) : null}
 
-      {isAuthed ? (
-        <SettingsRow label="Accent color">
-          <NativeDropdownMenu
-            ariaLabel="Accent color"
-            value={accent}
-            onChange={(value) => {
-              setAccent(value);
-              setAccentColor(value);
-            }}
-            options={[
-              { value: "white", label: "White" },
-              { value: "blue", label: "Blue" },
-              { value: "green", label: "Green" },
-              { value: "purple", label: "Purple" },
-            ]}
-          />
-        </SettingsRow>
-      ) : null}
+      <SettingsRow label="Accent color">
+        <NativeDropdownMenu
+          ariaLabel="Accent color"
+          value={accent}
+          onChange={(value) => {
+            setAccent(value);
+            setAccentColor(value);
+          }}
+          options={[
+            { value: "white", label: "White" },
+            { value: "blue", label: "Blue" },
+            { value: "green", label: "Green" },
+            { value: "purple", label: "Purple" },
+          ]}
+        />
+      </SettingsRow>
 
       <SettingsRow label="Language">
         <NativeDropdownMenu
