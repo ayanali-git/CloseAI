@@ -267,6 +267,15 @@ export function Sidebar({
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
   const [isGuestCardDismissed, setIsGuestCardDismissed] = useState(false);
   const [railHelpOpen, setRailHelpOpen] = useState(false);
+  const [webSearchHoverOpen, setWebSearchHoverOpen] = useState(false);
+  const [railWebSearchHoverOpen, setRailWebSearchHoverOpen] = useState(false);
+  const isWebSearchMouseHoveringRef = useRef(false);
+  const ignoreNextWebSearchOpenRef = useRef(false);
+
+  useEffect(() => {
+    setWebSearchHoverOpen(false);
+    setRailWebSearchHoverOpen(false);
+  }, [isOpen]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -430,6 +439,74 @@ export function Sidebar({
         </Link>
       </DropdownMenuItem>
     </div>
+  );
+
+  /**
+   * Guest Web Search Hover Card Content
+   * Matches the background and border of the guest Help dropdown:
+   * bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none
+   */
+  const renderWebSearchHoverCardContent = (closeCard: () => void) => (
+    <HoverCardContent
+      side="right"
+      align="start"
+      sideOffset={15}
+      className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none overflow-hidden text-left z-50 select-none shadow-lg"
+    >
+      {/* Web Search Simple Sky Blue & Soft Lilac Gradient Banner with DiceBear Glass SVG */}
+      <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
+        <img
+          src="https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=Search%20the%20web"
+          alt="Search the web"
+          className="w-full h-full object-cover select-none pointer-events-none"
+        />
+      </div>
+      <div className="p-4">
+        <h4 className="text-[15.5px] font-semibold text-foreground dark:text-white tracking-tight leading-snug">
+          Search the web
+        </h4>
+        <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
+          Search the web, synthesize multiple sources, and get up-to-date
+          answers with citations.
+        </p>
+        <div className="flex items-center gap-2.5 mt-4">
+          <button
+            type="button"
+            onClick={() => {
+              closeCard();
+              (onOpenLoginModal || onOpenWebSearchModal)?.();
+              if (
+                isOpen &&
+                typeof window !== "undefined" &&
+                window.innerWidth < 1280
+              ) {
+                onToggle();
+              }
+            }}
+            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
+          >
+            Log in
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              closeCard();
+              (onOpenLoginModal || onOpenWebSearchModal)?.();
+              if (
+                isOpen &&
+                typeof window !== "undefined" &&
+                window.innerWidth < 1280
+              ) {
+                onToggle();
+              }
+            }}
+            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
+          >
+            Sign up for free
+          </button>
+        </div>
+      </div>
+    </HoverCardContent>
   );
 
   /**
@@ -1217,25 +1294,41 @@ export function Sidebar({
                     </Tooltip>
 
                     {/* Web search */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
+                    <HoverCard
+                      open={railWebSearchHoverOpen}
+                      onOpenChange={(open) => {
+                        setRailWebSearchHoverOpen(open);
+                        if (open) {
+                          onWebSearchHover?.();
+                        }
+                      }}
+                      openDelay={100}
+                      closeDelay={300}
+                    >
+                      <HoverCardTrigger asChild>
                         <button
                           type="button"
-                          onClick={() => onOpenWebSearchModal?.()}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                          onMouseEnter={() => {
+                            onWebSearchHover?.();
+                          }}
+                          onClick={() => {
+                            setRailWebSearchHoverOpen(false);
+                            (onOpenLoginModal || onOpenWebSearchModal)?.();
+                          }}
+                          className={cn(
+                            "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer",
+                            railWebSearchHoverOpen &&
+                              "bg-secondary text-foreground"
+                          )}
                           aria-label="Web search"
                         >
                           <Globe className="w-4 h-4" />
                         </button>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="right"
-                        sideOffset={5}
-                        className="text-md"
-                      >
-                        Web search
-                      </TooltipContent>
-                    </Tooltip>
+                      </HoverCardTrigger>
+                      {renderWebSearchHoverCardContent(() =>
+                        setRailWebSearchHoverOpen(false)
+                      )}
+                    </HoverCard>
                   </>
                 )}
               </div>
@@ -1317,6 +1410,29 @@ export function Sidebar({
                 </>
               ) : (
                 <>
+                  {/* Rail Plans */}
+                  <Tooltip open={isOpen ? false : undefined}>
+                    <TooltipTrigger asChild>
+                      <Link
+                        href="/product/plans"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        tabIndex={isOpen ? -1 : 0}
+                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                        aria-label="Plans"
+                      >
+                        <CreditCard className="w-4 h-4 shrink-0" />
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="right"
+                      sideOffset={15}
+                      className="text-md"
+                    >
+                      Plans
+                    </TooltipContent>
+                  </Tooltip>
+
                   {/* Rail Help */}
                   <DropdownMenu
                     open={railHelpOpen}
@@ -1352,29 +1468,6 @@ export function Sidebar({
                       {renderHelpMenuItems()}
                     </DropdownMenuContent>
                   </DropdownMenu>
-
-                  {/* Rail Plans */}
-                  <Tooltip open={isOpen ? false : undefined}>
-                    <TooltipTrigger asChild>
-                      <Link
-                        href="/product/plans"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        tabIndex={isOpen ? -1 : 0}
-                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
-                        aria-label="Plans"
-                      >
-                        <CreditCard className="w-4 h-4 shrink-0" />
-                      </Link>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="right"
-                      sideOffset={15}
-                      className="text-md"
-                    >
-                      Plans
-                    </TooltipContent>
-                  </Tooltip>
 
                   {/* Rail Settings */}
                   <Tooltip open={isOpen ? false : undefined}>
@@ -1422,27 +1515,32 @@ export function Sidebar({
             {/* Top Header
                 Guest: px-2 + w-11 link = the same 44px box (x 8–52) as the 60px rail emblem,
                 so the logo doesn't move when the sidebar expands/collapses. */}
-            <div className="h-14 pt-[env(safe-area-inset-top,0px)] flex items-center justify-between relative z-20 shrink-0 px-2">
+            <div
+              className={cn(
+                "h-14 pt-[env(safe-area-inset-top,0px)] flex items-center justify-between relative z-20 shrink-0",
+                user ? "px-2" : "max-xl:pl-6 max-xl:sm:pl-8 max-xl:pr-3 xl:px-2"
+              )}
+            >
               <Link
                 href="/"
                 className={cn(
-                  "h-11 flex items-center transition-opacity",
-                  !user
-                    ? "w-11 justify-center rounded-sm hover:bg-secondary text-foreground px-0"
-                    : "gap-2 px-1 hover:opacity-85"
+                  "flex items-center transition-opacity",
+                  user
+                    ? "h-11 gap-2 px-1 hover:opacity-85"
+                    : "flex items-center gap-2 hover:opacity-85"
                 )}
                 aria-label="CloseAI"
               >
-                {!user ? (
-                  <CloseAIIcon
-                    size={20}
-                    className="w-4 h-4 text-foreground shrink-0"
-                  />
-                ) : (
-                  <span className="font-semibold text-xl tracking-tight text-foreground leading-none">
-                    CloseAI
-                  </span>
-                )}
+                <span
+                  className={cn(
+                    "tracking-tight text-foreground",
+                    user
+                      ? "text-xl font-semibold leading-none"
+                      : "font-bold text-xl"
+                  )}
+                >
+                  CloseAI
+                </span>
               </Link>
 
               <div className="flex items-center gap-0.5">
@@ -1481,10 +1579,10 @@ export function Sidebar({
                             onToggle();
                           }
                         }}
-                        className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                        className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98] max-xl:translate-y-2"
                         aria-label="Search chats"
                       >
-                        <Search className="w-4 h-4" />
+                        <Search className="w-5 h-5 shrink-0" />
                       </button>
                     </TooltipTrigger>
                     <TooltipContent
@@ -1559,7 +1657,10 @@ export function Sidebar({
                     onToggle();
                   }
                 }}
-                className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-md group cursor-pointer transition-all duration-150"
+                className={cn(
+                  "w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-md group cursor-pointer transition-all duration-150",
+                  !user && "hidden xl:flex"
+                )}
               >
                 <div className="flex items-center gap-2.5">
                   <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -1588,22 +1689,62 @@ export function Sidebar({
 
                   {/* Web search */}
                   <HoverCard
-                    openDelay={100}
-                    closeDelay={200}
+                    open={webSearchHoverOpen}
                     onOpenChange={(open) => {
                       if (open) {
+                        if (ignoreNextWebSearchOpenRef.current) return;
+                        // On small screens, only genuine mouse hover should open the hover card, never clicks or taps
+                        if (
+                          typeof window !== "undefined" &&
+                          window.innerWidth < 1280 &&
+                          !isWebSearchMouseHoveringRef.current
+                        ) {
+                          return;
+                        }
+                        setWebSearchHoverOpen(true);
                         onWebSearchHover?.();
+                      } else {
+                        setWebSearchHoverOpen(false);
                       }
                     }}
+                    openDelay={100}
+                    closeDelay={300}
                   >
                     <HoverCardTrigger asChild>
                       <button
                         type="button"
-                        onMouseEnter={() => {
+                        onMouseEnter={(e) => {
+                          if (
+                            e.nativeEvent &&
+                            "pointerType" in e.nativeEvent &&
+                            (e.nativeEvent as any).pointerType === "touch"
+                          ) {
+                            return;
+                          }
+                          isWebSearchMouseHoveringRef.current = true;
                           onWebSearchHover?.();
                         }}
+                        onMouseLeave={() => {
+                          isWebSearchMouseHoveringRef.current = false;
+                        }}
+                        onPointerDown={(e) => {
+                          if (
+                            e.pointerType === "touch" ||
+                            (typeof window !== "undefined" &&
+                              window.innerWidth < 1280)
+                          ) {
+                            ignoreNextWebSearchOpenRef.current = true;
+                            setWebSearchHoverOpen(false);
+                          }
+                        }}
                         onClick={() => {
-                          onOpenLoginModal?.();
+                          ignoreNextWebSearchOpenRef.current = true;
+                          isWebSearchMouseHoveringRef.current = false;
+                          setWebSearchHoverOpen(false);
+                          setTimeout(() => {
+                            ignoreNextWebSearchOpenRef.current = false;
+                          }, 300);
+                          (onOpenLoginModal || onOpenWebSearchModal)?.();
                           if (
                             isOpen &&
                             typeof window !== "undefined" &&
@@ -1612,62 +1753,103 @@ export function Sidebar({
                             onToggle();
                           }
                         }}
-                        className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-md group cursor-pointer transition-all duration-150"
+                        className={cn(
+                          "w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-md group cursor-pointer transition-all duration-150",
+                          webSearchHoverOpen && "bg-secondary"
+                        )}
                       >
                         <div className="flex items-center gap-2.5">
-                          <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <Globe
+                            className={cn(
+                              "w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors",
+                              webSearchHoverOpen && "text-foreground"
+                            )}
+                          />
                           <span className="whitespace-nowrap">Web search</span>
                         </div>
                       </button>
                     </HoverCardTrigger>
-                    <HoverCardContent
-                      side="right"
-                      align="start"
-                      sideOffset={15}
-                      className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 select-none"
-                    >
-                      {/* Web Search Simple Sky Blue & Soft Lilac Gradient Banner with DiceBear Glass SVG */}
-                      <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
-                        <img
-                          src="https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=Search%20the%20web"
-                          alt="Search the web"
-                          className="w-full h-full object-cover select-none pointer-events-none"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h4 className="text-[15.5px] font-semibold text-foreground dark:text-white tracking-tight leading-snug">
-                          Search the web
-                        </h4>
-                        <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
-                          Search the web, synthesize multiple sources, and get
-                          up-to-date answers with citations.
-                        </p>
-                        <div className="flex items-center gap-2.5 mt-4">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              onOpenLoginModal?.();
-                            }}
-                            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
-                          >
-                            Log in
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              onOpenLoginModal?.();
-                            }}
-                            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
-                          >
-                            Sign up for free
-                          </button>
-                        </div>
-                      </div>
-                    </HoverCardContent>
+                    {renderWebSearchHoverCardContent(() =>
+                      setWebSearchHoverOpen(false)
+                    )}
                   </HoverCard>
+
+                  {/* Small Screen Devices Only: Plans */}
+                  <Link
+                    href="/product/plans"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={!isOpen ? -1 : 0}
+                    className="xl:hidden w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                    aria-label="Plans"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                      <span className="text-md font-normal leading-normal whitespace-nowrap">
+                        Plans
+                      </span>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 transition-opacity duration-150" />
+                  </Link>
+
+                  {/* Small Screen Devices Only: Help Dropdown */}
+                  <div className="xl:hidden">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type="button"
+                          tabIndex={!isOpen ? -1 : 0}
+                          className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden data-[state=open]:bg-secondary outline-none focus:outline-none"
+                          aria-label="Help"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                            <span className="text-md font-normal leading-normal whitespace-nowrap">
+                              Help
+                            </span>
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 transition-opacity duration-150" />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        side="bottom"
+                        align="start"
+                        sideOffset={8}
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[230px] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                      >
+                        {renderHelpMenuItems()}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </>
               )}
             </div>
+
+            {/* Small Screen Devices Only: Upper Divider & Always-shown Callout Card */}
+            {!user && (
+              <div className="xl:hidden w-full flex flex-col select-none">
+                {/* Full-width divider */}
+                <div className="w-full border-t border-border/80 dark:border-white/10" />
+
+                {/* Upper Callout Card (No bg, no close button, always shows) */}
+                <div className="w-full px-3 pt-3.5 space-y-2 select-text text-left">
+                  <div className="text-base font-semibold text-foreground text-left">
+                    Get efficient responses
+                  </div>
+                  <div className="text-sm text-muted-foreground leading-snug text-left">
+                    Log in to get efficient answers, plus thinking capabilities,
+                    upload files and more.
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onOpenLoginModal?.()}
+                    className="w-full mt-1.5 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                  >
+                    Log in
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Chat History Stream (Only for authenticated users) */}
             {user ? (
@@ -1791,10 +1973,10 @@ export function Sidebar({
                 matching the persistent avatar at x 14 in the 60px rail). Guest: px-2 + pl-[14px] rows put icons at x 22. */}
             <div
               className={cn(
-                "mt-auto w-full pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 relative z-20 select-none",
+                "mt-auto w-full relative z-20 select-none",
                 user || isAuthLoading
-                  ? "px-2 border-t border-border/80 dark:border-white/10"
-                  : "px-2"
+                  ? "px-2 pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] border-t border-border/80 dark:border-white/10"
+                  : "px-2 max-xl:px-3 pt-2 max-xl:pt-0 max-xl:pb-[max(env(safe-area-inset-bottom),0.75rem)] pb-[max(env(safe-area-inset-bottom),0.5rem)]"
               )}
             >
               {isAuthLoading ? (
@@ -1906,120 +2088,162 @@ export function Sidebar({
               ) : (
                 /* Guest Bottom Dock */
                 <div className="w-full space-y-1.5 select-none">
-                  {/* Expanded Help */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        type="button"
-                        tabIndex={!isOpen ? -1 : 0}
-                        className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden data-[state=open]:bg-secondary outline-none focus:outline-none"
-                        aria-label="Help"
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                          <span className="text-md font-normal leading-normal whitespace-nowrap">
-                            Help
-                          </span>
-                        </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 group-data-[state=open]:opacity-100 transition-opacity duration-150" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      side="top"
-                      align="start"
-                      sideOffset={8}
-                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[230px] rounded-2xl p-1.5 bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                  {/* Desktop Only: Expanded Help, Plans, Settings, and Callout Card */}
+                  <div className="hidden xl:block space-y-1.5">
+                    {/* Expanded Plans */}
+                    <Link
+                      id="guest-sidebar-pricing-plans"
+                      href="/product/plans"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={!isOpen ? -1 : 0}
+                      className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      aria-label="Plans"
                     >
-                      {renderHelpMenuItems()}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                        <span className="text-md font-normal leading-normal whitespace-nowrap">
+                          Plans
+                        </span>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-150" />
+                    </Link>
 
-                  {/* Expanded Plans */}
-                  <Link
-                    id="guest-sidebar-pricing-plans"
-                    href="/product/plans"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    tabIndex={!isOpen ? -1 : 0}
-                    className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
-                    aria-label="Plans"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                      <span className="text-md font-normal leading-normal whitespace-nowrap">
-                        Plans
-                      </span>
-                    </div>
-                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-150" />
-                  </Link>
+                    {/* Expanded Help */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type="button"
+                          tabIndex={!isOpen ? -1 : 0}
+                          className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden data-[state=open]:bg-secondary outline-none focus:outline-none"
+                          aria-label="Help"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                            <span className="text-md font-normal leading-normal whitespace-nowrap">
+                              Help
+                            </span>
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 group-data-[state=open]:opacity-100 transition-opacity duration-150" />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        side="top"
+                        align="start"
+                        sideOffset={8}
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[230px] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                      >
+                        {renderHelpMenuItems()}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
 
-                  {/* Expanded Settings */}
-                  <button
-                    type="button"
-                    tabIndex={!isOpen ? -1 : 0}
-                    onClick={() =>
-                      isMobileScreen ? openSettings() : openSettings("general")
-                    }
-                    className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
-                    aria-label="Settings"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                      <span className="text-md font-normal leading-normal whitespace-nowrap">
-                        Settings
-                      </span>
-                    </div>
-                  </button>
+                    {/* Expanded Settings */}
+                    <button
+                      type="button"
+                      tabIndex={!isOpen ? -1 : 0}
+                      onClick={() =>
+                        isMobileScreen
+                          ? openSettings()
+                          : openSettings("general")
+                      }
+                      className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      aria-label="Settings"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                        <span className="text-md font-normal leading-normal whitespace-nowrap">
+                          Settings
+                        </span>
+                      </div>
+                    </button>
 
-                  {/* Guest Callout Card */}
-                  <div
-                    id="guest-sidebar-callout-card"
-                    className={cn(
-                      "w-full pt-1.5 select-text",
-                      isGuestCardDismissed && "hidden"
-                    )}
-                  >
-                    <div className="w-full p-3.5 rounded-xl bg-secondary/40 border border-border/80 dark:border-none space-y-2 select-text text-left relative">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="text-base font-semibold text-foreground text-left pt-2">
-                          Get efficient responses
+                    {/* Desktop Guest Callout Card */}
+                    <div
+                      id="guest-sidebar-callout-card"
+                      className={cn(
+                        "w-full pt-1.5 select-text",
+                        isGuestCardDismissed && "hidden"
+                      )}
+                    >
+                      <div className="w-full p-3.5 rounded-xl bg-secondary/40 border border-border/80 dark:border-none space-y-2 select-text text-left relative">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="text-base font-semibold text-foreground text-left pt-2">
+                            Get efficient responses
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsGuestCardDismissed(true);
+                              if (typeof document !== "undefined") {
+                                document.body.setAttribute(
+                                  "data-guest-card-dismissed",
+                                  "true"
+                                );
+                                try {
+                                  document.cookie =
+                                    "guest_card=true; path=/; max-age=31536000; SameSite=Lax";
+                                } catch {}
+                              }
+                              fetch("/api/guest-card", {
+                                method: "POST",
+                              }).catch(() => {});
+                            }}
+                            className="p-1.5 -mr-1 -mt-1 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
+                            aria-label="Close"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <div className="text-sm text-muted-foreground leading-snug text-left">
+                          Log in to get efficient answers, plus thinking
+                          capabilities, upload files and more.
                         </div>
                         <button
                           type="button"
-                          onClick={() => {
-                            setIsGuestCardDismissed(true);
-                            if (typeof document !== "undefined") {
-                              document.body.setAttribute(
-                                "data-guest-card-dismissed",
-                                "true"
-                              );
-                              try {
-                                document.cookie =
-                                  "guest_card=true; path=/; max-age=31536000; SameSite=Lax";
-                              } catch {}
-                            }
-                            fetch("/api/guest-card", {
-                              method: "POST",
-                            }).catch(() => {});
-                          }}
-                          className="p-1.5 -mr-1 -mt-1 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
-                          aria-label="Close"
+                          onClick={() => onOpenLoginModal?.()}
+                          className="w-full mt-1 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                         >
-                          <X className="w-4 h-4" />
+                          Log in
                         </button>
                       </div>
-                      <div className="text-sm text-muted-foreground leading-snug text-left">
-                        Log in to get efficient answers, plus thinking
-                        capabilities, upload files and more.
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => onOpenLoginModal?.()}
-                        className="w-full mt-1 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-semibold transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
-                      >
-                        Log in
-                      </button>
                     </div>
+                  </div>
+
+                  {/* Small Screen Device Guest Bottom Buttons (ChatGPT style) */}
+                  <div className="xl:hidden w-full flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onNewChat();
+                        if (
+                          isOpen &&
+                          typeof window !== "undefined" &&
+                          window.innerWidth < 1280
+                        ) {
+                          onToggle();
+                        }
+                      }}
+                      className="h-12 px-5 rounded-full flex items-center gap-2.5 bg-send-btn text-send-btn-foreground hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer font-semibold text-[15px] select-none shadow-sm"
+                      aria-label="Chat"
+                    >
+                      <SquarePen className="w-5 h-5 shrink-0" />
+                      <span>Chat</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (isMobileScreen) {
+                          openSettings();
+                        } else {
+                          openSettings("general");
+                        }
+                      }}
+                      className="w-12 h-12 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98]"
+                      aria-label="Settings"
+                    >
+                      <Settings className="w-5 h-5 shrink-0" />
+                    </button>
                   </div>
                 </div>
               )}

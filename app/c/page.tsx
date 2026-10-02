@@ -308,7 +308,7 @@ function NewChatContent() {
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors align-baseline"
+              className="inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
             >
               <span>Terms</span>
               <AnimatedArrowUpRight size={15} className="shrink-0" />
@@ -318,7 +318,7 @@ function NewChatContent() {
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors align-baseline"
+              className="inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
             >
               <span>Privacy</span>
               <AnimatedArrowUpRight size={15} className="shrink-0" />
@@ -328,7 +328,7 @@ function NewChatContent() {
               href="/support/help"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors align-baseline"
+              className="inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
             >
               <span>Learn more</span>
               <AnimatedArrowUpRight size={15} className="shrink-0" />

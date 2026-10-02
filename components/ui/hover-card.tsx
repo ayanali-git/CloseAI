@@ -59,12 +59,17 @@ const HoverCard = ({
 const HoverCardTrigger = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>
->(({ onClick, onClickCapture, ...props }, ref) => {
+>(({ onClick, onClickCapture, onFocus, ...props }, ref) => {
   const ctx = React.useContext(HoverCardContext);
 
   return (
     <HoverCardPrimitive.Trigger
       ref={ref}
+      onFocus={(e) => {
+        // Prevent opening on click/touch focus so hover card only opens on genuine hover
+        e.preventDefault();
+        onFocus?.(e);
+      }}
       onClickCapture={(e) => {
         ctx?.setOpenState(false);
         onClickCapture?.(e);
@@ -83,8 +88,6 @@ const HoverCardContent = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
 >(({ className, align = 'center', sideOffset = 4, style, onClick, onClickCapture, ...props }, ref) => {
-  const ctx = React.useContext(HoverCardContext);
-
   return (
     <HoverCardPrimitive.Portal>
       <HoverCardPrimitive.Content
@@ -96,14 +99,8 @@ const HoverCardContent = React.forwardRef<
           className
         )}
         style={{ animation: 'none', transition: 'none', ...style }}
-        onClickCapture={(e) => {
-          ctx?.setOpenState(false);
-          onClickCapture?.(e);
-        }}
-        onClick={(e) => {
-          ctx?.setOpenState(false);
-          onClick?.(e);
-        }}
+        onClickCapture={onClickCapture}
+        onClick={onClick}
         {...props}
       />
     </HoverCardPrimitive.Portal>

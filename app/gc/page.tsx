@@ -197,7 +197,7 @@ function GuestChatContent() {
       {/* Main Chat Workspace */}
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header with Unified 28px Alignment */}
-        <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
+        <header className="absolute top-0 left-0 right-0 z-30 max-xl:pt-[max(env(safe-area-inset-top),0.75rem)] max-xl:pb-3 max-xl:h-auto xl:h-14 xl:pt-[env(safe-area-inset-top,0px)] px-3 max-xl:px-3 xl:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
           {/* Top gradient overlay */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
@@ -215,10 +215,10 @@ function GuestChatContent() {
                     onMouseEnter={() => setIsSidebarBtnHovered(true)}
                     onMouseLeave={() => setIsSidebarBtnHovered(false)}
                     onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98]"
                     aria-label="Open sidebar"
                   >
-                    <PanelRight className="w-4 h-4" />
+                    <PanelRight className="w-5 h-5 shrink-0" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent
@@ -251,7 +251,7 @@ function GuestChatContent() {
                   align="start"
                   sideOffset={5}
                   animate={false}
-                  className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#212121] border border-border/80 dark:border-neutral-800 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
+                  className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none shadow-lg"
                 >
                   <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                     <img
@@ -285,7 +285,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           setShowLoginModal(true);
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -297,25 +297,25 @@ function GuestChatContent() {
           </div>
 
           {/* Centered CloseAI title without animated open on small and medium screens */}
-          <div className="xl:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-11 flex items-center justify-center pointer-events-auto">
-            <span className="text-xl font-semibold text-foreground tracking-tight select-none leading-none">
+          <div className="xl:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-12 flex items-center justify-center pointer-events-auto">
+            <span className="text-xl font-bold tracking-tight text-foreground select-none leading-none">
               CloseAI
             </span>
           </div>
 
           {/* Right area */}
-          <div className="flex items-center gap-2 pointer-events-auto pr-1 sm:pr-0">
+          <div className="flex items-center gap-2 pointer-events-auto">
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-12 px-5 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.98] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none shadow-sm"
             >
               Log in
             </button>
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
@@ -323,7 +323,7 @@ function GuestChatContent() {
         </header>
 
         {/* Content Stream (Scrollable but scrollbar hidden) */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll pt-14 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll max-xl:pt-[4.75rem] xl:pt-14 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <WelcomeScreen
             user={null}
             resetKey={newChatKey}
@@ -388,7 +388,7 @@ function GuestChatContent() {
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors align-baseline"
+              className="inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
             >
               <span>Terms</span>
               <AnimatedArrowUpRight size={15} className="shrink-0" />
@@ -398,7 +398,7 @@ function GuestChatContent() {
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors align-baseline"
+              className="inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
             >
               <span>Privacy</span>
               <AnimatedArrowUpRight size={15} className="shrink-0" />
@@ -408,7 +408,7 @@ function GuestChatContent() {
               href="/support/help"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors align-baseline"
+              className="inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
             >
               <span>Learn more</span>
               <AnimatedArrowUpRight size={15} className="shrink-0" />
