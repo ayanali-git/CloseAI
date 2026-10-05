@@ -391,6 +391,16 @@ export function Sidebar({
         </Link>
       </DropdownMenuItem>
 
+      <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
+        <div className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-normal cursor-pointer text-muted-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
+          <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <AnimatedComingSoonText
+            label="Download apps"
+            comingSoonText="Coming soon"
+          />
+        </div>
+      </DropdownMenuItem>
+
       <DropdownMenuSeparator className="my-1 bg-neutral-200 dark:bg-[#383838]" />
 
       <DropdownMenuItem asChild>
@@ -420,22 +430,6 @@ export function Sidebar({
             <span>Privacy Policy</span>
           </div>
           <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
-        </Link>
-      </DropdownMenuItem>
-
-      <DropdownMenuSeparator className="my-1 bg-neutral-200 dark:bg-[#383838]" />
-
-      <DropdownMenuItem asChild>
-        <Link
-          href="/company/contact"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-md font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
-        >
-          <div className="flex items-center gap-2.5">
-            <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-            <span>Report a bug</span>
-          </div>
         </Link>
       </DropdownMenuItem>
     </div>
@@ -574,18 +568,6 @@ export function Sidebar({
               <span>Privacy Policy</span>
             </div>
             <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
-          </Link>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
-          <Link
-            href="/company/contact"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
-          >
-            <div className="flex items-center gap-2.5">
-              <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-              <span>Report a bug</span>
-            </div>
           </Link>
         </div>
       );
@@ -874,20 +856,6 @@ export function Sidebar({
                     <span>Privacy Policy</span>
                   </div>
                   <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link
-                  href="/company/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-                    <span>Report a bug</span>
-                  </div>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuSubContent>

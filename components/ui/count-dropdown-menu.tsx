@@ -208,7 +208,7 @@ export function CountDropdownMenu({
                 bottom: `${Math.max(8, window.innerHeight - triggerRect.top + 6)}px`,
                 left: `${triggerRect.left}px`,
                 width: `${triggerRect.width}px`,
-                maxHeight: `${Math.min(320, Math.max(160, triggerRect.top - 16))}px`,
+                maxHeight: `${Math.min(600, Math.max(160, triggerRect.top - 16))}px`,
               }}
             >
               <div

@@ -498,7 +498,7 @@ export function LoginModal({
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-muted-foreground hover:text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Terms of Use</span>
               <AnimatedArrowUpRight size={14} className="shrink-0" />
@@ -508,7 +508,7 @@ export function LoginModal({
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-muted-foreground hover:text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Privacy Policy</span>
               <AnimatedArrowUpRight size={14} className="shrink-0" />

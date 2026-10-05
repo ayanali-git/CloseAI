@@ -553,7 +553,7 @@ export default function GuestChatSessionPage() {
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
           {/* Left area */}
-          <div className="flex items-center gap-2 pointer-events-auto">
+          <div className="flex items-center gap-2 pointer-events-auto max-xl:h-12">
             {!sidebarOpen && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -659,7 +659,7 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-12 px-5 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.98] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.98] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none"
             >
               Log in
             </button>
