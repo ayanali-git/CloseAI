@@ -609,6 +609,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     }
   };
 
+  const pillButtonFocusRing = cn(
+    "outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+    isGuest
+      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+  );
+
   const renderPlusButton = () => (
     <DropdownMenu
       open={plusMenuOpen}
@@ -644,7 +651,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 (e.currentTarget as HTMLElement)?.blur();
               }}
               onKeyDown={handlePillButtonKeyDown}
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+              className={cn(
+                "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 cursor-pointer",
+                pillButtonFocusRing,
+                plusMenuOpen
+                  ? "bg-secondary dark:bg-[#383838] text-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
+              )}
               aria-label="Attach files and more"
             >
               <Plus className="w-5 h-5" />
@@ -733,7 +746,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
-              "h-10 sm:h-11 px-2 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
+              "h-10 sm:h-11 px-2 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer",
+              pillButtonFocusRing,
               thinkMode
                 ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
@@ -769,7 +783,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
-              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
+              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0",
+              pillButtonFocusRing,
               isListening
                 ? "bg-red-500/15 text-red-500 hover:bg-red-500/25 ring-red-500/30"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
@@ -807,7 +822,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onKeyDown={handlePillButtonKeyDown}
             disabled={(!hasContent && !isTyping) || isUploading}
             className={cn(
-              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
+              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
+              pillButtonFocusRing,
               isTyping
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-85 active:scale-95"
                 : isUploading
@@ -982,7 +998,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                           setIsFullyExpanded((prev) => !prev);
                         }}
                         onKeyDown={handlePillButtonKeyDown}
-                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] transition-all shrink-0 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                        className={cn(
+                          "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] transition-all shrink-0 cursor-pointer",
+                          pillButtonFocusRing
+                        )}
                         aria-label={isFullyExpanded ? "Collapse" : "Expand"}
                       >
                         {isFullyExpanded ? (

@@ -48,7 +48,7 @@ export function AccountPanel() {
         <button
           type="button"
           onClick={() => setLoginOpen(true)}
-          className="inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-sm px-3 py-2 cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] rounded-sm px-3 py-2 cursor-pointer transition-colors"
         >
           Add
           <AnimatedPlusMinus size={18} open={loginOpen} />
@@ -59,7 +59,7 @@ export function AccountPanel() {
         <button
           type="button"
           onClick={() => setLogoutOpen(true)}
-          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:scale-[0.99] cursor-pointer flex items-center justify-center"
+          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] cursor-pointer flex items-center justify-center transition-all select-none"
         >
           Log out
         </button>

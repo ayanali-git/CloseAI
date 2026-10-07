@@ -78,7 +78,7 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(localStorage.getItem('closeai-contrast')==='more'){document.documentElement.classList.add('contrast-more')}var a=localStorage.getItem('closeai-accent');if(a==='blue'||a==='green'||a==='purple'||a==='white'){document.documentElement.dataset.accent=a}}catch(e){}})();`,
+            __html: `(function(){try{if(localStorage.getItem('closeai-contrast')==='more'){document.documentElement.classList.add('contrast-more')}var a=localStorage.getItem('closeai-accent');if(a==='blue'||a==='green'||a==='purple'||a==='yellow'||a==='pink'||a==='white'){document.documentElement.dataset.accent=a}}catch(e){}})();`,
           }}
         />
       </head>

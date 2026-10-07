@@ -9,7 +9,7 @@ const KEYS = {
   notifications: "closeai-notifications",
 } as const;
 
-export type AccentColor = "white" | "blue" | "green" | "purple";
+export type AccentColor = "white" | "blue" | "green" | "purple" | "yellow" | "pink";
 export type ContrastMode = "system" | "less" | "more";
 
 export interface PersonalizationPrefs {
@@ -81,7 +81,14 @@ export function setLanguagePref(lang: string) {
 
 export function getAccentColor(): AccentColor {
   const value = read(KEYS.accent);
-  if (value === "blue" || value === "green" || value === "purple" || value === "white") {
+  if (
+    value === "blue" ||
+    value === "green" ||
+    value === "purple" ||
+    value === "yellow" ||
+    value === "pink" ||
+    value === "white"
+  ) {
     return value;
   }
   return "white";

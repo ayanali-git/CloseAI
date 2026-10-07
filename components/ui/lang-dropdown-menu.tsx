@@ -234,6 +234,10 @@ export function LangDropdownMenu({
         (children as React.ReactElement).props.onClick?.(e);
         handleOpenChange(true);
       },
+      className: cn(
+        (children as React.ReactElement).props.className,
+        isOpen && "opacity-0 invisible pointer-events-none"
+      ),
     })
   ) : (
     <button
@@ -245,6 +249,7 @@ export function LangDropdownMenu({
         "bg-white dark:bg-[#2f2f2f] dark:hover:bg-[#383838] text-foreground",
         "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none",
         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
+        isOpen && "opacity-0 invisible pointer-events-none",
         className
       )}
       aria-label="Select language"
@@ -275,44 +280,48 @@ export function LangDropdownMenu({
             />
 
             {/* Bottom-anchored Container overlapping the trigger button */}
-            <div
-              className="fixed z-[101] flex flex-col items-center pointer-events-none px-4"
-              style={{
-                bottom: triggerRect
-                  ? `${Math.max(12, Math.round(window.innerHeight - triggerRect.bottom - (48 - triggerRect.height) / 2))}px`
-                  : "16px",
-                left: triggerRect
-                  ? `${Math.round(triggerRect.left + triggerRect.width / 2)}px`
-                  : "50%",
-                transform: "translateX(-50%)",
-                width: "100%",
-                maxWidth: "380px",
-              }}
-            >
-              <div
-                className="w-full flex flex-col pointer-events-auto space-y-2.5"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Select language"
-              >
-                {/* Top Box: Languages List Card */}
+            {(() => {
+              const UPPER_GAP = 5;
+              const MIDDLE_GAP = 5;
+              const SEARCHBAR_HEIGHT = 48;
+              const bottomOffset = triggerRect
+                ? Math.max(20, Math.round(window.innerHeight - triggerRect.bottom - (SEARCHBAR_HEIGHT - triggerRect.height) / 2))
+                : 20;
+              const maxTopBoxHeight = typeof window !== "undefined"
+                ? Math.max(200, window.innerHeight - bottomOffset - SEARCHBAR_HEIGHT - MIDDLE_GAP - UPPER_GAP)
+                : 600;
+
+              return (
                 <div
-                  className={cn(
-                    "flex flex-col rounded-3xl overflow-hidden",
-                    "bg-[#2f2f2f] text-foreground",
-                    "border border-border/80 dark:border-none",
-                    filteredLanguages.length === 0
-                      ? "h-auto"
-                      : "h-[calc(100dvh-100px)] sm:h-[calc(100dvh-50px)] max-h-[1000px]"
-                  )}
-                  style={
-                    filteredLanguages.length > 0 && triggerRect
-                      ? {
-                          maxHeight: `${Math.min(1000, Math.max(300, triggerRect.top - 15))}px`,
-                        }
-                      : undefined
-                  }
+                  className="fixed z-[101] flex flex-col items-center pointer-events-none px-4"
+                  style={{
+                    bottom: `${bottomOffset}px`,
+                    left: triggerRect
+                      ? `${Math.round(triggerRect.left + triggerRect.width / 2)}px`
+                      : "50%",
+                    transform: "translateX(-50%)",
+                    width: "100%",
+                    maxWidth: "380px",
+                  }}
                 >
+                  <div
+                    className="w-full flex flex-col pointer-events-auto"
+                    style={{ gap: `${MIDDLE_GAP}px` }}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Select language"
+                  >
+                    {/* Top Box: Languages List Card */}
+                    <div
+                      className={cn(
+                        "flex flex-col rounded-3xl overflow-hidden h-auto",
+                        "bg-[#2f2f2f] text-foreground",
+                        "border border-border/80 dark:border-none"
+                      )}
+                      style={{
+                        maxHeight: `${maxTopBoxHeight}px`,
+                      }}
+                    >
                   {/* Header */}
                   <div className="flex items-center justify-between px-5 py-4 border-b border-border/80 dark:border-white/10 shrink-0">
                     <h2 className="text-xl font-semibold text-foreground">
@@ -457,6 +466,8 @@ export function LangDropdownMenu({
                 </div>
               </div>
             </div>
+          );
+        })()}
           </div>,
           document.body
         )}

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
-import { AlertTriangle, X } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { isImageFile, getFileIconInfo } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
 
@@ -21,15 +21,6 @@ export function DeleteMessageModal({
   promptText,
   files,
 }: DeleteMessageModalProps) {
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobileScreen(window.innerWidth < 1025);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   const hasFiles = files && files.length > 0;
 
   return (
@@ -37,24 +28,25 @@ export function DeleteMessageModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[600px]"
+      maxSnap={0.96}
+      className="max-w-[440px]"
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">
-        {/* Header — Share prompt style with X close button on desktop */}
+        {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
             Delete message?
           </h2>
         </div>
 
-        {/* Message Preview Card — same to same as Share Prompt card, without scrollable and without CloseAI text */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-800 border border-border/80 dark:border-none">
-          {/* Bottom gradient overlay — stops before scrollbar */}
-          <div className="absolute bottom-0 left-0 right-3 sm:right-4 h-[30%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent dark:from-neutral-800 dark:via-neutral-800/95 to-transparent" />
+        {/* Message Preview Card — same to same consistent with delete chat modal */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-900 border border-border/80 dark:border-none">
+          {/* Bottom gradient overlay — full width, no scrollbar */}
+          <div className="absolute bottom-0 left-0 right-0 h-[30%] min-h-[48px] max-h-[64px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent dark:from-neutral-900 dark:via-neutral-900/95 to-transparent" />
 
           <div
             className={cn(
-              "relative z-0 max-h-[200px] sm:max-h-[400px] min-h-[150px] sm:min-h-[300px] flex flex-col items-end justify-start gap-2.5 px-5 sm:px-6 pt-5 sm:pt-6 pb-12 sm:pb-14 overflow-y-auto select-text",
+              "relative z-0 min-h-[140px] sm:min-h-[160px] max-h-[200px] flex flex-col items-end justify-start gap-2.5 p-5 sm:p-6 overflow-hidden select-text"
             )}
           >
             {/* Files Preview */}
@@ -120,14 +112,14 @@ export function DeleteMessageModal({
               onOpenChange(false);
               onConfirm();
             }}
-            className="w-full h-11 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 active:scale-[0.99] transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
           >
             Delete message
           </button>
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
           >
             Cancel
           </button>

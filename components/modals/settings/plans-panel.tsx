@@ -113,12 +113,12 @@ export function PlansPanel() {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 pt-2.5">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm text-muted-foreground">
           Choose a plan that fits how you work.
         </p>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 py-1">
           <span className={`text-sm ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
             Monthly
           </span>
@@ -134,7 +134,7 @@ export function PlansPanel() {
           type="button"
           onClick={handleManage}
           disabled={loading === "manage"}
-          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 cursor-pointer disabled:opacity-70"
+          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-70 transition-all select-none"
         >
           {loading === "manage" ? (
             <Loader className="w-4 h-4 animate-spin inline" />
@@ -210,7 +210,7 @@ export function PlansPanel() {
                   type="button"
                   onClick={() => handleUpgrade(plan.id)}
                   disabled={loading !== null}
-                  className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 cursor-pointer disabled:opacity-70 flex items-center justify-center"
+                  className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-70 flex items-center justify-center transition-all select-none"
                 >
                   {loading === plan.id ? (
                     <Loader className="w-4 h-4 animate-spin" />

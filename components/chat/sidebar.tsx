@@ -124,14 +124,9 @@ function ChatTitleMarquee({
   useEffect(() => {
     const measure = () => {
       if (textRef.current && containerRef.current) {
-        const isMobile =
-          typeof window !== "undefined" && window.innerWidth < 1280;
-        const actionSpace = isMobile ? 0 : 70;
-
         const diff =
           textRef.current.scrollWidth -
-          containerRef.current.clientWidth +
-          actionSpace;
+          containerRef.current.clientWidth;
 
         setOverflowWidth(Math.max(diff, 0));
       }
@@ -139,12 +134,21 @@ function ChatTitleMarquee({
 
     measure();
 
+    const ro = new ResizeObserver(() => measure());
+    if (containerRef.current) ro.observe(containerRef.current);
+    if (textRef.current) ro.observe(textRef.current);
+
+    if (typeof document !== "undefined" && document.fonts) {
+      document.fonts.ready.then(measure);
+    }
+
     window.addEventListener("resize", measure);
 
     return () => {
+      ro.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [title]);
+  }, [title, isHovered, isSelected]);
 
   const isScrolling = overflowWidth > 0 && isHovered;
 
@@ -153,21 +157,21 @@ function ChatTitleMarquee({
   return (
     <div
       ref={containerRef}
-      className="relative flex-1 min-w-0 overflow-hidden pr-1 max-xl:mr-[78px]"
+      className={cn(
+        "relative flex-1 min-w-0 overflow-hidden pr-1 max-xl:mr-[78px]",
+        isHovered && "xl:mr-[78px]"
+      )}
       style={{
-        maskImage:
-          overflowWidth > 0
-            ? isScrolling
-              ? "linear-gradient(to right, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%)"
-              : "linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%)"
-            : "none",
+        animation: isScrolling
+          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
+          : undefined,
+        maskImage: isScrolling
+          ? undefined
+          : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)",
 
-        WebkitMaskImage:
-          overflowWidth > 0
-            ? isScrolling
-              ? "linear-gradient(to right, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%)"
-              : "linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%)"
-            : "none",
+        WebkitMaskImage: isScrolling
+          ? undefined
+          : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)",
       }}
     >
       {/* Chat title */}
@@ -175,7 +179,7 @@ function ChatTitleMarquee({
         ref={textRef}
         style={
           {
-            "--marquee-dist": `${overflowWidth + 10}px`,
+            "--marquee-dist": `${overflowWidth}px`,
             animation: isScrolling
               ? `chat-title-marquee ${duration}s ease-in-out infinite`
               : "none",
@@ -244,8 +248,6 @@ export function Sidebar({
   const [showSearch, setShowSearch] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const [hoveredChatId, setHoveredChatId] = useState<string | null>(null);
-  const [pressedChatId, setPressedChatId] = useState<string | null>(null);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
   const [isCloseBtnHovered, setIsCloseBtnHovered] = useState(false);
   const [isImagesHovered, setIsImagesHovered] = useState(false);
@@ -366,9 +368,6 @@ export function Sidebar({
     };
   }, []);
 
-  /**
-   * Help Menu Items (Consistent ChatGPT style with project colors: /gc, /gc/[id], and attach-menu)
-   */
   const renderHelpMenuItems = () => (
     <div className="space-y-0.5 p-0.5">
       <DropdownMenuItem asChild>
@@ -801,7 +800,7 @@ export function Sidebar({
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-238}
+              alignOffset={-186}
               className="w-56 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
             >
               <DropdownMenuItem asChild>
@@ -874,135 +873,164 @@ export function Sidebar({
     );
   };
 
-  const renderChatItem = (chat: Chat) => {
-    const isHovered = hoveredChatId === chat.id;
-    const isPressed = pressedChatId === chat.id;
-    const isSelected = currentChatId === chat.id;
-    const isHighlighted = isSelected || isHovered || isPressed;
+function SidebarChatItem({
+  chat,
+  isSelected,
+  onChatSelect,
+  isOpen,
+  onToggle,
+  onToggleStar,
+  onToggleArchive,
+  setChatToDelete,
+}: {
+  chat: Chat;
+  isSelected: boolean;
+  onChatSelect: (id: string) => void;
+  isOpen: boolean;
+  onToggle: () => void;
+  onToggleStar: (id: string, starred: boolean) => void;
+  onToggleArchive?: (id: string, archived: boolean) => void;
+  setChatToDelete: (chat: Chat) => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
-    return (
+  return (
+    <div
+      onClick={() => {
+        onChatSelect(chat.id);
+        if (
+          isOpen &&
+          typeof window !== "undefined" &&
+          window.innerWidth < 1280
+        ) {
+          onToggle();
+        }
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setIsPressed(false);
+      }}
+      onTouchStart={() => setIsPressed(true)}
+      onTouchEnd={() => setIsPressed(false)}
+      onTouchCancel={() => setIsPressed(false)}
+      className={cn(
+        "group relative flex items-center justify-between px-2 py-2.5 rounded-xl text-md cursor-pointer transition-all duration-150",
+        isSelected
+          ? "bg-secondary text-foreground"
+          : cn(
+              "text-muted-foreground hover:bg-secondary active:bg-secondary",
+              isPressed && "bg-secondary"
+            )
+      )}
+    >
+      {/* Title with Smooth Marquee on Hover */}
+      <ChatTitleMarquee
+        title={chat.title || "New chat"}
+        isHovered={isHovered}
+        isSelected={isSelected}
+      />
+
+      {/* Status indicators when not hovered (hidden on mobile where action buttons are always visible) */}
+      {chat.starred && !isHovered && (
+        <PinOff className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden" />
+      )}
+      {chat.archived && !chat.starred && !isHovered && (
+        <ArchiveX className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden" />
+      )}
+
+      {/* Actions */}
       <div
-        key={chat.id}
-        onClick={() => {
-          onChatSelect(chat.id);
-          if (
-            isOpen &&
-            typeof window !== "undefined" &&
-            window.innerWidth < 1280
-          ) {
-            onToggle();
-          }
-        }}
-        onMouseEnter={() => setHoveredChatId(chat.id)}
-        onMouseLeave={() => {
-          setHoveredChatId(null);
-          setPressedChatId(null);
-        }}
-        onTouchStart={() => setPressedChatId(chat.id)}
-        onTouchEnd={() => setPressedChatId(null)}
-        onTouchCancel={() => setPressedChatId(null)}
         className={cn(
-          "group relative flex items-center justify-between px-2 py-2 rounded-xl text-md cursor-pointer transition-all duration-150",
-          isSelected
-            ? "bg-secondary text-foreground"
-            : cn(
-                "text-muted-foreground hover:bg-secondary active:bg-secondary",
-                isPressed && "bg-secondary"
-              )
+          "absolute right-2 inset-y-0 flex items-center gap-0.5 z-10 transition-opacity duration-150",
+          // Desktop (>= 1280px): position at right edge, completely transparent background so it matches the row seamlessly!
+          "xl:right-0 xl:pl-1 xl:pr-2 xl:rounded-r-xl",
+          // Small screens (< 1280px): completely transparent, no gradient box, seamless with hover box!
+          "max-xl:bg-transparent max-xl:bg-none",
+          // Visibility: on small screens always visible; on desktop visible strictly when isHovered is true!
+          "max-xl:opacity-100 max-xl:pointer-events-auto",
+          isHovered
+            ? "opacity-100 pointer-events-auto"
+            : "xl:opacity-0 xl:pointer-events-none"
         )}
       >
-        {/* Title with Smooth Marquee on Hover */}
-        <ChatTitleMarquee
-          title={chat.title || "New chat"}
-          isHovered={isHovered}
-          isSelected={isSelected}
-        />
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleStar(chat.id, !chat.starred);
+              }}
+              className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
+            >
+              {chat.starred ? (
+                <PinOff className="w-4 h-4 text-foreground" />
+              ) : (
+                <Pin className="w-4 h-4" />
+              )}
+            </button>
+          </TooltipTrigger>
+          <TooltipContent className="text-md">
+            {chat.starred ? "Unpin" : "Pin"}
+          </TooltipContent>
+        </Tooltip>
 
-        {/* Status indicators when not hovered (hidden on mobile where action buttons are always visible) */}
-        {chat.starred && !isHovered && (
-          <PinOff className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden" />
-        )}
-        {chat.archived && !chat.starred && !isHovered && (
-          <ArchiveX className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden" />
-        )}
-
-        {/* Actions */}
-        <div
-          className={cn(
-            "absolute right-2 inset-y-0 flex items-center gap-0.5 z-10 pointer-events-none",
-            // Desktop (>= 1280px): full-height smooth gradient fade matching hover box
-            "xl:right-0 xl:pl-16 xl:pr-2 xl:rounded-r-xl",
-            "xl:bg-gradient-to-l xl:from-secondary xl:via-secondary xl:to-transparent",
-            // Small screens (< 1280px): completely transparent, no gradient box, seamless with hover box!
-            "max-xl:bg-transparent max-xl:bg-none max-xl:opacity-100",
-            // Desktop visibility: shown on hover or when selected
-            isSelected
-              ? "opacity-100"
-              : "xl:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
-          )}
-        >
+        {onToggleArchive && (
           <Tooltip>
             <TooltipTrigger asChild>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onToggleStar(chat.id, !chat.starred);
+                  onToggleArchive(chat.id, !chat.archived);
                 }}
                 className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
               >
-                {chat.starred ? (
-                  <PinOff className="w-4 h-4 text-foreground" />
+                {chat.archived ? (
+                  <ArchiveX className="w-4 h-4" />
                 ) : (
-                  <Pin className="w-4 h-4" />
+                  <Archive className="w-4 h-4" />
                 )}
               </button>
             </TooltipTrigger>
             <TooltipContent className="text-md">
-              {chat.starred ? "Unpin" : "Pin"}
+              {chat.archived ? "Unarchive" : "Archive"}
             </TooltipContent>
           </Tooltip>
+        )}
 
-          {onToggleArchive && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleArchive(chat.id, !chat.archived);
-                  }}
-                  className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
-                >
-                  {chat.archived ? (
-                    <ArchiveX className="w-4 h-4" />
-                  ) : (
-                    <Archive className="w-4 h-4" />
-                  )}
-                </button>
-              </TooltipTrigger>
-              <TooltipContent className="text-md">
-                {chat.archived ? "Unarchive" : "Archive"}
-              </TooltipContent>
-            </Tooltip>
-          )}
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setChatToDelete(chat);
-                }}
-                className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent className="text-md">Delete</TooltipContent>
-          </Tooltip>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setChatToDelete(chat);
+              }}
+              className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent className="text-md">Delete</TooltipContent>
+        </Tooltip>
       </div>
-    );
-  };
+    </div>
+  );
+}
+
+  const renderChatItem = (chat: Chat) => (
+    <SidebarChatItem
+      key={chat.id}
+      chat={chat}
+      isSelected={currentChatId === chat.id}
+      onChatSelect={onChatSelect}
+      isOpen={isOpen}
+      onToggle={onToggle}
+      onToggleStar={onToggleStar}
+      onToggleArchive={onToggleArchive}
+      setChatToDelete={setChatToDelete}
+    />
+  );
 
   const renderAvatarContent = () => (
     <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 bg-secondary flex items-center justify-center select-none">
@@ -1368,7 +1396,6 @@ export function Sidebar({
                     <DropdownMenuContent
                       side="top"
                       align="start"
-                      alignOffset={1}
                       sideOffset={5}
                       className="w-64 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
                     >
@@ -2177,7 +2204,7 @@ export function Sidebar({
                     </div>
                   </div>
 
-                  {/* Small Screen Device Guest Bottom Buttons (ChatGPT style) */}
+                  {/* Small Screen Device Guest Bottom Buttons */}
                   <div className="xl:hidden w-full flex items-center justify-between">
                     <button
                       type="button"
@@ -2238,6 +2265,9 @@ export function Sidebar({
           if (!open) setChatToDelete(null);
         }}
         itemTitle={chatToDelete?.title || "New chat"}
+        isActive={chatToDelete?.id === currentChatId}
+        starred={chatToDelete?.starred}
+        archived={chatToDelete?.archived}
         onConfirm={() => {
           if (chatToDelete) {
             onDeleteChat(chatToDelete.id);

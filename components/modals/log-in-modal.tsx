@@ -399,7 +399,7 @@ export function LoginModal({
               <div
                 className={cn(
                   "h-12 rounded-full bg-background border border-border/80 dark:border-none px-4 flex items-center transition-all",
-                  "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-card",
+                  "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
                   errors.email && (touched.email || submitted)
                     ? "border-red-500/80 focus-within:ring-red-500"
                     : "border-border/80 focus-within:ring-blue-500"
@@ -448,7 +448,7 @@ export function LoginModal({
                 <div
                   className={cn(
                     "h-12 rounded-full bg-background border border-border/80 dark:border-none px-4 flex items-center gap-3 transition-all",
-                    "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-card",
+                    "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
                     errors.phone && (touched.phone || submitted)
                       ? "border-red-500/80 focus-within:ring-red-500"
                       : "border-border/80 focus-within:ring-blue-500"
@@ -498,20 +498,20 @@ export function LoginModal({
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="group inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Terms of Use</span>
-              <AnimatedArrowUpRight size={14} className="shrink-0" />
+              <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
             </Link>{" "}
             and{" "}
             <Link
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="group inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Privacy Policy</span>
-              <AnimatedArrowUpRight size={14} className="shrink-0" />
+              <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
             </Link>
             .
           </p>

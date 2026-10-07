@@ -615,7 +615,7 @@ export function ProfilePanel() {
           <button
             type="button"
             onClick={() => setImageOpen(true)}
-            className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none flex items-center justify-center cursor-pointer"
+            className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] transition-all"
             aria-label="Update profile picture"
           >
             <Pencil className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
@@ -710,7 +710,7 @@ export function ProfilePanel() {
         <button
           type="submit"
           disabled={saving || !name.trim() || !username.trim() || !hasChanges}
-          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center"
+          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
         >
           {saving ? <Loader className="w-4 h-4 animate-spin" /> : "Update profile"}
         </button>

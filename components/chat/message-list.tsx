@@ -298,24 +298,13 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
             <button
               type="button"
               onClick={handleCopy}
-              className="
-              group/copy-btn
-              flex items-center gap-1.5
-              px-3 py-3
-              rounded-full
-              text-base
-              hover:bg-neutral-200/80
-              dark:hover:bg-white/10
-              transition-colors
-              cursor-pointer
-              outline-none
-              "
+              className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               aria-label={copied ? "Copied" : "Copy code"}
             >
               {copied ? (
-                <Check className="w-4 h-4 text-muted-foreground group-hover/copy-btn:text-foreground transition-colors" />
+                <Check className="w-4 h-4" />
               ) : (
-                <Copy className="w-4 h-4 text-muted-foreground group-hover/copy-btn:text-foreground transition-colors" />
+                <Copy className="w-4 h-4" />
               )}
             </button>
           </TooltipTrigger>

@@ -173,10 +173,13 @@ export default function LandingPage() {
             className="relative w-full max-w-3xl mx-auto mb-6"
           >
             <div
-              onClick={() =>
-                textareaRef.current?.focus({ preventScroll: true })
-              }
-              className="relative w-full rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text"
+              onClick={(e) => {
+                const target = e.target as HTMLElement;
+                if (!target.closest("button")) {
+                  textareaRef.current?.focus({ preventScroll: true });
+                }
+              }}
+              className="relative w-full rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -192,12 +195,9 @@ export default function LandingPage() {
                 placeholder="Ask about anything"
                 rows={3}
                 disabled={isSubmitting}
-                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed"
+                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
               />
-              <div
-                className="flex items-center justify-end pt-3"
-                onClick={(e) => e.stopPropagation()}
-              >
+              <div className="flex items-center justify-end pt-3 cursor-text">
                 <button
                   type="submit"
                   disabled={!heroPrompt.trim() || isSubmitting}

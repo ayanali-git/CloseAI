@@ -158,6 +158,7 @@ export default function ActiveChatPage() {
   const isRestoringScrollRef = useRef<boolean>(false);
 
   const handleOpenPreview = (file: any, fromDrawer = false) => {
+    setShowScrollBottom(false);
     if (!activePreviewFile && scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       savedChatScrollTopRef.current = container.scrollTop;
@@ -237,7 +238,7 @@ export default function ActiveChatPage() {
   // Handle scroll events to show/hide scroll-to-bottom button
   const handleScroll = () => {
     if (!scrollContainerRef.current) return;
-    if (activePreviewFile || isRestoringScrollRef.current) return;
+    if (activePreviewFile || isFilesDrawerOpen || isRestoringScrollRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } =
       scrollContainerRef.current;
     const distanceToBottom = scrollHeight - scrollTop - clientHeight;
@@ -1487,7 +1488,7 @@ export default function ActiveChatPage() {
                 >
                   {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
                   <AnimatePresence>
-                    {showScrollBottom && (
+                    {showScrollBottom && !activePreviewFile && !isFilesDrawerOpen && (
                       <div className="absolute bottom-full mb-3 inset-x-0 flex justify-center pointer-events-none z-30">
                         <div className="pointer-events-auto">
                           <Tooltip>

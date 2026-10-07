@@ -622,7 +622,10 @@ export function NativeDropdownMenu<T extends string = string>({
         aria-label={ariaLabel}
         disabled={disabled}
         className={cn(
-          "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
+          "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
+          isGuest
+            ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+            : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
           isGuest ? "dark:hover:bg-[#383838]" : "dark:hover:bg-[#2f2f2f]",
@@ -672,11 +675,10 @@ export function NativeDropdownMenu<T extends string = string>({
               // Nothing to scroll -> the popup itself must not pan/drag either
               !isScrollable && "touch-none overscroll-none",
               isGuest
-                ? // Guest: solid surface, exactly like the guest settings modal.
-                  // No translucent bg and no backdrop blur.
-                  "!bg-white dark:!bg-[#2f2f2f] border border-border/80 dark:border-white/10 backdrop-blur-none"
-                : // Logged-in: frosted glass (no outline in dark mode, as before)
-                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+                ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
+                  "!bg-white dark:!bg-[#2f2f2f] border border-border/80 dark:border-white/10 lg:translate-y-px backdrop-blur-none"
+                : // Logged-in: frosted glass (lg:translate-y-px in light mode for 1px border, 0px in dark mode where border-none)
+                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none lg:translate-y-px dark:lg:translate-y-0",
               contentClassName
             )}
           >

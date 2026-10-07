@@ -23,7 +23,7 @@ const DATA_PREF_STORAGE_KEYS: Record<DataPrefKey, string> = {
 function getDataPref(key: DataPrefKey): boolean {
   if (typeof window === "undefined") return true;
   const raw = window.localStorage.getItem(DATA_PREF_STORAGE_KEYS[key]);
-  if (raw === null) return true; // default on, matches ChatGPT's default state
+  if (raw === null) return true; // default on
   return raw === "true";
 }
 

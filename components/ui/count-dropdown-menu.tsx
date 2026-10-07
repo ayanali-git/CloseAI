@@ -160,7 +160,7 @@ export function CountDropdownMenu({
           "w-full h-12 rounded-full bg-background border border-border/80 px-4",
           "flex items-center gap-3 text-left cursor-pointer select-none",
           "transition-colors",
-          "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
           className
         )}
         aria-haspopup="listbox"

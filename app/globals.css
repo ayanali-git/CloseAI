@@ -52,21 +52,6 @@
     --muted-foreground: 0 0% 42%;
   }
 
-  html[data-accent="blue"] {
-    --ring: 217 91% 60%;
-    --bubble: 217 90% 90%;
-  }
-
-  html[data-accent="green"] {
-    --ring: 142 71% 45%;
-    --bubble: 142 50% 88%;
-  }
-
-  html[data-accent="purple"] {
-    --ring: 270 70% 55%;
-    --bubble: 270 70% 92%;
-  }
-
   .dark {
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
@@ -95,54 +80,88 @@
     --emerald: 160 84% 39%;
   }
 
-  /* Blue Accent — vibrant royal blue (#2563eb) */
+  /* Blue Accent — (#1090e8) */
   html[data-accent="blue"], [data-accent="blue"] {
-    --ring: 221 83% 53%;
-    --bubble: 221 83% 53%;
+    --ring: 204 88% 49%;
+    --bubble: 204 88% 49%;
     --bubble-foreground: 0 0% 100%;
-    --send-btn: 221 83% 53%;
+    --send-btn: 204 88% 49%;
     --send-btn-foreground: 0 0% 100%;
   }
 
   html.dark[data-accent="blue"], .dark[data-accent="blue"], .dark [data-accent="blue"] {
-    --ring: 221 83% 53%;
-    --bubble: 221 83% 53%;
+    --ring: 204 88% 49%;
+    --bubble: 204 88% 49%;
     --bubble-foreground: 0 0% 100%;
-    --send-btn: 221 83% 53%;
+    --send-btn: 204 88% 49%;
     --send-btn-foreground: 0 0% 100%;
   }
 
-  /* Green Accent */
+  /* Green Accent — (#b2e030) */
   html[data-accent="green"], [data-accent="green"] {
-    --ring: 142 71% 45%;
-    --bubble: 142 71% 40%;
-    --bubble-foreground: 0 0% 100%;
-    --send-btn: 142 71% 40%;
-    --send-btn-foreground: 0 0% 100%;
+    --ring: 75 74% 53%;
+    --bubble: 75 74% 53%;
+    --bubble-foreground: 0 0% 0%;
+    --send-btn: 75 74% 53%;
+    --send-btn-foreground: 0 0% 0%;
   }
 
   html.dark[data-accent="green"], .dark[data-accent="green"], .dark [data-accent="green"] {
-    --ring: 142 71% 45%;
-    --bubble: 142 71% 40%;
-    --bubble-foreground: 0 0% 100%;
-    --send-btn: 142 71% 40%;
-    --send-btn-foreground: 0 0% 100%;
+    --ring: 75 74% 53%;
+    --bubble: 75 74% 53%;
+    --bubble-foreground: 0 0% 0%;
+    --send-btn: 75 74% 53%;
+    --send-btn-foreground: 0 0% 0%;
   }
 
-  /* Purple Accent */
+  /* Purple Accent — (#e03fd8) */
   html[data-accent="purple"], [data-accent="purple"] {
-    --ring: 270 70% 55%;
-    --bubble: 270 70% 55%;
+    --ring: 303 78% 56%;
+    --bubble: 303 78% 56%;
     --bubble-foreground: 0 0% 100%;
-    --send-btn: 270 70% 55%;
+    --send-btn: 303 78% 56%;
     --send-btn-foreground: 0 0% 100%;
   }
 
   html.dark[data-accent="purple"], .dark[data-accent="purple"], .dark [data-accent="purple"] {
-    --ring: 270 70% 55%;
-    --bubble: 270 70% 55%;
+    --ring: 303 78% 56%;
+    --bubble: 303 78% 56%;
     --bubble-foreground: 0 0% 100%;
-    --send-btn: 270 70% 55%;
+    --send-btn: 303 78% 56%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  /* Yellow Accent — (#f0b810) */
+  html[data-accent="yellow"], [data-accent="yellow"] {
+    --ring: 45 89% 50%;
+    --bubble: 45 89% 50%;
+    --bubble-foreground: 0 0% 0%;
+    --send-btn: 45 89% 50%;
+    --send-btn-foreground: 0 0% 0%;
+  }
+
+  html.dark[data-accent="yellow"], .dark[data-accent="yellow"], .dark [data-accent="yellow"] {
+    --ring: 45 89% 50%;
+    --bubble: 45 89% 50%;
+    --bubble-foreground: 0 0% 0%;
+    --send-btn: 45 89% 50%;
+    --send-btn-foreground: 0 0% 0%;
+  }
+
+  /* Pink Accent — (#f0507b) */
+  html[data-accent="pink"], [data-accent="pink"] {
+    --ring: 344 85% 63%;
+    --bubble: 344 85% 63%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 344 85% 63%;
+    --send-btn-foreground: 0 0% 100%;
+  }
+
+  html.dark[data-accent="pink"], .dark[data-accent="pink"], .dark [data-accent="pink"] {
+    --ring: 344 85% 63%;
+    --bubble: 344 85% 63%;
+    --bubble-foreground: 0 0% 100%;
+    --send-btn: 344 85% 63%;
     --send-btn-foreground: 0 0% 100%;
   }
 
@@ -622,6 +641,29 @@ html:not(.dark) .token.important {
   }
   60%, 100% {
     transform: translateX(0);
+  }
+}
+
+@keyframes chat-title-marquee-mask {
+  0%, 3% {
+    -webkit-mask-image: linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%);
+  }
+  4%, 39% {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);
+  }
+  40%, 50% {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10px, black 100%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10px, black 100%, black 100%);
+  }
+  51%, 59% {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);
+  }
+  60%, 100% {
+    -webkit-mask-image: linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%);
   }
 }
 

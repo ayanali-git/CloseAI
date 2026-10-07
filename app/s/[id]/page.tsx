@@ -100,10 +100,15 @@ function SharedHeaderTitleMarquee({
     measure();
     const timer1 = setTimeout(measure, 100);
     const timer2 = setTimeout(measure, 500);
+
+    const ro = new ResizeObserver(() => measure());
+    if (containerRef.current) ro.observe(containerRef.current);
+
     window.addEventListener("resize", measure);
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
+      ro.disconnect();
       window.removeEventListener("resize", measure);
     };
   }, [title, isLoading, measure]);
@@ -138,25 +143,28 @@ function SharedHeaderTitleMarquee({
       onMouseLeave={handleMouseLeave}
       className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[278px] lg:max-w-[378px] xl:max-w-[478px] py-1 select-none pr-1"
       style={{
+        animation: isScrolling
+          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
+          : undefined,
         maskImage:
           overflowWidth > 0
             ? isScrolling
-              ? "linear-gradient(to right, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%)"
-              : "linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%)"
+              ? undefined
+              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
             : "none",
 
         WebkitMaskImage:
           overflowWidth > 0
             ? isScrolling
-              ? "linear-gradient(to right, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%)"
-              : "linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%)"
+              ? undefined
+              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
             : "none",
       }}
     >
       <span
         ref={textRef}
         style={{
-          '--marquee-dist': `${overflowWidth + 10}px`,
+          '--marquee-dist': `${overflowWidth}px`,
           animation: isScrolling
             ? `chat-title-marquee ${duration}s ease-in-out infinite`
             : "none",

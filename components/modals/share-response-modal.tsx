@@ -334,7 +334,7 @@ export function ShareResponseModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[600px]"
+      className="max-w-[600px] bg-white dark:bg-[#2f2f2f] border border-border/80"
     >
       <div className="flex flex-col space-y-5 pt-1 pb-3">
         {/* Header */}
@@ -345,7 +345,7 @@ export function ShareResponseModal({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
+            className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-colors cursor-pointer shrink-0"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -353,7 +353,7 @@ export function ShareResponseModal({
         </div>
 
         {/* Preview Card — renders the assistant response in full share preview */}
-        <div ref={cardRef} className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-800 border border-border/80 dark:border-none">
+        <div ref={cardRef} className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-900 border border-border/80 dark:border-none">
           {/* Scrollable / Max Response Viewport */}
           <div
             className={cn(
@@ -515,7 +515,7 @@ export function ShareResponseModal({
           </div>
 
           {/* Bottom Fade Overlay into CloseAI Branding — 25% full fade, stops before scrollbar like c/id and s/id */}
-          <div className="absolute bottom-0 left-0 right-4 sm:right-5 h-[25%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent dark:from-neutral-800 dark:via-neutral-800/95 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-4 sm:right-5 h-[25%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent dark:from-neutral-900 dark:via-neutral-900/95 to-transparent" />
 
           {/* CloseAI Branding Watermark (bottom right) */}
           <div
@@ -529,14 +529,14 @@ export function ShareResponseModal({
         </div>
 
         {/* Share Buttons Row */}
-        <div className="flex items-center justify-center gap-4 sm:gap-10 pt-4 sm:pt-10">
+        <div className="flex items-center justify-center gap-5 sm:gap-10 pt-5 sm:pt-10">
           {/* Copy */}
           <button
             type="button"
             onClick={handleCopyLink}
-            className="flex flex-col items-center gap-2 group cursor-pointer"
+            className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80">
+            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -552,9 +552,9 @@ export function ShareResponseModal({
           <button
             type="button"
             onClick={handleShareX}
-            className="flex flex-col items-center gap-2 group cursor-pointer"
+            className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80">
+            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
@@ -566,9 +566,9 @@ export function ShareResponseModal({
           <button
             type="button"
             onClick={handleShareLinkedIn}
-            className="flex flex-col items-center gap-2 group cursor-pointer"
+            className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80">
+            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
@@ -580,9 +580,9 @@ export function ShareResponseModal({
           <button
             type="button"
             onClick={handleShareMore}
-            className="flex flex-col items-center gap-2 group cursor-pointer"
+            className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80">
+            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">

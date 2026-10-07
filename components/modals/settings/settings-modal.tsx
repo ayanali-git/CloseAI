@@ -223,8 +223,8 @@ export function SettingsModal({
         className={cn(
           "rounded-t-3xl min-[1025px]:rounded-3xl",
           isGuest
-            ? "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(500px,90vh)]"
-            : "min-[1025px]:max-w-[750px] min-[1025px]:h-[min(500px,90vh)]",
+            ? "min-[1025px]:max-w-[750px] min-[1025px]:h-[min(500px,90vh)]"
+            : "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(500px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
             "bg-white dark:bg-[#2f2f2f] border border-border/80"
@@ -253,7 +253,11 @@ export function SettingsModal({
                 type="button"
                 onClick={() => closeSettings()}
                 className={cn(
-                  "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer transition-colors",
+                  "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                  isGuest
+                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
+                  "cursor-pointer transition-colors",
                   darkHover
                 )}
                 aria-label="Close settings"
@@ -320,7 +324,7 @@ export function SettingsModal({
                     className={cn(
                       "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] focus:placeholder:text-foreground placeholder:text-muted-foreground outline-none focus:outline-none transition-colors",
                       isSearchTabFocused &&
-                        "ring-2 ring-ring ring-offset-2 ring-offset-background"
+                        "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#212121]"
                     )}
                   />
                 </div>
@@ -349,7 +353,11 @@ export function SettingsModal({
                     // has slid out of view, not here.
                     onClick={() => openSettings(item.id)}
                     className={cn(
-                      "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:z-10 transition-colors",
+                      "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                      isGuest
+                        ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                        : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
+                      "focus-visible:z-10 transition-colors",
                       isMobile
                         ? "py-3"
                         : "py-2",
@@ -397,7 +405,11 @@ export function SettingsModal({
                   type="button"
                   onClick={() => openSettings("root")}
                   className={cn(
-                    "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary cursor-pointer transition-colors",
+                    "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                    isGuest
+                      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
+                    "cursor-pointer transition-colors",
                     darkHover
                   )}
                   aria-label="Back to settings"
@@ -421,7 +433,7 @@ export function SettingsModal({
               )}
             >
               <div ref={contentRef}>
-                <div className="px-4 min-[1025px]:px-6 pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom,0px)))] min-[1025px]:pb-6">
+                <div className="px-4 min-[1025px]:px-6 pt-1 pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom,0px)))] min-[1025px]:pb-6">
                   <SettingsSectionBody section={active} />
                 </div>
               </div>

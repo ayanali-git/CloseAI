@@ -1,147 +1,147 @@
 [
   {
     "code": "ar-SA",
-    "name": "Arabic",
+    "name": "Arabic (Saudi Arabia)",
     "nativeName": "العربية"
   },
   {
     "code": "bn-BD",
-    "name": "Bengali",
+    "name": "Bengali (Bangladesh)",
     "nativeName": "বাংলা"
   },
   {
     "code": "zh-CN",
-    "name": "Chinese",
+    "name": "Chinese (China)",
     "nativeName": "简体中文"
   },
   {
     "code": "en-IN",
-    "name": "English",
-    "nativeName": "English (India)"
+    "name": "English (India)",
+    "nativeName": "English"
   },
   {
     "code": "en-US",
-    "name": "English",
-    "nativeName": "English (United States)"
+    "name": "English (United States)",
+    "nativeName": "English"
   },
   {
     "code": "fr-FR",
-    "name": "French",
+    "name": "French (France)",
     "nativeName": "Français"
   },
   {
     "code": "de-DE",
-    "name": "German",
+    "name": "German (Germany)",
     "nativeName": "Deutsch"
   },
   {
     "code": "gu-IN",
-    "name": "Gujarati",
+    "name": "Gujarati (India)",
     "nativeName": "ગુજરાતી"
   },
   {
     "code": "hi-IN",
-    "name": "Hindi",
+    "name": "Hindi (India)",
     "nativeName": "हिन्दी"
   },
   {
     "code": "id-ID",
-    "name": "Indonesian",
+    "name": "Indonesian (Indonesia)",
     "nativeName": "Bahasa Indonesia"
   },
   {
     "code": "it-IT",
-    "name": "Italian",
+    "name": "Italian (Italy)",
     "nativeName": "Italiano"
   },
   {
     "code": "ja-JP",
-    "name": "Japanese",
+    "name": "Japanese (Japan)",
     "nativeName": "日本語"
   },
   {
     "code": "kn-IN",
-    "name": "Kannada",
+    "name": "Kannada (India)",
     "nativeName": "ಕನ್ನಡ"
   },
   {
     "code": "ko-KR",
-    "name": "Korean",
+    "name": "Korean (South Korea)",
     "nativeName": "한국어"
   },
   {
     "code": "ml-IN",
-    "name": "Malayalam",
+    "name": "Malayalam (India)",
     "nativeName": "മലയാളം"
   },
   {
     "code": "mr-IN",
-    "name": "Marathi",
+    "name": "Marathi (India)",
     "nativeName": "मराठी"
   },
   {
     "code": "pt-BR",
-    "name": "Portuguese",
+    "name": "Portuguese (Brazil)",
     "nativeName": "Português"
   },
   {
     "code": "pa-IN",
-    "name": "Punjabi",
+    "name": "Punjabi (India)",
     "nativeName": "ਪੰਜਾਬੀ"
   },
   {
     "code": "pa-PK",
-    "name": "Punjabi",
-    "nativeName": "ਪੰਜਾਬੀ"
+    "name": "Punjabi (Pakistan)",
+    "nativeName": "پنجابی"
   },
   {
     "code": "ro-RO",
-    "name": "Romanian",
+    "name": "Romanian (Romania)",
     "nativeName": "Română"
   },
   {
     "code": "ru-RU",
-    "name": "Russian",
+    "name": "Russian (Russia)",
     "nativeName": "Русский"
   },
   {
     "code": "es-ES",
-    "name": "Spanish",
+    "name": "Spanish (Spain)",
     "nativeName": "Español"
   },
   {
     "code": "ta-IN",
-    "name": "Tamil",
+    "name": "Tamil (India)",
     "nativeName": "தமிழ்"
   },
   {
     "code": "te-IN",
-    "name": "Telugu",
+    "name": "Telugu (India)",
     "nativeName": "తెలుగు"
   },
   {
     "code": "th-TH",
-    "name": "Thai",
+    "name": "Thai (Thailand)",
     "nativeName": "ไทย"
   },
   {
     "code": "tr-TR",
-    "name": "Turkish",
+    "name": "Turkish (Turkey)",
     "nativeName": "Türkçe"
   },
   {
     "code": "uk-UA",
-    "name": "Ukrainian",
+    "name": "Ukrainian (Ukraine)",
     "nativeName": "Українська"
   },
   {
     "code": "ur-PK",
-    "name": "Urdu",
+    "name": "Urdu (Pakistan)",
     "nativeName": "اردو"
   },
   {
     "code": "vi-VN",
-    "name": "Vietnamese",
+    "name": "Vietnamese (Vietnam)",
     "nativeName": "Tiếng Việt"
   }
 ]

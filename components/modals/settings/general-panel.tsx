@@ -28,16 +28,24 @@ interface LanguageItem {
   nativeName: string;
 }
 
+const languages = languagesData as LanguageItem[];
+const hindi = languages.find((l) => l.code === "hi-IN" || l.code === "hi" || l.name.startsWith("Hindi"));
+const gujarati = languages.find((l) => l.code === "gu-IN" || l.code === "gu" || l.name.startsWith("Gujarati"));
+
 const languageOptions: DropdownOption[] = [
   { value: "auto", label: "Auto-detect" },
-  { value: "hi", label: "Hindi" },
-  { value: "gu", label: "Gujarati", divider: true },
-  ...((languagesData as LanguageItem[])
-    .filter((l) => l.code !== "hi" && l.code !== "gu")
+  ...(hindi ? [{ value: hindi.code, label: hindi.name }] : []),
+  ...(gujarati ? [{ value: gujarati.code, label: gujarati.name, divider: true }] : []),
+  ...languages
+    .filter(
+      (l) =>
+        (!hindi || l.code !== hindi.code) &&
+        (!gujarati || l.code !== gujarati.code)
+    )
     .map((l) => ({
       value: l.code,
       label: l.name,
-    }))),
+    })),
 ];
 
 export function GeneralPanel() {
@@ -127,10 +135,12 @@ export function GeneralPanel() {
             setAccentColor(value);
           }}
           options={[
-            { value: "white", label: "White" },
+            { value: "white", label: "Default" },
             { value: "blue", label: "Blue" },
             { value: "green", label: "Green" },
             { value: "purple", label: "Purple" },
+            { value: "yellow", label: "Yellow" },
+            { value: "pink", label: "Pink" },
           ]}
         />
       </SettingsRow>

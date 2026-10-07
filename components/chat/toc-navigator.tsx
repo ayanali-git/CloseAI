@@ -73,18 +73,21 @@ function TocTitleMarquee({
       ref={containerRef}
       className="relative flex-1 min-w-0 overflow-hidden pr-1"
       style={{
+        animation: isScrolling
+          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
+          : undefined,
         maskImage:
           overflowWidth > 0
             ? isScrolling
-              ? "linear-gradient(to right, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%)"
-              : "linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%)"
+              ? undefined
+              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
             : "none",
 
         WebkitMaskImage:
           overflowWidth > 0
             ? isScrolling
-              ? "linear-gradient(to right, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%)"
-              : "linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%)"
+              ? undefined
+              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
             : "none",
       }}
     >
@@ -93,7 +96,7 @@ function TocTitleMarquee({
         ref={textRef}
         style={
           {
-            "--marquee-dist": `${overflowWidth + 10}px`,
+            "--marquee-dist": `${overflowWidth}px`,
             animation: isScrolling
               ? `chat-title-marquee ${duration}s ease-in-out infinite`
               : "none",

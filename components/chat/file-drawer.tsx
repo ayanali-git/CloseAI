@@ -749,14 +749,14 @@ export function FilePreviewViewer({
                 <img
                   src={fileUrl}
                   alt={fileName}
-                  className="max-h-[65vh] max-w-full object-contain rounded-xlselect-none"
+                  className="max-h-[65vh] max-w-full object-contain rounded-xl select-none"
                 />
               </div>
             )}
 
             {/* PDF Preview */}
             {isPdf && fileUrl && (
-              <div className="w-full h-[65vh] max-w-5xl rounded-2xl overflow-hiddenborder border-border/80 dark:border-none bg-card my-2">
+              <div className="w-full h-[65vh] max-w-5xl rounded-2xl overflow-hidden border border-border/80 dark:border-none bg-card my-2">
                 <iframe
                   src={fileUrl}
                   title={fileName}

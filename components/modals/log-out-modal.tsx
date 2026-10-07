@@ -80,7 +80,7 @@ export function LogoutModal({
             type="button"
             disabled={isLoggingOut}
             onClick={() => onOpenChange(false)}
-            className="absolute top-0 right-0 p-3 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
+            className="absolute top-0 right-0 p-3 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -98,7 +98,7 @@ export function LogoutModal({
 
           {/* User Card */}
           {hasUser && (
-            <div className="flex items-center gap-3.5 p-3 rounded-full dark:bg-neutral-800 border border-border/80 dark:border-none select-none">
+            <div className="flex items-center gap-3.5 p-3 rounded-full dark:bg-neutral-900 border border-border/80 dark:border-none select-none">
               <Avatar className="w-11 h-11 rounded-full border border-border/80 shrink-0">
                 <AvatarImage src={userAvatar} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
@@ -134,7 +134,7 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none gap-2"
+              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none gap-2"
             >
               {isLoggingOut ? (
                 <Loader className="w-4 h-4 animate-spin text-background" />
@@ -156,7 +156,7 @@ export function LogoutModal({
 
           {/* User Card */}
           {hasUser && (
-            <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-800 border border-border/80 dark:border-none">
+            <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-900 border border-border/80 dark:border-none">
               <div className="absolute bottom-0 left-0 right-0 h-[28%] min-h-[48px] max-h-[60px] z-10 pointer-events-none" />
 
               <div
@@ -202,7 +202,7 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center gap-2"
+              className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-70 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center gap-2"
             >
               {isLoggingOut ? (
                 <Loader className="w-4 h-4 animate-spin text-background" />
@@ -214,7 +214,7 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={() => onOpenChange(false)}
-              className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none"
+              className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none"
             >
               Cancel
             </button>
