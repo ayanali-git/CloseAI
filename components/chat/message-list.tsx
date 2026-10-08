@@ -298,7 +298,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
             <button
               type="button"
               onClick={handleCopy}
-              className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              className="p-3 rounded-full hover:bg-[#383838] text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               aria-label={copied ? "Copied" : "Copy code"}
             >
               {copied ? (

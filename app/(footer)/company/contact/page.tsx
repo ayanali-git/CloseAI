@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowUpRight, Asterisk, Mail, MapPin } from "lucide-react";
 import { AnimatedArrow, AnimatedArrowUpRight } from "@/components/ui/animated";
+import { cn } from "@/lib/utils";
 
 interface FormErrors {
   name?: string;
@@ -164,12 +165,13 @@ export default function ContactPage() {
                   handleChange("message", e.target.value, setMessage)
                 }
                 onBlur={() => handleBlur("message")}
-                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-muted-foreground focus:placeholder:text-foreground transition-colors resize-none ${
-                  errors.message && touched.message
-                    ? "border-red-500/80"
-                    : "border-border/80"
-                }`}
                 placeholder="How can we help you?"
+                className={cn(
+                  "w-full min-h-[120px] max-h-[240px] p-3 bg-card rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed placeholder:text-muted-foreground focus:placeholder:text-foreground transition-colors resize-y outline-none border",
+                  errors.message && touched.message
+                    ? "border-red-500/80 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                    : "border-border/80"
+                )}
               />
               {errors.message && touched.message && (
                 <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>

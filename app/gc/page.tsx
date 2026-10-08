@@ -51,7 +51,7 @@ function GuestChatContent() {
   const [message, setMessage] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState("gemini-3.8 flash");
+  const [selectedModel, setSelectedModel] = useState("Gemini 3.8 flash");
   const [selectedModelTier, setSelectedModelTier] = useState(4);
   const [thinkMode, setThinkMode] = useState(false);
   const autoCreateTriggeredRef = useRef(false);

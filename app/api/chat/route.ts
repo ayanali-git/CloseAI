@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
                 ?.map((f: any) => f.url) || [];
 
             let aiResponse;
-            const chosenModel = model || "gemini-3.8 flash";
+            const chosenModel = model || "Gemini 3.8 flash";
             try {
                 aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, chosenModel, !!think, userContext);
             } catch (aiError: any) {
@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
         const genStartTime = Date.now();
         let aiResponse;
         try {
-            aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, model || "gemini-3.8 flash", !!think, userContext);
+            aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, model || "Gemini 3.8 flash", !!think, userContext);
         } catch (aiError: any) {
             console.error('AI generation error:', aiError);
             aiResponse = {
@@ -178,7 +178,7 @@ export async function POST(request: NextRequest) {
         const actualGenSeconds = Math.max(1, Math.round((Date.now() - genStartTime) / 1000));
         const thinkTime = think ? actualGenSeconds : undefined;
         const assistantMetadata: Record<string, any> = {
-            model: model || "gemini-3.8 flash",
+            model: model || "Gemini 3.8 flash",
             think: !!think,
         };
         if (thinkTime) {
@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
                 content: aiResponse.content,
                 createdAt: assistantMessage.created_at,
                 chatId: currentChatId,
-                model: model || "gemini-3.8 flash",
+                model: model || "Gemini 3.8 flash",
                 metadata: assistantMetadata,
             },
         });

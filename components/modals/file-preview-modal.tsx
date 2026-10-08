@@ -227,15 +227,28 @@ export function FilePreviewModal({
             <span className="text-sm font-semibold truncate max-w-[240px] text-foreground">
               {fileName}
             </span>
-            <button
-              type="button"
-              onClick={() => onOpenChange(false)}
-              className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
-              title="Close preview"
-              aria-label="Close preview"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+              {fileUrl && (
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="group h-full w-10 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                  title="Download file"
+                  aria-label="Download file"
+                >
+                  <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => onOpenChange(false)}
+                className="group h-full w-10 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                title="Close preview"
+                aria-label="Close preview"
+              >
+                <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              </button>
+            </div>
           </div>
           {/* Content Viewer Area */}
           <div className="flex-1 w-full h-full overflow-hidden p-0 flex flex-col min-h-0">
@@ -254,19 +267,30 @@ export function FilePreviewModal({
     >
       {/* Top-Right Toolbar matching Share & More buttons position */}
       <header className="fixed top-0 left-0 right-0 z-50 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-end select-none pointer-events-none bg-transparent">
-        <div
-          className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto mt-3 pr-3 sm:pr-1 select-none"
-        >
-          <button
-            type="button"
-            onClick={() => onOpenChange(false)}
-            className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-            title="Close preview"
-            aria-label="Close preview"
-          >
-            <X className="w-4 h-4" />
-            <span className="sr-only">Close</span>
-          </button>
+        <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 select-none">
+          <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            {fileUrl && (
+              <button
+                type="button"
+                onClick={handleDownload}
+                className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                title="Download file"
+                aria-label="Download file"
+              >
+                <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+              title="Close preview"
+              aria-label="Close preview"
+            >
+              <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <span className="sr-only">Close</span>
+            </button>
+          </div>
         </div>
       </header>
 

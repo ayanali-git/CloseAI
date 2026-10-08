@@ -43,7 +43,7 @@ export default function GuestChatSessionPage() {
 
   const [message, setMessage] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [selectedModel, setSelectedModel] = useState("gemini-3.8 flash");
+  const [selectedModel, setSelectedModel] = useState("Gemini 3.8 flash");
   const [selectedModelTier, setSelectedModelTier] = useState(4);
   const [thinkMode, setThinkMode] = useState(false);
 

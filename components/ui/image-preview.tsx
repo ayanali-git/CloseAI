@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, Download, ExternalLink } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 export interface ImagePreviewProps {
@@ -14,6 +15,7 @@ export interface ImagePreviewProps {
   children?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  isGuest?: boolean;
 }
 
 export function ImagePreview({
@@ -25,7 +27,16 @@ export function ImagePreview({
   children,
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
+  isGuest: controlledIsGuest,
 }: ImagePreviewProps) {
+  let user: any = null;
+  try {
+    const auth = useAuth();
+    user = auth?.user;
+  } catch (e) {
+    user = null;
+  }
+  const isGuestMode = controlledIsGuest !== undefined ? controlledIsGuest : !user;
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : internalOpen;
@@ -89,19 +100,49 @@ export function ImagePreview({
             {/* Header toolbar matching Share & More buttons position */}
             <header className="fixed top-0 left-0 right-0 z-50 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-end select-none pointer-events-none bg-transparent">
               <div
-                className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto mt-3 pr-3 sm:pr-1 select-none"
+                className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 select-none"
                 onClick={(e) => e.stopPropagation()}
               >
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-                  title="Close preview"
-                  aria-label="Close preview"
+                <div
+                  className={cn(
+                    "flex items-center h-11 p-0.5 gap-0.5 rounded-xl transition-colors",
+                    isGuestMode
+                      ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                  )}
                 >
-                  <X className="w-4 h-4" />
-                  <span className="sr-only">Close</span>
-                </button>
+                  {src && (
+                    <button
+                      type="button"
+                      onClick={handleDownload}
+                      className={cn(
+                        "group h-full w-10 sm:w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                        isGuestMode
+                          ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 text-muted-foreground hover:text-foreground"
+                          : "hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
+                      )}
+                      title="Download image"
+                      aria-label="Download image"
+                    >
+                      <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "group h-full w-10 sm:w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                      isGuestMode
+                        ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 text-muted-foreground hover:text-foreground"
+                        : "hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
+                    )}
+                    title="Close preview"
+                    aria-label="Close preview"
+                  >
+                    <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                    <span className="sr-only">Close</span>
+                  </button>
+                </div>
               </div>
             </header>
 

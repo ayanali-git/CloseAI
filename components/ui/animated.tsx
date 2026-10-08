@@ -504,6 +504,133 @@ export {
   AnimatedPlusMinus as AnimatedMinus,
 };
 
+export interface AnimatedPlusCheckProps
+  extends React.SVGAttributes<SVGSVGElement> {
+  open?: boolean;
+  isOpen?: boolean;
+  checked?: boolean;
+  isChecked?: boolean;
+  disableHover?: boolean;
+  className?: string;
+  size?: number;
+  strokeWidth?: number;
+}
+
+export function AnimatedPlusCheck({
+  open,
+  isOpen,
+  checked,
+  isChecked,
+  disableHover = false,
+  className,
+  size = 18,
+  strokeWidth = 1.25,
+  style,
+  ...props
+}: AnimatedPlusCheckProps) {
+  const ref = useRef<SVGSVGElement>(null);
+  const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
+  const isControlled =
+    open !== undefined ||
+    isOpen !== undefined ||
+    checked !== undefined ||
+    isChecked !== undefined;
+
+  useEffect(() => {
+    if (isControlled) return;
+    const el = ref.current;
+    if (!el) return;
+    const parentGroup =
+      el.closest(".group") || el.closest("button") || el.closest("a") || el;
+    const onEnter = () => {
+      if (!disableHover) setHovered(true);
+    };
+    const onLeave = () => {
+      setHovered(false);
+      setClicked(false);
+    };
+    const onClick = () => {
+      setClicked((prev) => !prev);
+    };
+
+    parentGroup.addEventListener("mouseenter", onEnter);
+    parentGroup.addEventListener("mouseleave", onLeave);
+    parentGroup.addEventListener("click", onClick);
+    return () => {
+      parentGroup.removeEventListener("mouseenter", onEnter);
+      parentGroup.removeEventListener("mouseleave", onLeave);
+      parentGroup.removeEventListener("click", onClick);
+    };
+  }, [disableHover, isControlled]);
+
+  const active = isControlled
+    ? Boolean(open ?? isOpen ?? checked ?? isChecked)
+    : (disableHover ? clicked : Boolean(clicked || hovered));
+
+  const motionVal = useMotionValue(+active);
+  const spring = useSpring(motionVal, {
+    stiffness: 480,
+    damping: 34,
+    mass: 0.7,
+  });
+
+  useEffect(() => {
+    motionVal.set(+active);
+  }, [active, motionVal]);
+
+  // Vertex and endpoints for the morphing horizontal line into a checkmark
+  // At spring=0 (Plus): horizontal line "3.5,8 8,8 12.5,8"
+  // At spring=1 (Check): standard checkmark "3.5,8.5 6.5,11.5 12.5,4.7" (matching AnimatedCheckbox)
+  const p1Y = useTransform(spring, [0, 1], [8, 8.5]);
+  const p2X = useTransform(spring, [0, 1], [8, 6.5]);
+  const p2Y = useTransform(spring, [0, 1], [8, 11.5]);
+  const p3Y = useTransform(spring, [0, 1], [8, 4.7]);
+
+  const points = useTransform(
+    [p1Y, p2X, p2Y, p3Y],
+    ([y1, x2, y2, y3]) => `3.5,${y1} ${x2},${y2} 12.5,${y3}`
+  );
+
+  // Vertical bar of the plus collapses inward to (8, 8) and fades out
+  const vertY1 = useTransform(spring, [0, 1], [3.5, 8]);
+  const vertY2 = useTransform(spring, [0, 1], [12.5, 8]);
+  const vertOpacity = useTransform(spring, [0, 0.4, 1], [1, 0, 0]);
+
+  return (
+    <svg
+      ref={ref}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={cn(
+        "inline-block shrink-0 overflow-visible select-none pointer-events-none transition-colors",
+        className
+      )}
+      style={{ width: size, height: size, ...style }}
+      {...props}
+    >
+      <motion.polyline points={points} />
+      <motion.line
+        x1="8"
+        y1={vertY1}
+        x2="8"
+        y2={vertY2}
+        style={{ opacity: vertOpacity }}
+      />
+    </svg>
+  );
+}
+
+export {
+  AnimatedPlusCheck as AnimatedPlusToCheck,
+  AnimatedPlusCheck as AnimatedCheckPlus,
+};
+
 
 export interface AnimatedSearchCloseProps
   extends React.HTMLAttributes<HTMLSpanElement> {

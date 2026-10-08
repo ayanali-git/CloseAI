@@ -79,6 +79,7 @@ import {
 } from "@/components/ui/animated";
 import { LogoutModal } from "@/components/modals/log-out-modal";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
+import { ReportBugModal } from "@/components/modals/report-bug-modal";
 import toast from "@/lib/toast";
 import { openSettings } from "@/lib/settings-hash";
 import { motion } from "framer-motion";
@@ -158,8 +159,8 @@ function ChatTitleMarquee({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex-1 min-w-0 overflow-hidden pr-1 max-xl:mr-[78px]",
-        isHovered && "xl:mr-[78px]"
+        "relative flex-1 min-w-0 overflow-hidden pr-1 max-xl:mr-[78px] group-hover:xl:mr-[78px]",
+        (isHovered || isSelected) && "xl:mr-[78px]"
       )}
       style={{
         animation: isScrolling
@@ -266,13 +267,42 @@ export function Sidebar({
     Record<string, boolean>
   >({});
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showReportBugModal, setShowReportBugModal] = useState(false);
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
   const [isGuestCardDismissed, setIsGuestCardDismissed] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const [collapsedAccountMenuOpen, setCollapsedAccountMenuOpen] = useState(false);
+  const [guestHelpMenuOpen, setGuestHelpMenuOpen] = useState(false);
   const [railHelpOpen, setRailHelpOpen] = useState(false);
   const [webSearchHoverOpen, setWebSearchHoverOpen] = useState(false);
   const [railWebSearchHoverOpen, setRailWebSearchHoverOpen] = useState(false);
   const isWebSearchMouseHoveringRef = useRef(false);
   const ignoreNextWebSearchOpenRef = useRef(false);
+
+  const handleOpenReportBug = () => {
+    setAccountMenuOpen(false);
+    setCollapsedAccountMenuOpen(false);
+    setRailHelpOpen(false);
+    setGuestHelpMenuOpen(false);
+    setAccountSubView("main");
+    setShowReportBugModal(true);
+    if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+      onToggle();
+    }
+  };
+
+  useEffect(() => {
+    if (showReportBugModal) {
+      setAccountMenuOpen(false);
+      setCollapsedAccountMenuOpen(false);
+      setRailHelpOpen(false);
+      setGuestHelpMenuOpen(false);
+      setAccountSubView("main");
+      if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+        onToggle();
+      }
+    }
+  }, [showReportBugModal, isOpen, onToggle]);
 
   useEffect(() => {
     setWebSearchHoverOpen(false);
@@ -307,13 +337,19 @@ export function Sidebar({
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (showLogoutModal || chatToDelete) return;
+        if (showLogoutModal || chatToDelete || showReportBugModal) return;
         onToggle();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, showLogoutModal, chatToDelete, onToggle]);
+  }, [isOpen, showLogoutModal, chatToDelete, showReportBugModal, onToggle]);
+
+  useEffect(() => {
+    const handleOpen = () => handleOpenReportBug();
+    window.addEventListener("open-report-bug-modal", handleOpen);
+    return () => window.removeEventListener("open-report-bug-modal", handleOpen);
+  }, [isOpen, onToggle]);
 
   const toggleSection = (group: string) => {
     setCollapsedSections((prev) => ({
@@ -431,6 +467,18 @@ export function Sidebar({
           <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
         </Link>
       </DropdownMenuItem>
+
+      <DropdownMenuSeparator className="my-1 bg-neutral-200 dark:bg-[#383838]" />
+
+      <DropdownMenuItem
+        onClick={handleOpenReportBug}
+        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-md font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
+      >
+        <div className="flex items-center gap-2.5">
+          <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+          <span>Report a bug</span>
+        </div>
+      </DropdownMenuItem>
     </div>
   );
 
@@ -522,52 +570,86 @@ export function Sidebar({
             <span>Help</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
-          <Link
-            href="/support/help"
-            className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
-          >
-            <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-            <span>Help center</span>
-          </Link>
-          <Link
-            href="/company/blog"
-            className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
-          >
-            <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-            <span>Release notes</span>
-          </Link>
-          <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-pointer select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
-            <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-            <AnimatedComingSoonText
-              label="Download apps"
-              comingSoonText="Coming soon"
-            />
-          </div>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/support/help"
+              onClick={() => {
+                setAccountMenuOpen(false);
+                if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+                  onToggle();
+                }
+              }}
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <span>Help center</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/company/blog"
+              onClick={() => {
+                setAccountMenuOpen(false);
+                if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+                  onToggle();
+                }
+              }}
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <span>Release notes</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-pointer select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
+              <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <AnimatedComingSoonText
+                label="Download apps"
+                comingSoonText="Coming soon"
+              />
+            </div>
+          </DropdownMenuItem>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
-          <Link
-            href="/support/terms"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          <DropdownMenuItem asChild>
+            <Link
+              href="/support/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setAccountMenuOpen(false)}
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <span>Terms of Use</span>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/support/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setAccountMenuOpen(false)}
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <span>Privacy Policy</span>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+            </Link>
+          </DropdownMenuItem>
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
+          <DropdownMenuItem
+            onClick={handleOpenReportBug}
+            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
-              <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-              <span>Terms of Use</span>
+              <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+              <span>Report a bug</span>
             </div>
-            <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
-          </Link>
-          <Link
-            href="/support/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
-          >
-            <div className="flex items-center gap-2.5">
-              <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-              <span>Privacy Policy</span>
-            </div>
-            <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
-          </Link>
+          </DropdownMenuItem>
         </div>
       );
     }
@@ -800,7 +882,7 @@ export function Sidebar({
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-186}
+              alignOffset={-238}
               className="w-56 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
             >
               <DropdownMenuItem asChild>
@@ -857,13 +939,27 @@ export function Sidebar({
                   <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={handleOpenReportBug}
+                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                  <span>Report a bug</span>
+                </div>
+              </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
         )}
 
         {/* Log out */}
         <DropdownMenuItem
-          onClick={() => setShowLogoutModal(true)}
+          onClick={() => {
+            setAccountMenuOpen(false);
+            setCollapsedAccountMenuOpen(false);
+            setShowLogoutModal(true);
+          }}
           className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl"
         >
           <LogOut className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -894,10 +990,21 @@ function SidebarChatItem({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (itemRef.current?.matches(":hover")) {
+      setIsHovered(true);
+    }
+  }, []);
+
+  const showActions = isHovered || isSelected;
 
   return (
     <div
+      ref={itemRef}
       onClick={() => {
+        setIsHovered(true);
         onChatSelect(chat.id);
         if (
           isOpen &&
@@ -908,6 +1015,9 @@ function SidebarChatItem({
         }
       }}
       onMouseEnter={() => setIsHovered(true)}
+      onMouseMove={() => {
+        if (!isHovered) setIsHovered(true);
+      }}
       onMouseLeave={() => {
         setIsHovered(false);
         setIsPressed(false);
@@ -932,12 +1042,12 @@ function SidebarChatItem({
         isSelected={isSelected}
       />
 
-      {/* Status indicators when not hovered (hidden on mobile where action buttons are always visible) */}
-      {chat.starred && !isHovered && (
-        <PinOff className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden" />
+      {/* Status indicators when not hovered and not selected (hidden on mobile where action buttons are always visible) */}
+      {chat.starred && !showActions && (
+        <PinOff className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
       )}
-      {chat.archived && !chat.starred && !isHovered && (
-        <ArchiveX className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden" />
+      {chat.archived && !chat.starred && !showActions && (
+        <ArchiveX className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
       )}
 
       {/* Actions */}
@@ -948,11 +1058,11 @@ function SidebarChatItem({
           "xl:right-0 xl:pl-1 xl:pr-2 xl:rounded-r-xl",
           // Small screens (< 1280px): completely transparent, no gradient box, seamless with hover box!
           "max-xl:bg-transparent max-xl:bg-none",
-          // Visibility: on small screens always visible; on desktop visible strictly when isHovered is true!
+          // Visibility: on small screens always visible; on desktop visible when hovered, selected, or on group-hover!
           "max-xl:opacity-100 max-xl:pointer-events-auto",
-          isHovered
+          showActions
             ? "opacity-100 pointer-events-auto"
-            : "xl:opacity-0 xl:pointer-events-none"
+            : "xl:opacity-0 xl:pointer-events-none xl:group-hover:opacity-100 xl:group-hover:pointer-events-auto"
         )}
       >
         <Tooltip>
@@ -1363,7 +1473,9 @@ function SidebarChatItem({
 
                   {/* Collapsed Avatar Trigger */}
                   <DropdownMenu
+                    open={collapsedAccountMenuOpen}
                     onOpenChange={(open) => {
+                      setCollapsedAccountMenuOpen(open);
                       if (!open) setAccountSubView("main");
                     }}
                   >
@@ -1987,7 +2099,9 @@ function SidebarChatItem({
                 /* Authenticated User Profile Row */
                 <div className="w-full h-10 flex items-center justify-between relative">
                   <DropdownMenu
+                    open={accountMenuOpen}
                     onOpenChange={(open) => {
+                      setAccountMenuOpen(open);
                       if (!open) setAccountSubView("main");
                     }}
                   >
@@ -1997,7 +2111,7 @@ function SidebarChatItem({
                           <div
                             role="button"
                             tabIndex={0}
-                            className="w-full h-12 flex items-center justify-between rounded-sm hover:bg-secondary transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 pl-[6px] pr-2 min-w-0"
+                            className="w-full h-12 flex items-center justify-between rounded-sm hover:bg-secondary transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 pl-[6px] pr-1.5 min-w-0"
                           >
                             {/* Profile Section */}
                             <div className="h-10 flex items-center justify-start min-w-0 flex-1 gap-2.5 text-left">
@@ -2105,7 +2219,10 @@ function SidebarChatItem({
                     </Link>
 
                     {/* Expanded Help */}
-                    <DropdownMenu>
+                    <DropdownMenu
+                      open={guestHelpMenuOpen}
+                      onOpenChange={setGuestHelpMenuOpen}
+                    >
                       <DropdownMenuTrigger asChild>
                         <button
                           type="button"
@@ -2274,6 +2391,13 @@ function SidebarChatItem({
             setChatToDelete(null);
           }
         }}
+      />
+
+      {/* Report Bug / Feedback Modal */}
+      <ReportBugModal
+        open={showReportBugModal}
+        onOpenChange={setShowReportBugModal}
+        isGuest={!user}
       />
     </>
   );

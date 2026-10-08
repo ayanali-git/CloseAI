@@ -51,7 +51,7 @@ export class AIService {
     messages: Message[],
     fileContext?: string,
     imageUrls?: string[],
-    modelName: string = "gemini-3.8 flash",
+    modelName: string = "Gemini 3.8 flash",
     think: boolean = false,
     userContext?: string
   ): Promise<AIResponse> {

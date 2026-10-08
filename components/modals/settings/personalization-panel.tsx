@@ -11,9 +11,13 @@ import {
   setPersonalization,
   type PersonalizationPrefs,
 } from "@/lib/user-preferences";
+import { useAuth } from "@/hooks/use-auth";
+import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
 export function PersonalizationPanel() {
+  const { user, loading } = useAuth();
+  const isGuest = !loading && !user;
   const [mounted, setMounted] = useState(false);
   const [saving, setSaving] = useState(false);
   const [prefs, setPrefs] = useState<PersonalizationPrefs>({
@@ -99,7 +103,12 @@ export function PersonalizationPanel() {
           }
           placeholder="Anything CloseAI should know about you or how you like replies."
           rows={5}
-          className="flex w-full rounded-md border border-input bg-secondary px-3 py-2 text-md placeholder:text-muted-foreground focus:placeholder:text-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-none min-h-[120px]"
+          className={cn(
+            "flex w-full rounded-md border border-input bg-secondary px-3 py-2 text-md placeholder:text-muted-foreground focus:placeholder:text-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-y min-h-[120px] max-h-[240px] transition-colors",
+            isGuest
+              ? "border-border/80 dark:border-white/10"
+              : "border-border/80 dark:border-none"
+          )}
         />
       </div>
 

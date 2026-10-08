@@ -186,7 +186,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     centered = false,
     showDisclaimer = false,
     children,
-    selectedModel = "gemini-3.8 flash",
+    selectedModel = "Gemini 3.8 flash",
     onModelChange,
     selectedTier = 4,
     onTierChange,
@@ -746,7 +746,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
-              "h-10 sm:h-11 px-2 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer",
+              "h-10 sm:h-11 px-2.5 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer",
               pillButtonFocusRing,
               thinkMode
                 ? "bg-send-btn text-send-btn-foreground hover:opacity-90"

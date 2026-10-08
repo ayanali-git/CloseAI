@@ -28,6 +28,7 @@ import {
   Loader,
   ArrowDown,
   PanelRight,
+  SquarePen,
   X,
   Download,
   ExternalLink,
@@ -76,7 +77,7 @@ export default function ActiveChatPage() {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectedModel, setSelectedModel] = useState("gemini-3.8 flash");
+  const [selectedModel, setSelectedModel] = useState("Gemini 3.8 flash");
   const [selectedModelTier, setSelectedModelTier] = useState(4);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -1214,119 +1215,41 @@ export default function ActiveChatPage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
-                {previewFileUrl && (
-                  <button
-                    type="button"
-                    onClick={handleDownloadActiveFile}
-                    className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-                    title="Download file"
-                    aria-label="Download file"
-                  >
-                    <Download className="w-4 h-4" />
-                  </button>
-                )}
+              <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
+                {/* Full Container wrapping both Download and Close buttons */}
+                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  {previewFileUrl && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={handleDownloadActiveFile}
+                          className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          aria-label="Download file"
+                        >
+                          <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={6}
+                        className="text-md"
+                      >
+                        Download file
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
 
-                <button
-                  type="button"
-                  onClick={handleClosePreview}
-                  className="w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-                  title="Close preview"
-                  aria-label="Close preview"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            </>
-          ) : (
-            /* NORMAL CHAT HEADER: Sidebar toggle on left, Share & More options on right */
-            <>
-              <div className="flex items-center gap-2 pointer-events-auto mt-3 pl-3 sm:pl-0">
-                {!sidebarOpen && (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
                         type="button"
-                        onClick={() => {
-                          setIsSidebarBtnHovered(false);
-                          handleToggleSidebar();
-                        }}
-                        onMouseEnter={() => setIsSidebarBtnHovered(true)}
-                        onMouseLeave={() => setIsSidebarBtnHovered(false)}
-                        onBlur={() => setIsSidebarBtnHovered(false)}
-                        className="xl:hidden w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-                        aria-label="Open sidebar"
+                        onClick={handleClosePreview}
+                        className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        aria-label="Close preview"
                       >
-                        <PanelRight className="w-4 h-4" />
+                        <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
                       </button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      align="start"
-                      sideOffset={6}
-                      className="text-md"
-                    >
-                      Open sidebar
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-              </div>
-
-              <div className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto mt-3 pr-3 sm:pr-1">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      disabled={isSharing}
-                      onClick={async () => {
-                        setIsSharing(true);
-                        try {
-                          const shareUrl = `${window.location.origin}/s/${chatId}`;
-                          await navigator.clipboard.writeText(shareUrl);
-                          toast.success(
-                            "Public link copied to your clipboard",
-                            {
-                              description:
-                                "Anyone with this link can see this conversation",
-                            }
-                          );
-                        } catch (e) {
-                          toast.error("Failed to copy link");
-                        } finally {
-                          setTimeout(() => setIsSharing(false), 300);
-                        }
-                      }}
-                      className="group w-11 sm:w-auto h-11 px-0 sm:px-4 gap-0 sm:gap-1.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-foreground flex items-center justify-center text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed"
-                    >
-                      {isSharing ? (
-                        <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
-                      ) : (
-                        <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                      )}
-                      <span className="hidden sm:inline">Share</span>
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="bottom"
-                    sideOffset={6}
-                    className="text-md"
-                  >
-                    Share conversation
-                  </TooltipContent>
-                </Tooltip>
-
-                {/* Three Dots Options Menu */}
-                <DropdownMenu>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          className="group w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-                          aria-label="More options"
-                        >
-                          <MoreHorizontal className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                        </button>
-                      </DropdownMenuTrigger>
                     </TooltipTrigger>
                     <TooltipContent
                       side="bottom"
@@ -1334,88 +1257,223 @@ export default function ActiveChatPage() {
                       sideOffset={6}
                       className="text-md"
                     >
-                      More options
+                      Close preview
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </div>
+            </>
+          ) : (
+            /* NORMAL CHAT HEADER: Sidebar toggle on left, Share & More options on right */
+            <>
+              <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
+                {!sidebarOpen && (
+                  /* Full Container wrapping both Open sidebar and New chat buttons */
+                  <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsSidebarBtnHovered(false);
+                            handleToggleSidebar();
+                          }}
+                          onMouseEnter={() => setIsSidebarBtnHovered(true)}
+                          onMouseLeave={() => setIsSidebarBtnHovered(false)}
+                          onBlur={() => setIsSidebarBtnHovered(false)}
+                          className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          aria-label="Open sidebar"
+                        >
+                          <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        align="start"
+                        sideOffset={6}
+                        className="text-md"
+                      >
+                        Open sidebar
+                      </TooltipContent>
+                    </Tooltip>
+
+                    {/* New chat button for small screen devices */}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (typeof window !== "undefined" && window.innerWidth < 1280) {
+                              setSidebarOpen(false);
+                            }
+                            router.push("/c");
+                          }}
+                          className="sm:hidden group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          aria-label="New chat"
+                        >
+                          <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        align="start"
+                        sideOffset={6}
+                        className="text-md"
+                      >
+                        New chat
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+                {/* Full Container wrapping both Share and More options buttons */}
+                <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        disabled={isSharing}
+                        onClick={async () => {
+                          setIsSharing(true);
+                          try {
+                            const shareUrl = `${window.location.origin}/s/${chatId}`;
+                            await navigator.clipboard.writeText(shareUrl);
+                            toast.success(
+                              "Public link copied to your clipboard",
+                              {
+                                description:
+                                  "Anyone with this link can see this conversation",
+                              }
+                            );
+                          } catch (e) {
+                            toast.error("Failed to copy link");
+                          } finally {
+                            setTimeout(() => setIsSharing(false), 300);
+                          }
+                        }}
+                        className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                      >
+                        {isSharing ? (
+                          <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                        ) : (
+                          <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                        )}
+                        <span className="hidden sm:inline">Share</span>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      sideOffset={6}
+                      className="text-md"
+                    >
+                      Share conversation
                     </TooltipContent>
                   </Tooltip>
 
-                  <DropdownMenuContent
-                    align="end"
-                    sideOffset={6}
-                    className="w-52 rounded-xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none dark:border-neutral-700/80"
-                  >
-                    <DropdownMenuItem
-                      onClick={() => setIsFilesDrawerOpen(true)}
-                      className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors"
-                    >
-                      <Folder className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                      <span>View files in chat</span>
-                    </DropdownMenuItem>
+                  {/* Three Dots Options Menu */}
+                  <DropdownMenu>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                            aria-label="More options"
+                          >
+                            <MoreHorizontal className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          </button>
+                        </DropdownMenuTrigger>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        align="end"
+                        sideOffset={6}
+                        className="text-md"
+                      >
+                        More options
+                      </TooltipContent>
+                    </Tooltip>
 
-                    <DropdownMenuItem
-                      onClick={async () => {
-                        const currentChat = chats.find((c) => c.id === chatId);
-                        const isStarred = !!currentChat?.starred;
-                        if (!isStarred) {
-                          await chatService.toggleChatArchive(
+                    <DropdownMenuContent
+                      align="end"
+                      sideOffset={6}
+                      className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                    >
+                      <DropdownMenuItem
+                        onClick={() => setIsFilesDrawerOpen(true)}
+                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                      >
+                        <Folder className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        <span>View files in chat</span>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem
+                        onClick={async () => {
+                          const currentChat = chats.find((c) => c.id === chatId);
+                          const isStarred = !!currentChat?.starred;
+                          if (!isStarred) {
+                            await chatService.toggleChatArchive(
+                              supabase,
+                              chatId,
+                              false
+                            );
+                          }
+                          await chatService.toggleChatStar(
                             supabase,
                             chatId,
-                            false
+                            !isStarred
                           );
-                        }
-                        await chatService.toggleChatStar(
-                          supabase,
-                          chatId,
-                          !isStarred
-                        );
-                        loadChats();
-                        toast.success(
-                          isStarred ? "Chat unpinned" : "Chat pinned"
-                        );
-                      }}
-                      className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors"
-                    >
-                      {chats.find((c) => c.id === chatId)?.starred ? (
-                        <>
-                          <PinOff className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                          <span>Unpin</span>
-                        </>
-                      ) : (
-                        <>
-                          <Pin className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                          <span>Pin</span>
-                        </>
-                      )}
-                    </DropdownMenuItem>
+                          loadChats();
+                          toast.success(
+                            isStarred ? "Chat unpinned" : "Chat pinned"
+                          );
+                        }}
+                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                      >
+                        {chats.find((c) => c.id === chatId)?.starred ? (
+                          <>
+                            <PinOff className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                            <span>Unpin</span>
+                          </>
+                        ) : (
+                          <>
+                            <Pin className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                            <span>Pin</span>
+                          </>
+                        )}
+                      </DropdownMenuItem>
 
-                    <DropdownMenuItem
-                      onClick={async () => {
-                        const currentChat = chats.find((c) => c.id === chatId);
-                        const isArchived = !!currentChat?.archived;
-                        await handleToggleArchive(chatId, !isArchived);
-                      }}
-                      className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors"
-                    >
-                      {chats.find((c) => c.id === chatId)?.archived ? (
-                        <ArchiveX className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                      ) : (
-                        <Archive className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                      )}
-                      <span>
-                        {chats.find((c) => c.id === chatId)?.archived
-                          ? "Unarchive"
-                          : "Archive"}
-                      </span>
-                    </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={async () => {
+                          const currentChat = chats.find((c) => c.id === chatId);
+                          const isArchived = !!currentChat?.archived;
+                          await handleToggleArchive(chatId, !isArchived);
+                        }}
+                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                      >
+                        {chats.find((c) => c.id === chatId)?.archived ? (
+                          <ArchiveX className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        ) : (
+                          <Archive className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        )}
+                        <span>
+                          {chats.find((c) => c.id === chatId)?.archived
+                            ? "Unarchive"
+                            : "Archive"}
+                        </span>
+                      </DropdownMenuItem>
 
-                    <DropdownMenuItem
-                      onClick={() => setShowDeleteModal(true)}
-                      className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-red-600 transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4 text-red-500 group-hover:text-red-600" />
-                      <span>Delete</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                      <DropdownMenuItem
+                        onClick={() => setShowDeleteModal(true)}
+                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4 text-red-500 group-hover:text-red-600" />
+                        <span>Delete</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
             </>
           )}

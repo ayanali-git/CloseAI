@@ -451,7 +451,7 @@ class ChatGPTModelSelector extends HTMLElement {
       <svg class="bolt" width="13" height="13" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z"/>
       </svg>
-      <span class="label"><span class="model-name">gemini-3.8 flash</span><span class="tier">Medium</span></span>
+      <span class="label"><span class="model-name">Gemini 3.8 flash</span><span class="tier">Medium</span></span>
       <svg class="chev" width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
         <path d="M2.5 4.25 6 7.75l3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -460,7 +460,7 @@ class ChatGPTModelSelector extends HTMLElement {
     <div class="popover" role="dialog" aria-label="Model settings">
       <div class="view view-menu">
         <div class="row" data-row="model">
-          <span class="k">Model</span><span class="v model-v">gemini-3.8 flash</span>
+          <span class="k">Model</span><span class="v model-v">Gemini 3.8 flash</span>
           <svg class="c" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M4.25 2.5 7.75 6l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -657,7 +657,7 @@ class ChatGPTModelSelector extends HTMLElement {
     if (modelRow) {
       const models = ['GPT-5.4', 'GPT-4o', 'o1'];
       modelRow.addEventListener('click', () => {
-        const cur = this.getAttribute('model-name') || 'gemini-3.8 flash';
+        const cur = this.getAttribute('model-name') || 'Gemini 3.8 flash';
         const next = models[(models.indexOf(cur) + 1) % models.length];
         this.setAttribute('model-name', next);
         this.#emit();
@@ -1190,7 +1190,7 @@ const ChatGPTModelSelectorComponent = React.forwardRef<
   HTMLElement,
   ChatGPTModelSelectorProps
 >(function ChatGPTModelSelectorComponent(
-  { modelName = "gemini-3.8 flash", value = 4, placement = "bottom", className, onChange },
+  { modelName = "Gemini 3.8 flash", value = 4, placement = "bottom", className, onChange },
   forwardedRef,
 ) {
   const innerRef = React.useRef<HTMLElement>(null);

@@ -195,7 +195,7 @@ export default function PublicSharedChatPage() {
   const [inputValue, setInputValue] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [thinkMode, setThinkMode] = useState(false);
-  const [selectedModel, setSelectedModel] = useState("gemini-3.8 flash");
+  const [selectedModel, setSelectedModel] = useState("Gemini 3.8 flash");
   const [selectedModelTier, setSelectedModelTier] = useState(4);
 
   const hasInitialHashRef = useRef(
@@ -459,48 +459,50 @@ export default function PublicSharedChatPage() {
           />
         </div>
 
-        <div className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto mt-3 pr-3 sm:pr-1">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                type="button"
-                disabled={isSharing}
-                onClick={handleShareClick}
-                className="group w-11 sm:w-auto h-11 px-0 sm:px-4 gap-0 sm:gap-1.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed"
-              >
-                {isSharing ? (
-                  <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
-                ) : (
-                  <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                )}
-                <span className="hidden sm:inline">Share</span>
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" sideOffset={6} className="text-md">
-              Share conversation
-            </TooltipContent>
-          </Tooltip>
+        <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+          <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  disabled={isSharing}
+                  onClick={handleShareClick}
+                  className="group h-full w-10 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                >
+                  {isSharing ? (
+                    <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                  ) : (
+                    <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  )}
+                  <span className="hidden sm:inline">Share</span>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" sideOffset={6} className="text-md">
+                Share conversation
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                type="button"
-                onClick={() => window.open("/c", "_blank")}
-                className="group w-11 h-11 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
-                aria-label="New chat"
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  onClick={() => window.open("/c", "_blank")}
+                  className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                  aria-label="New chat"
+                >
+                  <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="bottom"
+                align="end"
+                sideOffset={6}
+                className="text-md"
               >
-                <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent
-              side="bottom"
-              align="end"
-              sideOffset={6}
-              className="text-md"
-            >
-              New chat
-            </TooltipContent>
-          </Tooltip>
+                New chat
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </header>
 

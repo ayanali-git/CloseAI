@@ -55,7 +55,7 @@ const SPEED_OPTIONS = [
 ];
 
 const MODEL_OPTIONS = [
-  { key: "gemini-3.8 flash", label: "gemini-3.8 flash" },
+  { key: "Gemini 3.8 flash", label: "Gemini 3.8 flash" },
   { key: "GPT-5.4", label: "GPT-5.4" },
   { key: "GPT-4o", label: "GPT-4o" },
   { key: "GPT-4o mini", label: "GPT-4o mini" },
@@ -76,57 +76,76 @@ function TierMarqueeText({
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [overflowWidth, setOverflowWidth] = useState(0);
-
-  const measure = useCallback(() => {
-    if (textRef.current && containerRef.current) {
-      const diff = textRef.current.scrollWidth - containerRef.current.clientWidth;
-      setOverflowWidth(diff > 0 ? Math.ceil(diff) : 0);
-    }
-  }, []);
+  const [isSelfHovered, setIsSelfHovered] = useState(false);
 
   useEffect(() => {
+    const measure = () => {
+      if (textRef.current && containerRef.current) {
+        const diff =
+          textRef.current.scrollWidth -
+          containerRef.current.clientWidth;
+
+        setOverflowWidth(Math.max(diff, 0));
+      }
+    };
+
     measure();
+
     const ro = new ResizeObserver(() => measure());
     if (containerRef.current) ro.observe(containerRef.current);
-    return () => ro.disconnect();
-  }, [text, measure]);
+    if (textRef.current) ro.observe(textRef.current);
 
-  useEffect(() => {
-    if (isHovered) {
-      measure();
+    if (typeof document !== "undefined" && document.fonts) {
+      document.fonts.ready.then(measure);
     }
-  }, [isHovered, measure]);
 
-  const duration = Math.max(1.8, overflowWidth / 22);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [text, isHovered]);
+
+  const effectiveHovered = isHovered || isSelfHovered;
+  const isScrolling = overflowWidth > 0 && effectiveHovered;
+  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
 
   return (
     <div
       ref={containerRef}
-      className={cn("relative flex-1 overflow-hidden min-w-0 pr-1.5 text-left", className)}
+      onMouseEnter={() => setIsSelfHovered(true)}
+      onMouseLeave={() => setIsSelfHovered(false)}
+      className={cn("relative flex-1 min-w-0 overflow-hidden pr-1 text-left", className)}
       style={{
-        maskImage:
-          overflowWidth > 0 && !isHovered
-            ? "linear-gradient(to right, black calc(100% - 18px), transparent 100%)"
-            : "none",
-        WebkitMaskImage:
-          overflowWidth > 0 && !isHovered
-            ? "linear-gradient(to right, black calc(100% - 18px), transparent 100%)"
-            : "none",
+        animation: isScrolling
+          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
+          : undefined,
+        maskImage: isScrolling
+          ? undefined
+          : overflowWidth > 0
+          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
+          : "none",
+        WebkitMaskImage: isScrolling
+          ? undefined
+          : overflowWidth > 0
+          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
+          : "none",
       }}
     >
       <span
         ref={textRef}
-        style={{
-          transform:
-            isHovered && overflowWidth > 0
-              ? `translateX(-${overflowWidth + 8}px)`
-              : "translateX(0px)",
-          transition:
-            isHovered && overflowWidth > 0
-              ? `transform ${duration}s linear 0.15s`
-              : "transform 0.25s ease-out",
-        }}
-        className="inline-block whitespace-nowrap text-[15px] select-none text-left"
+        style={
+          {
+            "--marquee-dist": `${overflowWidth + 4}px`,
+            animation: isScrolling
+              ? `chat-title-marquee ${duration}s ease-in-out infinite`
+              : "none",
+            transform: isScrolling ? undefined : "translateX(0px)",
+            transition: isScrolling ? "none" : "transform 0.25s ease-out",
+          } as React.CSSProperties
+        }
+        className="inline-block whitespace-nowrap text-[15px] select-none text-left will-change-transform"
       >
         {text}
       </span>
@@ -135,8 +154,8 @@ function TierMarqueeText({
 }
 
 /**
- * Auto-scrolling model name on hover (e.g. gemini-3.8-flash, GPT-5.4 Thinking)
- * Matching the effort type tier slider marquee animation
+ * Auto-scrolling model name on hover (e.g. Gemini 3.8 flash, GPT-5.4 Thinking)
+ * Matching sidebar chat list marquee animation
  */
 function ModelMarqueeText({
   text,
@@ -150,61 +169,80 @@ function ModelMarqueeText({
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [overflowWidth, setOverflowWidth] = useState(0);
-
-  const measure = useCallback(() => {
-    if (textRef.current && containerRef.current) {
-      const diff = textRef.current.scrollWidth - containerRef.current.clientWidth;
-      setOverflowWidth(diff > 0 ? Math.ceil(diff) : 0);
-    }
-  }, []);
+  const [isSelfHovered, setIsSelfHovered] = useState(false);
 
   useEffect(() => {
+    const measure = () => {
+      if (textRef.current && containerRef.current) {
+        const diff =
+          textRef.current.scrollWidth -
+          containerRef.current.clientWidth;
+
+        setOverflowWidth(Math.max(diff, 0));
+      }
+    };
+
     measure();
+
     const ro = new ResizeObserver(() => measure());
     if (containerRef.current) ro.observe(containerRef.current);
-    return () => ro.disconnect();
-  }, [text, measure]);
+    if (textRef.current) ro.observe(textRef.current);
 
-  useEffect(() => {
-    if (isHovered) {
-      measure();
+    if (typeof document !== "undefined" && document.fonts) {
+      document.fonts.ready.then(measure);
     }
-  }, [isHovered, measure]);
 
-  const duration = Math.max(1.8, overflowWidth / 22);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [text, isHovered]);
+
+  const effectiveHovered = isHovered || isSelfHovered;
+  const isScrolling = overflowWidth > 0 && effectiveHovered;
+  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
 
   return (
     <div
       ref={containerRef}
+      onMouseEnter={() => setIsSelfHovered(true)}
+      onMouseLeave={() => setIsSelfHovered(false)}
       style={{
-        maskImage:
-          overflowWidth > 0 && !isHovered
-            ? "linear-gradient(to right, black calc(100% - 5px), transparent 100%)"
-            : "none",
-        WebkitMaskImage:
-          overflowWidth > 0 && !isHovered
-            ? "linear-gradient(to right, black calc(100% - 5px), transparent 100%)"
-            : "none",
+        animation: isScrolling
+          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
+          : undefined,
+        maskImage: isScrolling
+          ? undefined
+          : overflowWidth > 0
+          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
+          : "none",
+        WebkitMaskImage: isScrolling
+          ? undefined
+          : overflowWidth > 0
+          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
+          : "none",
       }}
       className={cn(
-        "relative flex-1 min-w-0 overflow-hidden text-muted-foreground font-normal",
+        "relative flex-1 min-w-0 overflow-hidden text-muted-foreground font-normal pr-1",
         overflowWidth === 0 ? "text-right" : "text-left",
         className
       )}
     >
       <span
         ref={textRef}
-        style={{
-          transform:
-            isHovered && overflowWidth > 0
-              ? `translateX(-${overflowWidth + 1}px)`
-              : "translateX(0px)",
-          transition:
-            isHovered && overflowWidth > 0
-              ? `transform ${duration}s linear 0.15s`
-              : "transform 0.25s ease-out",
-        }}
-        className="inline-block whitespace-nowrap text-[12.5px] sm:text-[15px] select-none text-inherit font-inherit"
+        style={
+          {
+            "--marquee-dist": `${overflowWidth + 4}px`,
+            animation: isScrolling
+              ? `chat-title-marquee ${duration}s ease-in-out infinite`
+              : "none",
+            transform: isScrolling ? undefined : "translateX(0px)",
+            transition: isScrolling ? "none" : "transform 0.25s ease-out",
+          } as React.CSSProperties
+        }
+        className="inline-block whitespace-nowrap text-[12.5px] sm:text-[15px] select-none text-inherit font-inherit will-change-transform"
       >
         {text}
       </span>
@@ -641,7 +679,7 @@ function ModelSliderCard({
 export function PlusMenuContent({
   onAddFiles,
   onAddPhotos,
-  selectedModel = "gemini-3.8 flash",
+  selectedModel = "Gemini 3.8 flash",
   onModelChange,
   selectedTier = 4,
   onTierChange,
