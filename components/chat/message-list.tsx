@@ -911,46 +911,46 @@ export function MessageList({
                         </TooltipContent>
                       </Tooltip>
 
-                      {/* 2. Share prompt */}
-                      {!isThisMsgThinking && (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              data-message-action="share"
-                              onClick={() => {
-                                setLoadingShareId(msgId);
-                                setTimeout(() => {
-                                  setLoadingShareId(null);
-                                  setSharePromptMsg({
-                                    text: msg.content,
-                                    files: msg.files,
-                                  });
-                                }, 300);
-                              }}
-                              className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                              aria-label="Share prompt"
-                            >
-                              {loadingShareId === msgId ? (
-                                <Loader className="w-4 h-4 animate-spin" />
-                              ) : (
-                                <Upload className="w-4 h-4" />
-                              )}
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent
-                            side="bottom"
-                            sideOffset={4}
-                            className="text-md"
-                          >
-                            Share prompt
-                          </TooltipContent>
-                        </Tooltip>
-                      )}
-
                       {/* For authorized users only: Copy, Edit, Share, Delete */}
                       {user && (
                         <>
+                          {/* 2. Share prompt */}
+                          {!isThisMsgThinking && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type="button"
+                                  data-message-action="share"
+                                  onClick={() => {
+                                    setLoadingShareId(msgId);
+                                    setTimeout(() => {
+                                      setLoadingShareId(null);
+                                      setSharePromptMsg({
+                                        text: msg.content,
+                                        files: msg.files,
+                                      });
+                                    }, 300);
+                                  }}
+                                  className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                                  aria-label="Share prompt"
+                                >
+                                  {loadingShareId === msgId ? (
+                                    <Loader className="w-4 h-4 animate-spin" />
+                                  ) : (
+                                    <Upload className="w-4 h-4" />
+                                  )}
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent
+                                side="bottom"
+                                sideOffset={4}
+                                className="text-md"
+                              >
+                                Share prompt
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+
                           {/* 3. Edit prompt */}
                           {(onEditAndResend || onEditMessage) &&
                             !isThisMsgThinking && (
@@ -1226,45 +1226,44 @@ export function MessageList({
                       </TooltipContent>
                     </Tooltip>
 
-                    {/* Share response (Available for guest and authenticated) */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          data-message-action="share-response"
-                          onClick={() => {
-                            setLoadingShareId(msgId);
-                            setTimeout(() => {
-                              setLoadingShareId(null);
-                              setShareResponseMsg({
-                                text: msg.content,
-                                model:
-                                  (msg.metadata as any)?.model || "CloseAI",
-                              });
-                            }, 300);
-                          }}
-                          className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                          aria-label="Share response"
-                        >
-                          {loadingShareId === msgId ? (
-                            <Loader className="w-4 h-4 animate-spin text-foreground shrink-0" />
-                          ) : (
-                            <Upload className="w-4 h-4" />
-                          )}
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="bottom"
-                        sideOffset={4}
-                        className="text-md"
-                      >
-                        Share response
-                      </TooltipContent>
-                    </Tooltip>
-
-                    {/* Authorized user actions: ThumbsUp, ThumbsDown, More Options */}
+                    {/* Authorized user actions: Share, ThumbsUp, ThumbsDown, More Options */}
                     {user && (
                       <>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              data-message-action="share-response"
+                              onClick={() => {
+                                setLoadingShareId(msgId);
+                                setTimeout(() => {
+                                  setLoadingShareId(null);
+                                  setShareResponseMsg({
+                                    text: msg.content,
+                                    model:
+                                      (msg.metadata as any)?.model || "CloseAI",
+                                  });
+                                }, 300);
+                              }}
+                              className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                              aria-label="Share response"
+                            >
+                              {loadingShareId === msgId ? (
+                                <Loader className="w-4 h-4 animate-spin text-foreground shrink-0" />
+                              ) : (
+                                <Upload className="w-4 h-4" />
+                              )}
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent
+                            side="bottom"
+                            sideOffset={4}
+                            className="text-md"
+                          >
+                            Share response
+                          </TooltipContent>
+                        </Tooltip>
+
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <button

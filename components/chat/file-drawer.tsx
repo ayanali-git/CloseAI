@@ -907,7 +907,7 @@ export function FilesDrawer({
                 {files.length === 0 ? (
                   <div className="h-full min-h-[260px] flex flex-col items-center justify-center text-center p-6 select-none">
                     <p className="text-sm sm:text-base text-muted-foreground">
-                      No files referenced
+                      No files in this chat
                     </p>
                   </div>
                 ) : (
@@ -972,7 +972,7 @@ export function FilesDrawer({
                   {files.length === 0 ? (
                     <div className="h-full min-h-[260px] flex flex-col items-center justify-center text-center p-6 select-none">
                       <p className="text-sm sm:text-base text-muted-foreground">
-                        No files referenced
+                        No files in this chat
                       </p>
                     </div>
                   ) : (
