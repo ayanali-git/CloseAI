@@ -187,6 +187,7 @@ export function ReportBugModal({
           <textarea
             ref={textareaRef}
             value={details}
+            autoFocus
             onChange={(e) => setDetails(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {

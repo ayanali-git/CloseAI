@@ -249,7 +249,7 @@ function NewChatContent() {
                     <button
                       type="button"
                       onClick={() => handleToggleSidebar()}
-                      className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Open sidebar"
                     >
                       <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -271,7 +271,7 @@ function NewChatContent() {
                     <button
                       type="button"
                       onClick={handleNewChat}
-                      className="sm:hidden group h-full w-10 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="sm:hidden group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="New chat"
                     >
                       <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
