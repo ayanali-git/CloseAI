@@ -199,7 +199,7 @@
     color: #ffffff !important;
   }
 
-  /* Custom selection theme for /c, /c/[id], /s/[id], /settings, and /upgrade (matching bg-secondary) */
+  /* Custom selection theme for /c, /c/[id], /sc/[id], /settings, and /upgrade (matching bg-secondary) */
   .chat-selection-theme ::selection,
   .chat-selection-theme::selection,
   [data-chat-page="true"] ::selection,

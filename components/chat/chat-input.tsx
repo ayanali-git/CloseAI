@@ -341,7 +341,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     return () => window.removeEventListener("resize", adjustHeight);
   }, [adjustHeight]);
 
-  // Auto-focus textarea on mount / page reload (matching s/[id] behavior)
+  // Auto-focus textarea on mount / page reload (matching sc/[id] behavior)
   useEffect(() => {
     if (!autoFocus) return;
     const focusTextarea = () => {

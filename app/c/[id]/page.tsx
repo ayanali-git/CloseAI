@@ -488,7 +488,7 @@ export default function ActiveChatPage() {
     }
   }, [user?.id, loading, isSigningOut, chatId, router]);
 
-  // Auto-focus chat input on load / reload (matching s/[id] behavior)
+  // Auto-focus chat input on load / reload (matching sc/[id] behavior)
   useEffect(() => {
     if (!isChatLoading) {
       const timer = setTimeout(() => {
@@ -1339,7 +1339,7 @@ export default function ActiveChatPage() {
                         onClick={async () => {
                           setIsSharing(true);
                           try {
-                            const shareUrl = `${window.location.origin}/s/${chatId}`;
+                            const shareUrl = `${window.location.origin}/sc/${chatId}`;
                             await navigator.clipboard.writeText(shareUrl);
                             toast.success(
                               "Public link copied to your clipboard",
