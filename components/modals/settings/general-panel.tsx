@@ -85,8 +85,8 @@ export function GeneralPanel() {
             key={i}
             className="h-14 border-b border-border/80 last:border-0 flex items-center justify-between"
           >
-            <div className="h-4 w-28 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-            <div className="h-4 w-16 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+            <div className="h-4 w-28 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+            <div className="h-4 w-16 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
           </div>
         ))}
       </div>

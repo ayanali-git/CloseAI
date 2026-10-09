@@ -24,6 +24,7 @@ import {
 import { useSidebarContext } from "@/components/chat/sidebar-context";
 import { withChatPreferences } from "@/lib/user-preferences";
 import { withCurrentHash } from "@/lib/settings-hash";
+import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
 export default function GuestChatSessionPage() {
@@ -31,6 +32,7 @@ export default function GuestChatSessionPage() {
   const chatId = params?.id as string;
   const router = useRouter();
   const { user, loading } = useAuth();
+  const isGuest = !user;
 
   const { sidebarOpen, toggleSidebar: handleToggleSidebar } =
     useSidebarContext();
@@ -736,7 +738,12 @@ export default function GuestChatSessionPage() {
                                   isAutoScrollPinnedRef.current = true;
                                   scrollToBottom("smooth");
                                 }}
-                                className="group w-11 h-11 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
+                                className={cn(
+                                  "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
+                                  isGuest
+                                    ? " bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                                    : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                                )}
                                 aria-label="Scroll to bottom"
                               >
                                 <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />

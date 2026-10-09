@@ -592,7 +592,7 @@ export function ProfilePanel() {
     return (
       <div className="space-y-4 pt-4">
         <div className="mx-auto w-20 h-20 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="mx-auto h-5 w-32 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+        <div className="mx-auto h-5 w-32 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
         <div className="h-16 rounded-2xl bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
         <div className="h-24 rounded-2xl bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
       </div>
@@ -645,10 +645,17 @@ export function ProfilePanel() {
             label: "Longest streak",
             value: activityDates === null ? null : `${streaks.longest} days`,
           },
-        ].map((stat) => (
+        ].map((stat, index) => (
           <div
             key={stat.label}
-            className="px-3 py-3 text-center border-r border-b sm:border-b-0 border-border/80 dark:border-white/10 last:border-r-0"
+            className={cn(
+              "px-3 py-3 text-center border-border/80 dark:border-white/10",
+              index === 0 && "border-r",
+              index === 1 && "border-r-0 sm:border-r",
+              index === 2 && "border-r",
+              index === 3 && "border-r-0",
+              index < 2 ? "border-b sm:border-b-0" : "border-b-0"
+            )}
           >
             {stat.value === null ? (
               <div className="h-5 w-10 mx-auto rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />

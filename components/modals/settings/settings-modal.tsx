@@ -283,7 +283,6 @@ export function SettingsModal({
                         ? "text-foreground cursor-pointer hover:opacity-80"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
-                    aria-label={query ? "Clear search" : "Search"}
                   >
                     <AnimatedSearchClose
                       isOpen={Boolean(query.trim())}
@@ -318,8 +317,8 @@ export function SettingsModal({
                       isSearchKeyboardNavRef.current = false;
                       setIsSearchTabFocused(false);
                     }}
-                    placeholder="Search"
-                    aria-label="Search"
+                    placeholder="Search settings"
+                    aria-label="Search settings"
                     // 16px on small screens so iOS Safari doesn't zoom the page on focus
                     className={cn(
                       "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] focus:placeholder:text-foreground placeholder:text-muted-foreground outline-none focus:outline-none transition-colors",

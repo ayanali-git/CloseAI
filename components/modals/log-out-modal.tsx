@@ -98,7 +98,7 @@ export function LogoutModal({
 
           {/* User Card */}
           {hasUser && (
-            <div className="flex items-center gap-3.5 p-3 rounded-full dark:bg-neutral-900 border border-border/80 dark:border-none select-none">
+            <div className="flex items-center gap-3.5 p-3 rounded-full bg-background border border-border/80 dark:border-none select-none">
               <Avatar className="w-11 h-11 rounded-full border border-border/80 shrink-0">
                 <AvatarImage src={userAvatar} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
@@ -156,7 +156,7 @@ export function LogoutModal({
 
           {/* User Card */}
           {hasUser && (
-            <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-900 border border-border/80 dark:border-none">
+            <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
               <div className="absolute bottom-0 left-0 right-0 h-[28%] min-h-[48px] max-h-[60px] z-10 pointer-events-none" />
 
               <div

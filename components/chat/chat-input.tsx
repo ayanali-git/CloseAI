@@ -192,7 +192,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     onTierChange,
     thinkMode = false,
     onThinkModeChange,
-    placeholder = "Ask anything",
+    placeholder = "Ask CloseAI",
     disableAttach = false,
     autoFocus = true,
     isGuest = false,

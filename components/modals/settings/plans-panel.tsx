@@ -104,7 +104,7 @@ export function PlansPanel() {
   if (subLoading) {
     return (
       <div className="space-y-3 pt-2">
-        <div className="h-8 w-40 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+        <div className="h-8 w-40 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
         <div className="h-24 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
         <div className="h-24 rounded-2xl bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
         <div className="h-24 rounded-2xl bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />

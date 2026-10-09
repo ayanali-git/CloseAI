@@ -253,7 +253,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
       className="
         relative my-4
         rounded-2xl sm:rounded-3xl
-        bg-[#f4f4f4] dark:bg-[#2F2F2F]
+        bg-bubble text-bubble-foreground
         text-left
         isolate
         overflow-visible
@@ -272,9 +272,9 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
           sticky -top-3.5 z-10
           flex items-center justify-between
           px-4 py-2
-          bg-[#f4f4f4] dark:bg-[#2F2F2F]
+          bg-bubble
           text-xs font-sans
-        text-neutral-600 dark:text-neutral-300
+          text-neutral-600 dark:text-neutral-300
           select-none
           `,
           isStuck
@@ -298,7 +298,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
             <button
               type="button"
               onClick={handleCopy}
-              className="p-3 rounded-full hover:bg-[#383838] text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              className="p-3 rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               aria-label={copied ? "Copied" : "Copy code"}
             >
               {copied ? (
@@ -315,7 +315,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
       </div>
 
       {/* Code content */}
-      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-[#f4f4f4] dark:bg-[#2F2F2F]">
+      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-bubble">
         <div
           className="
            p-3.5 sm:p-4
@@ -396,7 +396,7 @@ function MessageAttachmentItem({
     return (
       <ImagePreview src={imgSrc} alt={displayName}>
         <div
-          className="relative flex leading-[0] overflow-clip rounded-2xl sm:rounded-3xl bg-[#f4f4f4] dark:bg-[#2F2F2F] border border-border/80 max-w-[100px] sm:max-w-[200px] cursor-pointer select-none hover:opacity-90 transition-opacity"
+          className="relative flex leading-[0] overflow-clip rounded-2xl sm:rounded-3xl bg-[#e8e8e8] dark:bg-[#383838] border border-border/80 max-w-[100px] sm:max-w-[200px] cursor-pointer select-none hover:opacity-90 transition-opacity"
           title={`Preview ${displayName}`}
         >
           <img
@@ -415,7 +415,7 @@ function MessageAttachmentItem({
     <button
       type="button"
       onClick={() => onPreview?.(file)}
-      className="flex self-end items-center gap-2.5 bg-[#f4f4f4] dark:bg-[#2F2F2F] hover:opacity-90 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-2xl sm:rounded-3xl border border-border/80 transition-colors cursor-pointer group select-none text-left"
+      className="flex self-end items-center gap-2.5 bg-[#e8e8e8] dark:bg-[#383838] hover:opacity-90 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-2xl sm:rounded-3xl border border-border/80 transition-colors cursor-pointer group select-none text-left"
       title={`Preview ${displayName}`}
     >
       <Icon className="w-5 h-5 shrink-0 text-muted-foreground" weight="fill" />
@@ -1053,7 +1053,7 @@ export function MessageList({
                       },
                       thead({ children }: any) {
                         return (
-                          <thead className="bg-secondary/70 dark:bg-[#1f1f1f] border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase">
+                          <thead className="bg-bubble border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase">
                             {children}
                           </thead>
                         );
@@ -1162,8 +1162,8 @@ export function MessageList({
                           );
                         }
                         return (
-                          <div className="my-3 sm:my-4 rounded-xl overflow-hidden border border-neutral-200/80 dark:border-neutral-700/80 bg-neutral-50 dark:bg-[#1e1e1e] p-3 code-scroll">
-                            <pre className="text-[15px] font-mono text-neutral-900 dark:text-neutral-100 whitespace-pre w-max min-w-full">
+                          <div className="my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 bg-bubble p-3 code-scroll">
+                            <pre className="text-[15px] font-mono text-bubble-foreground whitespace-pre w-max min-w-full">
                               {children}
                             </pre>
                           </div>
@@ -1172,7 +1172,7 @@ export function MessageList({
                       code({ className, children, ...props }: any) {
                         return (
                           <code
-                            className="bg-neutral-200/60 dark:bg-white/10 text-foreground px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text"
+                            className="bg-bubble text-bubble-foreground px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text"
                             {...props}
                           >
                             {children}
@@ -1395,7 +1395,7 @@ export function MessageList({
 
                                 <div className="h-[1px] bg-neutral-200/80 dark:bg-[#383838] my-1 -mx-0.5" />
 
-                                {/* Top Input Bar: Ask anything to change */}
+                                {/* Top Input Bar: Ask CloseAI to change */}
                                 <div
                                   className="px-2 py-1"
                                   onClick={(e) => e.stopPropagation()}
@@ -1404,7 +1404,7 @@ export function MessageList({
                                   <div className="relative flex items-center justify-between gap-1.5 bg-transparent">
                                     <input
                                       type="text"
-                                      placeholder="Ask anything to change"
+                                      placeholder="Ask CloseAI to change"
                                       value={changePrompts[msgId] || ""}
                                       onChange={(e) =>
                                         setChangePrompts((prev) => ({
@@ -1536,7 +1536,7 @@ export function MessageList({
                                         collisionPadding={12}
                                         className="w-56 rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none outline-none select-none z-50"
                                       >
-                                        {/* Top Input Bar: Ask anything to change */}
+                                        {/* Top Input Bar: Ask CloseAI to change */}
                                         <div
                                           className="px-2 py-1"
                                           onClick={(e) => e.stopPropagation()}
@@ -1545,7 +1545,7 @@ export function MessageList({
                                           <div className="relative flex items-center justify-between gap-1.5 bg-transparent">
                                             <input
                                               type="text"
-                                              placeholder="Ask anything to change"
+                                              placeholder="Ask CloseAI to change"
                                               value={changePrompts[msgId] || ""}
                                               onChange={(e) =>
                                                 setChangePrompts((prev) => ({
@@ -1741,6 +1741,7 @@ export function MessageList({
         }}
         promptText={sharePromptMsg?.text || ""}
         files={sharePromptMsg?.files}
+        isGuest={isGuestMode}
       />
 
       <ShareResponseModal
@@ -1750,6 +1751,7 @@ export function MessageList({
         }}
         responseText={shareResponseMsg?.text || ""}
         modelName={shareResponseMsg?.model || "CloseAI"}
+        isGuest={isGuestMode}
       />
 
       <DeleteMessageModal
@@ -1759,6 +1761,7 @@ export function MessageList({
         }}
         promptText={deleteMessageTarget?.content || ""}
         files={deleteMessageTarget?.files}
+        isGuest={isGuestMode}
         onConfirm={() => {
           if (deleteMessageTarget && onDeleteMessage) {
             onDeleteMessage(deleteMessageTarget.id, deleteMessageTarget.index);

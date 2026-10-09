@@ -583,7 +583,7 @@ export function MarketingHeader() {
                       setSubmittedQuery("");
                     }
                   }}
-                  placeholder="Search about anything"
+                  placeholder="Search anything"
                   className="w-full bg-transparent text-2xl sm:text-4xl font-normal text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground outline-none border-none ring-0 py-2 leading-normal sm:leading-relaxed"
                 />
                 <button

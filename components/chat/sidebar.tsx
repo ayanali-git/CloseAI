@@ -1745,7 +1745,7 @@ function SidebarChatItem({
                   <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search anything"
+                    placeholder="Search chats"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
                     className="w-full pl-[40px] pr-3 h-11 text-base bg-secondary rounded-xl text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 border-0 transition-colors"
@@ -2277,7 +2277,7 @@ function SidebarChatItem({
                         isGuestCardDismissed && "hidden"
                       )}
                     >
-                      <div className="w-full p-3.5 rounded-xl bg-secondary/40 border border-border/80 dark:border-none space-y-2 select-text text-left relative">
+                      <div className="w-full p-3.5 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none space-y-2 select-text text-left relative">
                         <div className="flex items-start justify-between gap-2">
                           <div className="text-base font-semibold text-foreground text-left pt-2">
                             Get efficient responses
@@ -2300,7 +2300,7 @@ function SidebarChatItem({
                                 method: "POST",
                               }).catch(() => {});
                             }}
-                            className="p-1.5 -mr-1 -mt-1 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer shrink-0"
+                            className="p-1.5 -mr-1 -mt-1 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-[#383838] transition-colors cursor-pointer shrink-0"
                             aria-label="Close"
                           >
                             <X className="w-4 h-4" />

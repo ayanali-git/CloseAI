@@ -104,7 +104,7 @@ export function PersonalizationPanel() {
           placeholder="Anything CloseAI should know about you or how you like replies."
           rows={5}
           className={cn(
-            "flex w-full rounded-md border border-input bg-secondary px-3 py-2 text-md placeholder:text-muted-foreground focus:placeholder:text-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-y min-h-[120px] max-h-[240px] transition-colors",
+            "flex w-full rounded-2xl rounded-br-[4px] border border-input bg-secondary px-3 py-2 text-md placeholder:text-muted-foreground focus:placeholder:text-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-y min-h-[120px] max-h-[240px] transition-colors",
             isGuest
               ? "border-border/80 dark:border-white/10"
               : "border-border/80 dark:border-none"

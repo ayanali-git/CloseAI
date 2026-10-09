@@ -192,7 +192,7 @@ export default function LandingPage() {
                   }
                 }}
                 autoFocus
-                placeholder="Ask about anything"
+                placeholder="Ask anything"
                 rows={3}
                 disabled={isSubmitting}
                 className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"

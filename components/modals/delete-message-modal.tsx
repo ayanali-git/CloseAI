@@ -4,6 +4,7 @@ import React from "react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { AlertTriangle } from "lucide-react";
 import { isImageFile, getFileIconInfo } from "@/lib/file-utils";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 export interface DeleteMessageModalProps {
@@ -12,6 +13,7 @@ export interface DeleteMessageModalProps {
   onConfirm: () => void;
   promptText: string;
   files?: any[];
+  isGuest?: boolean;
 }
 
 export function DeleteMessageModal({
@@ -20,7 +22,10 @@ export function DeleteMessageModal({
   onConfirm,
   promptText,
   files,
+  isGuest: isGuestProp,
 }: DeleteMessageModalProps) {
+  const { user } = useAuth();
+  const isGuest = isGuestProp !== undefined ? isGuestProp : !user;
   const hasFiles = files && files.length > 0;
 
   return (
@@ -29,7 +34,12 @@ export function DeleteMessageModal({
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
       maxSnap={0.96}
-      className="max-w-[440px]"
+      className={cn(
+        "max-w-[440px]",
+        isGuest
+          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+          : "bg-card border border-border/90 dark:border-none"
+      )}
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">
         {/* Header */}
@@ -40,9 +50,9 @@ export function DeleteMessageModal({
         </div>
 
         {/* Message Preview Card — same to same consistent with delete chat modal */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-900 border border-border/80 dark:border-none">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
           {/* Bottom gradient overlay — full width, no scrollbar */}
-          <div className="absolute bottom-0 left-0 right-0 h-[30%] min-h-[48px] max-h-[64px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent dark:from-neutral-900 dark:via-neutral-900/95 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-[30%] min-h-[48px] max-h-[64px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent" />
 
           <div
             className={cn(
@@ -112,14 +122,24 @@ export function DeleteMessageModal({
               onOpenChange(false);
               onConfirm();
             }}
-            className="w-full h-11 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
+            className={cn(
+              "w-full h-11 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              isGuest
+                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "dark:focus-visible:ring-offset-card"
+            )}
           >
             Delete message
           </button>
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
+            className={cn(
+              "w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              isGuest
+                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "dark:focus-visible:ring-offset-card"
+            )}
           >
             Cancel
           </button>

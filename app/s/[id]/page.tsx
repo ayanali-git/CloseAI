@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageList } from "@/components/chat/message-list";
 import TocNavigator, { getTargetElement } from "@/components/chat/toc-navigator";
 import { ChatInput } from "@/components/chat/chat-input";
+import { useAuth } from "@/hooks/use-auth";
 import { isSettingsHash } from "@/lib/settings-hash";
 import { chatService, Message } from "@/lib/chat-service";
 import { supabase } from "@/lib/supabase";
@@ -183,6 +184,8 @@ export default function PublicSharedChatPage() {
   const params = useParams();
   const router = useRouter();
   const chatId = params?.id as string;
+  const { user } = useAuth();
+  const isGuest = !user;
 
   const [chatTitle, setChatTitle] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -540,7 +543,8 @@ export default function PublicSharedChatPage() {
                 <div className="w-full max-w-4xl flex-1 pb-4 sm:pb-6 mx-auto">
                   <MessageList
                     messages={messages}
-                    user={null}
+                    user={user}
+                    isGuest={isGuest}
                     isTyping={false}
                     pendingMessage={null}
                     showMessageActions={false}
@@ -571,6 +575,7 @@ export default function PublicSharedChatPage() {
                     onTierChange={setSelectedModelTier}
                     thinkMode={thinkMode}
                     onThinkModeChange={setThinkMode}
+                    isGuest={isGuest}
                   >
                     {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
                     <AnimatePresence>
@@ -584,7 +589,12 @@ export default function PublicSharedChatPage() {
                                   onClick={() => {
                                     scrollToBottom();
                                   }}
-                                  className="group w-11 h-11 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-all cursor-pointer"
+                                  className={cn(
+                                    "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
+                                    isGuest
+                                      ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                                  )}
                                   aria-label="Scroll to bottom"
                                 >
                                   <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />

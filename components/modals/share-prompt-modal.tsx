@@ -12,6 +12,7 @@ import {
 } from "@phosphor-icons/react";
 import { X } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { useAuth } from "@/hooks/use-auth";
 import { getFileIconInfo } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
@@ -21,6 +22,7 @@ export interface SharePromptModalProps {
   onOpenChange: (open: boolean) => void;
   promptText: string;
   files?: any[];
+  isGuest?: boolean;
 }
 
 /** Same image-detection logic used for real message attachments (by mime type or filename/url extension) */
@@ -67,7 +69,10 @@ export function SharePromptModal({
   onOpenChange,
   promptText,
   files,
+  isGuest: isGuestProp,
 }: SharePromptModalProps) {
+  const { user } = useAuth();
+  const isGuest = isGuestProp !== undefined ? isGuestProp : !user;
   const [linkCopied, setLinkCopied] = useState(false);
   const [isCopyingLink, setIsCopyingLink] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
@@ -167,12 +172,24 @@ export function SharePromptModal({
 
   const hasFiles = files && files.length > 0;
 
+  const shareButtonRing = cn(
+    "group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
+    isGuest
+      ? "dark:group-focus-visible:ring-offset-[#2f2f2f]"
+      : "dark:group-focus-visible:ring-offset-card"
+  );
+
   return (
     <BottomSheet
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[600px] bg-white dark:bg-[#2f2f2f] border border-border/80"
+      className={cn(
+        "max-w-[600px]",
+        isGuest
+          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+          : "bg-card border border-border/90 dark:border-none"
+      )}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-3">
         {/* Header */}
@@ -183,7 +200,12 @@ export function SharePromptModal({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-colors cursor-pointer shrink-0"
+            className={cn(
+              "p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
+              isGuest
+                ? "hover:bg-[#383838] dark:focus-visible:ring-offset-[#2f2f2f]"
+                : " hover:bg-secondary dark:focus-visible:ring-offset-card"
+            )}
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -191,11 +213,11 @@ export function SharePromptModal({
         </div>
 
         {/* Preview Card — renders the prompt exactly like a real sent message */}
-        <div ref={cardRef} className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden dark:bg-neutral-900 border border-border/80 dark:border-none">
-          {/* Scrollable / Max Prompt Viewport */}
+        <div ref={cardRef} className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
+          {/* Max Prompt Viewport — content shows without scrollbar, non-scrollable preview */}
           <div
             className={cn(
-              "relative z-0 max-h-[200px] sm:max-h-[400px] min-h-[150px] sm:min-h-[300px] overflow-y-auto flex flex-col items-end justify-start gap-2.5 px-5 sm:px-6 pt-5 sm:pt-6 pb-16 sm:pb-28 select-text"
+              "relative z-0 max-h-[200px] sm:max-h-[400px] min-h-[150px] sm:min-h-[300px] overflow-hidden flex flex-col items-end justify-start gap-2.5 px-5 sm:px-6 pt-5 sm:pt-6 pb-16 sm:pb-28 select-text"
             )}
           >
             <div ref={contentRef} className="w-full flex flex-col items-end justify-start gap-2.5">
@@ -246,15 +268,15 @@ export function SharePromptModal({
             </div>
           </div>
 
-          {/* Bottom gradient overlay — 25% full fade, stops before scrollbar like c/id and s/id */}
-          <div className="absolute bottom-0 left-0 right-4 sm:right-5 h-[25%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent dark:from-neutral-900 dark:via-neutral-900/95 to-transparent" />
+          {/* Bottom gradient overlay — 25% full fade across entire card width */}
+          <div className="absolute bottom-0 left-0 right-0 h-[25%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent" />
 
           {/* CloseAI Branding */}
           <div
             className="absolute right-5 sm:right-6 bottom-4 sm:bottom-5 z-20 pointer-events-none transition-[right] duration-75"
             style={brandingRightOffset !== null ? { right: `${brandingRightOffset}px` } : undefined}
           >
-            <span className="text-2xl font-bold text-muted-foreground tracking-tight select-none">
+            <span className="text-2xl font-bold text-foreground tracking-tight select-none">
               CloseAI
             </span>
           </div>
@@ -268,7 +290,7 @@ export function SharePromptModal({
             onClick={handleCopyLink}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -286,7 +308,7 @@ export function SharePromptModal({
             onClick={handleShareX}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">X</span>
@@ -298,7 +320,7 @@ export function SharePromptModal({
             onClick={handleShareLinkedIn}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
@@ -312,7 +334,7 @@ export function SharePromptModal({
             onClick={handleShareMore}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-80 group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white dark:group-focus-visible:ring-offset-[#2f2f2f]">
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
