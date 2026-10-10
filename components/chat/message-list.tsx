@@ -193,7 +193,15 @@ function preprocessContent(text: string): string {
   return result;
 }
 
-function CodeBlock({ language, code }: { language: string; code: string }) {
+function CodeBlock({
+  language,
+  code,
+  isGuest = false,
+}: {
+  language: string;
+  code: string;
+  isGuest?: boolean;
+}) {
   const [copied, setCopied] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -274,7 +282,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
           px-4 py-2
           bg-bubble
           text-xs font-sans
-          text-neutral-600 dark:text-neutral-300
+          text-foreground
           select-none
           `,
           isStuck
@@ -298,7 +306,9 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
             <button
               type="button"
               onClick={handleCopy}
-              className="p-3 rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              className={cn(
+                "p-3 rounded-full text-foreground transition-colors cursor-pointer",
+                isGuest ? "hover:bg-[#383838]" : "hover:bg-secondary")}
               aria-label={copied ? "Copied" : "Copy code"}
             >
               {copied ? (
@@ -1158,6 +1168,7 @@ export function MessageList({
                             <CodeBlock
                               language={lang}
                               code={rawCode.replace(/\n$/, "")}
+                              isGuest={isGuestMode}
                             />
                           );
                         }

@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
             });
 
         if (uploadResult.error && uploadResult.error.message.includes('Bucket not found')) {
-            console.log('Bucket "uploads" not found. Creating public bucket...');
             await supabaseAdmin.storage.createBucket('uploads', { public: true });
             uploadResult = await supabaseAdmin.storage
                 .from('uploads')

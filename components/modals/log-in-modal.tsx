@@ -12,6 +12,7 @@ import { AlertCircle, X, Loader, Phone, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CountDropdownMenu, CountryItem } from "@/components/ui/count-dropdown-menu";
 import countriesData from "@/data/countries.json";
+import { useAuth } from "@/hooks/use-auth";
 
 interface AuthFormErrors {
   email?: string;
@@ -21,6 +22,8 @@ interface AuthFormErrors {
 export interface LoginModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Force guest or authenticated styling variant. If omitted, deduced from auth state */
+  isGuest?: boolean;
   /** When true, always render as centered modal (not bottom sheet on mobile) */
   forceModal?: boolean;
   /** Initial error message to display inside the modal */
@@ -38,8 +41,11 @@ export function LoginModal({
   initialError,
   title = "Log in or Sign up",
   description = "To continue with CloseAI",
+  isGuest: isGuestProp,
 }: LoginModalProps) {
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+  const isGuest = isGuestProp !== undefined ? isGuestProp : (!authLoading && !user);
 
   const [authMode, setAuthMode] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
@@ -216,7 +222,12 @@ export function LoginModal({
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
       maxSnap={0.96}
-      className="max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
+      className={cn(
+        "max-w-[440px]",
+        isGuest
+          ? "bg-white dark:bg-[#2f2f2f] border border-border/80"
+          : "bg-card border border-border/90 dark:border-none"
+      )}
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
@@ -224,7 +235,13 @@ export function LoginModal({
         <button
           type="button"
           onClick={() => onOpenChange(false)}
-          className="absolute top-0 right-0 p-3 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
+          className={cn(
+            "absolute top-0 right-0 p-3 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none",
+            "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+            isGuest
+              ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+              : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+          )}
           aria-label="Close"
         >
           <X className="w-5 h-5" />
@@ -270,7 +287,12 @@ export function LoginModal({
           <button
             type="button"
             onClick={handleGoogleAuth}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
+            className={cn(
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              isGuest
+                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "dark:focus-visible:ring-offset-[#212121]"
+            )}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
               <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -322,7 +344,12 @@ export function LoginModal({
           <button
             type="button"
             onClick={handleGithubAuth}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
+            className={cn(
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              isGuest
+                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "dark:focus-visible:ring-offset-[#212121]"
+            )}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
               <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -351,7 +378,12 @@ export function LoginModal({
                 setErrors({});
                 setSubmitted(false);
               }}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
+              className={cn(
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+                isGuest
+                  ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                  : "dark:focus-visible:ring-offset-[#212121]"
+              )}
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -368,7 +400,12 @@ export function LoginModal({
                 setErrors({});
                 setSubmitted(false);
               }}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none"
+              className={cn(
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+                isGuest
+                  ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                  : "dark:focus-visible:ring-offset-[#212121]"
+              )}
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -386,7 +423,12 @@ export function LoginModal({
             <div className="w-full border-t border-border/80 dark:border-white/10" />
           </div>
           <div className="relative flex justify-center text-base">
-            <span className="bg-white dark:bg-[#2f2f2f] px-3 text-muted-foreground font-normal tracking-wider">
+            <span
+              className={cn(
+                "px-3 text-muted-foreground font-normal tracking-wider",
+                isGuest ? "bg-white dark:bg-[#2f2f2f]" : "bg-card"
+              )}
+            >
               or
             </span>
           </div>
@@ -399,7 +441,10 @@ export function LoginModal({
               <div
                 className={cn(
                   "h-12 rounded-full bg-background border border-border/80 dark:border-none px-4 flex items-center transition-all",
-                  "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
+                  "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white focus-visible:ring-offset-white",
+                  isGuest
+                    ? "dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
+                    : "dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
                   errors.email && (touched.email || submitted)
                     ? "border-red-500/80 focus-within:ring-red-500"
                     : "border-border/80 focus-within:ring-blue-500"
@@ -448,7 +493,10 @@ export function LoginModal({
                 <div
                   className={cn(
                     "h-12 rounded-full bg-background border border-border/80 dark:border-none px-4 flex items-center gap-3 transition-all",
-                    "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
+                    "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white focus-visible:ring-offset-white",
+                    isGuest
+                      ? "dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
+                      : "dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
                     errors.phone && (touched.phone || submitted)
                       ? "border-red-500/80 focus-within:ring-red-500"
                       : "border-border/80 focus-within:ring-blue-500"
@@ -483,7 +531,12 @@ export function LoginModal({
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none"
+            className={cn(
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
+              isGuest
+                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "dark:focus-visible:ring-offset-[#212121]"
+            )}
           >
             {loading ? (
               <Loader className="w-5 h-5 animate-spin text-background" />

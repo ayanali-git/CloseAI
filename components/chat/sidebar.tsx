@@ -291,6 +291,22 @@ export function Sidebar({
     }
   };
 
+  const handleOpenAddAccount = () => {
+    setAccountMenuOpen(false);
+    setCollapsedAccountMenuOpen(false);
+    setRailHelpOpen(false);
+    setGuestHelpMenuOpen(false);
+    setAccountSubView("main");
+    if (onOpenLoginModal) {
+      onOpenLoginModal();
+    } else {
+      window.dispatchEvent(new CustomEvent("closeai-open-login"));
+    }
+    if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+      onToggle();
+    }
+  };
+
   useEffect(() => {
     if (showReportBugModal) {
       setAccountMenuOpen(false);
@@ -698,13 +714,7 @@ export function Sidebar({
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <button
             type="button"
-            onClick={() => {
-              if (onOpenLoginModal) {
-                onOpenLoginModal();
-              } else {
-                window.dispatchEvent(new CustomEvent("closeai-open-login"));
-              }
-            }}
+            onClick={handleOpenAddAccount}
             className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Plus className="w-4 h-4 text-muted-foreground" />
@@ -800,13 +810,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => {
-                  if (onOpenLoginModal) {
-                    onOpenLoginModal();
-                  } else {
-                    window.dispatchEvent(new CustomEvent("closeai-open-login"));
-                  }
-                }}
+                onClick={handleOpenAddAccount}
                 className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-md"
               >
                 <Plus className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -1261,13 +1265,13 @@ function SidebarChatItem({
                       className="w-11 h-11 rounded-sm flex items-center justify-center text-foreground hover:bg-secondary transition-colors !cursor-ew-resize [&_*]:!cursor-ew-resize"
                       aria-label="Open sidebar"
                     >
-                      {isLogoHovered ? (
-                        <PanelRight className="w-4 h-4 text-foreground pointer-events-none" />
-                      ) : (
+                      {user && !isLogoHovered ? (
                         <CloseAIIcon
                           size={20}
                           className="w-4 h-4 pointer-events-none"
                         />
+                      ) : (
+                        <PanelRight className="w-4 h-4 text-foreground pointer-events-none" />
                       )}
                     </button>
                   </TooltipTrigger>

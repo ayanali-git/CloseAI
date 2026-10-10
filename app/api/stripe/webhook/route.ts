@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
             }
 
             default:
-                console.log(`Unhandled event type: ${event.type}`);
+                break;
         }
 
         return NextResponse.json({ received: true });
@@ -110,8 +110,6 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         }, {
             onConflict: 'stripe_subscription_id',
         });
-
-    console.log(`Subscription created for user ${userId}: ${planName}`);
 }
 
 async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
@@ -145,8 +143,6 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
             cancel_at_period_end: subscription.cancel_at_period_end,
         })
         .eq('stripe_subscription_id', subscription.id);
-
-    console.log(`Subscription updated: ${subscription.id} - ${status}`);
 }
 
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
@@ -169,8 +165,6 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
         .from('subscriptions')
         .update({ status: 'canceled' })
         .eq('stripe_subscription_id', subscription.id);
-
-    console.log(`Subscription deleted: ${subscription.id}`);
 }
 
 async function handlePaymentFailed(invoice: Stripe.Invoice) {
@@ -189,7 +183,5 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
             .from('profiles')
             .update({ subscription_status: 'past_due' })
             .eq('id', profile.id);
-
-        console.log(`Payment failed for user ${profile.id}`);
     }
 }

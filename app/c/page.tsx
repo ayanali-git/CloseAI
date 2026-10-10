@@ -9,7 +9,7 @@ import { chatService } from "@/lib/chat-service";
 import { Sidebar } from "@/components/chat/sidebar";
 import { WelcomeScreen } from "@/components/chat/welcome-screen";
 import { ChatInput } from "@/components/chat/chat-input";
-import { Loader, PanelRight, SquarePen } from "lucide-react";
+import { Loader, PanelRight } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -242,51 +242,26 @@ function NewChatContent() {
 
           <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
             {!sidebarOpen && (
-              /* Full Container wrapping both Open sidebar and New chat buttons */
-              <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={() => handleToggleSidebar()}
-                      className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                      aria-label="Open sidebar"
-                    >
-                      <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="bottom"
-                    align="start"
-                    sideOffset={6}
-                    className="text-md"
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleSidebar()}
+                    className="xl:hidden w-12 h-12 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0 active:scale-[0.98]"
+                    aria-label="Open sidebar"
                   >
-                    Open sidebar
-                  </TooltipContent>
-                </Tooltip>
-
-                {/* New chat button for small screen devices */}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={handleNewChat}
-                      className="sm:hidden group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                      aria-label="New chat"
-                    >
-                      <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="bottom"
-                    align="start"
-                    sideOffset={6}
-                    className="text-md"
-                  >
-                    New chat
-                  </TooltipContent>
-                </Tooltip>
-              </div>
+                    <PanelRight className="w-5 h-5 shrink-0" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="bottom"
+                  align="start"
+                  sideOffset={6}
+                  className="text-md"
+                >
+                  Open sidebar
+                </TooltipContent>
+              </Tooltip>
             )}
           </div>
         </header>

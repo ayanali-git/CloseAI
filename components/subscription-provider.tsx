@@ -188,7 +188,6 @@ export function SubscriptionProvider({
                     filter: `id=eq.${user.id}`,
                 },
                 (payload: any) => {
-                    console.log('Realtime profile updated:', payload);
                     if (payload?.new?.plan) {
                         const newPlan = payload.new.plan;
                         setPlan(newPlan);

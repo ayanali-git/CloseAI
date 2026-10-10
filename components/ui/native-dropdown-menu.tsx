@@ -64,9 +64,6 @@ const MAX_CORRECTIONS = 8; // feedback nudges per open
 const SCROLL_NOISE = 0.5; // px of upward scroll ignored as sub-pixel noise
 const GROW_SNAP = 1; // px: this close to the max height -> jump to it (no sliver, no stray scrollbar)
 
-/** Flip to true to log the alignment loop in the console while debugging. */
-const DEBUG_ALIGN = false;
-
 const clamp = (n: number, min: number, max: number) =>
   Math.min(Math.max(n, min), Math.max(min, max));
 
@@ -160,7 +157,7 @@ function computeLayout(
     maxHeight: Math.ceil(above + below),
     scrollTop: itemCenter - above,
     target,
-    align: t.left + t.width / 2 > window.innerWidth / 2 ? "end" : "start",
+    align: "end",
   };
 }
 
@@ -265,10 +262,7 @@ export function NativeDropdownMenu<T extends string = string>({
           ),
           scrollTop: 0,
           target: rect.top + rect.height / 2,
-          align:
-            rect.left + rect.width / 2 > window.innerWidth / 2
-              ? "end"
-              : "start",
+          align: "end",
         });
       }
       setReady(false);
@@ -362,23 +356,6 @@ export function NativeDropdownMenu<T extends string = string>({
             const i = item.getBoundingClientRect();
             const delta = desired.target - (i.top + i.height / 2);
             const absDelta = Math.abs(delta);
-
-            if (DEBUG_ALIGN) {
-              const p = popup.getBoundingClientRect();
-              const t = trigger.getBoundingClientRect();
-              // eslint-disable-next-line no-console
-              console.log("[dropdown-align]", {
-                frame,
-                target: Math.round(desired.target),
-                rowCenter: Math.round(i.top + i.height / 2),
-                delta: Math.round(delta * 10) / 10,
-                requestedTop: Math.round(t.bottom + wanted.offset),
-                actualTop: Math.round(p.top),
-                correction: Math.round(correction * 10) / 10,
-                corrections,
-                correctionsDisabled,
-              });
-            }
 
             if (absDelta <= RESIDUAL_EPSILON || correctionsDisabled) {
               accept();
@@ -570,6 +547,16 @@ export function NativeDropdownMenu<T extends string = string>({
   React.useEffect(() => {
     if (!open) return;
 
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    };
+
     const blockScrollIntent = (e: Event) => {
       if (!e.cancelable) return;
 
@@ -581,9 +568,69 @@ export function NativeDropdownMenu<T extends string = string>({
       const insideList = !!list && list.contains(target);
       const insidePopup = !!popup && popup.contains(target);
 
-      // Real scrolling list -> let the browser scroll it
-      // (overscroll-contain keeps it from chaining to the page).
-      if (insideList && isScrollableRef.current) return;
+      if (e.type === "touchmove") {
+        const te = e as TouchEvent;
+        if (te.touches.length > 0) {
+          const currentX = te.touches[0].clientX;
+          const currentY = te.touches[0].clientY;
+          const deltaX = currentX - touchStartX;
+          const deltaY = currentY - touchStartY;
+          touchStartX = currentX;
+          touchStartY = currentY;
+
+          // Block horizontal dragging / swiping
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            e.preventDefault();
+            return;
+          }
+
+          if (insideList && isScrollableRef.current && list) {
+            // deltaY > 0: finger dragging down -> container scrolls UP towards top
+            // deltaY < 0: finger dragging up -> container scrolls DOWN towards bottom
+            const atTop = list.scrollTop <= 0;
+            const atBottom =
+              list.scrollTop + list.clientHeight >= list.scrollHeight - 1;
+
+            if (deltaY > 0 && atTop) {
+              e.preventDefault();
+              return;
+            }
+            if (deltaY < 0 && atBottom) {
+              e.preventDefault();
+              return;
+            }
+            // Allow vertical scrolling inside list boundaries
+            return;
+          }
+        }
+      }
+
+      if (e.type === "wheel") {
+        const we = e as WheelEvent;
+
+        // Block horizontal wheel
+        if (Math.abs(we.deltaX) > Math.abs(we.deltaY)) {
+          e.preventDefault();
+          return;
+        }
+
+        if (insideList && isScrollableRef.current && list) {
+          const atTop = list.scrollTop <= 0;
+          const atBottom =
+            list.scrollTop + list.clientHeight >= list.scrollHeight - 1;
+
+          if (we.deltaY < 0 && atTop) {
+            e.preventDefault();
+            return;
+          }
+          if (we.deltaY > 0 && atBottom) {
+            e.preventDefault();
+            return;
+          }
+          // Allow wheel within list boundaries
+          return;
+        }
+      }
 
       // Non-scrollable popup (list or padding) -> nothing may scroll,
       // including the page behind it.
@@ -598,10 +645,17 @@ export function NativeDropdownMenu<T extends string = string>({
     };
 
     const opts = { passive: false, capture: true } as const;
+    document.addEventListener("touchstart", onTouchStart, {
+      passive: true,
+      capture: true,
+    });
     document.addEventListener("wheel", blockScrollIntent, opts);
     document.addEventListener("touchmove", blockScrollIntent, opts);
 
     return () => {
+      document.removeEventListener("touchstart", onTouchStart, {
+        capture: true,
+      });
       document.removeEventListener("wheel", blockScrollIntent, opts);
       document.removeEventListener("touchmove", blockScrollIntent, opts);
     };
@@ -655,7 +709,7 @@ export function NativeDropdownMenu<T extends string = string>({
           // Small/touch: we align the selected row on the label ourselves.
           alignItemWithTrigger={isSmallOrTouch ? false : alignItemWithTrigger}
           side="bottom"
-          align={isSmallOrTouch ? layout?.align ?? "start" : undefined}
+          align={isSmallOrTouch ? layout?.align ?? "end" : undefined}
           sideOffset={isSmallOrTouch ? layout?.offset ?? 0 : 0}
           alignOffset={0}
           positionMethod={isSmallOrTouch ? "fixed" : undefined}
@@ -668,7 +722,7 @@ export function NativeDropdownMenu<T extends string = string>({
           <SelectPrimitive.Popup
             ref={popupRef}
             className={cn(
-              "min-w-[140px] overflow-hidden rounded-xl p-1.5 text-foreground outline-none",
+              "min-w-[140px] max-w-[calc(100vw-16px)] overflow-hidden overflow-x-hidden rounded-xl p-1.5 text-foreground outline-none touch-pan-y",
               isSmallOrTouch && "min-w-[max(140px,var(--anchor-width))]",
               // Hidden while measuring / positioning (a few frames)
               isSmallOrTouch && !ready && "opacity-0 pointer-events-none",
@@ -685,7 +739,7 @@ export function NativeDropdownMenu<T extends string = string>({
             <SelectPrimitive.List
               ref={listRef}
               className={cn(
-                "outline-none space-y-0.5",
+                "outline-none space-y-0.5 overflow-x-hidden touch-pan-y",
                 // Scrollable only when the rows really overflow.
                 // Otherwise: no scrollbar, no touch pan, no wheel scroll.
                 isScrollable

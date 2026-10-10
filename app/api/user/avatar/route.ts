@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
       });
 
     if (uploadResult.error && uploadResult.error.message.toLowerCase().includes('bucket not found')) {
-      console.log('Bucket "avatars" not found. Creating public bucket and retrying...');
       await supabaseAdmin.storage.createBucket('avatars', { public: true });
       uploadResult = await supabaseAdmin.storage
         .from('avatars')

@@ -38,6 +38,7 @@ function GuestChatContent() {
 
   const {
     sidebarOpen,
+    setSidebarOpen,
     toggleSidebar: handleToggleSidebar,
     chats,
     setChats,
@@ -47,6 +48,15 @@ function GuestChatContent() {
   } = useSidebarContext();
 
   const [newChatKey, setNewChatKey] = useState(0);
+
+  const handleNewChat = () => {
+    setMessage("");
+    setUploadedFiles([]);
+    setNewChatKey((k) => k + 1);
+    if (typeof window !== "undefined" && window.innerWidth < 1280) {
+      setSidebarOpen(false);
+    }
+  };
   const [isSidebarBtnHovered, setIsSidebarBtnHovered] = useState(false);
   const [message, setMessage] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -175,11 +185,7 @@ function GuestChatContent() {
         chats={[]}
         currentChatId={null}
         onChatSelect={() => {}}
-        onNewChat={() => {
-          setNewChatKey((prev) => prev + 1);
-          setMessage("");
-          setUploadedFiles([]);
-        }}
+        onNewChat={handleNewChat}
         onDeleteChat={() => {}}
         onToggleStar={() => {}}
         onToggleArchive={() => {}}

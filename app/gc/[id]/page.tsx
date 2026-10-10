@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { PanelRight, ArrowDown, ChevronDown } from "lucide-react";
+import { PanelRight, ArrowDown, ChevronDown, SquarePen } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import {
   Tooltip,
@@ -34,8 +34,11 @@ export default function GuestChatSessionPage() {
   const { user, loading } = useAuth();
   const isGuest = !user;
 
-  const { sidebarOpen, toggleSidebar: handleToggleSidebar } =
-    useSidebarContext();
+  const {
+    sidebarOpen,
+    setSidebarOpen,
+    toggleSidebar: handleToggleSidebar,
+  } = useSidebarContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -474,6 +477,9 @@ export default function GuestChatSessionPage() {
   };
 
   const handleNewChat = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 1280) {
+      setSidebarOpen(false);
+    }
     if (messages.length > 0 || isTyping) {
       setShowClearChatModal(true);
       return;
@@ -557,32 +563,56 @@ export default function GuestChatSessionPage() {
           {/* Left area */}
           <div className="flex items-center gap-2 pointer-events-auto max-xl:h-12">
             {!sidebarOpen && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsSidebarBtnHovered(false);
-                      handleToggleSidebar();
-                    }}
-                    onMouseEnter={() => setIsSidebarBtnHovered(true)}
-                    onMouseLeave={() => setIsSidebarBtnHovered(false)}
-                    onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98]"
-                    aria-label="Open sidebar"
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSidebarBtnHovered(false);
+                        handleToggleSidebar();
+                      }}
+                      onMouseEnter={() => setIsSidebarBtnHovered(true)}
+                      onMouseLeave={() => setIsSidebarBtnHovered(false)}
+                      onBlur={() => setIsSidebarBtnHovered(false)}
+                      className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98]"
+                      aria-label="Open sidebar"
+                    >
+                      <PanelRight className="w-5 h-5 shrink-0" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    align="start"
+                    sideOffset={6}
+                    className="text-md"
                   >
-                    <PanelRight className="w-5 h-5 shrink-0" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="bottom"
-                  align="start"
-                  sideOffset={6}
-                  className="text-md"
-                >
-                  Open sidebar
-                </TooltipContent>
-              </Tooltip>
+                    Open sidebar
+                  </TooltipContent>
+                </Tooltip>
+
+                {/* New chat button for small screen devices */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={handleNewChat}
+                      className="sm:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98]"
+                      aria-label="New chat"
+                    >
+                      <SquarePen className="w-5 h-5 shrink-0" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    align="start"
+                    sideOffset={6}
+                    className="text-md"
+                  >
+                    New chat
+                  </TooltipContent>
+                </Tooltip>
+              </>
             )}
 
             {/* Desktop Only: CloseAI with AnimatedChevron and Popover */}
