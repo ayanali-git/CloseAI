@@ -54,8 +54,15 @@ export default function GuestChatSessionPage() {
 
   // Modals
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginModalDescription, setLoginModalDescription] = useState<string | undefined>(undefined);
   const [showClearChatModal, setShowClearChatModal] = useState(false);
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
+
+  const handleOpenLogin = (opts?: { description?: string; title?: string } | string) => {
+    const desc = typeof opts === "string" ? opts : opts?.description;
+    setLoginModalDescription(desc);
+    setShowLoginModal(true);
+  };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -547,9 +554,9 @@ export default function GuestChatSessionPage() {
         isOpen={sidebarOpen}
         onToggle={handleToggleSidebar}
         isLoading={false}
-        onOpenLoginModal={() => setShowLoginModal(true)}
-        onOpenWebSearchModal={() => setShowLoginModal(true)}
-        onOpenAdvancedFeaturesModal={() => setShowLoginModal(true)}
+        onOpenLoginModal={handleOpenLogin}
+        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+        onOpenAdvancedFeaturesModal={handleOpenLogin}
         onWebSearchHover={() => setModelDropdownOpen(false)}
       />
 
@@ -656,7 +663,7 @@ export default function GuestChatSessionPage() {
                         type="button"
                         onClick={() => {
                           setModelDropdownOpen(false);
-                          setShowLoginModal(true);
+                          handleOpenLogin();
                         }}
                         className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
@@ -666,7 +673,7 @@ export default function GuestChatSessionPage() {
                         type="button"
                         onClick={() => {
                           setModelDropdownOpen(false);
-                          setShowLoginModal(true);
+                          handleOpenLogin();
                         }}
                         className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
@@ -690,14 +697,14 @@ export default function GuestChatSessionPage() {
           <div className="flex items-center gap-2 pointer-events-auto">
             <button
               type="button"
-              onClick={() => setShowLoginModal(true)}
+              onClick={() => handleOpenLogin()}
               className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.98] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none"
             >
               Log in
             </button>
             <button
               type="button"
-              onClick={() => setShowLoginModal(true)}
+              onClick={() => handleOpenLogin()}
               className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none"
             >
               Sign up for free
@@ -749,9 +756,9 @@ export default function GuestChatSessionPage() {
                   thinkMode={thinkMode}
                   onThinkModeChange={setThinkMode}
                   isGuest={true}
-                  onOpenLoginModal={() => setShowLoginModal(true)}
-                  onOpenWebSearchModal={() => setShowLoginModal(true)}
-                  onOpenAdvancedFeaturesModal={() => setShowLoginModal(true)}
+                  onOpenLoginModal={handleOpenLogin}
+                  onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                  onOpenAdvancedFeaturesModal={handleOpenLogin}
                   centered={false}
                   showDisclaimer={true}
                 >
@@ -809,7 +816,14 @@ export default function GuestChatSessionPage() {
       />
 
       {/* Login Modal */}
-      <LoginModal open={showLoginModal} onOpenChange={setShowLoginModal} />
+      <LoginModal
+        open={showLoginModal}
+        onOpenChange={(open) => {
+          setShowLoginModal(open);
+          if (!open) setLoginModalDescription(undefined);
+        }}
+        description={loginModalDescription}
+      />
 
       {/* Clear Chat Confirmation Modal */}
       <ClearChatModal
@@ -819,13 +833,13 @@ export default function GuestChatSessionPage() {
           setShowClearChatModal(false);
           router.push("/gc");
         }}
-        onOpenLogin={() => {
+        onOpenLogin={(opts) => {
           setShowClearChatModal(false);
-          setShowLoginModal(true);
+          handleOpenLogin(opts?.description || "To continue with Saved chats");
         }}
-        onOpenSignup={() => {
+        onOpenSignup={(opts) => {
           setShowClearChatModal(false);
-          setShowLoginModal(true);
+          handleOpenLogin(opts?.description || "To continue with Saved chats");
         }}
       />
     </div>

@@ -65,9 +65,9 @@ interface ChatInputProps {
   disableAttach?: boolean;
   autoFocus?: boolean;
   isGuest?: boolean;
-  onOpenLoginModal?: () => void;
-  onOpenWebSearchModal?: () => void;
-  onOpenAdvancedFeaturesModal?: () => void;
+  onOpenLoginModal?: (options?: { description?: string; title?: string }) => void;
+  onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
+  onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
 }
 
 /** preview card with thumbnail or code icon */
@@ -710,17 +710,17 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           isOpen={plusMenuOpen}
           disableAttach={disableAttach}
           isGuest={isGuest}
-          onOpenLoginModal={() => {
+          onOpenLoginModal={(opts) => {
             setPlusMenuOpen(false);
-            onOpenLoginModal?.();
+            onOpenLoginModal?.(opts);
           }}
-          onOpenWebSearchModal={() => {
+          onOpenWebSearchModal={(opts) => {
             setPlusMenuOpen(false);
-            onOpenWebSearchModal?.();
+            onOpenWebSearchModal?.(opts);
           }}
-          onOpenAdvancedFeaturesModal={() => {
+          onOpenAdvancedFeaturesModal={(opts) => {
             setPlusMenuOpen(false);
-            onOpenAdvancedFeaturesModal?.();
+            onOpenAdvancedFeaturesModal?.(opts);
           }}
         />
       </DropdownMenuContent>
@@ -737,8 +737,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onClick={(e) => {
               (e.currentTarget as HTMLElement)?.blur();
               if (isGuest) {
-                if (onOpenLoginModal) onOpenLoginModal();
-                else onOpenAdvancedFeaturesModal?.();
+                if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think Mode" });
+                else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think Mode" });
                 return;
               }
               onThinkModeChange?.(!thinkMode);

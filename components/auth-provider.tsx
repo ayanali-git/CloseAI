@@ -7,6 +7,11 @@ import { AUTH_COOKIE_NAME } from '@/lib/auth-cookie';
 import { useRouter } from 'next/navigation';
 import { LoginModal } from '@/components/modals/log-in-modal';
 
+export interface OpenLoginModalOptions {
+  description?: string;
+  title?: string;
+}
+
 export interface AuthContextType {
   user: User | null;
   session: Session | null;
@@ -15,13 +20,14 @@ export interface AuthContextType {
   isSigningOut: boolean;
   signOut: (redirectTo?: string) => Promise<void>;
   refreshSession: () => Promise<Session | null>;
-  openLoginModal: () => void;
+  openLoginModal: (options?: OpenLoginModalOptions | string) => void;
   closeLoginModal: () => void;
 }
 
-export function openLoginModal(): void {
+export function openLoginModal(options?: OpenLoginModalOptions | string): void {
   if (typeof window === 'undefined') return;
-  window.dispatchEvent(new CustomEvent('closeai-open-login'));
+  const detail = typeof options === 'string' ? { description: options } : options;
+  window.dispatchEvent(new CustomEvent('closeai-open-login', { detail }));
 }
 
 export function closeLoginModal(): void {
@@ -265,19 +271,30 @@ export function AuthProvider({
   };
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [loginModalDescription, setLoginModalDescription] = useState<string | undefined>(undefined);
   const [authModalError, setAuthModalError] = useState<string | null>(null);
 
-  const openLoginModalHandler = useCallback(() => {
+  const openLoginModalHandler = useCallback((options?: OpenLoginModalOptions | string) => {
+    const desc = typeof options === 'string' ? options : options?.description;
+    setLoginModalDescription(desc);
     setLoginModalOpen(true);
   }, []);
 
   const closeLoginModalHandler = useCallback(() => {
     setLoginModalOpen(false);
+    setLoginModalDescription(undefined);
   }, []);
 
   useEffect(() => {
-    const handleCustomOpen = () => setLoginModalOpen(true);
-    const handleCustomClose = () => setLoginModalOpen(false);
+    const handleCustomOpen = (e: any) => {
+      const desc = e?.detail?.description;
+      setLoginModalDescription(desc);
+      setLoginModalOpen(true);
+    };
+    const handleCustomClose = () => {
+      setLoginModalOpen(false);
+      setLoginModalDescription(undefined);
+    };
     window.addEventListener('closeai-open-login', handleCustomOpen);
     window.addEventListener('closeai-close-login', handleCustomClose);
     return () => {
@@ -365,8 +382,12 @@ export function AuthProvider({
         open={loginModalOpen}
         onOpenChange={(isOpen) => {
           setLoginModalOpen(isOpen);
-          if (!isOpen) setAuthModalError(null);
+          if (!isOpen) {
+            setAuthModalError(null);
+            setLoginModalDescription(undefined);
+          }
         }}
+        description={loginModalDescription}
         initialError={authModalError}
       />
     </AuthContext.Provider>

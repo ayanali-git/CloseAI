@@ -9,8 +9,8 @@ export interface ClearChatModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onNewChat: () => void;
-  onOpenLogin: () => void;
-  onOpenSignup?: () => void;
+  onOpenLogin: (options?: { description?: string; title?: string }) => void;
+  onOpenSignup?: (options?: { description?: string; title?: string }) => void;
   forceModal?: boolean;
 }
 
@@ -29,7 +29,7 @@ export function ClearChatModal({
 
   const handleLogin = () => {
     onOpenChange(false);
-    onOpenLogin();
+    onOpenLogin({ description: "To continue with Saved chats" });
   };
 
   return (
@@ -57,7 +57,15 @@ export function ClearChatModal({
             Clear chat
           </h2>
           <p className="text-base text-muted-foreground mt-1.5 leading-relaxed px-2 sm:px-4">
-            To start a new chat, your current conversation will be discarded.{" "}
+            Start a new chat? Your current conversation will be discarded.{" "}
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="font-normal text-foreground hover:opacity-90 transition-opacity cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
+              Log in
+            </button>{" "}
+            or{" "}
             <button
               type="button"
               onClick={handleLogin}
@@ -65,7 +73,7 @@ export function ClearChatModal({
             >
               Sign up for free
             </button>{" "}
-            to save your chats.
+            to save chats.
           </p>
         </div>
 

@@ -100,9 +100,9 @@ interface SidebarProps {
   isOpen: boolean;
   onToggle: () => void;
   isLoading?: boolean;
-  onOpenLoginModal?: () => void;
-  onOpenWebSearchModal?: () => void;
-  onOpenAdvancedFeaturesModal?: () => void;
+  onOpenLoginModal?: (options?: { description?: string; title?: string }) => void;
+  onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
+  onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
   onWebSearchHover?: () => void;
 }
 
@@ -531,7 +531,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (onOpenLoginModal || onOpenWebSearchModal)?.();
+              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
               if (
                 isOpen &&
                 typeof window !== "undefined" &&
@@ -548,7 +548,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (onOpenLoginModal || onOpenWebSearchModal)?.();
+              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
               if (
                 isOpen &&
                 typeof window !== "undefined" &&
@@ -1423,7 +1423,7 @@ function SidebarChatItem({
                           }}
                           onClick={() => {
                             setRailWebSearchHoverOpen(false);
-                            (onOpenLoginModal || onOpenWebSearchModal)?.();
+                            (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
                             "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer",
@@ -1855,7 +1855,7 @@ function SidebarChatItem({
                           setTimeout(() => {
                             ignoreNextWebSearchOpenRef.current = false;
                           }, 300);
-                          (onOpenLoginModal || onOpenWebSearchModal)?.();
+                          (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           if (
                             isOpen &&
                             typeof window !== "undefined" &&
