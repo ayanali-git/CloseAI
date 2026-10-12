@@ -1,4 +1,5 @@
 import { SupabaseClient } from '@supabase/supabase-js';
+import { getTemporaryChatIds } from './temporary-chat';
 
 export interface Chat {
   id: string;
@@ -40,7 +41,11 @@ export const chatService = {
       }
     }
 
-    return data.map((chat: any) => ({
+    const tempChatIds = getTemporaryChatIds();
+
+    return data
+      .filter((chat: any) => !tempChatIds.has(chat.id))
+      .map((chat: any) => ({
       id: chat.id,
       title: chat.title,
       starred: chat.starred || false,

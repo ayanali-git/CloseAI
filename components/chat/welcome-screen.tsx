@@ -8,6 +8,8 @@ interface WelcomeScreenProps {
   resetKey?: number | string;
   onPromptSelect?: (prompt: string) => void;
   children?: React.ReactNode;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
 export function WelcomeScreen({
@@ -15,6 +17,8 @@ export function WelcomeScreen({
   resetKey,
   onPromptSelect,
   children,
+  customTitle,
+  customSubtitle,
 }: WelcomeScreenProps) {
   const [dynamicTitle, setDynamicTitle] = useState<string>(
     "What would you like to explore?"
@@ -87,15 +91,20 @@ export function WelcomeScreen({
 
   return (
     <div className="flex-1 w-full h-full flex flex-col items-center justify-center text-center select-none pb-6 sm:pb-8">
-      <div className="w-full max-w-3xl flex flex-col items-center justify-center space-y-6">
-        {/* Dynamic Title */}
-        <div className="w-full px-6">
-          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground/90 animate-in fade-in-50 duration-300">
-            {dynamicTitle}
+      <div className="w-full max-w-3xl relative flex flex-col items-center">
+        {/* Title & Subtitle — Anchored strictly above input pill so pill NEVER shifts */}
+        <div className="absolute bottom-full left-0 right-0 mb-6 px-6 flex flex-col items-center justify-end pointer-events-none">
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground/90 transition-all duration-200 pointer-events-auto">
+            {customTitle || dynamicTitle}
           </h1>
+          {customSubtitle && (
+            <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-xl mx-auto leading-relaxed animate-in fade-in-50 duration-200 pointer-events-auto">
+              {customSubtitle}
+            </p>
+          )}
         </div>
 
-        {/* Centered Floating Input Bar */}
+        {/* Centered Floating Input Bar — The immutable layout anchor */}
         {children && <div className="w-full">{children}</div>}
       </div>
     </div>

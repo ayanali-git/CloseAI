@@ -1082,4 +1082,196 @@ export const AnimatedCheckbox = React.forwardRef<
 });
 AnimatedCheckbox.displayName = "AnimatedCheckbox";
 
+export interface AnimatedTempChatProps
+  extends React.HTMLAttributes<HTMLSpanElement> {
+  open?: boolean;
+  isOpen?: boolean;
+  active?: boolean;
+  isActive?: boolean;
+  checked?: boolean;
+  isChecked?: boolean;
+  disableHover?: boolean;
+  className?: string;
+  size?: number | string;
+  strokeWidth?: number;
+}
+
+export const AnimatedTempChat = React.forwardRef<
+  HTMLSpanElement,
+  AnimatedTempChatProps
+>(function AnimatedTempChat(
+  {
+    open,
+    isOpen,
+    active,
+    isActive: isActiveProp,
+    checked,
+    isChecked,
+    disableHover = false,
+    className,
+    size,
+    strokeWidth = 2,
+    style,
+    ...props
+  },
+  forwardedRef
+) {
+  const innerRef = useRef<HTMLSpanElement>(null);
+  React.useImperativeHandle(
+    forwardedRef,
+    () => innerRef.current as HTMLSpanElement
+  );
+
+  const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
+  const isControlled =
+    open !== undefined ||
+    isOpen !== undefined ||
+    active !== undefined ||
+    isActiveProp !== undefined ||
+    checked !== undefined ||
+    isChecked !== undefined;
+
+  useEffect(() => {
+    if (isControlled) return;
+    const el = innerRef.current;
+    if (!el) return;
+
+    const parentGroup =
+      el.closest(".group") ||
+      el.closest("button") ||
+      el.closest("a") ||
+      el.closest('[role="button"]') ||
+      el;
+
+    const onEnter = () => {
+      if (!disableHover) setHovered(true);
+    };
+    const onLeave = () => {
+      setHovered(false);
+      setClicked(false);
+    };
+    const onClick = () => {
+      setClicked((prev) => !prev);
+    };
+
+    try {
+      if (
+        typeof window !== "undefined" &&
+        !disableHover &&
+        parentGroup.matches(":hover")
+      ) {
+        setHovered(true);
+      }
+    } catch (e) {}
+
+    parentGroup.addEventListener("mouseenter", onEnter);
+    parentGroup.addEventListener("mouseleave", onLeave);
+    parentGroup.addEventListener("click", onClick);
+    if (parentGroup !== el) {
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mouseleave", onLeave);
+      el.addEventListener("click", onClick);
+    }
+
+    return () => {
+      parentGroup.removeEventListener("mouseenter", onEnter);
+      parentGroup.removeEventListener("mouseleave", onLeave);
+      parentGroup.removeEventListener("click", onClick);
+      if (parentGroup !== el) {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+        el.removeEventListener("click", onClick);
+      }
+    };
+  }, [disableHover, isControlled]);
+
+  const isCurrentActive = isControlled
+    ? Boolean(open ?? isOpen ?? active ?? isActiveProp ?? checked ?? isChecked)
+    : disableHover
+      ? clicked
+      : Boolean(clicked || hovered);
+
+  const motionVal = useMotionValue(+!!isCurrentActive);
+  const spring = useSpring(motionVal, {
+    stiffness: 500,
+    damping: 32,
+    mass: 0.6,
+  });
+
+  useEffect(() => {
+    motionVal.set(+!!isCurrentActive);
+  }, [isCurrentActive, motionVal]);
+
+  // Inner checkmark drawing: smooth stroke draw with spring physics, no pressing or scaling
+  const checkLen = 9;
+  const checkOffset = useTransform(spring, [0, 1], [checkLen, 0], {
+    clamp: true,
+  });
+  const checkOpacity = useTransform(spring, [0, 0.2, 1], [0, 1, 1], {
+    clamp: true,
+  });
+
+  const hasExplicitSize = size !== undefined;
+  const hasSizeClass = className && /\b(w-|h-|size-)/.test(className);
+  const dimensionStyles = hasExplicitSize
+    ? { width: size, height: size }
+    : hasSizeClass
+      ? {}
+      : { width: 20, height: 20 };
+
+  return (
+    <span
+      ref={innerRef}
+      aria-hidden="true"
+      className={cn(
+        "relative inline-flex items-center justify-center shrink-0 select-none pointer-events-none align-middle overflow-visible",
+        className
+      )}
+      style={{ ...dimensionStyles, ...style }}
+      {...props}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-full h-full overflow-visible"
+      >
+        {/* Outer dashed chat bubble (matching Lucide MessageCircleDashed) - stable, no pressing */}
+        <path d="M13.5 3.1c-.5 0-1-.1-1.5-.1s-1 .1-1.5.1" />
+        <path d="M19.3 6.8a10.45 10.45 0 0 0-2.1-2.1" />
+        <path d="M20.9 13.5c.1-.5.1-1 .1-1.5s-.1-1-.1-1.5" />
+        <path d="M17.2 19.3a10.45 10.45 0 0 0 2.1-2.1" />
+        <path d="M10.5 20.9c.5.1 1 .1 1.5.1s1-.1 1.5-.1" />
+        <path d="M3.5 17.5 2 22l4.5-1.5" />
+        <path d="M3.1 10.5c0 .5-.1 1-.1 1.5s.1 1 .1 1.5" />
+        <path d="M6.8 4.7a10.45 10.45 0 0 0-2.1 2.1" />
+
+        {/* Inner animated checkmark - clean stroke draw */}
+        <motion.path
+          d="m9 12 2 2 4-4"
+          style={{
+            opacity: checkOpacity,
+            strokeDasharray: checkLen,
+            strokeDashoffset: checkOffset,
+          }}
+        />
+      </svg>
+    </span>
+  );
+});
+
+AnimatedTempChat.displayName = "AnimatedTempChat";
+
+export {
+  AnimatedTempChat as AnimatedTemporaryChat,
+  AnimatedTempChat as AnimatedTempChatIcon,
+  AnimatedTempChat as animatedTempChat,
+};
+
 export default AnimatedArrow;
+

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/lib/supabase";
@@ -32,6 +32,7 @@ import {
   X,
   Download,
   ExternalLink,
+  Bookmark,
 } from "lucide-react";
 import { getFileUrl } from "@/lib/file-utils";
 import { CloseAIIcon } from "@/components/brand/logo";
@@ -53,13 +54,48 @@ import { withChatPreferences } from "@/lib/user-preferences";
 import { isSettingsHash, withCurrentHash } from "@/lib/settings-hash";
 import toast from "@/lib/toast";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
+import { SaveChatModal } from "@/components/modals/save-chat-modal";
+import {
+  isTemporaryChat,
+  isTemporaryChatParam,
+  addTemporaryChat,
+  removeTemporaryChat,
+} from "@/lib/temporary-chat";
 
 export default function ActiveChatPage() {
   const { user, token, loading, isSigningOut } = useAuth();
   const isGuest = !user;
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const chatId = params.id as string;
+
+  const [isTemporary, setIsTemporary] = useState<boolean>(() => {
+    return isTemporaryChatParam(searchParams) || isTemporaryChat(chatId);
+  });
+  const [showSaveChatModal, setShowSaveChatModal] = useState(false);
+
+  useEffect(() => {
+    const isTemp = isTemporaryChatParam(searchParams) || isTemporaryChat(chatId);
+    setIsTemporary(isTemp);
+    if (isTemp && chatId) {
+      addTemporaryChat(chatId);
+    }
+  }, [chatId, searchParams]);
+
+  const handleSaveChat = async () => {
+    if (!chatId) return;
+    try {
+      removeTemporaryChat(chatId);
+      setIsTemporary(false);
+      router.replace(`/c/${chatId}`);
+      await loadChats();
+      toast.success("Chat saved to history");
+    } catch (e) {
+      console.error("Error saving chat:", e);
+      toast.error("Failed to save chat");
+    }
+  };
 
   const {
     sidebarOpen,
@@ -446,6 +482,10 @@ export default function ActiveChatPage() {
       if (autoDataStr) {
         try {
           const autoData = JSON.parse(autoDataStr);
+          if (autoData?.isTemporary) {
+            setIsTemporary(true);
+            addTemporaryChat(chatId);
+          }
           if (autoData?.model) {
             setSelectedModel(autoData.model);
           }
@@ -1329,62 +1369,19 @@ export default function ActiveChatPage() {
               </div>
 
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-                {/* Full Container wrapping both Share and More options buttons */}
-                <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        disabled={isSharing}
-                        onClick={async () => {
-                          setIsSharing(true);
-                          try {
-                            const shareUrl = `${window.location.origin}/sc/${chatId}`;
-                            await navigator.clipboard.writeText(shareUrl);
-                            toast.success(
-                              "Public link copied to your clipboard",
-                              {
-                                description:
-                                  "Anyone with this link can see this conversation",
-                              }
-                            );
-                          } catch (e) {
-                            toast.error("Failed to copy link");
-                          } finally {
-                            setTimeout(() => setIsSharing(false), 300);
-                          }
-                        }}
-                        className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
-                      >
-                        {isSharing ? (
-                          <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
-                        ) : (
-                          <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                        )}
-                        <span className="hidden sm:inline">Share</span>
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      sideOffset={6}
-                      className="text-md"
-                    >
-                      Share conversation
-                    </TooltipContent>
-                  </Tooltip>
-
-                  {/* Three Dots Options Menu */}
-                  <DropdownMenu>
+                {isTemporary ? (
+                  /* Save chat button for temporary chat matching Image 4 */
+                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <DropdownMenuTrigger asChild>
-                          <button
-                            className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                            aria-label="More options"
-                          >
-                            <MoreHorizontal className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                          </button>
-                        </DropdownMenuTrigger>
+                        <button
+                          type="button"
+                          onClick={() => setShowSaveChatModal(true)}
+                          className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
+                          aria-label="Save chat"
+                        >
+                          <Bookmark className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                        </button>
                       </TooltipTrigger>
                       <TooltipContent
                         side="bottom"
@@ -1392,89 +1389,158 @@ export default function ActiveChatPage() {
                         sideOffset={6}
                         className="text-md"
                       >
-                        More options
+                        Save chat
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                ) : (
+                  /* Full Container wrapping both Share and More options buttons */
+                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          disabled={isSharing}
+                          onClick={async () => {
+                            setIsSharing(true);
+                            try {
+                              const shareUrl = `${window.location.origin}/sc/${chatId}`;
+                              await navigator.clipboard.writeText(shareUrl);
+                              toast.success(
+                                "Public link copied to your clipboard",
+                                {
+                                  description:
+                                    "Anyone with this link can see this conversation",
+                                }
+                              );
+                            } catch (e) {
+                              toast.error("Failed to copy link");
+                            } finally {
+                              setTimeout(() => setIsSharing(false), 300);
+                            }
+                          }}
+                          className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                        >
+                          {isSharing ? (
+                            <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                          ) : (
+                            <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                          )}
+                          <span className="hidden sm:inline">Share</span>
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={6}
+                        className="text-md"
+                      >
+                        Share conversation
                       </TooltipContent>
                     </Tooltip>
 
-                    <DropdownMenuContent
-                      align="end"
-                      sideOffset={6}
-                      className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
-                    >
-                      <DropdownMenuItem
-                        onClick={() => setIsFilesDrawerOpen(true)}
-                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
-                      >
-                        <Folder className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                        <span>View files in chat</span>
-                      </DropdownMenuItem>
+                    {/* Three Dots Options Menu */}
+                    <DropdownMenu>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <DropdownMenuTrigger asChild>
+                            <button
+                              className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                              aria-label="More options"
+                            >
+                              <MoreHorizontal className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                            </button>
+                          </DropdownMenuTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="bottom"
+                          align="end"
+                          sideOffset={6}
+                          className="text-md"
+                        >
+                          More options
+                        </TooltipContent>
+                      </Tooltip>
 
-                      <DropdownMenuItem
-                        onClick={async () => {
-                          const currentChat = chats.find((c) => c.id === chatId);
-                          const isStarred = !!currentChat?.starred;
-                          if (!isStarred) {
-                            await chatService.toggleChatArchive(
+                      <DropdownMenuContent
+                        align="end"
+                        sideOffset={6}
+                        className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                      >
+                        <DropdownMenuItem
+                          onClick={() => setIsFilesDrawerOpen(true)}
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                        >
+                          <Folder className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <span>View files in chat</span>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          onClick={async () => {
+                            const currentChat = chats.find((c) => c.id === chatId);
+                            const isStarred = !!currentChat?.starred;
+                            if (!isStarred) {
+                              await chatService.toggleChatArchive(
+                                supabase,
+                                chatId,
+                                false
+                              );
+                            }
+                            await chatService.toggleChatStar(
                               supabase,
                               chatId,
-                              false
+                              !isStarred
                             );
-                          }
-                          await chatService.toggleChatStar(
-                            supabase,
-                            chatId,
-                            !isStarred
-                          );
-                          loadChats();
-                          toast.success(
-                            isStarred ? "Chat unpinned" : "Chat pinned"
-                          );
-                        }}
-                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
-                      >
-                        {chats.find((c) => c.id === chatId)?.starred ? (
-                          <>
-                            <PinOff className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                            <span>Unpin</span>
-                          </>
-                        ) : (
-                          <>
-                            <Pin className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                            <span>Pin</span>
-                          </>
-                        )}
-                      </DropdownMenuItem>
+                            loadChats();
+                            toast.success(
+                              isStarred ? "Chat unpinned" : "Chat pinned"
+                            );
+                          }}
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                        >
+                          {chats.find((c) => c.id === chatId)?.starred ? (
+                            <>
+                              <PinOff className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                              <span>Unpin</span>
+                            </>
+                          ) : (
+                            <>
+                              <Pin className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                              <span>Pin</span>
+                            </>
+                          )}
+                        </DropdownMenuItem>
 
-                      <DropdownMenuItem
-                        onClick={async () => {
-                          const currentChat = chats.find((c) => c.id === chatId);
-                          const isArchived = !!currentChat?.archived;
-                          await handleToggleArchive(chatId, !isArchived);
-                        }}
-                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
-                      >
-                        {chats.find((c) => c.id === chatId)?.archived ? (
-                          <ArchiveX className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                        ) : (
-                          <Archive className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                        )}
-                        <span>
-                          {chats.find((c) => c.id === chatId)?.archived
-                            ? "Unarchive"
-                            : "Archive"}
-                        </span>
-                      </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={async () => {
+                            const currentChat = chats.find((c) => c.id === chatId);
+                            const isArchived = !!currentChat?.archived;
+                            await handleToggleArchive(chatId, !isArchived);
+                          }}
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                        >
+                          {chats.find((c) => c.id === chatId)?.archived ? (
+                            <ArchiveX className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          ) : (
+                            <Archive className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          )}
+                          <span>
+                            {chats.find((c) => c.id === chatId)?.archived
+                              ? "Unarchive"
+                              : "Archive"}
+                          </span>
+                        </DropdownMenuItem>
 
-                      <DropdownMenuItem
-                        onClick={() => setShowDeleteModal(true)}
-                        className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4 text-red-500 group-hover:text-red-600" />
-                        <span>Delete</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                        <DropdownMenuItem
+                          onClick={() => setShowDeleteModal(true)}
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4 text-red-500 group-hover:text-red-600" />
+                          <span>Delete</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -1513,6 +1579,7 @@ export default function ActiveChatPage() {
                   onSendMessage={handleSend}
                   onEditAndResend={handleEditAndResend}
                   onDeleteMessage={handleDeleteMessage}
+                  isTemporary={isTemporary}
                 />
               </div>
             )}
@@ -1624,6 +1691,20 @@ export default function ActiveChatPage() {
         onFileSelect={(file) => {
           handleOpenPreview(file, true);
         }}
+      />
+
+      <SaveChatModal
+        open={showSaveChatModal}
+        onOpenChange={setShowSaveChatModal}
+        itemTitle={currentChatTitle || "Chat"}
+        promptText={
+          messages.find((m) => m.role === "user")?.content ||
+          currentChatTitle ||
+          "Chat"
+        }
+        files={messages.find((m) => m.role === "user")?.files}
+        isGuest={isGuest}
+        onConfirm={handleSaveChat}
       />
     </div>
   );

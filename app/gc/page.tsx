@@ -394,8 +394,8 @@ function GuestChatContent() {
         </div>
 
         {/* Bottom Disclaimer for Empty State */}
-        <div className="w-full text-center pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-1 px-4 select-none shrink-0 z-20">
-          <p className="max-w-3xl mx-auto text-sm text-muted-foreground font-normal tracking-tighter leading-tight">
+        <div className="w-full text-center pb-[max(env(safe-area-inset-bottom),0.75rem)] select-none shrink-0 z-20 flex items-center justify-center">
+          <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight whitespace-normal sm:whitespace-nowrap">
             CloseAI is AI. By using, you agree to our{" "}
             <Link
               href="/support/terms"

@@ -728,3 +728,40 @@ body.modal-open-no-scroll {
   display: none !important;
 }
 
+/* Temporary Chat pill dashed border styling: larger gap, responsive border-radius, accent-adaptive */
+.temporary-chat-dashed-pill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: inherit;
+}
+
+.temporary-chat-dashed-rect {
+  fill: none;
+  stroke: hsl(var(--bubble-foreground) / 0.45);
+  stroke-width: 1.5;
+  stroke-dasharray: 7 6;
+  rx: 16px;
+  ry: 16px;
+}
+
+.dark .temporary-chat-dashed-rect {
+  stroke: hsl(var(--bubble-foreground) / 0.55);
+}
+
+.contrast-more .temporary-chat-dashed-rect,
+.dark.contrast-more .temporary-chat-dashed-rect {
+  stroke: hsl(var(--bubble-foreground) / 0.85);
+}
+
+@media (min-width: 640px) {
+  .temporary-chat-dashed-rect {
+    rx: 24px;
+    ry: 24px;
+  }
+}
+
+

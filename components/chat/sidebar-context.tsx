@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Chat, chatService } from '@/lib/chat-service';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/hooks/use-auth';
+import { getTemporaryChatIds } from '@/lib/temporary-chat';
 
 const DESKTOP_BREAKPOINT = 1280;
 
@@ -59,7 +60,10 @@ export function SidebarProvider({
     }
     try {
       const userChats = await chatService.getUserChats(supabase, user.id);
-      const filtered = userChats.filter((c) => !deletedChatIdsRef.current.has(c.id));
+      const tempChatIds = getTemporaryChatIds();
+      const filtered = userChats.filter(
+        (c) => !deletedChatIdsRef.current.has(c.id) && !tempChatIds.has(c.id)
+      );
       setChats(filtered);
     } catch (error) {
       console.error('Error loading chats:', error);
