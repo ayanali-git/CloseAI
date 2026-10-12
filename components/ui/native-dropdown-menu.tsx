@@ -443,40 +443,6 @@ export function NativeDropdownMenu<T extends string = string>({
 
     let prevTop = list.scrollTop;
     let shiftUp = 0; // how far the popup top has been pulled up so far
-    let isAdjusting = false;
-    let isTouchDragging = false;
-    let isWheelActive = false;
-    let touchStartY = 0;
-    const DRAG_THRESHOLD = 8; // px before considering it an intentional scroll gesture
-
-    const onTouchStart = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        touchStartY = e.touches[0].clientY;
-        isTouchDragging = false;
-      }
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        const delta = Math.abs(e.touches[0].clientY - touchStartY);
-        if (delta >= DRAG_THRESHOLD) {
-          isTouchDragging = true;
-        }
-      }
-    };
-
-    const onTouchEnd = () => {
-      isTouchDragging = false;
-    };
-
-    let wheelTimer: number | null = null;
-    const onWheel = () => {
-      isWheelActive = true;
-      if (wheelTimer) window.clearTimeout(wheelTimer);
-      wheelTimer = window.setTimeout(() => {
-        isWheelActive = false;
-      }, 150);
-    };
 
     // Set the DOM directly (not through state) so it lands in the same frame
     // as the scroll. Keep layoutRef in sync so nothing reads a stale height.
@@ -487,24 +453,6 @@ export function NativeDropdownMenu<T extends string = string>({
     };
 
     const onScroll = () => {
-      if (isAdjusting) {
-        isAdjusting = false;
-        return;
-      }
-
-      // If user is not actively dragging or using wheel (e.g. little touch, tap,
-      // focus scroll, or post-drag momentum), do NOT perform grow-on-scroll.
-      // Simply keep prevTop in sync so no delta accumulates.
-      const isUserActive = isTouchDragging || isWheelActive;
-      if (!isUserActive) {
-        prevTop = clamp(
-          list.scrollTop,
-          0,
-          list.scrollHeight - list.clientHeight
-        );
-        return;
-      }
-
       // Stay inside the real scroll range (iOS rubber-banding goes outside it)
       const top = clamp(list.scrollTop, 0, list.scrollHeight - list.clientHeight);
       const moved = top - prevTop; // > 0 scrolled down, < 0 scrolled up
@@ -545,29 +493,16 @@ export function NativeDropdownMenu<T extends string = string>({
         shiftUp += grow;
         popup.style.marginTop = `${-shiftUp}px`;
         setListHeight(listRect.height + grow);
-
-        // Guard against programmatic scroll re-triggering onScroll
-        isAdjusting = true;
+        // Give back the scroll we just converted into height. The rows stay
+        // under the finger; our own scroll event then reads as "no move".
         list.scrollTop = top - grow;
         prevTop = list.scrollTop;
       }
     };
 
     list.addEventListener("scroll", onScroll, { passive: true });
-    popup.addEventListener("touchstart", onTouchStart, { passive: true });
-    popup.addEventListener("touchmove", onTouchMove, { passive: true });
-    popup.addEventListener("touchend", onTouchEnd, { passive: true });
-    popup.addEventListener("touchcancel", onTouchEnd, { passive: true });
-    popup.addEventListener("wheel", onWheel, { passive: true });
-
     return () => {
       list.removeEventListener("scroll", onScroll);
-      popup.removeEventListener("touchstart", onTouchStart);
-      popup.removeEventListener("touchmove", onTouchMove);
-      popup.removeEventListener("touchend", onTouchEnd);
-      popup.removeEventListener("touchcancel", onTouchEnd);
-      popup.removeEventListener("wheel", onWheel);
-      if (wheelTimer) window.clearTimeout(wheelTimer);
       popup.style.marginTop = "";
     };
   }, [open, isSmallOrTouch, ready]);
