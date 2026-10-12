@@ -227,7 +227,7 @@ export function FilePreviewModal({
             <span className="text-sm font-semibold truncate max-w-[240px] text-foreground">
               {fileName}
             </span>
-            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {fileUrl && (
                 <button
                   type="button"
@@ -268,7 +268,7 @@ export function FilePreviewModal({
       {/* Top-Right Toolbar matching Share & More buttons position */}
       <header className="fixed top-0 left-0 right-0 z-50 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-end select-none pointer-events-none bg-transparent">
         <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 select-none">
-          <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+          <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
             {fileUrl && (
               <button
                 type="button"

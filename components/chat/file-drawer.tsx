@@ -711,7 +711,7 @@ export function FilePreviewViewer({
           </div>
 
           <div className="flex items-center shrink-0">
-            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {fileUrl && (
                 <button
                   type="button"

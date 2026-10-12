@@ -140,7 +140,7 @@ export default function HelpPage() {
                 setSearchQuery('');
               }
             }}
-            placeholder="Search for articles, guides, and FAQs..."
+            placeholder="Search questions"
             className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-none rounded-full text-base focus:outline-none text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground transition-colors"
           />
         </div>
@@ -158,7 +158,6 @@ export default function HelpPage() {
               : "border border-border/80 dark:border-none hover:bg-secondary"
           )}
         >
-          <HelpCircle className="h-6 w-6 sm:h-8 sm:w-8 mb-3 sm:mb-4 text-foreground" />
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
             Getting Started
           </h3>
@@ -177,7 +176,6 @@ export default function HelpPage() {
               : "border border-border/80 dark:border-none hover:bg-secondary"
           )}
         >
-          <Settings className="h-6 w-6 sm:h-8 sm:w-8 mb-3 sm:mb-4 text-foreground" />
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
             Account & Billing
           </h3>
@@ -196,7 +194,6 @@ export default function HelpPage() {
               : "border border-border/80 dark:border-none hover:bg-secondary"
           )}
         >
-          <FileText className="h-6 w-6 sm:h-8 sm:w-8 mb-3 sm:mb-4 text-foreground" />
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
             Troubleshooting
           </h3>

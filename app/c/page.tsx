@@ -287,7 +287,7 @@ function NewChatContent() {
                   <button
                     type="button"
                     onClick={() => handleToggleSidebar()}
-                    className="xl:hidden w-12 h-12 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0 active:scale-[0.98]"
+                    className="xl:hidden w-12 h-12 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0 active:scale-[0.98]"
                     aria-label="Open sidebar"
                   >
                     <PanelRight className="w-5 h-5 shrink-0" />
@@ -307,7 +307,7 @@ function NewChatContent() {
 
           {/* Right Header Area: Temporary Chat Controls */}
           <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-            <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {isTemporary && (
                 <DropdownMenu>
                   <Tooltip>

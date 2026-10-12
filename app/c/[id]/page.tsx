@@ -1258,7 +1258,7 @@ export default function ActiveChatPage() {
 
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
                 {/* Full Container wrapping both Download and Close buttons */}
-                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                   {previewFileUrl && (
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -1310,7 +1310,7 @@ export default function ActiveChatPage() {
               <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
                 {!sidebarOpen && (
                   /* Full Container wrapping both Open sidebar and New chat buttons */
-                  <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1371,7 +1371,7 @@ export default function ActiveChatPage() {
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
                 {isTemporary ? (
                   /* Save chat button for temporary chat matching Image 4 */
-                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1395,7 +1395,7 @@ export default function ActiveChatPage() {
                   </div>
                 ) : (
                   /* Full Container wrapping both Share and More options buttons */
-                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button

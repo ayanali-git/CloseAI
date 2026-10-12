@@ -375,7 +375,7 @@ export function SettingsModal({
               })}
               {normalizedQuery && filteredNav.length === 0 ? (
                 <p className="px-3 py-2 text-sm text-muted-foreground">
-                  No results found
+                  No settings found
                 </p>
               ) : null}
             </nav>
