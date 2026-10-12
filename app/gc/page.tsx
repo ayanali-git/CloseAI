@@ -401,7 +401,7 @@ function GuestChatContent() {
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
+              className="group text-foreground transition-colors"
             >
               <span>Terms</span>
               <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -411,7 +411,7 @@ function GuestChatContent() {
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
+              className="group text-foreground transition-colors"
             >
               <span>Privacy</span>
               <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -421,7 +421,7 @@ function GuestChatContent() {
               href="/support/help"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-0.5 text-foreground transition-colors align-baseline"
+              className="group text-foreground transition-colors"
             >
               <span>Learn more</span>
               <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />

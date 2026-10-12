@@ -1654,7 +1654,12 @@ function SidebarChatItem({
                 </span>
               </Link>
 
-              <div className="flex items-center gap-0.5">
+              <div
+                className={cn(
+                  "flex items-center",
+                  user ? "gap-0.5" : "gap-2 xl:gap-0.5"
+                )}
+              >
                 {user ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -1676,34 +1681,90 @@ function SidebarChatItem({
                     </TooltipContent>
                   </Tooltip>
                 ) : (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onOpenLoginModal?.();
-                          if (
-                            isOpen &&
-                            typeof window !== "undefined" &&
-                            window.innerWidth < 1280
-                          ) {
-                            onToggle();
-                          }
-                        }}
-                        className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98] max-xl:translate-y-2"
-                        aria-label="Search chats"
+                  <>
+                    {/* Big Screen Devices: Desktop Search Button for Guest Mode */}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                          onClick={() => {
+                            onOpenLoginModal?.({
+                              description: "To continue with Search chats",
+                            });
+                          }}
+                        >
+                          <Search className="w-4 h-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={5}
+                        className="text-md"
                       >
-                        <Search className="w-5 h-5 shrink-0" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      sideOffset={5}
-                      className="text-md"
-                    >
-                      Search chats
-                    </TooltipContent>
-                  </Tooltip>
+                        Search chats
+                      </TooltipContent>
+                    </Tooltip>
+
+                    {/* Small Screen Devices: Search chats button */}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onOpenLoginModal?.({
+                              description: "To continue with Search chats",
+                            });
+                            if (
+                              isOpen &&
+                              typeof window !== "undefined" &&
+                              window.innerWidth < 1280
+                            ) {
+                              onToggle();
+                            }
+                          }}
+                          className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98] max-xl:translate-y-2"
+                          aria-label="Search chats"
+                        >
+                          <Search className="w-5 h-5 shrink-0" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={5}
+                        className="text-md"
+                      >
+                        Search chats
+                      </TooltipContent>
+                    </Tooltip>
+
+                    {/* Small Screen Devices: Sidebar Close Button */}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            (e.currentTarget as HTMLElement)?.blur();
+                            setIsCloseBtnHovered(false);
+                            setIsLogoHovered(false);
+                            onToggle();
+                          }}
+                          className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98] max-xl:translate-y-2"
+                          aria-label="Close sidebar"
+                        >
+                          <PanelLeft className="w-5 h-5 shrink-0" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={5}
+                        className="text-md"
+                      >
+                        Close sidebar
+                      </TooltipContent>
+                    </Tooltip>
+                  </>
                 )}
 
                 <Tooltip>

@@ -999,6 +999,11 @@ export function PlusMenuContent({
           <span>Attach photos</span>
         </DropdownMenuItem>
 
+        {/* Divider with text: Log in to use */}
+        <div className="pt-2 pb-1 px-3 text-xs font-medium text-muted-foreground select-none">
+          Log in to use
+        </div>
+        
         {/* 2. Web search */}
         <DropdownMenuItem
           onClick={() => {
@@ -1011,17 +1016,12 @@ export function PlusMenuContent({
           <span>Web search</span>
         </DropdownMenuItem>
 
-        {/* Divider with text: Log in to use */}
-        <div className="pt-2 pb-1 px-3 text-xs font-medium text-muted-foreground select-none">
-          Log in to use
-        </div>
-
         {/* 3. Create images */}
         <DropdownMenuItem
-          onClick={() => {
-            if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Create images" });
-          }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          // onClick={() => {
+          //   if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Create images" });
+          // }}
+          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />

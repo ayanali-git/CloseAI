@@ -59,12 +59,6 @@ export function ReportBugModal({
       setSelectedCategory(initialCategory || null);
       setDetails("");
       setIsSubmitting(false);
-
-      // Focus textarea on modal open
-      const timer = window.setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 100);
-      return () => window.clearTimeout(timer);
     } else {
       setSelectedCategory(null);
       setDetails("");
@@ -187,7 +181,6 @@ export function ReportBugModal({
           <textarea
             ref={textareaRef}
             value={details}
-            autoFocus
             onChange={(e) => setDetails(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
