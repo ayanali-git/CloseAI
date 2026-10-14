@@ -13,7 +13,7 @@ import {
 import { X } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { useAuth } from "@/hooks/use-auth";
-import { getFileIconInfo } from "@/lib/file-utils";
+import { MessageAttachmentItem } from "@/components/chat/message-attachment";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
@@ -23,45 +23,6 @@ export interface SharePromptModalProps {
   promptText: string;
   files?: any[];
   isGuest?: boolean;
-}
-
-/** Same image-detection logic used for real message attachments (by mime type or filename/url extension) */
-function isImageFile(file: any, fileUrl?: string): boolean {
-  if (
-    file?.type &&
-    typeof file.type === "string" &&
-    file.type.toLowerCase().startsWith("image/")
-  ) {
-    return true;
-  }
-  const name = file?.filename || file?.name || fileUrl || "";
-  return (
-    typeof name === "string" &&
-    /\.(png|jpe?g|webp|gif|svg|bmp|ico|avif)(\?.*)?$/i.test(name)
-  );
-}
-
-/** Resolve the file's extension from mime type or filename/url, lowercased and without the dot */
-function getFileExtension(file: any, fileUrl?: string): string {
-  const mime = file?.type && typeof file.type === "string" ? file.type : "";
-  const mimeMap: Record<string, string> = {
-    "application/pdf": "pdf",
-    "application/msword": "doc",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
-    "text/csv": "csv",
-    "application/vnd.ms-excel": "csv",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
-    "text/plain": "txt",
-    "application/zip": "zip",
-    "application/x-zip-compressed": "zip",
-  };
-  if (mime && mimeMap[mime]) return mimeMap[mime];
-  if (mime.startsWith("audio/")) return "audio";
-  if (mime.startsWith("video/")) return "video";
-
-  const name = file?.filename || file?.name || fileUrl || "";
-  const match = typeof name === "string" ? name.match(/\.([a-zA-Z0-9]+)(?:\?.*)?$/) : null;
-  return match ? match[1].toLowerCase() : "";
 }
 
 export function SharePromptModal({
@@ -188,7 +149,7 @@ export function SharePromptModal({
         "max-w-[600px]",
         isGuest
           ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/90 dark:border-none"
+          : "bg-card border border-border/80 dark:border-none"
       )}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-3">
@@ -201,7 +162,7 @@ export function SharePromptModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
+              "hidden min-[1025px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
                 ? "hover:bg-[#383838] dark:focus-visible:ring-offset-[#2f2f2f]"
                 : " hover:bg-secondary dark:focus-visible:ring-offset-card"
@@ -213,57 +174,32 @@ export function SharePromptModal({
         </div>
 
         {/* Preview Card — renders the prompt exactly like a real sent message */}
-        <div ref={cardRef} className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
+        <div ref={cardRef} className="relative w-full rounded-[25px] sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
           {/* Max Prompt Viewport — content shows without scrollbar, non-scrollable preview */}
           <div
             className={cn(
               "relative z-0 max-h-[200px] sm:max-h-[400px] min-h-[150px] sm:min-h-[300px] overflow-hidden flex flex-col items-end justify-start gap-2.5 px-5 sm:px-6 pt-5 sm:pt-6 pb-16 sm:pb-28 select-text"
             )}
           >
-            <div ref={contentRef} className="w-full flex flex-col items-end justify-start gap-2.5">
-              {/* Files Preview — same small-thumbnail treatment as a real message attachment, not a big stretched square */}
+            <div ref={contentRef} className="w-full flex flex-col items-end justify-start">
+              {/* Files Preview — exact same styling & dimensions as message-list */}
               {hasFiles && (
-                <div className="flex flex-wrap gap-1.5 justify-end items-end select-none">
-                  {files!.map((file: any, i: number) => {
-                    const fileUrl = file.url || file.publicUrl;
-                    const isImage = isImageFile(file, fileUrl);
-                    const { Icon, colorClass, badgeBg } = getFileIconInfo(file);
-                    const displayName = file.name || file.filename || "File";
-                    return (
-                      <div
-                        key={file.id || i}
-                        className={cn(
-                          "overflow-hidden bg-secondary border border-border/80",
-                          isImage
-                            ? "rounded-xl max-w-[100px] sm:max-w-[150px]"
-                            : "rounded-full max-w-full"
-                        )}
-                      >
-                        {isImage && fileUrl ? (
-                          <img
-                            src={fileUrl}
-                            alt={displayName}
-                            className="w-full max-h-[180px] sm:max-h-[220px] object-cover rounded-xl"
-                          />
-                        ) : (
-                          <div className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm text-foreground">
-                            <Icon className="w-4 h-4 shrink-0 text-muted-foreground" weight="fill" />
-                            <span className="truncate max-w-[140px] sm:max-w-[180px] font-medium">
-                              {displayName}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                <div className="flex flex-wrap gap-2.5 mb-2.5 justify-end items-end select-none">
+                  {files!.map((file: any, i: number) => (
+                    <MessageAttachmentItem
+                      key={file.id || file.url || file.publicUrl || i}
+                      file={file}
+                      interactive={false}
+                    />
+                  ))}
                 </div>
               )}
 
-              {/* Prompt Text — identical bubble styling (bg / rounding / padding) to a real sent message bubble */}
+              {/* Prompt Text — identical bubble styling (bg / rounding / padding / max-w) to message-list */}
               {promptText && (
-                <p className="bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-2xl sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] whitespace-pre-wrap break-words">
+                <div className="relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words">
                   {promptText}
-                </p>
+                </div>
               )}
             </div>
           </div>
@@ -290,7 +226,7 @@ export function SharePromptModal({
             onClick={handleCopyLink}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -308,7 +244,7 @@ export function SharePromptModal({
             onClick={handleShareX}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">X</span>
@@ -320,7 +256,7 @@ export function SharePromptModal({
             onClick={handleShareLinkedIn}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
@@ -334,7 +270,7 @@ export function SharePromptModal({
             onClick={handleShareMore}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">

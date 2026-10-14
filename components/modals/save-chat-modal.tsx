@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Bookmark, Loader } from "lucide-react";
-import { isImageFile, getFileIconInfo } from "@/lib/file-utils";
+import { MessageAttachmentItem } from "@/components/chat/message-attachment";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { TemporaryChatDashedBorder } from "@/components/chat/message-list";
@@ -58,7 +58,7 @@ export function SaveChatModal({
         "max-w-[440px]",
         isGuest
           ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/90 dark:border-none"
+          : "bg-card border border-border/80 dark:border-none"
       )}
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">
@@ -70,62 +70,37 @@ export function SaveChatModal({
         </div>
 
         {/* Preview Card — consistent with delete chat modal and delete message modal */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
+        <div className="relative w-full rounded-[25px] sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
           {/* Bottom gradient overlay — full width, no scrollbar */}
           <div className="absolute bottom-0 left-0 right-0 h-[30%] min-h-[48px] max-h-[64px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent" />
 
           <div
             className={cn(
-              "relative z-0 min-h-[140px] sm:min-h-[160px] max-h-[200px] flex flex-col items-end justify-start gap-2.5 p-5 sm:p-6 overflow-hidden select-text"
+              "relative z-0 min-h-[140px] sm:min-h-[160px] max-h-[200px] flex flex-col items-end justify-start p-5 sm:p-6 overflow-hidden select-text"
             )}
           >
-            {/* Files Preview */}
+            {/* Files Preview — exact same styling & dimensions as message-list */}
             {hasFiles && (
-              <div className="flex flex-wrap gap-1.5 justify-end items-end select-none">
-                {files!.map((file: any, i: number) => {
-                  const fileUrl = file.url || file.publicUrl;
-                  const isImg = isImageFile(file);
-                  const { Icon, label } = getFileIconInfo(file);
-                  const displayName = file.name || file.filename || "File";
-                  return (
-                    <div
-                      key={file.id || i}
-                      className={cn(
-                        "overflow-hidden bg-secondary border border-border/80",
-                        isImg
-                          ? "rounded-xl max-w-[100px] sm:max-w-[150px]"
-                          : "rounded-full max-w-full"
-                      )}
-                    >
-                      {isImg && fileUrl ? (
-                        <img
-                          src={fileUrl}
-                          alt={displayName}
-                          className="w-full max-h-[180px] sm:max-h-[220px] object-cover rounded-xl"
-                        />
-                      ) : (
-                        <div className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm text-foreground">
-                          <Icon className="w-4 h-4 shrink-0 text-muted-foreground" weight="fill" />
-                          <span className="truncate max-w-[140px] sm:max-w-[180px] font-medium">
-                            {displayName}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+              <div className="flex flex-wrap gap-2.5 mb-2.5 justify-end items-end select-none">
+                {files!.map((file: any, i: number) => (
+                  <MessageAttachmentItem
+                    key={file.id || file.url || file.publicUrl || i}
+                    file={file}
+                    interactive={false}
+                  />
+                ))}
               </div>
             )}
 
             {/* Chat Bubble with dashed border for temporary chat */}
             <div
               className={cn(
-                "relative max-w-[85%] flex items-start justify-between gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl sm:rounded-3xl text-[15px] sm:text-[15.5px] leading-relaxed select-none transition-colors break-words whitespace-pre-wrap",
+                "relative max-w-[85%] sm:max-w-[75%] flex items-start justify-between gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-[25px] sm:rounded-3xl text-[15px] sm:text-[15.5px] leading-relaxed select-text transition-colors break-words whitespace-pre-wrap",
                 "bg-bubble text-bubble-foreground"
               )}
             >
               <div className="relative flex-1 min-w-0">
-                <span className="inline-block break-words whitespace-pre-wrap select-none">
+                <span className="inline-block break-words whitespace-pre-wrap">
                   {displayText}
                 </span>
               </div>

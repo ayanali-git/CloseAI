@@ -463,7 +463,7 @@ export default function PublicSharedChatPage() {
         </div>
 
         <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-          <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+          <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
@@ -592,8 +592,8 @@ export default function PublicSharedChatPage() {
                                   className={cn(
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                                      ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

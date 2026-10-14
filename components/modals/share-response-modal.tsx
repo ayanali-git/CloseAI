@@ -99,11 +99,44 @@ function highlightCode(code: string, lang: string): string {
   }
 }
 
-function CodeBlock({ language, code }: { language: string; code: string }) {
+/** Strips common leading whitespace from all non-empty lines while preserving relative indentation */
+function dedentCode(code: string): string {
+  if (!code) return "";
+  const normalized = code.replace(/\r\n/g, "\n");
+  const lines = normalized.split("\n");
+  let minIndent = Infinity;
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const match = line.match(/^[ \t]*/);
+    const indent = match ? match[0].length : 0;
+    if (indent < minIndent) minIndent = indent;
+  }
+  if (minIndent === 0 || minIndent === Infinity) return normalized;
+  return lines
+    .map((line) =>
+      line.length >= minIndent
+        ? line.slice(minIndent)
+        : line.trim()
+        ? line
+        : ""
+    )
+    .join("\n");
+}
+
+function CodeBlock({
+  language,
+  code,
+  isGuest = false,
+}: {
+  language: string;
+  code: string;
+  isGuest?: boolean;
+}) {
+  const cleanCode = useMemo(() => dedentCode(code), [code]);
   let displayLang = language ? language.toLowerCase().trim() : "";
 
   if (!displayLang) {
-    const firstLine = code.trim().split("\n")[0].trim();
+    const firstLine = cleanCode.trim().split("\n")[0].trim();
 
     if (
       /^(sudo|brew|apt|dnf|pacman|yum|npm|npx|pnpm|yarn|git|docker|curl|wget|cd|mkdir|chmod|chown|systemctl|export|source|sh|bash)\b/.test(
@@ -117,25 +150,23 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
   }
 
   const highlightedHtml = useMemo(() => {
-    return highlightCode(code, displayLang);
-  }, [code, displayLang]);
+    return highlightCode(cleanCode, displayLang);
+  }, [cleanCode, displayLang]);
 
   return (
     <div
-      className="
-        relative my-4
-        rounded-2xl sm:rounded-3xl
-        bg-bubble text-bubble-foreground
-        text-left
-        isolate
-        overflow-visible
-      "
+      className={cn(
+        "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 dark:border-none text-left isolate overflow-visible",
+        isGuest
+          ? "bg-white dark:bg-[#2f2f2f] text-foreground"
+          : "bg-white/50 dark:bg-[#212121]/50 text-foreground"
+      )}
     >
       <div
         className="
           flex items-center justify-between
           px-4 py-2
-          bg-bubble
+          bg-transparent
           text-xs font-sans
           text-neutral-600 dark:text-neutral-300
           select-none
@@ -163,7 +194,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
       </div>
 
       {/* Code content */}
-      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-bubble">
+      <div className="rounded-b-2xl sm:rounded-b-3xl overflow-hidden bg-transparent">
         <div
           className="
            p-3.5 sm:p-4
@@ -351,7 +382,7 @@ export function ShareResponseModal({
         "max-w-[600px]",
         isGuest
           ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/90 dark:border-none"
+          : "bg-card border border-border/80 dark:border-none"
       )}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-3">
@@ -364,7 +395,7 @@ export function ShareResponseModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
+              "hidden min-[1025px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
                 ? "hover:bg-[#383838] dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "hover:bg-secondary dark:focus-visible:ring-offset-card"
@@ -376,7 +407,7 @@ export function ShareResponseModal({
         </div>
 
         {/* Preview Card — renders the assistant response in full share preview */}
-        <div ref={cardRef} className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
+        <div ref={cardRef} className="relative w-full rounded-[25px] sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
           {/* Max Response Viewport — content shows without scrollbar, non-scrollable preview */}
           <div
             className={cn(
@@ -404,7 +435,14 @@ export function ShareResponseModal({
                   },
                   thead({ children }: any) {
                     return (
-                      <thead className="bg-bubble border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase">
+                      <thead
+                        className={cn(
+                          "border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase",
+                          isGuest
+                            ? "bg-white dark:bg-[#2f2f2f]"
+                            : "bg-white/50 dark:bg-[#212121]/50"
+                        )}
+                      >
                         {children}
                       </thead>
                     );
@@ -509,12 +547,20 @@ export function ShareResponseModal({
                         <CodeBlock
                           language={lang}
                           code={rawCode.replace(/\n$/, "")}
+                          isGuest={isGuest}
                         />
                       );
                     }
                     return (
-                      <div className="my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 bg-bubble p-3 code-scroll">
-                        <pre className="text-[15px] font-mono text-bubble-foreground whitespace-pre w-max min-w-full">
+                      <div
+                        className={cn(
+                          "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
+                          isGuest
+                            ? "bg-white dark:bg-[#2f2f2f]"
+                            : "bg-white/50 dark:bg-[#212121]/50"
+                        )}
+                      >
+                        <pre className="text-[15px] font-mono text-foreground whitespace-pre w-max min-w-full">
                           {children}
                         </pre>
                       </div>
@@ -523,7 +569,12 @@ export function ShareResponseModal({
                   code({ className, children, ...props }: any) {
                     return (
                       <code
-                        className="bg-bubble text-bubble-foreground px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text"
+                        className={cn(
+                          "px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text text-foreground",
+                          isGuest
+                            ? "bg-white dark:bg-[#2f2f2f]"
+                            : "bg-white/50 dark:bg-[#212121]/50"
+                        )}
                         {...props}
                       >
                         {children}
@@ -559,7 +610,7 @@ export function ShareResponseModal({
             onClick={handleCopyLink}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -577,7 +628,7 @@ export function ShareResponseModal({
             onClick={handleShareX}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
@@ -591,7 +642,7 @@ export function ShareResponseModal({
             onClick={handleShareLinkedIn}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">
@@ -605,7 +656,7 @@ export function ShareResponseModal({
             onClick={handleShareMore}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-md font-normal text-foreground select-none">

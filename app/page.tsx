@@ -179,7 +179,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}

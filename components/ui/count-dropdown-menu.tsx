@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { Check } from "lucide-react";
 import { AnimatedChevron } from "@/components/ui/animated";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
 import countriesData from "@/data/countries.json";
 
 export interface CountryItem {
@@ -19,13 +20,17 @@ export interface CountDropdownMenuProps {
   value: string;
   onChange: (country: CountryItem) => void;
   className?: string;
+  isGuest?: boolean;
 }
 
 export function CountDropdownMenu({
   value,
   onChange,
   className,
+  isGuest: isGuestProp,
 }: CountDropdownMenuProps) {
+  const { user, loading: authLoading } = useAuth();
+  const isGuest = isGuestProp !== undefined ? isGuestProp : (!authLoading && !user);
   const [isOpen, setIsOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -157,12 +162,15 @@ export function CountDropdownMenu({
         type="button"
         onClick={handleToggle}
         className={cn(
-          "w-full h-12 rounded-full bg-background border border-border/80 px-4",
+          "group w-full h-12 rounded-full border border-border/80 px-4",
           "flex items-center gap-3 text-left cursor-pointer select-none",
-          "transition-colors",
-          "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]",
+          "transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
+          isGuest
+            ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10"
+            : "bg-background",
           className
         )}
+        style={{ outline: "none" }}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
@@ -181,7 +189,7 @@ export function CountDropdownMenu({
           isOpen={isOpen}
           disableHover
           size={18}
-          className="text-muted-foreground shrink-0"
+          className="text-muted-foreground group-focus:text-foreground shrink-0"
         />
       </button>
 
@@ -201,8 +209,9 @@ export function CountDropdownMenu({
             <div
               className={cn(
                 "fixed z-[106] flex flex-col rounded-3xl overflow-hidden",
-                "bg-background",
-                "border border-border/80"
+                isGuest
+                  ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                  : "bg-background border border-border/80"
               )}
               style={{
                 bottom: `${Math.max(8, window.innerHeight - triggerRect.top + 6)}px`,
@@ -229,7 +238,12 @@ export function CountDropdownMenu({
                         role="option"
                         aria-selected={isSelected}
                         onClick={() => handleSelect(country)}
-                        className="relative w-full flex items-center gap-3 px-3 py-3 rounded-sm hover:bg-secondary text-foreground text-left cursor-pointer transition-colors focus-visible:outline-none focus:z-10 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        className={cn(
+                          "relative w-full flex items-center gap-3 px-4 py-3 rounded-sm text-foreground text-left cursor-pointer transition-colors outline-none focus:outline-none",
+                          isGuest
+                            ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838]"
+                            : "hover:bg-secondary focus:bg-secondary"
+                        )}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img

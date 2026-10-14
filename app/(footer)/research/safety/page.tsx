@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { AnimatedArrow } from '@/components/ui/animated';
 import { Shield, Lock, Eye, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function SafetyPage() {
   const safetyPillars = [
@@ -81,13 +82,15 @@ export default function SafetyPage() {
         <p className="text-muted-foreground text-md max-w-lg mb-6">
           Detailed technical reports on training mitigations, bias benchmarks, and safety evaluation suites across our model family.
         </p>
-        <Link
-          href="/research/overview"
-          className="group inline-flex items-center rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer"
-        >
-          <span>Explore here</span>
-          <AnimatedArrow size={18} strokeWidth={2.5} />
-        </Link>
+        <Button asChild className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
+          <Link
+            href="/research/overview"
+            className="inline-flex items-center justify-center"
+          >
+            <span>Explore here</span>
+            <AnimatedArrow size={18} strokeWidth={2.5} />
+          </Link>
+        </Button>
       </div>
     </div>
   );

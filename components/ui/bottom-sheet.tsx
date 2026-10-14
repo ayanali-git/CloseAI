@@ -167,9 +167,9 @@ export function BottomSheet({
     const velocity = info.velocity.y;
     const offset = info.offset.y;
 
-    if (velocity > 600 || offset > dismissThreshold) {
+    if (velocity > 300 || offset > 80) {
       const smaller = snapPoints.map((_, i) => i).filter((i) => i < snap);
-      if (smaller.length && velocity < 800 && offset < dismissThreshold * 1.6) {
+      if (smaller.length && velocity < 800 && offset < 130) {
         setSnap(smaller[smaller.length - 1]);
       } else {
         onOpenChange(false);
@@ -235,7 +235,7 @@ export function BottomSheet({
           {({ gate }) => (
             <div
               className={cn(
-                "fixed inset-0 z-[100] flex pointer-events-none cursor-default",
+                "fixed inset-0 z-[100] flex pointer-events-none cursor-default pb-1",
                 isMobileScreen
                   ? "items-end justify-center"
                   : "items-center justify-center p-4"
@@ -245,7 +245,7 @@ export function BottomSheet({
                 ref={sheetRef}
                 drag={isMobileScreen ? "y" : false}
                 dragControls={dragControls}
-                dragListener={false}
+                dragListener={isMobileScreen}
                 dragConstraints={{ top: 0, bottom: 0 }}
                 dragElastic={{ top: 0.02, bottom: 0.4 }}
                 dragMomentum={false}
@@ -291,9 +291,9 @@ export function BottomSheet({
                     : { ...(gate.style as Record<string, any>) }
                 }
                 className={cn(
-                  "pointer-events-auto flex flex-col overflow-hidden bg-card border border-border/90 dark:border-none will-change-transform",
+                  "pointer-events-auto flex flex-col overflow-hidden bg-card border border-border/80 dark:border-none will-change-transform",
                   isMobileScreen
-                    ? "w-full max-w-2xl rounded-t-3xl"
+                    ? "w-full max-w-2xl rounded-t-[75px] rounded-b-[25px]"
                     : "w-full max-w-xl rounded-3xl max-h-[85vh]",
                   className
                 )}
@@ -305,13 +305,20 @@ export function BottomSheet({
                 data-bottom-sheet="true"
               >
                 {showTopBar && (
-                  <div className="flex flex-col items-center px-6 pb-2 pt-4 shrink-0">
+                  <div
+                    onPointerDown={(event) => {
+                      if (isMobileScreen) dragControls.start(event);
+                    }}
+                    className={cn(
+                      "flex flex-col items-center px-6 pb-2 pt-4 shrink-0",
+                      isMobileScreen && "cursor-grab active:cursor-grabbing touch-none select-none"
+                    )}
+                  >
                     {/* Drag handle pill only on mobile */}
                     {isMobileScreen && (
                       <div
-                        onPointerDown={(event) => dragControls.start(event)}
                         className={cn(
-                          "flex cursor-grab touch-none items-center justify-center py-1 active:cursor-grabbing mb-1",
+                          "flex items-center justify-center py-1 mb-1 pointer-events-none",
                           TOUCH_GESTURE_CONTENT_CLASS
                         )}
                       >

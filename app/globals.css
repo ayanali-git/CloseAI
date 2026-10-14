@@ -240,6 +240,27 @@
   line-height: 1.75;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: hsl(var(--foreground));
+  --bubble: 0 0% 91%;
+  --bubble-foreground: 0 0% 0%;
+}
+
+.dark .chat-markdown {
+  --bubble: 0 0% 18.4%;
+  --bubble-foreground: 0 0% 100%;
+}
+
+/* Code blocks and table headers remain neutral bubble type and do not change with accent colors */
+html[data-accent] .chat-markdown,
+[data-accent] .chat-markdown {
+  --bubble: 0 0% 91%;
+  --bubble-foreground: 0 0% 0%;
+}
+
+html.dark[data-accent] .chat-markdown,
+.dark[data-accent] .chat-markdown,
+.dark [data-accent] .chat-markdown {
+  --bubble: 0 0% 18.4%;
+  --bubble-foreground: 0 0% 100%;
 }
 .chat-markdown p {
   margin-top: 0.85rem;
@@ -301,7 +322,7 @@
   text-align: left;
 }
 .chat-markdown th {
-  background-color: hsl(var(--secondary) / 0.7);
+  background-color: transparent;
   font-weight: 600;
   font-size: 0.8125rem;
   letter-spacing: 0.03em;

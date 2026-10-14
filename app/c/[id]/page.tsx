@@ -134,6 +134,7 @@ export default function ActiveChatPage() {
   const [thinkMode, setThinkMode] = useState(false);
   const [isFilesDrawerOpen, setIsFilesDrawerOpen] = useState(false);
   const [activePreviewFile, setActivePreviewFile] = useState<any | null>(null);
+  const [optionsMenuOpen, setOptionsMenuOpen] = useState(false);
 
   // Extract all files referenced in this chat (from all messages and pending message)
   const chatFiles = React.useMemo(() => {
@@ -1258,7 +1259,7 @@ export default function ActiveChatPage() {
 
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
                 {/* Full Container wrapping both Download and Close buttons */}
-                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                   {previewFileUrl && (
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -1310,7 +1311,7 @@ export default function ActiveChatPage() {
               <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
                 {!sidebarOpen && (
                   /* Full Container wrapping both Open sidebar and New chat buttons */
-                  <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1371,7 +1372,7 @@ export default function ActiveChatPage() {
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
                 {isTemporary ? (
                   /* Save chat button for temporary chat matching Image 4 */
-                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1395,7 +1396,7 @@ export default function ActiveChatPage() {
                   </div>
                 ) : (
                   /* Full Container wrapping both Share and More options buttons */
-                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1439,15 +1440,21 @@ export default function ActiveChatPage() {
                     </Tooltip>
 
                     {/* Three Dots Options Menu */}
-                    <DropdownMenu>
-                      <Tooltip>
+                    <DropdownMenu open={optionsMenuOpen} onOpenChange={setOptionsMenuOpen}>
+                      <Tooltip open={optionsMenuOpen ? false : undefined}>
                         <TooltipTrigger asChild>
                           <DropdownMenuTrigger asChild>
                             <button
-                              className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                              className={cn(
+                                "group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                                optionsMenuOpen && "bg-black/5 dark:bg-white/10 text-foreground"
+                              )}
                               aria-label="More options"
                             >
-                              <MoreHorizontal className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                              <MoreHorizontal className={cn(
+                                "w-4 h-4 text-muted-foreground group-hover:text-foreground",
+                                optionsMenuOpen && "text-foreground"
+                              )} />
                             </button>
                           </DropdownMenuTrigger>
                         </TooltipTrigger>
@@ -1464,7 +1471,7 @@ export default function ActiveChatPage() {
                       <DropdownMenuContent
                         align="end"
                         sideOffset={6}
-                        className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                        className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
                       >
                         <DropdownMenuItem
                           onClick={() => setIsFilesDrawerOpen(true)}
@@ -1629,8 +1636,8 @@ export default function ActiveChatPage() {
                                 className={cn(
                                   "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
                                   isGuest
-                                    ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-                                    : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                                    ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                    : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
                                 )}
                                 aria-label="Scroll to bottom"
                               >

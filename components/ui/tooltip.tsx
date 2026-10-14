@@ -15,6 +15,20 @@ if (typeof window !== 'undefined') {
   });
 }
 
+function isModalOrDialogOpen(): boolean {
+  if (typeof document === 'undefined') return false;
+  try {
+    return (
+      document.body.classList.contains('modal-open-no-scroll') ||
+      document.body.style.overflow === 'hidden' ||
+      document.querySelector('[role="dialog"]') !== null ||
+      document.querySelector('[aria-modal="true"]') !== null
+    );
+  } catch {
+    return false;
+  }
+}
+
 interface TooltipContextValue {
   isFocusedRef: React.MutableRefObject<boolean>;
   focusTimestampRef: React.MutableRefObject<number>;
@@ -39,6 +53,14 @@ const Tooltip = ({
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : internalOpen;
 
+  // Whenever controlledOpen transitions to false, reset internal state so
+  // reverting to uncontrolled does not retain a stale 'true'
+  React.useEffect(() => {
+    if (controlledOpen === false) {
+      setInternalOpen(false);
+    }
+  }, [controlledOpen]);
+
   // Immediately close tooltip when user switches tabs or window loses focus
   React.useEffect(() => {
     const handleWindowBlur = () => {
@@ -51,6 +73,43 @@ const Tooltip = ({
     return () => window.removeEventListener('blur', handleWindowBlur);
   }, [isControlled, onOpenChange]);
 
+  // Close tooltip automatically whenever a modal or dialog opens
+  React.useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const checkModal = () => {
+      if (isModalOrDialogOpen()) {
+        if (!isControlled) {
+          setInternalOpen(false);
+        }
+        onOpenChange?.(false);
+      }
+    };
+
+    checkModal();
+
+    let observer: MutationObserver | null = null;
+    try {
+      observer = new MutationObserver(checkModal);
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style'],
+      });
+    } catch {}
+
+    const handlePointerDown = () => {
+      if (isModalOrDialogOpen()) {
+        checkModal();
+      }
+    };
+    window.addEventListener('pointerdown', handlePointerDown, true);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('pointerdown', handlePointerDown, true);
+    };
+  }, [isControlled, onOpenChange]);
+
   const handleOpenChange = React.useCallback(
     (nextOpen: boolean) => {
       if (nextOpen) {
@@ -58,13 +117,15 @@ const Tooltip = ({
         if (Date.now() - lastWindowFocusTime < 800) {
           return;
         }
+
+        // Prevent tooltip from opening if ANY modal or dialog is active
+        if (isModalOrDialogOpen()) {
+          return;
+        }
       }
 
       if (!nextOpen) {
-        // When tabbing to an element that causes a container scroll (e.g., auto scroll-into-view),
-        // Radix's internal handleScroll listener automatically calls onClose().
-        // If the trigger was focused via keyboard within 600ms and is still the active element,
-        // ignore this premature close to allow the tooltip to remain open for the user.
+        // Only block premature close if focused via keyboard Tab navigation
         const now = Date.now();
         const timeSinceFocus = now - focusTimestampRef.current;
         const isStillFocused =
@@ -73,7 +134,12 @@ const Tooltip = ({
             (document.activeElement === triggerRef.current ||
               triggerRef.current.contains(document.activeElement)));
 
-        if (isStillFocused && timeSinceFocus < 600) {
+        let isKeyboardFocus = false;
+        try {
+          isKeyboardFocus = !!triggerRef.current?.matches(':focus-visible');
+        } catch {}
+
+        if (isKeyboardFocus && isStillFocused && timeSinceFocus < 600) {
           return;
         }
       }
@@ -114,8 +180,9 @@ const Tooltip = ({
 const TooltipTrigger = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger>
->(({ onFocus, onBlur, onClick, onKeyDown, ...props }, ref) => {
+>(({ onFocus, onBlur, onClick, onKeyDown, onPointerDown, ...props }, ref) => {
   const ctx = React.useContext(TooltipContext);
+  const lastPointerDownTimeRef = React.useRef(0);
 
   return (
     <TooltipPrimitive.Trigger
@@ -129,12 +196,38 @@ const TooltipTrigger = React.forwardRef<
           (ref as any).current = node;
         }
       }}
+      onPointerDown={(e) => {
+        lastPointerDownTimeRef.current = Date.now();
+        if (ctx) {
+          ctx.isFocusedRef.current = false;
+          ctx.setOpenState(false);
+        }
+        onPointerDown?.(e);
+      }}
       onFocus={(e) => {
         // If focus occurred right after window/tab switch, prevent opening tooltip
         if (Date.now() - lastWindowFocusTime < 800) {
           e.preventDefault();
           return;
         }
+
+        // If focus was triggered by pointer/mouse click, never open the tooltip
+        const isRecentPointer = Date.now() - lastPointerDownTimeRef.current < 600;
+        let isKeyboardFocus = false;
+        try {
+          isKeyboardFocus = !!(e.target as HTMLElement)?.matches(':focus-visible');
+        } catch {}
+
+        if (isRecentPointer || !isKeyboardFocus) {
+          e.preventDefault();
+          if (ctx) {
+            ctx.isFocusedRef.current = false;
+            ctx.setOpenState(false);
+          }
+          onFocus?.(e);
+          return;
+        }
+
         if (ctx) {
           ctx.isFocusedRef.current = true;
           ctx.focusTimestampRef.current = Date.now();
@@ -150,12 +243,13 @@ const TooltipTrigger = React.forwardRef<
       }}
       onClick={(e) => {
         if (ctx) {
+          ctx.isFocusedRef.current = false;
           ctx.setOpenState(false);
         }
         onClick?.(e);
       }}
       onKeyDown={(e) => {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
           if (ctx) {
             ctx.isFocusedRef.current = false;
             ctx.setOpenState(false);

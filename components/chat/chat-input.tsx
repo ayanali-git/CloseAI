@@ -125,7 +125,7 @@ function FilePreviewCard({
             e.stopPropagation();
             onRemove();
           }}
-          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-neutral-300/90 dark:border-white/20 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-white dark:hover:bg-neutral-700 flex items-center justify-center cursor-pointer transition-transform z-10"
+          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-neutral-200/80 dark:hover:bg-[#303030] flex items-center justify-center cursor-pointer transition-transform z-10"
           aria-label="Remove image"
         >
           <X className="w-2.5 h-2.5 stroke-[2.5]" />
@@ -670,6 +670,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       </Tooltip>
 
       <DropdownMenuContent
+        isGuest={isGuest}
         onCloseAutoFocus={(e) => {
           e.preventDefault();
         }}
@@ -682,8 +683,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "rounded-2xl p-1.5 select-none outline-none",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
         style={{
@@ -878,13 +879,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "relative transition-all duration-200",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
           "focus-within:text-foreground dark:focus-within:text-foreground",
-          "rounded-3xl",
+          "rounded-[25px] sm:rounded-3xl",
           isExpandedLayout
-            ? "p-3.5 sm:p-4"
-            : "px-2 sm:px-3 py-1.5 min-h-[48px] sm:min-h-[52px] flex items-center",
+            ? "pt-2.5 px-2.5 pb-2 sm:p-4"
+            : "pt-2.5 px-2.5 pb-2 sm:px-3 sm:py-1.5 sm:min-h-[50px] sm:flex sm:items-center",
           isDragActive && "ring-2 ring-primary border-primary"
         )}
       >
@@ -1031,14 +1032,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </div>
           </div>
         ) : (
-          /* Single-line Layout: sleek single row with + on left, textarea in center, tools on right */
-          <div className="flex items-center gap-1 sm:gap-2 w-full">
-            <div className="flex items-center shrink-0 pl-0.5 sm:pl-1">
+          /* Single-line Layout on desktop, Two-row layout on small screen devices */
+          <div className="grid grid-cols-2 gap-y-1.5 w-full sm:flex sm:items-center sm:gap-1 sm:gap-x-2">
+            <div className="col-start-1 row-start-2 flex items-center justify-self-start pl-0.5 sm:pl-1 sm:order-1 sm:shrink-0">
               {renderPlusButton()}
             </div>
 
             <div
-              className="flex-1 min-w-0 flex items-center cursor-text"
+              className="col-span-2 row-start-1 w-full px-1.5 sm:px-0 flex items-center cursor-text sm:order-2 sm:flex-1 sm:min-w-0"
               onClick={() => textareaRef.current?.focus()}
             >
               <textarea
@@ -1073,7 +1074,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               />
             </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
+            <div className="col-start-2 row-start-2 flex items-center justify-self-end gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1 sm:order-3">
               {renderRightActions()}
             </div>
           </div>

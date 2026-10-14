@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowUpRight, Asterisk, Mail, MapPin } from "lucide-react";
 import { AnimatedArrow, AnimatedArrowUpRight } from "@/components/ui/animated";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface FormErrors {
@@ -177,13 +178,13 @@ export default function ContactPage() {
                 <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>
               )}
             </div>
-            <button
+            <Button
               type="submit"
-              className="inline-flex items-center justify-center h-12 px-4 bg-foreground text-background font-medium rounded-full hover:opacity-90 transition-opacity text-base group cursor-pointer"
+              className="group inline-flex items-center justify-center h-12 px-4 bg-foreground text-background font-medium rounded-full hover:opacity-90 active:scale-[0.99] transition-opacity text-base cursor-pointer"
             >
               <span>Send Message</span>
               <AnimatedArrow size={18} />
-            </button>
+            </Button>
           </form>
         </div>
 
@@ -195,7 +196,7 @@ export default function ContactPage() {
             <div className="w-full space-y-3">
               <a
                 href="mailto:support@trycloseai.vercel.app"
-                className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer"
+                className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-11 h-11 rounded-xl border border-border/80 flex items-center justify-center shrink-0">
@@ -215,7 +216,7 @@ export default function ContactPage() {
 
               <a
                 href="mailto:press@trycloseai.vercel.app"
-                className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer"
+                className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-11 h-11 rounded-xl border border-border/80 flex items-center justify-center shrink-0">
@@ -243,7 +244,7 @@ export default function ContactPage() {
               href="https://www.google.com/maps/search/?api=1&query=1455+3rd+St%2C+San+Francisco%2C+CA+94158%2C+USA"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer"
+              className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
             >
               <div className="flex items-start gap-3.5">
                 <div className="w-11 h-11 rounded-xl border border-border/80 flex items-center justify-center shrink-0 mt-0.5">

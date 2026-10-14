@@ -44,7 +44,7 @@ export default function EnterprisePage() {
           Empower your teams with industry-leading intelligence, enterprise security, and administrative governance designed for global scale.
         </p>
         <div className="flex flex-wrap items-center gap-4">
-          <Button type="button" className="rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white">
+          <Button asChild className="rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white cursor-pointer">
             <Link href="/product/plans">View Plans</Link>
           </Button>
           <Button asChild size="lg" className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">

@@ -315,7 +315,7 @@ export function LangDropdownMenu({
                     <div
                       className={cn(
                         "flex flex-col rounded-3xl overflow-hidden h-auto",
-                        "bg-[#2f2f2f] text-foreground",
+                        "bg-white dark:bg-[#2f2f2f] text-foreground",
                         "border border-border/80 dark:border-none"
                       )}
                       style={{
@@ -373,8 +373,7 @@ export function LangDropdownMenu({
                               key={lang.code}
                               type="button"
                               onClick={() => handleSelectLanguage(lang.code)}
-                              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] cursor-pointer transition-colors
-                                focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] focus:text-foreground cursor-pointer transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
                             >
                               <div className="flex flex-col min-w-0 pr-3">
                                 <span className="text-base font-medium leading-snug truncate text-foreground">
@@ -386,8 +385,8 @@ export function LangDropdownMenu({
                               </div>
 
                               {isSelected && (
-                                <div className="p-2 rounded-full bg-background flex items-center justify-center shrink-0">
-                                  <Check className="w-5 h-5 text-foreground" />
+                                <div className="p-2 rounded-full bg-foreground flex items-center justify-center shrink-0">
+                                  <Check className="w-5 h-5 text-background" />
                                 </div>
                               )}
                             </button>
@@ -456,7 +455,7 @@ export function LangDropdownMenu({
                     aria-label="Search"
                     className={cn(
                       "w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-muted-foreground focus:placeholder:text-foreground",
-                      "bg-[#2f2f2f] border border-border/80 dark:border-none",
+                      "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none",
                       "outline-none focus:outline-none",
                       isTabFocused &&
                         "ring-2 ring-ring ring-offset-2 ring-offset-background",

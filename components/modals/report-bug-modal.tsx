@@ -109,8 +109,8 @@ export function ReportBugModal({
         "max-w-[480px]",
         // Guest mode (/gc, /gc/[id]) matches settings-modal and guest chat surfaces
         isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80"
-          : "bg-card border border-border/90 dark:border-none"
+          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+          : "bg-card border border-border/80 dark:border-none"
       )}
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">
@@ -123,12 +123,13 @@ export function ReportBugModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "p-3 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none",
+              "hidden min-[1025px]:flex p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
             )}
+            style={{ outline: "none" }}
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -145,11 +146,11 @@ export function ReportBugModal({
                 type="button"
                 onClick={() => handleSelectCategory(cat)}
                 className={cn(
-                  "group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] sm:text-sm font-normal transition-colors cursor-pointer outline-none select-none border",
-                  "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-1",
+                  "group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] sm:text-sm font-normal transition-colors cursor-pointer outline-none select-none border focus:outline-none active:outline-none focus:ring-0 active:ring-0",
+                  "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
-                    ? "dark:focus-visible:ring-offset-[#2f2f2f]"
-                    : "dark:focus-visible:ring-offset-[#212121]",
+                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
                   isSelected
                     ? "bg-foreground text-background border-foreground dark:bg-white dark:text-neutral-900 dark:border-white"
                     : cn(
@@ -158,6 +159,7 @@ export function ReportBugModal({
                           : "bg-secondary text-foreground hover:bg-secondary/80 border-border/50 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-neutral-200 dark:border-transparent"
                       )
                 )}
+                style={{ outline: "none" }}
               >
                 <AnimatedPlusCheck
                   checked={isSelected}
@@ -206,10 +208,18 @@ export function ReportBugModal({
             href="/support/help"
             target="_blank"
             rel="noopener noreferrer"
-            className="group text-foreground transition-colors cursor-pointer"
+            className={cn(
+              "group inline-flex items-center gap-0.5 align-baseline text-foreground rounded-full px-1.5 py-0.5 -mx-1",
+              "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+              isGuest
+                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+            )}
+            style={{ outline: "none" }}
           >
-            Learn more
-            <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+            <span>Learn more</span>
+            <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
           </Link>
         </p>
 
@@ -220,7 +230,7 @@ export function ReportBugModal({
             disabled={!isSubmitEnabled || isSubmitting}
             onClick={handleSubmit}
             className={cn(
-              "w-full h-11 rounded-full font-medium text-sm sm:text-base transition-all select-none flex items-center justify-center outline-none",
+              "w-full h-11 rounded-full font-medium text-sm sm:text-base transition-all select-none flex items-center justify-center outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
@@ -237,6 +247,7 @@ export function ReportBugModal({
                     "bg-foreground text-background dark:bg-white dark:text-neutral-900"
                   )
             )}
+            style={{ outline: "none" }}
           >
             {isSubmitting ? (
               <>

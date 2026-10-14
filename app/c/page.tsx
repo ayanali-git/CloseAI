@@ -64,17 +64,35 @@ function NewChatContent() {
   const [isTemporary, setIsTemporary] = useState(() =>
     isTemporaryChatParam(searchParams)
   );
-  const [isPersonalized, setIsPersonalized] = useState(true);
+  const isPersonalized = searchParams?.get("personalized") !== "false";
 
   useEffect(() => {
     setIsTemporary(isTemporaryChatParam(searchParams));
   }, [searchParams]);
 
+  const handleSetPersonalized = (val: boolean) => {
+    const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
+    if (!val) {
+      params.set("personalized", "false");
+    } else {
+      params.delete("personalized");
+    }
+    const q = params.toString();
+    router.replace(`/c${q ? `?${q}` : ""}`, { scroll: false });
+  };
+
   const handleToggleTemporaryChat = () => {
     const next = !isTemporary;
     setIsTemporary(next);
-    const newUrl = next ? "/c?tc=true" : "/c";
-    router.replace(newUrl, { scroll: false });
+    const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
+    if (next) {
+      params.set("tc", "true");
+    } else {
+      params.delete("tc");
+      params.delete("personalized");
+    }
+    const q = params.toString();
+    router.replace(`/c${q ? `?${q}` : ""}`, { scroll: false });
   };
 
   // If unauthorized, redirect to /gc immediately
@@ -155,7 +173,10 @@ function NewChatContent() {
         );
       }
 
-      router.replace(`/c/${newChat.id}${isTemporary ? "?tc=true" : ""}`);
+      const tcQuery = isTemporary
+        ? `?tc=true${!isPersonalized ? "&personalized=false" : ""}`
+        : "";
+      router.replace(`/c/${newChat.id}${tcQuery}`);
     } catch (error: any) {
       console.error("Error auto-starting chat:", error);
       toast.error(error.message || "Failed to start chat");
@@ -225,7 +246,10 @@ function NewChatContent() {
         setThinkMode(false);
       }
 
-      router.push(`/c/${newChat.id}${isTemporary ? "?tc=true" : ""}`);
+      const tcQuery = isTemporary
+        ? `?tc=true${!isPersonalized ? "&personalized=false" : ""}`
+        : "";
+      router.push(`/c/${newChat.id}${tcQuery}`);
     } catch (error: any) {
       console.error("Error sending message:", error);
       toast.error(error.message || "Failed to send message");
@@ -287,10 +311,10 @@ function NewChatContent() {
                   <button
                     type="button"
                     onClick={() => handleToggleSidebar()}
-                    className="xl:hidden w-12 h-12 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0 active:scale-[0.98]"
+                    className="xl:hidden w-12 h-12 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                     aria-label="Open sidebar"
                   >
-                    <PanelRight className="w-5 h-5 shrink-0" />
+                    <PanelRight className="w-4 h-4 shrink-0" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent
@@ -307,35 +331,28 @@ function NewChatContent() {
 
           {/* Right Header Area: Temporary Chat Controls */}
           <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-            <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {isTemporary && (
                 <DropdownMenu>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type="button"
-                          className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                          aria-label="Personalization settings"
-                        >
-                          <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
-                          <ChevronDown className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
-                        </button>
-                      </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom" sideOffset={6} className="text-md">
-                      {isPersonalized ? "Personalized" : "Unpersonalized"}
-                    </TooltipContent>
-                  </Tooltip>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="Personalization settings"
+                    >
+                      <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
+                      <ChevronDown className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
+                    </button>
+                  </DropdownMenuTrigger>
 
                   <DropdownMenuContent
                     align="end"
                     sideOffset={6}
-                    className="w-72 sm:w-80 rounded-xl p-1.5 bg-white/95 dark:bg-[#212121]/95 backdrop-blur-md border border-border/80 dark:border-neutral-800 z-50"
+                    className="w-72 sm:w-80 rounded-xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 z-50"
                   >
                     <DropdownMenuItem
-                      onClick={() => setIsPersonalized(true)}
-                      className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                      onClick={() => handleSetPersonalized(true)}
+                      className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
                     >
                       <div className="flex flex-col text-left">
                         <span className="text-sm font-semibold text-foreground">
@@ -351,8 +368,8 @@ function NewChatContent() {
                     </DropdownMenuItem>
 
                     <DropdownMenuItem
-                      onClick={() => setIsPersonalized(false)}
-                      className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                      onClick={() => handleSetPersonalized(false)}
+                      className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
                     >
                       <div className="flex flex-col text-left">
                         <span className="text-sm font-semibold text-foreground">
@@ -385,7 +402,7 @@ function NewChatContent() {
                   >
                     <AnimatedTempChat
                       open={isTemporary}
-                      size={20}
+                      size={18}
                       className={cn(
                         "transition-colors",
                         isTemporary
@@ -409,7 +426,7 @@ function NewChatContent() {
         </header>
 
         {/* Content Stream */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll pt-14">
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll">
           {isAutoCreating ||
           (queryPrompt && !autoCreateTriggeredRef.current) ? (
             <div className="flex-1 w-full h-full flex flex-col items-center justify-center space-y-3 pb-12 text-muted-foreground">
@@ -421,13 +438,13 @@ function NewChatContent() {
               resetKey={newChatKey}
               onPromptSelect={(prompt) => setMessage(prompt)}
               customTitle={isTemporary ? "Temporary chat" : undefined}
-              // customSubtitle={
-              //   isTemporary
-              //     ? isPersonalized
-              //       ? "This chat can reference memory, and plugins, but it won't appear in your history"
-              //       : "This chat will ignore memory, and plugins, and it won't appear in your history"
-              //     : undefined
-              // }
+              customSubtitle={
+                isTemporary
+                  ? isPersonalized
+                    ? "This chat can reference memory, and plugins, but it won't appear in your history"
+                    : "This chat will ignore memory, and plugins, and it won't appear in your history"
+                  : undefined
+              }
             >
               <ChatInput
                 message={message}
@@ -450,46 +467,48 @@ function NewChatContent() {
           )}
         </div>
 
-        {/* Bottom Disclaimer for Empty State — Constant height so content area never changes size */}
-        <div className="w-full text-center pb-[max(env(safe-area-inset-bottom),0.75rem)] select-none shrink-0 z-20 flex items-center justify-center">
-          {isTemporary ? (
-            <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
-              For safety, we may keep a copy of this chat for up to 30 days.
-            </p>
-          ) : (
-            <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight whitespace-normal sm:whitespace-nowrap">
-              CloseAI is AI. By using, you agree to our{" "}
-              <Link
-                href="/support/terms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group text-foreground transition-colors whitespace-nowrap"
-              >
-                <span>Terms</span>
-                <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-              </Link>{" "}
-              &amp;{" "}
-              <Link
-                href="/support/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group text-foreground transition-colors whitespace-nowrap"
-              >
-                <span>Privacy</span>
-                <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-              </Link>
-              . Chats may be reviewed and used to improve AI models.{" "}
-              <Link
-                href="/support/help"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group text-foreground transition-colors whitespace-nowrap"
-              >
-                <span>Learn more</span>
-                <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-              </Link>
-            </p>
-          )}
+        {/* Bottom Disclaimer for Empty State — Constant height and absolute position so content area never changes size */}
+        <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
+          <div className="pointer-events-auto">
+            {isTemporary ? (
+              <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
+                For safety, we may keep a copy of this chat for up to 30 days.
+              </p>
+            ) : (
+              <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight whitespace-normal sm:whitespace-nowrap">
+                CloseAI is AI. By using, you agree to our{" "}
+                <Link
+                  href="/support/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-foreground transition-colors whitespace-nowrap"
+                >
+                  <span>Terms</span>
+                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                </Link>{" "}
+                &amp;{" "}
+                <Link
+                  href="/support/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-foreground transition-colors whitespace-nowrap"
+                >
+                  <span>Privacy</span>
+                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                </Link>
+                . Chats may be reviewed and used to improve AI models.{" "}
+                <Link
+                  href="/support/help"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-foreground transition-colors whitespace-nowrap"
+                >
+                  <span>Learn more</span>
+                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                </Link>
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

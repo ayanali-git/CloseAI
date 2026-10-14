@@ -108,7 +108,7 @@ export function ImagePreview({
                     "flex items-center h-11 p-0.5 gap-0.5 rounded-xl transition-colors",
                     isGuestMode
                       ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-                      : "bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                      : "bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none"
                   )}
                 >
                   {src && (

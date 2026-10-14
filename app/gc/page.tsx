@@ -71,6 +71,14 @@ function GuestChatContent() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginModalDescription, setLoginModalDescription] = useState<string | undefined>(undefined);
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileScreen(window.innerWidth < 1280);
+    const handleResize = () => setIsMobileScreen(window.innerWidth < 1280);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleOpenLogin = (opts?: { description?: string; title?: string } | string) => {
     const desc = typeof opts === "string" ? opts : opts?.description;
@@ -210,43 +218,36 @@ function GuestChatContent() {
       {/* Main Chat Workspace */}
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header with Unified 28px Alignment */}
-        <header className="absolute top-0 left-0 right-0 z-30 max-xl:pt-[max(env(safe-area-inset-top),0.75rem)] max-xl:pb-3 max-xl:h-auto xl:h-14 xl:pt-[env(safe-area-inset-top,0px)] px-3 max-xl:px-3 xl:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
+        <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
           {/* Top gradient overlay */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
           {/* Left area */}
-          <div className="flex items-center gap-2 pointer-events-auto max-xl:h-12">
-            {!sidebarOpen && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsSidebarBtnHovered(false);
-                      handleToggleSidebar();
-                    }}
-                    onMouseEnter={() => setIsSidebarBtnHovered(true)}
-                    onMouseLeave={() => setIsSidebarBtnHovered(false)}
-                    onBlur={() => setIsSidebarBtnHovered(false)}
-                    className="xl:hidden w-12 h-12 rounded-full bg-white hover:bg-secondary dark:bg-[#2f2f2f] dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0 active:scale-[0.98]"
-                    aria-label="Open sidebar"
-                  >
-                    <PanelRight className="w-5 h-5 shrink-0" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="bottom"
-                  align="start"
-                  sideOffset={6}
-                  className="text-md"
-                >
-                  Open sidebar
-                </TooltipContent>
-              </Tooltip>
-            )}
+          <div className="flex items-center gap-1.5 pointer-events-auto">
+            <button
+              type="button"
+              onClick={() => {
+                setIsSidebarBtnHovered(false);
+                handleToggleSidebar();
+              }}
+              className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
+              aria-label="Open sidebar"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-6 h-6 shrink-0"
+                aria-hidden="true"
+              >
+                <path d="M11.666 12.669a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33zM16.666 6.002a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33z" />
+              </svg>
+            </button>
 
-            {/* Desktop Only: CloseAI with AnimatedChevron and Popover */}
-            <div className="group hidden xl:block -ml-2">
+            {/* CloseAI with ChevronDown and Popover — works on both small screens and desktop */}
+            <div className="group -ml-1">
               <Popover
                 open={modelDropdownOpen}
                 onOpenChange={setModelDropdownOpen}
@@ -254,19 +255,23 @@ function GuestChatContent() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-11 flex items-center gap-1.5 px-3 rounded-sm hover:bg-secondary text-foreground text-xl font-semibold transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-11 px-2 sm:px-4 flex items-center gap-1.5 rounded-sm hover:bg-secondary text-foreground text-xl font-bold tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
                   </button>
                 </PopoverTrigger>
                 <PopoverContent
-                  align="start"
-                  sideOffset={5}
+                  align={isMobileScreen ? "center" : "start"}
+                  sideOffset={isMobileScreen ? 6 : 5}
+                  collisionPadding={isMobileScreen ? 16 : 8}
                   animate={false}
-                  className="w-[350px] p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
+                  className={cn(
+                    "p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none",
+                    isMobileScreen ? "w-[calc(100vw-2rem)] max-w-[350px]" : "w-[350px]"
+                  )}
                 >
-                  <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
+                  <div className="hidden xl:block h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                     <img
                       src="https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=Try%20advanced%20features%20for%20free"
                       alt="Try advanced features for free"
@@ -309,19 +314,12 @@ function GuestChatContent() {
             </div>
           </div>
 
-          {/* Centered CloseAI title without animated open on small and medium screens */}
-          <div className="xl:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-12 flex items-center justify-center pointer-events-auto">
-            <span className="text-xl font-bold tracking-tight text-foreground select-none leading-none">
-              CloseAI
-            </span>
-          </div>
-
           {/* Right area */}
           <div className="flex items-center gap-2 pointer-events-auto">
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.98] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none"
             >
               Log in
             </button>
@@ -336,7 +334,7 @@ function GuestChatContent() {
         </header>
 
         {/* Content Stream (Scrollable but scrollbar hidden) */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll max-xl:pt-[4.75rem] xl:pt-14 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll pt-14 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <WelcomeScreen
             user={null}
             resetKey={newChatKey}
@@ -383,7 +381,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 150);
                     }}
-                    className="h-12 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                    className="h-12 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
                   >
                     What can you do?
                   </button>
@@ -394,7 +392,7 @@ function GuestChatContent() {
         </div>
 
         {/* Bottom Disclaimer for Empty State */}
-        <div className="w-full text-center pb-[max(env(safe-area-inset-bottom),0.75rem)] select-none shrink-0 z-20 flex items-center justify-center">
+        <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
           <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight whitespace-normal sm:whitespace-nowrap">
             CloseAI is AI. By using, you agree to our{" "}
             <Link

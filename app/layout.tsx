@@ -49,8 +49,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = cookies();
-  const initialPlan = cookieStore.get('user_plan')?.value || 'free';
-  const isGuestCardDismissed = cookieStore.get('guest_card')?.value === 'true';
 
   let initialUser = null;
   try {
@@ -82,10 +80,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body
-        data-guest-card-dismissed={isGuestCardDismissed ? "true" : undefined}
-        className="min-h-screen bg-background text-foreground antialiased font-sans"
-      >
+      <body className="min-h-screen bg-background text-foreground antialiased font-sans">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -94,7 +89,7 @@ export default async function RootLayout({
         >
           <TooltipProvider delayDuration={150}>
             <AuthProvider initialUser={initialUser}>
-              <SubscriptionProvider initialPlan={initialPlan}>
+              <SubscriptionProvider>
                 {children}
                 <SettingsHost />
                 <ToasterProvider />

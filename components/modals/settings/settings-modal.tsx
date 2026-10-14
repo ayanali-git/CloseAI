@@ -221,7 +221,6 @@ export function SettingsModal({
         maxSnap={0.92}
         unpadded
         className={cn(
-          "rounded-t-3xl min-[1025px]:rounded-3xl",
           isGuest
             ? "min-[1025px]:max-w-[750px] min-[1025px]:h-[min(500px,90vh)]"
             : "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(500px,90vh)]",
@@ -280,7 +279,7 @@ export function SettingsModal({
                     className={cn(
                       "absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
                       query
-                        ? "text-foreground cursor-pointer hover:opacity-80"
+                        ? "text-foreground cursor-pointer hover:opacity-90"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                   >

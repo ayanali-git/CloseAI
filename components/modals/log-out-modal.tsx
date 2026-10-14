@@ -75,12 +75,12 @@ export function LogoutModal({
       {isAuthVariant ? (
         /* Header / Marketing Auth Variant — Matches Login & Signup Modals */
         <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
-          {/* Top-Right Close Button */}
+          {/* Top-Right Close Button - only on desktop/large screens */}
           <button
             type="button"
             disabled={isLoggingOut}
             onClick={() => onOpenChange(false)}
-            className="absolute top-0 right-0 p-3 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
+            className="hidden min-[1025px]:flex absolute top-0 right-0 p-3 rounded-full items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -156,7 +156,7 @@ export function LogoutModal({
 
           {/* User Card */}
           {hasUser && (
-            <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
+            <div className="relative w-full rounded-[25px] sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none">
               <div className="absolute bottom-0 left-0 right-0 h-[28%] min-h-[48px] max-h-[60px] z-10 pointer-events-none" />
 
               <div

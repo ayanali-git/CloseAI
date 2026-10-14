@@ -731,8 +731,8 @@ export function NativeDropdownMenu<T extends string = string>({
               isGuest
                 ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
                   "!bg-white dark:!bg-[#2f2f2f] border border-border/80 dark:border-white/10 lg:translate-y-px backdrop-blur-none"
-                : // Logged-in: frosted glass (lg:translate-y-px in light mode for 1px border, 0px in dark mode where border-none)
-                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none lg:translate-y-px dark:lg:translate-y-0",
+                :
+                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 lg:translate-y-px",
               contentClassName
             )}
           >

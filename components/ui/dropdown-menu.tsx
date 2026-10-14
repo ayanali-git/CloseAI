@@ -5,6 +5,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -45,49 +46,89 @@ const DropdownMenuSubTrigger = React.forwardRef<
 DropdownMenuSubTrigger.displayName =
   DropdownMenuPrimitive.SubTrigger.displayName;
 
+export interface DropdownMenuSubContentProps
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent> {
+  isGuest?: boolean;
+}
+
 const DropdownMenuSubContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->(({ className, sideOffset = 8, alignOffset = -4, ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuPrimitive.SubContent
-      ref={ref}
-      sideOffset={sideOffset}
-      alignOffset={alignOffset}
-      className={cn(
-        'z-[9999] min-w-[10rem] overflow-hidden rounded-2xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
-        className
-      )}
-      {...props}
-    />
-  </DropdownMenuPrimitive.Portal>
-));
+  DropdownMenuSubContentProps
+>(({ className, sideOffset = 8, alignOffset = -4, isGuest: isGuestProp, ...props }, ref) => {
+  let isGuest = isGuestProp;
+  if (isGuest === undefined) {
+    try {
+      const { user, loading } = useAuth();
+      isGuest = !loading && !user;
+    } catch {
+      isGuest = false;
+    }
+  }
+
+  return (
+    <DropdownMenuPrimitive.Portal>
+      <DropdownMenuPrimitive.SubContent
+        ref={ref}
+        sideOffset={sideOffset}
+        alignOffset={alignOffset}
+        className={cn(
+          'z-[9999] min-w-[10rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
+          isGuest
+            ? 'bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10'
+            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80',
+          className
+        )}
+        {...props}
+      />
+    </DropdownMenuPrimitive.Portal>
+  );
+});
 DropdownMenuSubContent.displayName =
   DropdownMenuPrimitive.SubContent.displayName;
 
+export interface DropdownMenuContentProps
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> {
+  isGuest?: boolean;
+}
+
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, sideOffset = 8, onCloseAutoFocus, ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuPrimitive.Content
-      ref={ref}
-      sideOffset={sideOffset}
-      onCloseAutoFocus={(e) => {
-        if (onCloseAutoFocus) {
-          onCloseAutoFocus(e);
-        } else {
-          e.preventDefault();
-        }
-      }}
-      className={cn(
-        'z-[9999] min-w-[8rem] overflow-hidden rounded-2xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
-        className
-      )}
-      {...props}
-    />
-  </DropdownMenuPrimitive.Portal>
-));
+  DropdownMenuContentProps
+>(({ className, sideOffset = 8, onCloseAutoFocus, isGuest: isGuestProp, ...props }, ref) => {
+  let isGuest = isGuestProp;
+  if (isGuest === undefined) {
+    try {
+      const { user, loading } = useAuth();
+      isGuest = !loading && !user;
+    } catch {
+      isGuest = false;
+    }
+  }
+
+  return (
+    <DropdownMenuPrimitive.Portal>
+      <DropdownMenuPrimitive.Content
+        ref={ref}
+        sideOffset={sideOffset}
+        onCloseAutoFocus={(e) => {
+          if (onCloseAutoFocus) {
+            onCloseAutoFocus(e);
+          } else {
+            e.preventDefault();
+          }
+        }}
+        className={cn(
+          'z-[9999] min-w-[8rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
+          isGuest
+            ? 'bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10'
+            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80',
+          className
+        )}
+        {...props}
+      />
+    </DropdownMenuPrimitive.Portal>
+  );
+});
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
 const DropdownMenuItem = React.forwardRef<

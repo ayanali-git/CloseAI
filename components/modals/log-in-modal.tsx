@@ -225,23 +225,24 @@ export function LoginModal({
       className={cn(
         "max-w-[440px]",
         isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80"
-          : "bg-card border border-border/90 dark:border-none"
+          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+          : "bg-card border border-border/80 dark:border-none"
       )}
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
-        {/* Top-Right Close Button */}
+        {/* Top-Right Close Button - only on desktop/large screens */}
         <button
           type="button"
           onClick={() => onOpenChange(false)}
           className={cn(
-            "absolute top-0 right-0 p-3 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none",
-            "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+            "hidden min-[1025px]:flex absolute top-0 right-0 p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
+            "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
             isGuest
               ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
               : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
           )}
+          style={{ outline: "none" }}
           aria-label="Close"
         >
           <X className="w-5 h-5" />
@@ -288,11 +289,12 @@ export function LoginModal({
             type="button"
             onClick={handleGoogleAuth}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
             )}
+            style={{ outline: "none" }}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
               <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -323,7 +325,8 @@ export function LoginModal({
           <button
             type="button"
             disabled
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center border border-transparent select-none opacity-50 cursor-not-allowed disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center border border-transparent select-none opacity-50 cursor-not-allowed disabled:opacity-50 disabled:cursor-not-allowed transition-all outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0"
+            style={{ outline: "none" }}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
               <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -345,11 +348,12 @@ export function LoginModal({
             type="button"
             onClick={handleGithubAuth}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
             )}
+            style={{ outline: "none" }}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
               <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -379,11 +383,12 @@ export function LoginModal({
                 setSubmitted(false);
               }}
               className={cn(
-                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
                   ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                   : "dark:focus-visible:ring-offset-[#212121]"
               )}
+              style={{ outline: "none" }}
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -401,11 +406,12 @@ export function LoginModal({
                 setSubmitted(false);
               }}
               className={cn(
-                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
                   ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                   : "dark:focus-visible:ring-offset-[#212121]"
               )}
+              style={{ outline: "none" }}
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
@@ -440,11 +446,11 @@ export function LoginModal({
             <div>
               <div
                 className={cn(
-                  "h-12 rounded-full bg-background border border-border/80 dark:border-none px-4 flex items-center transition-all",
+                  "h-12 rounded-full border border-border/80 px-4 flex items-center transition-all",
                   "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white focus-visible:ring-offset-white",
                   isGuest
-                    ? "dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
-                    : "dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
+                    ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
+                    : "bg-background dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
                   errors.email && (touched.email || submitted)
                     ? "border-red-500/80 focus-within:ring-red-500"
                     : "border-border/80 focus-within:ring-blue-500"
@@ -482,6 +488,7 @@ export function LoginModal({
               {/* Row 1: Country Code Dropdown */}
               <CountDropdownMenu
                 value={countryCode}
+                isGuest={isGuest}
                 onChange={(c) => {
                   setCountryCode(c.code);
                   setErrors((prev) => ({ ...prev, phone: undefined }));
@@ -492,11 +499,11 @@ export function LoginModal({
               <div>
                 <div
                   className={cn(
-                    "h-12 rounded-full bg-background border border-border/80 dark:border-none px-4 flex items-center gap-3 transition-all",
+                    "h-12 rounded-full border border-border/80 px-4 flex items-center gap-3 transition-all",
                     "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white focus-visible:ring-offset-white",
                     isGuest
-                      ? "dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
-                      : "dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
+                      ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
+                      : "bg-background dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
                     errors.phone && (touched.phone || submitted)
                       ? "border-red-500/80 focus-within:ring-red-500"
                       : "border-border/80 focus-within:ring-blue-500"
@@ -532,11 +539,12 @@ export function LoginModal({
             type="submit"
             disabled={loading}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
             )}
+            style={{ outline: "none" }}
           >
             {loading ? (
               <Loader className="w-5 h-5 animate-spin text-background" />

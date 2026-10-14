@@ -1681,7 +1681,7 @@ export function MarketingHeader() {
                   {/* Top Back Navigation Button */}
                   <button
                     onClick={() => setMobileSubMenu(null)}
-                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-80 transition-opacity cursor-pointer mb-6"
+                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-90 transition-opacity cursor-pointer mb-6"
                   >
                     <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
                     <span>Home</span>

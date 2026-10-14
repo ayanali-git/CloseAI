@@ -70,27 +70,6 @@ export const useSubscription = () => {
     return context;
 };
 
-function getInitialPlan(): string {
-    if (typeof window !== 'undefined') {
-        const match = document.cookie.match(/(?:^|;\s*)user_plan=([^;]+)/);
-        if (match && match[1]) {
-            const val = decodeURIComponent(match[1]).trim();
-            if (val) return val;
-        }
-    }
-    return 'free';
-}
-
-function persistPlanCookie(newPlan: string) {
-    if (typeof document !== 'undefined') {
-        if (!newPlan || newPlan === 'free') {
-            document.cookie = 'user_plan=; path=/; max-age=0; SameSite=Lax';
-        } else {
-            document.cookie = `user_plan=${encodeURIComponent(newPlan)}; path=/; max-age=31536000; SameSite=Lax`;
-        }
-    }
-}
-
 export function SubscriptionProvider({
     children,
     initialPlan = 'free',
@@ -99,12 +78,7 @@ export function SubscriptionProvider({
     initialPlan?: string;
 }) {
     const { user, token, loading: authLoading } = useAuth();
-    const [plan, setPlan] = useState<string>(() => {
-        if (initialPlan && initialPlan !== 'free') return initialPlan;
-        const cached = getInitialPlan();
-        if (cached && cached !== 'free') return cached;
-        return initialPlan || 'free';
-    });
+    const [plan, setPlan] = useState<string>(() => initialPlan || 'free');
     const [status, setStatus] = useState(() => (plan !== 'free' ? 'active' : 'inactive'));
     const [hasActiveSubscription, setHasActiveSubscription] = useState(() => plan !== 'free');
     const [interval, setInterval] = useState<'monthly' | 'yearly'>('monthly');
@@ -112,15 +86,12 @@ export function SubscriptionProvider({
     const [usage, setUsage] = useState<UsageStats>(defaultUsage);
     const [loading, setLoading] = useState(true);
 
-    // Sync from cookie immediately on mount if initialPlan was free
+    // Ensure user_plan cookie is removed so state is purely dynamic
     useEffect(() => {
-        const cached = getInitialPlan();
-        if (cached && cached !== 'free' && plan === 'free') {
-            setPlan(cached);
-            setStatus('active');
-            setHasActiveSubscription(true);
+        if (typeof document !== 'undefined') {
+            document.cookie = 'user_plan=; path=/; max-age=0; SameSite=Lax';
         }
-    }, [plan]);
+    }, []);
 
     const fetchSubscription = useCallback(async () => {
         // While auth is still initializing, DO NOT reset plan or delete cookies!
@@ -137,7 +108,6 @@ export function SubscriptionProvider({
             setLimits(defaultLimits);
             setUsage(defaultUsage);
             setLoading(false);
-            persistPlanCookie('free');
             return;
         }
 
@@ -158,7 +128,6 @@ export function SubscriptionProvider({
                 setInterval(data.interval || 'monthly');
                 setLimits(data.limits || defaultLimits);
                 setUsage(data.usage || defaultUsage);
-                persistPlanCookie(currentPlan);
             }
         } catch (error) {
             console.error('Error fetching subscription:', error);
@@ -193,7 +162,6 @@ export function SubscriptionProvider({
                         setPlan(newPlan);
                         setStatus(payload.new.subscription_status || 'active');
                         setHasActiveSubscription(newPlan !== 'free');
-                        persistPlanCookie(newPlan);
                     }
                     fetchSubscription();
                 }
