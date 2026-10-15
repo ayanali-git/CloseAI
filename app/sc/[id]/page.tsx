@@ -480,7 +480,7 @@ export default function PublicSharedChatPage() {
                   <span className="hidden sm:inline">Share</span>
                 </button>
               </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={6} className="text-md">
+              <TooltipContent side="bottom" sideOffset={6} className="text-base">
                 Share conversation
               </TooltipContent>
             </Tooltip>
@@ -500,7 +500,7 @@ export default function PublicSharedChatPage() {
                 side="bottom"
                 align="end"
                 sideOffset={6}
-                className="text-md"
+                className="text-base"
               >
                 New chat
               </TooltipContent>
@@ -514,7 +514,7 @@ export default function PublicSharedChatPage() {
         ref={scrollContainerRef}
         data-chat-scroll="true"
         onScroll={handleScroll}
-        className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-scroll overscroll-y-contain [scrollbar-gutter:stable]"
+        className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {/* Message Stream & Content */}
         <div className="flex-1 flex flex-col min-h-full">
@@ -603,7 +603,7 @@ export default function PublicSharedChatPage() {
                               <TooltipContent
                                 side="top"
                                 sideOffset={8}
-                                className="text-md"
+                                className="text-base"
                               >
                                 Scroll to bottom
                               </TooltipContent>

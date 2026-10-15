@@ -321,7 +321,7 @@ function NewChatContent() {
                   side="bottom"
                   align="start"
                   sideOffset={6}
-                  className="text-md"
+                  className="text-base"
                 >
                   Open sidebar
                 </TooltipContent>
@@ -416,7 +416,7 @@ function NewChatContent() {
                   side="bottom"
                   align="end"
                   sideOffset={6}
-                  className="text-md"
+                  className="text-base"
                 >
                   Temporary chat
                 </TooltipContent>
@@ -425,8 +425,8 @@ function NewChatContent() {
           </div>
         </header>
 
-        {/* Content Stream */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll">
+        {/* Content Stream (Scrollbar hidden) */}
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {isAutoCreating ||
           (queryPrompt && !autoCreateTriggeredRef.current) ? (
             <div className="flex-1 w-full h-full flex flex-col items-center justify-center space-y-3 pb-12 text-muted-foreground">

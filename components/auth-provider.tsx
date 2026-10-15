@@ -237,7 +237,6 @@ export function AuthProvider({
     setLoading(false);
     profileCheckedRef.current = null;
     if (typeof document !== 'undefined') {
-      document.cookie = 'user_plan=deleted; path=/; max-age=0; SameSite=Lax';
       const cookies = document.cookie.split(';');
       for (let i = 0; i < cookies.length; i++) {
         const c = cookies[i].trim();

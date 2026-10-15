@@ -86,15 +86,8 @@ export function SubscriptionProvider({
     const [usage, setUsage] = useState<UsageStats>(defaultUsage);
     const [loading, setLoading] = useState(true);
 
-    // Ensure user_plan cookie is removed so state is purely dynamic
-    useEffect(() => {
-        if (typeof document !== 'undefined') {
-            document.cookie = 'user_plan=; path=/; max-age=0; SameSite=Lax';
-        }
-    }, []);
-
     const fetchSubscription = useCallback(async () => {
-        // While auth is still initializing, DO NOT reset plan or delete cookies!
+        // While auth is still initializing, DO NOT reset plan!
         if (authLoading) {
             return;
         }

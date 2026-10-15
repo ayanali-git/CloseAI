@@ -193,7 +193,7 @@ export function ReportBugModal({
             placeholder="Share your feedback"
             rows={5}
             className={cn(
-              "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground transition-colors resize-y outline-none border",
+              "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-foreground transition-colors resize-y outline-none border",
               isGuest
                 ? "bg-transparent border-border/80 dark:border-white/10"
                 : "bg-secondary border-border/80 dark:border-none"

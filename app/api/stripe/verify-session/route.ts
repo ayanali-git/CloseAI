@@ -69,20 +69,12 @@ export async function GET(request: NextRequest) {
                 onConflict: 'stripe_subscription_id',
             });
 
-        const response = NextResponse.json({
+        return NextResponse.json({
             success: true,
             plan: planName,
             status: 'active',
             subscriptionId: subscription.id,
         });
-
-        response.cookies.set('user_plan', planName, {
-            path: '/',
-            maxAge: 31536000,
-            sameSite: 'lax',
-        });
-
-        return response;
     } catch (error: any) {
         console.error('Verify session error:', error);
         return NextResponse.json({ error: error.message || 'Verification failed' }, { status: 500 });

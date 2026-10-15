@@ -401,7 +401,7 @@ const CodeBlock = React.memo(
                 )}
               </button>
             </TooltipTrigger>
-            <TooltipContent side="bottom" sideOffset={4} className="text-md">
+            <TooltipContent side="bottom" sideOffset={4} className="text-base">
               {copied ? "Copied" : "Copy"}
             </TooltipContent>
           </Tooltip>
@@ -1101,7 +1101,7 @@ export function MessageList({
                         <TooltipContent
                           side="bottom"
                           sideOffset={4}
-                          className="text-md"
+                          className="text-base"
                         >
                           Copy message
                         </TooltipContent>
@@ -1127,7 +1127,7 @@ export function MessageList({
                               <TooltipContent
                                 side="bottom"
                                 sideOffset={4}
-                                className="text-md"
+                                className="text-base"
                               >
                                 Edit prompt
                               </TooltipContent>
@@ -1165,7 +1165,7 @@ export function MessageList({
                                   <TooltipContent
                                     side="bottom"
                                     sideOffset={4}
-                                    className="text-md"
+                                    className="text-base"
                                   >
                                     Share prompt
                                   </TooltipContent>
@@ -1191,7 +1191,7 @@ export function MessageList({
                                     <TooltipContent
                                       side="bottom"
                                       sideOffset={4}
-                                      className="text-md"
+                                      className="text-base"
                                     >
                                       Edit prompt
                                     </TooltipContent>
@@ -1221,7 +1221,7 @@ export function MessageList({
                                   <TooltipContent
                                     side="bottom"
                                     sideOffset={4}
-                                    className="text-md"
+                                    className="text-base"
                                   >
                                     Delete message
                                   </TooltipContent>
@@ -1291,7 +1291,7 @@ export function MessageList({
                       <TooltipContent
                         side="bottom"
                         sideOffset={4}
-                        className="text-md"
+                        className="text-base"
                       >
                         Copy response
                       </TooltipContent>
@@ -1327,7 +1327,7 @@ export function MessageList({
                         <TooltipContent
                           side="bottom"
                           sideOffset={4}
-                          className="text-md"
+                          className="text-base"
                         >
                           {speakingMessageId === msgId
                             ? "Stop reading"
@@ -1367,7 +1367,7 @@ export function MessageList({
                             <TooltipContent
                               side="bottom"
                               sideOffset={4}
-                              className="text-md"
+                              className="text-base"
                             >
                               Share response
                             </TooltipContent>
@@ -1402,7 +1402,7 @@ export function MessageList({
                             <TooltipContent
                               side="bottom"
                               sideOffset={4}
-                              className="text-md"
+                              className="text-base"
                             >
                               Good response
                             </TooltipContent>
@@ -1438,7 +1438,7 @@ export function MessageList({
                             <TooltipContent
                               side="bottom"
                               sideOffset={4}
-                              className="text-md"
+                              className="text-base"
                             >
                               Bad response
                             </TooltipContent>
@@ -1476,7 +1476,7 @@ export function MessageList({
                               <TooltipContent
                                 side="bottom"
                                 sideOffset={4}
-                                className="text-md"
+                                className="text-base"
                               >
                                 More options
                               </TooltipContent>
@@ -1506,7 +1506,7 @@ export function MessageList({
                                       e.stopPropagation();
                                       setDropdownSubView("main");
                                     }}
-                                    className="flex items-center gap-2 px-2.5 py-1.5 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+                                    className="flex items-center gap-2 px-2.5 py-1.5 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
                                   >
                                     <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
                                     <span>Try again</span>
@@ -1541,7 +1541,7 @@ export function MessageList({
                                             handleSendChangePrompt(msgId);
                                           }
                                         }}
-                                        className="w-full bg-transparent placeholder:text-muted-foreground text-sm outline-none py-1 font-normal min-w-0"
+                                        className="w-full bg-transparent placeholder:text-foreground text-sm outline-none py-1 font-normal min-w-0"
                                         autoFocus
                                       />
                                       <button
@@ -1573,7 +1573,7 @@ export function MessageList({
                                       onRegenerate?.(msg, index);
                                       setDropdownSubView("main");
                                     }}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
                                   >
                                     <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <span>Try again</span>
@@ -1583,7 +1583,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                   >
                                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
@@ -1605,7 +1605,7 @@ export function MessageList({
                                     onClick={() =>
                                       handleReadAloud(msgId, msg.content)
                                     }
-                                    className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
                                   >
                                     {speakingMessageId === msgId ? (
                                       <>
@@ -1632,7 +1632,7 @@ export function MessageList({
                                           e.stopPropagation();
                                           setDropdownSubView("try-again");
                                         }}
-                                        className="w-full flex items-center justify-between px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
+                                        className="w-full flex items-center justify-between px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
                                       >
                                         <div className="flex items-center gap-2.5">
                                           <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -1642,7 +1642,7 @@ export function MessageList({
                                       </button>
                                     ) : (
                                       <DropdownMenuSub>
-                                        <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#2f2f2f] transition-colors outline-none">
+                                        <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#2f2f2f] transition-colors outline-none">
                                           <div className="flex items-center gap-2.5">
                                             <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <span>Try again</span>
@@ -1696,7 +1696,7 @@ export function MessageList({
                                                     );
                                                   }
                                                 }}
-                                                className="w-full bg-transparent placeholder:text-muted-foreground text-sm outline-none py-1 font-normal min-w-0"
+                                                className="w-full bg-transparent placeholder:text-foreground text-sm outline-none py-1 font-normal min-w-0"
                                                 autoFocus
                                               />
                                               <button
@@ -1731,7 +1731,7 @@ export function MessageList({
                                             onClick={() =>
                                               onRegenerate(msg, index)
                                             }
-                                            className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
                                           >
                                             <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <span>Try again</span>
@@ -1741,7 +1741,7 @@ export function MessageList({
                                           <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
                                             onClick={(e) => e.preventDefault()}
-                                            className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                           >
                                             <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <AnimatedComingSoonText
@@ -1757,7 +1757,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                   >
                                     <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
@@ -1829,7 +1829,7 @@ export function MessageList({
                   <TooltipContent
                     side="bottom"
                     sideOffset={4}
-                    className="text-md"
+                    className="text-base"
                   >
                     Copy
                   </TooltipContent>

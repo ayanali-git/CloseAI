@@ -23,7 +23,7 @@ function Calendar({
         months: 'flex flex-col sm:flex-row gap-4',
         month: 'space-y-4',
         month_caption: 'flex justify-center pt-1 relative items-center h-7',
-        caption_label: 'text-md font-medium',
+        caption_label: 'text-base font-medium',
         nav: 'absolute inset-x-0 top-0 flex items-center justify-between',
         button_previous: cn(
           buttonVariants({ variant: 'outline' }),
@@ -37,7 +37,7 @@ function Calendar({
         weekdays: 'flex',
         weekday: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
         week: 'flex w-full mt-2',
-        day: 'h-9 w-9 text-center text-md p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        day: 'h-9 w-9 text-center text-base p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day_button: cn(
           buttonVariants({ variant: 'ghost' }),
           'h-9 w-9 p-0 font-normal aria-selected:opacity-100'

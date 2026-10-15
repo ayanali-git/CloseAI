@@ -141,7 +141,7 @@ export default function HelpPage() {
               }
             }}
             placeholder="Search questions"
-            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-none rounded-full text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground transition-colors"
+            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-none rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-foreground transition-all"
           />
         </div>
       </header>
@@ -152,7 +152,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('getting-started')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'getting-started'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -170,7 +170,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('account-billing')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'account-billing'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -188,7 +188,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('troubleshooting')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'troubleshooting'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -248,7 +248,7 @@ export default function HelpPage() {
                   <button
                     type="button"
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 cursor-pointer rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 cursor-pointer rounded-3xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${faq.id}`}
                   >

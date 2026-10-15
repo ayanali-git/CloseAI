@@ -125,7 +125,7 @@ export default function OpenRolesPage() {
                 }
               }}
               placeholder="Search roles"
-              className="w-full pl-12 pr-4 h-12 bg-card border border-border/80 dark:border-none rounded-full text-base text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground transition-all outline-none"
+              className="w-full pl-12 pr-4 h-12 bg-card border border-border/80 dark:border-none rounded-full text-base text-foreground placeholder:text-foreground transition-all outline-none focus:outline-none"
             />
           </div>
 
@@ -134,7 +134,7 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="truncate">{selectedTeam}</span>
                 <AnimatedChevronDown
@@ -172,7 +172,7 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="truncate">{selectedLocation}</span>
                 <AnimatedChevronDown

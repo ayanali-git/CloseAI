@@ -760,7 +760,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("main");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Select models</span>
@@ -777,7 +777,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("model-picker");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <span className="font-medium shrink-0 mr-1.5">Model</span>
             <ModelMarqueeText text={model} isHovered={isMobileModelRowHovered} />
@@ -794,7 +794,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("effort");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <span className="font-medium shrink-0 mr-1.5">Effort</span>
             <ModelMarqueeText
@@ -815,7 +815,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("speed");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <span className="shrink-0 font-medium mr-1.5">Speed</span>
             <ModelMarqueeText text={speed} isHovered={isMobileSpeedRowHovered} />
@@ -851,7 +851,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Model</span>
@@ -889,7 +889,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Effort</span>
@@ -927,7 +927,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Speed</span>
@@ -965,7 +965,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Advanced</span>
@@ -993,7 +993,7 @@ export function PlusMenuContent({
         {/* 1. Attach photos */}
         <DropdownMenuItem
           onClick={onAddPhotos}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <Images className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
@@ -1010,7 +1010,7 @@ export function PlusMenuContent({
             if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
             else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Web search</span>
@@ -1021,7 +1021,7 @@ export function PlusMenuContent({
           // onClick={() => {
           //   if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Create images" });
           // }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
@@ -1032,7 +1032,7 @@ export function PlusMenuContent({
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Files className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
@@ -1049,7 +1049,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
             }}
-            className="w-full flex items-center px-3 py-2 text-md rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
+            className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
           >
             <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1066,7 +1066,7 @@ export function PlusMenuContent({
               onMouseEnter={() => setIsSelectModelsHovered(true)}
               onMouseLeave={() => setIsSelectModelsHovered(false)}
               chevronClassName="-ml-0.5"
-              className="flex items-center px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+              className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
             >
               <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
               <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1091,7 +1091,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsModelSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Model</span>
                   <ModelMarqueeText
@@ -1149,7 +1149,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsEffortSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Effort</span>
                   <ModelMarqueeText
@@ -1187,7 +1187,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsSpeedSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="shrink-0 font-medium mr-1.5">Speed</span>
                   <ModelMarqueeText
@@ -1266,7 +1266,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("main");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
           <span>Select models</span>
@@ -1283,7 +1283,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("model-picker");
           }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Model</span>
           <ModelMarqueeText
@@ -1303,7 +1303,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("effort");
           }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Effort</span>
           <ModelMarqueeText
@@ -1324,7 +1324,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("speed");
           }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span className="shrink-0 font-medium mr-1.5">Speed</span>
           <ModelMarqueeText
@@ -1363,7 +1363,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
           <span>Model</span>
@@ -1433,7 +1433,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
           <span>Effort</span>
@@ -1474,7 +1474,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
           <span>Speed</span>
@@ -1515,7 +1515,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
           <span>Advanced</span>
@@ -1538,7 +1538,7 @@ export function PlusMenuContent({
       <DropdownMenuItem
         onClick={disableAttach ? (e: any) => e.preventDefault() : onAddFiles}
         className={cn(
-          "flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-medium transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left",
+          "flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left",
           disableAttach
             ? "cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
             : "cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80"
@@ -1563,7 +1563,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="w-full flex items-center px-3 py-2 text-md rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
+          className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
         >
           <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
           <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1579,7 +1579,7 @@ export function PlusMenuContent({
             onMouseEnter={() => setIsSelectModelsHovered(true)}
             onMouseLeave={() => setIsSelectModelsHovered(false)}
             chevronClassName="-ml-0.5"
-            className="flex items-center px-3 py-2 text-md rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+            className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
           >
             <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1603,7 +1603,7 @@ export function PlusMenuContent({
                 onMouseEnter={() => setIsModelSubHovered(true)}
                 onMouseLeave={() => setIsModelSubHovered(false)}
                 chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
               >
                 <span className="font-medium shrink-0 mr-1.5">Model</span>
                 <ModelMarqueeText
@@ -1667,7 +1667,7 @@ export function PlusMenuContent({
                 onMouseEnter={() => setIsEffortSubHovered(true)}
                 onMouseLeave={() => setIsEffortSubHovered(false)}
                 chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
               >
                 <span className="font-medium shrink-0 mr-1.5">Effort</span>
                 <ModelMarqueeText
@@ -1711,7 +1711,7 @@ export function PlusMenuContent({
                 onMouseEnter={() => setIsSpeedSubHovered(true)}
                 onMouseLeave={() => setIsSpeedSubHovered(false)}
                 chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-md font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
               >
                 <span className="shrink-0 font-medium mr-1.5">Speed</span>
                 <ModelMarqueeText

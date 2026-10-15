@@ -233,7 +233,7 @@ export function SharePromptModal({
                 <LinkIcon className="w-6 h-6" />
               )}
             </div>
-            <span className="text-md font-normal text-foreground select-none">
+            <span className="text-base font-normal text-foreground select-none">
               {linkCopied ? "Copied" : "Copy"}
             </span>
           </button>
@@ -247,7 +247,7 @@ export function SharePromptModal({
             <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
-            <span className="text-md font-normal text-foreground select-none">X</span>
+            <span className="text-base font-normal text-foreground select-none">X</span>
           </button>
 
           {/* LinkedIn */}
@@ -259,7 +259,7 @@ export function SharePromptModal({
             <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
-            <span className="text-md font-normal text-foreground select-none">
+            <span className="text-base font-normal text-foreground select-none">
               LinkedIn
             </span>
           </button>
@@ -273,7 +273,7 @@ export function SharePromptModal({
             <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
-            <span className="text-md font-normal text-foreground select-none">
+            <span className="text-base font-normal text-foreground select-none">
               More
             </span>
           </button>

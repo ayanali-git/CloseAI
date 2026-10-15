@@ -349,7 +349,7 @@ export function SettingsModal({
                     aria-label="Search settings"
                     // 16px on small screens so iOS Safari doesn't zoom the page on focus
                     className={cn(
-                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] focus:placeholder:text-foreground placeholder:text-muted-foreground outline-none focus:outline-none transition-colors",
+                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
                       isSearchTabFocused &&
                         "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#212121]"
                     )}

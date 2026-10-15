@@ -38,7 +38,7 @@ export default function SafetyPage() {
     <div className="py-20 max-w-5xl mx-auto select-none">
       {/* Header */}
       <div className="max-w-3xl mb-16">
-        <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-3">
+        <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-3">
           Safety & Alignment
         </p>
         <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-foreground mb-6 leading-[1.1]">
@@ -65,7 +65,7 @@ export default function SafetyPage() {
                 <h3 className="text-xl font-semibold text-foreground mb-3">
                   {pillar.title}
                 </h3>
-                <p className="text-md text-muted-foreground leading-relaxed">
+                <p className="text-base text-muted-foreground leading-relaxed">
                   {pillar.description}
                 </p>
               </div>
@@ -79,10 +79,10 @@ export default function SafetyPage() {
         <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-3">
           Review our System Cards
         </h2>
-        <p className="text-muted-foreground text-md max-w-lg mb-6">
+        <p className="text-muted-foreground text-base max-w-lg mb-6">
           Detailed technical reports on training mitigations, bias benchmarks, and safety evaluation suites across our model family.
         </p>
-        <Button asChild className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
+        <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
           <Link
             href="/research/overview"
             className="inline-flex items-center justify-center"

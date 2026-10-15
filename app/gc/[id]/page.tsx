@@ -686,11 +686,11 @@ export default function GuestChatSessionPage() {
           </div>
         </header>
 
-        {/* Full-Height Scrollable Message Stream — scrollbar runs full height without heading strip */}
+        {/* Full-Height Scrollable Message Stream — smooth scrolling with hidden unnecessary scrollbar */}
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-scroll overscroll-y-contain [scrollbar-gutter:stable]"
+          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           <div className="flex-1 flex flex-col min-h-full">
             <div ref={contentRef} className="flex-1 pb-4 sm:pb-6">
@@ -763,7 +763,7 @@ export default function GuestChatSessionPage() {
                             <TooltipContent
                               side="top"
                               sideOffset={8}
-                              className="text-md"
+                              className="text-base"
                             >
                               Scroll to bottom
                             </TooltipContent>

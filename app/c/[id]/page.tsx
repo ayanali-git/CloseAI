@@ -1275,7 +1275,7 @@ export default function ActiveChatPage() {
                       <TooltipContent
                         side="bottom"
                         sideOffset={6}
-                        className="text-md"
+                        className="text-base"
                       >
                         Download file
                       </TooltipContent>
@@ -1297,7 +1297,7 @@ export default function ActiveChatPage() {
                       side="bottom"
                       align="end"
                       sideOffset={6}
-                      className="text-md"
+                      className="text-base"
                     >
                       Close preview
                     </TooltipContent>
@@ -1333,7 +1333,7 @@ export default function ActiveChatPage() {
                         side="bottom"
                         align="start"
                         sideOffset={6}
-                        className="text-md"
+                        className="text-base"
                       >
                         Open sidebar
                       </TooltipContent>
@@ -1360,7 +1360,7 @@ export default function ActiveChatPage() {
                         side="bottom"
                         align="start"
                         sideOffset={6}
-                        className="text-md"
+                        className="text-base"
                       >
                         New chat
                       </TooltipContent>
@@ -1388,7 +1388,7 @@ export default function ActiveChatPage() {
                         side="bottom"
                         align="end"
                         sideOffset={6}
-                        className="text-md"
+                        className="text-base"
                       >
                         Save chat
                       </TooltipContent>
@@ -1433,7 +1433,7 @@ export default function ActiveChatPage() {
                       <TooltipContent
                         side="bottom"
                         sideOffset={6}
-                        className="text-md"
+                        className="text-base"
                       >
                         Share conversation
                       </TooltipContent>
@@ -1462,7 +1462,7 @@ export default function ActiveChatPage() {
                           side="bottom"
                           align="end"
                           sideOffset={6}
-                          className="text-md"
+                          className="text-base"
                         >
                           More options
                         </TooltipContent>
@@ -1553,11 +1553,11 @@ export default function ActiveChatPage() {
           )}
         </header>
 
-        {/* Full-Height Scrollable Message Stream — scrollbar runs full height without heading strip */}
+        {/* Full-Height Scrollable Message Stream — smooth scrolling with hidden unnecessary scrollbar */}
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-scroll overscroll-y-contain [scrollbar-gutter:stable]"
+          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           <div className="flex-1 flex flex-col min-h-full">
             {/* File Preview In-Page Viewer */}
@@ -1647,7 +1647,7 @@ export default function ActiveChatPage() {
                             <TooltipContent
                               side="top"
                               sideOffset={8}
-                              className="text-md"
+                              className="text-base"
                             >
                               Scroll to bottom
                             </TooltipContent>

@@ -82,8 +82,6 @@ export function LangDropdownMenu({
   const [search, setSearch] = React.useState("");
   const [currentLang, setCurrentLang] = React.useState("en-IN");
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [isTabFocused, setIsTabFocused] = React.useState(false);
-  const isKeyboardNavRef = React.useRef(false);
 
   const isControlledOpen = controlledOpen !== undefined;
   const isOpen = isControlledOpen ? controlledOpen : internalOpen;
@@ -116,7 +114,6 @@ export function LangDropdownMenu({
       }
       if (!nextOpen) {
         setSearch("");
-        setIsTabFocused(false);
       }
     },
     [isControlledOpen, setControlledOpen]
@@ -141,7 +138,6 @@ export function LangDropdownMenu({
   // Lock scroll and prevent content shift when open
   React.useEffect(() => {
     if (!isOpen) {
-      setIsTabFocused(false);
       return;
     }
     lockBodyScroll();
@@ -152,27 +148,18 @@ export function LangDropdownMenu({
     }, 30);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Tab") {
-        isKeyboardNavRef.current = true;
-      }
       if (e.key === "Escape") {
         e.preventDefault();
         handleOpenChange(false);
       }
     };
 
-    const handleMouseDown = () => {
-      isKeyboardNavRef.current = false;
-    };
-
-    window.addEventListener("keydown", handleKeyDown, true);
-    window.addEventListener("mousedown", handleMouseDown, true);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       clearTimeout(timer);
       unlockBodyScroll();
-      window.removeEventListener("keydown", handleKeyDown, true);
-      window.removeEventListener("mousedown", handleMouseDown, true);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, handleOpenChange]);
 
@@ -429,38 +416,14 @@ export function LangDropdownMenu({
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     onKeyDown={(e) => {
-                      if (e.key === "Tab" && !isTabFocused && !e.shiftKey) {
-                        e.preventDefault();
-                        setIsTabFocused(true);
-                        return;
-                      }
                       if (e.key === "Escape" && search) {
                         e.stopPropagation();
                         setSearch("");
                       }
                     }}
-                    onFocus={() => {
-                      if (isKeyboardNavRef.current) {
-                        setIsTabFocused(true);
-                      }
-                    }}
-                    onBlur={() => {
-                      setIsTabFocused(false);
-                    }}
-                    onMouseDown={() => {
-                      isKeyboardNavRef.current = false;
-                      setIsTabFocused(false);
-                    }}
                     placeholder="Search"
                     aria-label="Search"
-                    className={cn(
-                      "w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-muted-foreground focus:placeholder:text-foreground",
-                      "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none",
-                      "outline-none focus:outline-none",
-                      isTabFocused &&
-                        "ring-2 ring-ring ring-offset-2 ring-offset-background",
-                      "transition-colors"
-                    )}
+                    className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
                   />
                 </div>
               </div>

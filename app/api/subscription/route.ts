@@ -151,7 +151,7 @@ export async function GET(request: NextRequest) {
         const messageUsage = await subscriptionService.checkUsageLimit(user.id, 'messages');
         const imageUsage = await subscriptionService.checkUsageLimit(user.id, 'images');
 
-        const response = NextResponse.json({
+        return NextResponse.json({
             plan,
             status: profile?.subscription_status || 'inactive',
             hasActiveSubscription: profile?.subscription_status === 'active' || (Boolean(profile?.plan) && profile?.plan !== 'free'),
@@ -171,15 +171,6 @@ export async function GET(request: NextRequest) {
                 },
             },
         });
-
-        // Set user_plan cookie for instant zero-delay loading
-        response.cookies.set('user_plan', plan, {
-            path: '/',
-            maxAge: 31536000,
-            sameSite: 'lax',
-        });
-
-        return response;
     } catch (error: any) {
         console.error('Subscription API error:', error);
         return NextResponse.json(

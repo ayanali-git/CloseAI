@@ -41,7 +41,7 @@ export default function ResearchOverviewPage() {
     <div className="py-20 max-w-5xl mx-auto select-none">
       {/* Header */}
       <div className="max-w-3xl mb-16">
-        <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-3">
+        <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-3">
           closeAI Research
         </p>
         <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-foreground mb-6 leading-[1.1]">
@@ -56,19 +56,19 @@ export default function ResearchOverviewPage() {
       <div className="rounded-3xl border border-border/80 dark:border-none bg-gradient-to-br from-indigo-950/40 via-card to-background p-8 sm:p-12 mb-16">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
-          <span className="text-md font-semibold uppercase tracking-wider text-indigo-400">
+          <span className="text-base font-semibold uppercase tracking-wider text-indigo-400">
             Featured Breakthrough
           </span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-4">
           GPT-5.6: The Next Paradigm in Multistep Deductive Inference
         </h2>
-        <p className="text-muted-foreground text-md sm:text-base max-w-2xl mb-8 leading-relaxed">
+        <p className="text-muted-foreground text-base sm:text-base max-w-2xl mb-8 leading-relaxed">
           Delivering 3x faster chain-of-thought verification with 94.2% accuracy on competitive Olympiad mathematics and complex algorithmic engineering benchmarks.
         </p>
         <Link
           href="/c"
-          className="group inline-flex items-center text-md font-semibold uppercase tracking-wider text-foreground"
+          className="group inline-flex items-center text-base font-semibold uppercase tracking-wider text-foreground"
         >
           <span>Try it now</span>
           <AnimatedArrow size={18} />
@@ -81,7 +81,7 @@ export default function ResearchOverviewPage() {
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">
             Selected Publications
           </h2>
-          <span className="text-md text-muted-foreground">Updated August 2026</span>
+          <span className="text-base text-muted-foreground">Updated August 2026</span>
         </div>
 
         <div className="space-y-6">
@@ -94,15 +94,15 @@ export default function ResearchOverviewPage() {
                 <span className="text-[15px] font-semibold tracking-wider uppercase bg-secondary px-2.5 py-1 rounded-full text-foreground">
                   {paper.tag}
                 </span>
-                <span className="text-md text-muted-foreground">{paper.date}</span>
+                <span className="text-base text-muted-foreground">{paper.date}</span>
               </div>
               <h3 className="text-xl font-semibold text-muted-foreground group-hover:text-foreground mb-2">
                 {paper.title}
               </h3>
-              <p className="text-md text-muted-foreground mb-4 leading-relaxed">
+              <p className="text-base text-muted-foreground mb-4 leading-relaxed">
                 {paper.abstract}
               </p>
-              <p className="text-md text-muted-foreground font-mono">{paper.authors}</p>
+              <p className="text-base text-muted-foreground font-mono">{paper.authors}</p>
             </div>
           ))}
         </div>

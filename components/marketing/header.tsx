@@ -584,7 +584,7 @@ export function MarketingHeader() {
                     }
                   }}
                   placeholder="Search anything"
-                  className="w-full bg-transparent text-2xl sm:text-4xl font-normal text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground outline-none border-none ring-0 py-2 leading-normal sm:leading-relaxed"
+                  className="w-full bg-transparent text-2xl sm:text-4xl font-normal text-foreground placeholder:text-foreground outline-none border-none ring-0 py-2 leading-normal sm:leading-relaxed"
                 />
                 <button
                   type="submit"
@@ -691,7 +691,7 @@ export function MarketingHeader() {
                   <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Button
                       asChild
-                      className="group rounded-full px-5 h-11 text-[15px] font-normal bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                      className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
                     >
                       <Link
                         href={user ? "/c" : "/gc"}
@@ -707,7 +707,7 @@ export function MarketingHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
-                      className="inline-flex items-center gap-1.5 text-md font-normal text-muted-foreground hover:text-foreground transition-colors px-2 py-1"
+                      className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                     >
                       <span>API Docs</span>
                       <AnimatedArrowUpRight className="w-4 h-4" />
@@ -749,9 +749,9 @@ export function MarketingHeader() {
                 setHoveredNav(null);
                 setIsSearchOpen(false);
               }}
-              className="flex items-center gap-2 hover:opacity-85 transition-opacity"
+              className="flex items-center gap-2"
             >
-              <span className="font-bold text-xl tracking-tight text-foreground">
+              <span className="font-bold text-xl tracking-tight text-foreground transition-opacity hover:opacity-90">
                 CloseAI
               </span>
             </Link>
@@ -1027,7 +1027,7 @@ export function MarketingHeader() {
             }}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="max-w-[1500px] mx-auto px-6 sm:px-8 py-10">
+            <div className="max-w-[1500px] mx-auto px-6 sm:px-8 py-10 nav-dropdown-group">
               {/* RESEARCH MEGA MENU */}
               {activeMenu === "research" && (
                 <div
@@ -1039,10 +1039,10 @@ export function MarketingHeader() {
                   }}
                 >
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Explore Research
                     </p>
-                    <ul className="space-y-4 nav-dropdown-group">
+                    <ul className="space-y-4">
                       <li>
                         <Link
                           href="/research/overview"
@@ -1083,10 +1083,10 @@ export function MarketingHeader() {
                   </div>
 
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Latest Advancements
                     </p>
-                    <ul className="space-y-3 text-md nav-dropdown-group">
+                    <ul className="space-y-3 text-base">
                       <li>
                         <Link
                           href="/research/overview"
@@ -1148,10 +1148,10 @@ export function MarketingHeader() {
                   }}
                 >
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Explore Products
                     </p>
-                    <ul className="space-y-4 nav-dropdown-group">
+                    <ul className="space-y-4">
                       <li>
                         <Link
                           href={user ? "/c" : "/gc"}
@@ -1177,10 +1177,10 @@ export function MarketingHeader() {
                   </div>
 
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Products
                     </p>
-                    <ul className="space-y-3 text-md nav-dropdown-group">
+                    <ul className="space-y-3 text-base">
                       <li>
                         <Link
                           href="/business/enterprise"
@@ -1233,10 +1233,10 @@ export function MarketingHeader() {
                   }}
                 >
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Explore Business
                     </p>
-                    <ul className="space-y-4 nav-dropdown-group">
+                    <ul className="space-y-4">
                       <li>
                         <Link
                           href="/business/enterprise"
@@ -1295,10 +1295,10 @@ export function MarketingHeader() {
                   </div>
 
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Resources
                     </p>
-                    <ul className="space-y-3 text-md nav-dropdown-group">
+                    <ul className="space-y-3 text-base">
                       <li>
                         <Link
                           href="/company/blog"
@@ -1342,10 +1342,10 @@ export function MarketingHeader() {
                   }}
                 >
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Explore Developers
                     </p>
-                    <ul className="space-y-4 nav-dropdown-group">
+                    <ul className="space-y-4">
                       <li>
                         <Link
                           href="/product/features"
@@ -1401,10 +1401,10 @@ export function MarketingHeader() {
                   </div>
 
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Resources
                     </p>
-                    <ul className="space-y-3 text-md nav-dropdown-group">
+                    <ul className="space-y-3 text-base">
                       <li>
                         <Link
                           href="/product/api-docs"
@@ -1475,10 +1475,10 @@ export function MarketingHeader() {
                   }}
                 >
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Explore Company
                     </p>
-                    <ul className="space-y-4 nav-dropdown-group">
+                    <ul className="space-y-4">
                       <li>
                         <Link
                           href="/company/about"
@@ -1521,10 +1521,10 @@ export function MarketingHeader() {
                   </div>
 
                   <div>
-                    <p className="text-md font-semibold text-muted-foreground tracking-wider uppercase mb-5">
+                    <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-5">
                       Resources
                     </p>
-                    <ul className="space-y-3 text-md nav-dropdown-group">
+                    <ul className="space-y-3 text-base">
                       <li>
                         <Link
                           href="/company/about"
@@ -1643,7 +1643,7 @@ export function MarketingHeader() {
                           setMobileNavOpen(false);
                           setLogoutModalOpen(true);
                         }}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log Out
                       </button>
@@ -1688,12 +1688,12 @@ export function MarketingHeader() {
                   </button>
 
                   {mobileSubMenu === "research" && (
-                    <div className="space-y-6">
+                    <div className="space-y-6 nav-dropdown-group">
                       <div>
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Explore Research
                         </div>
-                        <div className="space-y-3 nav-dropdown-group">
+                        <div className="space-y-3">
                           {[
                             {
                               label: "Research Index",
@@ -1722,10 +1722,10 @@ export function MarketingHeader() {
                       </div>
 
                       <div className="pt-4 border-t border-border/80">
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Latest Advancements
                         </div>
-                        <div className="space-y-2.5 nav-dropdown-group">
+                        <div className="space-y-2.5">
                           {[
                             { label: "GPT-5.6", href: "/research/overview" },
                             { label: "GPT-5.5", href: "/research/overview" },
@@ -1754,12 +1754,12 @@ export function MarketingHeader() {
                   )}
 
                   {mobileSubMenu === "products" && (
-                    <div className="space-y-6">
+                    <div className="space-y-6 nav-dropdown-group">
                       <div>
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Explore Products
                         </div>
-                        <div className="space-y-3 nav-dropdown-group">
+                        <div className="space-y-3">
                           <Link
                             href={user ? "/c" : "/gc"}
                             target="_blank"
@@ -1781,10 +1781,10 @@ export function MarketingHeader() {
                       </div>
 
                       <div className="pt-4 border-t border-border/80">
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Products
                         </div>
-                        <div className="space-y-2.5 nav-dropdown-group">
+                        <div className="space-y-2.5">
                           {[
                             {
                               label: "CloseAI Work & Teams",
@@ -1818,12 +1818,12 @@ export function MarketingHeader() {
                   )}
 
                   {mobileSubMenu === "business" && (
-                    <div className="space-y-6">
+                    <div className="space-y-6 nav-dropdown-group">
                       <div>
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Explore Business
                         </div>
-                        <div className="space-y-3 nav-dropdown-group">
+                        <div className="space-y-3">
                           {[
                             {
                               label: "Overview",
@@ -1863,10 +1863,10 @@ export function MarketingHeader() {
                       </div>
 
                       <div className="pt-4 border-t border-border/80">
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Resources
                         </div>
-                        <div className="space-y-2.5 nav-dropdown-group">
+                        <div className="space-y-2.5">
                           {[
                             {
                               label: "Release Notes",
@@ -1896,12 +1896,12 @@ export function MarketingHeader() {
                   )}
 
                   {mobileSubMenu === "developers" && (
-                    <div className="space-y-6">
+                    <div className="space-y-6 nav-dropdown-group">
                       <div>
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Explore Developers
                         </div>
-                        <div className="space-y-3 nav-dropdown-group">
+                        <div className="space-y-3">
                           <Link
                             href="/product/features"
                             onClick={() => setMobileNavOpen(false)}
@@ -1947,10 +1947,10 @@ export function MarketingHeader() {
                       </div>
 
                       <div className="pt-4 border-t border-border/80">
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Resources
                         </div>
-                        <div className="space-y-2.5 nav-dropdown-group">
+                        <div className="space-y-2.5">
                           {[
                             { label: "Docs", href: "/product/api-docs" },
                             {
@@ -1989,12 +1989,12 @@ export function MarketingHeader() {
                   )}
 
                   {mobileSubMenu === "company" && (
-                    <div className="space-y-6">
+                    <div className="space-y-6 nav-dropdown-group">
                       <div>
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Explore Company
                         </div>
-                        <div className="space-y-3 nav-dropdown-group">
+                        <div className="space-y-3">
                           <Link
                             href="/company/about"
                             onClick={() => setMobileNavOpen(false)}
@@ -2030,10 +2030,10 @@ export function MarketingHeader() {
                       </div>
 
                       <div className="pt-4 border-t border-border/80">
-                        <div className="text-md uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                        <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Resources
                         </div>
-                        <div className="space-y-2.5 nav-dropdown-group">
+                        <div className="space-y-2.5">
                           {[
                             {
                               label: "Brand Guidelines",

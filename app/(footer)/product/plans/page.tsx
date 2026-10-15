@@ -98,7 +98,7 @@ export default function PlansPage() {
             <div>
               <div className="mb-6">
                 <h3 className="text-xl font-semibold text-foreground mb-1">{plan.name}</h3>
-                <p className="text-md text-muted-foreground min-h-[32px]">{plan.description}</p>
+                <p className="text-base text-muted-foreground min-h-[32px]">{plan.description}</p>
               </div>
 
               <div className="flex items-baseline gap-1 mb-8">
@@ -106,16 +106,16 @@ export default function PlansPage() {
                   {plan.price}
                 </span>
                 {plan.period && (
-                  <span className="text-md text-muted-foreground">{plan.period}</span>
+                  <span className="text-base text-muted-foreground">{plan.period}</span>
                 )}
               </div>
 
               <div className="space-y-3 mb-8">
-                <p className="text-md font-semibold uppercase tracking-wider text-muted-foreground">
+                <p className="text-base font-semibold uppercase tracking-wider text-muted-foreground">
                   Included features
                 </p>
                 {plan.features.map((feat, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-md text-foreground">
+                  <div key={i} className="flex items-center gap-2.5 text-base text-foreground">
                     <Check className="w-4 h-4 text-muted-foreground shrink-0" />
                     <span>{feat}</span>
                   </div>
@@ -132,7 +132,7 @@ export default function PlansPage() {
                   openLoginModal();
                 }
               }}
-              className={`w-full h-11 rounded-full text-md font-medium transition-colors cursor-pointer ${
+              className={`w-full h-11 rounded-full text-base font-medium transition-colors cursor-pointer ${
                 plan.popular
                   ? "bg-foreground text-background hover:opacity-90"
                   : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"

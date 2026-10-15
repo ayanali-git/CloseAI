@@ -664,7 +664,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-md">
+        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
           Attach and more
         </TooltipContent>
       </Tooltip>
@@ -766,7 +766,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             <span className="hidden sm:inline">Think</span>
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-md">
+        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
           Think mode
         </TooltipContent>
       </Tooltip>
@@ -799,7 +799,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-md">
+        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
           {isListening ? "Stop dictation" : "Start dictation"}
         </TooltipContent>
       </Tooltip>
@@ -846,7 +846,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-md">
+        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
           {isTyping ? "Stop generating" : isUploading ? "Uploading files..." : "Send message"}
         </TooltipContent>
       </Tooltip>
@@ -981,7 +981,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 rows={1}
                 disabled={isTyping || isUploading}
                 className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
+                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
                   isFullyExpanded ? "min-h-[280px]" : "min-h-[44px]",
                   isBigContent && "pr-14 sm:pr-16"
                 )}
@@ -1012,7 +1012,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                         )}
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent className="text-md">
+                    <TooltipContent className="text-base">
                       {isFullyExpanded ? "Collapse" : "Expand"}
                     </TooltipContent>
                   </Tooltip>
@@ -1070,7 +1070,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 placeholder={placeholder}
                 rows={1}
                 disabled={isTyping || isUploading}
-                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
+                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
               />
             </div>
 

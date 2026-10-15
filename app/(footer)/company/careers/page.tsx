@@ -86,111 +86,113 @@ export default function CareersPage() {
 
       {/* 2. PHILOSOPHY LEAD & STATEMENT (VALUES & OPERATING PRINCIPLES) */}
       <section className="mb-16 sm:mb-24 border-t border-border/80 pt-16 sm:pt-20">
-        <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-foreground max-w-3xl leading-snug mb-12 sm:mb-16">
-          AI must be developed with knowledge of and respect for humanity’s full
-          spectrum of experience and perspectives.
-        </h2>
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-foreground leading-snug mb-12 sm:mb-16">
+            AI must be developed with knowledge of and respect for humanity’s full
+            spectrum of experience and perspectives.
+          </h2>
 
-        <div className="max-w-3xl space-y-12 text-muted-foreground text-base sm:text-lg leading-relaxed">
-          {/* Values */}
-          <div className="space-y-4">
-            <p>
-              <strong className="text-foreground font-semibold">Values:</strong>{' '}
-              These values define what we consider to be the most important things.
-              They guide our decision-making. We believe that channeling these
-              values is the most promising way to achieve our mission.
-            </p>
-            <ul className="space-y-4 pl-4 sm:pl-6 list-disc">
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Humanity first.
-                </strong>{' '}
-                Working at CloseAI means being part of a team that is passionate
-                about benefitting people and society through our work. We build
-                AI to elevate humanity.
-              </li>
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Act with humility.
-                </strong>{' '}
-                Humility reminds us to recognize the limits of our own knowledge
-                and to remain open to new ideas, perspectives, and the possibility
-                of being wrong. This mindset influences our iterative approach to
-                deployment, and the reintegration of feedback into our research.
-              </li>
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Feel the AGI.
-                </strong>{' '}
-                AGI will be powerful in an unprecedented way, with potential for
-                upside and downside. Building it requires rigor and discipline,
-                boundless imagination, and a deep sense of responsibility. We
-                approach research and product development with respect for the
-                transformative technology we are helping create, and the coupled
-                benefits, changes, and risks that come along with it.
-              </li>
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Ship joy.
-                </strong>{' '}
-                Through our research we develop products that can transform how
-                people live their lives. Our technology reflects an internal
-                culture of optimism for the future and stewardship of our
-                mission.
-              </li>
-            </ul>
-          </div>
+          <div className="space-y-12 text-muted-foreground text-base sm:text-lg leading-relaxed">
+            {/* Values */}
+            <div className="space-y-4">
+              <p>
+                <strong className="text-foreground font-semibold">Values:</strong>{' '}
+                These values define what we consider to be the most important things.
+                They guide our decision-making. We believe that channeling these
+                values is the most promising way to achieve our mission.
+              </p>
+              <ul className="space-y-4 pl-4 sm:pl-6 list-disc">
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Humanity first.
+                  </strong>{' '}
+                  Working at CloseAI means being part of a team that is passionate
+                  about benefitting people and society through our work. We build
+                  AI to elevate humanity.
+                </li>
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Act with humility.
+                  </strong>{' '}
+                  Humility reminds us to recognize the limits of our own knowledge
+                  and to remain open to new ideas, perspectives, and the possibility
+                  of being wrong. This mindset influences our iterative approach to
+                  deployment, and the reintegration of feedback into our research.
+                </li>
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Feel the AGI.
+                  </strong>{' '}
+                  AGI will be powerful in an unprecedented way, with potential for
+                  upside and downside. Building it requires rigor and discipline,
+                  boundless imagination, and a deep sense of responsibility. We
+                  approach research and product development with respect for the
+                  transformative technology we are helping create, and the coupled
+                  benefits, changes, and risks that come along with it.
+                </li>
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Ship joy.
+                  </strong>{' '}
+                  Through our research we develop products that can transform how
+                  people live their lives. Our technology reflects an internal
+                  culture of optimism for the future and stewardship of our
+                  mission.
+                </li>
+              </ul>
+            </div>
 
-          {/* Operating Principles */}
-          <div className="space-y-4">
-            <p>
-              <strong className="text-foreground font-semibold">
-                Operating Principles:
-              </strong>{' '}
-              These principles define how we work together. They are important
-              for establishing our operating culture.
-            </p>
-            <ul className="space-y-4 pl-4 sm:pl-6 list-disc">
-              <li>
+            {/* Operating Principles */}
+            <div className="space-y-4">
+              <p>
                 <strong className="text-foreground font-semibold">
-                  Find a way.
+                  Operating Principles:
                 </strong>{' '}
-                We believe in finding a way to do the things that matter. We give
-                agency to individuals and teams to find an approach that works.
-                Ideas come from anywhere, regardless of title or tenure.
-              </li>
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Creativity over control.
-                </strong>{' '}
-                We look to find creative solutions, even if sometimes imperfect,
-                over rigidity and control. Our approach to solving problems is
-                based on best principles (first principles and best practices).
-              </li>
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Update quickly.
-                </strong>{' '}
-                We come in with a hypothesis and are willing to change our
-                approach as we receive new information. We seek truth and adapt
-                knowing that flexibility is key to progress on the path to AGI.
-              </li>
-              <li>
-                <strong className="text-foreground font-semibold">
-                  Intense focus.
-                </strong>{' '}
-                We are hard workers who are here to make an impact on the world.
-                This intensity and resilience are pivotal to the mission, while
-                clarity and focus enable us to make hard decisions.
-              </li>
-            </ul>
+                These principles define how we work together. They are important
+                for establishing our operating culture.
+              </p>
+              <ul className="space-y-4 pl-4 sm:pl-6 list-disc">
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Find a way.
+                  </strong>{' '}
+                  We believe in finding a way to do the things that matter. We give
+                  agency to individuals and teams to find an approach that works.
+                  Ideas come from anywhere, regardless of title or tenure.
+                </li>
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Creativity over control.
+                  </strong>{' '}
+                  We look to find creative solutions, even if sometimes imperfect,
+                  over rigidity and control. Our approach to solving problems is
+                  based on best principles (first principles and best practices).
+                </li>
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Update quickly.
+                  </strong>{' '}
+                  We come in with a hypothesis and are willing to change our
+                  approach as we receive new information. We seek truth and adapt
+                  knowing that flexibility is key to progress on the path to AGI.
+                </li>
+                <li>
+                  <strong className="text-foreground font-semibold">
+                    Intense focus.
+                  </strong>{' '}
+                  We are hard workers who are here to make an impact on the world.
+                  This intensity and resilience are pivotal to the mission, while
+                  clarity and focus enable us to make hard decisions.
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 3. HERO TEAM PHOTO BANNER (SAME ROUNDED-SM AS MAIN PAGE BIG IMAGE) */}
       <section className="mb-20 sm:mb-28">
-        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-sm overflow-hidden bg-black transition-all duration-300">
+        <div className="relative w-full aspect-[10/9] sm:aspect-[20/9] rounded-sm overflow-hidden bg-black transition-all duration-300">
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
             alt="CloseAI team collaborating in workspace"
@@ -325,7 +327,7 @@ export default function CareersPage() {
             </div>
           </div>
 
-          <div className="order-1 md:order-2 relative w-full aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+          <div className="order-1 md:order-2 relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
             <img
               src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
               alt="Researchers and engineers collaborating in frontier workspace"
@@ -337,7 +339,7 @@ export default function CareersPage() {
 
         {/* Spotlight 2: Learning by doing */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div className="relative w-full aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+          <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
             <img
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80"
               alt="Team members collaborating and validating systems"
@@ -381,7 +383,7 @@ export default function CareersPage() {
           </h2>
           <Link
             href="/company/blog"
-            className="group inline-flex items-center text-md font-semibold text-foreground tracking-tight"
+            className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
           >
             <span>View all</span>
             <AnimatedArrow size={18} />

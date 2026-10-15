@@ -727,6 +727,23 @@ body.modal-open-no-scroll {
   }
 }
 
+/* Prevent window and unnecessary scrollbars on chat pages */
+html:has([data-chat-page="true"]),
+body:has([data-chat-page="true"]) {
+  overflow: hidden !important;
+  height: 100% !important;
+  height: 100dvh !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html:has([data-chat-page="true"])::-webkit-scrollbar,
+body:has([data-chat-page="true"])::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* Guarantee that modal backdrops and outside areas never display pointer cursor */
 [data-bottom-sheet-backdrop],
 [data-radix-portal] > [data-state],

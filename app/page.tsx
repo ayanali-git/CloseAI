@@ -179,7 +179,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -195,7 +195,7 @@ export default function LandingPage() {
                 placeholder="Ask anything"
                 rows={3}
                 disabled={isSubmitting}
-                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
+                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
               />
               <div className="flex items-center justify-end pt-3 cursor-text">
                 <button
@@ -250,7 +250,7 @@ export default function LandingPage() {
                     handlePillClick(pill.prompt);
                   }}
                   className={cn(
-                    "h-12 px-4 rounded-full text-md sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none",
+                    "h-12 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none",
                     pill.disabled
                       ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60"
                       : isSelected
@@ -319,7 +319,7 @@ export default function LandingPage() {
                   >
                     GPT-6 Astra: A New Generation of Intelligence
                   </h2>
-                  <div className="flex items-center gap-2 text-sm xl:text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm xl:text-base text-muted-foreground">
                     <span className="font-semibold text-foreground">
                       Research
                     </span>
@@ -368,7 +368,7 @@ export default function LandingPage() {
                   >
                     Introducing GPT-6 Sol and Luna
                   </h3>
-                  <div className="flex items-center gap-2 text-sm sm:text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
                     <span className="font-semibold text-foreground">
                       Product
                     </span>
@@ -407,7 +407,7 @@ export default function LandingPage() {
                   >
                     Introducing CloseAI Images 2.5
                   </h3>
-                  <div className="flex items-center gap-2 text-sm sm:text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
                     <span className="font-semibold text-foreground">
                       Product
                     </span>
@@ -450,7 +450,7 @@ export default function LandingPage() {
                   >
                     GPT-6 Astra: System Cards
                   </h3>
-                  <div className="flex items-center gap-2 text-sm sm:text-md text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
                     <span className="font-semibold text-foreground">
                       Publication
                     </span>
@@ -475,7 +475,7 @@ export default function LandingPage() {
             </h2>
             <Link
               href="/company/blog"
-              className="group inline-flex items-center text-md font-semibold text-foreground tracking-tight"
+              className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
             >
               <span>View more</span>
               <AnimatedArrow size={18} />
@@ -578,7 +578,7 @@ export default function LandingPage() {
             </h2>
             <Link
               href="/research/overview"
-              className="group inline-flex items-center text-md font-semibold text-foreground tracking-tight"
+              className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
             >
               <span>View all</span>
               <AnimatedArrow size={18} />
@@ -661,7 +661,7 @@ export default function LandingPage() {
             </h2>
             <Link
               href="/business/enterprise"
-              className="group inline-flex items-center text-md font-semibold text-foreground tracking-tight"
+              className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
             >
               <span>View all</span>
               <AnimatedArrow size={18} />
@@ -750,7 +750,7 @@ export default function LandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full px-4 h-12 text-md font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer"
+                className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} className="flex items-center">
                   <span>Explore Now</span>

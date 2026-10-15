@@ -415,7 +415,7 @@ export function Sidebar({
       <DropdownMenuItem asChild>
         <Link
           href="/support/help"
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
           <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Help center</span>
@@ -425,7 +425,7 @@ export function Sidebar({
       <DropdownMenuItem asChild>
         <Link
           href="/company/blog"
-          className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
           <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Release notes</span>
@@ -437,7 +437,7 @@ export function Sidebar({
         onSelect={(e) => e.preventDefault()}
         className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
       >
-        <div className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-muted-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
+        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-muted-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
           <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
             label="Download app"
@@ -454,7 +454,7 @@ export function Sidebar({
           href="/support/terms"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-md font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
             <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -469,7 +469,7 @@ export function Sidebar({
           href="/support/privacy"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-md font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
             <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -483,7 +483,7 @@ export function Sidebar({
 
       <DropdownMenuItem
         onClick={handleOpenReportBug}
-        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-md font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
       >
         <div className="flex items-center gap-2.5">
           <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -575,7 +575,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Help</span>
@@ -590,7 +590,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
@@ -605,7 +605,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
@@ -616,7 +616,7 @@ export function Sidebar({
             onSelect={(e) => e.preventDefault()}
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
           >
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
               <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
@@ -632,7 +632,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -647,7 +647,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -659,7 +659,7 @@ export function Sidebar({
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <DropdownMenuItem
             onClick={handleOpenReportBug}
-            className="group flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
+            className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
               <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -679,7 +679,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-md font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             <span>Accounts</span>
@@ -698,7 +698,7 @@ export function Sidebar({
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-md font-medium truncate text-foreground leading-tight">
+                <p className="text-base font-medium truncate text-foreground leading-tight">
                   {displayName}
                 </p>
                 <p
@@ -715,7 +715,7 @@ export function Sidebar({
           <button
             type="button"
             onClick={handleOpenAddAccount}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Plus className="w-4 h-4 text-muted-foreground" />
             <span>Add account</span>
@@ -739,12 +739,12 @@ export function Sidebar({
           >
             <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
               <AvatarImage src={avatarUrl} />
-              <AvatarFallback className="text-md font-semibold bg-secondary text-foreground">
+              <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
                 {displayName.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="text-md font-medium truncate text-foreground leading-tight">
+              <p className="text-base font-medium truncate text-foreground leading-tight">
                 {displayName}
               </p>
               <p
@@ -758,15 +758,15 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-md rounded-xl cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl cursor-pointer">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
-                <AvatarFallback className="text-md font-semibold bg-secondary text-foreground">
+                <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
                   {displayName.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-md font-medium truncate text-foreground leading-tight">
+                <p className="text-base font-medium truncate text-foreground leading-tight">
                   {displayName}
                 </p>
                 <p
@@ -782,7 +782,7 @@ export function Sidebar({
               alignOffset={-108}
               className="w-64 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
             >
-              <div className="flex items-center gap-2 px-2 py-2 text-md text-muted-foreground hover:text-foreground select-none">
+              <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
                 <UserIcon className="w-4 h-4 shrink-0" />
                 <span className="truncate">{userEmail}</span>
               </div>
@@ -795,7 +795,7 @@ export function Sidebar({
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0 text-left">
-                    <p className="text-md font-medium truncate text-foreground leading-tight">
+                    <p className="text-base font-medium truncate text-foreground leading-tight">
                       {displayName}
                     </p>
                     <p
@@ -811,7 +811,7 @@ export function Sidebar({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleOpenAddAccount}
-                className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-md"
+                className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
               >
                 <Plus className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
                 <span>Add account</span>
@@ -825,7 +825,7 @@ export function Sidebar({
         {/* Upgrade plan */}
         <DropdownMenuItem
           onClick={() => openSettings("plans")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
           <span>Plans</span>
@@ -834,7 +834,7 @@ export function Sidebar({
         {/* Data */}
         <DropdownMenuItem
           onClick={() => openSettings("data")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <Database className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
           <span>Data</span>
@@ -843,7 +843,7 @@ export function Sidebar({
         {/* Profile */}
         <DropdownMenuItem
           onClick={() => openSettings("profile")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <UserIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
           <span>Profile</span>
@@ -854,7 +854,7 @@ export function Sidebar({
           onClick={() =>
             isMobileScreen ? openSettings() : openSettings("general")
           }
-          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
           <span>Settings</span>
@@ -870,7 +870,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("help");
             }}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-xl text-md text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <div className="flex items-center gap-2.5">
               <LifeBuoy className="w-4 h-4 text-muted-foreground" />
@@ -880,7 +880,7 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-md rounded-xl cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl cursor-pointer">
               <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
               <span>Help</span>
             </DropdownMenuSubTrigger>
@@ -892,7 +892,7 @@ export function Sidebar({
               <DropdownMenuItem asChild>
                 <Link
                   href="/support/help"
-                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-md"
+                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
                 >
                   <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
                   <span>Help center</span>
@@ -901,7 +901,7 @@ export function Sidebar({
               <DropdownMenuItem asChild>
                 <Link
                   href="/company/blog"
-                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-md"
+                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
                 >
                   <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
                   <span>Release notes</span>
@@ -909,7 +909,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
               >
                 <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
@@ -924,7 +924,7 @@ export function Sidebar({
                   href="/support/terms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
                     <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -938,7 +938,7 @@ export function Sidebar({
                   href="/support/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
                     <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -950,7 +950,7 @@ export function Sidebar({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleOpenReportBug}
-                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-md text-foreground"
+                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
               >
                 <div className="flex items-center gap-2.5">
                   <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1034,7 +1034,7 @@ function SidebarChatItem({
       onTouchEnd={() => setIsPressed(false)}
       onTouchCancel={() => setIsPressed(false)}
       className={cn(
-        "group relative flex items-center justify-between px-2 py-2.5 rounded-xl text-md cursor-pointer transition-all duration-150",
+        "group relative flex items-center justify-between px-2 py-2.5 rounded-xl text-base cursor-pointer transition-all duration-150",
         isSelected
           ? "bg-secondary text-foreground"
           : cn(
@@ -1089,7 +1089,7 @@ function SidebarChatItem({
               )}
             </button>
           </TooltipTrigger>
-          <TooltipContent className="text-md">
+          <TooltipContent className="text-base">
             {chat.starred ? "Unpin" : "Pin"}
           </TooltipContent>
         </Tooltip>
@@ -1111,7 +1111,7 @@ function SidebarChatItem({
                 )}
               </button>
             </TooltipTrigger>
-            <TooltipContent className="text-md">
+            <TooltipContent className="text-base">
               {chat.archived ? "Unarchive" : "Archive"}
             </TooltipContent>
           </Tooltip>
@@ -1129,7 +1129,7 @@ function SidebarChatItem({
               <Trash2 className="w-4 h-4" />
             </button>
           </TooltipTrigger>
-          <TooltipContent className="text-md">Delete</TooltipContent>
+          <TooltipContent className="text-base">Delete</TooltipContent>
         </Tooltip>
       </div>
     </div>
@@ -1161,7 +1161,7 @@ function SidebarChatItem({
           decoding="sync"
         />
       ) : (
-        <span className="text-md font-semibold text-foreground select-none">
+        <span className="text-base font-semibold text-foreground select-none">
           {displayName.charAt(0).toUpperCase()}
         </span>
       )}
@@ -1282,7 +1282,7 @@ function SidebarChatItem({
                   <TooltipContent
                     side="right"
                     sideOffset={15}
-                    className="text-md"
+                    className="text-base"
                   >
                     Open sidebar
                   </TooltipContent>
@@ -1314,7 +1314,7 @@ function SidebarChatItem({
                   <TooltipContent
                     side="right"
                     sideOffset={15}
-                    className="text-md"
+                    className="text-base"
                   >
                     New chat
                   </TooltipContent>
@@ -1339,7 +1339,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="right"
                         sideOffset={15}
-                        className="text-md"
+                        className="text-base"
                       >
                         Search chats
                       </TooltipContent>
@@ -1359,7 +1359,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="right"
                         sideOffset={15}
-                        className="text-md"
+                        className="text-base"
                       >
                         Pinned chats
                       </TooltipContent>
@@ -1379,7 +1379,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="right"
                         sideOffset={15}
-                        className="text-md"
+                        className="text-base"
                       >
                         Archived chats
                       </TooltipContent>
@@ -1401,7 +1401,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="right"
                         sideOffset={15}
-                        className="text-md"
+                        className="text-base"
                       >
                         Create Images
                       </TooltipContent>
@@ -1473,7 +1473,7 @@ function SidebarChatItem({
                     <TooltipContent
                       side="right"
                       sideOffset={15}
-                      className="text-md"
+                      className="text-base"
                     >
                       Download app
                     </TooltipContent>
@@ -1511,7 +1511,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="right"
                         sideOffset={15}
-                        className="text-md"
+                        className="text-base"
                       >
                         {displayName}
                       </TooltipContent>
@@ -1545,7 +1545,7 @@ function SidebarChatItem({
                     <TooltipContent
                       side="right"
                       sideOffset={15}
-                      className="text-md"
+                      className="text-base"
                     >
                       Plans
                     </TooltipContent>
@@ -1576,7 +1576,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="right"
                         sideOffset={15}
-                        className="text-md"
+                        className="text-base"
                       >
                         Help
                       </TooltipContent>
@@ -1614,7 +1614,7 @@ function SidebarChatItem({
                     <TooltipContent
                       side="right"
                       sideOffset={15}
-                      className="text-md"
+                      className="text-base"
                     >
                       Settings
                     </TooltipContent>
@@ -1693,7 +1693,7 @@ function SidebarChatItem({
                     <TooltipContent
                       side="bottom"
                       sideOffset={5}
-                      className="text-md"
+                      className="text-base"
                     >
                       Search chats
                     </TooltipContent>
@@ -1719,7 +1719,7 @@ function SidebarChatItem({
                       <TooltipContent
                         side="bottom"
                         sideOffset={5}
-                        className="text-md"
+                        className="text-base"
                       >
                         Search chats
                       </TooltipContent>
@@ -1788,7 +1788,7 @@ function SidebarChatItem({
                   <TooltipContent
                     side="bottom"
                     sideOffset={5}
-                    className="text-md"
+                    className="text-base"
                   >
                     Close sidebar
                   </TooltipContent>
@@ -1809,7 +1809,7 @@ function SidebarChatItem({
                     placeholder="Search chats"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
-                    className="w-full pl-[40px] pr-3 h-11 text-base bg-secondary rounded-xl text-foreground placeholder:text-muted-foreground focus:placeholder:text-foreground focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 border-0 transition-colors"
+                    className="w-full pl-[40px] pr-3 h-11 text-base bg-secondary rounded-xl text-foreground placeholder:text-foreground focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 border-0 transition-colors"
                   />
                 </div>
               )}
@@ -1825,7 +1825,7 @@ function SidebarChatItem({
                     onToggle();
                   }
                 }}
-                className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl max-xl:bg-secondary/70 hover:bg-secondary text-foreground text-md group cursor-pointer transition-all duration-150"
+                className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl max-xl:bg-secondary/70 hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150"
               >
                 <div className="flex items-center gap-2.5">
                   <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -1840,7 +1840,7 @@ function SidebarChatItem({
                     type="button"
                     onMouseEnter={() => setIsImagesHovered(true)}
                     onMouseLeave={() => setIsImagesHovered(false)}
-                    className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl text-muted-foreground [@media(hover:hover)]:hover:bg-secondary text-md select-none cursor-not-allowed group transition-all duration-150 text-left"
+                    className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl text-muted-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed group transition-all duration-150 text-left"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -1919,7 +1919,7 @@ function SidebarChatItem({
                           }
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-md group cursor-pointer transition-all duration-150",
+                          "w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150",
                           webSearchHoverOpen && "bg-secondary"
                         )}
                       >
@@ -2135,7 +2135,7 @@ function SidebarChatItem({
 
                                   {/* Expanded User Details */}
                                   <div className="flex-1 min-w-0 transition-all duration-200 overflow-hidden whitespace-nowrap">
-                                    <p className="text-md font-medium text-foreground truncate leading-snug">
+                                    <p className="text-base font-medium text-foreground truncate leading-snug">
                                       {displayName}
                                     </p>
                                     <p
@@ -2174,7 +2174,7 @@ function SidebarChatItem({
                                 <TooltipContent
                                   side="top"
                                   sideOffset={5}
-                                  className="text-md"
+                                  className="text-base"
                                 >
                                   Download app
                                 </TooltipContent>
@@ -2221,7 +2221,7 @@ function SidebarChatItem({
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
                             <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                            <span className="text-md font-normal leading-normal whitespace-nowrap">
+                            <span className="text-base font-normal leading-normal whitespace-nowrap">
                               Help
                             </span>
                           </div>
@@ -2253,7 +2253,7 @@ function SidebarChatItem({
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                        <span className="text-md font-normal leading-normal whitespace-nowrap">
+                        <span className="text-base font-normal leading-normal whitespace-nowrap">
                           Plans
                         </span>
                       </div>
@@ -2274,7 +2274,7 @@ function SidebarChatItem({
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                        <span className="text-md font-normal leading-normal whitespace-nowrap">
+                        <span className="text-base font-normal leading-normal whitespace-nowrap">
                           Settings
                         </span>
                       </div>

@@ -11,14 +11,14 @@ export function Footer() {
     <footer className="w-full bg-background text-foreground pt-10 pb-5 select-none">
       <div className="max-w-[1500px] mx-auto px-6 sm:px-8">
         {/* Multi-Tier 5-Column Links Grid matching */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 pb-16 border-b border-border/80">
+        <div className="footer-group grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 pb-16 border-b border-border/80">
           {/* Column 1: Research & Latest Advancements */}
           <div className="space-y-8">
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Research
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/research/overview"
@@ -47,10 +47,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Latest Advancements
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/research/overview"
@@ -98,10 +98,10 @@ export function Footer() {
           {/* Column 2: Products & API Platform */}
           <div className="space-y-8">
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Products
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/c"
@@ -160,10 +160,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 API Platform
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/product/api-docs"
@@ -190,10 +190,10 @@ export function Footer() {
           {/* Column 3: Business & Developers */}
           <div className="space-y-8">
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Business
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/business/enterprise"
@@ -249,10 +249,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Developers
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/product/api-docs"
@@ -287,10 +287,10 @@ export function Footer() {
           {/* Column 4: Company, More & Support */}
           <div className="space-y-8">
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Company
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/company/about"
@@ -330,10 +330,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 More
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/company/blog"
@@ -376,10 +376,10 @@ export function Footer() {
           {/* Column 5: Safety, Terms & Policies */}
           <div className="space-y-8">
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Safety
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/research/safety"
@@ -418,10 +418,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Terms & Policies
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/support/terms"
@@ -442,10 +442,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
                 Support
               </h4>
-              <ul className="footer-group space-y-2.5 text-md">
+              <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
                     href="/support/help"
