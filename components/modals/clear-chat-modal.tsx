@@ -41,11 +41,11 @@ export function ClearChatModal({
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">
-        {/* Top-Right Close Button matching LoginModal */}
+        {/* Top-Right Close Button - only on desktop/large screens */}
         <button
           type="button"
           onClick={() => onOpenChange(false)}
-          className="absolute top-0 right-0 p-3 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
+          className="hidden min-[1025px]:flex absolute top-0 right-0 p-3 rounded-full items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors cursor-pointer"
           aria-label="Close"
         >
           <X className="w-5 h-5" />

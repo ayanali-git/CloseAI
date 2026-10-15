@@ -134,7 +134,7 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[140px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
               >
                 <span className="truncate">{selectedTeam}</span>
                 <AnimatedChevronDown
@@ -147,7 +147,7 @@ export default function OpenRolesPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
-              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5"
+              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5 !bg-card dark:!bg-card !border !border-border/80 dark:!border-none rounded-2xl backdrop-blur-none"
             >
               {TEAMS.map((team) => (
                 <DropdownMenuItem
@@ -156,7 +156,7 @@ export default function OpenRolesPage() {
                     setSelectedTeam(team);
                     setTeamOpen(false);
                   }}
-                  className="flex items-center justify-between cursor-pointer text-sm py-2 px-3 text-foreground"
+                  className="flex items-center justify-between cursor-pointer text-sm py-2 px-3 text-foreground rounded-xl hover:!bg-secondary dark:hover:!bg-secondary focus:!bg-secondary dark:focus:!bg-secondary data-[highlighted]:!bg-secondary dark:data-[highlighted]:!bg-secondary transition-colors"
                 >
                   <span className="truncate">{team}</span>
                   {selectedTeam === team && (
@@ -172,7 +172,7 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[140px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                className="h-12 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
               >
                 <span className="truncate">{selectedLocation}</span>
                 <AnimatedChevronDown
@@ -185,7 +185,7 @@ export default function OpenRolesPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
-              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5"
+              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5 !bg-card dark:!bg-card !border !border-border/80 dark:!border-none rounded-2xl backdrop-blur-none"
             >
               {LOCATIONS.map((loc) => (
                 <DropdownMenuItem
@@ -194,7 +194,7 @@ export default function OpenRolesPage() {
                     setSelectedLocation(loc);
                     setLocOpen(false);
                   }}
-                  className="flex items-center justify-between cursor-pointer text-sm py-2 px-3 text-foreground"
+                  className="flex items-center justify-between cursor-pointer text-sm py-2 px-3 text-foreground rounded-xl hover:!bg-secondary dark:hover:!bg-secondary focus:!bg-secondary dark:focus:!bg-secondary data-[highlighted]:!bg-secondary dark:data-[highlighted]:!bg-secondary transition-colors"
                 >
                   <span className="truncate">{loc}</span>
                   {selectedLocation === loc && (

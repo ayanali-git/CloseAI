@@ -432,12 +432,17 @@ export function Sidebar({
         </Link>
       </DropdownMenuItem>
 
-      <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
-        <div className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-normal cursor-pointer text-muted-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
-          <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+      <DropdownMenuItem
+        asChild
+        onSelect={(e) => e.preventDefault()}
+        className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
+      >
+        <div className="flex items-center gap-2.5 px-3 py-2 text-md rounded-xl font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-muted-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
+          <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
-            label="Download apps"
+            label="Download app"
             comingSoonText="Coming soon"
+            className="!cursor-not-allowed"
           />
         </div>
       </DropdownMenuItem>
@@ -606,12 +611,17 @@ export function Sidebar({
               <span>Release notes</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-pointer select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
-              <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <DropdownMenuItem
+            asChild
+            onSelect={(e) => e.preventDefault()}
+            className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
+          >
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
+              <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
-                label="Download apps"
+                label="Download app"
                 comingSoonText="Coming soon"
+                className="!cursor-not-allowed"
               />
             </div>
           </DropdownMenuItem>
@@ -897,11 +907,15 @@ export function Sidebar({
                   <span>Release notes</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
-                <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+              <DropdownMenuItem
+                onSelect={(e) => e.preventDefault()}
+                className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-md font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+              >
+                <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
                   label="Download app"
                   comingSoonText="Coming soon"
+                  className="!cursor-not-allowed"
                 />
               </DropdownMenuItem>
               <DropdownMenuSeparator />

@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Bell,
-  ChevronLeft,
-  ChevronRight,
   CreditCard,
   Lock,
   Settings2,
@@ -166,6 +164,29 @@ export function SettingsModal({
     setScrolled(false);
   }, [active]);
 
+  // Swipe-to-go-back gesture on mobile (swipe from left to right)
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!isMobile || atRoot) return;
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    // Decisive horizontal swipe from left to right navigates back to root
+    if (deltaX > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+      openSettings("root");
+    }
+  };
+
   // The title bar stays pinned; its bottom border only appears once content
   // has actually scrolled underneath it.
   const showHeaderBorder = isOverflowing && scrolled;
@@ -245,14 +266,15 @@ export function SettingsModal({
               "min-[1025px]:border-r dark:min-[1025px]:border-white/10"
             )}
           >
-            {/* Same header on every screen size: close button top-left, plus a
-                rounded search bar for signed-in users only */}
+            {/* Same header on every screen size: close button top-left on desktop,
+                plus clean "Settings" title on mobile and rounded search bar for signed-in users */}
             <div className="flex flex-col gap-3 px-3 pt-2 pb-3 min-[1025px]:pt-3">
+              {/* Close button - only on desktop/large screens */}
               <button
                 type="button"
                 onClick={() => closeSettings()}
                 className={cn(
-                  "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                  "hidden min-[1025px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
                     ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
                     : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
@@ -263,6 +285,13 @@ export function SettingsModal({
               >
                 <X className="w-5 h-5" />
               </button>
+
+              {/* Title on mobile root menu */}
+              <div className="flex items-center min-[1025px]:hidden px-1 pt-0.5">
+                <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                  Settings
+                </h2>
+              </div>
               {showSearch ? (
                 <div className="group relative">
                   <button
@@ -351,7 +380,7 @@ export function SettingsModal({
                     // has slid out of view, not here.
                     onClick={() => openSettings(item.id)}
                     className={cn(
-                      "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                      "group relative w-full flex items-center gap-2.5  rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                       isGuest
                         ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
                         : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
@@ -366,9 +395,8 @@ export function SettingsModal({
                           cn("text-muted-foreground hover:bg-secondary", darkHover)
                     )}
                   >
-                    <Icon className="w-4 h-4 shrink-0 group-hover:text-foreground" />
-                    <span className="flex-1">{item.label}</span>
-                    <ChevronRight className="w-5 h-5 min-[1025px]:hidden opacity-50 group-hover:text-foreground" />
+                    <Icon className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                    <span className="flex-1 text-foreground">{item.label}</span>
                   </button>
                 );
               })}
@@ -381,6 +409,8 @@ export function SettingsModal({
           </aside>
 
           <section
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             className={cn(
               "absolute inset-0 flex flex-col min-w-0 min-h-0",
               PANE_MOTION,
@@ -394,31 +424,13 @@ export function SettingsModal({
           >
             <div
               className={cn(
-                "shrink-0 flex items-center gap-2 px-3 min-[1025px]:px-6 pt-2 min-[1025px]:pt-4 pb-3 border-b transition-colors duration-200",
+                "shrink-0 flex items-center gap-2 px-4 min-[1025px]:px-6 pt-2 min-[1025px]:pt-4 pb-3 border-b transition-colors duration-200",
                 showHeaderBorder ? "border-border/80 dark:border-white/10" : "border-transparent"
               )}
             >
-              {isMobile ? (
-                <button
-                  type="button"
-                  onClick={() => openSettings("root")}
-                  className={cn(
-                    "w-10 h-10 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
-                    isGuest
-                      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
-                      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
-                    "cursor-pointer transition-colors",
-                    darkHover
-                  )}
-                  aria-label="Back to settings"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-              ) : null}
               <h3 className="text-lg font-semibold tracking-tight text-foreground flex-1">
                 {TITLES[active]}
               </h3>
-              {/* Close button removed on large screens (moved to sidebar top-left) */}
             </div>
             <div
               ref={scrollRef}

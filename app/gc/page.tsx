@@ -262,7 +262,7 @@ function GuestChatContent() {
                   </button>
                 </PopoverTrigger>
                 <PopoverContent
-                  align={isMobileScreen ? "center" : "start"}
+                  align={'start'}
                   sideOffset={isMobileScreen ? 6 : 5}
                   collisionPadding={isMobileScreen ? 16 : 8}
                   animate={false}

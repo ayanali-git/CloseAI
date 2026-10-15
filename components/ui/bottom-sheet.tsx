@@ -322,7 +322,7 @@ export function BottomSheet({
                           TOUCH_GESTURE_CONTENT_CLASS
                         )}
                       >
-                        <div className="h-1.5 w-10 rounded-full bg-muted-foreground/40" />
+                        <div className="h-1 w-10 rounded-full bg-muted-foreground" />
                       </div>
                     )}
                     {title || description ? (
