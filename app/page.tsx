@@ -179,7 +179,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -195,7 +195,7 @@ export default function LandingPage() {
                 placeholder="Ask anything"
                 rows={3}
                 disabled={isSubmitting}
-                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
+                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
               />
               <div className="flex items-center justify-end pt-3 cursor-text">
                 <button
@@ -298,11 +298,11 @@ export default function LandingPage() {
                 {/* Big Card */}
                 <div
                   ref={leftCardImgRef}
-                  className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-sm overflow-hidden bg-black transition-all duration-300"
+                  className="relative w-full aspect-[1280/714] rounded-sm overflow-hidden bg-black transition-all duration-300"
                 >
                   <Image
-                    src="/assets/images/gpt-6.png"
-                    alt="GPT-6 Astra"
+                    src="/assets/images/intelligent-ui.png"
+                    alt="GPT-6 Astra Intelligent UI for everyone"
                     fill
                     className="object-cover"
                     priority
@@ -317,16 +317,16 @@ export default function LandingPage() {
                       getCardColor(hoveredSpotlight, 0)
                     )}
                   >
-                    GPT-6 Astra: A New Generation of Intelligence
+                    GPT-6 Astra Intelligent UI for everyone
                   </h2>
                   <div className="flex items-center gap-2 text-sm xl:text-base text-muted-foreground">
                     <span className="font-semibold text-foreground">
                       Research
                     </span>
                     <span>·</span>
-                    <span>Jan 05, 2026</span>
+                    <span>Oct 7, 2026</span>
                     <span>·</span>
-                    <span>18 min read</span>
+                    <span>12 min read</span>
                   </div>
                 </div>
               </Link>
@@ -343,84 +343,6 @@ export default function LandingPage() {
             >
               {/* Item 1 */}
               <Link
-                href="/product/features"
-                onMouseEnter={() => setHoveredSpotlight(3)}
-                onMouseLeave={() => setHoveredSpotlight(null)}
-                className={cn(
-                  "flex flex-col transition-opacity duration-200",
-                  getOpacity(hoveredSpotlight, 3)
-                )}
-              >
-                <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black">
-                  <Image
-                    src="/assets/images/sol-and-luna.png"
-                    alt="Introducing GPT-6 Sol and Luna"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="mt-3 md:mt-4 flex flex-col gap-5">
-                  <h3
-                    className={cn(
-                      "whitespace-nowrap text-base xl:text-2xl font-semibold leading-snug transition-colors",
-                      getCardColor(hoveredSpotlight, 3)
-                    )}
-                  >
-                    Introducing GPT-6 Sol and Luna
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Product
-                    </span>
-                    <span>·</span>
-                    <span>Apr 20, 2026</span>
-                    <span>·</span>
-                    <span>7 min read</span>
-                  </div>
-                </div>
-              </Link>
-
-              {/* Item 2 */}
-              <Link
-                href="/company/blog"
-                onMouseEnter={() => setHoveredSpotlight(2)}
-                onMouseLeave={() => setHoveredSpotlight(null)}
-                className={cn(
-                  "flex flex-col transition-opacity duration-200",
-                  getOpacity(hoveredSpotlight, 2)
-                )}
-              >
-                <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black">
-                  <Image
-                    src="/assets/images/images-black-2.5.png"
-                    alt="Introducing CloseAI images 2.5"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="mt-3 md:mt-4 flex flex-col gap-5">
-                  <h3
-                    className={cn(
-                      "whitespace-nowrap text-base xl:text-2xl font-semibold leading-snug transition-colors",
-                      getCardColor(hoveredSpotlight, 2)
-                    )}
-                  >
-                    Introducing CloseAI Images 2.5
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Product
-                    </span>
-                    <span>·</span>
-                    <span>Feb 10, 2026</span>
-                    <span>·</span>
-                    <span>8 min read</span>
-                  </div>
-                </div>
-              </Link>
-
-              {/* Item 3 */}
-              <Link
                 ref={item3Ref}
                 href="/product/features"
                 onMouseEnter={() => setHoveredSpotlight(1)}
@@ -432,32 +354,110 @@ export default function LandingPage() {
               >
                 <div
                   ref={rightCardImgRef}
-                  className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-background"
+                  className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300"
                 >
                   <Image
-                    src="/assets/images/system-card.png"
-                    alt="GPT-6 Astra System Cards"
+                    src="/assets/images/dots.png"
+                    alt="Introducing Dots"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <div className="mt-3 md:mt-4 flex flex-col gap-5">
+                <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
                   <h3
                     className={cn(
-                      "whitespace-nowrap text-base xl:text-2xl font-semibold leading-snug transition-colors",
+                      "text-base sm:text-lg xl:text-2xl font-semibold leading-snug transition-colors",
                       getCardColor(hoveredSpotlight, 1)
                     )}
                   >
-                    GPT-6 Astra: System Cards
+                    Introducing Dots
                   </h3>
-                  <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
-                    <span className="font-semibold text-foreground">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground shrink-0">
                       Publication
                     </span>
                     <span>·</span>
-                    <span>Mar 15, 2026</span>
+                    <span className="whitespace-nowrap">Mar 15, 2026</span>
                     <span>·</span>
-                    <span>5 min read</span>
+                    <span className="whitespace-nowrap">5 min read</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Item 2 */}
+              <Link
+                href="/product/features"
+                onMouseEnter={() => setHoveredSpotlight(3)}
+                onMouseLeave={() => setHoveredSpotlight(null)}
+                className={cn(
+                  "flex flex-col transition-opacity duration-200",
+                  getOpacity(hoveredSpotlight, 3)
+                )}
+              >
+                <div className="relative w-full aspect-[2/1] sm:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+                  <Image
+                    src="/assets/images/sol-and-luna.png"
+                    alt="Introducing GPT-6 Sol and Luna"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
+                  <h3
+                    className={cn(
+                      "text-base sm:text-lg xl:text-2xl font-semibold leading-snug transition-colors",
+                      getCardColor(hoveredSpotlight, 3)
+                    )}
+                  >
+                    Introducing GPT-6 Sol and Luna
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground shrink-0">
+                      Product
+                    </span>
+                    <span>·</span>
+                    <span className="whitespace-nowrap">Apr 20, 2026</span>
+                    <span>·</span>
+                    <span className="whitespace-nowrap">7 min read</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Item 3 */}
+              <Link
+                href="/company/blog"
+                onMouseEnter={() => setHoveredSpotlight(2)}
+                onMouseLeave={() => setHoveredSpotlight(null)}
+                className={cn(
+                  "flex flex-col transition-opacity duration-200",
+                  getOpacity(hoveredSpotlight, 2)
+                )}
+              >
+                <div className="relative w-full aspect-[2/1] sm:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+                  <Image
+                    src="/assets/images/images-black-2.5.png"
+                    alt="Introducing CloseAI images 2.5"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
+                  <h3
+                    className={cn(
+                      "text-base sm:text-lg xl:text-2xl font-semibold leading-snug transition-colors",
+                      getCardColor(hoveredSpotlight, 2)
+                    )}
+                  >
+                    Introducing CloseAI Images 2.5
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground shrink-0">
+                      Product
+                    </span>
+                    <span>·</span>
+                    <span className="whitespace-nowrap">Feb 10, 2026</span>
+                    <span>·</span>
+                    <span className="whitespace-nowrap">8 min read</span>
                   </div>
                 </div>
               </Link>

@@ -678,10 +678,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         align="start"
         sideOffset={menuSideOffset}
         alignOffset={menuAlignOffset}
-        avoidCollisions={true}
-        collisionPadding={12}
+        avoidCollisions={false}
         className={cn(
-          "rounded-2xl p-1.5 select-none outline-none",
+          "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
           isGuest
             ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
@@ -879,10 +878,12 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "relative transition-all duration-200",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
+            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
           "focus-within:text-foreground dark:focus-within:text-foreground",
-          "rounded-[25px] sm:rounded-3xl",
+          isExpandedLayout
+            ? "rounded-[25px] sm:rounded-3xl"
+            : "rounded-[25px] sm:rounded-full",
           isExpandedLayout
             ? "pt-2.5 px-2.5 pb-2 sm:p-4"
             : "pt-2.5 px-2.5 pb-2 sm:px-3 sm:py-1.5 sm:min-h-[50px] sm:flex sm:items-center",
@@ -981,7 +982,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 rows={1}
                 disabled={isTyping || isUploading}
                 className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
+                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
                   isFullyExpanded ? "min-h-[280px]" : "min-h-[44px]",
                   isBigContent && "pr-14 sm:pr-16"
                 )}
@@ -1070,7 +1071,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 placeholder={placeholder}
                 rows={1}
                 disabled={isTyping || isUploading}
-                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
+                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
               />
             </div>
 
@@ -1085,7 +1086,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       {showDisclaimer && (
         <div className="text-center pt-2 pb-0.5 px-3 select-none">
           <p className="text-sm text-muted-foreground font-normal tracking-tight leading-tight">
-            CloseAI can make mistakes. Verify important info.
+            CloseAI can make mistakes. Please double-check responses.
           </p>
         </div>
       )}

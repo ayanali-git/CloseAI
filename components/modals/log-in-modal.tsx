@@ -476,7 +476,7 @@ export function LoginModal({
                   onBlur={() => handleBlur("email")}
                   placeholder="Email address"
                   autoComplete="email"
-                  className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
+                  className="w-full h-full bg-transparent text-base placeholder:text-muted-foreground outline-none border-none focus:outline-none focus:ring-0"
                 />
               </div>
               {errors.email && (touched.email || submitted) && (
@@ -525,7 +525,7 @@ export function LoginModal({
                     }}
                     onBlur={() => handleBlur("phone")}
                     placeholder="Phone number"
-                    className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
+                    className="w-full h-full bg-transparent text-base placeholder:text-muted-foreground outline-none border-none focus:outline-none focus:ring-0"
                   />
                 </div>
                 {errors.phone && (touched.phone || submitted) && (
@@ -559,7 +559,7 @@ export function LoginModal({
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="group rounded-full text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Terms of Use</span>
               <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -569,7 +569,7 @@ export function LoginModal({
               href="/support/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex rounded-full items-center gap-0.5 align-baseline text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="group rounded-full text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Privacy Policy</span>
               <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />

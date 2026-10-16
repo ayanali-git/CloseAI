@@ -698,7 +698,7 @@ export function Sidebar({
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-base font-medium truncate text-foreground leading-tight">
+                <p className="text-base font-medium truncate text-foreground leading-tight pt-0.5">
                   {displayName}
                 </p>
                 <p
@@ -795,7 +795,7 @@ export function Sidebar({
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0 text-left">
-                    <p className="text-base font-medium truncate text-foreground leading-tight">
+                    <p className="text-base font-medium truncate text-foreground leading-tight pt-0.5">
                       {displayName}
                     </p>
                     <p
@@ -1227,7 +1227,7 @@ function SidebarChatItem({
             suppressHydrationWarning
             className="absolute left-[14px] z-30 pointer-events-none select-none transition-none"
             style={{
-              bottom: "calc(max(env(safe-area-inset-bottom), 0.5rem) + 4px)",
+              bottom: "calc(max(env(safe-area-inset-bottom), 0.5rem) + 8px)",
             }}
           >
             {renderAvatarContent()}
@@ -1493,7 +1493,7 @@ function SidebarChatItem({
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none",
+                              "w-12 h-12 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none",
                               collapsedAccountMenuOpen && "bg-secondary"
                             )}
                             aria-label="Account menu"
@@ -1809,7 +1809,7 @@ function SidebarChatItem({
                     placeholder="Search chats"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
-                    className="w-full pl-[40px] pr-3 h-11 text-base bg-secondary rounded-xl text-foreground placeholder:text-foreground focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 border-0 transition-colors"
+                    className="w-full pl-[40px] pr-3 h-11 text-base bg-secondary rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 border-0 transition-colors"
                   />
                 </div>
               )}
@@ -2096,7 +2096,7 @@ function SidebarChatItem({
                 </div>
               ) : user ? (
                 /* Authenticated User Profile Row */
-                <div className="w-full h-10 flex items-center justify-between relative">
+                <div className="w-full h-12 flex items-center justify-between relative">
                   <DropdownMenu
                     open={accountMenuOpen}
                     onOpenChange={(open) => {
@@ -2116,7 +2116,7 @@ function SidebarChatItem({
                             )}
                           >
                             {/* Profile Section */}
-                            <div className="h-10 flex items-center justify-start min-w-0 flex-1 gap-2.5 text-left">
+                            <div className="h-full flex items-center justify-start min-w-0 flex-1 gap-2.5 text-left">
                               {showProfileSkeleton ? (
                                 <>
                                   {/* Skeleton: avatar + name + plan */}
@@ -2134,12 +2134,12 @@ function SidebarChatItem({
                                   </div>
 
                                   {/* Expanded User Details */}
-                                  <div className="flex-1 min-w-0 transition-all duration-200 overflow-hidden whitespace-nowrap">
-                                    <p className="text-base font-medium text-foreground truncate leading-snug">
+                                  <div className="flex-1 min-w-0 transition-all duration-200 flex flex-col justify-center py-0.5">
+                                    <p className="text-base font-medium text-foreground truncate leading-tight pt-0.5">
                                       {displayName}
                                     </p>
                                     <p
-                                      className="text-sm text-muted-foreground leading-none truncate"
+                                      className="text-sm text-muted-foreground leading-tight truncate pb-0.5"
                                       suppressHydrationWarning
                                     >
                                       @{username}

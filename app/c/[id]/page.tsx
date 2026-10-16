@@ -493,10 +493,10 @@ export default function ActiveChatPage() {
           if (autoData?.think) {
             setThinkMode(true);
           }
-          if (autoData?.prompt) {
+          if (autoData?.prompt || (autoData?.files && autoData.files.length > 0)) {
             setPendingMessage({
-              content: autoData.prompt,
-              files: [],
+              content: autoData.prompt || "",
+              files: autoData.files || [],
               isThinkMode: !!autoData?.think,
             });
             setIsTyping(true);
@@ -618,7 +618,7 @@ export default function ActiveChatPage() {
           sessionStorage.removeItem(autoKey);
           autoSendTriggeredRef.current = true;
           const autoData = JSON.parse(autoDataStr);
-          if (autoData?.prompt) {
+          if (autoData?.prompt || (autoData?.files && autoData.files.length > 0)) {
             if (autoData?.model) {
               setSelectedModel(autoData.model);
             }
@@ -626,9 +626,10 @@ export default function ActiveChatPage() {
               setThinkMode(true);
             }
             triggerAiGeneration(
-              autoData.prompt,
+              autoData.prompt || "",
               autoData?.model,
-              !!autoData?.think
+              !!autoData?.think,
+              autoData?.files || []
             );
           }
         }
@@ -737,14 +738,20 @@ export default function ActiveChatPage() {
   const triggerAiGeneration = async (
     promptText: string,
     modelOverride?: string,
-    thinkOverride?: boolean
+    thinkOverride?: boolean,
+    filesOverride?: any[]
   ) => {
     const isThink = thinkOverride !== undefined ? thinkOverride : thinkMode;
     if (thinkMode) {
       setThinkMode(false);
     }
+    const currentFiles = filesOverride || [];
     setIsTyping(true);
-    setPendingMessage({ content: promptText, files: [], isThinkMode: isThink });
+    setPendingMessage({
+      content: promptText,
+      files: currentFiles,
+      isThinkMode: isThink,
+    });
     isAutoScrollPinnedRef.current = true;
     setShowScrollBottom(false);
     setTimeout(forceScrollToBottom, 0);
@@ -771,7 +778,7 @@ export default function ActiveChatPage() {
           withChatPreferences({
             chatId,
             message: promptText,
-            files: [],
+            files: currentFiles,
             model: modelOverride || selectedModel,
             think: isThink,
           })

@@ -354,7 +354,7 @@ const CodeBlock = React.memo(
       <div
         ref={containerRef}
         className={cn(
-          "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 text-left isolate overflow-visible",
+          "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 dark:border-none text-left isolate overflow-visible",
           isGuest
             ? "bg-white dark:bg-[#2f2f2f] text-foreground"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm text-foreground"
@@ -611,7 +611,7 @@ export function MessageList({
     () => ({
       table({ children }: any) {
         return (
-          <div className="my-4 w-full overflow-x-auto rounded-xl border border-border/80 bg-card/40 [&_tr:hover_td]:!bg-transparent">
+          <div className="my-4 w-full overflow-x-auto rounded-xl border border-border/80 bg-card [&_tr:hover_td]:!bg-transparent">
             <table className="w-full text-left border-collapse text-sm !m-0">
               {children}
             </table>
@@ -1541,7 +1541,7 @@ export function MessageList({
                                             handleSendChangePrompt(msgId);
                                           }
                                         }}
-                                        className="w-full bg-transparent placeholder:text-foreground text-sm outline-none py-1 font-normal min-w-0"
+                                        className="w-full bg-transparent placeholder:text-muted-foreground text-sm outline-none py-1 font-normal min-w-0"
                                         autoFocus
                                       />
                                       <button
@@ -1696,7 +1696,7 @@ export function MessageList({
                                                     );
                                                   }
                                                 }}
-                                                className="w-full bg-transparent placeholder:text-foreground text-sm outline-none py-1 font-normal min-w-0"
+                                                className="w-full bg-transparent placeholder:text-muted-foreground text-sm outline-none py-1 font-normal min-w-0"
                                                 autoFocus
                                               />
                                               <button

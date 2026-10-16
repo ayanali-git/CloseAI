@@ -47,6 +47,23 @@ interface SiteSearchItem {
 
 const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
+    id: "res-6",
+    category: "Research",
+    title: "GPT-6 Astra: The Next Paradigm in Multistep Deductive Inference",
+    description:
+      "Introducing the next generation of AI with enhanced reasoning capabilities and real-time multimodal processing.",
+    url: "/research/overview",
+    date: "Oct 2026",
+    keywords: [
+      "6",
+      "GPT-6",
+      "astra",
+      "reasoning",
+      "multimodal",
+      "inference",
+    ],
+  },
+  {
     id: "res-56",
     category: "Research",
     title: "GPT-5.6 Frontier Model & Safety",
@@ -126,7 +143,7 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
     id: "prod-codex",
     category: "Products",
-    title: "Codex & Canvas",
+    title: "Codex",
     description:
       "Collaborative interactive workspace and advanced code editor powered by CloseAI for pair programming and document editing.",
     url: "/product/features",
@@ -584,7 +601,7 @@ export function MarketingHeader() {
                     }
                   }}
                   placeholder="Search anything"
-                  className="w-full bg-transparent text-2xl sm:text-4xl font-normal text-foreground placeholder:text-foreground outline-none border-none ring-0 py-2 leading-normal sm:leading-relaxed"
+                  className="w-full bg-transparent text-2xl sm:text-4xl font-normal text-foreground placeholder:text-muted-foreground outline-none border-none ring-0 py-2 leading-normal sm:leading-relaxed"
                 />
                 <button
                   type="submit"
@@ -917,17 +934,14 @@ export function MarketingHeader() {
               {/* Search / Close Toggle in Navigation */}
               <button
                 onMouseEnter={() => {
-                  setHoveredNav("search");
+                  setHoveredNav(null);
                   setActiveMenu(null);
                 }}
                 onClick={() => {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className={cn(
-                  "p-1 pt-2 transition-colors cursor-pointer flex items-center justify-center",
-                  getNavButtonColor("search")
-                )}
+                className="p-1 pt-2 transition-opacity hover:opacity-75 cursor-pointer flex items-center justify-center text-foreground"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={18} />
@@ -1073,10 +1087,13 @@ export function MarketingHeader() {
                       <li>
                         <Link
                           href="/research/safety"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           Safety
+                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1158,10 +1175,10 @@ export function MarketingHeader() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
-                          className="group inline-flex items-center text-2xl font-medium text-foreground transition-colors"
+                          className="group text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>CloseAI Chat</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
+                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1170,7 +1187,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
-                          Codex & Canvas
+                          Codex
                         </Link>
                       </li>
                     </ul>
@@ -1266,20 +1283,23 @@ export function MarketingHeader() {
                       </li>
                       <li>
                         <Link
+                          href="/product/plans"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-2xl font-medium text-foreground transition-colors"
+                        >
+                          Plans
+                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
                           href="/business/enterprise"
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           Customer Stories
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/product/plans"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-2xl font-medium text-foreground transition-colors"
-                        >
-                          Plans
                         </Link>
                       </li>
                       <li>
@@ -1323,7 +1343,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
-                          CloseAI Academy & Guides
+                          Academy & Guides
                         </Link>
                       </li>
                     </ul>
@@ -1370,10 +1390,10 @@ export function MarketingHeader() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
-                          className="group inline-flex items-center text-2xl font-medium text-foreground transition-colors"
+                          className="group text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>Autonomous Agents</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
+                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1388,13 +1408,10 @@ export function MarketingHeader() {
                       <li>
                         <Link
                           href="/product/api-docs"
-                          target="_blank"
-                          rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
-                          className="group inline-flex items-center text-2xl font-medium text-foreground transition-colors"
+                          className="group text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>Apps SDK</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1494,10 +1511,10 @@ export function MarketingHeader() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
-                          className="group inline-flex items-center text-2xl font-medium text-foreground transition-colors"
+                          className="group text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>Careers</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
+                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1707,15 +1724,23 @@ export function MarketingHeader() {
                               label: "Research Residency",
                               href: "/research/overview",
                             },
-                            { label: "Safety", href: "/research/safety" },
+                            { label: "Safety",
+                              href: "/research/safety",
+                              target: "_blank",
+                              rel: "noopener noreferrer",
+                              icon: <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            },
                           ].map((item, i) => (
                             <Link
                               key={i}
                               href={item.href}
+                              target={item.target}
+                              rel={item.rel}
                               onClick={() => setMobileNavOpen(false)}
                               className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                             >
                               {item.label}
+                              {item.icon}
                             </Link>
                           ))}
                         </div>
@@ -1765,17 +1790,17 @@ export function MarketingHeader() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
-                            className="group inline-flex items-center text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
+                            className="group text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>CloseAI Chat</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
+                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                           </Link>
                           <Link
                             href="/product/features"
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
-                            Codex & Canvas
+                            Codex
                           </Link>
                         </div>
                       </div>
@@ -1838,12 +1863,15 @@ export function MarketingHeader() {
                               href: "/business/enterprise",
                             },
                             {
-                              label: "Customer Stories",
-                              href: "/business/enterprise",
-                            },
-                            {
                               label: "Plans",
                               href: "/product/plans",
+                              target: "_blank",
+                              rel: "noopener noreferrer",
+                              icon: <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />,
+                            },
+                            {
+                              label: "Customer Stories",
+                              href: "/business/enterprise",
                             },
                             {
                               label: "Contact Sales",
@@ -1853,10 +1881,13 @@ export function MarketingHeader() {
                             <Link
                               key={i}
                               href={item.href}
+                              target={item.target}
+                              rel={item.rel}
                               onClick={() => setMobileNavOpen(false)}
                               className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                             >
                               {item.label}
+                              {item.icon}
                             </Link>
                           ))}
                         </div>
@@ -1877,7 +1908,7 @@ export function MarketingHeader() {
                               href: "/product/api-docs",
                             },
                             {
-                              label: "CloseAI Academy & Guides",
+                              label: "Academy & Guides",
                               href: "/product/plans",
                             },
                           ].map((adv, i) => (
@@ -1921,10 +1952,10 @@ export function MarketingHeader() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
-                            className="group inline-flex items-center text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
+                            className="group text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>Autonomous Agents</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
+                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                           </Link>
                           <Link
                             href="/research/overview"
@@ -1935,13 +1966,10 @@ export function MarketingHeader() {
                           </Link>
                           <Link
                             href="/product/api-docs"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
-                            className="group inline-flex items-center text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
+                            className="group text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>Apps SDK</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
                           </Link>
                         </div>
                       </div>
@@ -2007,10 +2035,10 @@ export function MarketingHeader() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
-                            className="group inline-flex items-center text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
+                            className="group text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>Careers</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 ml-1.5 transition-colors" />
+                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
                           </Link>
                           <Link
                             href="/company/blog"

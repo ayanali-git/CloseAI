@@ -178,7 +178,7 @@ export default function GuestChatSessionPage() {
       if (autoSendData) {
         sessionStorage.removeItem(autoSendKey);
         const data = JSON.parse(autoSendData);
-        if (data && data.prompt) {
+        if (data && (data.prompt || (data.files && data.files.length > 0))) {
           if (data.model) setSelectedModel(data.model);
           if (data.think !== undefined) setThinkMode(data.think);
 

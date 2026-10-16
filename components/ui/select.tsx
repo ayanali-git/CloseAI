@@ -49,7 +49,7 @@ export function SelectButton({
   const defaultProps = {
     children: (
       <>
-        <span className="flex-1 truncate in-data-placeholder:text-foreground/72">
+        <span className="flex-1 truncate in-data-placeholder:text-muted-foreground/72">
           {children}
         </span>
         <ChevronsUpDownIcon className={selectTriggerIconClassName} />
@@ -95,7 +95,7 @@ export function SelectValue({
   return (
     <SelectPrimitive.Value
       className={cn(
-        "flex-1 truncate data-placeholder:text-foreground",
+        "flex-1 truncate data-placeholder:text-muted-foreground",
         className,
       )}
       data-slot="select-value"

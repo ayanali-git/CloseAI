@@ -381,7 +381,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 150);
                     }}
-                    className="h-12 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                    className="h-12 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
                   >
                     What can you do?
                   </button>

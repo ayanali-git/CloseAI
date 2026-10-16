@@ -500,9 +500,17 @@ function streakFrom(dates: Set<string>) {
 export function ProfilePanel() {
   const { user, loading, refreshSession } = useAuth();
   const { plan, usage, loading: subLoading } = useSubscription();
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const usersubtitle = `@${username} · ${plan}`;
+
+  const initialName = user?.user_metadata?.name || user?.user_metadata?.full_name || "";
+  const initialUsername =
+    user?.user_metadata?.username || user?.email?.split("@")[0] || "";
+
+  const [savedName, setSavedName] = useState(initialName);
+  const [savedUsername, setSavedUsername] = useState(initialUsername);
+
+  const [name, setName] = useState(initialName);
+  const [username, setUsername] = useState(initialUsername);
+
   const [saving, setSaving] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -511,10 +519,13 @@ export function ProfilePanel() {
 
   useEffect(() => {
     if (!user) return;
-    setName(user.user_metadata?.name || user.user_metadata?.full_name || "");
-    setUsername(
-      user.user_metadata?.username || user.email?.split("@")[0] || ""
-    );
+    const currentName = user.user_metadata?.name || user.user_metadata?.full_name || "";
+    const currentUsername =
+      user.user_metadata?.username || user.email?.split("@")[0] || "";
+    setName(currentName);
+    setUsername(currentUsername);
+    setSavedName(currentName);
+    setSavedUsername(currentUsername);
     setAvatarUrl(user.user_metadata?.avatar_url || user.user_metadata?.picture || null);
   }, [user]);
 
@@ -543,25 +554,23 @@ export function ProfilePanel() {
   );
   const streaks = useMemo(() => streakFrom(dateSet), [dateSet]);
 
-  const initialName = user?.user_metadata?.name || user?.user_metadata?.full_name || "";
-  const initialUsername =
-    user?.user_metadata?.username || user?.email?.split("@")[0] || "";
-  const handle = username.trim() || user?.email?.split("@")[0] || "user";
-  const displayName = name.trim() || handle;
+  const activeSavedUsername = (savedUsername || initialUsername || user?.email?.split("@")[0] || "user").trim();
+  const usernameLabel = (savedName || initialName || activeSavedUsername).trim();
   const planLabel =
     plan === "ultra" ? "Ultra Pro" : plan === "pro" ? "Pro" : "Free";
+  const usersubtitle = `@${usernameLabel} · ${planLabel}`;
 
-  const nameChanged = name.trim() !== initialName.trim();
-  const usernameChanged = username.trim() !== initialUsername.trim();
+  const nameChanged = name.trim() !== (savedName || initialName).trim();
+  const usernameChanged = username.trim() !== (savedUsername || initialUsername).trim();
   const hasChanges = nameChanged || usernameChanged;
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !username.trim() || !hasChanges) return;
+    const trimmedName = name.trim();
+    const trimmedUsername = username.trim().replace(/^@/, "");
+    if (!trimmedName || !trimmedUsername || !hasChanges) return;
     setSaving(true);
     try {
-      const trimmedName = name.trim();
-      const trimmedUsername = username.trim();
       if (user?.id) {
         await supabase
           .from("profiles")
@@ -578,6 +587,10 @@ export function ProfilePanel() {
       if (error) {
         toast.error(error.message);
       } else {
+        setSavedName(trimmedName);
+        setSavedUsername(trimmedUsername);
+        setName(trimmedName);
+        setUsername(trimmedUsername);
         await refreshSession();
         toast.success("Profile updated");
       }
@@ -609,7 +622,7 @@ export function ProfilePanel() {
           >
             <AvatarImage src={avatarUrl || undefined} />
             <AvatarFallback className="bg-secondary text-foreground text-xl font-medium">
-              {displayName}
+              {usernameLabel.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <button
@@ -621,7 +634,7 @@ export function ProfilePanel() {
             <Pencil className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
           </button>
         </div>
-        <h3 className="mt-3 text-lg font-medium text-foreground">{displayName}</h3>
+        <h3 className="mt-3 text-lg font-medium text-foreground">{usernameLabel}</h3>
         <p className="text-sm text-muted-foreground">
           {usersubtitle}
         </p>
@@ -683,7 +696,7 @@ export function ProfilePanel() {
         </div>
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Username</span>
-          <span className="text-foreground">@{handle}</span>
+          <span className="text-foreground">@{usernameLabel}</span>
         </div>
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Plan</span>
@@ -708,7 +721,7 @@ export function ProfilePanel() {
             id="profile-username"
             value={username}
             onChange={(e) =>
-              setUsername(e.target.value.replace(/\s+/g, ""))
+              setUsername(e.target.value.replace(/[@\s]/g, ""))
             }
             placeholder="username"
             className="text-muted-foreground focus-within:text-foreground"
@@ -727,7 +740,7 @@ export function ProfilePanel() {
         open={imageOpen}
         onOpenChange={setImageOpen}
         currentAvatarUrl={avatarUrl}
-        userName={displayName}
+        userName={usernameLabel}
         userEmail={user?.email}
         onAvatarUpdated={(newUrl) => setAvatarUrl(newUrl)}
       />

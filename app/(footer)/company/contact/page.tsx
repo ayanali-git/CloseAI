@@ -112,7 +112,7 @@ export default function ContactPage() {
                 value={name}
                 onChange={(e) => handleChange("name", e.target.value, setName)}
                 onBlur={() => handleBlur("name")}
-                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-foreground transition-colors ${
+                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-muted-foreground transition-colors ${
                   errors.name && touched.name
                     ? "border-red-500/80"
                     : "border-border/80"
@@ -139,7 +139,7 @@ export default function ContactPage() {
                   handleChange("email", e.target.value, setEmail)
                 }
                 onBlur={() => handleBlur("email")}
-                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-foreground transition-colors ${
+                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-muted-foreground transition-colors ${
                   errors.email && touched.email
                     ? "border-red-500/80"
                     : "border-border/80"
@@ -168,7 +168,7 @@ export default function ContactPage() {
                 onBlur={() => handleBlur("message")}
                 placeholder="How can we help you?"
                 className={cn(
-                  "w-full min-h-[120px] max-h-[240px] p-3 bg-card rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed placeholder:text-foreground transition-colors resize-y outline-none border",
+                  "w-full min-h-[120px] max-h-[240px] p-3 bg-card rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed placeholder:text-muted-foreground transition-colors resize-y outline-none border",
                   errors.message && touched.message
                     ? "border-red-500/80 focus:border-red-500 focus:ring-1 focus:ring-red-500"
                     : "border-border/80"

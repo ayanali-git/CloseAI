@@ -184,7 +184,7 @@ export default function PublicSharedChatPage() {
   const params = useParams();
   const router = useRouter();
   const chatId = params?.id as string;
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const isGuest = !user;
 
   const [chatTitle, setChatTitle] = useState<string>("");
@@ -197,6 +197,7 @@ export default function PublicSharedChatPage() {
   // ChatInput states
   const [inputValue, setInputValue] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
   const [thinkMode, setThinkMode] = useState(false);
   const [selectedModel, setSelectedModel] = useState("Gemini 3.8 flash");
   const [selectedModelTier, setSelectedModelTier] = useState(4);
@@ -250,11 +251,46 @@ export default function PublicSharedChatPage() {
     isAutoScrollPinnedRef.current = true;
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const trimmed = inputValue.trim();
     if (!trimmed && uploadedFiles.length === 0) return;
 
     if (chatId) {
+      let fileData: any[] = [];
+      if (uploadedFiles.length > 0) {
+        setIsUploading(true);
+        try {
+          for (const file of uploadedFiles) {
+            const formData = new FormData();
+            formData.append("file", file);
+            const uploadHeaders: Record<string, string> = {};
+            let authToken = token;
+            if (!authToken) {
+              const { data: sessionData } = await supabase.auth.getSession();
+              authToken = sessionData?.session?.access_token || null;
+            }
+            if (authToken) {
+              uploadHeaders["Authorization"] = `Bearer ${authToken}`;
+            }
+
+            const uploadRes = await fetch("/api/upload", {
+              method: "POST",
+              headers: uploadHeaders,
+              body: formData,
+            });
+
+            if (uploadRes.ok) {
+              const result = await uploadRes.json();
+              fileData.push(result.file);
+            }
+          }
+        } catch (e) {
+          console.error("Error uploading files:", e);
+        } finally {
+          setIsUploading(false);
+        }
+      }
+
       if (typeof window !== "undefined") {
         sessionStorage.setItem(
           `auto_send_${chatId}`,
@@ -262,6 +298,7 @@ export default function PublicSharedChatPage() {
             prompt: trimmed,
             model: selectedModel,
             think: thinkMode,
+            files: fileData,
           })
         );
       }
@@ -565,10 +602,9 @@ export default function PublicSharedChatPage() {
                     uploadedFiles={uploadedFiles}
                     onFilesChange={setUploadedFiles}
                     isTyping={false}
-                    isUploading={false}
+                    isUploading={isUploading}
                     showDisclaimer={true}
                     placeholder="Continue chatting"
-                    disableAttach={true}
                     selectedModel={selectedModel}
                     onModelChange={setSelectedModel}
                     selectedTier={selectedModelTier}

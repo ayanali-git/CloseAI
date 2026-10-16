@@ -190,9 +190,9 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 3. HERO TEAM PHOTO BANNER (SAME ROUNDED-SM AS MAIN PAGE BIG IMAGE) */}
+      {/* 3. HERO TEAM PHOTO BANNER */}
       <section className="mb-20 sm:mb-28">
-        <div className="relative w-full aspect-[10/9] sm:aspect-[20/9] rounded-sm overflow-hidden bg-black transition-all duration-300">
+        <div className="relative w-full aspect-[10/9] sm:aspect-[20/9] rounded-3xl overflow-hidden bg-black transition-all duration-300">
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
             alt="CloseAI team collaborating in workspace"
@@ -298,7 +298,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 5. EDITORIAL SPOTLIGHTS (SAME ROUNDED-SM AS MAIN PAGE OTHER THREE IMAGES) */}
+      {/* 5. EDITORIAL SPOTLIGHTS */}
       <section className="space-y-16 sm:space-y-24 mb-20 sm:mb-28">
         {/* Spotlight 1: Operate at the frontier */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
@@ -327,7 +327,7 @@ export default function CareersPage() {
             </div>
           </div>
 
-          <div className="order-1 md:order-2 relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+          <div className="order-1 md:order-2 relative w-full aspect-[2/1] md:aspect-[4/3] rounded-3xl overflow-hidden bg-black transition-all duration-300">
             <img
               src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
               alt="Researchers and engineers collaborating in frontier workspace"
@@ -339,7 +339,7 @@ export default function CareersPage() {
 
         {/* Spotlight 2: Learning by doing */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+          <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-3xl overflow-hidden bg-black transition-all duration-300">
             <img
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80"
               alt="Team members collaborating and validating systems"
@@ -431,7 +431,7 @@ export default function CareersPage() {
               )}
             >
               {/* Visual Thumbnail: DiceBear glass avatar identical to main page */}
-              <div className="relative w-full aspect-square rounded-sm overflow-hidden bg-muted/20">
+              <div className="relative w-full aspect-square rounded-3xl overflow-hidden bg-muted/20">
                 <img
                   src={glassAvatar(story.seed)}
                   alt={story.title}
@@ -460,8 +460,8 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 7. BOTTOM CTA SECTION (SAME ROUNDED-SM AS MAIN PAGE BOTTOM BANNER) */}
-      <section className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      {/* 7. BOTTOM CTA SECTION */}
+      <section className="rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-3xl sm:text-5xl font-semibold text-foreground mb-4">
           Shape the future of technology
         </h2>

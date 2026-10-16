@@ -31,7 +31,7 @@ import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
 function NewChatContent() {
-  const { user, loading, isSigningOut } = useAuth();
+  const { user, token, loading, isSigningOut } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryPrompt =
@@ -210,6 +210,36 @@ function NewChatContent() {
     setIsTyping(true);
 
     try {
+      let fileData: any[] = [];
+      if (filesToSend.length > 0) {
+        setIsUploading(true);
+        for (const file of filesToSend) {
+          const formData = new FormData();
+          formData.append("file", file);
+          const uploadHeaders: Record<string, string> = {};
+          let authToken = token;
+          if (!authToken) {
+            const { data: sessionData } = await supabase.auth.getSession();
+            authToken = sessionData?.session?.access_token || null;
+          }
+          if (authToken) {
+            uploadHeaders["Authorization"] = `Bearer ${authToken}`;
+          }
+
+          const uploadRes = await fetch("/api/upload", {
+            method: "POST",
+            headers: uploadHeaders,
+            body: formData,
+          });
+
+          if (uploadRes.ok) {
+            const result = await uploadRes.json();
+            fileData.push(result.file);
+          }
+        }
+        setIsUploading(false);
+      }
+
       const cleanPrompt = messageText.trim().replace(/\s+/g, " ");
       const { data: newChat, error: chatError } = await supabase
         .from("chats")
@@ -236,6 +266,7 @@ function NewChatContent() {
             prompt: messageText,
             model: selectedModel,
             think: thinkMode,
+            files: fileData,
             isTemporary,
             isPersonalized,
           })

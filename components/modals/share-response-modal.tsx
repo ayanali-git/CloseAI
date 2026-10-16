@@ -426,7 +426,7 @@ export function ShareResponseModal({
                 components={{
                   table({ children }: any) {
                     return (
-                      <div className="my-4 w-full overflow-x-auto rounded-xl border border-border/80 bg-card/40 [&_tr:hover_td]:!bg-transparent">
+                      <div className="my-4 w-full overflow-x-auto rounded-xl border border-border/80 bg-card [&_tr:hover_td]:!bg-transparent">
                         <table className="w-full text-left border-collapse text-sm !m-0">
                           {children}
                         </table>

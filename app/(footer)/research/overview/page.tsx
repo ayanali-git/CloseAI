@@ -61,7 +61,7 @@ export default function ResearchOverviewPage() {
           </span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-4">
-          GPT-5.6: The Next Paradigm in Multistep Deductive Inference
+          GPT-6 Astra: The Next Paradigm in Multistep Deductive Inference
         </h2>
         <p className="text-muted-foreground text-base sm:text-base max-w-2xl mb-8 leading-relaxed">
           Delivering 3x faster chain-of-thought verification with 94.2% accuracy on competitive Olympiad mathematics and complex algorithmic engineering benchmarks.

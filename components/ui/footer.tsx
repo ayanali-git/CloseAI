@@ -54,9 +54,12 @@ export function Footer() {
                 <li>
                   <Link
                     href="/research/overview"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     GPT-6 Astra
+                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
                 <li>
@@ -107,7 +110,7 @@ export function Footer() {
                     href="/c"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>CloseAI Chat</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -134,7 +137,7 @@ export function Footer() {
                     href="/business/enterprise"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>CloseAI Enterprise</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -177,7 +180,7 @@ export function Footer() {
                     href="/product/api-docs"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>Docs</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -239,7 +242,7 @@ export function Footer() {
                     href="/company/contact"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>Contact Sales</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -256,12 +259,9 @@ export function Footer() {
                 <li>
                   <Link
                     href="/product/api-docs"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-foreground transition-colors"
                   >
                     <span>Apps SDK</span>
-                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
                 <li>
@@ -275,9 +275,12 @@ export function Footer() {
                 <li>
                   <Link
                     href="/product/api-docs"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>Developer Forum</span>
+                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
               </ul>
@@ -304,7 +307,7 @@ export function Footer() {
                     href="/company/careers"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>Careers</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -347,7 +350,7 @@ export function Footer() {
                     href="/foundation"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     Academy
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -451,7 +454,7 @@ export function Footer() {
                     href="/support/help"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     <span>Help Center</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -470,7 +473,7 @@ export function Footer() {
               href="https://x.com/ayanali_x"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap"
+              className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>X</span>
               <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -479,7 +482,7 @@ export function Footer() {
               href="https://www.reddit.com/user/ayanali-redd1t"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap"
+              className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>Reddit</span>
               <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -488,7 +491,7 @@ export function Footer() {
               href="https://github.com/ayanali-git"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap"
+              className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>GitHub</span>
               <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -497,7 +500,7 @@ export function Footer() {
               href="https://www.linkedin.com/in/ayanali-in"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap"
+              className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>LinkedIn</span>
               <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />

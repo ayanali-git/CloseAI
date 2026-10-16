@@ -193,7 +193,7 @@ export function ReportBugModal({
             placeholder="Share your feedback"
             rows={5}
             className={cn(
-              "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-foreground transition-colors resize-y outline-none border",
+              "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-muted-foreground transition-colors resize-y outline-none border",
               isGuest
                 ? "bg-transparent border-border/80 dark:border-white/10"
                 : "bg-secondary border-border/80 dark:border-none"
@@ -209,7 +209,7 @@ export function ReportBugModal({
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "group inline-flex items-center gap-0.5 align-baseline text-foreground rounded-full px-1.5 py-0.5 -mx-1",
+              "group text-foreground rounded-full",
               "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
@@ -219,7 +219,7 @@ export function ReportBugModal({
             style={{ outline: "none" }}
           >
             <span>Learn more</span>
-            <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+            <AnimatedArrowUpRight className="shrink-0 text-muted-foreground group-hover:text-foreground" />
           </Link>
         </p>
 
