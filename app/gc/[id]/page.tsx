@@ -686,11 +686,11 @@ export default function GuestChatSessionPage() {
           </div>
         </header>
 
-        {/* Full-Height Scrollable Message Stream — smooth scrolling with hidden unnecessary scrollbar */}
+        {/* Full-Height Scrollable Message Stream — smooth scrolling with native OS scrollbar */}
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain"
         >
           <div className="flex-1 flex flex-col min-h-full">
             <div ref={contentRef} className="flex-1 pb-4 sm:pb-6">

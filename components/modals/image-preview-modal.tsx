@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Download, ExternalLink } from "lucide-react";
+import { X } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
@@ -81,7 +81,7 @@ export function ImagePreview({
         <DialogPrimitive.Portal>
           {/* Simple dark backdrop without animation */}
           <DialogPrimitive.Overlay
-            className="fixed inset-0 z-50 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm cursor-default"
+            className="fixed inset-0 z-50 bg-background/80 cursor-default"
           />
 
           {/* Simple content container covering full screen */}
@@ -105,33 +105,17 @@ export function ImagePreview({
               >
                 <div
                   className={cn(
-                    "flex items-center h-11 p-0.5 gap-0.5 rounded-xl transition-colors",
+                    "flex items-center h-11 rounded-sm transition-colors",
                     isGuestMode
                       ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
                       : "bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none"
                   )}
                 >
-                  {src && (
-                    <button
-                      type="button"
-                      onClick={handleDownload}
-                      className={cn(
-                        "group h-full w-10 sm:w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
-                        isGuestMode
-                          ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 text-muted-foreground hover:text-foreground"
-                          : "hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
-                      )}
-                      title="Download image"
-                      aria-label="Download image"
-                    >
-                      <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                    </button>
-                  )}
                   <button
                     type="button"
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "group h-full w-10 sm:w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                      "group h-full w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                       isGuestMode
                         ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 text-muted-foreground hover:text-foreground"
                         : "hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
@@ -148,13 +132,13 @@ export function ImagePreview({
 
             {/* Centered Image Container */}
             <div
-              className="relative inline-block max-w-[85vw] max-h-[85vh] overflow-hidden rounded-2xl"
+              className="relative inline-block max-w-[90vw] max-h-[80vh] overflow-hidden rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={src}
                 alt={alt}
-                className="max-h-[85vh] max-w-[85vw] object-contain rounded-2xl select-none block"
+                className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl select-none block"
               />
             </div>
           </DialogPrimitive.Content>

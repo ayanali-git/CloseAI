@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PlusMenuContent } from "./plus-menu-content";
 import { FilePreviewModal } from "@/components/modals/file-preview-modal";
-import { ImagePreview } from "@/components/ui/image-preview";
+import { ImagePreview } from "@/components/modals/image-preview-modal";
 import { getFileIconInfo } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
@@ -216,6 +216,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const photoInputRef = useRef<HTMLInputElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
   const plusButtonRef = useRef<HTMLButtonElement>(null);
+  const menuContentRef = useRef<HTMLDivElement>(null);
   const [isListening, setIsListening] = useState(false);
   const [plusMenuOpen, setPlusMenuOpen] = useState(false);
   const [isMultiLine, setIsMultiLine] = useState(false);
@@ -387,7 +388,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     return () => clearTimeout(timer);
   }, [isExpandedLayout]);
 
-  // Calculate dynamic menu side (top vs bottom) & offsets so it never cuts off
+  // Calculate dynamic menu side (top vs bottom) & offsets so it opens upward by default when space exists, otherwise dynamically downwards
   const updateMenuPosition = useCallback(() => {
     if (pillRef.current) {
       const pillRect = pillRef.current.getBoundingClientRect();
@@ -397,45 +398,55 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       const spaceAbove = pillRect.top;
       const spaceBelow = window.innerHeight - pillRect.bottom;
 
-      // Estimated dropdown menu height (with safe padding/margins)
-      const ESTIMATED_MENU_HEIGHT = 330;
+      // Measured or estimated menu content height
+      const measuredHeight = menuContentRef.current?.offsetHeight;
+      const estimatedMenuHeight =
+        measuredHeight && measuredHeight > 0
+          ? measuredHeight
+          : isGuest
+          ? 200
+          : isMobile
+          ? 170
+          : 90;
 
-      // If there isn't enough space above to fit the menu comfortably, and there is more space below, open downwards:
-      const shouldOpenBottom = spaceAbove < ESTIMATED_MENU_HEIGHT && spaceBelow > spaceAbove;
-      const nextSide: "top" | "bottom" = shouldOpenBottom ? "bottom" : "top";
+      // Distance from top/bottom of button to top/bottom of pill
+      const distToPillTop = refButton
+        ? Math.max(0, refButton.getBoundingClientRect().top - pillRect.top)
+        : Math.max(0, pillRect.height - 44);
+      const distToPillBottom = refButton
+        ? Math.max(0, pillRect.bottom - refButton.getBoundingClientRect().bottom)
+        : 6;
+
+      // Side offsets from the button:
+      const topOffset = Math.round(distToPillTop + 10);
+      const bottomOffset = Math.round(distToPillBottom + 10);
+
+      // Space needed above the pill: 10px offset above pill + menu height + 12px safe collision padding
+      const neededSpaceAbove = estimatedMenuHeight + 22;
+
+      // Open to the upper side ("top") by default whenever there is enough space above.
+      // Otherwise, dynamically open downwards ("bottom") if there is more space below than above.
+      const hasSpaceAbove = spaceAbove >= neededSpaceAbove;
+      const nextSide: "top" | "bottom" = hasSpaceAbove
+        ? "top"
+        : spaceBelow > spaceAbove
+        ? "bottom"
+        : "top";
+
       setMenuSide(nextSide);
+      setMenuSideOffset(nextSide === "top" ? topOffset : bottomOffset);
 
       if (refButton) {
         const buttonRect = refButton.getBoundingClientRect();
-
-        if (nextSide === "top") {
-          // Distance from top of the button to the top of the chat input pill:
-          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-          // Place the dropdown 10px above the top border of the chat input pill:
-          setMenuSideOffset(Math.round(distToPillTop + 10));
-        } else {
-          // Distance from bottom of the button to the bottom of the chat input pill:
-          const distToPillBottom = Math.max(0, pillRect.bottom - buttonRect.bottom);
-          // Place the dropdown 10px below the bottom border of the chat input pill:
-          setMenuSideOffset(Math.round(distToPillBottom + 10));
-        }
-
-        // Place button tooltips 8px outside the chat input pill:
-        if (nextSide === "top") {
-          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-          setTooltipSideOffset(Math.round(distToPillTop + 8));
-        } else {
-          const distToPillBottom = Math.max(0, pillRect.bottom - buttonRect.bottom);
-          setTooltipSideOffset(Math.round(distToPillBottom + 8));
-        }
-
+        // Place button tooltips 8px outside the chat input pill
+        setTooltipSideOffset(
+          Math.round((nextSide === "top" ? distToPillTop : distToPillBottom) + 8)
+        );
         // Always align cleanly with the left edge of the chat input pill:
         const distToPillLeft = Math.max(0, buttonRect.left - pillRect.left);
         setMenuAlignOffset(-Math.round(distToPillLeft));
       } else {
-        const estimatedDist = Math.max(0, pillRect.height - 44);
-        setMenuSideOffset(Math.round(estimatedDist + 10));
-        setTooltipSideOffset(Math.round(estimatedDist + 8));
+        setTooltipSideOffset(Math.round(distToPillTop + 8));
       }
 
       if (isMobile) {
@@ -445,11 +456,30 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         setMenuWidth(undefined);
       }
     }
-  }, []);
+  }, [isGuest]);
 
   useEffect(() => {
     updateMenuPosition();
   }, [message, isExpandedLayout, uploadedFiles.length, plusMenuOpen, updateMenuPosition]);
+
+  useEffect(() => {
+    if (plusMenuOpen) {
+      updateMenuPosition();
+      const rafId = requestAnimationFrame(() => {
+        updateMenuPosition();
+      });
+      return () => cancelAnimationFrame(rafId);
+    }
+  }, [plusMenuOpen, updateMenuPosition]);
+
+  useEffect(() => {
+    if (!plusMenuOpen || !menuContentRef.current) return;
+    const ro = new ResizeObserver(() => {
+      updateMenuPosition();
+    });
+    ro.observe(menuContentRef.current);
+    return () => ro.disconnect();
+  }, [plusMenuOpen, updateMenuPosition]);
 
   useEffect(() => {
     if (!pillRef.current) return;
@@ -458,9 +488,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     });
     ro.observe(pillRef.current);
     window.addEventListener("resize", updateMenuPosition);
+    window.addEventListener("scroll", updateMenuPosition, true);
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", updateMenuPosition);
+      window.removeEventListener("scroll", updateMenuPosition, true);
     };
   }, [updateMenuPosition]);
 
@@ -701,6 +733,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       </Tooltip>
 
       <DropdownMenuContent
+        ref={menuContentRef}
         isGuest={isGuest}
         onCloseAutoFocus={(e) => {
           e.preventDefault();
@@ -759,48 +792,57 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     </DropdownMenu>
   );
 
+  const renderThinkButton = (isMobile = false) => (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          onClick={(e) => {
+            (e.currentTarget as HTMLElement)?.blur();
+            if (isGuest) {
+              if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think Harder" });
+              else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think Harder" });
+              return;
+            }
+            onThinkModeChange?.(!thinkMode);
+          }}
+          onMouseEnter={updateMenuPosition}
+          onKeyDown={handlePillButtonKeyDown}
+          className={cn(
+            "rounded-full flex items-center justify-center transition-all shrink-0 cursor-pointer select-none",
+            isMobile
+              ? "w-10 h-10"
+              : "h-10 sm:h-11 px-2.5 sm:px-5 gap-1.5 text-[13px] sm:text-[14px] font-medium",
+            pillButtonFocusRing,
+            thinkMode
+              ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
+          )}
+          aria-label="Think harder"
+        >
+          <Brain className="w-5 h-5 transition-colors" />
+          {!isMobile && <span className="hidden sm:inline">Think</span>}
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side={menuSide} sideOffset={tooltipSideOffset} className="text-base">
+        Think harder
+      </TooltipContent>
+    </Tooltip>
+  );
+
+  const renderSmallScreenThinkGroup = () => (
+    <div className="flex sm:hidden items-center">
+      <div className="h-5 w-px bg-border/80 dark:bg-white/10 mx-1 shrink-0 select-none" />
+      {renderThinkButton(true)}
+    </div>
+  );
+
   const renderRightActions = () => (
     <>
-      {/* Think Harder Pill Button */}
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              if (isGuest) {
-                if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think Harder" });
-                else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think Harder" });
-                return;
-              }
-              onThinkModeChange?.(!thinkMode);
-            }}
-            onMouseEnter={updateMenuPosition}
-            onKeyDown={handlePillButtonKeyDown}
-            className={cn(
-              "h-10 sm:h-11 px-2.5 sm:px-5 group/think-btn rounded-full flex items-center justify-center gap-1.5 text-[13px] sm:text-[14px] font-medium select-none transition-all shrink-0 cursor-pointer",
-              pillButtonFocusRing,
-              thinkMode
-                ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
-                : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
-            )}
-            aria-label="Think harder"
-          >
-            <Brain
-              className={cn(
-                "w-5 h-5 transition-colors",
-                thinkMode
-                  ? "text-send-btn-foreground"
-                  : "text-muted-foreground group-hover/think-btn:text-foreground"
-              )}
-            />
-            <span className="hidden sm:inline">Think</span>
-          </button>
-        </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
-          Think harder
-        </TooltipContent>
-      </Tooltip>
+      {/* Think Harder Pill Button (Desktop only) */}
+      <div className="hidden sm:flex items-center">
+        {renderThinkButton(false)}
+      </div>
 
       {/* Dictate / Mic */}
       {dictationEnabled ? (
@@ -857,11 +899,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
               pillButtonFocusRing,
               isTyping
-                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-85 active:scale-95"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-85 active:scale-[0.99]"
                 : isUploading
                 ? "bg-secondary dark:bg-neutral-800 text-foreground cursor-wait opacity-90"
                 : hasContent
-                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-95"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
                 : isGuest
                 ? "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
@@ -1057,6 +1099,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             <div className="flex items-center justify-between w-full pt-1">
               <div className="flex items-center pl-0.5">
                 {renderPlusButton()}
+                {renderSmallScreenThinkGroup()}
               </div>
 
               <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5">
@@ -1069,6 +1112,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           <div className="grid grid-cols-2 gap-y-1.5 w-full sm:flex sm:items-center sm:gap-1 sm:gap-x-2">
             <div className="col-start-1 row-start-2 flex items-center justify-self-start pl-0.5 sm:pl-1 sm:order-1 sm:shrink-0">
               {renderPlusButton()}
+              {renderSmallScreenThinkGroup()}
             </div>
 
             <div

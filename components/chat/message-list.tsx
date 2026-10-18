@@ -74,7 +74,7 @@ import {
   MessageAttachmentItem,
   isImageFile,
 } from "@/components/chat/message-attachment";
-import { ImagePreview } from "@/components/ui/image-preview";
+import { ImagePreview } from "@/components/modals/image-preview-modal";
 import { getFileIconInfo } from "@/lib/file-utils";
 export function TemporaryChatDashedBorder({
   className,
@@ -903,14 +903,15 @@ export function MessageList({
   };
 
   const submitEdit = (msg: Message, index: number) => {
-    if (!editDraftText.trim() || isTyping) return;
-    const newContent = editDraftText.trim();
+    const trimmedDraft = editDraftText.trim();
+    const originalTrimmed = (msg.content || "").trim();
+    if (!trimmedDraft || trimmedDraft === originalTrimmed || isTyping) return;
     setEditingMessageId(null);
     setEditDraftText("");
     if (onEditAndResend) {
-      onEditAndResend(msg.id, newContent, index);
+      onEditAndResend(msg.id, trimmedDraft, index);
     } else if (onEditMessage) {
-      onEditMessage(newContent);
+      onEditMessage(trimmedDraft);
     }
   };
 
@@ -1032,7 +1033,11 @@ export function MessageList({
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
                           e.preventDefault();
-                          submitEdit(msg, index);
+                          const trimmedDraft = editDraftText.trim();
+                          const originalTrimmed = (msg.content || "").trim();
+                          if (trimmedDraft && trimmedDraft !== originalTrimmed && !isTyping) {
+                            submitEdit(msg, index);
+                          }
                         } else if (e.key === "Escape") {
                           cancelEditing();
                         }
@@ -1048,23 +1053,31 @@ export function MessageList({
                       <button
                         type="button"
                         onClick={cancelEditing}
-                        className="px-3.5 py-1.5 rounded-full text-[15px] font-medium bg-bubble-foreground/10 hover:bg-bubble-foreground/20 active:bg-bubble-foreground/25 text-bubble-foreground transition-colors cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full text-[15px] font-normal bg-bubble-foreground/10 hover:bg-bubble-foreground/20 active:bg-bubble-foreground/25 text-bubble-foreground transition-colors cursor-pointer"
                       >
                         Cancel
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => submitEdit(msg, index)}
-                        disabled={!editDraftText.trim()}
-                        className={cn(
-                          "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all",
-                          editDraftText.trim()
-                            ? "bg-bubble-foreground text-bubble hover:opacity-90 active:scale-95 cursor-pointer"
-                            : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed"
-                        )}
-                      >
-                        Send
-                      </button>
+                      {(() => {
+                        const trimmedDraft = editDraftText.trim();
+                        const originalTrimmed = (msg.content || "").trim();
+                        const isUnchangedOrEmpty =
+                          !trimmedDraft || trimmedDraft === originalTrimmed;
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => submitEdit(msg, index)}
+                            disabled={isUnchangedOrEmpty || isTyping}
+                            className={cn(
+                              "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all select-none",
+                              !isUnchangedOrEmpty && !isTyping
+                                ? "bg-bubble-foreground text-bubble hover:opacity-90 active:scale-[0.99] cursor-pointer"
+                                : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed"
+                            )}
+                          >
+                            Send
+                          </button>
+                        );
+                      })()}
                     </div>
                     {isTemporary && <TemporaryChatDashedBorder />}
                   </div>
@@ -1555,7 +1568,7 @@ export function MessageList({
                                         className={cn(
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                           (changePrompts[msgId] || "").trim()
-                                            ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-95"
+                                            ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
                                             : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
@@ -1714,7 +1727,7 @@ export function MessageList({
                                                   (
                                                     changePrompts[msgId] || ""
                                                   ).trim()
-                                                    ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-95"
+                                                    ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
                                                     : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"

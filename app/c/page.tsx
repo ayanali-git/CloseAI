@@ -337,26 +337,28 @@ function NewChatContent() {
           {/* Left Header Area: Sidebar toggle on small screens */}
           <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
             {!sidebarOpen && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() => handleToggleSidebar()}
-                    className="xl:hidden w-12 h-12 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                    aria-label="Open sidebar"
+              <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => handleToggleSidebar()}
+                      className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="Open sidebar"
+                    >
+                      <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    align="start"
+                    sideOffset={6}
+                    className="text-base"
                   >
-                    <PanelRight className="w-4 h-4 shrink-0" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="bottom"
-                  align="start"
-                  sideOffset={6}
-                  className="text-base"
-                >
-                  Open sidebar
-                </TooltipContent>
-              </Tooltip>
+                    Open sidebar
+                  </TooltipContent>
+                </Tooltip>
+              </div>
             )}
           </div>
 
@@ -456,8 +458,8 @@ function NewChatContent() {
           </div>
         </header>
 
-        {/* Content Stream (Scrollbar hidden) */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {/* Content Stream */}
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll">
           {isAutoCreating ||
           (queryPrompt && !autoCreateTriggeredRef.current) ? (
             <div className="flex-1 w-full h-full flex flex-col items-center justify-center space-y-3 pb-12 text-muted-foreground">

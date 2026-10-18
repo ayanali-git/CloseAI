@@ -716,7 +716,7 @@ export function FilePreviewViewer({
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                  className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
                   title="Download file"
                   aria-label="Download file"
                 >
@@ -726,7 +726,7 @@ export function FilePreviewViewer({
               <button
                 type="button"
                 onClick={onClose}
-                className="group h-full w-10 sm:w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
                 title="Close preview"
                 aria-label="Close preview"
               >
@@ -760,7 +760,7 @@ export function FilePreviewViewer({
             {isPdf && fileUrl && (
               <div className="w-full h-[65vh] max-w-5xl rounded-2xl overflow-hidden border border-border/80 dark:border-none bg-card my-2">
                 <iframe
-                  src={fileUrl}
+                  src={fileUrl.includes("#") ? fileUrl : `${fileUrl}#toolbar=1`}
                   title={fileName}
                   className="w-full h-full border-0"
                 />

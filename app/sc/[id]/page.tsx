@@ -551,7 +551,7 @@ export default function PublicSharedChatPage() {
         ref={scrollContainerRef}
         data-chat-scroll="true"
         onScroll={handleScroll}
-        className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain"
       >
         {/* Message Stream & Content */}
         <div className="flex-1 flex flex-col min-h-full">
