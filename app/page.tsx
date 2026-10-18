@@ -313,15 +313,15 @@ export default function LandingPage() {
                 <div className="mt-4 flex flex-col gap-5 max-w-3xl">
                   <h2
                     className={cn(
-                      "2xl:whitespace-nowrap text-4xl sm:text-5xl font-bold tracking-tight leading-snug transition-colors",
+                      "2xl:whitespace-nowrap text-4xl sm:text-5xl font-semibold tracking-tight leading-snug transition-colors",
                       getCardColor(hoveredSpotlight, 0)
                     )}
                   >
                     GPT-6 Astra Intelligent UI for everyone
                   </h2>
                   <div className="flex items-center gap-2 text-sm xl:text-base text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Research
+                    <span className="font-medium text-foreground">
+                      Product
                     </span>
                     <span>·</span>
                     <span>Oct 7, 2026</span>
@@ -366,20 +366,20 @@ export default function LandingPage() {
                 <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
                   <h3
                     className={cn(
-                      "text-base sm:text-lg xl:text-2xl font-semibold leading-snug transition-colors",
+                      "text-base sm:text-lg xl:text-xl font-semibold leading-snug transition-colors",
                       getCardColor(hoveredSpotlight, 1)
                     )}
                   >
                     Introducing Dots
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground shrink-0">
-                      Publication
+                    <span className="font-medium text-foreground shrink-0">
+                      Product
                     </span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">Mar 15, 2026</span>
+                    <span className="whitespace-nowrap">Sep 19, 2026</span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">5 min read</span>
+                    <span className="whitespace-nowrap">8 min read</span>
                   </div>
                 </div>
               </Link>
@@ -394,7 +394,7 @@ export default function LandingPage() {
                   getOpacity(hoveredSpotlight, 3)
                 )}
               >
-                <div className="relative w-full aspect-[2/1] sm:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
                   <Image
                     src="/assets/images/sol-and-luna.png"
                     alt="Introducing GPT-6 Sol and Luna"
@@ -405,15 +405,15 @@ export default function LandingPage() {
                 <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
                   <h3
                     className={cn(
-                      "text-base sm:text-lg xl:text-2xl font-semibold leading-snug transition-colors",
+                      "text-base sm:text-lg xl:text-xl font-semibold leading-snug transition-colors",
                       getCardColor(hoveredSpotlight, 3)
                     )}
                   >
                     Introducing GPT-6 Sol and Luna
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground shrink-0">
-                      Product
+                    <span className="font-medium text-foreground shrink-0">
+                      Research
                     </span>
                     <span>·</span>
                     <span className="whitespace-nowrap">Apr 20, 2026</span>
@@ -433,10 +433,10 @@ export default function LandingPage() {
                   getOpacity(hoveredSpotlight, 2)
                 )}
               >
-                <div className="relative w-full aspect-[2/1] sm:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
                   <Image
-                    src="/assets/images/images-black-2.5.png"
-                    alt="Introducing CloseAI images 2.5"
+                    src="/assets/images/racing-x-closeai.png"
+                    alt="Chip ganassi Racing × CloseAI"
                     fill
                     className="object-cover"
                   />
@@ -444,20 +444,20 @@ export default function LandingPage() {
                 <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
                   <h3
                     className={cn(
-                      "text-base sm:text-lg xl:text-2xl font-semibold leading-snug transition-colors",
+                      "text-base sm:text-lg xl:text-xl font-semibold leading-snug transition-colors",
                       getCardColor(hoveredSpotlight, 2)
                     )}
                   >
-                    Introducing CloseAI Images 2.5
+                    Chip ganassi Racing × CloseAI
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground shrink-0">
-                      Product
+                    <span className="font-medium text-foreground shrink-0">
+                      Publication
                     </span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">Feb 10, 2026</span>
+                    <span className="whitespace-nowrap">Oct 7, 2026</span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">8 min read</span>
+                    <span className="whitespace-nowrap">3 min read</span>
                   </div>
                 </div>
               </Link>

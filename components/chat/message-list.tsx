@@ -354,10 +354,10 @@ const CodeBlock = React.memo(
       <div
         ref={containerRef}
         className={cn(
-          "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 dark:border-none text-left isolate overflow-visible",
+          "relative my-4 rounded-[25px] sm:rounded-3xl border text-left isolate overflow-visible",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] text-foreground"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm text-foreground"
+            ? "bg-white dark:bg-[#2f2f2f] text-foreground border-border/80 dark:border-white/10"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm text-foreground border-border/80"
         )}
       >
         <div
@@ -1240,7 +1240,7 @@ export function MessageList({
           return (
             <div key={msgId} id={mId} className="w-full group space-y-2">
               <div className="w-full space-y-3">
-                {/* Collapsed Thought for Xs if this message was generated in think mode */}
+                {/* Collapsed Thought for Xs if this message was generated in think harder */}
                 {msg.metadata?.think && (
                   <div className="pt-1 pb-1">
                     <ThinkReasoning

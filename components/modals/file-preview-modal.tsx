@@ -223,32 +223,10 @@ export function FilePreviewModal({
       >
         <div className="flex flex-col h-full -mx-6 -mt-2 -mb-6">
           {/* Mobile BottomSheet Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border/80 select-none bg-card shrink-0">
-            <span className="text-sm font-semibold truncate max-w-[240px] text-foreground">
+          <div className="flex items-center px-4 py-3 border-b border-border/80 dark:border-white/10 select-none bg-card shrink-0">
+            <span className="text-sm font-semibold truncate text-foreground">
               {fileName}
             </span>
-            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
-              {fileUrl && (
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className="group h-full w-10 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
-                  title="Download file"
-                  aria-label="Download file"
-                >
-                  <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => onOpenChange(false)}
-                className="group h-full w-10 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
-                title="Close preview"
-                aria-label="Close preview"
-              >
-                <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-              </button>
-            </div>
           </div>
           {/* Content Viewer Area */}
           <div className="flex-1 w-full h-full overflow-hidden p-0 flex flex-col min-h-0">

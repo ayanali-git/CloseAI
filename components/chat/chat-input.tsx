@@ -220,6 +220,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const [plusMenuOpen, setPlusMenuOpen] = useState(false);
   const [isMultiLine, setIsMultiLine] = useState(false);
   const [isFullyExpanded, setIsFullyExpanded] = useState(false);
+  const [menuSide, setMenuSide] = useState<"top" | "bottom">("top");
   const [menuSideOffset, setMenuSideOffset] = useState(14);
   const [menuAlignOffset, setMenuAlignOffset] = useState(0);
   const [menuWidth, setMenuWidth] = useState<number | undefined>(undefined);
@@ -386,21 +387,47 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     return () => clearTimeout(timer);
   }, [isExpandedLayout]);
 
-  // Calculate dynamic menu & tooltip sideOffsets so they are ALWAYS positioned above the chat input pill
+  // Calculate dynamic menu side (top vs bottom) & offsets so it never cuts off
   const updateMenuPosition = useCallback(() => {
     if (pillRef.current) {
       const pillRect = pillRef.current.getBoundingClientRect();
       const isMobile = window.innerWidth < 1025;
 
       const refButton = plusButtonRef.current;
+      const spaceAbove = pillRect.top;
+      const spaceBelow = window.innerHeight - pillRect.bottom;
+
+      // Estimated dropdown menu height (with safe padding/margins)
+      const ESTIMATED_MENU_HEIGHT = 330;
+
+      // If there isn't enough space above to fit the menu comfortably, and there is more space below, open downwards:
+      const shouldOpenBottom = spaceAbove < ESTIMATED_MENU_HEIGHT && spaceBelow > spaceAbove;
+      const nextSide: "top" | "bottom" = shouldOpenBottom ? "bottom" : "top";
+      setMenuSide(nextSide);
+
       if (refButton) {
         const buttonRect = refButton.getBoundingClientRect();
-        // Distance from top of the button to the top of the chat input pill:
-        const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-        // Place the dropdown 10px above the top border of the chat input pill:
-        setMenuSideOffset(Math.round(distToPillTop + 10));
-        // Place button tooltips 8px above the top border of the chat input pill:
-        setTooltipSideOffset(Math.round(distToPillTop + 8));
+
+        if (nextSide === "top") {
+          // Distance from top of the button to the top of the chat input pill:
+          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
+          // Place the dropdown 10px above the top border of the chat input pill:
+          setMenuSideOffset(Math.round(distToPillTop + 10));
+        } else {
+          // Distance from bottom of the button to the bottom of the chat input pill:
+          const distToPillBottom = Math.max(0, pillRect.bottom - buttonRect.bottom);
+          // Place the dropdown 10px below the bottom border of the chat input pill:
+          setMenuSideOffset(Math.round(distToPillBottom + 10));
+        }
+
+        // Place button tooltips 8px outside the chat input pill:
+        if (nextSide === "top") {
+          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
+          setTooltipSideOffset(Math.round(distToPillTop + 8));
+        } else {
+          const distToPillBottom = Math.max(0, pillRect.bottom - buttonRect.bottom);
+          setTooltipSideOffset(Math.round(distToPillBottom + 8));
+        }
 
         // Always align cleanly with the left edge of the chat input pill:
         const distToPillLeft = Math.max(0, buttonRect.left - pillRect.left);
@@ -633,6 +660,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               ref={plusButtonRef}
               type="button"
               disabled={isTyping || isUploading}
+              onPointerDown={() => {
+                updateMenuPosition();
+              }}
               onMouseEnter={() => {
                 updateMenuPosition();
                 if (plusMenuOpen) return;
@@ -646,6 +676,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 setIsPlusTooltipOpen(false);
               }}
               onClick={(e) => {
+                updateMenuPosition();
                 if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
                 setIsPlusTooltipOpen(false);
                 (e.currentTarget as HTMLElement)?.blur();
@@ -664,7 +695,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side={menuSide} sideOffset={tooltipSideOffset} className="text-base">
           Attach and more
         </TooltipContent>
       </Tooltip>
@@ -674,11 +705,12 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         onCloseAutoFocus={(e) => {
           e.preventDefault();
         }}
-        side="top"
+        side={menuSide}
         align="start"
         sideOffset={menuSideOffset}
         alignOffset={menuAlignOffset}
-        avoidCollisions={false}
+        avoidCollisions={true}
+        collisionPadding={{ top: 12, bottom: 12, left: 12, right: 12 }}
         className={cn(
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
           isGuest
@@ -729,7 +761,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
 
   const renderRightActions = () => (
     <>
-      {/* Think Mode Pill Button */}
+      {/* Think Harder Pill Button */}
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -737,8 +769,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onClick={(e) => {
               (e.currentTarget as HTMLElement)?.blur();
               if (isGuest) {
-                if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think Mode" });
-                else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think Mode" });
+                if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think Harder" });
+                else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think Harder" });
                 return;
               }
               onThinkModeChange?.(!thinkMode);
@@ -752,7 +784,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
             )}
-            aria-label="Think mode"
+            aria-label="Think harder"
           >
             <Brain
               className={cn(
@@ -766,7 +798,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           </button>
         </TooltipTrigger>
         <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
-          Think mode
+          Think harder
         </TooltipContent>
       </Tooltip>
 
@@ -837,7 +869,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             aria-label={isTyping ? "Stop generating" : "Send message"}
           >
             {isTyping ? (
-              <Square className="w-4 h-4 fill-current" />
+              <Square className="w-5 h-5 fill-current" />
             ) : isUploading ? (
               <Loader className="w-5 h-5 animate-spin text-foreground" />
             ) : (
@@ -846,7 +878,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           </button>
         </TooltipTrigger>
         <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
-          {isTyping ? "Stop generating" : isUploading ? "Uploading files..." : "Send message"}
+          {isTyping ? "Stop generating" : isUploading ? "Uploading files" : "Send message"}
         </TooltipContent>
       </Tooltip>
     </>
@@ -878,8 +910,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "relative transition-all duration-200",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
             ? "rounded-[25px] sm:rounded-3xl"

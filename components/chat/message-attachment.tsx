@@ -69,7 +69,7 @@ export function MessageAttachmentItem({
     const imageContent = (
       <div
         className={cn(
-          "relative flex leading-[0] overflow-clip rounded-[25px] sm:rounded-3xl bg-[#e8e8e8] dark:bg-[#383838] border border-border/80 max-w-[100px] sm:max-w-[200px] select-none",
+          "relative flex leading-[0] overflow-clip rounded-xl sm:rounded-3xl bg-[#e8e8e8] dark:bg-[#383838] border border-border/80 max-w-[100px] sm:max-w-[200px] select-none",
           interactive && "cursor-pointer hover:opacity-90 transition-opacity"
         )}
       >
