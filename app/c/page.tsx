@@ -337,7 +337,7 @@ function NewChatContent() {
           {/* Left Header Area: Sidebar toggle on small screens */}
           <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
             {!sidebarOpen && (
-              <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+              <div className="xl:hidden flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
@@ -364,7 +364,7 @@ function NewChatContent() {
 
           {/* Right Header Area: Temporary Chat Controls */}
           <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-            <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {isTemporary && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -381,7 +381,7 @@ function NewChatContent() {
                   <DropdownMenuContent
                     align="end"
                     sideOffset={6}
-                    className="w-72 sm:w-80 rounded-xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 z-50"
+                    className="w-72 sm:w-80 rounded-xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
                   >
                     <DropdownMenuItem
                       onClick={() => handleSetPersonalized(true)}
@@ -510,38 +510,43 @@ function NewChatContent() {
                 For safety, we may keep a copy of this chat for up to 30 days.
               </p>
             ) : (
-              <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight whitespace-normal sm:whitespace-nowrap">
-                CloseAI is AI. By using, you agree to our{" "}
-                <Link
-                  href="/support/terms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-foreground transition-colors whitespace-nowrap"
-                >
-                  <span>Terms</span>
-                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-                </Link>{" "}
-                &amp;{" "}
-                <Link
-                  href="/support/privacy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-foreground transition-colors whitespace-nowrap"
-                >
-                  <span>Privacy</span>
-                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-                </Link>
-                . Chats may be reviewed and used to improve AI models.{" "}
-                <Link
-                  href="/support/help"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-foreground transition-colors whitespace-nowrap"
-                >
-                  <span>Learn more</span>
-                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-                </Link>
-              </p>
+              <div className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight flex flex-col items-center justify-center gap-0.5">
+                <div>
+                  CloseAI is AI. By using it, you agree to our{" "}
+                  <Link
+                    href="/support/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group text-foreground transition-colors whitespace-nowrap"
+                  >
+                    <span>Terms</span>
+                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/support/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group text-foreground transition-colors whitespace-nowrap"
+                  >
+                    <span>Privacy</span>
+                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  </Link>
+                  .
+                </div>
+                <div>
+                  Chats may be reviewed and used to improve AI models.{" "}
+                  <Link
+                    href="/support/help"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group text-foreground transition-colors whitespace-nowrap"
+                  >
+                    <span>Learn more</span>
+                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  </Link>
+                </div>
+              </div>
             )}
           </div>
         </div>

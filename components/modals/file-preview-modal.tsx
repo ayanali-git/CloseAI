@@ -41,15 +41,17 @@ export function FilePreviewModal({
 
   const [fileUrl, setFileUrl] = useState<string>("");
   const [textContent, setTextContent] = useState<string | null>(null);
-  const [isLoadingText, setIsLoadingText] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!open || !file) {
       setFileUrl("");
       setTextContent(null);
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(true);
     let createdBlobUrl = "";
     const resolvedUrl =
       file instanceof File
@@ -60,27 +62,41 @@ export function FilePreviewModal({
     // If text or code file, attempt to read content
     if (isTextOrCodeFile(file)) {
       if (file instanceof File) {
-        setIsLoadingText(true);
         const reader = new FileReader();
         reader.onload = (e) => {
           setTextContent((e.target?.result as string) || "");
-          setIsLoadingText(false);
+          setIsLoading(false);
         };
-        reader.onerror = () => setIsLoadingText(false);
+        reader.onerror = () => setIsLoading(false);
         reader.readAsText(file);
+      } else if (
+        typeof file === "object" &&
+        file !== null &&
+        "content" in file &&
+        typeof (file as any).content === "string"
+      ) {
+        setTextContent((file as any).content);
+        setIsLoading(false);
       } else if (resolvedUrl && resolvedUrl.startsWith("http")) {
-        setIsLoadingText(true);
         fetch(resolvedUrl)
           .then((res) => (res.ok ? res.text() : Promise.reject()))
           .then((text) => {
             setTextContent(text);
-            setIsLoadingText(false);
+            setIsLoading(false);
           })
           .catch(() => {
-            setIsLoadingText(false);
+            setIsLoading(false);
             setTextContent(null);
           });
+      } else {
+        setTextContent(null);
+        setIsLoading(false);
       }
+    } else {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
+      return () => clearTimeout(timer);
     }
 
     return () => {
@@ -100,12 +116,6 @@ export function FilePreviewModal({
 
   const previewContent = (
     <div className="w-full h-full flex-1 flex flex-col items-center justify-center">
-      {!fileUrl && (
-        <div className="flex-1 flex flex-col items-center justify-center gap-3 text-muted-foreground py-16">
-          <Loader className="w-8 h-8 animate-spin text-muted-foreground" />
-        </div>
-      )}
-
       {isImg && fileUrl && (
         <div className="w-full h-full flex-1 flex items-center justify-center p-0 overflow-hidden bg-black/5 dark:bg-black/20">
           <img
@@ -128,11 +138,7 @@ export function FilePreviewModal({
 
       {isText && (
         <div className="w-full h-full flex-1 flex flex-col overflow-y-auto bg-secondary/15 p-5 sm:p-6 font-mono text-xs sm:text-sm text-foreground whitespace-pre select-text">
-          {isLoadingText ? (
-            <div className="flex-1 flex flex-col items-center justify-center gap-3 text-muted-foreground">
-              <Loader className="w-7 h-7 animate-spin text-muted-foreground" />
-            </div>
-          ) : textContent !== null ? (
+          {textContent !== null ? (
             <code>{textContent}</code>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center gap-3 text-muted-foreground">
@@ -189,7 +195,7 @@ export function FilePreviewModal({
 
         {/* Simple content container covering full screen */}
         <DialogPrimitive.Content
-          className="fixed inset-0 z-50 w-screen h-screen p-0 bg-transparent border-0 outline-none focus:outline-none flex items-center justify-center pointer-events-auto cursor-default"
+          className="fixed inset-0 z-50 w-full h-[100dvh] px-3 sm:px-6 pt-14 pb-[max(env(safe-area-inset-bottom,0px),1rem)] bg-transparent border-0 outline-none focus:outline-none flex items-center justify-center pointer-events-auto cursor-default"
           onClick={() => onOpenChange(false)}
         >
           <DialogPrimitive.Title className="sr-only">
@@ -233,20 +239,24 @@ export function FilePreviewModal({
           </header>
 
           {/* Centered Content Container */}
-          {isImg && fileUrl ? (
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center gap-3 text-muted-foreground py-16">
+              <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
+            </div>
+          ) : isImg && fileUrl ? (
             <div
-              className="relative inline-block max-w-[100vw] max-h-[75vh] overflow-hidden rounded-2xl"
+              className="relative inline-block max-w-full max-h-[75dvh] overflow-hidden rounded-2xl border border-border/80 dark:border-none"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={fileUrl}
                 alt={fileName}
-                className="max-h-[75vh] max-w-[100vw] object-contain rounded-2xl select-none block"
+                className="max-h-[75dvh] max-w-full object-contain select-none block"
               />
             </div>
           ) : (
             <div
-              className="relative w-[100vw] max-w-[100vw] h-[75vh] max-h-[75vh] flex flex-col bg-background/95 dark:bg-[#1e1e1e]/95 rounded-2xl overflow-hidden"
+              className="relative w-full max-w-5xl h-[75dvh] max-h-[75dvh] flex flex-col bg-background/95 dark:bg-[#1e1e1e]/95 rounded-2xl border border-border/80 dark:border-none overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex-1 w-full h-full overflow-hidden p-0 flex flex-col min-h-0">

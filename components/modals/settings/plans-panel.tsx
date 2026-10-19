@@ -134,7 +134,7 @@ export function PlansPanel() {
           type="button"
           onClick={handleManage}
           disabled={loading === "manage"}
-          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-70 transition-all select-none"
+          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 transition-all select-none"
         >
           {loading === "manage" ? (
             <Loader className="w-4 h-4 animate-spin inline" />
@@ -210,7 +210,7 @@ export function PlansPanel() {
                   type="button"
                   onClick={() => handleUpgrade(plan.id)}
                   disabled={loading !== null}
-                  className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-70 flex items-center justify-center transition-all select-none"
+                  className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 flex items-center justify-center transition-all select-none"
                 >
                   {loading === plan.id ? (
                     <Loader className="w-4 h-4 animate-spin" />

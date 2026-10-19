@@ -730,9 +730,9 @@ export function NativeDropdownMenu<T extends string = string>({
               !isScrollable && "touch-none overscroll-none",
               isGuest
                 ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
-                  "!bg-white dark:!bg-[#2f2f2f] border border-border/80 dark:border-white/10 lg:translate-y-px backdrop-blur-none"
+                  "!bg-white dark:!bg-[#2f2f2f] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
                 :
-                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 lg:translate-y-px",
+                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none lg:translate-y-px",
               contentClassName
             )}
           >

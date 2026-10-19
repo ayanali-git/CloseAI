@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { AlertTriangle, X, Loader } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 export interface LogoutModalProps {
@@ -15,6 +16,8 @@ export interface LogoutModalProps {
   userEmail?: string;
   userName?: string;
   userAvatar?: string;
+  /** Force guest or authenticated styling variant. If omitted, deduced from auth state */
+  isGuest?: boolean;
   /** When true, always render as centered modal (not bottom sheet on mobile) */
   forceModal?: boolean;
   /** "default" keeps the original /c pages design; "auth" matches login/signup modals for the header */
@@ -32,13 +35,20 @@ export function LogoutModal({
   userAvatar,
   forceModal,
   variant = "default",
+  isGuest: isGuestProp,
 }: LogoutModalProps) {
   const isAuthVariant = variant === "auth";
+  const { user, loading: authLoading } = useAuth();
+  const isGuest =
+    isGuestProp !== undefined
+      ? isGuestProp
+      : (!authLoading && !user && !userEmail);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const hasUser = Boolean(
     (userName && userName !== "User") ||
-      (userEmail && userEmail !== "Not signed in")
+      (userEmail && userEmail !== "Not signed in") ||
+      user
   );
 
   useEffect(() => {
@@ -64,11 +74,12 @@ export function LogoutModal({
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
       maxSnap={0.96}
-      className={
-        isAuthVariant
-          ? "max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
-          : "max-w-[440px]"
-      }
+      className={cn(
+        "max-w-[440px]",
+        isGuest
+          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+          : "bg-card border border-border/80 dark:border-none"
+      )}
       forceModal={forceModal}
     >
       {isAuthVariant ? (
@@ -79,7 +90,14 @@ export function LogoutModal({
             type="button"
             disabled={isLoggingOut}
             onClick={() => onOpenChange(false)}
-            className="hidden min-[1025px]:flex absolute top-0 right-0 p-3 rounded-full items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-50 disabled:pointer-events-none transition-colors cursor-pointer"
+            className={cn(
+              "hidden min-[1025px]:flex absolute top-0 right-0 p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 disabled:opacity-50 disabled:pointer-events-none",
+              "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+              isGuest
+                ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+            )}
+            style={{ outline: "none" }}
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -133,7 +151,12 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-70 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] transition-all cursor-pointer select-none gap-2"
+              className={cn(
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 transition-all cursor-pointer select-none gap-2",
+                isGuest
+                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                  : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+              )}
             >
               {isLoggingOut ? (
                 <Loader className="w-4 h-4 animate-spin text-background" />
@@ -201,7 +224,12 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={handleConfirm}
-              className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-70 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center gap-2"
+              className={cn(
+                "w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center",
+                isGuest
+                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                  : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+              )}
             >
               {isLoggingOut ? (
                 <Loader className="w-4 h-4 animate-spin text-background" />
@@ -213,7 +241,12 @@ export function LogoutModal({
               type="button"
               disabled={isLoggingOut}
               onClick={() => onOpenChange(false)}
-              className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f] disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none"
+              className={cn(
+                "w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none",
+                isGuest
+                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                  : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+              )}
             >
               Cancel
             </button>

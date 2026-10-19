@@ -503,7 +503,7 @@ export function ProfilePanel() {
 
   const initialName = user?.user_metadata?.name || user?.user_metadata?.full_name || "";
   const initialUsername =
-    user?.user_metadata?.username || user?.email?.split("@")[0] || "";
+    user?.user_metadata?.username || user?.user_metadata?.user_name || user?.email?.split("@")[0] || "";
 
   const [savedName, setSavedName] = useState(initialName);
   const [savedUsername, setSavedUsername] = useState(initialUsername);
@@ -521,7 +521,7 @@ export function ProfilePanel() {
     if (!user) return;
     const currentName = user.user_metadata?.name || user.user_metadata?.full_name || "";
     const currentUsername =
-      user.user_metadata?.username || user.email?.split("@")[0] || "";
+      user.user_metadata?.username || user.user_metadata?.user_name || user.email?.split("@")[0] || "";
     setName(currentName);
     setUsername(currentUsername);
     setSavedName(currentName);
@@ -554,11 +554,11 @@ export function ProfilePanel() {
   );
   const streaks = useMemo(() => streakFrom(dateSet), [dateSet]);
 
-  const activeSavedUsername = (savedUsername || initialUsername || user?.email?.split("@")[0] || "user").trim();
-  const usernameLabel = (savedName || initialName || activeSavedUsername).trim();
+  const activeSavedUsername = (savedUsername || initialUsername || user?.user_metadata?.user_name || user?.email?.split("@")[0] || "user").trim();
+  const displayName = (savedName || initialName || activeSavedUsername).trim();
   const planLabel =
     plan === "ultra" ? "Ultra Pro" : plan === "pro" ? "Pro" : "Free";
-  const usersubtitle = `@${usernameLabel} · ${planLabel}`;
+  const usersubtitle = `@${activeSavedUsername} · ${planLabel}`;
 
   const nameChanged = name.trim() !== (savedName || initialName).trim();
   const usernameChanged = username.trim() !== (savedUsername || initialUsername).trim();
@@ -622,7 +622,7 @@ export function ProfilePanel() {
           >
             <AvatarImage src={avatarUrl || undefined} />
             <AvatarFallback className="bg-secondary text-foreground text-xl font-medium">
-              {usernameLabel.charAt(0).toUpperCase()}
+              {displayName.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <button
@@ -634,7 +634,7 @@ export function ProfilePanel() {
             <Pencil className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
           </button>
         </div>
-        <h3 className="mt-3 text-lg font-medium text-foreground">{usernameLabel}</h3>
+        <h3 className="mt-3 text-lg font-medium text-foreground">{displayName}</h3>
         <p className="text-sm text-muted-foreground">
           {usersubtitle}
         </p>
@@ -696,7 +696,7 @@ export function ProfilePanel() {
         </div>
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Username</span>
-          <span className="text-foreground">@{usernameLabel}</span>
+          <span className="text-foreground">@{activeSavedUsername}</span>
         </div>
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Plan</span>
@@ -740,7 +740,7 @@ export function ProfilePanel() {
         open={imageOpen}
         onOpenChange={setImageOpen}
         currentAvatarUrl={avatarUrl}
-        userName={usernameLabel}
+        userName={displayName}
         userEmail={user?.email}
         onAvatarUpdated={(newUrl) => setAvatarUrl(newUrl)}
       />

@@ -135,7 +135,7 @@ function TocItemRow({
       data-selected={isActive ? "true" : undefined}
       title={heading.text}
       className={cn(
-        "hover-box relative mx-1 rounded-xl px-3 py-2 text-[15px] leading-snug cursor-pointer transition-colors duration-150 flex items-center min-w-0 overflow-hidden text-left",
+        "hover-box relative mx-1 rounded-sm px-3 py-2 text-[15px] leading-snug cursor-pointer transition-colors duration-150 flex items-center min-w-0 overflow-hidden text-left",
         isActive
           ? "bg-secondary dark:bg-[#2f2f2f] text-foreground"
           : "text-muted-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
@@ -169,7 +169,7 @@ function TocPopup({
   }, [scrollActiveSectionId]);
 
   return (
-    <div className="w-[min(20rem,calc(100vw-2rem))] rounded-2xl bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 py-2">
+    <div className="w-[min(20rem,calc(100vw-2rem))] rounded-sm bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none py-2">
       <nav className="flex flex-col max-h-[360px] overflow-y-auto p-1 scrollbar-thin">
         {headings.map((heading) => {
           const isActive = heading.id === scrollActiveSectionId;

@@ -36,14 +36,14 @@ import { cn } from "@/lib/utils";
 import { NAV } from "@/lib/settings-panel";
 
 const TITLES: Record<SettingsSection, string> = {
-  general: "Settings",
+  general: "General",
   notifications: "Notifications",
   personalization: "Personalization",
   profile: "Profile",
   plans: "Plans",
   account: "Account",
   password: "Password",
-  data: "Controls",
+  data: "Data",
 };
 
 const PANE_MOTION =
@@ -380,7 +380,7 @@ export function SettingsModal({
                     // has slid out of view, not here.
                     onClick={() => openSettings(item.id)}
                     className={cn(
-                      "group relative w-full flex items-center gap-2.5  rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                      "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                       isGuest
                         ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
                         : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
@@ -392,11 +392,34 @@ export function SettingsModal({
                         ? // Selected row: same lighter bg as the dropdown highlight
                           cn("bg-secondary text-foreground", darkSelected)
                         : // Hover row: same lighter bg as the dropdown highlight
-                          cn("text-muted-foreground hover:bg-secondary", darkHover)
+                          cn(
+                            showMobileNav
+                              ? "text-foreground hover:bg-secondary"
+                              : "text-muted-foreground hover:bg-secondary",
+                            darkHover
+                          )
                     )}
                   >
-                    <Icon className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                    <span className="flex-1 text-foreground">{item.label}</span>
+                    <Icon
+                      className={cn(
+                        "w-4 h-4 shrink-0 transition-colors",
+                        selected
+                          ? "text-foreground"
+                          : "text-muted-foreground group-hover:text-foreground"
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "flex-1 transition-colors",
+                        selected
+                          ? "text-foreground"
+                          : showMobileNav
+                          ? "text-foreground"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      {item.label}
+                    </span>
                   </button>
                 );
               })}

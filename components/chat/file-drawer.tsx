@@ -741,24 +741,26 @@ export function FilePreviewViewer({
       <div className="flex-1 w-full overflow-y-auto relative flex flex-col items-center justify-center p-3 sm:p-6 min-h-[350px]">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center gap-3 text-muted-foreground py-16">
-            <Loader className="w-6 h-6 animate-spin text-muted-foreground" />
+            <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
           </div>
         ) : (
           <>
             {/* Image Preview */}
             {isImg && fileUrl && (
               <div className="w-full flex-1 flex items-center justify-center overflow-hidden p-2 min-h-[300px]">
-                <img
-                  src={fileUrl}
-                  alt={fileName}
-                  className="max-h-[65vh] max-w-full object-contain rounded-sm select-none"
-                />
+                <div className="relative inline-block max-w-full max-h-[75dvh] overflow-hidden rounded-2xl border border-border/80 dark:border-none">
+                  <img
+                    src={fileUrl}
+                    alt={fileName}
+                    className="max-h-[75dvh] max-w-full object-contain select-none block"
+                  />
+                </div>
               </div>
             )}
 
             {/* PDF Preview */}
             {isPdf && fileUrl && (
-              <div className="w-full h-[65vh] max-w-5xl rounded-2xl overflow-hidden border border-border/80 dark:border-none bg-card my-2">
+              <div className="w-full h-[75dvh] max-h-[75dvh] max-w-5xl rounded-2xl overflow-hidden border border-border/80 dark:border-none bg-card my-2">
                 <iframe
                   src={fileUrl}
                   title={fileName}
@@ -769,11 +771,11 @@ export function FilePreviewViewer({
 
             {/* Text / Markdown / Code Preview */}
             {isText && (
-              <div className="w-full max-w-4xl rounded-2xl border border-border/80 dark:border-none bg-[#0d0d0d] overflow-hidden flex flex-col my-2">
+              <div className="w-full max-w-5xl h-[75dvh] max-h-[75dvh] rounded-2xl border border-border/80 dark:border-none bg-[#0d0d0d] overflow-hidden flex flex-col my-2">
                 <div className="flex items-center justify-between px-4 py-2.5 bg-[#141414] border-b border-neutral-800 text-xs text-muted-foreground font-mono">
                   <span>{fileExt.toUpperCase() || "CODE"}</span>
                 </div>
-                <div className="flex-1 overflow-auto p-4 sm:p-6 font-mono text-xs sm:text-[13.5px] leading-relaxed text-neutral-200 select-text whitespace-pre max-h-[60vh]">
+                <div className="flex-1 overflow-auto p-4 sm:p-6 font-mono text-xs sm:text-[13.5px] leading-relaxed text-neutral-200 select-text whitespace-pre">
                   {textContent !== null ? (
                     <code>{textContent}</code>
                   ) : (

@@ -780,7 +780,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-108}
-              className="w-64 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
             >
               <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
                 <UserIcon className="w-4 h-4 shrink-0" />
@@ -887,7 +887,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-238}
-              className="w-56 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
             >
               <DropdownMenuItem asChild>
                 <Link
@@ -968,7 +968,7 @@ export function Sidebar({
             setCollapsedAccountMenuOpen(false);
             setShowLogoutModal(true);
           }}
-          className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl"
+          className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
         >
           <LogOut className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
           <span>Log out</span>
@@ -1520,7 +1520,7 @@ function SidebarChatItem({
                       side="top"
                       align="start"
                       sideOffset={5}
-                      className="w-64 rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
@@ -1588,7 +1588,7 @@ function SidebarChatItem({
                       onCloseAutoFocus={(e) => {
                         e.preventDefault();
                       }}
-                      className="w-[230px] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                     >
                       {renderHelpMenuItems()}
                     </DropdownMenuContent>
@@ -2190,7 +2190,7 @@ function SidebarChatItem({
                       side="top"
                       align="start"
                       sideOffset={5}
-                      className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
+                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
@@ -2235,7 +2235,7 @@ function SidebarChatItem({
                         side="top"
                         align="start"
                         sideOffset={8}
-                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[230px] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                       >
                         {renderHelpMenuItems()}
                       </DropdownMenuContent>
@@ -2335,7 +2335,7 @@ function SidebarChatItem({
                         side="top"
                         align="start"
                         sideOffset={8}
-                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[230px] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                       >
                         {renderHelpMenuItems()}
                       </DropdownMenuContent>

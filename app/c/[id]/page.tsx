@@ -1266,7 +1266,7 @@ export default function ActiveChatPage() {
 
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
                 {/* Full Container wrapping both Download and Close buttons */}
-                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                   {previewFileUrl && (
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -1318,7 +1318,7 @@ export default function ActiveChatPage() {
               <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
                 {!sidebarOpen && (
                   /* Full Container wrapping both Open sidebar and New chat buttons */
-                  <div className="xl:hidden flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="xl:hidden flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1379,13 +1379,13 @@ export default function ActiveChatPage() {
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
                 {isTemporary ? (
                   /* Save chat button for temporary chat matching Image 4 */
-                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
                           type="button"
                           onClick={() => setShowSaveChatModal(true)}
-                          className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
+                          className="group h-full w-11 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
                           aria-label="Save chat"
                         >
                           <Bookmark className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -1403,7 +1403,7 @@ export default function ActiveChatPage() {
                   </div>
                 ) : (
                   /* Full Container wrapping both Share and More options buttons */
-                  <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1427,7 +1427,7 @@ export default function ActiveChatPage() {
                               setTimeout(() => setIsSharing(false), 300);
                             }
                           }}
-                          className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                          className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
                         >
                           {isSharing ? (
                             <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />

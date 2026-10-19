@@ -500,14 +500,14 @@ export default function PublicSharedChatPage() {
         </div>
 
         <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-          <div className="flex items-center h-12 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+          <div className="flex items-center h-11 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   type="button"
                   disabled={isSharing}
                   onClick={handleShareClick}
-                  className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                  className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
                 >
                   {isSharing ? (
                     <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />

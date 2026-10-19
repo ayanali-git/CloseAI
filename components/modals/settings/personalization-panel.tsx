@@ -128,7 +128,7 @@ export function PersonalizationPanel() {
         type="button"
         onClick={handleSave}
         disabled={saving || !dirty}
-        className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 transition-all select-none"
+        className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
       >
         {saving ? <Loader className="w-4 h-4 animate-spin" /> : "Save"}
       </button>

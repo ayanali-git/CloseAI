@@ -1393,7 +1393,7 @@ export function MessageList({
                                 onClick={() => handleFeedback(msgId, "up")}
                                 disabled={loadingFeedbackId === `${msgId}-up`}
                                 className={cn(
-                                  "p-1.5 rounded-sm transition-colors cursor-pointer disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed",
+                                  "p-1.5 rounded-sm transition-colors cursor-pointer disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed",
                                   feedback[msgId] === "up"
                                     ? "text-foreground"
                                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -1428,7 +1428,7 @@ export function MessageList({
                                 onClick={() => handleFeedback(msgId, "down")}
                                 disabled={loadingFeedbackId === `${msgId}-down`}
                                 className={cn(
-                                  "p-1.5 rounded-sm transition-colors cursor-pointer disabled:opacity-70 disabled:pointer-events-auto disabled:cursor-not-allowed",
+                                  "p-1.5 rounded-sm transition-colors cursor-pointer disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed",
                                   feedback[msgId] === "down"
                                     ? "text-foreground"
                                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"

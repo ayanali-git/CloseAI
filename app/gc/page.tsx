@@ -393,38 +393,43 @@ function GuestChatContent() {
 
         {/* Bottom Disclaimer for Empty State */}
         <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
-          <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight whitespace-normal sm:whitespace-nowrap">
-            CloseAI is AI. By using, you agree to our{" "}
-            <Link
-              href="/support/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group text-foreground transition-colors"
-            >
-              <span>Terms</span>
-              <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-            </Link>{" "}
-            &amp;{" "}
-            <Link
-              href="/support/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group text-foreground transition-colors"
-            >
-              <span>Privacy</span>
-              <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-            </Link>
-            . Chats may be reviewed and used to improve our AI models.{" "}
-            <Link
-              href="/support/help"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group text-foreground transition-colors"
-            >
-              <span>Learn more</span>
-              <AnimatedArrowUpRight size={15} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-            </Link>
-          </p>
+          <div className="pointer-events-auto max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight flex flex-col items-center justify-center gap-0.5">
+            <div>
+              CloseAI is AI. By using it, you agree to our{" "}
+              <Link
+                href="/support/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group text-foreground transition-colors whitespace-nowrap"
+              >
+                <span>Terms</span>
+                <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/support/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group text-foreground transition-colors whitespace-nowrap"
+              >
+                <span>Privacy</span>
+                <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+              </Link>
+              .
+            </div>
+            <div>
+              Chats may be reviewed and used to improve AI models.{" "}
+              <Link
+                href="/support/help"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group text-foreground transition-colors whitespace-nowrap"
+              >
+                <span>Learn more</span>
+                <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
