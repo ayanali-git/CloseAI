@@ -526,7 +526,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
+              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
               if (
                 isOpen &&
                 typeof window !== "undefined" &&
@@ -543,7 +543,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
+              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
               if (
                 isOpen &&
                 typeof window !== "undefined" &&
@@ -1281,7 +1281,7 @@ function SidebarChatItem({
                   </TooltipTrigger>
                   <TooltipContent
                     side="right"
-                    sideOffset={15}
+                    sideOffset={5}
                     className="text-base"
                   >
                     Open sidebar
@@ -1313,7 +1313,7 @@ function SidebarChatItem({
                   </TooltipTrigger>
                   <TooltipContent
                     side="right"
-                    sideOffset={15}
+                    sideOffset={5}
                     className="text-base"
                   >
                     New chat
@@ -1338,7 +1338,7 @@ function SidebarChatItem({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Search chats
@@ -1358,7 +1358,7 @@ function SidebarChatItem({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Pinned chats
@@ -1378,7 +1378,7 @@ function SidebarChatItem({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Archived chats
@@ -1400,7 +1400,7 @@ function SidebarChatItem({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Create Images
@@ -1427,7 +1427,7 @@ function SidebarChatItem({
                           }}
                           onClick={() => {
                             setRailWebSearchHoverOpen(false);
-                            (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
+                            (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
                           }}
                           className={cn(
                             "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer",
@@ -1472,7 +1472,7 @@ function SidebarChatItem({
                     </TooltipTrigger>
                     <TooltipContent
                       side="right"
-                      sideOffset={15}
+                      sideOffset={5}
                       className="text-base"
                     >
                       Download app
@@ -1510,15 +1510,15 @@ function SidebarChatItem({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-base"
                       >
                         {displayName}
                       </TooltipContent>
                     </Tooltip>
                     <DropdownMenuContent
-                      side="top"
-                      align="start"
+                      side="right"
+                      align="end"
                       sideOffset={5}
                       className="w-64 max-w-[calc(100vw-24px)] rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
                     >
@@ -1544,7 +1544,7 @@ function SidebarChatItem({
                     </TooltipTrigger>
                     <TooltipContent
                       side="right"
-                      sideOffset={15}
+                      sideOffset={5}
                       className="text-base"
                     >
                       Plans
@@ -1575,7 +1575,7 @@ function SidebarChatItem({
                       </TooltipTrigger>
                       <TooltipContent
                         side="right"
-                        sideOffset={15}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Help
@@ -1613,7 +1613,7 @@ function SidebarChatItem({
                     </TooltipTrigger>
                     <TooltipContent
                       side="right"
-                      sideOffset={15}
+                      sideOffset={5}
                       className="text-base"
                     >
                       Settings
@@ -1909,7 +1909,7 @@ function SidebarChatItem({
                           setTimeout(() => {
                             ignoreNextWebSearchOpenRef.current = false;
                           }, 300);
-                          (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
+                          (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
                           if (
                             isOpen &&
                             typeof window !== "undefined" &&
@@ -2234,7 +2234,7 @@ function SidebarChatItem({
                       <DropdownMenuContent
                         side="top"
                         align="start"
-                        sideOffset={8}
+                        sideOffset={5}
                         className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                       >
                         {renderHelpMenuItems()}
@@ -2334,7 +2334,7 @@ function SidebarChatItem({
                       <DropdownMenuContent
                         side="top"
                         align="start"
-                        sideOffset={8}
+                        sideOffset={5}
                         className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-2xl p-1.5 bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                       >
                         {renderHelpMenuItems()}

@@ -735,8 +735,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           onClick={(e) => {
             (e.currentTarget as HTMLElement)?.blur();
             if (isGuest) {
-              if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think Harder" });
-              else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think Harder" });
+              if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think" });
+              else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think" });
               return;
             }
             onThinkModeChange?.(!thinkMode);

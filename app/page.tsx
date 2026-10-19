@@ -179,7 +179,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-4 min-h-[100px] flex flex-col justify-between transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -195,27 +195,25 @@ export default function LandingPage() {
                 placeholder="Ask anything"
                 rows={3}
                 disabled={isSubmitting}
-                className="w-full bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
+                className="flex-1 min-w-0 bg-transparent resize-none text-[17px] font-normal placeholder:text-muted-foreground transition-colors outline-none border-none ring-0 leading-relaxed cursor-text select-text"
               />
-              <div className="flex items-center justify-end pt-3 cursor-text">
-                <button
-                  type="submit"
-                  disabled={!heroPrompt.trim() || isSubmitting}
-                  className={cn(
-                    "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
-                    heroPrompt.trim().length > 0 && !isSubmitting
-                      ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-[0.99]"
-                      : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
-                  )}
-                  aria-label="Send prompt"
-                >
-                  {isSubmitting ? (
-                    <Loader className="w-5 h-5 animate-spin text-foreground" />
-                  ) : (
-                    <ArrowUp className="w-5 h-5 stroke-[3]" />
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={!heroPrompt.trim() || isSubmitting}
+                className={cn(
+                  "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
+                  heroPrompt.trim().length > 0 && !isSubmitting
+                    ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                    : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
+                )}
+                aria-label="Send prompt"
+              >
+                {isSubmitting ? (
+                  <Loader className="w-5 h-5 animate-spin text-foreground" />
+                ) : (
+                  <ArrowUp className="w-5 h-5 stroke-[3]" />
+                )}
+              </button>
             </div>
           </form>
 
