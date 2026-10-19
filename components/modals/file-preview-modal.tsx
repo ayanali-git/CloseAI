@@ -119,7 +119,7 @@ export function FilePreviewModal({
       {isPdf && fileUrl && (
         <div className="w-full h-full flex-1 flex flex-col overflow-hidden bg-white dark:bg-neutral-900">
           <iframe
-            src={fileUrl.includes("#") ? fileUrl : `${fileUrl}#toolbar=1`}
+            src={fileUrl}
             title={fileName}
             className="w-full h-full flex-1 border-0"
           />
@@ -190,8 +190,6 @@ export function FilePreviewModal({
         {/* Simple content container covering full screen */}
         <DialogPrimitive.Content
           className="fixed inset-0 z-50 w-screen h-screen p-0 bg-transparent border-0 outline-none focus:outline-none flex items-center justify-center pointer-events-auto cursor-default"
-          onPointerDownOutside={(e) => e.preventDefault()}
-          onInteractOutside={(e) => e.preventDefault()}
           onClick={() => onOpenChange(false)}
         >
           <DialogPrimitive.Title className="sr-only">
@@ -237,18 +235,18 @@ export function FilePreviewModal({
           {/* Centered Content Container */}
           {isImg && fileUrl ? (
             <div
-              className="relative inline-block max-w-[90vw] max-h-[80vh] overflow-hidden rounded-2xl"
+              className="relative inline-block max-w-[100vw] max-h-[75vh] overflow-hidden rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={fileUrl}
                 alt={fileName}
-                className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl select-none block"
+                className="max-h-[75vh] max-w-[100vw] object-contain rounded-2xl select-none block"
               />
             </div>
           ) : (
             <div
-              className="relative w-[90vw] max-w-[90vw] h-[80vh] max-h-[80vh] flex flex-col rounded-2xl overflow-hidden"
+              className="relative w-[100vw] max-w-[100vw] h-[75vh] max-h-[75vh] flex flex-col bg-background/95 dark:bg-[#1e1e1e]/95 rounded-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex-1 w-full h-full overflow-hidden p-0 flex flex-col min-h-0">

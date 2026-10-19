@@ -37,9 +37,8 @@ export function LogoutModal({
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const hasUser = Boolean(
-    !isLoggingOut &&
-      ((userName && userName !== "User") ||
-        (userEmail && userEmail !== "Not signed in"))
+    (userName && userName !== "User") ||
+      (userEmail && userEmail !== "Not signed in")
   );
 
   useEffect(() => {

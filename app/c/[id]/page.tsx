@@ -1244,7 +1244,7 @@ export default function ActiveChatPage() {
         onSearchChange={setSearchQuery}
         isOpen={sidebarOpen}
         onToggle={handleToggleSidebar}
-        isLoading={isChatsLoading || loading}
+        isLoading={isChatsLoading || loading || isSigningOut}
       />
 
       {/* Main Chat Area */}
@@ -1266,7 +1266,7 @@ export default function ActiveChatPage() {
 
               <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
                 {/* Full Container wrapping both Download and Close buttons */}
-                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
                   {previewFileUrl && (
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -1478,7 +1478,7 @@ export default function ActiveChatPage() {
                       <DropdownMenuContent
                         align="end"
                         sideOffset={6}
-                        className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+                        className="w-52 rounded-sm p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
                       >
                         <DropdownMenuItem
                           onClick={() => setIsFilesDrawerOpen(true)}
@@ -1578,7 +1578,7 @@ export default function ActiveChatPage() {
             )}
 
             {/* Messages Container or Loader */}
-            {isChatLoading && !pendingMessage && messages.length === 0 && !activePreviewFile ? (
+            {isSigningOut || (isChatLoading && !pendingMessage && messages.length === 0 && !activePreviewFile) || (loading && !user) ? (
               <div className="flex-1 w-full h-full flex flex-col items-center justify-center pb-16 text-muted-foreground">
                 <Loader className="w-6 h-6 animate-spin text-muted-foreground" />
               </div>

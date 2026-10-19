@@ -941,7 +941,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="p-1 pt-2 transition-opacity hover:opacity-75 cursor-pointer flex items-center justify-center text-foreground"
+                className="p-1 pt-2 transition-opacity hover:opacity-90 cursor-pointer flex items-center justify-center text-foreground"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={18} />

@@ -1017,7 +1017,7 @@ export function PlusMenuContent({
         </DropdownMenuItem>
 
         {/* 3. Create images */}
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           // onClick={() => {
           //   if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Create images" });
           // }}
@@ -1025,7 +1025,7 @@ export function PlusMenuContent({
         >
           <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         {/* 4. Attach files */}
         <DropdownMenuItem

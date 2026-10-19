@@ -1266,7 +1266,7 @@ function SidebarChatItem({
                       onMouseLeave={() => setIsLogoHovered(false)}
                       onBlur={() => setIsLogoHovered(false)}
                       style={{ cursor: "ew-resize" }}
-                      className="w-11 h-11 rounded-sm flex items-center justify-center text-foreground hover:bg-secondary transition-colors !cursor-ew-resize [&_*]:!cursor-ew-resize"
+                      className="group w-11 h-11 rounded-sm flex items-center justify-center text-foreground hover:bg-secondary transition-colors !cursor-ew-resize [&_*]:!cursor-ew-resize"
                       aria-label="Open sidebar"
                     >
                       {user && !isLogoHovered ? (
@@ -1275,7 +1275,7 @@ function SidebarChatItem({
                           className="w-4 h-4 pointer-events-none"
                         />
                       ) : (
-                        <PanelRight className="w-4 h-4 text-foreground pointer-events-none" />
+                        <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground pointer-events-none" />
                       )}
                     </button>
                   </TooltipTrigger>

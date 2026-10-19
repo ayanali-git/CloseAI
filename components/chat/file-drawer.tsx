@@ -289,28 +289,28 @@ function DrawerContent({
   > = {
     right: {
       containerClasses:
-        "fixed inset-y-0 right-0 h-full w-[78%] max-w-[78%] sm:w-[400px] sm:max-w-full",
+        "fixed inset-y-0 right-0 h-full w-[78%] max-w-[78%] sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-l border-border/80",
       initial: { x: "100%" },
       animate: { x: 0 },
       exit: { x: "100%" },
     },
     left: {
       containerClasses:
-        "fixed inset-y-0 left-0 h-full w-[78%] max-w-[78%] sm:w-[400px] sm:max-w-full",
+        "fixed inset-y-0 left-0 h-full w-[78%] max-w-[78%] sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-r border-border/80",
       initial: { x: "-100%" },
       animate: { x: 0 },
       exit: { x: "-100%" },
     },
     top: {
       containerClasses:
-        "fixed inset-x-0 top-0 max-h-[85vh] w-full",
+        "fixed inset-x-0 top-0 max-h-[85vh] w-full border-b border-border/80",
       initial: { y: "-100%" },
       animate: { y: 0 },
       exit: { y: "-100%" },
     },
     bottom: {
       containerClasses:
-        "fixed inset-x-0 bottom-0 max-h-[85vh] w-full",
+        "fixed inset-x-0 bottom-0 max-h-[85vh] w-full border-t border-border/80",
       initial: { y: "100%" },
       animate: { y: 0 },
       exit: { y: "100%" },
@@ -326,7 +326,7 @@ function DrawerContent({
       exit={config.exit}
       transition={{ type: "spring", damping: 30, stiffness: 320 }}
       className={cn(
-        "drawer__content pointer-events-auto flex flex-col z-50 bg-background text-foreground",
+        "drawer__content pointer-events-auto flex flex-col z-50 bg-sidebar text-foreground",
         config.containerClasses,
         `drawer__content--${currentPlacement}`,
         className
@@ -555,11 +555,11 @@ function FileItemRow({
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-xl hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
+      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
       title={`Preview ${fileName}`}
     >
       {/* File Icon Squircle */}
-      <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-border/80 dark:border-none overflow-hidden">
+      <div className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 border border-border/80 dark:border-none overflow-hidden">
         {isImg && fileUrl ? (
           <img
             src={fileUrl}
@@ -711,7 +711,7 @@ export function FilePreviewViewer({
           </div>
 
           <div className="flex items-center shrink-0">
-            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-xl bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {fileUrl && (
                 <button
                   type="button"
@@ -751,7 +751,7 @@ export function FilePreviewViewer({
                 <img
                   src={fileUrl}
                   alt={fileName}
-                  className="max-h-[65vh] max-w-full object-contain rounded-xl select-none"
+                  className="max-h-[65vh] max-w-full object-contain rounded-sm select-none"
                 />
               </div>
             )}
@@ -760,7 +760,7 @@ export function FilePreviewViewer({
             {isPdf && fileUrl && (
               <div className="w-full h-[65vh] max-w-5xl rounded-2xl overflow-hidden border border-border/80 dark:border-none bg-card my-2">
                 <iframe
-                  src={fileUrl.includes("#") ? fileUrl : `${fileUrl}#toolbar=1`}
+                  src={fileUrl}
                   title={fileName}
                   className="w-full h-full border-0"
                 />
@@ -802,7 +802,7 @@ export function FilePreviewViewer({
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     Download File

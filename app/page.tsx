@@ -386,7 +386,7 @@ export default function LandingPage() {
 
               {/* Item 2 */}
               <Link
-                href="/product/features"
+                href="/overview/research"
                 onMouseEnter={() => setHoveredSpotlight(3)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(

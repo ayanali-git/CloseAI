@@ -216,9 +216,11 @@ export function AuthProvider({
 
         if (event === 'SIGNED_OUT') {
           profileCheckedRef.current = null;
-          setUser(null);
-          setSession(null);
-          setLoading(false);
+          if (!isSigningOutRef.current) {
+            setUser(null);
+            setSession(null);
+            setLoading(false);
+          }
         }
       }
     );
@@ -232,9 +234,7 @@ export function AuthProvider({
   const signOut = async (redirectTo: string = '/gc') => {
     isSigningOutRef.current = true;
     setIsSigningOut(true);
-    setUser(null);
-    setSession(null);
-    setLoading(false);
+    setLoading(true);
     profileCheckedRef.current = null;
     if (typeof document !== 'undefined') {
       const cookies = document.cookie.split(';');

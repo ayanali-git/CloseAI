@@ -87,8 +87,7 @@ export function ImagePreview({
           {/* Simple content container covering full screen */}
           <DialogPrimitive.Content
             className="fixed inset-0 z-50 w-screen h-screen p-0 bg-transparent border-0 outline-none focus:outline-none flex items-center justify-center pointer-events-auto cursor-default"
-            onPointerDownOutside={(e) => e.preventDefault()}
-            onInteractOutside={(e) => e.preventDefault()}
+            onClick={() => setIsOpen(false)}
           >
             <DialogPrimitive.Title className="sr-only">
               {alt || "Image preview"}
@@ -132,13 +131,13 @@ export function ImagePreview({
 
             {/* Centered Image Container */}
             <div
-              className="relative inline-block max-w-[90vw] max-h-[80vh] overflow-hidden rounded-2xl"
+              className="relative inline-block max-w-[100vw] max-h-[75vh] overflow-hidden rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={src}
                 alt={alt}
-                className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl select-none block"
+                className="max-h-[75vh] max-w-[100vw] object-contain rounded-2xl select-none block"
               />
             </div>
           </DialogPrimitive.Content>

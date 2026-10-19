@@ -324,7 +324,7 @@ function NewChatContent() {
         onSearchChange={setSearchQuery}
         isOpen={sidebarOpen}
         onToggle={handleToggleSidebar}
-        isLoading={isChatsLoading || loading}
+        isLoading={isChatsLoading || loading || isSigningOut}
       />
 
       {/* Main Chat Workspace */}
@@ -461,7 +461,9 @@ function NewChatContent() {
         {/* Content Stream */}
         <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll">
           {isAutoCreating ||
-          (queryPrompt && !autoCreateTriggeredRef.current) ? (
+          (queryPrompt && !autoCreateTriggeredRef.current) ||
+          isSigningOut ||
+          (loading && !user) ? (
             <div className="flex-1 w-full h-full flex flex-col items-center justify-center space-y-3 pb-12 text-muted-foreground">
               <Loader className="w-6 h-6 animate-spin text-muted-foreground" />
             </div>
