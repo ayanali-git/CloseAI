@@ -395,20 +395,29 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       const refButton = plusButtonRef.current;
       if (refButton) {
         const buttonRect = refButton.getBoundingClientRect();
-        // Distance from top of the button to the top of the chat input pill:
-        const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-        // Place the dropdown 10px above the top border of the chat input pill:
-        setMenuSideOffset(Math.round(distToPillTop + 10));
-        // Place button tooltips 8px above the top border of the chat input pill:
-        setTooltipSideOffset(Math.round(distToPillTop + 8));
+        if (isMobile) {
+          // On small screens: open directly above the plus button with a small gap
+          setMenuSideOffset(10);
+          setTooltipSideOffset(8);
+        } else {
+          // On desktop: position above the top edge of the chat input pill
+          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
+          setMenuSideOffset(Math.round(distToPillTop + 10));
+          setTooltipSideOffset(Math.round(distToPillTop + 8));
+        }
 
         // Always align cleanly with the left edge of the chat input pill:
         const distToPillLeft = Math.max(0, buttonRect.left - pillRect.left);
         setMenuAlignOffset(-Math.round(distToPillLeft));
       } else {
-        const estimatedDist = Math.max(0, pillRect.height - 44);
-        setMenuSideOffset(Math.round(estimatedDist + 10));
-        setTooltipSideOffset(Math.round(estimatedDist + 8));
+        if (isMobile) {
+          setMenuSideOffset(10);
+          setTooltipSideOffset(8);
+        } else {
+          const estimatedDist = Math.max(0, pillRect.height - 44);
+          setMenuSideOffset(Math.round(estimatedDist + 10));
+          setTooltipSideOffset(Math.round(estimatedDist + 8));
+        }
       }
 
       if (isMobile) {
@@ -664,7 +673,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
           Attach and more
         </TooltipContent>
       </Tooltip>
@@ -759,7 +768,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           {!isMobile && <span className="hidden sm:inline">Think</span>}
         </button>
       </TooltipTrigger>
-      <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
+      <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
         Think harder
       </TooltipContent>
     </Tooltip>
@@ -807,7 +816,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
           {isListening ? "Stop dictation" : "Start dictation"}
         </TooltipContent>
       </Tooltip>
@@ -854,7 +863,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
           {isTyping ? "Stop generating" : isUploading ? "Uploading files" : "Send message"}
         </TooltipContent>
       </Tooltip>
