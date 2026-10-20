@@ -60,7 +60,7 @@ export default function CareersPage() {
         <div className="flex flex-wrap items-center gap-4">
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
           >
             <Link href="/company/contact">
               <span>Contact recruiting</span>
@@ -78,7 +78,7 @@ export default function CareersPage() {
               className="inline-flex items-center justify-center gap-1.5"
             >
               <span>Open roles</span>
-              <AnimatedArrowUpRight size={18} strokeWidth={2} />
+              <AnimatedArrowUpRight size={18} />
             </Link>
           </Button>
         </div>
@@ -286,7 +286,7 @@ export default function CareersPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-foreground">•</span>
-                  <span>401(k) with 100% dollar-for-dollar match</span>
+                  <span>$301,000 with 100% joining bonus and more</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-foreground">•</span>
@@ -375,7 +375,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 6. LIFE AT CLOSEAI (IDENTICAL TO MAIN PAGE BOTTOM TWO ROWS CARDS WITH DICEBEAR GLASS AVATARS & SIBLING HOVER) */}
+      {/* 6. LIFE AT CLOSEAI */}
       <section className="mb-20 sm:mb-28 pt-12 border-t border-border/80">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
@@ -483,7 +483,7 @@ export default function CareersPage() {
               className="inline-flex items-center justify-center gap-1.5"
             >
               <span>Open roles</span>
-              <AnimatedArrowUpRight size={18} strokeWidth={2} />
+              <AnimatedArrowUpRight size={18} />
             </Link>
           </Button>
         </div>

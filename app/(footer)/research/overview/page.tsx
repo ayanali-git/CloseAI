@@ -4,8 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import { AnimatedArrow } from '@/components/ui/animated';
 import { Sparkles, Brain, Cpu, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function ResearchOverviewPage() {
+  const { user } = useAuth();
   const researchPapers = [
     {
       title: "Frontier Reasoning with Hierarchical Self-Consistency Chains",
@@ -67,8 +69,10 @@ export default function ResearchOverviewPage() {
           Delivering 3x faster chain-of-thought verification with 94.2% accuracy on competitive Olympiad mathematics and complex algorithmic engineering benchmarks.
         </p>
         <Link
-          href="/c"
-          className="group inline-flex items-center text-base font-semibold uppercase tracking-wider text-foreground"
+          href={user ? "/c" : "/gc"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center text-base font-semibold text-foreground"
         >
           <span>Try it now</span>
           <AnimatedArrow size={18} />

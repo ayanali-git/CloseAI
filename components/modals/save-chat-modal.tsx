@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Bookmark, Loader } from "lucide-react";
 import { MessageAttachmentItem } from "@/components/chat/message-attachment";
-import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 import { TemporaryChatDashedBorder } from "@/components/chat/message-list";
 
@@ -27,8 +27,7 @@ export function SaveChatModal({
   files,
   isGuest: isGuestProp,
 }: SaveChatModalProps) {
-  const { user } = useAuth();
-  const isGuest = isGuestProp !== undefined ? isGuestProp : !user;
+  const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
   const displayText = promptText || itemTitle || "New chat";
   const hasFiles = files && files.length > 0;
   const [isSaving, setIsSaving] = useState(false);
@@ -56,9 +55,7 @@ export function SaveChatModal({
       maxSnap={0.96}
       className={cn(
         "max-w-[440px]",
-        isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/80 dark:border-none"
+        modalBgClass
       )}
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">

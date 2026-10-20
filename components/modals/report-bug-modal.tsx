@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import toast from "@/lib/toast";
 import { cn } from "@/lib/utils";
 import { X, Loader } from "lucide-react";
@@ -45,7 +46,7 @@ export function ReportBugModal({
   forceModal,
 }: ReportBugModalProps) {
   const { user, loading } = useAuth();
-  const isGuest = isGuestProp !== undefined ? isGuestProp : (!loading && !user);
+  const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
 
   // Single-select category: only one active at a time
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -107,10 +108,7 @@ export function ReportBugModal({
       forceModal={forceModal}
       className={cn(
         "max-w-[480px]",
-        // Guest mode (/gc, /gc/[id]) matches settings-modal and guest chat surfaces
-        isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/80 dark:border-none"
+        modalBgClass
       )}
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">
@@ -164,7 +162,6 @@ export function ReportBugModal({
                 <AnimatedPlusCheck
                   checked={isSelected}
                   size={18}
-                  strokeWidth={1.25}
                   className={cn(
                     "shrink-0 transition-colors",
                     isSelected

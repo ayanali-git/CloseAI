@@ -894,8 +894,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             ? "rounded-[25px] sm:rounded-3xl"
             : "rounded-[25px] sm:rounded-full",
           isExpandedLayout
-            ? "pt-2.5 px-2.5 pb-2 sm:p-4"
-            : "pt-2.5 px-2.5 pb-2 sm:px-3 sm:py-1.5 sm:min-h-[50px] sm:flex sm:items-center",
+            ? "pt-2.5 px-2 pb-3 sm:p-2"
+            : "pt-2.5 px-2 pb-3 sm:px-1 sm:py-1 sm:min-h-[50px] sm:flex sm:items-center",
           isDragActive && "ring-2 ring-primary border-primary"
         )}
       >

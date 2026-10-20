@@ -21,7 +21,7 @@ export function AnimatedArrow({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 2,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedArrowProps) {
@@ -163,7 +163,7 @@ export function AnimatedArrowUpRight({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.25,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedArrowUpRightProps) {
@@ -305,7 +305,7 @@ export function AnimatedChevron({
   orientation = "up-down",
   className,
   size = 18,
-  strokeWidth = 1.25,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedChevronProps) {
@@ -414,7 +414,7 @@ export function AnimatedPlusMinus({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.25,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedPlusMinusProps) {
@@ -524,7 +524,7 @@ export function AnimatedPlusCheck({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.25,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedPlusCheckProps) {
@@ -648,7 +648,7 @@ export function AnimatedSearchClose({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.25,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedSearchCloseProps) {
@@ -756,7 +756,7 @@ export function AnimatedPanelToggle({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.25,
+  strokeWidth = 1.5,
   style,
   ...props
 }: AnimatedPanelToggleProps) {
@@ -1009,7 +1009,7 @@ export interface AnimatedCheckboxProps
 export const AnimatedCheckbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   AnimatedCheckboxProps
->(({ className, size = 18, strokeWidth = 2, checked, ...props }, ref) => {
+>(({ className, size = 18, strokeWidth = 1.5, checked, ...props }, ref) => {
   const active = Boolean(checked);
   const motionVal = useMotionValue(+active);
   const spring = useSpring(motionVal, {
@@ -1110,7 +1110,7 @@ export const AnimatedTempChat = React.forwardRef<
     disableHover = false,
     className,
     size,
-    strokeWidth = 2,
+    strokeWidth = 1.5,
     style,
     ...props
   },

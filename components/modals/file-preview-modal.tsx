@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import {
   isImageFile,
   isPdfFile,
@@ -30,14 +31,7 @@ export function FilePreviewModal({
   file,
   isGuest: controlledIsGuest,
 }: FilePreviewModalProps) {
-  let user: any = null;
-  try {
-    const auth = useAuth();
-    user = auth?.user;
-  } catch (e) {
-    user = null;
-  }
-  const isGuestMode = controlledIsGuest !== undefined ? controlledIsGuest : !user;
+  const { isGuest: isGuestMode } = useModalTheme(controlledIsGuest, open);
 
   const [fileUrl, setFileUrl] = useState<string>("");
   const [textContent, setTextContent] = useState<string | null>(null);

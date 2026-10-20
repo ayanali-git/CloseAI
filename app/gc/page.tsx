@@ -303,7 +303,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -326,7 +326,7 @@ function GuestChatContent() {
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none"
+              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>

@@ -103,7 +103,7 @@ export default function ContactPage() {
                 className="flex items-center text-base font-medium mb-1.5 text-foreground"
                 htmlFor="name"
               >
-                Name<Asterisk size={12} className="w-3 h-3 text-red-500 -translate-y-1" strokeWidth={2} />
+                Name<Asterisk size={12} className="w-3 h-3 text-red-500 -translate-y-1" />
               </label>
               <input
                 id="name"
@@ -128,7 +128,7 @@ export default function ContactPage() {
                 className="flex items-center text-base font-medium mb-1.5 text-foreground"
                 htmlFor="email"
               >
-                Email<Asterisk size={12} className="w-3 h-3 text-red-500 -translate-y-1" strokeWidth={2} />
+                Email<Asterisk size={12} className="w-3 h-3 text-red-500 -translate-y-1" />
               </label>
               <input
                 id="email"
@@ -155,7 +155,7 @@ export default function ContactPage() {
                 className="flex items-center text-base font-medium mb-1.5 text-foreground"
                 htmlFor="message"
               >
-                Message<Asterisk size={12} className="w-3 h-3 text-red-500 -translate-y-1" strokeWidth={2} />
+                Message<Asterisk size={12} className="w-3 h-3 text-red-500 -translate-y-1" />
               </label>
               <textarea
                 id="message"

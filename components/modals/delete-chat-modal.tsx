@@ -4,6 +4,7 @@ import React from "react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { AlertTriangle, PinOff, ArchiveX } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { MessageAttachmentItem } from "@/components/chat/message-attachment";
 import { cn } from "@/lib/utils";
 
@@ -36,8 +37,7 @@ export function DeleteModal({
   files,
   isGuest: isGuestProp,
 }: DeleteModalProps) {
-  const { user } = useAuth();
-  const isGuest = isGuestProp !== undefined ? isGuestProp : !user;
+  const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
   const displayText = promptText || itemTitle || "New chat";
   const hasFiles = files && files.length > 0;
 
@@ -49,9 +49,7 @@ export function DeleteModal({
       maxSnap={0.96}
       className={cn(
         "max-w-[440px]",
-        isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/80 dark:border-none"
+        modalBgClass
       )}
     >
       <div className="flex flex-col space-y-4 pt-1 pb-2">

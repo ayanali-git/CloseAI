@@ -12,12 +12,13 @@ import {
   type PersonalizationPrefs,
 } from "@/lib/user-preferences";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
 export function PersonalizationPanel() {
   const { user, loading } = useAuth();
-  const isGuest = !loading && !user;
+  const { isGuest } = useModalTheme();
   const [mounted, setMounted] = useState(false);
   const [saving, setSaving] = useState(false);
   const [prefs, setPrefs] = useState<PersonalizationPrefs>({

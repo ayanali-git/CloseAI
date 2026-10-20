@@ -13,6 +13,7 @@ import {
 import { X } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { MessageAttachmentItem } from "@/components/chat/message-attachment";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
@@ -32,8 +33,7 @@ export function SharePromptModal({
   files,
   isGuest: isGuestProp,
 }: SharePromptModalProps) {
-  const { user } = useAuth();
-  const isGuest = isGuestProp !== undefined ? isGuestProp : !user;
+  const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
   const [linkCopied, setLinkCopied] = useState(false);
   const [isCopyingLink, setIsCopyingLink] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
@@ -147,9 +147,7 @@ export function SharePromptModal({
       snapPoints={["auto"]}
       className={cn(
         "max-w-[600px]",
-        isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/80 dark:border-none"
+        modalBgClass
       )}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-3">

@@ -511,7 +511,7 @@ function DrawerFooter({ className, children, ...props }: DrawerFooterProps) {
   return (
     <div
       className={cn(
-        "drawer__footer px-5 py-3 border-t border-border/80 dark:border-neutral-800/80 flex items-center justify-between gap-2 shrink-0 bg-background backdrop-blur-xs",
+        "drawer__footer px-5 py-3 border-t border-border/80 dark:border-neutral-800/80 flex items-center justify-between gap-2 shrink-0 bg-background backdrop-blur-sm",
         className
       )}
       {...props}
@@ -703,7 +703,7 @@ export function FilePreviewViewer({
     <div className="w-full flex-1 flex flex-col min-h-0 bg-transparent animate-in fade-in-50 duration-200">
       {/* Optional Top Header (only if showHeader is explicitly true) */}
       {showHeader && (
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/80 dark:border-neutral-800/80 bg-background backdrop-blur-xs rounded-2xl mx-3 sm:mx-6 mt-1 shrink-0 z-10">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/80 dark:border-neutral-800/80 bg-background backdrop-blur-sm rounded-2xl mx-3 sm:mx-6 mt-1 shrink-0 z-10">
           <div className="flex items-center gap-3 min-w-0 pr-3">
             <span className="text-foreground font-semibold text-[14.5px] sm:text-base truncate">
               {fileName}

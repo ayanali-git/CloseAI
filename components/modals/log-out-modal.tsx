@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AlertTriangle, X, Loader } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 
 export interface LogoutModalProps {
@@ -38,18 +39,48 @@ export function LogoutModal({
   isGuest: isGuestProp,
 }: LogoutModalProps) {
   const isAuthVariant = variant === "auth";
-  const { user, loading: authLoading } = useAuth();
-  const isGuest =
-    isGuestProp !== undefined
-      ? isGuestProp
-      : (!authLoading && !user && !userEmail);
+  const { user } = useAuth();
+  const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const hasUser = Boolean(
-    (userName && userName !== "User") ||
-      (userEmail && userEmail !== "Not signed in") ||
-      user
-  );
+  // Freeze user information while open/logging out so it does not vanish when auth state resets
+  const cachedUserRef = useRef({
+    userName: userName || user?.user_metadata?.full_name || user?.user_metadata?.name || undefined,
+    userEmail: userEmail || user?.email || undefined,
+    userAvatar: userAvatar || user?.user_metadata?.avatar_url || undefined,
+    hasUser: Boolean(
+      (userName && userName !== "User") ||
+        (userEmail && userEmail !== "Not signed in") ||
+        user
+    ),
+  });
+
+  if (open) {
+    if (!cachedUserRef.current.hasUser && (userName || userEmail || user)) {
+      cachedUserRef.current = {
+        userName: userName || user?.user_metadata?.full_name || user?.user_metadata?.name || undefined,
+        userEmail: userEmail || user?.email || undefined,
+        userAvatar: userAvatar || user?.user_metadata?.avatar_url || undefined,
+        hasUser: true,
+      };
+    }
+  } else {
+    cachedUserRef.current = {
+      userName: userName || user?.user_metadata?.full_name || user?.user_metadata?.name || undefined,
+      userEmail: userEmail || user?.email || undefined,
+      userAvatar: userAvatar || user?.user_metadata?.avatar_url || undefined,
+      hasUser: Boolean(
+        (userName && userName !== "User") ||
+          (userEmail && userEmail !== "Not signed in") ||
+          user
+      ),
+    };
+  }
+
+  const effectiveUserName = cachedUserRef.current.userName || userName;
+  const effectiveUserEmail = cachedUserRef.current.userEmail || userEmail;
+  const effectiveUserAvatar = cachedUserRef.current.userAvatar || userAvatar;
+  const hasUser = cachedUserRef.current.hasUser;
 
   useEffect(() => {
     if (!open) {
@@ -76,9 +107,7 @@ export function LogoutModal({
       maxSnap={0.96}
       className={cn(
         "max-w-[440px]",
-        isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/80 dark:border-none"
+        modalBgClass
       )}
       forceModal={forceModal}
     >
@@ -117,20 +146,20 @@ export function LogoutModal({
           {hasUser && (
             <div className="flex items-center gap-3.5 p-3 rounded-full bg-background border border-border/80 dark:border-none select-none">
               <Avatar className="w-11 h-11 rounded-full border border-border/80 shrink-0">
-                <AvatarImage src={userAvatar} />
+                <AvatarImage src={effectiveUserAvatar} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
-                  {userName}
+                  {effectiveUserName || effectiveUserEmail?.[0]?.toUpperCase() || "U"}
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0 text-left">
-                {userName && (
+                {effectiveUserName && (
                   <p className="text-base font-semibold text-foreground truncate leading-snug">
-                    {userName}
+                    {effectiveUserName}
                   </p>
                 )}
-                {userEmail && (
+                {effectiveUserEmail && (
                   <p className="text-sm text-muted-foreground truncate leading-tight mt-0.5">
-                    {userEmail}
+                    {effectiveUserEmail}
                   </p>
                 )}
               </div>
@@ -188,20 +217,20 @@ export function LogoutModal({
               >
                 <div className="flex items-center gap-3.5 select-none">
                   <Avatar className="w-20 h-20 rounded-full border border-border/80 shrink-0">
-                    <AvatarImage src={userAvatar} />
+                    <AvatarImage src={effectiveUserAvatar} />
                     <AvatarFallback className="text-sm font-semibold bg-secondary text-foreground">
-                      {userName}
+                      {effectiveUserName || effectiveUserEmail?.[0]?.toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 text-left">
-                    {userName && (
+                    {effectiveUserName && (
                       <p className="text-[20px] font-semibold text-foreground truncate leading-snug">
-                        {userName}
+                        {effectiveUserName}
                       </p>
                     )}
-                    {userEmail && (
+                    {effectiveUserEmail && (
                       <p className="text-base text-muted-foreground truncate leading-tight mt-0.5">
-                        {userEmail}
+                        {effectiveUserEmail}
                       </p>
                     )}
                   </div>

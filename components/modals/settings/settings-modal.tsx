@@ -23,6 +23,7 @@ import { PersonalizationPanel } from "@/components/modals/settings/personalizati
 import { PlansPanel } from "@/components/modals/settings/plans-panel";
 import { ProfilePanel } from "@/components/modals/settings/profile-panel";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import {
   closeSettings,
   openSettings,
@@ -81,7 +82,7 @@ export function SettingsModal({
   const [navEl, setNavEl] = useState<HTMLElement | null>(null);
   const [isNavOverflowing, setIsNavOverflowing] = useState(false);
   const visibleNav = NAV.filter((item) => !item.auth || user);
-  const isGuest = !loading && !user;
+  const { isGuest } = useModalTheme(undefined, open);
 
   // The search bar is only for signed-in users. `Boolean(user)` (instead of
   // `!isGuest`) means it never flashes on screen while auth is still loading.
@@ -537,7 +538,7 @@ export function SettingsSelect<T extends string>({
   ariaLabel: string;
 }) {
   const { user, loading } = useAuth();
-  const isGuest = !loading && !user;
+  const { isGuest } = useModalTheme();
 
   return (
     <NativeDropdownMenu

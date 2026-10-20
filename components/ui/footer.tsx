@@ -5,8 +5,10 @@ import { CloseAIIcon } from "@/components/brand/logo";
 import { Globe, ArrowUpRight, Copy, Copyright } from "lucide-react";
 import { AnimatedArrowUpRight } from "@/components/ui/animated";
 import { LangDropdownMenu } from "@/components/ui/lang-dropdown-menu";
+import { useAuth } from "@/hooks/use-auth";
 
 export function Footer() {
+  const { user } = useAuth();
   return (
     <footer className="w-full bg-background text-foreground pt-10 pb-5 select-none">
       <div className="max-w-[1500px] mx-auto px-6 sm:px-8">
@@ -107,7 +109,7 @@ export function Footer() {
               <ul className="space-y-2.5 text-base">
                 <li>
                   <Link
-                    href="/c"
+                    href={user ? "/c" : "/gc"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="gap-1 text-foreground transition-colors"

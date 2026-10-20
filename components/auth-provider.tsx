@@ -384,6 +384,9 @@ export function AuthProvider({
           if (!isOpen) {
             setAuthModalError(null);
             setLoginModalDescription(undefined);
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('closeai-close-login'));
+            }
           }
         }}
         description={loginModalDescription}

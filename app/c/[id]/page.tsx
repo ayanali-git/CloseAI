@@ -64,7 +64,7 @@ import {
 
 export default function ActiveChatPage() {
   const { user, token, loading, isSigningOut } = useAuth();
-  const isGuest = !user;
+  const isGuest = false;
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
@@ -1594,6 +1594,7 @@ export default function ActiveChatPage() {
                   onEditAndResend={handleEditAndResend}
                   onDeleteMessage={handleDeleteMessage}
                   isTemporary={isTemporary}
+                  isGuest={false}
                 />
               </div>
             )}

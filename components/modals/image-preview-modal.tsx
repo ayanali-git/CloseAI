@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { X } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 
 export interface ImagePreviewProps {
@@ -29,17 +30,10 @@ export function ImagePreview({
   onOpenChange: controlledOnOpenChange,
   isGuest: controlledIsGuest,
 }: ImagePreviewProps) {
-  let user: any = null;
-  try {
-    const auth = useAuth();
-    user = auth?.user;
-  } catch (e) {
-    user = null;
-  }
-  const isGuestMode = controlledIsGuest !== undefined ? controlledIsGuest : !user;
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : internalOpen;
+  const { isGuest: isGuestMode } = useModalTheme(controlledIsGuest, isOpen);
 
   const setIsOpen = (next: boolean) => {
     if (!isControlled) {

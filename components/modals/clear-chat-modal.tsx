@@ -3,6 +3,7 @@
 import React from "react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { X } from "lucide-react";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 
 export interface ClearChatModalProps {
@@ -22,6 +23,7 @@ export function ClearChatModal({
   onOpenSignup,
   forceModal,
 }: ClearChatModalProps) {
+  const { modalBgClass } = useModalTheme(undefined, open);
   const handleNewChat = () => {
     onOpenChange(false);
     onNewChat();
@@ -37,7 +39,7 @@ export function ClearChatModal({
       open={open}
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
-      className="max-w-[440px] bg-white dark:bg-[#2f2f2f] border border-border/80"
+      className={cn("max-w-[440px]", modalBgClass)}
       forceModal={forceModal}
     >
       <div className="flex flex-col space-y-5 pt-1 pb-2 relative">

@@ -58,6 +58,8 @@ export default function GuestChatSessionPage() {
   const [showClearChatModal, setShowClearChatModal] = useState(false);
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const prevSidebarOpenForLoginRef = useRef<boolean | null>(null);
+  const prevSidebarOpenForClearRef = useRef<boolean | null>(null);
 
   useEffect(() => {
     setIsMobileScreen(window.innerWidth < 1280);
@@ -69,6 +71,10 @@ export default function GuestChatSessionPage() {
   const handleOpenLogin = (opts?: { description?: string; title?: string } | string) => {
     const desc = typeof opts === "string" ? opts : opts?.description;
     setLoginModalDescription(desc);
+    prevSidebarOpenForLoginRef.current = sidebarOpen;
+    if (sidebarOpen) {
+      setSidebarOpen(false);
+    }
     setShowLoginModal(true);
   };
 
@@ -492,12 +498,16 @@ export default function GuestChatSessionPage() {
   };
 
   const handleNewChat = () => {
-    if (typeof window !== "undefined" && window.innerWidth < 1280) {
-      setSidebarOpen(false);
-    }
     if (messages.length > 0 || isTyping) {
+      prevSidebarOpenForClearRef.current = sidebarOpen;
+      if (sidebarOpen) {
+        setSidebarOpen(false);
+      }
       setShowClearChatModal(true);
       return;
+    }
+    if (typeof window !== "undefined" && window.innerWidth < 1280) {
+      setSidebarOpen(false);
     }
     router.push("/gc");
   };
@@ -656,7 +666,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Sign up for free
                       </button>
@@ -679,7 +689,7 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none"
+              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none"
             >
               Sign up for free
             </button>
@@ -794,7 +804,15 @@ export default function GuestChatSessionPage() {
         open={showLoginModal}
         onOpenChange={(open) => {
           setShowLoginModal(open);
-          if (!open) setLoginModalDescription(undefined);
+          if (!open) {
+            setLoginModalDescription(undefined);
+            if (prevSidebarOpenForLoginRef.current === true) {
+              requestAnimationFrame(() => {
+                setSidebarOpen(true);
+              });
+            }
+            prevSidebarOpenForLoginRef.current = null;
+          }
         }}
         description={loginModalDescription}
       />
@@ -802,17 +820,38 @@ export default function GuestChatSessionPage() {
       {/* Clear Chat Confirmation Modal */}
       <ClearChatModal
         open={showClearChatModal}
-        onOpenChange={setShowClearChatModal}
+        onOpenChange={(open) => {
+          setShowClearChatModal(open);
+          if (!open) {
+            if (prevSidebarOpenForClearRef.current === true) {
+              requestAnimationFrame(() => {
+                setSidebarOpen(true);
+              });
+            }
+            prevSidebarOpenForClearRef.current = null;
+          }
+        }}
         onNewChat={() => {
+          prevSidebarOpenForClearRef.current = null;
           setShowClearChatModal(false);
           router.push("/gc");
         }}
         onOpenLogin={(opts) => {
+          const wasOpen = prevSidebarOpenForClearRef.current;
+          prevSidebarOpenForClearRef.current = null;
           setShowClearChatModal(false);
+          if (wasOpen) {
+            prevSidebarOpenForLoginRef.current = true;
+          }
           handleOpenLogin(opts?.description || "To continue with Saved chats");
         }}
         onOpenSignup={(opts) => {
+          const wasOpen = prevSidebarOpenForClearRef.current;
+          prevSidebarOpenForClearRef.current = null;
           setShowClearChatModal(false);
+          if (wasOpen) {
+            prevSidebarOpenForLoginRef.current = true;
+          }
           handleOpenLogin(opts?.description || "To continue with Saved chats");
         }}
       />

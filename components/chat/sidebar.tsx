@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { User } from "@supabase/supabase-js";
 import { Chat } from "@/lib/chat-service";
 import { useAuth } from "@/hooks/use-auth";
@@ -81,7 +81,8 @@ import { LogoutModal } from "@/components/modals/log-out-modal";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
 import { ReportBugModal } from "@/components/modals/report-bug-modal";
 import toast from "@/lib/toast";
-import { openSettings } from "@/lib/settings-hash";
+import { openSettings, isSettingsHash, SettingsSection } from "@/lib/settings-hash";
+import { useSidebarContext } from "@/components/chat/sidebar-context";
 import { motion } from "framer-motion";
 
 const SIDEBAR_SPRING = { type: "spring", damping: 30, stiffness: 320 } as const;
@@ -263,6 +264,7 @@ export function Sidebar({
     }
   }, [isOpen, showSearch]);
 
+  const { setSidebarOpen } = useSidebarContext();
   const [collapsedSections, setCollapsedSections] = useState<
     Record<string, boolean>
   >({});
@@ -280,49 +282,155 @@ export function Sidebar({
   const isWebSearchMouseHoveringRef = useRef(false);
   const ignoreNextWebSearchOpenRef = useRef(false);
 
-  const handleOpenReportBug = () => {
-    setAccountMenuOpen(false);
-    setCollapsedAccountMenuOpen(false);
-    setRailHelpOpen(false);
-    setGuestHelpMenuOpen(false);
-    setMobileHelpMenuOpen(false);
-    setAccountSubView("main");
-    setShowReportBugModal(true);
-    if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
-      onToggle();
-    }
-  };
+  const prevSidebarOpenForModalRef = useRef<boolean | null>(null);
+  const prevSidebarOpenForSettingsRef = useRef<boolean | null>(null);
+  const prevSidebarOpenForLoginRef = useRef<boolean | null>(null);
 
-  const handleOpenAddAccount = () => {
-    setAccountMenuOpen(false);
-    setCollapsedAccountMenuOpen(false);
-    setRailHelpOpen(false);
-    setGuestHelpMenuOpen(false);
-    setMobileHelpMenuOpen(false);
-    setAccountSubView("main");
-    if (onOpenLoginModal) {
-      onOpenLoginModal();
-    } else {
-      window.dispatchEvent(new CustomEvent("closeai-open-login"));
-    }
-    if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
-      onToggle();
-    }
-  };
+  const openModalWithSidebarClose = useCallback(
+    (openFn: () => void) => {
+      if (isOpen) {
+        prevSidebarOpenForModalRef.current = true;
+        setSidebarOpen(false);
+      } else {
+        prevSidebarOpenForModalRef.current = false;
+      }
+      openFn();
+    },
+    [isOpen, setSidebarOpen]
+  );
 
-  useEffect(() => {
-    if (showReportBugModal) {
+  const closeModalWithSidebarRestore = useCallback(
+    (closeFn?: () => void) => {
+      closeFn?.();
+      const shouldReopen = prevSidebarOpenForModalRef.current === true;
+      if (shouldReopen) {
+        requestAnimationFrame(() => {
+          setSidebarOpen(true);
+        });
+      }
+      prevSidebarOpenForModalRef.current = null;
+    },
+    [setSidebarOpen]
+  );
+
+  const handleOpenSettings = useCallback(
+    (section?: SettingsSection | "root") => {
       setAccountMenuOpen(false);
       setCollapsedAccountMenuOpen(false);
       setRailHelpOpen(false);
       setGuestHelpMenuOpen(false);
       setMobileHelpMenuOpen(false);
-      setAccountSubView("main");
-      if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
-        onToggle();
+      if (isOpen) {
+        prevSidebarOpenForSettingsRef.current = true;
+        setSidebarOpen(false);
       }
+      openSettings(section);
+    },
+    [isOpen, setSidebarOpen]
+  );
+
+  const handleOpenLoginModal = useCallback(
+    (options?: { description?: string; title?: string }) => {
+      setAccountMenuOpen(false);
+      setCollapsedAccountMenuOpen(false);
+      setRailHelpOpen(false);
+      setGuestHelpMenuOpen(false);
+      setMobileHelpMenuOpen(false);
+      if (isOpen) {
+        prevSidebarOpenForLoginRef.current = true;
+        setSidebarOpen(false);
+      }
+      if (onOpenLoginModal) {
+        onOpenLoginModal(options);
+      } else if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("closeai-open-login", { detail: options })
+        );
+      }
+    },
+    [isOpen, onOpenLoginModal, setSidebarOpen]
+  );
+
+  const handleOpenLogout = useCallback(() => {
+    setAccountMenuOpen(false);
+    setCollapsedAccountMenuOpen(false);
+    setRailHelpOpen(false);
+    setGuestHelpMenuOpen(false);
+    setMobileHelpMenuOpen(false);
+    openModalWithSidebarClose(() => setShowLogoutModal(true));
+  }, [openModalWithSidebarClose]);
+
+  const handleOpenDeleteModal = useCallback(
+    (chat: Chat) => {
+      openModalWithSidebarClose(() => setChatToDelete(chat));
+    },
+    [openModalWithSidebarClose]
+  );
+
+  const handleOpenReportBug = useCallback(() => {
+    setAccountMenuOpen(false);
+    setCollapsedAccountMenuOpen(false);
+    setRailHelpOpen(false);
+    setGuestHelpMenuOpen(false);
+    setMobileHelpMenuOpen(false);
+    setAccountSubView("main");
+    openModalWithSidebarClose(() => setShowReportBugModal(true));
+  }, [openModalWithSidebarClose]);
+
+  const handleOpenAddAccount = useCallback(() => {
+    setAccountMenuOpen(false);
+    setCollapsedAccountMenuOpen(false);
+    setRailHelpOpen(false);
+    setGuestHelpMenuOpen(false);
+    setMobileHelpMenuOpen(false);
+    setAccountSubView("main");
+    handleOpenLoginModal();
+  }, [handleOpenLoginModal]);
+
+  const handleLogoutConfirm = useCallback(async () => {
+    try {
+      prevSidebarOpenForModalRef.current = null;
+      setShowLogoutModal(false);
+      await signOut();
+    } catch (e) {
+      console.error(e);
     }
-  }, [showReportBugModal, isOpen, onToggle]);
+  }, [signOut]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const isSettings = isSettingsHash(window.location.hash);
+      if (isSettings) {
+        if (isOpen) {
+          prevSidebarOpenForSettingsRef.current = true;
+          setSidebarOpen(false);
+        }
+      } else {
+        if (prevSidebarOpenForSettingsRef.current === true) {
+          requestAnimationFrame(() => {
+            setSidebarOpen(true);
+          });
+        }
+        prevSidebarOpenForSettingsRef.current = null;
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [isOpen, setSidebarOpen]);
+
+  useEffect(() => {
+    const handleLoginClosed = () => {
+      if (prevSidebarOpenForLoginRef.current === true) {
+        requestAnimationFrame(() => {
+          setSidebarOpen(true);
+        });
+      }
+      prevSidebarOpenForLoginRef.current = null;
+    };
+    window.addEventListener("closeai-close-login", handleLoginClosed);
+    return () =>
+      window.removeEventListener("closeai-close-login", handleLoginClosed);
+  }, [setSidebarOpen]);
 
   useEffect(() => {
     setWebSearchHoverOpen(false);
@@ -526,14 +634,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
-              if (
-                isOpen &&
-                typeof window !== "undefined" &&
-                window.innerWidth < 1280
-              ) {
-                onToggle();
-              }
+              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
             }}
             className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
           >
@@ -543,16 +644,9 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
-              if (
-                isOpen &&
-                typeof window !== "undefined" &&
-                window.innerWidth < 1280
-              ) {
-                onToggle();
-              }
+              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
             }}
-            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
+            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
           >
             Sign up for free
           </button>
@@ -824,7 +918,7 @@ export function Sidebar({
 
         {/* Upgrade plan */}
         <DropdownMenuItem
-          onClick={() => openSettings("plans")}
+          onClick={() => handleOpenSettings("plans")}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -833,7 +927,7 @@ export function Sidebar({
 
         {/* Data */}
         <DropdownMenuItem
-          onClick={() => openSettings("data")}
+          onClick={() => handleOpenSettings("data")}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <Database className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -842,7 +936,7 @@ export function Sidebar({
 
         {/* Profile */}
         <DropdownMenuItem
-          onClick={() => openSettings("profile")}
+          onClick={() => handleOpenSettings("profile")}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <UserIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -852,7 +946,7 @@ export function Sidebar({
         {/* Settings */}
         <DropdownMenuItem
           onClick={() =>
-            isMobileScreen ? openSettings() : openSettings("general")
+            handleOpenSettings(isMobileScreen ? undefined : "general")
           }
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
@@ -963,11 +1057,7 @@ export function Sidebar({
 
         {/* Log out */}
         <DropdownMenuItem
-          onClick={() => {
-            setAccountMenuOpen(false);
-            setCollapsedAccountMenuOpen(false);
-            setShowLogoutModal(true);
-          }}
+          onClick={handleOpenLogout}
           className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
         >
           <LogOut className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -1146,7 +1236,7 @@ function SidebarChatItem({
       onToggle={onToggle}
       onToggleStar={onToggleStar}
       onToggleArchive={onToggleArchive}
-      setChatToDelete={setChatToDelete}
+      setChatToDelete={handleOpenDeleteModal}
     />
   );
 
@@ -1427,7 +1517,7 @@ function SidebarChatItem({
                           }}
                           onClick={() => {
                             setRailWebSearchHoverOpen(false);
-                            (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+                            (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
                           }}
                           className={cn(
                             "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer",
@@ -1601,9 +1691,9 @@ function SidebarChatItem({
                         type="button"
                         tabIndex={isOpen ? -1 : 0}
                         onClick={() =>
-                          isMobileScreen
-                            ? openSettings()
-                            : openSettings("general")
+                          handleOpenSettings(
+                            isMobileScreen ? undefined : "general"
+                          )
                         }
                         className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                         aria-label="Settings"
@@ -1708,7 +1798,7 @@ function SidebarChatItem({
                           size="icon"
                           className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
                           onClick={() => {
-                            onOpenLoginModal?.({
+                            handleOpenLoginModal({
                               description: "To continue with Search chats",
                             });
                           }}
@@ -1729,16 +1819,9 @@ function SidebarChatItem({
                     <button
                       type="button"
                       onClick={() => {
-                        onOpenLoginModal?.({
+                        handleOpenLoginModal({
                           description: "To continue with Search chats",
                         });
-                        if (
-                          isOpen &&
-                          typeof window !== "undefined" &&
-                          window.innerWidth < 1280
-                        ) {
-                          onToggle();
-                        }
                       }}
                       className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
                       aria-label="Search chats"
@@ -1909,14 +1992,7 @@ function SidebarChatItem({
                           setTimeout(() => {
                             ignoreNextWebSearchOpenRef.current = false;
                           }, 300);
-                          (onOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
-                          if (
-                            isOpen &&
-                            typeof window !== "undefined" &&
-                            window.innerWidth < 1280
-                          ) {
-                            onToggle();
-                          }
+                          (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
                         }}
                         className={cn(
                           "w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150",
@@ -2265,9 +2341,9 @@ function SidebarChatItem({
                       type="button"
                       tabIndex={!isOpen ? -1 : 0}
                       onClick={() =>
-                        isMobileScreen
-                          ? openSettings()
-                          : openSettings("general")
+                        handleOpenSettings(
+                          isMobileScreen ? undefined : "general"
+                        )
                       }
                       className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
                       aria-label="Settings"
@@ -2294,7 +2370,7 @@ function SidebarChatItem({
                       </div>
                       <button
                         type="button"
-                        onClick={() => onOpenLoginModal?.()}
+                        onClick={() => handleOpenLoginModal()}
                         className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
@@ -2373,18 +2449,9 @@ function SidebarChatItem({
                       type="button"
                       tabIndex={!isOpen ? -1 : 0}
                       onClick={() => {
-                        if (isMobileScreen) {
-                          openSettings();
-                        } else {
-                          openSettings("general");
-                        }
-                        if (
-                          isOpen &&
-                          typeof window !== "undefined" &&
-                          window.innerWidth < 1280
-                        ) {
-                          onToggle();
-                        }
+                        handleOpenSettings(
+                          isMobileScreen ? undefined : "general"
+                        );
                       }}
                       className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none"
                       aria-label="Settings"
@@ -2411,7 +2478,7 @@ function SidebarChatItem({
                       </div>
                       <button
                         type="button"
-                        onClick={() => onOpenLoginModal?.()}
+                        onClick={() => handleOpenLoginModal()}
                         className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
@@ -2429,8 +2496,14 @@ function SidebarChatItem({
           so it renders whether the sidebar is expanded or collapsed to the rail. */}
       <LogoutModal
         open={showLogoutModal}
-        onOpenChange={setShowLogoutModal}
-        onConfirm={signOut}
+        onOpenChange={(open) => {
+          if (!open) {
+            closeModalWithSidebarRestore(() => setShowLogoutModal(false));
+          } else {
+            setShowLogoutModal(true);
+          }
+        }}
+        onConfirm={handleLogoutConfirm}
         userName={user ? displayName : undefined}
         userEmail={user?.email || undefined}
         userAvatar={user ? avatarUrl : undefined}
@@ -2440,7 +2513,9 @@ function SidebarChatItem({
       <DeleteModal
         open={!!chatToDelete}
         onOpenChange={(open) => {
-          if (!open) setChatToDelete(null);
+          if (!open) {
+            closeModalWithSidebarRestore(() => setChatToDelete(null));
+          }
         }}
         itemTitle={chatToDelete?.title || "New chat"}
         isActive={chatToDelete?.id === currentChatId}
@@ -2449,7 +2524,7 @@ function SidebarChatItem({
         onConfirm={() => {
           if (chatToDelete) {
             onDeleteChat(chatToDelete.id);
-            setChatToDelete(null);
+            closeModalWithSidebarRestore(() => setChatToDelete(null));
           }
         }}
       />
@@ -2457,8 +2532,13 @@ function SidebarChatItem({
       {/* Report Bug / Feedback Modal */}
       <ReportBugModal
         open={showReportBugModal}
-        onOpenChange={setShowReportBugModal}
-        isGuest={!user}
+        onOpenChange={(open) => {
+          if (!open) {
+            closeModalWithSidebarRestore(() => setShowReportBugModal(false));
+          } else {
+            setShowReportBugModal(true);
+          }
+        }}
       />
     </>
   );

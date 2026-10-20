@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { CountDropdownMenu, CountryItem } from "@/components/ui/count-dropdown-menu";
 import countriesData from "@/data/countries.json";
 import { useAuth } from "@/hooks/use-auth";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 
 interface AuthFormErrors {
   email?: string;
@@ -45,7 +46,7 @@ export function LoginModal({
 }: LoginModalProps) {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const isGuest = isGuestProp !== undefined ? isGuestProp : (!authLoading && !user);
+  const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
 
   const [authMode, setAuthMode] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
@@ -224,9 +225,7 @@ export function LoginModal({
       maxSnap={0.96}
       className={cn(
         "max-w-[440px]",
-        isGuest
-          ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
-          : "bg-card border border-border/80 dark:border-none"
+        modalBgClass
       )}
       forceModal={forceModal}
     >
