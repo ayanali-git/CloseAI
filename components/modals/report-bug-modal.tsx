@@ -196,7 +196,7 @@ export function ReportBugModal({
                 handleSubmit();
               }
             }}
-            placeholder="Share your feedback"
+            placeholder="What happened?"
             rows={5}
             className={cn(
               "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-foreground transition-colors resize-y outline-none border",
@@ -257,7 +257,7 @@ export function ReportBugModal({
                 <Loader className="w-4 h-4 animate-spin" />
               </>
             ) : (
-              <span>Submit</span>
+              <span>Submit feedback</span>
             )}
           </button>
         </div>

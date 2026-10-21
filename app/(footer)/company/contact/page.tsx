@@ -29,11 +29,11 @@ export default function ContactPage() {
     const newErrors: FormErrors = {};
 
     if (!n.trim()) {
-      newErrors.name = "Name is required";
+      newErrors.name = "Full name is required";
     }
 
     if (!e.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Email address is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
       newErrors.email = "Please enter a valid email";
     }
@@ -140,7 +140,7 @@ export default function ContactPage() {
                     ? "border-red-500/80"
                     : "border-border/80"
                 }`}
-                placeholder="Your name"
+                placeholder="Full name"
               />
               {errors.name && touched.name && (
                 <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>
@@ -167,7 +167,7 @@ export default function ContactPage() {
                     ? "border-red-500/80"
                     : "border-border/80"
                 }`}
-                placeholder="your@email.com"
+                placeholder="Email address"
               />
               {errors.email && touched.email && (
                 <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>
@@ -189,7 +189,7 @@ export default function ContactPage() {
                   handleChange("message", e.target.value, setMessage)
                 }
                 onBlur={() => handleBlur("message")}
-                placeholder="How can we help you?"
+                placeholder="How can we help?"
                 className={cn(
                   "w-full min-h-[120px] max-h-[240px] p-3 bg-card rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed placeholder:text-foreground transition-colors resize-y outline-none border",
                   errors.message && touched.message
@@ -210,7 +210,7 @@ export default function ContactPage() {
                 <Loader className="w-4 h-4 animate-spin" />
               ) : (
                 <>
-                  <span>Send</span>
+                  <span>Send Message</span>
                 </>
               )}
             </Button>

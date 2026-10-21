@@ -445,14 +445,13 @@ export function LoginModal({
             <div>
               <div
                 className={cn(
-                  "h-12 rounded-full border border-border/80 px-4 flex items-center transition-all",
-                  "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white focus-visible:ring-offset-white",
-                  isGuest
-                    ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
-                    : "bg-background dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
+                  "h-12 rounded-full border px-4 flex items-center transition-all",
                   errors.email && (touched.email || submitted)
-                    ? "border-red-500/80 focus-within:ring-red-500"
-                    : "border-border/80 focus-within:ring-blue-500"
+                    ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
+                    : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
+                  isGuest
+                    ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
+                    : "bg-background dark:ring-offset-[#212121] dark:focus-within:ring-offset-[#212121]"
                 )}
               >
                 <input
@@ -498,14 +497,13 @@ export function LoginModal({
               <div>
                 <div
                   className={cn(
-                    "h-12 rounded-full border border-border/80 px-4 flex items-center gap-3 transition-all",
-                    "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-white focus-visible:ring-offset-white",
-                    isGuest
-                      ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:focus-within:ring-offset-[#2f2f2f] dark:focus-visible:ring-offset-[#2f2f2f]"
-                      : "bg-background dark:focus-within:ring-offset-[#212121] dark:focus-visible:ring-offset-[#212121]",
+                    "h-12 rounded-full border px-4 flex items-center gap-3 transition-all",
                     errors.phone && (touched.phone || submitted)
-                      ? "border-red-500/80 focus-within:ring-red-500"
-                      : "border-border/80 focus-within:ring-blue-500"
+                      ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
+                      : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
+                    isGuest
+                      ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
+                      : "bg-background dark:ring-offset-[#212121] dark:focus-within:ring-offset-[#212121]"
                   )}
                 >
                   <span className="text-base text-foreground font-normal select-none shrink-0 pl-1">
