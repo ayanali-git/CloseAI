@@ -374,14 +374,6 @@ export function Footer() {
                     href="/company/blog"
                     className="inline-flex items-center gap-1 text-foreground transition-colors"
                   >
-                    Livestreams
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/company/blog"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
-                  >
                     Podcast
                   </Link>
                 </li>

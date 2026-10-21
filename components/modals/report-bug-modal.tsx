@@ -79,7 +79,7 @@ export function ReportBugModal({
 
     setIsSubmitting(true);
     try {
-      await fetch("/api/feedback", {
+      const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -90,12 +90,21 @@ export function ReportBugModal({
           email: user?.email || null,
         }),
       });
-    } catch {
-      // Gracefully continue even if offline
-    } finally {
-      setIsSubmitting(false);
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit feedback");
+      }
+
       toast.success("Thank you for your feedback!");
       onOpenChange(false);
+    } catch (err: any) {
+      toast.error(
+        err?.message || "Failed to submit feedback. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -203,10 +212,8 @@ export function ReportBugModal({
           Your feedback can be used to improve CloseAI.{" "}
           <Link
             href="/support/help"
-            target="_blank"
-            rel="noopener noreferrer"
             className={cn(
-              "group text-foreground rounded-full",
+              "text-foreground hover:opacity-90 rounded-full",
               "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
@@ -216,7 +223,6 @@ export function ReportBugModal({
             style={{ outline: "none" }}
           >
             <span>Learn more</span>
-            <AnimatedArrowUpRight className="shrink-0 text-muted-foreground group-hover:text-foreground" />
           </Link>
         </p>
 

@@ -556,22 +556,16 @@ export function LoginModal({
             By continuing, you agree to our{" "}
             <Link
               href="/support/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-full text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="rounded-full text-foreground hover:opacity-90 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Terms of Use</span>
-              <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
             </Link>{" "}
             and{" "}
             <Link
               href="/support/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-full text-foreground focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+              className="rounded-full text-foreground hover:opacity-90 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
             >
               <span>Privacy Policy</span>
-              <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
             </Link>
             .
           </p>

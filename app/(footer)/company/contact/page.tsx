@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Asterisk, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Asterisk, Mail, MapPin, Loader } from "lucide-react";
 import { AnimatedArrow, AnimatedArrowUpRight } from "@/components/ui/animated";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import toast from "@/lib/toast";
 
 interface FormErrors {
   name?: string;
@@ -19,6 +20,7 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = (fields?: Partial<Record<keyof FormErrors, string>>) => {
     const n = fields?.name ?? name;
@@ -61,7 +63,7 @@ export default function ContactPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
     setTouched({ name: true, email: true, message: true });
@@ -69,14 +71,35 @@ export default function ContactPage() {
     const newErrors = validate();
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      // Form is valid — reset
-      setName("");
-      setEmail("");
-      setMessage("");
-      setErrors({});
-      setTouched({});
-      setSubmitted(false);
+    if (Object.keys(newErrors).length === 0 && !isSubmitting) {
+      setIsSubmitting(true);
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Failed to send message");
+        }
+
+        toast.success("Thank you! Your message has been sent.");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setErrors({});
+        setTouched({});
+        setSubmitted(false);
+      } catch (err: any) {
+        toast.error(
+          err?.message || "Failed to send message. Please try again."
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -180,10 +203,16 @@ export default function ContactPage() {
             </div>
             <Button
               type="submit"
-              className="group inline-flex items-center justify-center h-12 px-4 bg-foreground text-background font-medium rounded-full hover:opacity-90 active:scale-[0.99] transition-opacity text-base cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full h-12 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Send Message</span>
-              <AnimatedArrow size={18} />
+              {isSubmitting ? (
+                <Loader className="w-4 h-4 animate-spin" />
+              ) : (
+                <>
+                  <span>Send</span>
+                </>
+              )}
             </Button>
           </form>
         </div>

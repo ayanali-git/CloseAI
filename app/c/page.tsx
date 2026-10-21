@@ -381,7 +381,7 @@ function NewChatContent() {
                   <DropdownMenuContent
                     align="end"
                     sideOffset={6}
-                    className="w-72 sm:w-80 rounded-xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
+                    className="w-80 rounded-xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
                   >
                     <DropdownMenuItem
                       onClick={() => handleSetPersonalized(true)}
@@ -515,35 +515,26 @@ function NewChatContent() {
                   CloseAI is AI. By using it, you agree to our{" "}
                   <Link
                     href="/support/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group text-foreground transition-colors whitespace-nowrap"
+                    className="text-foreground hover:opacity-90 transition-colors whitespace-nowrap"
                   >
                     <span>Terms</span>
-                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/support/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group text-foreground transition-colors whitespace-nowrap"
+                    className="text-foreground hover:opacity-90 transition-colors whitespace-nowrap"
                   >
                     <span>Privacy</span>
-                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
                   </Link>
                   .
                 </div>
                 <div>
-                  Chats may be reviewed and used to improve AI models.{" "}
+                  Chats may be reviewed and used to improve our AI models.{" "}
                   <Link
                     href="/support/help"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group text-foreground transition-colors whitespace-nowrap"
+                    className="text-foreground hover:opacity-90 transition-colors whitespace-nowrap"
                   >
                     <span>Learn more</span>
-                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
                   </Link>
                 </div>
               </div>

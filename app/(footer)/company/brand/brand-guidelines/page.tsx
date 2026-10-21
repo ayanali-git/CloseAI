@@ -73,7 +73,7 @@ export default function CompanyBrandGuidelinesPage() {
             className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <a href="/closeai-brand-assets.zip" download="closeai-brand-assets.zip">
-              <span>Brand Kit</span>
+              <span>Brand Assets</span>
             </a>
           </Button>
         </div>
