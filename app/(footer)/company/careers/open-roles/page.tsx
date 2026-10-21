@@ -125,7 +125,7 @@ export default function OpenRolesPage() {
                 }
               }}
               placeholder="Search roles"
-              className="w-full pl-12 pr-4 h-12 bg-card border border-border/80 dark:border-none rounded-full text-base text-foreground placeholder:text-muted-foreground transition-all outline-none focus:outline-none"
+              className="w-full pl-12 pr-4 h-12 bg-card border border-border/80 dark:border-none rounded-full text-base text-foreground placeholder:text-foreground transition-all outline-none focus:outline-none"
             />
           </div>
 

@@ -114,7 +114,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="gap-1 text-foreground transition-colors"
                   >
-                    <span>CloseAI Chat</span>
+                    <span>CloseAI</span>
                     <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
@@ -137,20 +137,20 @@ export function Footer() {
                 <li>
                   <Link
                     href="/business/enterprise"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="gap-1 text-foreground transition-colors"
+                    className="inline-flex items-center gap-1 text-foreground transition-colors"
                   >
                     <span>CloseAI Enterprise</span>
-                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/product/features"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1 text-foreground transition-colors"
                   >
                     Codex
+                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                   </Link>
                 </li>
                 <li>

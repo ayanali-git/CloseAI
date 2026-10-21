@@ -232,7 +232,7 @@ export function LangDropdownMenu({
       type="button"
       onClick={() => handleOpenChange(true)}
       className={cn(
-        "group flex items-center text-base gap-2 px-4 py-3 rounded-full select-none",
+        "flex items-center text-base gap-2 px-4 py-3 rounded-full select-none",
         "bg-white dark:bg-[#2f2f2f] dark:hover:bg-[#383838] text-foreground",
         "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none",
         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
@@ -241,7 +241,7 @@ export function LangDropdownMenu({
       )}
       aria-label="Select language"
     >
-      <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+      <Globe className="w-4 h-4 text-foreground shrink-0" />
       <span className="font-medium text-foreground text-base">
         {mounted ? displayName : "English"}
       </span>
@@ -423,7 +423,7 @@ export function LangDropdownMenu({
                     }}
                     placeholder="Search"
                     aria-label="Search"
-                    className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-muted-foreground bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
+                    className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
                   />
                 </div>
               </div>

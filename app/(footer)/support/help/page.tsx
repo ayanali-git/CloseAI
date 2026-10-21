@@ -141,7 +141,7 @@ export default function HelpPage() {
               }
             }}
             placeholder="Search questions"
-            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-none rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-muted-foreground transition-all"
+            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-none rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-foreground transition-all"
           />
         </div>
       </header>

@@ -475,7 +475,7 @@ export function LoginModal({
                   onBlur={() => handleBlur("email")}
                   placeholder="Email address"
                   autoComplete="email"
-                  className="w-full h-full bg-transparent text-base placeholder:text-muted-foreground outline-none border-none focus:outline-none focus:ring-0"
+                  className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
                 />
               </div>
               {errors.email && (touched.email || submitted) && (
@@ -524,7 +524,7 @@ export function LoginModal({
                     }}
                     onBlur={() => handleBlur("phone")}
                     placeholder="Phone number"
-                    className="w-full h-full bg-transparent text-base placeholder:text-muted-foreground outline-none border-none focus:outline-none focus:ring-0"
+                    className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
                   />
                 </div>
                 {errors.phone && (touched.phone || submitted) && (
