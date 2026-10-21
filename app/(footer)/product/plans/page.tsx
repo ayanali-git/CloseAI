@@ -83,7 +83,7 @@ export default function PlansPage() {
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className={`relative rounded-3xl p-8 flex flex-col justify-between border transition-colors ${
+            className={`relative rounded-sm p-8 flex flex-col justify-between border transition-colors ${
               plan.popular
                 ? "bg-card border-foreground/30 scale-[1.02]"
                 : "bg-card/60 border-border/80"

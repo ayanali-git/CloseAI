@@ -246,7 +246,7 @@ export default function OpenRolesPage() {
           Want to learn more about our mission, culture, and benefits?{' '}
           <Link
             href="/company/careers"
-            className="group rounded-full text-foreground transition-opacity hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="rounded-full text-foreground transition-opacity hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <span>Learn more</span>
           </Link>

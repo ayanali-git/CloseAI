@@ -152,7 +152,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('getting-started')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'getting-started'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -170,7 +170,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('account-billing')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'account-billing'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -188,7 +188,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('troubleshooting')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-3xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'troubleshooting'
               ? "border border-border/80 dark:border-none bg-secondary"
               : "border border-border/80 dark:border-none hover:bg-secondary"
@@ -239,7 +239,7 @@ export default function HelpPage() {
                 <div
                   key={faq.id}
                   className={cn(
-                    "group rounded-3xl border-b transition-all duration-200 overflow-hidden",
+                    "group rounded-sm border-b transition-all duration-200 overflow-hidden",
                     isOpen
                       ? "bg-secondary"
                       : "border-b border-border/80 hover:bg-secondary"
@@ -248,7 +248,7 @@ export default function HelpPage() {
                   <button
                     type="button"
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 cursor-pointer rounded-3xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 cursor-pointer rounded-sm outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${faq.id}`}
                   >

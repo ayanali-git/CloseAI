@@ -45,7 +45,7 @@ export default function CareersPage() {
   return (
     <div className="py-12 sm:py-20 w-full max-w-5xl mx-auto min-w-0 select-none">
       {/* 1. HERO SECTION */}
-      <section className="max-w-3xl mb-16 sm:mb-24">
+      <section className="max-w-3xl mx-auto text-center mb-16 sm:mb-24">
         <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-4">
           Careers
         </p>
@@ -57,13 +57,13 @@ export default function CareersPage() {
         </p>
 
         {/* Hero CTA Buttons: Contact recruiting (left, without icon) & Open roles (right) */}
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
             className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
           >
             <Link href="/company/contact">
-              <span>Contact recruiting</span>
+              <span>Contact Us</span>
             </Link>
           </Button>
 
@@ -77,7 +77,7 @@ export default function CareersPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-1.5"
             >
-              <span>Open roles</span>
+              <span>Open Roles</span>
               <AnimatedArrowUpRight size={18} />
             </Link>
           </Button>
@@ -192,7 +192,7 @@ export default function CareersPage() {
 
       {/* 3. HERO TEAM PHOTO BANNER */}
       <section className="mb-20 sm:mb-28">
-        <div className="relative w-full aspect-[10/9] sm:aspect-[20/9] rounded-3xl overflow-hidden bg-black transition-all duration-300">
+        <div className="relative w-full aspect-[10/9] sm:aspect-[20/9] rounded-sm overflow-hidden bg-black transition-all duration-300">
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
             alt="CloseAI team collaborating in workspace"
@@ -203,7 +203,7 @@ export default function CareersPage() {
       </section>
 
       {/* 4. BENEFITS SECTION */}
-      <section className="mb-20 sm:mb-28">
+      <section className="mb-20 sm:mb-28 pt-12 border-t border-border/80">
         <div className="max-w-2xl mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mb-4">
             Benefits
@@ -317,7 +317,7 @@ export default function CareersPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-11 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
+                className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
               >
                 <Link href="/research/overview">
                   <span>Explore research</span>
@@ -327,7 +327,7 @@ export default function CareersPage() {
             </div>
           </div>
 
-          <div className="order-1 md:order-2 relative w-full aspect-[2/1] md:aspect-[4/3] rounded-3xl overflow-hidden bg-black transition-all duration-300">
+          <div className="order-1 md:order-2 relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
             <img
               src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
               alt="Researchers and engineers collaborating in frontier workspace"
@@ -339,7 +339,7 @@ export default function CareersPage() {
 
         {/* Spotlight 2: Learning by doing */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-3xl overflow-hidden bg-black transition-all duration-300">
+          <div className="relative w-full aspect-[2/1] md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
             <img
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80"
               alt="Team members collaborating and validating systems"
@@ -363,10 +363,10 @@ export default function CareersPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-11 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
+                className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
               >
                 <Link href="/research/safety">
-                  <span>Safety approach</span>
+                  <span>Explore Safety</span>
                   <AnimatedArrow size={16} />
                 </Link>
               </Button>
@@ -431,7 +431,7 @@ export default function CareersPage() {
               )}
             >
               {/* Visual Thumbnail: DiceBear glass avatar identical to main page */}
-              <div className="relative w-full aspect-square rounded-3xl overflow-hidden bg-muted/20">
+              <div className="relative w-full aspect-square rounded-sm overflow-hidden bg-muted/20">
                 <img
                   src={glassAvatar(story.seed)}
                   alt={story.title}
@@ -461,7 +461,7 @@ export default function CareersPage() {
       </section>
 
       {/* 7. BOTTOM CTA SECTION */}
-      <section className="rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <section className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-3xl sm:text-5xl font-semibold text-foreground mb-4">
           Shape the future of technology
         </h2>

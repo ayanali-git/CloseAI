@@ -134,7 +134,7 @@ export function PlansPanel() {
           type="button"
           onClick={handleManage}
           disabled={loading === "manage"}
-          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 transition-all select-none"
+          className="h-12 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 transition-all select-none"
         >
           {loading === "manage" ? (
             <Loader className="w-4 h-4 animate-spin inline" />

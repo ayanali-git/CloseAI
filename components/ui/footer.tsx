@@ -331,6 +331,17 @@ export function Footer() {
                     Contact Us
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/company/brand"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1 text-foreground transition-colors"
+                  >
+                    <span>Brand</span>
+                    <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                  </Link>
+                </li>
               </ul>
             </div>
 

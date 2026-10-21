@@ -263,6 +263,15 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     keywords: ["about", "company", "mission", "values", "team", "story"],
   },
   {
+    id: "comp-brand",
+    category: "Company",
+    title: "Brand Assets & Identity",
+    description: "Official CloseAI brand assets, high-resolution logos, favicons, and vector downloads.",
+    url: "/company/brand",
+    keywords: ["brand", "logos", "assets", "identities", "download", "svgs", "pngs"],
+  },
+
+  {
     id: "comp-blog",
     category: "Page",
     title: "Release Notes & Blog",
@@ -795,7 +804,7 @@ export function MarketingHeader() {
                   <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Button
                       asChild
-                      className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
+                      className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
                     >
                       <Link
                         href={user ? "/c" : "/gc"}
@@ -811,7 +820,7 @@ export function MarketingHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
-                      className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                      className="group rounded-full h-12 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                     >
                       <span>API Docs</span>
                       <AnimatedArrowUpRight className="w-4 h-4" />
@@ -1649,6 +1658,18 @@ export function MarketingHeader() {
                           Contact Us
                         </Link>
                       </li>
+                      <li>
+                        <Link
+                          href="/company/brand"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-2xl font-medium text-foreground transition-colors"
+                        >
+                          <span>Brand</span>
+                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                        </Link>
+                      </li>
                     </ul>
                   </div>
 
@@ -1657,15 +1678,6 @@ export function MarketingHeader() {
                       Resources
                     </p>
                     <ul className="space-y-3 text-base">
-                      <li>
-                        <Link
-                          href="/company/about"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          Brand Guidelines
-                        </Link>
-                      </li>
                       <li>
                         <Link
                           href="/support/privacy"
@@ -2159,6 +2171,16 @@ export function MarketingHeader() {
                           >
                             Contact Us
                           </Link>
+                          <Link
+                            href="/company/brand"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setMobileNavOpen(false)}
+                            className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
+                          >
+                            <span>Brand</span>
+                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          </Link>
                         </div>
                       </div>
 
@@ -2168,10 +2190,6 @@ export function MarketingHeader() {
                         </div>
                         <div className="space-y-2.5">
                           {[
-                            {
-                              label: "Brand Guidelines",
-                              href: "/company/about",
-                            },
                             {
                               label: "Public Policy & Governance",
                               href: "/support/privacy",

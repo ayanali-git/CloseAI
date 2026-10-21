@@ -63,7 +63,7 @@ export default function EnterprisePage() {
           return (
             <div
               key={i}
-              className="p-8 rounded-3xl border border-border/80 dark:border-none bg-card transition-all flex flex-col justify-between"
+              className="p-8 rounded-sm border border-border/80 dark:border-none bg-card transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center mb-6">
@@ -78,7 +78,7 @@ export default function EnterprisePage() {
       </div>
 
       {/* Customer Trust Banner */}
-      <div className="rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <div className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4">
           Trusted by millions of users
         </h2>

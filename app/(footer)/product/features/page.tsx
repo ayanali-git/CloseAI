@@ -35,7 +35,7 @@ export default function FeaturesPage() {
             description: "Seamlessly search across large repositories of documents. Our embeddings and vector search capabilities ensure you find relevant information quickly and accurately."
           }
         ].map((feature, i) => (
-          <div key={i} className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 sm:p-8 bg-card border border-border/80 dark:border-none rounded-3xl">
+          <div key={i} className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 sm:p-8 bg-card border border-border/80 dark:border-none rounded-sm">
             <div className="p-3 sm:p-4 bg-secondary rounded-2xl shrink-0">
               <feature.icon className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
             </div>

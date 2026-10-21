@@ -93,7 +93,7 @@ export default function ContactPage() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 w-full">
-        <div className="w-full p-6 sm:p-8 md:p-10 bg-card border border-border/80 dark:border-none rounded-3xl">
+        <div className="w-full p-6 sm:p-8 md:p-10 bg-card border border-border/80 dark:border-none rounded-sm">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">
             Get in Touch
           </h2>

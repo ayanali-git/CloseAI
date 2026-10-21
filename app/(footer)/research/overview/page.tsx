@@ -55,7 +55,7 @@ export default function ResearchOverviewPage() {
       </div>
 
       {/* Hero Research Spotlight */}
-      <div className="rounded-3xl border border-border/80 dark:border-none bg-gradient-to-br from-indigo-950/40 via-card to-background p-8 sm:p-12 mb-16">
+      <div className="rounded-sm border border-border/80 dark:border-none bg-gradient-to-br from-indigo-950/40 via-card to-background p-8 sm:p-12 mb-16">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
           <span className="text-base font-semibold uppercase tracking-wider text-indigo-400">
