@@ -1826,7 +1826,7 @@ function SidebarChatItem({
                       className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
                       aria-label="Search chats"
                     >
-                      <Search className="w-5 h-5 shrink-0" />
+                      <Search className="w-4 h-4 shrink-0" />
                     </button>
 
                     {/* Small Screen Devices: Sidebar Close Button */}

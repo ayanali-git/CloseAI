@@ -9,6 +9,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          'Söhne',
+          'ui-sans-serif',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+        ],
+      },
       borderRadius: {
         '3xl': '1.5rem',
         '2xl': '1rem',

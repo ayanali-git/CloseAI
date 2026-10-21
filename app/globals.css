@@ -189,7 +189,10 @@
   body {
     @apply bg-background text-foreground antialiased;
     overflow-x: clip;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Söhne", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Prevent browser text-selection from showing a solid white block/bar on empty inputs/textareas */
@@ -238,7 +241,7 @@
 .chat-markdown {
   font-size: 15px;
   line-height: 1.75;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Söhne", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: hsl(var(--foreground));
   --bubble: 0 0% 91%;
   --bubble-foreground: 0 0% 0%;

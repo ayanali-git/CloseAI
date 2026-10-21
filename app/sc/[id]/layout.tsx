@@ -1,6 +1,22 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { supabaseAdmin } from '@/lib/supabase-server';
+import { ChatFavicon } from '@/components/brand/chat-favicon';
+
+export const metadata: Metadata = {
+  title: 'CloseAI',
+  icons: {
+    icon: [
+      { url: '/favicon-chat.ico', sizes: 'any' },
+      { url: '/favicon-chat.svg', type: 'image/svg+xml' },
+      { url: '/favicon-chat-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-chat-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/favicon-chat.ico',
+    apple: '/closeai-icon-white.png',
+  },
+};
 
 export default async function SharedChatLayout({
   children,
@@ -47,6 +63,7 @@ export default async function SharedChatLayout({
 
   return (
     <>
+      <ChatFavicon />
       <style
         dangerouslySetInnerHTML={{
           __html: `:root { --shared-title-w: ${initialWidth}px; }`,

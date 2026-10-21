@@ -19,14 +19,14 @@ export function CloseAIIcon({ className = 'w-6 h-6', size = 24, inverted = false
         <>
           <img
             src="/closeai-icon-white.png"
-            alt="closeAI"
+            alt="CloseAI"
             width={size}
             height={size}
             className="w-full h-full object-contain dark:hidden"
           />
           <img
             src="/closeai-icon.png"
-            alt="closeAI"
+            alt="CloseAI"
             width={size}
             height={size}
             className="w-full h-full object-contain hidden dark:block"
@@ -36,14 +36,14 @@ export function CloseAIIcon({ className = 'w-6 h-6', size = 24, inverted = false
         <>
           <img
             src="/closeai-icon.png"
-            alt="closeAI"
+            alt="CloseAI"
             width={size}
             height={size}
             className="w-full h-full object-contain dark:hidden"
           />
           <img
             src="/closeai-icon-white.png"
-            alt="closeAI"
+            alt="CloseAI"
             width={size}
             height={size}
             className="w-full h-full object-contain hidden dark:block"
@@ -59,7 +59,7 @@ export function CloseAILogo({ className = 'flex items-center gap-2.5', iconSize 
     <div className={className}>
       <CloseAIIcon size={iconSize} />
       <span className="font-semibold text-[17px] tracking-tight text-foreground select-none">
-        closeAI
+        CloseAI
       </span>
     </div>
   );
