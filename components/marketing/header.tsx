@@ -265,8 +265,8 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
     id: "comp-brand",
     category: "Company",
-    title: "Brand Assets & Identity",
-    description: "Official CloseAI brand assets, high-resolution logos, favicons, and vector downloads.",
+    title: "Brand Kit & Identity",
+    description: "Official CloseAI brand kit with high-resolution logos, favicons, and vector downloads.",
     url: "/company/brand",
     keywords: ["brand", "logos", "assets", "identities", "download", "svgs", "pngs"],
   },
@@ -605,7 +605,7 @@ export function MarketingHeader() {
   // Close mobile navigation drawer on resize to desktop & keep scrollbar width updated
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1025) {
+      if (window.innerWidth >= 1280) {
         setMobileNavOpen(false);
       }
       if (!isLocked) {
@@ -699,7 +699,7 @@ export function MarketingHeader() {
                   className={cn(
                     "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
                     searchQuery.trim().length > 0
-                      ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                      ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
                       : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
@@ -820,7 +820,7 @@ export function MarketingHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
-                      className="group rounded-full h-12 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                      className="group rounded-full h-12 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                     >
                       <span>API Docs</span>
                       <AnimatedArrowUpRight className="w-4 h-4" />
@@ -864,7 +864,7 @@ export function MarketingHeader() {
               }}
               className="flex items-center gap-2"
             >
-              <span className="font-bold text-xl tracking-tight text-foreground transition-opacity hover:opacity-90">
+              <span className="font-bold text-xl tracking-tight text-foreground transition-opacity hover:opacity-80">
                 CloseAI
               </span>
             </Link>
@@ -885,19 +885,11 @@ export function MarketingHeader() {
                   setActiveMenu(activeMenu === "research" ? null : "research");
                 }}
                 className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center gap-1",
+                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
                   getNavButtonColor("research")
                 )}
               >
                 <span>Research</span>
-                <AnimatedChevron
-                  open={activeMenu === "research"}
-                  size={18}
-                  className={cn(
-                    getNavButtonColor("research"),
-                    "transition-colors"
-                  )}
-                />
               </button>
 
               {/* Products */}
@@ -911,19 +903,11 @@ export function MarketingHeader() {
                   setActiveMenu(activeMenu === "products" ? null : "products");
                 }}
                 className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center gap-1",
+                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
                   getNavButtonColor("products")
                 )}
               >
                 <span>Products</span>
-                <AnimatedChevron
-                  open={activeMenu === "products"}
-                  size={18}
-                  className={cn(
-                    getNavButtonColor("products"),
-                    "transition-colors"
-                  )}
-                />
               </button>
 
               {/* Business */}
@@ -937,19 +921,11 @@ export function MarketingHeader() {
                   setActiveMenu(activeMenu === "business" ? null : "business");
                 }}
                 className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center gap-1",
+                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
                   getNavButtonColor("business")
                 )}
               >
                 <span>Business</span>
-                <AnimatedChevron
-                  open={activeMenu === "business"}
-                  size={18}
-                  className={cn(
-                    getNavButtonColor("business"),
-                    "transition-colors"
-                  )}
-                />
               </button>
 
               {/* Developers */}
@@ -965,19 +941,11 @@ export function MarketingHeader() {
                   );
                 }}
                 className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center gap-1",
+                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
                   getNavButtonColor("developers")
                 )}
               >
                 <span>Developers</span>
-                <AnimatedChevron
-                  open={activeMenu === "developers"}
-                  size={18}
-                  className={cn(
-                    getNavButtonColor("developers"),
-                    "transition-colors"
-                  )}
-                />
               </button>
 
               {/* Company */}
@@ -991,19 +959,11 @@ export function MarketingHeader() {
                   setActiveMenu(activeMenu === "company" ? null : "company");
                 }}
                 className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center gap-1",
+                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
                   getNavButtonColor("company")
                 )}
               >
                 <span>Company</span>
-                <AnimatedChevron
-                  open={activeMenu === "company"}
-                  size={18}
-                  className={cn(
-                    getNavButtonColor("company"),
-                    "transition-colors"
-                  )}
-                />
               </button>
 
               {/* Foundation (Non-dropdown link: closes menu immediately on hover) */}
@@ -1037,7 +997,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="p-1 pt-2 transition-opacity hover:opacity-90 cursor-pointer flex items-center justify-center text-foreground"
+                className="p-1 pt-2 transition-opacity hover:opacity-80 cursor-pointer flex items-center justify-center text-foreground"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={18} />
@@ -1070,7 +1030,7 @@ export function MarketingHeader() {
 
                 <Link
                   href="/c"
-                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Open Chat</span>
                   <AnimatedArrow size={18} />
@@ -1123,7 +1083,7 @@ export function MarketingHeader() {
                         <button
                           type="button"
                           onClick={(e) => e.preventDefault()}
-                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#383838] text-muted-foreground cursor-not-allowed"
+                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#383838] text-foreground cursor-not-allowed"
                         >
                           <AnimatedComingSoonText
                             label="API Platform"
@@ -1139,7 +1099,7 @@ export function MarketingHeader() {
                   href="/gc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Try CloseAI</span>
                   <AnimatedArrowUpRight size={18} />
@@ -1823,7 +1783,7 @@ export function MarketingHeader() {
                   {/* Top Back Navigation Button */}
                   <button
                     onClick={() => setMobileSubMenu(null)}
-                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-90 transition-opacity cursor-pointer mb-6"
+                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-80 transition-opacity cursor-pointer mb-6"
                   >
                     <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
                     <span>Home</span>
@@ -2218,7 +2178,7 @@ export function MarketingHeader() {
                   )}
 
                   {mobileSubMenu === "login" && (
-                    <div className="space-y-6 nav-dropdown-group">
+                    <div className="space-y-6">
                       <div>
                         <div className="text-base uppercase tracking-wider text-muted-foreground font-semibold mb-3">
                           Log In
@@ -2231,13 +2191,13 @@ export function MarketingHeader() {
                               setMobileSubMenu(null);
                               openLoginModal();
                             }}
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:text-muted-foreground transition-colors py-1 cursor-pointer w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-80 transition-opacity py-1 cursor-pointer w-full outline-none"
                           >
                             CloseAI Chat
                           </button>
                           <button
                             type="button"
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-muted-foreground transition-colors py-1 cursor-not-allowed w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-80 transition-opacity py-1 cursor-not-allowed w-full outline-none"
                           >
                             <AnimatedComingSoonText
                               label="API Platform"

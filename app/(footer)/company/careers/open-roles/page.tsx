@@ -79,7 +79,7 @@ export default function OpenRolesPage() {
           Careers
         </p>
         <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-foreground mb-4">
-          Open roles
+          Open roles at CloseAI
         </h1>
         <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           Explore opportunities to build safe, beneficial artificial general intelligence.
@@ -104,7 +104,7 @@ export default function OpenRolesPage() {
               className={cn(
                 'absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10 outline-none rounded-full p-0.5',
                 searchQuery
-                  ? 'text-foreground cursor-pointer hover:opacity-90'
+                  ? 'text-foreground cursor-pointer hover:opacity-80'
                   : 'text-muted-foreground group-focus-within:text-foreground cursor-text'
               )}
               aria-label={searchQuery ? 'Clear search' : 'Search'}
@@ -246,7 +246,7 @@ export default function OpenRolesPage() {
           Want to learn more about our mission, culture, and benefits?{' '}
           <Link
             href="/company/careers"
-            className="rounded-full text-foreground transition-opacity hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="rounded-full text-foreground transition-opacity hover:opacity-80 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <span>Learn more</span>
           </Link>

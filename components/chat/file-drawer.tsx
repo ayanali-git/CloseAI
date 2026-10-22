@@ -804,7 +804,7 @@ export function FilePreviewViewer({
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-80 transition-opacity cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     Download File
@@ -847,7 +847,7 @@ export function FilesDrawer({
 
   useEffect(() => {
     const checkScreen = () => {
-      setIsMobile(window.innerWidth < 1025);
+      setIsMobile(window.innerWidth < 1280);
     };
     checkScreen();
     window.addEventListener("resize", checkScreen);
@@ -869,7 +869,7 @@ export function FilesDrawer({
 
   return (
     <>
-      {/* Desktop In-Flow Side Panel (>= 1025px) — Matches Image 3 with visible scrollbar, header buttons, and TOC! */}
+      {/* Desktop In-Flow Side Panel (>= 1280px) — Matches Image 3 with visible scrollbar, header buttons, and TOC! */}
       {!isMobile && (
         <AnimatePresence>
           {isOpen && (
@@ -930,7 +930,7 @@ export function FilesDrawer({
       </AnimatePresence>
       )}
 
-      {/* Mobile Portal Drawer (< 1025px) */}
+      {/* Mobile Portal Drawer (< 1280px) */}
       {isMobile && (
         <Drawer
           isOpen={isOpen}

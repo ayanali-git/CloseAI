@@ -50,7 +50,7 @@ export default function CareersPage() {
           Careers
         </p>
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-foreground mb-6 leading-[1.08]">
-          Develop safe, beneficial AI systems
+          Careers at CloseAI
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10">
           Join us in shaping the future of technology for the benefit of all.
@@ -69,7 +69,7 @@ export default function CareersPage() {
 
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <Link
               href="/company/careers/open-roles"
@@ -474,7 +474,7 @@ export default function CareersPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center gap-1.5"
+            className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center gap-1.5"
           >
             <Link
               href="/company/careers/open-roles"

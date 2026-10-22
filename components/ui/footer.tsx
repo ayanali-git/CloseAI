@@ -484,15 +484,6 @@ export function Footer() {
               <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </a>
             <a
-              href="https://www.reddit.com/user/ayanali-redd1t"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="gap-1 text-foreground transition-colors whitespace-nowrap"
-            >
-              <span>Reddit</span>
-              <AnimatedArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-            </a>
-            <a
               href="https://github.com/ayanali-git"
               target="_blank"
               rel="noopener noreferrer"

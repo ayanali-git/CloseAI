@@ -143,7 +143,7 @@ export function FilePreviewModal({
                   href={fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-foreground text-background text-xs font-semibold hover:opacity-90"
+                  className="px-4 py-2 rounded-full bg-foreground text-background text-xs font-semibold hover:opacity-80"
                 >
                   Open in new tab
                 </a>

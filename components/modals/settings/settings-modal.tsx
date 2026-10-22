@@ -102,7 +102,7 @@ export function SettingsModal({
     : visibleNav;
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1025);
+    const check = () => setIsMobile(window.innerWidth < 1280);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -244,8 +244,8 @@ export function SettingsModal({
         unpadded
         className={cn(
           isGuest
-            ? "min-[1025px]:max-w-[750px] min-[1025px]:h-[min(500px,90vh)]"
-            : "min-[1025px]:max-w-[1000px] min-[1025px]:h-[min(500px,90vh)]",
+            ? "min-[1280px]:max-w-[750px] min-[1280px]:h-[min(500px,90vh)]"
+            : "min-[1280px]:max-w-[1000px] min-[1280px]:h-[min(500px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
             "bg-white dark:bg-[#2f2f2f] border border-border/80"
@@ -253,7 +253,7 @@ export function SettingsModal({
       >
         {/* Mobile: both panes are stacked and slide horizontally (like a native
             navigation stack). Desktop: normal side-by-side layout. */}
-        <div className="relative flex h-full min-h-0 flex-col overflow-hidden min-[1025px]:flex-row min-[1025px]:overflow-visible">
+        <div className="relative flex h-full min-h-0 flex-col overflow-hidden min-[1280px]:flex-row min-[1280px]:overflow-visible">
           <aside
             className={cn(
               "absolute inset-0 flex flex-col border-border/80",
@@ -262,20 +262,20 @@ export function SettingsModal({
               // Back -> list slides in from the left.
               atRoot ? "translate-x-0 visible" : "-translate-x-full invisible",
               // Desktop: static sidebar, never animated or hidden
-              "min-[1025px]:static min-[1025px]:inset-auto min-[1025px]:w-[220px] min-[1025px]:shrink-0",
-              "min-[1025px]:translate-x-0 min-[1025px]:visible min-[1025px]:transition-none",
-              "min-[1025px]:border-r dark:min-[1025px]:border-white/10"
+              "min-[1280px]:static min-[1280px]:inset-auto min-[1280px]:w-[220px] min-[1280px]:shrink-0",
+              "min-[1280px]:translate-x-0 min-[1280px]:visible min-[1280px]:transition-none",
+              "min-[1280px]:border-r dark:min-[1280px]:border-white/10"
             )}
           >
             {/* Same header on every screen size: close button top-left on desktop,
                 plus clean "Settings" title on mobile and rounded search bar for signed-in users */}
-            <div className="flex flex-col gap-3 px-3 pt-2 pb-3 min-[1025px]:pt-3">
+            <div className="flex flex-col gap-3 px-3 pt-2 pb-3 min-[1280px]:pt-3">
               {/* Close button - only on desktop/large screens */}
               <button
                 type="button"
                 onClick={() => closeSettings()}
                 className={cn(
-                  "hidden min-[1025px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                  "hidden min-[1280px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
                     ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
                     : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
@@ -288,7 +288,7 @@ export function SettingsModal({
               </button>
 
               {/* Title on mobile root menu */}
-              <div className="flex items-center min-[1025px]:hidden px-1 pt-0.5">
+              <div className="flex items-center min-[1280px]:hidden px-1 pt-0.5">
                 <h2 className="text-xl font-semibold tracking-tight text-foreground">
                   Settings
                 </h2>
@@ -309,7 +309,7 @@ export function SettingsModal({
                     className={cn(
                       "absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
                       query
-                        ? "text-foreground cursor-pointer hover:opacity-90"
+                        ? "text-foreground cursor-pointer hover:opacity-80"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                   >
@@ -350,7 +350,7 @@ export function SettingsModal({
                     aria-label="Search settings"
                     // 16px on small screens so iOS Safari doesn't zoom the page on focus
                     className={cn(
-                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1025px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
+                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1280px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
                       isSearchTabFocused &&
                         "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#212121]"
                     )}
@@ -442,13 +442,13 @@ export function SettingsModal({
               // Back -> pane slides out to the right.
               atRoot ? "translate-x-full invisible" : "translate-x-0 visible",
               // Desktop: fills the space next to the sidebar, never animated
-              "min-[1025px]:static min-[1025px]:inset-auto min-[1025px]:flex-1",
-              "min-[1025px]:translate-x-0 min-[1025px]:visible min-[1025px]:transition-none"
+              "min-[1280px]:static min-[1280px]:inset-auto min-[1280px]:flex-1",
+              "min-[1280px]:translate-x-0 min-[1280px]:visible min-[1280px]:transition-none"
             )}
           >
             <div
               className={cn(
-                "shrink-0 flex items-center gap-2 px-4 min-[1025px]:px-6 pt-2 min-[1025px]:pt-4 pb-3 border-b transition-colors duration-200",
+                "shrink-0 flex items-center gap-2 px-4 min-[1280px]:px-6 pt-2 min-[1280px]:pt-4 pb-3 border-b transition-colors duration-200",
                 showHeaderBorder ? "border-border/80 dark:border-white/10" : "border-transparent"
               )}
             >
@@ -467,7 +467,7 @@ export function SettingsModal({
               )}
             >
               <div ref={contentRef}>
-                <div className="px-4 min-[1025px]:px-6 pt-1 pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom,0px)))] min-[1025px]:pb-6">
+                <div className="px-4 min-[1280px]:px-6 pt-1 pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom,0px)))] min-[1280px]:pb-6">
                   <SettingsSectionBody section={active} />
                 </div>
               </div>

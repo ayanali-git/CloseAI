@@ -303,7 +303,7 @@ export default function NotFound() {
             </button>
             <Link
               href="/gc"
-              className="h-12 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-12 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Ask CloseAI
               <AnimatedArrowUpRight size={15} />

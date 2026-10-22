@@ -229,7 +229,7 @@
 }
 
 /* Prevent iOS Safari / mobile browser auto-zoom on input and textarea focus */
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1280px) {
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
   textarea,
   select {

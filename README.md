@@ -1,4 +1,4 @@
-# closeAI - AI-Powered Assistant
+# CloseAI - AI-Powered Assistant
 
 A comprehensive AI-powered assistant web application built with Next.js, Supabase, and modern AI APIs.
 
@@ -55,6 +55,7 @@ Required environment variables:
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anon key
 - `SUPABASE_SERVICE_ROLE_KEY` - Your Supabase service role key
 - `GEMINI_API_KEY` - Your Google Gemini API key
+- `OPENAI_API_KEY` - Your OpenAI API key
 
 ### 3. Supabase Setup
 

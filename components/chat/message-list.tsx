@@ -771,7 +771,7 @@ export function MessageList({
             <ImagePreview
               src={src}
               alt={alt || "Image preview"}
-              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-90 transition-opacity"
+              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-80 transition-opacity"
             />
           </div>
         );
@@ -782,7 +782,7 @@ export function MessageList({
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobileScreen(window.innerWidth < 1025);
+      setIsMobileScreen(window.innerWidth < 1280);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -1070,7 +1070,7 @@ export function MessageList({
                             className={cn(
                               "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all select-none",
                               !isUnchangedOrEmpty && !isTyping
-                                ? "bg-bubble-foreground text-bubble hover:opacity-90 active:scale-[0.99] cursor-pointer"
+                                ? "bg-bubble-foreground text-bubble hover:opacity-80 active:scale-[0.99] cursor-pointer"
                                 : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed"
                             )}
                           >
@@ -1568,7 +1568,7 @@ export function MessageList({
                                         className={cn(
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                           (changePrompts[msgId] || "").trim()
-                                            ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                                            ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                                             : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
@@ -1596,7 +1596,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                   >
                                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
@@ -1727,7 +1727,7 @@ export function MessageList({
                                                   (
                                                     changePrompts[msgId] || ""
                                                   ).trim()
-                                                    ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                                                    ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                                                     : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"
@@ -1754,7 +1754,7 @@ export function MessageList({
                                           <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
                                             onClick={(e) => e.preventDefault()}
-                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                           >
                                             <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <AnimatedComingSoonText
@@ -1770,7 +1770,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                   >
                                     <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText

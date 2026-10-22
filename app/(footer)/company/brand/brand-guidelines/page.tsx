@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Check, X } from 'lucide-react';
+import Link from 'next/link';
+import { Check, Mail, MessageSquare, ShieldCheck, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function CompanyBrandGuidelinesPage() {
@@ -41,6 +42,33 @@ export default function CompanyBrandGuidelinesPage() {
     },
   ];
 
+  const supportChannels = [
+    {
+      icon: MessageSquare,
+      title: "Media Requests",
+      description:
+        "For journalists, media interviews, and high-resolution event media.",
+      contact: "media@closeai.com",
+      href: "mailto:media@closeai.com",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Brand Permissions & Licensing",
+      description:
+        "For partner co-marketing approvals, book publishing, physical merchandise, and commercial rights.",
+      contact: "brand@closeai.com",
+      href: "mailto:brand@closeai.com",
+    },
+    {
+      icon: Mail,
+      title: "General Brand Inquiries",
+      description:
+        "For developers using CloseAI badges, community guidelines, or questions about asset formatting.",
+      contact: "support@closeai.com",
+      href: "/company/contact",
+    },
+  ];
+
   return (
     <div className="py-12 sm:py-20 w-full max-w-5xl mx-auto min-w-0 select-none">
       {/* 1. HERO HEADER (SARVAM AI CLEAN HEADER - NO BACK BUTTON) */}
@@ -49,10 +77,10 @@ export default function CompanyBrandGuidelinesPage() {
           Brand
         </p>
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground mb-4 sm:mb-6 leading-[1.08]">
-          Brand Guidelines
+          Brand guidelines of CloseAI
         </h1>
         <p className="text-base sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-          Guide on how to represent CloseAI&apos;s brand marks and identities.
+          Guide on how to represent CloseAI&apos;s brand marks and assets.
         </p>
       </div>
 
@@ -60,7 +88,7 @@ export default function CompanyBrandGuidelinesPage() {
       <div className="p-8 sm:p-14 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card mb-12 sm:mb-16 flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="max-w-md">
           <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3 block">
-            CloseAI Core Identity
+            CloseAI Brand Kit
           </span>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mb-4 leading-tight">
             Safe intelligence for everyone, everywhere.
@@ -70,10 +98,10 @@ export default function CompanyBrandGuidelinesPage() {
           </p>
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
-            <a href="/closeai-brand-assets.zip" download="closeai-brand-assets.zip">
-              <span>Brand Assets</span>
+            <a href="/closeai-brand-kit.zip" download="closeai-brand-kit.zip">
+              <span>Download Kit</span>
             </a>
           </Button>
         </div>
@@ -338,7 +366,7 @@ export default function CompanyBrandGuidelinesPage() {
             </div>
             <div>
               <strong className="text-foreground text-sm sm:text-base block mb-0.5">Vector Rendering</strong>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">Always use production SVG assets rather than attempting to re-type with custom fonts.</p>
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">Always use production SVG kits rather than attempting to re-type with custom fonts.</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -393,7 +421,7 @@ export default function CompanyBrandGuidelinesPage() {
             </div>
             <div className="mt-4">
               <h3 className="text-base font-semibold text-foreground">App Squircle</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">Mobile &amp; PWA manifest container</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Mobile, Desktop, and PWA manifest container</p>
             </div>
           </div>
 
@@ -626,26 +654,25 @@ export default function CompanyBrandGuidelinesPage() {
           </p>
         </div>
 
-        <div className="p-8 sm:p-14 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card space-y-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 py-10 rounded-2xl bg-secondary">
-            <div className="flex items-center gap-2.5">
+        <div className="p-6 sm:p-14 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card space-y-8">
+          <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 py-8 sm:py-10 px-4 rounded-2xl bg-secondary min-w-0">
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
               <img
                 src="/closeai-new.png"
                 alt="CloseAI"
-                className="w-7 h-7 object-contain dark:hidden"
+                className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 object-contain dark:hidden"
               />
               <img
                 src="/closeai-new-white.png"
                 alt="CloseAI"
-                className="w-7 h-7 object-contain hidden dark:block"
+                className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 object-contain hidden dark:block"
               />
-              <span className="text-2xl font-semibold tracking-tight text-foreground">
+              <span className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-foreground">
                 CloseAI
               </span>
             </div>
-            <div className="w-px sm:w-[1.5px] h-8 sm:h-9 bg-foreground/40 hidden sm:block" />
-            <div className="h-px sm:h-[1.5px] w-16 bg-foreground/40 block sm:hidden" />
-            <span className="text-2xl font-semibold tracking-tight text-foreground">
+            <div className="w-px sm:w-[1.5px] h-6 sm:h-8 md:h-9 bg-foreground/40 shrink-0" />
+            <span className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-foreground shrink-0">
               Partner Brand
             </span>
           </div>
@@ -918,23 +945,56 @@ export default function CompanyBrandGuidelinesPage() {
         </div>
       </section>
 
-      {/* 10. ENTERPRISE-STYLE CALLOUT BANNER (EXACTLY MATCHING ENTERPRISE PAGE) */}
-      <div className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
-        <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4">
-          Ready to use our brand assets?
-        </h2>
-        <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-8">
-          Download the complete official CloseAI brand package containing scalable vector marks, high-resolution PNGs, app icons, and favicons.
-        </p>
-        <Button
-          asChild
-          className="group rounded-full px-5 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center"
-        >
-          <a href="/closeai-brand-assets.zip" download="closeai-brand-assets.zip" className="flex items-center gap-2">
-            <span>Download Now</span>
-          </a>
-        </Button>
-      </div>
+      {/* 10. BRAND SUPPORT & INQUIRIES */}
+      <section className="mb-16 sm:mb-24 pt-8 border-t border-border/80">
+        <div className="mb-8">
+          <p className="text-xs sm:text-sm font-semibold text-muted-foreground tracking-widest uppercase mb-2">
+            Support
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mb-3">
+            Brand Support &amp; Inquiries
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl">
+            Have questions about using our brand kit, or seeking co-marketing permissions? Our media, brand and support
+            teams are here to assist you.{' '}
+            <Link
+              href="/support/help"
+              className="rounded-full text-foreground transition-opacity hover:opacity-80 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            >
+              <span>Learn more</span>
+            </Link>
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {supportChannels.map((channel, i) => (
+            <div
+              key={i}
+              className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center mb-6">
+                  <channel.icon className="w-6 h-6 text-foreground" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {channel.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
+                  {channel.description}
+                </p>
+              </div>
+              <div className="pt-4 border-t border-border/80">
+                <a
+                  href={channel.href}
+                  className="text-sm font-normal rounded-full text-foreground transition-opacity hover:opacity-80 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                >
+                  <span>{channel.contact}</span>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -711,7 +711,7 @@ export function PlusMenuContent({
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobileScreen(window.innerWidth < 1025);
+      setIsMobileScreen(window.innerWidth < 1280);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);

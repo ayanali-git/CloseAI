@@ -515,14 +515,14 @@ function NewChatContent() {
                   CloseAI is AI. By using it, you agree to our{" "}
                   <Link
                     href="/support/terms"
-                    className="text-foreground hover:opacity-90 transition-colors whitespace-nowrap"
+                    className="text-foreground hover:opacity-80 transition-colors whitespace-nowrap"
                   >
                     <span>Terms</span>
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/support/privacy"
-                    className="text-foreground hover:opacity-90 transition-colors whitespace-nowrap"
+                    className="text-foreground hover:opacity-80 transition-colors whitespace-nowrap"
                   >
                     <span>Privacy</span>
                   </Link>
@@ -532,7 +532,7 @@ function NewChatContent() {
                   Chats may be reviewed and used to improve our AI models.{" "}
                   <Link
                     href="/support/help"
-                    className="text-foreground hover:opacity-90 transition-colors whitespace-nowrap"
+                    className="text-foreground hover:opacity-80 transition-colors whitespace-nowrap"
                   >
                     <span>Learn more</span>
                   </Link>

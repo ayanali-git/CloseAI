@@ -69,7 +69,7 @@ export default function FoundationPage() {
         <p className="text-muted-foreground text-base max-w-lg mb-8">
           Researchers and educational institutions can apply for subsidized API access and direct engineering mentorship.
         </p>
-        <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer">
+        <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 transition-opacity cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
             <span>Submit Proposal</span>
             <AnimatedArrow size={18} />

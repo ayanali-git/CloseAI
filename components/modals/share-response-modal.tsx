@@ -315,7 +315,7 @@ export function ShareResponseModal({
 
   // Mirrors BottomSheet's desktop/mobile breakpoint
   useEffect(() => {
-    const checkMobile = () => setIsMobileScreen(window.innerWidth < 1025);
+    const checkMobile = () => setIsMobileScreen(window.innerWidth < 1280);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -393,7 +393,7 @@ export function ShareResponseModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "hidden min-[1025px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
+              "hidden min-[1280px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
                 ? "hover:bg-[#383838] dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "hover:bg-secondary dark:focus-visible:ring-offset-card"
@@ -608,7 +608,7 @@ export function ShareResponseModal({
             onClick={handleCopyLink}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -626,7 +626,7 @@ export function ShareResponseModal({
             onClick={handleShareX}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -640,7 +640,7 @@ export function ShareResponseModal({
             onClick={handleShareLinkedIn}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -654,7 +654,7 @@ export function ShareResponseModal({
             onClick={handleShareMore}
             className="flex flex-col items-center gap-2 group cursor-pointer focus-visible:outline-none"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-90", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">

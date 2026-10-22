@@ -47,7 +47,7 @@ export default function EnterprisePage() {
           <Button asChild className="rounded-full h-12 px-4 font-normal bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white cursor-pointer">
             <Link href="/product/plans">View Plans</Link>
           </Button>
-          <Button asChild size="lg" className="group rounded-full h-12 px-4 font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
+          <Button asChild size="lg" className="group rounded-full h-12 px-4 font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
             <Link href="/company/contact" className="inline-flex items-center justify-center">
               <span>Contact Sales</span>
               <AnimatedArrow size={18} />
@@ -85,7 +85,7 @@ export default function EnterprisePage() {
         <p className="text-muted-foreground text-base max-w-lg mx-auto mb-8">
           Join thousands of enterprises transforming productivity with closeAI's secure reasoning infrastructure.
         </p>
-        <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer">
+        <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
             <span>Schedule Now</span>
             <AnimatedArrow size={18} />

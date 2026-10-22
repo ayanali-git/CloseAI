@@ -193,7 +193,7 @@ export default function ContactPage() {
                 className={cn(
                   "w-full min-h-[120px] max-h-[240px] p-3 bg-card rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed placeholder:text-foreground transition-colors resize-y outline-none border",
                   errors.message && touched.message
-                    ? "border-red-500/80 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                    ? "border-red-500/80"
                     : "border-border/80"
                 )}
               />
@@ -204,7 +204,7 @@ export default function ContactPage() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-12 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-12 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <Loader className="w-4 h-4 animate-spin" />

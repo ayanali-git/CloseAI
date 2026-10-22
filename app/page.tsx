@@ -49,7 +49,7 @@ export default function LandingPage() {
   useEffect(() => {
     const updateSpotlightOffset = () => {
       if (typeof window === "undefined") return;
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1280) {
         setSpotlightBottomOffset(0);
         return;
       }
@@ -203,7 +203,7 @@ export default function LandingPage() {
                 className={cn(
                   "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
                   heroPrompt.trim().length > 0 && !isSubmitting
-                    ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                    ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
                     : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                 )}
                 aria-label="Send prompt"
@@ -748,7 +748,7 @@ export default function LandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-90 active:scale-[0.99] transition-opacity cursor-pointer"
+                className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} className="flex items-center">
                   <span>Explore Now</span>

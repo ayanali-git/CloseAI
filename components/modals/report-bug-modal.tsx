@@ -130,7 +130,7 @@ export function ReportBugModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "hidden min-[1025px]:flex p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
+              "hidden min-[1280px]:flex p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
@@ -213,7 +213,7 @@ export function ReportBugModal({
           <Link
             href="/support/help"
             className={cn(
-              "text-foreground hover:opacity-90 rounded-full",
+              "text-foreground hover:opacity-80 rounded-full",
               "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
@@ -246,7 +246,7 @@ export function ReportBugModal({
                       : "bg-secondary dark:bg-[#2f2f2f] text-muted-foreground"
                   )
                 : cn(
-                    "cursor-pointer active:scale-[0.99] hover:opacity-90",
+                    "cursor-pointer active:scale-[0.99] hover:opacity-80",
                     "bg-foreground text-background dark:bg-white dark:text-neutral-900"
                   )
             )}

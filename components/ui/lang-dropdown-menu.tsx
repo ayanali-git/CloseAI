@@ -80,7 +80,13 @@ export function LangDropdownMenu({
   const [internalOpen, setInternalOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const [search, setSearch] = React.useState("");
-  const [currentLang, setCurrentLang] = React.useState("en-IN");
+  const [currentLang, setCurrentLang] = React.useState<string>(() => {
+    if (typeof window !== "undefined") {
+      const pref = getLanguagePref();
+      if (pref && pref !== "auto" && pref !== "en") return pref;
+    }
+    return "en-IN";
+  });
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const isControlledOpen = controlledOpen !== undefined;
@@ -243,9 +249,9 @@ export function LangDropdownMenu({
     >
       <Globe className="w-4 h-4 text-foreground shrink-0" />
       <span className="font-medium text-foreground text-base">
-        {mounted ? displayName : "English"}
+        {displayName}
       </span>
-      {mounted && nativeLabel && (
+      {nativeLabel && (
         <span className="font-normal text-muted-foreground text-sm">
           {nativeLabel}
         </span>
@@ -400,7 +406,7 @@ export function LangDropdownMenu({
                     className={cn(
                       "absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
                       search
-                        ? "text-foreground cursor-pointer hover:opacity-90"
+                        ? "text-foreground cursor-pointer hover:opacity-80"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                     aria-label={search ? "Clear search" : "Search"}

@@ -106,7 +106,7 @@ function FilePreviewCard({
         title={`Preview ${file.name}`}
       >
         <ImagePreview src={imageUrl || ""} alt={file.name}>
-          <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity-90 transition-all cursor-pointer">
+          <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity-80 transition-all cursor-pointer">
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -390,7 +390,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const updateMenuPosition = useCallback(() => {
     if (pillRef.current) {
       const pillRect = pillRef.current.getBoundingClientRect();
-      const isMobile = window.innerWidth < 1025;
+      const isMobile = window.innerWidth < 1280;
 
       const refButton = plusButtonRef.current;
       if (refButton) {
@@ -759,7 +759,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               : "h-10 sm:h-11 px-2.5 sm:px-5 gap-1.5 text-[13px] sm:text-[14px] font-medium",
             pillButtonFocusRing,
             thinkMode
-              ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
+              ? "bg-send-btn text-send-btn-foreground hover:opacity-80"
               : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
           )}
           aria-label="Think harder"
@@ -843,11 +843,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
               pillButtonFocusRing,
               isTyping
-                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isUploading
                 ? "bg-secondary dark:bg-neutral-800 text-foreground cursor-wait opacity-90"
                 : hasContent
-                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:scale-[0.99]"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
                 ? "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"

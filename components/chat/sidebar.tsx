@@ -545,7 +545,7 @@ export function Sidebar({
         onSelect={(e) => e.preventDefault()}
         className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
       >
-        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-muted-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
+        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
           <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
             label="Download app"
@@ -636,7 +636,7 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
             }}
-            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
+            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
           >
             Log in
           </button>
@@ -710,7 +710,7 @@ export function Sidebar({
             onSelect={(e) => e.preventDefault()}
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
           >
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
               <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
@@ -1003,7 +1003,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
               >
                 <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
@@ -1739,7 +1739,7 @@ function SidebarChatItem({
               <Link
                 href="/"
                 className={cn(
-                  "flex items-center transition-opacity hover:opacity-90",
+                  "flex items-center transition-opacity hover:opacity-80",
                   user
                     ? "h-11 gap-2 px-1"
                     : "gap-2 xl:px-1"
@@ -1923,7 +1923,7 @@ function SidebarChatItem({
                     type="button"
                     onMouseEnter={() => setIsImagesHovered(true)}
                     onMouseLeave={() => setIsImagesHovered(false)}
-                    className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl text-muted-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed group transition-all duration-150 text-left"
+                    className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed group transition-all duration-150 text-left"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
@@ -2371,7 +2371,7 @@ function SidebarChatItem({
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>
@@ -2479,7 +2479,7 @@ function SidebarChatItem({
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-90 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
                       >
                         Log in
                       </button>

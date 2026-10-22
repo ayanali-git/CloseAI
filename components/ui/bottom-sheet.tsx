@@ -119,7 +119,7 @@ export function BottomSheet({
   useEffect(() => {
     setMounted(true);
     const checkMobile = () => {
-      setIsMobileScreenRaw(window.innerWidth < 1025);
+      setIsMobileScreenRaw(window.innerWidth < 1280);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);

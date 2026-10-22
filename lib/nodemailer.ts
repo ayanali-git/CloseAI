@@ -17,10 +17,21 @@ export function getLogoUrls(): { light: string; dark: string } {
     process.env.DARK_LOGO_URL ||
     (process.env.NEXT_PUBLIC_APP_URL &&
     !process.env.NEXT_PUBLIC_APP_URL.includes("localhost")
-      ? `${process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "")}/closeai-icon-white.png`
+      ? `${process.env.NEXT_PUBLIC_APP_URL.replace(
+          /\/$/,
+          ""
+        )}/closeai-icon-white.png`
       : DEFAULT_DARK_LOGO_URL);
 
   return { light, dark };
+}
+
+function getAppBaseUrl(): string {
+  const url = process.env.NEXT_PUBLIC_APP_URL;
+  if (url && !url.includes("localhost")) {
+    return url.replace(/\/$/, "");
+  }
+  return "https://trycloseai.vercel.app";
 }
 
 function escapeHtml(text: string): string {
@@ -49,9 +60,6 @@ function formatEmailTimestamp(date = new Date()): string {
   }
 }
 
-/**
- * Creates and returns the Nodemailer transporter using Gmail SMTP.
- */
 export function getMailTransporter() {
   const user = process.env.GMAIL_USER;
   const pass = process.env.GMAIL_APP_PASSWORD;
@@ -88,14 +96,11 @@ export interface ContactEmailPayload {
   message: string;
 }
 
-/**
- * Sends an email notification when a user submits the Contact Us form,
- * styled cleanly in OpenAI's minimalist aesthetic with adaptive light/dark mode logo and typography.
- */
 export async function sendContactEmail(payload: ContactEmailPayload) {
   const transporter = getMailTransporter();
   const recipient = getRecipientEmail();
   const user = process.env.GMAIL_USER;
+  const baseUrl = getAppBaseUrl();
 
   const sanitizedName = escapeHtml(payload.name.trim());
   const sanitizedEmail = escapeHtml(payload.email.trim());
@@ -104,7 +109,6 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
     "<br/>"
   );
   const timestamp = formatEmailTimestamp();
-  const logoUrls = getLogoUrls();
 
   const html = `
     <!DOCTYPE html>
@@ -120,50 +124,64 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
             color-scheme: light dark;
             supported-color-schemes: light dark;
           }
-          .dark-logo-wrapper, .dark-logo {
-            display: none !important;
+          .header-badge, .footer-badge {
+            background-color: transparent !important;
+            border: none !important;
           }
-          .light-logo {
-            display: block !important;
+          .header-badge-text, .footer-badge-text {
+            color: #000000 !important;
           }
-          .help-link {
-            color: #111111 !important;
-            text-decoration: underline !important;
+          .header-brand-link, .footer-brand-link {
+            text-decoration: none !important;
+            color: #000000 !important;
+          }
+          .footer-card {
+            background-color: #f4f4f5 !important;
+            border: none !important;
           }
           @media (prefers-color-scheme: dark) {
             body, .email-body {
-              background-color: #121212 !important;
-              color: #f4f4f5 !important;
+              background-color: #212121 !important;
+              color: #ececec !important;
             }
-            p, strong, span, td, a {
-              color: #f4f4f5 !important;
+            p, strong, td, a {
+              color: #ececec !important;
             }
-            .light-logo {
-              display: none !important;
-              visibility: hidden !important;
-              width: 0 !important;
-              height: 0 !important;
-              filter: invert(1) !important;
+            .header-badge {
+              background-color: #ffffff !important;
+              border-radius: 6px !important;
+              padding: 6px 16px !important;
             }
-            .dark-logo-wrapper {
-              display: block !important;
-              visibility: visible !important;
-              width: 40px !important;
-              height: 40px !important;
-              max-height: 40px !important;
-              max-width: 40px !important;
-              float: none !important;
-              overflow: visible !important;
+            .header-badge-text {
+              color: #000000 !important;
+              -webkit-text-fill-color: #000000 !important;
+              font-size: 28px !important;
             }
-            .dark-logo {
-              display: block !important;
-              visibility: visible !important;
-              width: 40px !important;
-              height: 40px !important;
+            .footer-badge {
+              background-color: #ffffff !important;
+              border-radius: 6px !important;
+              padding: 5px 12px !important;
             }
-            .email-footer {
-              border-color: #27272a !important;
-              color: #a1a1aa !important;
+            .footer-badge-text {
+              color: #000000 !important;
+              -webkit-text-fill-color: #000000 !important;
+            }
+            .header-brand-link, .footer-brand-link {
+              color: #000000 !important;
+              -webkit-text-fill-color: #000000 !important;
+            }
+            .footer-card {
+              background-color: #2f2f2f !important;
+              border: none !important;
+            }
+            .footer-link {
+              color: #c5c5c5 !important;
+            }
+            .footer-dot {
+              color: #8e8e8e !important;
+            }
+            .footer-copy {
+              color: #8e8e8e !important;
             }
             .help-link {
               color: #ffffff !important;
@@ -172,78 +190,70 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
           }
         </style>
       </head>
-      <body class="email-body" style="margin: 0; padding: 40px 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #111111; -webkit-font-smoothing: antialiased;">
+      <body class="email-body" style="margin: 0; padding: 40px 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #111111; -webkit-font-smoothing: antialiased;">
         <div style="max-width: 580px; margin: 0 auto;">
-          <!-- Brand Logo Header: Adaptive Light & Dark mode logo on left of CloseAI -->
           <div style="margin-bottom: 28px;">
-            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
-              <tr>
-                <td style="vertical-align: middle; padding-right: 12px; line-height: 1;">
-                  <!-- Light Mode Logo (Black) -->
-                  <img
-                    class="light-logo"
-                    src="${logoUrls.light}"
-                    width="40"
-                    height="40"
-                    alt="CloseAI"
-                    style="display: block; width: 40px; height: 40px; border-radius: 6px; border: 0; outline: none;"
-                  />
-                  <!-- Dark Mode Logo (White) -->
-                  <!--[if !mso]><!-->
-                  <div class="dark-logo-wrapper" style="display: none; overflow: hidden; float: left; width: 0; max-height: 0; max-width: 0; line-height: 0; visibility: hidden; mso-hide: all;">
-                    <img
-                      class="dark-logo"
-                      src="${logoUrls.dark}"
-                      width="40"
-                      height="40"
-                      alt="CloseAI"
-                      style="display: none; width: 40px; height: 40px; border-radius: 6px; border: 0; outline: none;"
-                    />
-                  </div>
-                  <!--<![endif]-->
-                </td>
-                <td style="vertical-align: middle; line-height: 1;">
-                  <span style="font-size: 30px; font-weight: 500; color: #000000; letter-spacing: -0.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1; display: inline-block;">CloseAI</span>
-                </td>
-              </tr>
-            </table>
+            <div class="header-badge" style="display: inline-block; background-color: transparent; border: none; border-radius: 6px; padding: 0; line-height: 1;">
+              <a href="${baseUrl}" class="header-brand-link" style="text-decoration: none; color: #000000; display: inline-block;">
+                <span class="header-badge-text" style="font-size: 36px; font-weight: 700; color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; letter-spacing: -0.6px; display: inline-block; line-height: 1.1;">CloseAI</span>
+              </a>
+            </div>
           </div>
 
-          <!-- Greeting -->
-          <p style="margin: 0 0 16px 0; font-size: 15px; color: #111111;">Hello,</p>
+          <p style="margin: 0 0 16px 0; font-size: 16px; color: #111111;">Hello,</p>
 
-          <!-- Introductory Sentence -->
-          <p style="margin: 0 0 20px 0; font-size: 15px; color: #111111;">
+          <p style="margin: 0 0 20px 0; font-size: 16px; color: #111111;">
             We received a new message from the contact form.
           </p>
 
-          <!-- Key-Value Information -->
-          <div style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6;">
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Name:</strong> ${sanitizedName}</p>
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Email:</strong> <a class="help-link" href="mailto:${sanitizedEmail}" style="color: #111111; text-decoration: underline;">${sanitizedEmail}</a></p>
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Time:</strong> ${timestamp}</p>
+          <div style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6;">
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Name:</strong> ${sanitizedName}</p>
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Email:</strong> <a class="help-link" href="mailto:${sanitizedEmail}" style="color: #111111; text-decoration: underline;">${sanitizedEmail}</a></p>
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Time:</strong> ${timestamp}</p>
           </div>
 
-          <!-- Message Body (Clean text without background box) -->
           <div style="margin: 0 0 24px 0;">
-            <p style="margin: 0 0 6px 0; font-size: 15px; color: #111111;"><strong style="font-weight: 600;">Message:</strong></p>
-            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #111111; white-space: pre-wrap; word-break: break-word;">${formattedMessage}</p>
+            <p style="margin: 0 0 6px 0; font-size: 16px; color: #111111;"><strong style="font-weight: 600;">Message:</strong></p>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #111111; white-space: pre-wrap; word-break: break-word;">${formattedMessage}</p>
           </div>
 
-          <!-- Direct Reply Instructions -->
-          <p style="margin: 0 0 8px 0; font-size: 14px; color: #111111;">
+          <p style="margin: 0 0 8px 0; font-size: 15px; color: #111111;">
             To reply to this inquiry, you can directly respond to this email.
           </p>
 
-          <!-- Sign-off -->
-          <p style="margin: 28px 0 0 0; font-size: 15px; color: #111111;">
-            Best regards,<br/>
-            <strong style="font-size: 15px; font-weight: 600;">CloseAI</strong>
+          <p style="margin: 28px 0 0 0; font-size: 16px; color: #111111;">
+            Best,<br/>
+            <strong style="font-size: 16px; font-weight: 600;">CloseAI</strong>
           </p>
 
-          <!-- Help Center Footer (Adapts text color in light and dark mode) -->
-          <div class="email-footer" style="margin-top: 48px; padding-top: 18px; border-top: 1px solid #eeeeee; font-size: 13px; color: #666666; line-height: 1.5;">
-            If you have any questions please contact us through our <a class="help-link" href="https://trycloseai.vercel.app/support/help" style="color: #111111; text-decoration: underline;">help center</a>.
+          <div class="footer-card" style="margin-top: 48px; padding: 24px; background-color: #f4f4f5; border-radius: 12px; border: none;">
+            <div style="margin-bottom: 16px;">
+              <div class="footer-badge" style="display: inline-block; background-color: transparent; border: none; border-radius: 6px; padding: 0; line-height: 1;">
+                <a href="${baseUrl}" class="footer-brand-link" style="text-decoration: none; color: #000000; display: inline-block;">
+                  <span class="footer-badge-text" style="font-size: 18px; font-weight: 700; color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; letter-spacing: -0.3px; display: inline-block; line-height: 1;">CloseAI</span>
+                </a>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 12px; font-size: 14px; line-height: 1.5;">
+              <a href="${baseUrl}/support/help" class="footer-link" style="color: #71717a; text-decoration: underline;">Help</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="${baseUrl}/support/terms" class="footer-link" style="color: #71717a; text-decoration: underline;">Terms</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="${baseUrl}/support/privacy" class="footer-link" style="color: #71717a; text-decoration: underline;">Privacy</a>
+            </div>
+
+            <div style="margin-bottom: 14px; font-size: 14px; line-height: 1.5;">
+              <a href="https://x.com/ayanali_x" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">X</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="https://github.com/ayanali-git" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">GitHub</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
+            </div>
+
+            <div class="footer-copy" style="font-size: 13px; color: #000000; line-height: 1.4;">
+              &copy; 2026 CloseAI. All rights reserved.
+            </div>
           </div>
         </div>
       </body>
@@ -255,7 +265,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
     to: recipient,
     replyTo: payload.email.trim(),
     subject: `New message from ${payload.name.trim()}`,
-    text: `Hello,\n\nWe received a new message from the contact form.\n\nName: ${payload.name.trim()}\nEmail: ${payload.email.trim()}\nTime: ${timestamp}\n\nMessage:\n${payload.message.trim()}\n\nTo reply to this inquiry, you can directly respond to this email.\n\nBest regards,\nCloseAI`,
+    text: `Hello,\n\nWe received a new message from the contact form.\n\nName: ${payload.name.trim()}\nEmail: ${payload.email.trim()}\nTime: ${timestamp}\n\nMessage:\n${payload.message.trim()}\n\nTo reply to this inquiry, you can directly respond to this email.\n\nBest,\nCloseAI`,
     html,
   });
 }
@@ -268,14 +278,11 @@ export interface FeedbackEmailPayload {
   email?: string | null;
 }
 
-/**
- * Sends an email notification when a user submits a bug report or feedback,
- * styled cleanly in OpenAI's minimalist aesthetic with adaptive light/dark mode logo and typography.
- */
 export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
   const transporter = getMailTransporter();
   const recipient = getRecipientEmail();
   const user = process.env.GMAIL_USER;
+  const baseUrl = getAppBaseUrl();
 
   const category =
     payload.category ||
@@ -289,7 +296,6 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
   const userEmail = payload.email?.trim() || null;
   const isGuest = payload.isGuest ?? !userEmail;
   const timestamp = formatEmailTimestamp();
-  const logoUrls = getLogoUrls();
 
   const html = `
     <!DOCTYPE html>
@@ -305,50 +311,64 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
             color-scheme: light dark;
             supported-color-schemes: light dark;
           }
-          .dark-logo-wrapper, .dark-logo {
-            display: none !important;
+          .header-badge, .footer-badge {
+            background-color: transparent !important;
+            border: none !important;
           }
-          .light-logo {
-            display: block !important;
+          .header-badge-text, .footer-badge-text {
+            color: #000000 !important;
           }
-          .help-link {
-            color: #111111 !important;
-            text-decoration: underline !important;
+          .header-brand-link, .footer-brand-link {
+            text-decoration: none !important;
+            color: #000000 !important;
+          }
+          .footer-card {
+            background-color: #f4f4f5 !important;
+            border: none !important;
           }
           @media (prefers-color-scheme: dark) {
             body, .email-body {
-              background-color: #121212 !important;
-              color: #f4f4f5 !important;
+              background-color: #212121 !important;
+              color: #ececec !important;
             }
-            p, strong, span, td, a {
-              color: #f4f4f5 !important;
+            p, strong, td, a {
+              color: #ececec !important;
             }
-            .light-logo {
-              display: none !important;
-              visibility: hidden !important;
-              width: 0 !important;
-              height: 0 !important;
-              filter: invert(1) !important;
+            .header-badge {
+              background-color: #ffffff !important;
+              border-radius: 6px !important;
+              padding: 6px 16px !important;
             }
-            .dark-logo-wrapper {
-              display: block !important;
-              visibility: visible !important;
-              width: 40px !important;
-              height: 40px !important;
-              max-height: 40px !important;
-              max-width: 40px !important;
-              float: none !important;
-              overflow: visible !important;
+            .header-badge-text {
+              color: #000000 !important;
+              -webkit-text-fill-color: #000000 !important;
+              font-size: 28px !important;
             }
-            .dark-logo {
-              display: block !important;
-              visibility: visible !important;
-              width: 40px !important;
-              height: 40px !important;
+            .footer-badge {
+              background-color: #ffffff !important;
+              border-radius: 6px !important;
+              padding: 5px 12px !important;
             }
-            .email-footer {
-              border-color: #27272a !important;
-              color: #a1a1aa !important;
+            .footer-badge-text {
+              color: #000000 !important;
+              -webkit-text-fill-color: #000000 !important;
+            }
+            .header-brand-link, .footer-brand-link {
+              color: #000000 !important;
+              -webkit-text-fill-color: #000000 !important;
+            }
+            .footer-card {
+              background-color: #2f2f2f !important;
+              border: none !important;
+            }
+            .footer-link {
+              color: #c5c5c5 !important;
+            }
+            .footer-dot {
+              color: #8e8e8e !important;
+            }
+            .footer-copy {
+              color: #8e8e8e !important;
             }
             .help-link {
               color: #ffffff !important;
@@ -357,91 +377,87 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
           }
         </style>
       </head>
-      <body class="email-body" style="margin: 0; padding: 40px 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #111111; -webkit-font-smoothing: antialiased;">
+      <body class="email-body" style="margin: 0; padding: 40px 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #111111; -webkit-font-smoothing: antialiased;">
         <div style="max-width: 580px; margin: 0 auto;">
-          <!-- Brand Logo Header: Adaptive Light & Dark mode logo on left of CloseAI -->
           <div style="margin-bottom: 28px;">
-            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
-              <tr>
-                <td style="vertical-align: middle; padding-right: 12px; line-height: 1;">
-                  <!-- Light Mode Logo (Black) -->
-                  <img
-                    class="light-logo"
-                    src="${logoUrls.light}"
-                    width="40"
-                    height="40"
-                    alt="CloseAI"
-                    style="display: block; width: 40px; height: 40px; border-radius: 6px; border: 0; outline: none;"
-                  />
-                  <!-- Dark Mode Logo (White) -->
-                  <!--[if !mso]><!-->
-                  <div class="dark-logo-wrapper" style="display: none; overflow: hidden; float: left; width: 0; max-height: 0; max-width: 0; line-height: 0; visibility: hidden; mso-hide: all;">
-                    <img
-                      class="dark-logo"
-                      src="${logoUrls.dark}"
-                      width="40"
-                      height="40"
-                      alt="CloseAI"
-                      style="display: none; width: 40px; height: 40px; border-radius: 6px; border: 0; outline: none;"
-                    />
-                  </div>
-                  <!--<![endif]-->
-                </td>
-                <td style="vertical-align: middle; line-height: 1;">
-                  <span style="font-size: 30px; font-weight: 500; color: #000000; letter-spacing: -0.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1; display: inline-block;">CloseAI</span>
-                </td>
-              </tr>
-            </table>
+            <div class="header-badge" style="display: inline-block; background-color: transparent; border: none; border-radius: 6px; padding: 0; line-height: 1;">
+              <a href="${baseUrl}" class="header-brand-link" style="text-decoration: none; color: #000000; display: inline-block;">
+                <span class="header-badge-text" style="font-size: 36px; font-weight: 700; color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; letter-spacing: -0.6px; display: inline-block; line-height: 1.1;">CloseAI</span>
+              </a>
+            </div>
           </div>
 
-          <!-- Greeting -->
-          <p style="margin: 0 0 16px 0; font-size: 15px; color: #111111;">Hello,</p>
+          <p style="margin: 0 0 16px 0; font-size: 16px; color: #111111;">Hello,</p>
 
-          <!-- Introductory Sentence -->
-          <p style="margin: 0 0 20px 0; font-size: 15px; color: #111111;">
+          <p style="margin: 0 0 20px 0; font-size: 16px; color: #111111;">
             A new ${sanitizedCategory.toLowerCase()} report has been submitted from the bug form.
           </p>
 
-          <!-- Key-Value Information -->
-          <div style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6;">
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Category:</strong> ${sanitizedCategory}</p>
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Submitted by:</strong> ${
+          <div style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6;">
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Category:</strong> ${sanitizedCategory}</p>
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Submitted by:</strong> ${
               userEmail
-                ? `<a class="help-link" href="mailto:${escapeHtml(userEmail)}" style="color: #111111; text-decoration: underline;">${escapeHtml(userEmail)}</a>`
+                ? `<a class="help-link" href="mailto:${escapeHtml(
+                    userEmail
+                  )}" style="color: #111111; text-decoration: underline;">${escapeHtml(
+                    userEmail
+                  )}</a>`
                 : "Guest User"
             }</p>
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Account type:</strong> ${
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Account type:</strong> ${
               isGuest ? "Unauthenticated" : "Authenticated"
             }</p>
-            <p style="margin: 4px 0; color: #111111;"><strong style="font-weight: 600;">Time:</strong> ${timestamp}</p>
+            <p style="margin: 5px 0; color: #111111;"><strong style="font-weight: 600;">Time:</strong> ${timestamp}</p>
           </div>
 
-          <!-- Report Details Body (Clean text without background box) -->
           <div style="margin: 0 0 24px 0;">
-            <p style="margin: 0 0 6px 0; font-size: 15px; color: #111111;"><strong style="font-weight: 600;">Feedback:</strong></p>
-            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #111111; white-space: pre-wrap; word-break: break-word;">${sanitizedDetails}</p>
+            <p style="margin: 0 0 6px 0; font-size: 16px; color: #111111;"><strong style="font-weight: 600;">Feedback:</strong></p>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #111111; white-space: pre-wrap; word-break: break-word;">${sanitizedDetails}</p>
           </div>
 
-          <!-- Direct Reply Instructions -->
           ${
             userEmail
-              ? `<p style="margin: 0 0 8px 0; font-size: 14px; color: #111111;">
+              ? `<p style="margin: 0 0 8px 0; font-size: 15px; color: #111111;">
                    To follow up with this user, you can directly respond to this email.
                  </p>`
-              : `<p style="margin: 0 0 8px 0; font-size: 14px; color: #71717a;">
+              : `<p style="margin: 0 0 8px 0; font-size: 15px; color: #71717a;">
                    This report was submitted by an unauthenticated user.
                  </p>`
           }
 
-          <!-- Sign-off -->
-          <p style="margin: 28px 0 0 0; font-size: 15px; color: #111111;">
-            Best regards,<br/>
-            <strong style="font-size: 15px; font-weight: 600;">CloseAI</strong>
+          <p style="margin: 28px 0 0 0; font-size: 16px; color: #111111;">
+            Best,<br/>
+            <strong style="font-size: 16px; font-weight: 600;">CloseAI</strong>
           </p>
 
-          <!-- Help Center Footer (Adapts text color in light and dark mode) -->
-          <div class="email-footer" style="margin-top: 48px; padding-top: 18px; border-top: 1px solid #eeeeee; font-size: 13px; color: #666666; line-height: 1.5;">
-            If you have any questions please contact us through our <a class="help-link" href="https://trycloseai.vercel.app/support/help" style="color: #111111; text-decoration: underline;">help center</a>.
+          <div class="footer-card" style="margin-top: 48px; padding: 24px; background-color: #f4f4f5; border-radius: 12px; border: none;">
+            <div style="margin-bottom: 16px;">
+              <div class="footer-badge" style="display: inline-block; background-color: transparent; border: none; border-radius: 6px; padding: 0; line-height: 1;">
+                <a href="${baseUrl}" class="footer-brand-link" style="text-decoration: none; color: #000000; display: inline-block;">
+                  <span class="footer-badge-text" style="font-size: 18px; font-weight: 700; color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; letter-spacing: -0.3px; display: inline-block; line-height: 1;">CloseAI</span>
+                </a>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 12px; font-size: 14px; line-height: 1.5;">
+              <a href="${baseUrl}/support/help" class="footer-link" style="color: #71717a; text-decoration: underline;">Help</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="${baseUrl}/support/terms" class="footer-link" style="color: #71717a; text-decoration: underline;">Terms</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="${baseUrl}/support/privacy" class="footer-link" style="color: #71717a; text-decoration: underline;">Privacy</a>
+            </div>
+
+            <div style="margin-bottom: 14px; font-size: 14px; line-height: 1.5;">
+              <a href="https://x.com/ayanali_x" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">X</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="https://github.com/ayanali-git" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">GitHub</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
+            </div>
+
+            <div class="footer-copy" style="font-size: 13px; color: #000000; line-height: 1.4;">
+              &copy; 2026 CloseAI. All rights reserved.
+            </div>
           </div>
         </div>
       </body>
@@ -452,8 +468,18 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
     from: `"CloseAI" <${user}>`,
     to: recipient,
     replyTo: userEmail || undefined,
-    subject: `New ${category.toLowerCase()} report from ${userEmail || "Guest User"}`,
-    text: `Hello,\n\nA new ${category.toLowerCase()} report has been submitted from the bug form.\n\nCategory: ${category}\nSubmitted by: ${userEmail || "Guest User"}\nAccount type: ${isGuest ? "Unauthenticated" : "Authenticated"}\nTime: ${timestamp}\n\nDetails:\n${payload.details.trim()}\n\n${userEmail ? "To follow up with this user, you can directly respond to this email." : "This report was submitted by an unauthenticated user."}\n\nBest regards,\nCloseAI`,
+    subject: `New ${category.toLowerCase()} report from ${
+      userEmail || "Guest User"
+    }`,
+    text: `Hello,\n\nA new ${category.toLowerCase()} report has been submitted from the bug form.\n\nCategory: ${category}\nSubmitted by: ${
+      userEmail || "Guest User"
+    }\nAccount type: ${
+      isGuest ? "Unauthenticated" : "Authenticated"
+    }\nTime: ${timestamp}\n\nDetails:\n${payload.details.trim()}\n\n${
+      userEmail
+        ? "To follow up with this user, you can directly respond to this email."
+        : "This report was submitted by an unauthenticated user."
+    }\n\nBest,\nCloseAI`,
     html,
   });
 }
