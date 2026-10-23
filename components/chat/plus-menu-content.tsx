@@ -56,9 +56,9 @@ const SPEED_OPTIONS = [
 
 const MODEL_OPTIONS = [
   { key: "Gemini 3.8 flash", label: "Gemini 3.8 flash" },
+  { key: "GPT-6", label: "GPT-6" },
+  { key: "GPT-5.5", label: "GPT-5.5" },
   { key: "GPT-5.4", label: "GPT-5.4" },
-  { key: "GPT-4o", label: "GPT-4o" },
-  { key: "GPT-4o mini", label: "GPT-4o mini" },
 ];
 
 /**
@@ -762,7 +762,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Select models</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -781,7 +781,7 @@ export function PlusMenuContent({
           >
             <span className="font-medium shrink-0 mr-1.5">Model</span>
             <ModelMarqueeText text={model} isHovered={isMobileModelRowHovered} />
-            <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
           </button>
 
           {/* Row 2: Effort */}
@@ -802,7 +802,7 @@ export function PlusMenuContent({
               isHovered={isMobileEffortRowHovered}
               className={isUltra ? "text-purple-400 font-medium" : "text-muted-foreground"}
             />
-            <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
           </button>
 
           {/* Row 3: Speed */}
@@ -819,7 +819,7 @@ export function PlusMenuContent({
           >
             <span className="shrink-0 font-medium mr-1.5">Speed</span>
             <ModelMarqueeText text={speed} isHovered={isMobileSpeedRowHovered} />
-            <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
           </button>
 
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -853,7 +853,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Model</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -872,7 +872,7 @@ export function PlusMenuContent({
               className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
             >
               <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-              {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+              {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
             </button>
           ))}
         </div>
@@ -891,7 +891,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Effort</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -910,7 +910,7 @@ export function PlusMenuContent({
               className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
             >
               <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
-              {tierIndex === idx && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+              {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
             </button>
           ))}
         </div>
@@ -929,7 +929,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Speed</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -948,7 +948,7 @@ export function PlusMenuContent({
               className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
             >
               <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
-              {speed === s.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+              {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
             </button>
           ))}
         </div>
@@ -967,7 +967,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Advanced</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -995,7 +995,7 @@ export function PlusMenuContent({
           onClick={onAddPhotos}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
-          <Images className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Images className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
         </DropdownMenuItem>
 
@@ -1012,7 +1012,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
-          <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Web search</span>
         </DropdownMenuItem>
 
@@ -1023,7 +1023,7 @@ export function PlusMenuContent({
           // }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
-          <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
         </DropdownMenuItem> */}
 
@@ -1034,7 +1034,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
-          <Files className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
         </DropdownMenuItem>
 
@@ -1051,13 +1051,13 @@ export function PlusMenuContent({
             }}
             className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
           >
-            <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
+            <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
             <ModelMarqueeText
               text={model}
               isHovered={isMobileSelectModelsHovered}
             />
-            <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
           </button>
         ) : (
           <DropdownMenuSub>
@@ -1068,7 +1068,7 @@ export function PlusMenuContent({
               chevronClassName="-ml-0.5"
               className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
             >
-              <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
+              <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
               <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
               <ModelMarqueeText
                 text={model}
@@ -1117,7 +1117,7 @@ export function PlusMenuContent({
                         className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                        {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+                        {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
                       </DropdownMenuItem>
                     );
                   })}
@@ -1135,7 +1135,7 @@ export function PlusMenuContent({
                         className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                        {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+                        {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
                       </DropdownMenuItem>
                     );
                   })}
@@ -1174,7 +1174,7 @@ export function PlusMenuContent({
                       className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
-                      {tierIndex === idx && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+                      {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuSubContent>
@@ -1211,7 +1211,7 @@ export function PlusMenuContent({
                       className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
-                      {speed === s.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+                      {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuSubContent>
@@ -1268,7 +1268,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           <span>Select models</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-neutral-700/60 my-1 -mx-0.5" />
@@ -1290,7 +1290,7 @@ export function PlusMenuContent({
             text={model}
             isHovered={isMobileModelRowHovered}
           />
-          <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
         </button>
 
         {/* Row 2: Effort */}
@@ -1311,7 +1311,7 @@ export function PlusMenuContent({
             isHovered={isMobileEffortRowHovered}
             className={isUltra ? "text-purple-400 font-medium" : "text-muted-foreground"}
           />
-          <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
         </button>
 
         {/* Row 3: Speed */}
@@ -1331,7 +1331,7 @@ export function PlusMenuContent({
             text={speed}
             isHovered={isMobileSpeedRowHovered}
           />
-          <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
         </button>
 
         <div className="h-[1px] bg-neutral-200 dark:bg-neutral-700/60 my-1 -mx-0.5" />
@@ -1365,7 +1365,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           <span>Model</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1389,7 +1389,7 @@ export function PlusMenuContent({
               className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
             >
               <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-              {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+              {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
             </button>
           );
         })}
@@ -1415,7 +1415,7 @@ export function PlusMenuContent({
               className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
             >
               <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-              {model === m.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+              {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
             </button>
           );
         })}
@@ -1435,7 +1435,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           <span>Effort</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1457,7 +1457,7 @@ export function PlusMenuContent({
             className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
           >
             <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
-            {tierIndex === idx && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+            {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
           </button>
         ))}
       </div>
@@ -1476,7 +1476,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           <span>Speed</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1498,7 +1498,7 @@ export function PlusMenuContent({
             className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
           >
             <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
-            {speed === s.key && <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />}
+            {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
           </button>
         ))}
       </div>
@@ -1517,7 +1517,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           <span>Advanced</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1544,7 +1544,7 @@ export function PlusMenuContent({
             : "cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80"
         )}
       >
-        <Paperclip className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+        <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
         {disableAttach ? (
           <AnimatedComingSoonText label="Attach anything" comingSoonText="Coming soon" />
         ) : (
@@ -1565,13 +1565,13 @@ export function PlusMenuContent({
           }}
           className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
         >
-          <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
+          <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
           <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
           <ModelMarqueeText
             text={model}
             isHovered={isMobileSelectModelsHovered}
           />
-          <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 -ml-0.5" />
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
         </button>
       ) : (
         <DropdownMenuSub>
@@ -1581,7 +1581,7 @@ export function PlusMenuContent({
             chevronClassName="-ml-0.5"
             className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#383838] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
           >
-            <Package className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
+            <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
             <ModelMarqueeText
               text={model}

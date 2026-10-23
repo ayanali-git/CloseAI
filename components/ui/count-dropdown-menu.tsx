@@ -188,7 +188,7 @@ export function CountDropdownMenu({
         <AnimatedChevron
           isOpen={isOpen}
           disableHover
-          size={18}
+          size={20}
           className="text-muted-foreground group-focus:text-foreground shrink-0"
         />
       </button>
@@ -258,7 +258,7 @@ export function CountDropdownMenu({
                           {country.name} ({country.dial_code})
                         </span>
                         {isSelected && (
-                          <Check className="w-4 h-4 text-foreground shrink-0 stroke-[2.5]" />
+                          <Check className="w-5 h-5 text-foreground shrink-0 stroke-[2.5]" />
                         )}
                       </button>
                     );

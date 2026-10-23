@@ -111,7 +111,7 @@ export default function OpenRolesPage() {
             >
               <AnimatedSearchClose
                 isOpen={Boolean(searchQuery.trim())}
-                size={18}
+                size={20}
               />
             </button>
             <input
@@ -140,7 +140,7 @@ export default function OpenRolesPage() {
                 <AnimatedChevronDown
                   open={teamOpen}
                   disableHover={true}
-                  size={18}
+                  size={20}
                   className="text-muted-foreground shrink-0"
                 />
               </button>
@@ -178,7 +178,7 @@ export default function OpenRolesPage() {
                 <AnimatedChevronDown
                   open={locOpen}
                   disableHover={true}
-                  size={18}
+                  size={20}
                   className="text-muted-foreground shrink-0"
                 />
               </button>
@@ -233,7 +233,7 @@ export default function OpenRolesPage() {
                     {role.team} • {role.location}
                   </div>
                 </div>
-                <AnimatedArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                <AnimatedArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
               </a>
             ))}
           </div>

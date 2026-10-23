@@ -35,6 +35,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import { useModalTheme } from "@/hooks/use-modal-theme";
 import toast from "@/lib/toast";
+import { preprocessContent } from "@/lib/preprocess-markdown";
 
 export interface ShareResponseModalProps {
   open: boolean;
@@ -189,7 +190,7 @@ function CodeBlock({
             pointer-events-none
           "
         >
-          <Copy className="w-4 h-4 text-muted-foreground" />
+          <Copy className="w-5 h-5 text-muted-foreground" />
           <span className="font-medium text-foreground">Copy</span>
         </div>
       </div>
@@ -217,46 +218,6 @@ function CodeBlock({
       </div>
     </div>
   );
-}
-
-/** Preprocesses LaTeX formula markers, currency dollar signs, table formatting, and unclosed delimiters */
-function preprocessContent(text: string): string {
-  if (!text) return "";
-
-  let result = text;
-
-  // 1. Convert pipe-pipe separated lines into proper markdown table rows with newlines
-  result = result.replace(/\|\s*\|\s*/g, "|\n| ");
-
-  // 2. Prevent currency dollar signs ($100, $1 Trillion, $2.5B) from being incorrectly parsed as LaTeX math
-  result = result.replace(/(?<!\\)\$(?=\d)/g, "\\$");
-
-  // 3. Normalize LaTeX display/inline brackets \[ \] and \( \)
-  result = result
-    .replace(/\\\[([\s\S]*?)\\\]/g, "$$$$$1$$$$")
-    .replace(/\\\(([\s\S]*?)\\\)/g, "$$$1$$");
-
-  // 4. Fix unescaped underscores inside \text{...} in math formulas
-  result = result.replace(/\\text\{([^}]+)\}/g, (_, inner) => {
-    return `\\text{${inner.replace(/(?<!\\)_/g, "\\_")}}`;
-  });
-
-  // 5. Clean up awkward spaced asterisks like "* *, **"
-  result = result.replace(/\*\s+\*,\s+\*\*/g, ", **");
-
-  // 6. Auto-close dangling unclosed code blocks (```) during streaming/interrupted generation
-  const codeBlockCount = (result.match(/```/g) || []).length;
-  if (codeBlockCount % 2 !== 0) {
-    result += "\n```";
-  }
-
-  // 7. Auto-close dangling bold (**) during streaming/interrupted generation
-  const boldCount = (result.match(/\*\*/g) || []).length;
-  if (boldCount % 2 !== 0) {
-    result += "**";
-  }
-
-  return result;
 }
 
 export function ShareResponseModal({

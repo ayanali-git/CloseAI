@@ -700,7 +700,7 @@ export function NativeDropdownMenu<T extends string = string>({
             </span>
           )}
         </SelectPrimitive.Value>
-        <AnimatedChevron size={18} open={open} />
+        <AnimatedChevron size={20} open={open} />
       </SelectPrimitive.Trigger>
 
       <SelectPrimitive.Portal>
@@ -783,7 +783,7 @@ export function NativeDropdownMenu<T extends string = string>({
                       </SelectPrimitive.ItemText>
                     </div>
                     <SelectPrimitive.ItemIndicator className="ml-auto flex items-center justify-center">
-                      <Check className="w-4 h-4 shrink-0 text-foreground" />
+                      <Check className="w-5 h-5 shrink-0 text-foreground" />
                     </SelectPrimitive.ItemIndicator>
                   </SelectPrimitive.Item>
                   {option.divider && (

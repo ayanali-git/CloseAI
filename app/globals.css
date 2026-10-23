@@ -806,3 +806,9 @@ body:has([data-chat-page="true"])::-webkit-scrollbar {
 }
 
 
+
+/* Prevent KaTeX errors from rendering as bright red text walls */
+.chat-markdown .katex-error {
+  color: inherit !important;
+  background-color: transparent !important;
+}

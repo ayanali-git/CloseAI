@@ -97,10 +97,10 @@ export function DeleteModal({
               </div>
 
               {starred && (
-                <PinOff className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 mt-1" />
+                <PinOff className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 mt-1" />
               )}
               {archived && !starred && (
-                <ArchiveX className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 mt-1" />
+                <ArchiveX className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 mt-1" />
               )}
             </div>
           </div>
@@ -108,7 +108,7 @@ export function DeleteModal({
 
         {/* Warning / Info Box */}
         <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
-          <AlertTriangle className="w-4 h-4 shrink-0 text-muted-foreground mt-0.5" />
+          <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
           <span className="leading-normal">
             {description || "This will permanently delete this conversation."}
           </span>

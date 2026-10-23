@@ -207,7 +207,7 @@ export default function ContactPage() {
               className="w-full h-12 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
-                <Loader className="w-4 h-4 animate-spin" />
+                <Loader className="w-5 h-5 animate-spin" />
               ) : (
                 <>
                   <span>Send Message</span>
@@ -240,7 +240,7 @@ export default function ContactPage() {
                     </div>
                   </div>
                 </div>
-                <AnimatedArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                <AnimatedArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />
               </a>
 
               <a
@@ -260,7 +260,7 @@ export default function ContactPage() {
                     </div>
                   </div>
                 </div>
-                <AnimatedArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                <AnimatedArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />
               </a>
             </div>
           </div>
@@ -291,7 +291,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <AnimatedArrow
-                size={18}
+                size={20}
                 className="text-muted-foreground group-hover:text-foreground transition-colors"
               />
             </a>

@@ -162,9 +162,9 @@ export function ProfileImageModal({
               {/* Camera badge button at bottom-right (loader spins here on save) */}
               <div className="absolute bottom-1 right-1 w-8 h-8 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-neutral-700 flex items-center justify-center transition-transform">
                 {loading ? (
-                  <Loader className="w-4 h-4 animate-spin text-muted-foreground" />
+                  <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
                 ) : (
-                  <Camera className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <Camera className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 )}
               </div>
             </div>
@@ -183,7 +183,7 @@ export function ProfileImageModal({
 
         {/* Info Box Note */}
         <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
-          <AlertTriangle className="w-4 h-4 shrink-0 text-muted-foreground mt-0.5" />
+          <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
           <span className="leading-normal">
             This will update your profile picture across all CloseAI platforms.
           </span>
@@ -198,7 +198,7 @@ export function ProfileImageModal({
             className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
-              <Loader className="w-4 h-4 animate-spin mr-2" />
+              <Loader className="w-5 h-5 animate-spin mr-2" />
             ) : null}
             {selectedFile ? "Update photo" : "Choose photo"}
           </button>

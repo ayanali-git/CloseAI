@@ -1025,9 +1025,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                         aria-label={isFullyExpanded ? "Collapse" : "Expand"}
                       >
                         {isFullyExpanded ? (
-                          <Minimize2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                          <Minimize2 className="w-5 h-5 sm:w-5 sm:h-5" />
                         ) : (
-                          <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                          <Maximize2 className="w-5 h-5 sm:w-5 sm:h-5" />
                         )}
                       </button>
                     </TooltipTrigger>

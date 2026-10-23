@@ -251,7 +251,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
               <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
             </div>
 
-            <div class="footer-copy" style="font-size: 13px; color: #000000; line-height: 1.4;">
+            <div class="footer-copy" style="font-size: 13px; color: #a1a1aa; line-height: 1.4;">
               &copy; 2026 CloseAI. All rights reserved.
             </div>
           </div>
@@ -455,7 +455,7 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
               <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
             </div>
 
-            <div class="footer-copy" style="font-size: 13px; color: #000000; line-height: 1.4;">
+            <div class="footer-copy" style="font-size: 13px; color: #a1a1aa; line-height: 1.4;">
               &copy; 2026 CloseAI. All rights reserved.
             </div>
           </div>

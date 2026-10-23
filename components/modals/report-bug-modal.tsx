@@ -162,15 +162,15 @@ export function ReportBugModal({
                     ? "bg-foreground text-background border-foreground dark:bg-white dark:text-neutral-900 dark:border-white"
                     : cn(
                         isGuest
-                          ? "bg-secondary text-foreground hover:bg-secondary/80 border-border/50 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-neutral-200 dark:border-transparent"
-                          : "bg-secondary text-foreground hover:bg-secondary/80 border-border/50 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-neutral-200 dark:border-transparent"
+                          ? "bg-secondary text-foreground hover:bg-secondary/80 border-border/80 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-neutral-200 dark:border-transparent"
+                          : "bg-secondary text-foreground hover:bg-secondary/80 border-border/80 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-neutral-200 dark:border-transparent"
                       )
                 )}
                 style={{ outline: "none" }}
               >
                 <AnimatedPlusCheck
                   checked={isSelected}
-                  size={18}
+                  size={20}
                   className={cn(
                     "shrink-0 transition-colors",
                     isSelected
@@ -254,7 +254,7 @@ export function ReportBugModal({
           >
             {isSubmitting ? (
               <>
-                <Loader className="w-4 h-4 animate-spin" />
+                <Loader className="w-5 h-5 animate-spin" />
               </>
             ) : (
               <span>Submit feedback</span>

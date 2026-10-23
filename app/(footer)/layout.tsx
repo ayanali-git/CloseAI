@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { MarketingHeader } from '@/components/marketing/header';
-import { Footer } from '@/components/ui/footer';
+import { Footer } from '@/components/marketing/footer';
 
 export default function FooterPagesLayout({ children }: { children: ReactNode }) {
   return (

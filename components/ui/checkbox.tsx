@@ -11,7 +11,7 @@ const Checkbox = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AnimatedCheckbox
     ref={ref}
-    size={18}
+    size={20}
     className={cn('h-5 w-5 rounded-full bg-card border border-border/80', className)}
     {...props}
   />

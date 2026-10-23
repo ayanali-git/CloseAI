@@ -50,7 +50,7 @@ export default function EnterprisePage() {
           <Button asChild size="lg" className="group rounded-full h-12 px-4 font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
             <Link href="/company/contact" className="inline-flex items-center justify-center">
               <span>Contact Sales</span>
-              <AnimatedArrow size={18} />
+              <AnimatedArrow size={20} />
             </Link>
           </Button>
         </div>
@@ -88,7 +88,7 @@ export default function EnterprisePage() {
         <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
             <span>Schedule Now</span>
-            <AnimatedArrow size={18} />
+            <AnimatedArrow size={20} />
           </Link>
         </Button>
       </div>

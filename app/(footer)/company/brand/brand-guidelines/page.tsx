@@ -288,7 +288,7 @@ export default function CompanyBrandGuidelinesPage() {
                   <span className="text-2xl font-semibold tracking-tight text-foreground">CloseAI</span>
                 </div>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not lock up with symbol</p>
@@ -298,7 +298,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-end p-0 relative overflow-hidden">
                 <span className="text-3xl font-semibold tracking-tight text-foreground translate-x-8">CloseAI</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center z-10">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not crop the wordmark</p>
@@ -308,7 +308,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-center p-6 relative">
                 <span className="text-2xl font-semibold tracking-tight text-foreground -rotate-12">CloseAI</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not rotate the wordmark</p>
@@ -321,7 +321,7 @@ export default function CompanyBrandGuidelinesPage() {
                   <span className="text-foreground">AI</span>
                 </span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not use unapproved colors</p>
@@ -331,7 +331,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-center p-6 relative">
                 <span className="text-2xl font-semibold tracking-tight text-foreground scale-x-150 inline-block">CloseAI</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not alter proportions</p>
@@ -341,7 +341,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-center p-6 relative">
                 <span className="text-2xl font-semibold tracking-tight text-foreground [filter:drop-shadow(3px_4px_4px_rgba(0,0,0,0.6))]">CloseAI</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not add drop shadows</p>
@@ -451,7 +451,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <img src="/closeai-new.png" alt="Distorted" className="w-14 h-14 object-contain scale-y-50 dark:hidden" />
                 <img src="/closeai-new-white.png" alt="Distorted" className="w-14 h-14 object-contain scale-y-50 hidden dark:block" />
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not alter or squish symbol</p>
@@ -465,7 +465,7 @@ export default function CompanyBrandGuidelinesPage() {
                   <span className="text-lg font-semibold text-foreground">CloseAI</span>
                 </div>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not lock up with wordmark</p>
@@ -477,7 +477,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <img src="/closeai-new.png" alt="Busy" className="w-14 h-14 object-contain dark:hidden relative z-10" />
                 <img src="/closeai-new-white.png" alt="Busy" className="w-14 h-14 object-contain hidden dark:block relative z-10" />
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center z-20">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Do not place on busy backgrounds</p>
@@ -490,7 +490,7 @@ export default function CompanyBrandGuidelinesPage() {
                   <img src="/closeai-new-white.png" alt="Clear space" className="w-10 h-10 object-contain hidden dark:block" />
                 </div>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
-                  <Check className="w-4 h-4 stroke-[2.5]" />
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Maintain minimum clear space</p>
@@ -501,7 +501,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <img src="/closeai-new.png" alt="Contrast" className="w-12 h-12 object-contain dark:hidden" />
                 <img src="/closeai-new-white.png" alt="Contrast" className="w-12 h-12 object-contain hidden dark:block" />
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
-                  <Check className="w-4 h-4 stroke-[2.5]" />
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Use approved high contrast</p>
@@ -514,7 +514,7 @@ export default function CompanyBrandGuidelinesPage() {
                   <img src="/closeai-new-white.png" alt="Proportional 1:1" className="w-12 h-12 object-contain hidden dark:block" />
                 </div>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
-                  <Check className="w-4 h-4 stroke-[2.5]" />
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">Preserve 1:1 square ratio</p>
@@ -724,7 +724,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <div className="w-[1px] h-8 bg-foreground/40" />
                 <span className="text-xs text-muted-foreground">Partner</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">
@@ -739,7 +739,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <div className="w-[1px] h-6 bg-foreground/40" />
                 <span className="text-base font-semibold text-foreground">Partner</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">
@@ -755,7 +755,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <div className="w-[1px] h-6 bg-foreground/40 relative z-10" />
                 <span className="text-base font-semibold text-foreground relative z-10">Partner</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center z-20">
-                  <X className="w-4 h-4 stroke-[2.5]" />
+                  <X className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">
@@ -775,7 +775,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <div className="w-[1px] h-6 bg-white/40" />
                 <span className="text-base font-semibold tracking-tight">Partner</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
-                  <Check className="w-4 h-4 stroke-[2.5]" />
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">
@@ -800,7 +800,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <div className="w-[1px] h-6 bg-foreground/40" />
                 <span className="text-base font-semibold tracking-tight text-foreground">Partner</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
-                  <Check className="w-4 h-4 stroke-[2.5]" />
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">
@@ -820,7 +820,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <div className="w-[1.5px] h-6 bg-black/40" />
                 <span className="text-base font-semibold tracking-tight text-black">Partner</span>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-black text-white flex items-center justify-center">
-                  <Check className="w-4 h-4 stroke-[2.5]" />
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
               <p className="text-xs sm:text-sm font-medium text-foreground mt-3">
@@ -850,7 +850,7 @@ export default function CompanyBrandGuidelinesPage() {
           <div>
             <div className="flex items-center gap-2.5 mb-6 pb-3 border-b border-border/60">
               <div className="w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center shrink-0">
-                <Check className="w-4 h-4 stroke-[2.5]" />
+                <Check className="w-5 h-5 stroke-[2.5]" />
               </div>
               <h3 className="text-xl font-semibold text-foreground">Do&apos;s</h3>
             </div>
@@ -882,7 +882,7 @@ export default function CompanyBrandGuidelinesPage() {
           <div>
             <div className="flex items-center gap-2.5 mb-6 pb-3 border-b border-border/60">
               <div className="w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center shrink-0">
-                <X className="w-4 h-4 stroke-[2.5]" />
+                <X className="w-5 h-5 stroke-[2.5]" />
               </div>
               <h3 className="text-xl font-semibold text-foreground">Dont&apos;s</h3>
             </div>

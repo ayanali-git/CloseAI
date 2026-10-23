@@ -346,7 +346,7 @@ function NewChatContent() {
                       className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Open sidebar"
                     >
-                      <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+                      <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent
@@ -396,7 +396,7 @@ function NewChatContent() {
                         </span>
                       </div>
                       {isPersonalized && (
-                        <Check className="w-4 h-4 text-foreground shrink-0 mt-0.5" />
+                        <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" />
                       )}
                     </DropdownMenuItem>
 
@@ -413,7 +413,7 @@ function NewChatContent() {
                         </span>
                       </div>
                       {!isPersonalized && (
-                        <Check className="w-4 h-4 text-foreground shrink-0 mt-0.5" />
+                        <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" />
                       )}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -435,7 +435,7 @@ function NewChatContent() {
                   >
                     <AnimatedTempChat
                       open={isTemporary}
-                      size={18}
+                      size={20}
                       className={cn(
                         "transition-colors",
                         isTemporary

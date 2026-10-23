@@ -89,16 +89,14 @@ export class AIService {
       throw new Error('OpenAI API key is not configured. Please add OPENAI_API_KEY in your .env file.');
     }
 
-    let openAiModel = 'gpt-4o';
+    let openAiModel = 'gpt-6';
     const lower = modelName.toLowerCase();
-    if (lower.includes('mini')) {
-      openAiModel = 'gpt-4o-mini';
-    } else if (lower.includes('3.5')) {
-      openAiModel = 'gpt-3.5-turbo';
-    } else if (lower.includes('4o')) {
-      openAiModel = 'gpt-4o';
+    if (lower.includes('5.5')) {
+      openAiModel = 'gpt-5.5';
+    } else if (lower.includes('5.4')) {
+      openAiModel = 'gpt-5.4';
     } else {
-      openAiModel = 'gpt-4o';
+      openAiModel = 'gpt-6';
     }
 
     try {
@@ -121,7 +119,7 @@ export class AIService {
       }
 
       const lastMessage = messages[messages.length - 1];
-      if (imageUrls && imageUrls.length > 0 && (openAiModel.startsWith('gpt-4') || openAiModel.startsWith('gpt-5'))) {
+      if (imageUrls && imageUrls.length > 0 && (openAiModel.startsWith('6') || openAiModel.startsWith('gpt-5'))) {
         const contentParts: any[] = [{ type: 'text', text: lastMessage.content }];
         for (const url of imageUrls) {
           contentParts.push({

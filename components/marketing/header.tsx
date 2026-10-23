@@ -724,7 +724,7 @@ export function MarketingHeader() {
 
                 {/* Our sources (Shown ONLY when results exist) */}
                 {searchResults.length > 0 && (
-                  <div className="space-y-4 pt-4 border-t border-border/50">
+                  <div className="space-y-4 pt-4 border-t border-border/80">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                       Our sources
                     </p>
@@ -778,7 +778,7 @@ export function MarketingHeader() {
                     "pb-4 space-y-6",
                     searchResults.length > 0
                       ? "pt-8"
-                      : "pt-4 border-t border-border/50"
+                      : "pt-4 border-t border-border/80"
                   )}
                 >
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
@@ -823,7 +823,7 @@ export function MarketingHeader() {
                       className="group rounded-full h-12 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                     >
                       <span>API Docs</span>
-                      <AnimatedArrowUpRight className="w-4 h-4" />
+                      <AnimatedArrowUpRight className="w-5 h-5" />
                     </Link>
                   </div>
                 </div>
@@ -1000,7 +1000,7 @@ export function MarketingHeader() {
                 className="p-1 pt-2 transition-opacity hover:opacity-80 cursor-pointer flex items-center justify-center text-foreground"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
-                <AnimatedSearchClose isOpen={isSearchOpen} size={18} />
+                <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
               </button>
             </nav>
           </div>
@@ -1033,7 +1033,7 @@ export function MarketingHeader() {
                   className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Open Chat</span>
-                  <AnimatedArrow size={18} />
+                  <AnimatedArrow size={20} />
                 </Link>
               </>
             ) : (
@@ -1062,7 +1062,7 @@ export function MarketingHeader() {
                     <span>Log in</span>
                     <AnimatedChevron
                       open={loginDropdownOpen}
-                      size={18}
+                      size={20}
                     />
                   </button>
 
@@ -1102,7 +1102,7 @@ export function MarketingHeader() {
                   className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
                 >
                   <span>Try CloseAI</span>
-                  <AnimatedArrowUpRight size={18} />
+                  <AnimatedArrowUpRight size={20} />
                 </Link>
               </>
             )}
@@ -1118,7 +1118,7 @@ export function MarketingHeader() {
               className="p-2 text-foreground transition-colors flex items-center justify-center"
               aria-label={isSearchOpen ? "Close search" : "Search"}
             >
-              <AnimatedSearchClose isOpen={isSearchOpen} size={18} />
+              <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
             </button>
             <button
               onClick={() => {
@@ -1130,7 +1130,7 @@ export function MarketingHeader() {
               className="p-2 text-foreground transition-colors flex items-center justify-center"
               aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
             >
-              <AnimatedPanelToggle open={mobileNavOpen} size={18} />
+              <AnimatedPanelToggle open={mobileNavOpen} size={20} />
             </button>
           </div>
         </div>
@@ -1198,7 +1198,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           Safety
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1283,7 +1283,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>CloseAI</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1295,7 +1295,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           Codex
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1398,7 +1398,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           Plans
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1474,7 +1474,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           APIs Platform
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1495,7 +1495,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>App SDKs</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1598,7 +1598,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>Careers</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                       <li>
@@ -1627,7 +1627,7 @@ export function MarketingHeader() {
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>Brand</span>
-                          <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1730,7 +1730,7 @@ export function MarketingHeader() {
                   </Link>
                 </div>
 
-                <div className="pt-8 border-t border-border/50 space-y-4 pb-4">
+                <div className="pt-8 border-t border-border/80 space-y-4 pb-4">
                   {user ? (
                     <>
                       <Link
@@ -1785,7 +1785,7 @@ export function MarketingHeader() {
                     onClick={() => setMobileSubMenu(null)}
                     className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-80 transition-opacity cursor-pointer mb-6"
                   >
-                    <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+                    <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
                     <span>Home</span>
                   </button>
 
@@ -1813,7 +1813,7 @@ export function MarketingHeader() {
                               href: "/research/safety",
                               target: "_blank",
                               rel: "noopener noreferrer",
-                              icon: <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                              icon: <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                             },
                           ].map((item, i) => (
                             <Link
@@ -1878,7 +1878,7 @@ export function MarketingHeader() {
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>CloseAI</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                           <Link
                             href="/product/features"
@@ -1888,7 +1888,7 @@ export function MarketingHeader() {
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             Codex
-                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                         </div>
                       </div>
@@ -1955,7 +1955,7 @@ export function MarketingHeader() {
                               href: "/product/plans",
                               target: "_blank",
                               rel: "noopener noreferrer",
-                              icon: <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />,
+                              icon: <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />,
                             },
                             {
                               label: "Customer Stories",
@@ -2029,7 +2029,7 @@ export function MarketingHeader() {
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             APIs Platform
-                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                           <Link
                             href="/research/overview"
@@ -2046,7 +2046,7 @@ export function MarketingHeader() {
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>App SDKs</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                         </div>
                       </div>
@@ -2115,7 +2115,7 @@ export function MarketingHeader() {
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>Careers</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                           <Link
                             href="/company/blog"
@@ -2139,7 +2139,7 @@ export function MarketingHeader() {
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>Brand</span>
-                            <AnimatedArrowUpRight className="w-4 h-4 transition-colors" />
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                         </div>
                       </div>

@@ -40,7 +40,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <ChevronRight className={cn("ml-auto h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors", chevronClassName)} />
+    <ChevronRight className={cn("ml-auto h-5 w-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors", chevronClassName)} />
   </DropdownMenuPrimitive.SubTrigger>
 ));
 DropdownMenuSubTrigger.displayName =
@@ -168,7 +168,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   >
     <span className="absolute left-2.5 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <Check className="h-4 w-4 text-foreground" />
+        <Check className="h-5 w-5 text-foreground" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -191,7 +191,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     {children}
     <DropdownMenuPrimitive.ItemIndicator className="ml-auto">
-      <Check className="h-4 w-4 text-foreground" />
+      <Check className="h-5 w-5 text-foreground" />
     </DropdownMenuPrimitive.ItemIndicator>
   </DropdownMenuPrimitive.RadioItem>
 ));

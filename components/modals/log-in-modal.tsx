@@ -260,7 +260,7 @@ export function LoginModal({
         {/* OAuth Error Alert Banner */}
         {authError && (
           <div className="p-3.5 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive flex items-start gap-3 relative animate-in fade-in duration-200">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <div className="flex-1 text-sm leading-relaxed font-normal">
               {authError}
             </div>
@@ -391,7 +391,7 @@ export function LoginModal({
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <Phone className="w-4 h-4 shrink-0 stroke-[2.5]" />
+                  <Phone className="w-5 h-5 shrink-0 stroke-[2.5]" />
                 </span>
                 <span className="whitespace-nowrap">Continue with phone</span>
               </div>
@@ -414,7 +414,7 @@ export function LoginModal({
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <Mail className="w-4 h-4 shrink-0 stroke-[2.5]" />
+                  <Mail className="w-5 h-5 shrink-0 stroke-[2.5]" />
                 </span>
                 <span className="whitespace-nowrap">Continue with email</span>
               </div>

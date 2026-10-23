@@ -76,6 +76,8 @@ import {
 } from "@/components/chat/message-attachment";
 import { ImagePreview } from "@/components/modals/image-preview-modal";
 import { getFileIconInfo } from "@/lib/file-utils";
+import { preprocessContent } from "@/lib/preprocess-markdown";
+
 export function TemporaryChatDashedBorder({
   className,
 }: {
@@ -180,47 +182,6 @@ function highlightCode(code: string, lang: string): string {
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
   }
-}
-
-/** Preprocesses LaTeX formula markers, currency dollar signs, table formatting, and unclosed delimiters */
-function preprocessContent(text: string): string {
-  if (!text) return "";
-
-  let result = text;
-
-  // 1. Convert pipe-pipe separated lines into proper markdown table rows with newlines
-  result = result.replace(/\|\s*\|\s*/g, "|\n| ");
-
-  // 2. Prevent currency dollar signs ($100, $1 Trillion, $2.5B) from being incorrectly parsed as LaTeX math
-  // In KaTeX / remark-math, any $ followed immediately by a digit is a monetary amount, not a formula
-  result = result.replace(/(?<!\\)\$(?=\d)/g, "\\$");
-
-  // 3. Normalize LaTeX display/inline brackets \[ \] and \( \)
-  result = result
-    .replace(/\\\[([\s\S]*?)\\\]/g, "$$$$$1$$$$")
-    .replace(/\\\(([\s\S]*?)\\\)/g, "$$$1$$");
-
-  // 4. Fix unescaped underscores inside \text{...} in math formulas
-  result = result.replace(/\\text\{([^}]+)\}/g, (_, inner) => {
-    return `\\text{${inner.replace(/(?<!\\)_/g, "\\_")}}`;
-  });
-
-  // 5. Clean up awkward spaced asterisks like "* *, **"
-  result = result.replace(/\*\s+\*,\s+\*\*/g, ", **");
-
-  // 6. Auto-close dangling unclosed code blocks (```) during streaming/interrupted generation
-  const codeBlockCount = (result.match(/```/g) || []).length;
-  if (codeBlockCount % 2 !== 0) {
-    result += "\n```";
-  }
-
-  // 7. Auto-close dangling bold (**) during streaming/interrupted generation
-  const boldCount = (result.match(/\*\*/g) || []).length;
-  if (boldCount % 2 !== 0) {
-    result += "**";
-  }
-
-  return result;
 }
 
 /** Strips common leading whitespace from all non-empty lines while preserving relative indentation */

@@ -71,7 +71,7 @@ export default function CompanyBrandPage() {
               className="inline-flex items-center justify-center gap-1.5"
             >
               <span>Brand Guidelines</span>
-              <AnimatedArrowUpRight size={18} />
+              <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>
         </div>
@@ -340,7 +340,7 @@ export default function CompanyBrandPage() {
               className="inline-flex items-center justify-center gap-1.5"
             >
               <span>Brand Guidelines</span>
-              <AnimatedArrowUpRight size={18} />
+              <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>
         </div>

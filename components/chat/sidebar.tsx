@@ -71,6 +71,7 @@ import {
 } from "@/components/ui/hover-card";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   AnimatedChevron,
@@ -80,6 +81,7 @@ import {
 import { LogoutModal } from "@/components/modals/log-out-modal";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
 import { ReportBugModal } from "@/components/modals/report-bug-modal";
+import { SearchModal } from "@/components/modals/search-modal";
 import toast from "@/lib/toast";
 import { openSettings, isSettingsHash, SettingsSection } from "@/lib/settings-hash";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
@@ -201,7 +203,7 @@ const groupChats = (chats: Chat[]) => {
   const groups: Record<string, Chat[]> = {
     Pinned: [],
     Archived: [],
-    Chats: [],
+    Recents: [],
   };
 
   chats.forEach((chat) => {
@@ -215,11 +217,195 @@ const groupChats = (chats: Chat[]) => {
       return;
     }
 
-    groups["Chats"].push(chat);
+    groups["Recents"].push(chat);
   });
 
   return groups;
 };
+
+interface SidebarChatItemProps {
+  chat: Chat;
+  isSelected: boolean;
+  onChatSelect: (id: string) => void;
+  isOpen: boolean;
+  onToggle: () => void;
+  onToggleStar: (id: string, starred: boolean) => void;
+  onToggleArchive?: (id: string, archived: boolean) => void;
+  setChatToDelete: (chat: Chat) => void;
+}
+
+/**
+ * Top-level memoized item. Immune to AI stream re-renders in ChatPage.
+ * Does not unmount/remount on parent render, completely eliminating hover flicker.
+ */
+const SidebarChatItem = React.memo(
+  function SidebarChatItem({
+    chat,
+    isSelected,
+    onChatSelect,
+    isOpen,
+    onToggle,
+    onToggleStar,
+    onToggleArchive,
+    setChatToDelete,
+  }: SidebarChatItemProps) {
+    const [isHovered, setIsHovered] = useState(false);
+    const [isPressed, setIsPressed] = useState(false);
+    const itemRef = useRef<HTMLDivElement>(null);
+
+    const onChatSelectRef = useRef(onChatSelect);
+    onChatSelectRef.current = onChatSelect;
+    const onToggleRef = useRef(onToggle);
+    onToggleRef.current = onToggle;
+    const onToggleStarRef = useRef(onToggleStar);
+    onToggleStarRef.current = onToggleStar;
+    const onToggleArchiveRef = useRef(onToggleArchive);
+    onToggleArchiveRef.current = onToggleArchive;
+    const setChatToDeleteRef = useRef(setChatToDelete);
+    setChatToDeleteRef.current = setChatToDelete;
+
+    useEffect(() => {
+      if (itemRef.current?.matches(":hover")) {
+        setIsHovered(true);
+      }
+    }, []);
+
+    const showActions = isHovered || isSelected;
+
+    return (
+      <div
+        ref={itemRef}
+        onClick={() => {
+          setIsHovered(true);
+          onChatSelectRef.current(chat.id);
+          if (
+            isOpen &&
+            typeof window !== "undefined" &&
+            window.innerWidth < 1280
+          ) {
+            onToggleRef.current();
+          }
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseMove={() => {
+          if (!isHovered) setIsHovered(true);
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false);
+        }}
+        onTouchStart={() => setIsPressed(true)}
+        onTouchEnd={() => setIsPressed(false)}
+        onTouchCancel={() => setIsPressed(false)}
+        className={cn(
+          "group relative flex items-center justify-between px-2 py-2.5 rounded-xl text-base cursor-pointer transition-all duration-150",
+          isSelected
+            ? "bg-secondary text-foreground"
+            : cn(
+                "text-muted-foreground hover:bg-secondary active:bg-secondary",
+                isPressed && "bg-secondary"
+              )
+        )}
+      >
+        {/* Title with Smooth Marquee on Hover */}
+        <ChatTitleMarquee
+          title={chat.title || "New chat"}
+          isHovered={isHovered}
+          isSelected={isSelected}
+        />
+
+        {/* Status indicators when not hovered and not selected (hidden on mobile where action buttons are always visible) */}
+        {chat.starred && !showActions && (
+          <PinOff className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
+        )}
+        {chat.archived && !chat.starred && !showActions && (
+          <ArchiveX className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
+        )}
+
+        {/* Actions */}
+        <div
+          className={cn(
+            "absolute right-2 inset-y-0 flex items-center gap-0.5 z-10 transition-opacity duration-150",
+            // Desktop (>= 1280px): position at right edge, completely transparent background so it matches the row seamlessly!
+            "xl:right-0 xl:pl-1 xl:pr-1 xl:rounded-r-xl",
+            // Small screens (< 1280px): completely transparent, no gradient box, seamless with hover box!
+            "max-xl:bg-transparent max-xl:bg-none",
+            // Visibility: on small screens always visible; on desktop visible when hovered, selected, or on group-hover!
+            "max-xl:opacity-100 max-xl:pointer-events-auto",
+            showActions
+              ? "opacity-100 pointer-events-auto"
+              : "xl:opacity-0 xl:pointer-events-none xl:group-hover:opacity-100 xl:group-hover:pointer-events-auto"
+          )}
+        >
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleStarRef.current(chat.id, !chat.starred);
+                }}
+                className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
+              >
+                {chat.starred ? (
+                  <PinOff className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Pin className="w-5 h-5" />
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="text-base">
+              {chat.starred ? "Unpin" : "Pin"}
+            </TooltipContent>
+          </Tooltip>
+
+          {onToggleArchive && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleArchiveRef.current?.(chat.id, !chat.archived);
+                  }}
+                  className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
+                >
+                  {chat.archived ? (
+                    <ArchiveX className="w-5 h-5" />
+                  ) : (
+                    <Archive className="w-5 h-5" />
+                  )}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent className="text-base">
+                {chat.archived ? "Unarchive" : "Archive"}
+              </TooltipContent>
+            </Tooltip>
+          )}
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setChatToDeleteRef.current(chat);
+                }}
+                className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="text-base">Delete</TooltipContent>
+          </Tooltip>
+        </div>
+      </div>
+    );
+  },
+  (prev, next) =>
+    prev.chat.id === next.chat.id &&
+    prev.chat.title === next.chat.title &&
+    prev.chat.starred === next.chat.starred &&
+    prev.chat.archived === next.chat.archived &&
+    prev.isSelected === next.isSelected &&
+    prev.isOpen === next.isOpen
+);
 
 export function Sidebar({
   user,
@@ -240,6 +426,13 @@ export function Sidebar({
   onOpenAdvancedFeaturesModal,
   onWebSearchHover,
 }: SidebarProps) {
+  const pathname = usePathname();
+  const isNewChat =
+    !currentChatId &&
+    (pathname === "/c" ||
+      pathname === "/gc" ||
+      pathname === "/c/" ||
+      pathname === "/gc/");
   const { signOut, loading: authLoading } = useAuth();
   // True while the session is still being restored on reload (user not known yet).
   const isAuthLoading = authLoading && !user;
@@ -247,22 +440,22 @@ export function Sidebar({
   const showProfileSkeleton = isAuthLoading || (!!user && isLoading);
   const { plan: userPlan } = useSubscription();
   const { theme, setTheme } = useTheme();
-  const [showSearch, setShowSearch] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [chatStreamScrolled, setChatStreamScrolled] = useState(false);
 
   const [isLogoHovered, setIsLogoHovered] = useState(false);
   const [isCloseBtnHovered, setIsCloseBtnHovered] = useState(false);
   const [isImagesHovered, setIsImagesHovered] = useState(false);
 
   useEffect(() => {
-    if (isOpen && showSearch) {
+    if (false) {
       const timer = window.setTimeout(() => {
-        searchInputRef.current?.focus();
+        // Search modal handles its own input focus
       }, 50);
 
       return () => window.clearTimeout(timer);
     }
-  }, [isOpen, showSearch]);
+  }, []);
 
   const { setSidebarOpen } = useSidebarContext();
   const [collapsedSections, setCollapsedSections] = useState<
@@ -271,7 +464,7 @@ export function Sidebar({
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showReportBugModal, setShowReportBugModal] = useState(false);
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
-  const isAnyModalOpen = showLogoutModal || showReportBugModal || !!chatToDelete;
+  const isAnyModalOpen = showLogoutModal || showReportBugModal || !!chatToDelete || showSearchModal;
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [collapsedAccountMenuOpen, setCollapsedAccountMenuOpen] = useState(false);
   const [guestHelpMenuOpen, setGuestHelpMenuOpen] = useState(false);
@@ -349,6 +542,37 @@ export function Sidebar({
       }
     },
     [isOpen, onOpenLoginModal, setSidebarOpen]
+  );
+
+  const handleOpenSearchModal = useCallback(() => {
+    setAccountMenuOpen(false);
+    setCollapsedAccountMenuOpen(false);
+    setRailHelpOpen(false);
+    setGuestHelpMenuOpen(false);
+    setMobileHelpMenuOpen(false);
+    if (!user) {
+      handleOpenLoginModal({
+        description: "To continue with Search chats",
+      });
+      return;
+    }
+    if (typeof window !== "undefined" && window.innerWidth < 1280) {
+      openModalWithSidebarClose(() => setShowSearchModal(true));
+    } else {
+      setShowSearchModal(true);
+    }
+  }, [user, handleOpenLoginModal, openModalWithSidebarClose]);
+
+  const handleSearchChatSelect = useCallback(
+    (chatId: string) => {
+      prevSidebarOpenForModalRef.current = null;
+      setShowSearchModal(false);
+      onChatSelect(chatId);
+      if (typeof window !== "undefined" && window.innerWidth < 1280 && isOpen) {
+        onToggle();
+      }
+    },
+    [onChatSelect, isOpen, onToggle]
   );
 
   const handleOpenLogout = useCallback(() => {
@@ -445,13 +669,13 @@ export function Sidebar({
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (showLogoutModal || chatToDelete || showReportBugModal) return;
+        if (showLogoutModal || chatToDelete || showReportBugModal || showSearchModal) return;
         onToggle();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, showLogoutModal, chatToDelete, showReportBugModal, onToggle]);
+  }, [isOpen, showLogoutModal, chatToDelete, showReportBugModal, showSearchModal, onToggle]);
 
   useEffect(() => {
     const handleOpen = () => handleOpenReportBug();
@@ -525,7 +749,7 @@ export function Sidebar({
           href="/support/help"
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
-          <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+          <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Help center</span>
         </Link>
       </DropdownMenuItem>
@@ -535,7 +759,7 @@ export function Sidebar({
           href="/company/blog"
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
-          <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+          <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Release notes</span>
         </Link>
       </DropdownMenuItem>
@@ -546,7 +770,7 @@ export function Sidebar({
         className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
       >
         <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
-          <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
+          <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
             label="Download app"
             comingSoonText="Coming soon"
@@ -565,10 +789,10 @@ export function Sidebar({
           className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
-            <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+            <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
             <span>Terms of Service</span>
           </div>
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+          <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
         </Link>
       </DropdownMenuItem>
 
@@ -580,10 +804,10 @@ export function Sidebar({
           className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
-            <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+            <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
             <span>Privacy Policy</span>
           </div>
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+          <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
         </Link>
       </DropdownMenuItem>
 
@@ -594,7 +818,7 @@ export function Sidebar({
         className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left"
       >
         <div className="flex items-center gap-2.5">
-          <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+          <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Report a bug</span>
         </div>
       </DropdownMenuItem>
@@ -671,7 +895,7 @@ export function Sidebar({
             }}
             className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Help</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
@@ -686,7 +910,7 @@ export function Sidebar({
               }}
               className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
-              <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
             </Link>
           </DropdownMenuItem>
@@ -701,7 +925,7 @@ export function Sidebar({
               }}
               className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
-              <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
             </Link>
           </DropdownMenuItem>
@@ -711,7 +935,7 @@ export function Sidebar({
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
           >
             <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
-              <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
+              <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
                 comingSoonText="Coming soon"
@@ -729,10 +953,10 @@ export function Sidebar({
               className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
-                <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                 <span>Terms of Use</span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
@@ -744,10 +968,10 @@ export function Sidebar({
               className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
-                <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                 <span>Privacy Policy</span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
             </Link>
           </DropdownMenuItem>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
@@ -756,7 +980,7 @@ export function Sidebar({
             className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
-              <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+              <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
               <span>Report a bug</span>
             </div>
           </DropdownMenuItem>
@@ -775,12 +999,12 @@ export function Sidebar({
             }}
             className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             <span>Accounts</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <div className="flex items-center gap-2 px-2 py-1.5 text-base text-muted-foreground hover:text-foreground select-none">
-            <UserIcon className="w-4 h-4 shrink-0" />
+            <UserIcon className="w-5 h-5 shrink-0" />
             <span className="truncate">{userEmail}</span>
           </div>
           <div className="flex items-center justify-between px-2 py-2 rounded-xl bg-secondary/50">
@@ -803,7 +1027,7 @@ export function Sidebar({
                 </p>
               </div>
             </div>
-            <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />
+            <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />
           </div>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
           <button
@@ -811,7 +1035,7 @@ export function Sidebar({
             onClick={handleOpenAddAccount}
             className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <Plus className="w-4 h-4 text-muted-foreground" />
+            <Plus className="w-5 h-5 text-muted-foreground" />
             <span>Add account</span>
           </button>
         </div>
@@ -848,7 +1072,7 @@ export function Sidebar({
                 {planDisplay}
               </p>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground ml-auto shrink-0" />
+            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto shrink-0" />
           </button>
         ) : (
           <DropdownMenuSub>
@@ -877,7 +1101,7 @@ export function Sidebar({
               className="w-64 max-w-[calc(100vw-24px)] rounded-2xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
             >
               <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
-                <UserIcon className="w-4 h-4 shrink-0" />
+                <UserIcon className="w-5 h-5 shrink-0" />
                 <span className="truncate">{userEmail}</span>
               </div>
               <DropdownMenuItem className="flex items-center justify-between px-2 py-2 rounded-xl cursor-pointer">
@@ -900,14 +1124,14 @@ export function Sidebar({
                     </p>
                   </div>
                 </div>
-                <Check className="w-4 h-4 text-foreground shrink-0 ml-2" />
+                <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleOpenAddAccount}
                 className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
               >
-                <Plus className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                <Plus className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 <span>Add account</span>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
@@ -921,7 +1145,7 @@ export function Sidebar({
           onClick={() => handleOpenSettings("plans")}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
-          <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Plans</span>
         </DropdownMenuItem>
 
@@ -930,7 +1154,7 @@ export function Sidebar({
           onClick={() => handleOpenSettings("data")}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
-          <Database className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <Database className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Data</span>
         </DropdownMenuItem>
 
@@ -939,7 +1163,7 @@ export function Sidebar({
           onClick={() => handleOpenSettings("profile")}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
-          <UserIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <UserIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Profile</span>
         </DropdownMenuItem>
 
@@ -950,7 +1174,7 @@ export function Sidebar({
           }
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
-          <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Settings</span>
         </DropdownMenuItem>
 
@@ -967,15 +1191,15 @@ export function Sidebar({
             className="w-full flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <div className="flex items-center gap-2.5">
-              <LifeBuoy className="w-4 h-4 text-muted-foreground" />
+              <LifeBuoy className="w-5 h-5 text-muted-foreground" />
               <span>Help</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            <ChevronRight className="w-5 h-5 text-muted-foreground" />
           </button>
         ) : (
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl cursor-pointer">
-              <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              <LifeBuoy className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
@@ -988,7 +1212,7 @@ export function Sidebar({
                   href="/support/help"
                   className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
                 >
-                  <HelpCircle className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Help center</span>
                 </Link>
               </DropdownMenuItem>
@@ -997,7 +1221,7 @@ export function Sidebar({
                   href="/company/blog"
                   className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
                 >
-                  <PenLine className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Release notes</span>
                 </Link>
               </DropdownMenuItem>
@@ -1005,7 +1229,7 @@ export function Sidebar({
                 onSelect={(e) => e.preventDefault()}
                 className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
               >
-                <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
+                <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
                   label="Download app"
                   comingSoonText="Coming soon"
@@ -1021,10 +1245,10 @@ export function Sidebar({
                   className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
-                    <FileText className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                    <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                     <span>Terms of Use</span>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -1035,10 +1259,10 @@ export function Sidebar({
                   className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Info className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                    <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                     <span>Privacy Policy</span>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -1047,7 +1271,7 @@ export function Sidebar({
                 className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
               >
                 <div className="flex items-center gap-2.5">
-                  <Bug className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                  <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                   <span>Report a bug</span>
                 </div>
               </DropdownMenuItem>
@@ -1060,171 +1284,12 @@ export function Sidebar({
           onClick={handleOpenLogout}
           className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
         >
-          <LogOut className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+          <LogOut className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Log out</span>
         </DropdownMenuItem>
       </div>
     );
   };
-
-function SidebarChatItem({
-  chat,
-  isSelected,
-  onChatSelect,
-  isOpen,
-  onToggle,
-  onToggleStar,
-  onToggleArchive,
-  setChatToDelete,
-}: {
-  chat: Chat;
-  isSelected: boolean;
-  onChatSelect: (id: string) => void;
-  isOpen: boolean;
-  onToggle: () => void;
-  onToggleStar: (id: string, starred: boolean) => void;
-  onToggleArchive?: (id: string, archived: boolean) => void;
-  setChatToDelete: (chat: Chat) => void;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
-  const itemRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (itemRef.current?.matches(":hover")) {
-      setIsHovered(true);
-    }
-  }, []);
-
-  const showActions = isHovered || isSelected;
-
-  return (
-    <div
-      ref={itemRef}
-      onClick={() => {
-        setIsHovered(true);
-        onChatSelect(chat.id);
-        if (
-          isOpen &&
-          typeof window !== "undefined" &&
-          window.innerWidth < 1280
-        ) {
-          onToggle();
-        }
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseMove={() => {
-        if (!isHovered) setIsHovered(true);
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setIsPressed(false);
-      }}
-      onTouchStart={() => setIsPressed(true)}
-      onTouchEnd={() => setIsPressed(false)}
-      onTouchCancel={() => setIsPressed(false)}
-      className={cn(
-        "group relative flex items-center justify-between px-2 py-2.5 rounded-xl text-base cursor-pointer transition-all duration-150",
-        isSelected
-          ? "bg-secondary text-foreground"
-          : cn(
-              "text-muted-foreground hover:bg-secondary active:bg-secondary",
-              isPressed && "bg-secondary"
-            )
-      )}
-    >
-      {/* Title with Smooth Marquee on Hover */}
-      <ChatTitleMarquee
-        title={chat.title || "New chat"}
-        isHovered={isHovered}
-        isSelected={isSelected}
-      />
-
-      {/* Status indicators when not hovered and not selected (hidden on mobile where action buttons are always visible) */}
-      {chat.starred && !showActions && (
-        <PinOff className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
-      )}
-      {chat.archived && !chat.starred && !showActions && (
-        <ArchiveX className="w-4 h-4 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
-      )}
-
-      {/* Actions */}
-      <div
-        className={cn(
-          "absolute right-2 inset-y-0 flex items-center gap-0.5 z-10 transition-opacity duration-150",
-          // Desktop (>= 1280px): position at right edge, completely transparent background so it matches the row seamlessly!
-          "xl:right-0 xl:pl-1 xl:pr-2 xl:rounded-r-xl",
-          // Small screens (< 1280px): completely transparent, no gradient box, seamless with hover box!
-          "max-xl:bg-transparent max-xl:bg-none",
-          // Visibility: on small screens always visible; on desktop visible when hovered, selected, or on group-hover!
-          "max-xl:opacity-100 max-xl:pointer-events-auto",
-          showActions
-            ? "opacity-100 pointer-events-auto"
-            : "xl:opacity-0 xl:pointer-events-none xl:group-hover:opacity-100 xl:group-hover:pointer-events-auto"
-        )}
-      >
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleStar(chat.id, !chat.starred);
-              }}
-              className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
-            >
-              {chat.starred ? (
-                <PinOff className="w-4 h-4 text-foreground" />
-              ) : (
-                <Pin className="w-4 h-4" />
-              )}
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="text-base">
-            {chat.starred ? "Unpin" : "Pin"}
-          </TooltipContent>
-        </Tooltip>
-
-        {onToggleArchive && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleArchive(chat.id, !chat.archived);
-                }}
-                className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
-              >
-                {chat.archived ? (
-                  <ArchiveX className="w-4 h-4" />
-                ) : (
-                  <Archive className="w-4 h-4" />
-                )}
-              </button>
-            </TooltipTrigger>
-            <TooltipContent className="text-base">
-              {chat.archived ? "Unarchive" : "Archive"}
-            </TooltipContent>
-          </Tooltip>
-        )}
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setChatToDelete(chat);
-              }}
-              className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="text-base">Delete</TooltipContent>
-        </Tooltip>
-      </div>
-    </div>
-  );
-}
 
   const renderChatItem = (chat: Chat) => (
     <SidebarChatItem
@@ -1361,11 +1426,11 @@ function SidebarChatItem({
                     >
                       {user && !isLogoHovered ? (
                         <CloseAIIcon
-                          size={20}
-                          className="w-4 h-4 pointer-events-none"
+                          size={26}
+                          className="w-5 h-5 pointer-events-none"
                         />
                       ) : (
-                        <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground pointer-events-none" />
+                        <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground pointer-events-none" />
                       )}
                     </button>
                   </TooltipTrigger>
@@ -1398,7 +1463,7 @@ function SidebarChatItem({
                       className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                       aria-label="New chat"
                     >
-                      <SquarePen className="w-4 h-4" />
+                      <SquarePen className="w-5 h-5" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent
@@ -1417,13 +1482,12 @@ function SidebarChatItem({
                       <TooltipTrigger asChild>
                         <button
                           onClick={() => {
-                            onToggle();
-                            setShowSearch(true);
+                            handleOpenSearchModal();
                           }}
                           className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                           aria-label="Search chats"
                         >
-                          <AnimatedSearchClose open={showSearch} size={18} />
+                          <Search className="w-5 h-5" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1443,7 +1507,7 @@ function SidebarChatItem({
                           className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                           aria-label="Pinned chats"
                         >
-                          <Pin className="w-4 h-4" />
+                          <Pin className="w-5 h-5" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1463,7 +1527,7 @@ function SidebarChatItem({
                           className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                           aria-label="Archived chats"
                         >
-                          <Archive className="w-4 h-4" />
+                          <Archive className="w-5 h-5" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1485,7 +1549,7 @@ function SidebarChatItem({
                           className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-not-allowed"
                           aria-label="Create Images"
                         >
-                          <ImageIcon className="w-4 h-4" />
+                          <ImageIcon className="w-5 h-5" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1516,6 +1580,7 @@ function SidebarChatItem({
                             onWebSearchHover?.();
                           }}
                           onClick={() => {
+                            handleOpenSearchModal();
                             setRailWebSearchHoverOpen(false);
                             (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
                           }}
@@ -1526,7 +1591,7 @@ function SidebarChatItem({
                           )}
                           aria-label="Web search"
                         >
-                          <Globe className="w-4 h-4" />
+                          <Globe className="w-5 h-5" />
                         </button>
                       </HoverCardTrigger>
                       {renderWebSearchHoverCardContent(() =>
@@ -1557,7 +1622,7 @@ function SidebarChatItem({
                         className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary hover:text-foreground cursor-pointer"
                         aria-label="Download app"
                       >
-                        <Store className="w-4 h-4 shrink-0" />
+                        <Store className="w-5 h-5 shrink-0" />
                       </button>
                     </TooltipTrigger>
                     <TooltipContent
@@ -1629,7 +1694,7 @@ function SidebarChatItem({
                         className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                         aria-label="Plans"
                       >
-                        <CreditCard className="w-4 h-4 shrink-0" />
+                        <CreditCard className="w-5 h-5 shrink-0" />
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent
@@ -1659,7 +1724,7 @@ function SidebarChatItem({
                             )}
                             aria-label="Help"
                           >
-                            <LifeBuoy className="w-4 h-4 shrink-0" />
+                            <LifeBuoy className="w-5 h-5 shrink-0" />
                           </button>
                         </DropdownMenuTrigger>
                       </TooltipTrigger>
@@ -1698,7 +1763,7 @@ function SidebarChatItem({
                         className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
                         aria-label="Settings"
                       >
-                        <Settings className="w-4 h-4 shrink-0" />
+                        <Settings className="w-5 h-5 shrink-0" />
                       </button>
                     </TooltipTrigger>
                     <TooltipContent
@@ -1749,7 +1814,7 @@ function SidebarChatItem({
                 {!user ? (
                   <>
                     <div className="xl:hidden flex items-center justify-center w-11 h-11 rounded-sm hover:bg-secondary">
-                      <CloseAIIcon size={24} />
+                      <CloseAIIcon size={26} />
                     </div>
                     <span className="hidden xl:inline-block font-bold text-xl tracking-tight text-foreground">
                       CloseAI
@@ -1775,9 +1840,9 @@ function SidebarChatItem({
                         variant="ghost"
                         size="icon"
                         className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
-                        onClick={() => setShowSearch(!showSearch)}
+                        onClick={handleOpenSearchModal}
                       >
-                        <AnimatedSearchClose open={showSearch} size={18} />
+                        <Search className="w-5 h-5" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent
@@ -1798,12 +1863,10 @@ function SidebarChatItem({
                           size="icon"
                           className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
                           onClick={() => {
-                            handleOpenLoginModal({
-                              description: "To continue with Search chats",
-                            });
+                            handleOpenSearchModal();
                           }}
                         >
-                          <Search className="w-4 h-4" />
+                          <Search className="w-5 h-5" />
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1826,7 +1889,7 @@ function SidebarChatItem({
                       className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
                       aria-label="Search chats"
                     >
-                      <Search className="w-4 h-4 shrink-0" />
+                      <Search className="w-5 h-5 shrink-0" />
                     </button>
 
                     {/* Small Screen Devices: Sidebar Close Button */}
@@ -1865,7 +1928,7 @@ function SidebarChatItem({
                       onMouseEnter={() => setIsCloseBtnHovered(true)}
                       onMouseLeave={() => setIsCloseBtnHovered(false)}
                     >
-                      <PanelLeft className="w-4 h-4 pointer-events-none" />
+                      <PanelLeft className="w-5 h-5 pointer-events-none" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent
@@ -1880,19 +1943,15 @@ function SidebarChatItem({
             </div>
 
             {/* New Chat & Guest Items
-                Icon rows use pl-[14px]: 8px container padding + 14px = icon at x 22 (center x 30),
+                Icon rows use pl-3 (12px): 8px container padding + 12px = icon at x 20 (center x 30),
                 the exact same x as the 60px collapsed rail icons. */}
             <div className="px-2 pt-1 pb-2 space-y-1.5 relative z-20">
-              {user && showSearch && (
+              {false && (
                 <div className="relative group mb-1">
-                  <Search className="w-4 h-4 absolute left-[14px] top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-foreground transition-colors pointer-events-none" />
                   <input
-                    ref={searchInputRef}
                     type="text"
                     placeholder="Search chats"
                     value={searchQuery}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    className="w-full pl-[40px] pr-3 h-11 text-base bg-secondary rounded-xl text-foreground placeholder:text-foreground focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 border-0 transition-colors"
                   />
                 </div>
               )}
@@ -1908,10 +1967,13 @@ function SidebarChatItem({
                     onToggle();
                   }
                 }}
-                className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl max-xl:bg-secondary/70 hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150"
+                className={cn(
+                  "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150",
+                  isNewChat && "max-xl:bg-secondary/70"
+                )}
               >
                 <div className="flex items-center gap-2.5">
-                  <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span className="whitespace-nowrap">New chat</span>
                 </div>
               </button>
@@ -1923,10 +1985,10 @@ function SidebarChatItem({
                     type="button"
                     onMouseEnter={() => setIsImagesHovered(true)}
                     onMouseLeave={() => setIsImagesHovered(false)}
-                    className="w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed group transition-all duration-150 text-left"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed group transition-all duration-150 text-left"
                   >
                     <div className="flex items-center gap-2.5">
-                      <ImageIcon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                      <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                       <AnimatedComingSoonText
                         label="Create Images"
                         comingSoonText="Coming soon"
@@ -1995,14 +2057,14 @@ function SidebarChatItem({
                           (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between h-11 pl-[14px] pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150",
+                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150",
                           webSearchHoverOpen && "bg-secondary"
                         )}
                       >
                         <div className="flex items-center gap-2.5">
                           <Globe
                             className={cn(
-                              "w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors",
+                              "w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors",
                               webSearchHoverOpen && "text-foreground"
                             )}
                           />
@@ -2020,7 +2082,20 @@ function SidebarChatItem({
 
             {/* Chat History Stream (Only for authenticated users) */}
             {user ? (
-              <div className="flex-1 px-2 overflow-y-auto border-t border-border/80 dark:border-white/10  sidebar-scroll min-h-0">
+              <div
+                onScroll={(e) => {
+                  const isScrolled = e.currentTarget.scrollTop > 0;
+                  if (chatStreamScrolled !== isScrolled) {
+                    setChatStreamScrolled(isScrolled);
+                  }
+                }}
+                className={cn(
+                  "flex-1 px-2 overflow-y-auto border-t transition-colors duration-200 sidebar-scroll min-h-0",
+                  chatStreamScrolled
+                    ? "border-border/80 dark:border-white/10"
+                    : "border-transparent"
+                )}
+              >
                 {isLoading ? (
                   <div className="space-y-5 py-3 px-1 select-none">
                     {/* PINNED Skeleton Group */}
@@ -2062,7 +2137,7 @@ function SidebarChatItem({
                           open={!collapsedSections["Pinned"]}
                           disableHover
                           orientation="right-down"
-                          size={18}
+                          size={20}
                           className="text-muted-foreground group-hover/section:text-foreground shrink-0 xl:opacity-0 xl:group-hover/section:opacity-100 transition-opacity duration-150"
                         />
                       </button>
@@ -2093,7 +2168,7 @@ function SidebarChatItem({
                           open={!collapsedSections["Archived"]}
                           disableHover
                           orientation="right-down"
-                          size={18}
+                          size={20}
                           className="text-muted-foreground group-hover/section:text-foreground shrink-0 xl:opacity-0 xl:group-hover/section:opacity-100 transition-opacity duration-150"
                         />
                       </button>
@@ -2112,31 +2187,31 @@ function SidebarChatItem({
                       )}
                     </div>
 
-                    {/* Chats Section */}
+                    {/* Recents Section */}
                     <div className="space-y-0.5">
                       <button
                         type="button"
-                        onClick={() => toggleSection("Chats")}
+                        onClick={() => toggleSection("Recents")}
                         className="w-full flex items-center justify-between px-2 py-1 text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left"
                       >
-                        <span>Chats</span>
+                        <span>Recents</span>
                         <AnimatedChevron
-                          open={!collapsedSections["Chats"]}
+                          open={!collapsedSections["Recents"]}
                           disableHover
                           orientation="right-down"
-                          size={18}
+                          size={20}
                           className="text-muted-foreground group-hover/section:text-foreground shrink-0 xl:opacity-0 xl:group-hover/section:opacity-100 transition-opacity duration-150"
                         />
                       </button>
 
-                      {!collapsedSections["Chats"] && (
+                      {!collapsedSections["Recents"] && (
                         <>
-                          {groupedChats["Chats"].length === 0 ? (
+                          {groupedChats["Recents"].length === 0 ? (
                             <div className="px-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
                               {searchQuery ? "No chats found" : "No chats"}
                             </div>
                           ) : (
-                            groupedChats["Chats"].map((chat) =>
+                            groupedChats["Recents"].map((chat) =>
                               renderChatItem(chat)
                             )
                           )}
@@ -2152,7 +2227,7 @@ function SidebarChatItem({
 
             {/* Expanded Bottom Dock (mt-auto)
                 Signed in: px-2 so the profile row box starts at x 8 and the avatar sits 6px inside it (8 + 6 = 14,
-                matching the persistent avatar at x 14 in the 60px rail). Guest: px-2 + pl-[14px] rows put icons at x 22. */}
+                matching the persistent avatar at x 14 in the 60px rail). Guest: px-2 + pl-3 (12px) rows put icons at x 20 (center x 30). */}
             <div
               className={cn(
                 "mt-auto w-full relative z-20 select-none",
@@ -2243,7 +2318,7 @@ function SidebarChatItem({
                                     className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
                                     aria-label="Download app"
                                   >
-                                    <Store className="w-4 h-4 shrink-0" />
+                                    <Store className="w-5 h-5 shrink-0" />
                                   </button>
                                 </TooltipTrigger>
 
@@ -2290,19 +2365,19 @@ function SidebarChatItem({
                           type="button"
                           tabIndex={!isOpen ? -1 : 0}
                           className={cn(
-                            "w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none",
+                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none",
                             guestHelpMenuOpen && !isMobileScreen && "bg-secondary"
                           )}
                           aria-label="Help"
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                            <LifeBuoy className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                             <span className="text-base font-normal leading-normal whitespace-nowrap">
                               Help
                             </span>
                           </div>
                           <ChevronRight className={cn(
-                            "w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-opacity duration-150",
+                            "w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-opacity duration-150",
                             guestHelpMenuOpen && !isMobileScreen ? "opacity-100" : "opacity-100 xl:opacity-0 xl:group-hover:opacity-100"
                           )} />
                         </button>
@@ -2324,16 +2399,16 @@ function SidebarChatItem({
                       target="_blank"
                       rel="noopener noreferrer"
                       tabIndex={!isOpen ? -1 : 0}
-                      className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
                       aria-label="Plans"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                        <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                         <span className="text-base font-normal leading-normal whitespace-nowrap">
                           Plans
                         </span>
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-150" />
+                      <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-150" />
                     </Link>
 
                     {/* Expanded Settings */}
@@ -2345,11 +2420,11 @@ function SidebarChatItem({
                           isMobileScreen ? undefined : "general"
                         )
                       }
-                      className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
                       aria-label="Settings"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                        <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                         <span className="text-base font-normal leading-normal whitespace-nowrap">
                           Settings
                         </span>
@@ -2393,18 +2468,18 @@ function SidebarChatItem({
                           type="button"
                           tabIndex={!isOpen ? -1 : 0}
                           className={cn(
-                            "w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none",
+                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none",
                             mobileHelpMenuOpen && isMobileScreen && "bg-secondary"
                           )}
                           aria-label="Help"
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <LifeBuoy className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                            <LifeBuoy className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                             <span className="text-[14.5px] font-normal leading-normal whitespace-nowrap">
                               Help
                             </span>
                           </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-opacity duration-150" />
+                          <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-opacity duration-150" />
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
@@ -2432,16 +2507,16 @@ function SidebarChatItem({
                           onToggle();
                         }
                       }}
-                      className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
                       aria-label="Plans"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <CreditCard className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                        <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                         <span className="text-[14.5px] font-normal leading-normal whitespace-nowrap">
                           Plans
                         </span>
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 transition-opacity duration-150" />
+                      <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 transition-opacity duration-150" />
                     </Link>
 
                     {/* Settings */}
@@ -2453,11 +2528,11 @@ function SidebarChatItem({
                           isMobileScreen ? undefined : "general"
                         );
                       }}
-                      className="w-full h-11 pl-[14px] pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none"
                       aria-label="Settings"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <Settings className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                        <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
                         <span className="text-[14.5px] font-normal leading-normal whitespace-nowrap">
                           Settings
                         </span>
@@ -2527,6 +2602,27 @@ function SidebarChatItem({
             closeModalWithSidebarRestore(() => setChatToDelete(null));
           }
         }}
+      />
+
+      {/* Search Chats Modal */}
+      <SearchModal
+        open={showSearchModal}
+        onOpenChange={(open) => {
+          if (!open) {
+            closeModalWithSidebarRestore(() => setShowSearchModal(false));
+          } else {
+            setShowSearchModal(true);
+          }
+        }}
+        chats={chats}
+        currentChatId={currentChatId}
+        onChatSelect={handleSearchChatSelect}
+        isGuest={!user}
+        onOpenLoginModal={() =>
+          handleOpenLoginModal({
+            description: "To continue with Search chats",
+          })
+        }
       />
 
       {/* Report Bug / Feedback Modal */}

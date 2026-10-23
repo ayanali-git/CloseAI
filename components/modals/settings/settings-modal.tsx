@@ -244,8 +244,8 @@ export function SettingsModal({
         unpadded
         className={cn(
           isGuest
-            ? "min-[1280px]:max-w-[750px] min-[1280px]:h-[min(500px,90vh)]"
-            : "min-[1280px]:max-w-[1000px] min-[1280px]:h-[min(500px,90vh)]",
+            ? "min-[1280px]:max-w-[900px] min-[1280px]:h-[min(500px,90vh)]"
+            : "min-[1280px]:max-w-[800px] min-[1280px]:h-[min(500px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
             "bg-white dark:bg-[#2f2f2f] border border-border/80"
@@ -403,7 +403,7 @@ export function SettingsModal({
                   >
                     <Icon
                       className={cn(
-                        "w-4 h-4 shrink-0 transition-colors",
+                        "w-5 h-5 shrink-0 transition-colors",
                         selected
                           ? "text-foreground"
                           : "text-muted-foreground group-hover:text-foreground"

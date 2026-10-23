@@ -116,7 +116,7 @@ export function ImagePreview({
                     title="Close preview"
                     aria-label="Close preview"
                   >
-                    <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                    <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                     <span className="sr-only">Close</span>
                   </button>
                 </div>

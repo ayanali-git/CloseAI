@@ -78,7 +78,7 @@ export default function CareersPage() {
               className="inline-flex items-center justify-center gap-1.5"
             >
               <span>Open Roles</span>
-              <AnimatedArrowUpRight size={18} />
+              <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>
         </div>
@@ -317,7 +317,7 @@ export default function CareersPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
+                className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
               >
                 <Link href="/research/overview">
                   <span>Explore research</span>
@@ -363,7 +363,7 @@ export default function CareersPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
+                className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
               >
                 <Link href="/research/safety">
                   <span>Explore Safety</span>
@@ -386,7 +386,7 @@ export default function CareersPage() {
             className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
           >
             <span>View all</span>
-            <AnimatedArrow size={18} />
+            <AnimatedArrow size={20} />
           </Link>
         </div>
 
@@ -483,7 +483,7 @@ export default function CareersPage() {
               className="inline-flex items-center justify-center gap-1.5"
             >
               <span>Open roles</span>
-              <AnimatedArrowUpRight size={18} />
+              <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>
         </div>

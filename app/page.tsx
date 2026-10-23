@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { MarketingHeader } from "@/components/marketing/header";
-import { Footer } from "@/components/ui/footer";
+import { Footer } from "@/components/marketing/footer";
 import {
   AnimatedArrow,
   AnimatedComingSoonText,
@@ -250,10 +250,10 @@ export default function LandingPage() {
                   className={cn(
                     "h-12 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none",
                     pill.disabled
-                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60"
+                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-muted-foreground dark:bg-[#383838] dark:hover:bg-[#383838]/60"
                       : isSelected
-                      ? "cursor-pointer bg-secondary text-black dark:bg-[#383838] dark:text-white"
-                      : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                      ? "cursor-pointer bg-secondary text-black dark:bg-[#2f2f2f] dark:text-white"
+                      : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#383838] dark:hover:bg-[#2f2f2f]"
                   )}
                 >
                   {pill.disabled ? (
@@ -476,7 +476,7 @@ export default function LandingPage() {
               className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
             >
               <span>View more</span>
-              <AnimatedArrow size={18} />
+              <AnimatedArrow size={20} />
             </Link>
           </div>
 
@@ -579,7 +579,7 @@ export default function LandingPage() {
               className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
             >
               <span>View all</span>
-              <AnimatedArrow size={18} />
+              <AnimatedArrow size={20} />
             </Link>
           </div>
 
@@ -662,7 +662,7 @@ export default function LandingPage() {
               className="group inline-flex items-center text-base font-semibold text-foreground tracking-tight"
             >
               <span>View all</span>
-              <AnimatedArrow size={18} />
+              <AnimatedArrow size={20} />
             </Link>
           </div>
 
@@ -752,7 +752,7 @@ export default function LandingPage() {
               >
                 <Link href={user ? "/c" : "/gc"} className="flex items-center">
                   <span>Explore Now</span>
-                  <AnimatedArrow size={18} />
+                  <AnimatedArrow size={20} />
                 </Link>
               </Button>
             </div>

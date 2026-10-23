@@ -9,6 +9,23 @@ import { getTemporaryChatIds } from '@/lib/temporary-chat';
 
 const DESKTOP_BREAKPOINT = 1280;
 
+let modulePendingFile: any = null;
+
+export function setGlobalPendingPreview(file: any | null) {
+  modulePendingFile = file;
+}
+
+export function getGlobalPendingPreview(chatId?: string): any | null {
+  if (!modulePendingFile) return null;
+  const fChatId = modulePendingFile.chatId || modulePendingFile.chat_id;
+  if (!chatId || !fChatId || String(fChatId) === String(chatId)) {
+    const file = modulePendingFile;
+    modulePendingFile = null;
+    return file;
+  }
+  return null;
+}
+
 interface SidebarContextType {
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +35,8 @@ interface SidebarContextType {
   isChatsLoading: boolean;
   loadChats: () => Promise<void>;
   deleteChat: (chatId: string) => Promise<void>;
+  pendingPreviewFile: any | null;
+  setPendingPreviewFile: (file: any | null) => void;
 }
 
 const SidebarContext = createContext<SidebarContextType>({
@@ -29,6 +48,8 @@ const SidebarContext = createContext<SidebarContextType>({
   isChatsLoading: true,
   loadChats: async () => {},
   deleteChat: async () => {},
+  pendingPreviewFile: null,
+  setPendingPreviewFile: () => {},
 });
 
 export function SidebarProvider({
@@ -51,7 +72,13 @@ export function SidebarProvider({
 
   const [chats, setChats] = useState<Chat[]>([]);
   const [isChatsLoading, setIsChatsLoading] = useState<boolean>(true);
+  const [pendingPreviewFile, setPendingPreviewFileRaw] = useState<any | null>(null);
   const deletedChatIdsRef = useRef<Set<string>>(new Set());
+
+  const setPendingPreviewFile = useCallback((file: any | null) => {
+    setGlobalPendingPreview(file);
+    setPendingPreviewFileRaw(file);
+  }, []);
 
   const loadChats = useCallback(async () => {
     if (!user) {
@@ -196,6 +223,8 @@ export function SidebarProvider({
         isChatsLoading,
         loadChats,
         deleteChat,
+        pendingPreviewFile,
+        setPendingPreviewFile,
       }}
     >
       {children}

@@ -88,7 +88,7 @@ export default function SafetyPage() {
             className="inline-flex items-center justify-center"
           >
             <span>Explore here</span>
-            <AnimatedArrow size={18} />
+            <AnimatedArrow size={20} />
           </Link>
         </Button>
       </div>

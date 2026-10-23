@@ -252,7 +252,7 @@ export default function HelpPage() {
           >
             <AnimatedSearchClose
               isOpen={Boolean(searchQuery.trim())}
-              size={18}
+              size={20}
             />
           </button>
           <input
@@ -441,7 +441,7 @@ export default function HelpPage() {
                     <span className="shrink-0 p-1 rounded-md text-muted-foreground group-hover:text-foreground transition-colors">
                       <AnimatedPlusMinus
                         open={isOpen}
-                        size={18}
+                        size={20}
                       />
                     </span>
                   </button>

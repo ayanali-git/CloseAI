@@ -51,7 +51,7 @@ export function AccountPanel() {
           className="inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] rounded-sm px-3 py-2 cursor-pointer transition-colors"
         >
           Add
-          <AnimatedPlusMinus size={18} open={loginOpen} />
+          <AnimatedPlusMinus size={20} open={loginOpen} />
         </button>
       </SettingsRow>
 

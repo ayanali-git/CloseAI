@@ -720,7 +720,7 @@ export function FilePreviewViewer({
                   title="Download file"
                   aria-label="Download file"
                 >
-                  <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 </button>
               )}
               <button
@@ -730,7 +730,7 @@ export function FilePreviewViewer({
                 title="Close preview"
                 aria-label="Close preview"
               >
-                <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               </button>
             </div>
           </div>
@@ -806,7 +806,7 @@ export function FilePreviewViewer({
                     onClick={handleDownload}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-80 transition-opacity cursor-pointer"
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-5 h-5" />
                     Download File
                   </button>
                 )}

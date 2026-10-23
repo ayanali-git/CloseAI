@@ -10,7 +10,7 @@ import {
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EASE_DRAWER } from "@/lib/ease";
-import { PresenceGate } from "@/lib/presence-gate";
+import { PresenceGate } from "@/components/ui/presence-gate";
 import { TOUCH_GESTURE_CONTENT_CLASS } from "@/lib/touch";
 import { cn } from "@/lib/utils";
 

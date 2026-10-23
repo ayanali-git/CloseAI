@@ -116,7 +116,7 @@ export default function PlansPage() {
                 </p>
                 {plan.features.map((feat, i) => (
                   <div key={i} className="flex items-center gap-2.5 text-base text-foreground">
-                    <Check className="w-4 h-4 text-muted-foreground shrink-0" />
+                    <Check className="w-5 h-5 text-muted-foreground shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -140,7 +140,7 @@ export default function PlansPage() {
             >
               <span className="group flex items-center justify-center">
                 <span>{plan.cta}</span>
-                <AnimatedArrow size={18} />
+                <AnimatedArrow size={20} />
               </span>
             </Button>
           </div>

@@ -239,7 +239,7 @@ export function LangDropdownMenu({
       onClick={() => handleOpenChange(true)}
       className={cn(
         "flex items-center text-base gap-2 px-4 py-3 rounded-full select-none",
-        "bg-white dark:bg-[#2f2f2f] dark:hover:bg-[#383838] text-foreground",
+        "bg-white dark:bg-[#383838] dark:hover:bg-[#2f2f2f] text-foreground",
         "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none",
         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
         isOpen && "opacity-0 invisible pointer-events-none",
@@ -247,7 +247,7 @@ export function LangDropdownMenu({
       )}
       aria-label="Select language"
     >
-      <Globe className="w-4 h-4 text-foreground shrink-0" />
+      <Globe className="w-5 h-5 text-foreground shrink-0" />
       <span className="font-medium text-foreground text-base">
         {displayName}
       </span>
@@ -413,7 +413,7 @@ export function LangDropdownMenu({
                   >
                     <AnimatedSearchClose
                       isOpen={Boolean(search.trim())}
-                      size={18}
+                      size={20}
                     />
                   </button>
                   <input

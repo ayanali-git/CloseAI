@@ -48,7 +48,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSidebarContext } from "@/components/chat/sidebar-context";
+import {
+  useSidebarContext,
+  getGlobalPendingPreview,
+} from "@/components/chat/sidebar-context";
 import { cn } from "@/lib/utils";
 import { withChatPreferences } from "@/lib/user-preferences";
 import { isSettingsHash, withCurrentHash } from "@/lib/settings-hash";
@@ -106,6 +109,8 @@ export default function ActiveChatPage() {
     isChatsLoading,
     loadChats,
     deleteChat,
+    pendingPreviewFile,
+    setPendingPreviewFile,
   } = useSidebarContext();
 
   useEffect(() => {
@@ -235,6 +240,9 @@ export default function ActiveChatPage() {
 
   const handleClosePreview = () => {
     setActivePreviewFile(null);
+    if (typeof window !== "undefined" && window.location.search) {
+      window.history.replaceState({}, "", `/c/${chatId}`);
+    }
     const shouldReopenSidebar =
       prevSidebarOpenRef.current !== null
         ? prevSidebarOpenRef.current
@@ -264,6 +272,46 @@ export default function ActiveChatPage() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activePreviewFile]);
+
+  // Open in-page preview when media is selected (from Search Modal via context/global store, or legacy URL query)
+  useEffect(() => {
+    // 1. Check context or global pending file
+    const file = pendingPreviewFile || getGlobalPendingPreview(chatId);
+    if (file) {
+      const fileChatId = file.chatId || file.chat_id;
+      if (!fileChatId || String(fileChatId) === String(chatId)) {
+        if (setPendingPreviewFile) {
+          setPendingPreviewFile(null);
+        }
+        handleOpenPreview(file, false);
+        return;
+      }
+    }
+
+    // 2. Check legacy URL query params and immediately strip them from browser address bar
+    const fileUrl = searchParams?.get("fileUrl");
+    if (fileUrl) {
+      if (typeof window !== "undefined") {
+        window.history.replaceState({}, "", `/c/${chatId}`);
+      }
+      const fileName = searchParams.get("fileName") || "File";
+      const fileId = searchParams.get("fileId") || fileUrl;
+      const fileType = searchParams.get("fileType") || "";
+      handleOpenPreview(
+        {
+          id: fileId,
+          name: fileName,
+          filename: fileName,
+          url: fileUrl,
+          publicUrl: fileUrl,
+          type: fileType,
+          chatId,
+        },
+        false
+      );
+    }
+  }, [pendingPreviewFile, chatId]);
+
   const autoSendTriggeredRef = useRef(false);
   const hasInitialHashRef = useRef(
     typeof window !== "undefined" &&
@@ -510,7 +558,13 @@ export default function ActiveChatPage() {
     setIsChatLoading(true);
     setMessages([]);
     setCurrentChatTitle("");
-    setActivePreviewFile(null);
+    const pending =
+      pendingPreviewFile ||
+      getGlobalPendingPreview(chatId) ||
+      searchParams?.get("fileUrl");
+    if (!pending) {
+      setActivePreviewFile(null);
+    }
     setIsFilesDrawerOpen(false);
     savedChatScrollTopRef.current = null;
     savedAnchorElementRef.current = null;
@@ -1276,7 +1330,7 @@ export default function ActiveChatPage() {
                           className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="Download file"
                         >
-                          <Download className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1297,7 +1351,7 @@ export default function ActiveChatPage() {
                         className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Close preview"
                       >
-                        <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                        <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                       </button>
                     </TooltipTrigger>
                     <TooltipContent
@@ -1333,7 +1387,7 @@ export default function ActiveChatPage() {
                           className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="Open sidebar"
                         >
-                          <PanelRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1360,7 +1414,7 @@ export default function ActiveChatPage() {
                           className="sm:hidden group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="New chat"
                         >
-                          <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1388,7 +1442,7 @@ export default function ActiveChatPage() {
                           className="group h-full w-11 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
                           aria-label="Save chat"
                         >
-                          <Bookmark className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                          <Bookmark className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent
@@ -1430,9 +1484,9 @@ export default function ActiveChatPage() {
                           className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
                         >
                           {isSharing ? (
-                            <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                            <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
                           ) : (
-                            <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                            <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
                           )}
                           <span className="hidden sm:inline">Share</span>
                         </button>
@@ -1459,7 +1513,7 @@ export default function ActiveChatPage() {
                               aria-label="More options"
                             >
                               <MoreHorizontal className={cn(
-                                "w-4 h-4 text-muted-foreground group-hover:text-foreground",
+                                "w-5 h-5 text-muted-foreground group-hover:text-foreground",
                                 optionsMenuOpen && "text-foreground"
                               )} />
                             </button>
@@ -1484,7 +1538,7 @@ export default function ActiveChatPage() {
                           onClick={() => setIsFilesDrawerOpen(true)}
                           className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                         >
-                          <Folder className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <Folder className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                           <span>View files in chat</span>
                         </DropdownMenuItem>
 
@@ -1513,12 +1567,12 @@ export default function ActiveChatPage() {
                         >
                           {chats.find((c) => c.id === chatId)?.starred ? (
                             <>
-                              <PinOff className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                              <PinOff className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                               <span>Unpin</span>
                             </>
                           ) : (
                             <>
-                              <Pin className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                              <Pin className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                               <span>Pin</span>
                             </>
                           )}
@@ -1533,9 +1587,9 @@ export default function ActiveChatPage() {
                           className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                         >
                           {chats.find((c) => c.id === chatId)?.archived ? (
-                            <ArchiveX className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                            <ArchiveX className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                           ) : (
-                            <Archive className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                            <Archive className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                           )}
                           <span>
                             {chats.find((c) => c.id === chatId)?.archived
@@ -1548,7 +1602,7 @@ export default function ActiveChatPage() {
                           onClick={() => setShowDeleteModal(true)}
                           className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
                         >
-                          <Trash2 className="w-4 h-4 text-red-500 group-hover:text-red-600" />
+                          <Trash2 className="w-5 h-5 text-red-500 group-hover:text-red-600" />
                           <span>Delete</span>
                         </DropdownMenuItem>
                       </DropdownMenuContent>

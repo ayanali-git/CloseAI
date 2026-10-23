@@ -168,7 +168,7 @@ export function LogoutModal({
 
           {/* Warning / Info Box */}
           <div className="w-full flex items-start gap-2.5 p-3 rounded-full bg-secondary/50 text-left text-xs text-muted-foreground">
-            <AlertTriangle className="w-4 h-4 shrink-0 text-muted-foreground mt-0.5" />
+            <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
             <span className="leading-relaxed">
               This will log you out across all CloseAI platforms.
             </span>
@@ -188,7 +188,7 @@ export function LogoutModal({
               )}
             >
               {isLoggingOut ? (
-                <Loader className="w-4 h-4 animate-spin text-background" />
+                <Loader className="w-5 h-5 animate-spin text-background" />
               ) : (
                 "Log out"
               )}
@@ -241,7 +241,7 @@ export function LogoutModal({
 
           {/* Warning / Info Box */}
           <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
-            <AlertTriangle className="w-4 h-4 shrink-0 text-muted-foreground mt-0.5" />
+            <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
             <span className="leading-normal">
               This will log you out across all CloseAI platforms.
             </span>
@@ -261,7 +261,7 @@ export function LogoutModal({
               )}
             >
               {isLoggingOut ? (
-                <Loader className="w-4 h-4 animate-spin text-background" />
+                <Loader className="w-5 h-5 animate-spin text-background" />
               ) : (
                 "Log out"
               )}

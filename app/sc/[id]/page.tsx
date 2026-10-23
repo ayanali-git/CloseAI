@@ -510,9 +510,9 @@ export default function PublicSharedChatPage() {
                   className="group h-full w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
                 >
                   {isSharing ? (
-                    <Loader className="w-4 h-4 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                    <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
                   ) : (
-                    <Upload className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                    <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
                   )}
                   <span className="hidden sm:inline">Share</span>
                 </button>
@@ -530,7 +530,7 @@ export default function PublicSharedChatPage() {
                   className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                   aria-label="New chat"
                 >
-                  <SquarePen className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 </button>
               </TooltipTrigger>
               <TooltipContent

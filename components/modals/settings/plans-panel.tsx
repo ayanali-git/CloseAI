@@ -137,7 +137,7 @@ export function PlansPanel() {
           className="h-12 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 transition-all select-none"
         >
           {loading === "manage" ? (
-            <Loader className="w-4 h-4 animate-spin inline" />
+            <Loader className="w-5 h-5 animate-spin inline" />
           ) : (
             "Manage subscription"
           )}
@@ -213,7 +213,7 @@ export function PlansPanel() {
                   className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 flex items-center justify-center transition-all select-none"
                 >
                   {loading === plan.id ? (
-                    <Loader className="w-4 h-4 animate-spin" />
+                    <Loader className="w-5 h-5 animate-spin" />
                   ) : (
                     `Upgrade to ${plan.name}`
                   )}

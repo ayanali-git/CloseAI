@@ -108,7 +108,7 @@ export function SaveChatModal({
 
         {/* Info Box matching delete modal warning box style */}
         <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
-          <Bookmark className="w-4 h-4 shrink-0 text-muted-foreground mt-0.5" />
+          <Bookmark className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
           <span className="leading-normal">
             This chat will now be included in your history. It will follow your
             memory and model training settings used for regular chats.
@@ -130,7 +130,7 @@ export function SaveChatModal({
           >
             {isSaving ? (
               <>
-                <Loader className="w-4 h-4 animate-spin text-background" />
+                <Loader className="w-5 h-5 animate-spin text-background" />
                 <span>Saving chat</span>
               </>
             ) : (

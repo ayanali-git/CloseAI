@@ -75,7 +75,7 @@ export default function ResearchOverviewPage() {
           className="group inline-flex items-center text-base font-semibold text-foreground"
         >
           <span>Try it now</span>
-          <AnimatedArrow size={18} />
+          <AnimatedArrow size={20} />
         </Link>
       </div>
 
