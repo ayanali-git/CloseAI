@@ -216,7 +216,7 @@ const SearchChatItem = React.memo(function SearchChatItem({
         getFocusRingClasses(isGuest),
         showHoverBox
           ? cn("bg-secondary text-foreground", darkHover)
-          : "text-foreground"
+          : "text-foreground hover:bg-secondary"
       )}
     >
       {/* Chats icon: strictly locked dimensions */}
@@ -308,7 +308,7 @@ function SearchImageItem({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group relative aspect-square w-full rounded-xl overflow-hidden bg-secondary/80 dark:bg-[#252525] border border-border/40 cursor-pointer transition-all flex items-center justify-center select-none outline-none focus:outline-none",
+        "group relative aspect-square w-full rounded-xl overflow-hidden bg-secondary dark:bg-[#212121] border border-border/80 cursor-pointer transition-all flex items-center justify-center select-none outline-none focus:outline-none",
         // Focus rings like settings modal type on focus-visible
         "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:z-10",
         // Always show focus rings on hover (settings modal type)
@@ -328,7 +328,7 @@ function SearchImageItem({
         />
       ) : (
         <div className="flex flex-col items-center justify-center p-2 text-center">
-          <ImageIcon className="w-6 h-6 text-muted-foreground/60" />
+          <ImageIcon className="w-6 h-6 text-muted-foreground/80" />
           <span className="mt-1 text-[11px] text-muted-foreground truncate max-w-full px-1">
             {img.name}
           </span>
@@ -352,7 +352,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             className="w-full h-[42px] flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
-              className="h-3.5 rounded bg-secondary/80 dark:bg-neutral-800/80"
+              className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
               style={{ width: `${55 + ((i * 9) % 35)}%` }}
             />
           </div>
@@ -367,7 +367,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
         {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
           <div
             key={i}
-            className="aspect-square rounded-xl bg-secondary/80 dark:bg-[#252525] animate-pulse"
+            className="aspect-square rounded-xl bg-secondary dark:bg-[#212121] animate-pulse"
           />
         ))}
       </div>
@@ -384,11 +384,11 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
           >
             <div className="flex-1 pr-4">
               <div
-                className="h-3.5 rounded bg-secondary/80 dark:bg-neutral-800/80"
+                className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
                 style={{ width: `${50 + ((i * 11) % 40)}%` }}
               />
             </div>
-            <div className="h-3 w-12 rounded bg-secondary/60 dark:bg-neutral-800/60 shrink-0 ml-4" />
+            <div className="h-3 w-12 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -407,7 +407,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             className="w-full h-[42px] flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
-              className="h-3.5 rounded bg-secondary/80 dark:bg-neutral-800/80"
+              className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
               style={{ width: `${55 + ((i * 13) % 35)}%` }}
             />
           </div>
@@ -421,7 +421,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="aspect-square rounded-xl bg-secondary/80 dark:bg-[#252525] animate-pulse"
+              className="aspect-square rounded-xl bg-secondary dark:bg-[#212121] animate-pulse"
             />
           ))}
         </div>
@@ -436,9 +436,9 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             className="w-full h-[46px] flex items-center justify-between px-3 rounded-xl animate-pulse"
           >
             <div className="flex-1 pr-4">
-              <div className="h-3.5 w-44 rounded bg-secondary/80 dark:bg-neutral-800/80" />
+              <div className="h-3.5 w-44 rounded bg-secondary dark:bg-[#212121]" />
             </div>
-            <div className="h-3 w-12 rounded bg-secondary/60 dark:bg-neutral-800/60 shrink-0 ml-4" />
+            <div className="h-3 w-12 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -788,7 +788,7 @@ export function SearchModal({
         {/* Top Search Input Bar */}
         <div
           className={cn(
-            "relative shrink-0 flex items-center gap-3 px-4 py-3 transition-colors duration-200",
+            "relative shrink-0 flex items-center gap-3 px-4 py-3 h-[68px] min-h-[68px] transition-colors duration-200",
             query.trim().length === 0 && showHeaderBorder
               ? "border-b border-border/80 dark:border-white/10"
               : "border-b border-transparent"
@@ -807,7 +807,7 @@ export function SearchModal({
           />
 
           {/* Right Actions: Clear Text Button + Divider + Close Button */}
-          <div className="flex items-center shrink-0 gap-1">
+          <div className="flex items-center shrink-0 gap-1 h-11">
             {query && (
               <>
                 <button

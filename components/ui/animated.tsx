@@ -648,7 +648,7 @@ export function AnimatedSearchClose({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.5,
+  strokeWidth = 1,
   style,
   ...props
 }: AnimatedSearchCloseProps) {

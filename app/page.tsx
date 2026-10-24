@@ -179,7 +179,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#383838] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -204,7 +204,7 @@ export default function LandingPage() {
                   "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
                   heroPrompt.trim().length > 0 && !isSubmitting
                     ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                    : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
+                    : "bg-neutral-300 dark:bg-[#2f2f2f] text-muted-foreground cursor-not-allowed opacity-50"
                 )}
                 aria-label="Send prompt"
               >
@@ -736,7 +736,7 @@ export default function LandingPage() {
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-16">
-          <div className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center justify-center space-y-6">
+          <div className="rounded-sm bg-white dark:bg-[#383838] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center justify-center space-y-6">
             <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
             </h2>

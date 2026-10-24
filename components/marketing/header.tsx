@@ -700,7 +700,7 @@ export function MarketingHeader() {
                     "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
                     searchQuery.trim().length > 0
                       ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                      : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
+                      : "bg-neutral-300 dark:bg-[#2f2f2f] text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
                 >

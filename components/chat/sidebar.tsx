@@ -556,11 +556,7 @@ export function Sidebar({
       });
       return;
     }
-    if (typeof window !== "undefined" && window.innerWidth < 1280) {
-      openModalWithSidebarClose(() => setShowSearchModal(true));
-    } else {
-      setShowSearchModal(true);
-    }
+    openModalWithSidebarClose(() => setShowSearchModal(true));
   }, [user, handleOpenLoginModal, openModalWithSidebarClose]);
 
   const handleSearchChatSelect = useCallback(
@@ -2611,7 +2607,7 @@ export function Sidebar({
           if (!open) {
             closeModalWithSidebarRestore(() => setShowSearchModal(false));
           } else {
-            setShowSearchModal(true);
+            handleOpenSearchModal();
           }
         }}
         chats={chats}
