@@ -258,7 +258,7 @@ export function CountDropdownMenu({
                           {country.name} ({country.dial_code})
                         </span>
                         {isSelected && (
-                          <Check className="w-5 h-5 text-foreground shrink-0 stroke-[2.5]" />
+                          <Check className="w-5 h-5 text-foreground shrink-0 stroke-[2]" />
                         )}
                       </button>
                     );

@@ -891,7 +891,7 @@ export function Sidebar({
             }}
             className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Help</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />
@@ -995,7 +995,7 @@ export function Sidebar({
             }}
             className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Accounts</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1" />

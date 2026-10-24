@@ -391,7 +391,7 @@ export function LoginModal({
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 shrink-0 stroke-[2.5]" />
+                  <Phone className="w-5 h-5 shrink-0 stroke-[2]" />
                 </span>
                 <span className="whitespace-nowrap">Continue with phone</span>
               </div>
@@ -414,7 +414,7 @@ export function LoginModal({
             >
               <div className="w-[220px] max-w-full flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5 shrink-0 stroke-[2.5]" />
+                  <Mail className="w-5 h-5 shrink-0 stroke-[2]" />
                 </span>
                 <span className="whitespace-nowrap">Continue with email</span>
               </div>

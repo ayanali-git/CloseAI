@@ -1681,6 +1681,7 @@ export default function ActiveChatPage() {
                   thinkMode={thinkMode}
                   onThinkModeChange={setThinkMode}
                   isGuest={isGuest}
+                  isTemporary={isTemporary}
                 >
                   {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
                   <AnimatePresence>

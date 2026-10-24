@@ -61,7 +61,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     GPT-6 Astra
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -115,7 +115,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>CloseAI</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -150,7 +150,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     Codex
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -185,7 +185,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>Docs</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
               </ul>
@@ -247,7 +247,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>Contact Sales</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
               </ul>
@@ -282,7 +282,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>Developer Forum</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
               </ul>
@@ -312,7 +312,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>Careers</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -339,7 +339,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>Brand</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
               </ul>
@@ -366,7 +366,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     Academy
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -462,7 +462,7 @@ export function Footer() {
                     className="gap-1 text-foreground transition-colors"
                   >
                     <span>Help Center</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
               </ul>
@@ -481,7 +481,7 @@ export function Footer() {
               className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>X</span>
-              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
             <a
               href="https://github.com/ayanali-git"
@@ -490,7 +490,7 @@ export function Footer() {
               className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>GitHub</span>
-              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
             <a
               href="https://www.linkedin.com/in/ayanali-in"
@@ -499,7 +499,7 @@ export function Footer() {
               className="gap-1 text-foreground transition-colors whitespace-nowrap"
             >
               <span>LinkedIn</span>
-              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2.5]" />
+              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
           </div>
           {/* Left: Brand & Copyright */}

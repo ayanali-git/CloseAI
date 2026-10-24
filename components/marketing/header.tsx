@@ -704,7 +704,7 @@ export function MarketingHeader() {
                   )}
                   aria-label="Submit search"
                 >
-                  <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+                  <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                 </button>
               </div>
             </form>
@@ -1785,7 +1785,7 @@ export function MarketingHeader() {
                     onClick={() => setMobileSubMenu(null)}
                     className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-80 transition-opacity cursor-pointer mb-6"
                   >
-                    <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
+                    <ArrowLeft className="w-5 h-5 stroke-[2]" />
                     <span>Home</span>
                   </button>
 

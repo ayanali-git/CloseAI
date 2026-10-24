@@ -211,7 +211,7 @@ export default function LandingPage() {
                 {isSubmitting ? (
                   <Loader className="w-5 h-5 animate-spin text-foreground" />
                 ) : (
-                  <ArrowUp className="w-5 h-5 stroke-[3]" />
+                  <ArrowUp className="w-5 h-5 stroke-[2.5]" />
                 )}
               </button>
             </div>

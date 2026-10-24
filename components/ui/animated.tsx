@@ -756,7 +756,7 @@ export function AnimatedPanelToggle({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.5,
+  strokeWidth = 1,
   style,
   ...props
 }: AnimatedPanelToggleProps) {
@@ -1110,7 +1110,7 @@ export const AnimatedTempChat = React.forwardRef<
     disableHover = false,
     className,
     size,
-    strokeWidth = 1.5,
+    strokeWidth = 2,
     style,
     ...props
   },

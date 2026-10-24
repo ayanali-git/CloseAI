@@ -762,7 +762,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Select models</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -853,7 +853,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Model</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -891,7 +891,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Effort</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -929,7 +929,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Speed</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -967,7 +967,7 @@ export function PlusMenuContent({
             }}
             className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Advanced</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1268,7 +1268,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Select models</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-neutral-700/60 my-1 -mx-0.5" />
@@ -1365,7 +1365,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Model</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1435,7 +1435,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Effort</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1476,7 +1476,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Speed</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />
@@ -1517,7 +1517,7 @@ export function PlusMenuContent({
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
-          <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+          <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Advanced</span>
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#383838] my-1 -mx-0.5" />

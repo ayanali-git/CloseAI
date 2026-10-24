@@ -35,6 +35,8 @@ import {
 import { PlusMenuContent } from "./plus-menu-content";
 import { FilePreviewModal } from "@/components/modals/file-preview-modal";
 import { ImagePreview } from "@/components/modals/image-preview-modal";
+import { TemporaryChatDashedBorder } from "@/components/chat/message-list";
+import { isTemporaryChatParam } from "@/lib/temporary-chat";
 import { getFileIconInfo } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
@@ -65,6 +67,7 @@ interface ChatInputProps {
   disableAttach?: boolean;
   autoFocus?: boolean;
   isGuest?: boolean;
+  isTemporary?: boolean;
   onOpenLoginModal?: (options?: { description?: string; title?: string }) => void;
   onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
   onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
@@ -128,7 +131,7 @@ function FilePreviewCard({
           className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-neutral-200/80 dark:hover:bg-[#303030] flex items-center justify-center cursor-pointer transition-transform z-10"
           aria-label="Remove image"
         >
-          <X className="w-2.5 h-2.5 stroke-[2.5]" />
+          <X className="w-2.5 h-2.5 stroke-[2]" />
         </button>
       </div>
     );
@@ -163,7 +166,7 @@ function FilePreviewCard({
         className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-neutral-200/80 dark:hover:bg-[#303030] flex items-center justify-center cursor-pointer transition-transform z-10"
         aria-label="Remove file"
       >
-        <X className="w-2.5 h-2.5 stroke-[2.5]" />
+        <X className="w-2.5 h-2.5 stroke-[2]" />
       </button>
     </div>
   );
@@ -196,6 +199,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     disableAttach = false,
     autoFocus = true,
     isGuest = false,
+    isTemporary,
     onOpenLoginModal,
     onOpenWebSearchModal,
     onOpenAdvancedFeaturesModal,
@@ -231,6 +235,21 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const [currentModel, setCurrentModel] = useState(selectedModel);
   const [previewFile, setPreviewFile] = useState<File | null>(null);
   const [dictationEnabled, setDictationEnabled] = useState(true);
+  const [urlIsTemporary, setUrlIsTemporary] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const checkTemp = () => {
+        const params = new URLSearchParams(window.location.search);
+        setUrlIsTemporary(isTemporaryChatParam(params));
+      };
+      checkTemp();
+      window.addEventListener("popstate", checkTemp);
+      return () => window.removeEventListener("popstate", checkTemp);
+    }
+  }, []);
+
+  const effectiveIsTemporary = Boolean(isTemporary ?? urlIsTemporary);
 
   useEffect(() => {
     const syncDictation = () => setDictationEnabled(getDictationEnabled());
@@ -859,7 +878,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             ) : isUploading ? (
               <Loader className="w-5 h-5 animate-spin text-foreground" />
             ) : (
-              <ArrowUp className="w-5 h-5 stroke-[3]" />
+              <ArrowUp className="w-5 h-5 stroke-[2.5]" />
             )}
           </button>
         </TooltipTrigger>
@@ -896,8 +915,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "relative transition-all duration-200",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
+            ? "bg-white dark:bg-[#2f2f2f]"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm",
+          effectiveIsTemporary
+            ? "border border-transparent"
+            : isGuest
+            ? "border border-border/80 dark:border-white/10"
+            : "border border-border/80",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
             ? "rounded-[25px] sm:rounded-3xl"
@@ -908,6 +932,12 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           isDragActive && "ring-2 ring-primary border-primary"
         )}
       >
+        {effectiveIsTemporary && (
+          <TemporaryChatDashedBorder
+            rx={isExpandedLayout ? 24 : 26}
+            ry={isExpandedLayout ? 24 : 26}
+          />
+        )}
         <input {...getInputProps()} />
         {/* Attachment Button */}
         <input

@@ -80,24 +80,32 @@ import { preprocessContent } from "@/lib/preprocess-markdown";
 
 export function TemporaryChatDashedBorder({
   className,
+  rectClassName,
+  rx,
+  ry,
 }: {
   className?: string;
+  rectClassName?: string;
+  rx?: number | string;
+  ry?: number | string;
 }) {
   return (
     <svg
-      className={cn("temporary-chat-dashed-pill", className)}
+      className={cn("temporary-chat-dashed-pill pointer-events-none", className)}
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <rect
         x="0.75"
         y="0.75"
-        rx="16"
-        ry="16"
-        className="temporary-chat-dashed-rect"
+        rx={rx ?? 16}
+        ry={ry ?? 16}
+        className={cn("temporary-chat-dashed-rect", rectClassName)}
         style={{
           width: "calc(100% - 1.5px)",
           height: "calc(100% - 1.5px)",
+          ...(rx !== undefined ? { rx } : {}),
+          ...(ry !== undefined ? { ry } : {}),
         }}
       />
     </svg>
@@ -1482,7 +1490,7 @@ export function MessageList({
                                     }}
                                     className="flex items-center gap-2 px-2.5 py-1.5 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
                                   >
-                                    <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+                                    <ChevronLeft className="w-4 h-4 stroke-[2]" />
                                     <span>Try again</span>
                                   </button>
 
@@ -1534,7 +1542,7 @@ export function MessageList({
                                         )}
                                         aria-label="Send change request"
                                       >
-                                        <ArrowUp className="w-3.5 h-3.5 stroke-[2.5]" />
+                                        <ArrowUp className="w-3.5 h-3.5 stroke-[2]" />
                                       </button>
                                     </div>
                                   </div>
@@ -1693,7 +1701,7 @@ export function MessageList({
                                                 )}
                                                 aria-label="Send change request"
                                               >
-                                                <ArrowUp className="w-3.5 h-3.5 stroke-[2.5]" />
+                                                <ArrowUp className="w-3.5 h-3.5 stroke-[2]" />
                                               </button>
                                             </div>
                                           </div>

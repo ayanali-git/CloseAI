@@ -65,6 +65,7 @@ function NewChatContent() {
     isTemporaryChatParam(searchParams)
   );
   const isPersonalized = searchParams?.get("personalized") !== "false";
+  const [isPersonalizedMenuOpen, setIsPersonalizedMenuOpen] = useState(false);
 
   useEffect(() => {
     setIsTemporary(isTemporaryChatParam(searchParams));
@@ -366,17 +367,32 @@ function NewChatContent() {
           <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
             <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
               {isTemporary && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      type="button"
-                      className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                      aria-label="Personalization settings"
+                <DropdownMenu
+                  open={isPersonalizedMenuOpen}
+                  onOpenChange={setIsPersonalizedMenuOpen}
+                >
+                  <Tooltip open={isPersonalizedMenuOpen ? false : undefined}>
+                    <TooltipTrigger asChild>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type="button"
+                          className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          aria-label={isPersonalized ? "Personalization" : "Unpersonalized"}
+                        >
+                          <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
+                          <ChevronDown className="w-3.5 h-3.5 stroke-[2] text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
+                        </button>
+                      </DropdownMenuTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      align="center"
+                      sideOffset={6}
+                      className="text-base"
                     >
-                      <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
-                      <ChevronDown className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
-                    </button>
-                  </DropdownMenuTrigger>
+                      {isPersonalized ? "Personalization" : "Unpersonalized"}
+                    </TooltipContent>
+                  </Tooltip>
 
                   <DropdownMenuContent
                     align="end"
@@ -392,7 +408,7 @@ function NewChatContent() {
                           Personalized
                         </span>
                         <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                          This chat can reference memory, plugins, and custom instructions
+                          This chat can reference memory and custom instructions
                         </span>
                       </div>
                       {isPersonalized && (
@@ -409,7 +425,7 @@ function NewChatContent() {
                           Unpersonalized
                         </span>
                         <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                          This chat will ignore memory, plugins, and custom instructions
+                          This chat will ignore memory and custom instructions
                         </span>
                       </div>
                       {!isPersonalized && (
@@ -451,7 +467,7 @@ function NewChatContent() {
                   sideOffset={6}
                   className="text-base"
                 >
-                  Temporary chat
+                  {isTemporary ? "Turn off temporary chat" : "Turn on temporary chat"}
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -476,8 +492,8 @@ function NewChatContent() {
               customSubtitle={
                 isTemporary
                   ? isPersonalized
-                    ? "This chat can reference memory, and plugins, but it won't appear in your history"
-                    : "This chat will ignore memory, and plugins, and it won't appear in your history"
+                    ? "This chat can reference memory, and custom instructions but it won't appear in your history"
+                    : "This chat will ignore memory, and custom instructions and it won't appear in your history"
                   : undefined
               }
             >
@@ -497,6 +513,7 @@ function NewChatContent() {
                 onThinkModeChange={setThinkMode}
                 centered={false}
                 showDisclaimer={false}
+                isTemporary={isTemporary}
               />
             </WelcomeScreen>
           )}
