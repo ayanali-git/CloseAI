@@ -813,6 +813,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         <TooltipTrigger asChild>
           <button
             type="button"
+            data-dictation-button="true"
             onClick={(e) => {
               (e.currentTarget as HTMLElement)?.blur();
               toggleDictation();
@@ -934,6 +935,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       >
         {effectiveIsTemporary && (
           <TemporaryChatDashedBorder
+            className="-inset-[1px] w-[calc(100%+2px)] h-[calc(100%+2px)]"
+            rectClassName={cn(
+              "temporary-chat-input-dashed-rect",
+              isExpandedLayout && "expanded"
+            )}
             rx={isExpandedLayout ? 24 : 26}
             ry={isExpandedLayout ? 24 : 26}
           />

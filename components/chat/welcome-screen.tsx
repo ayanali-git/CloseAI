@@ -98,7 +98,7 @@ export function WelcomeScreen({
             {customTitle || dynamicTitle}
           </h1>
           {customSubtitle && (
-            <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-xl mx-auto leading-relaxed transition-all duration-200 pointer-events-auto">
+            <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-3xl sm:max-w-none mx-auto whitespace-normal sm:whitespace-nowrap leading-relaxed transition-all duration-200 pointer-events-auto">
               {customSubtitle}
             </p>
           )}

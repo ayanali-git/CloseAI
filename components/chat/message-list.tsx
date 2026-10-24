@@ -98,8 +98,8 @@ export function TemporaryChatDashedBorder({
       <rect
         x="0.75"
         y="0.75"
-        rx={rx ?? 16}
-        ry={ry ?? 16}
+        rx={rx ?? 25}
+        ry={ry ?? 25}
         className={cn("temporary-chat-dashed-rect", rectClassName)}
         style={{
           width: "calc(100% - 1.5px)",

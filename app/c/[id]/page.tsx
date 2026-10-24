@@ -702,6 +702,7 @@ export default function ActiveChatPage() {
   const handleStop = () => {
     streamAbortControllerRef.current = true;
     setIsTyping(false);
+    setThinkMode(false);
   };
 
   const streamAssistantResponse = async (
@@ -784,6 +785,7 @@ export default function ActiveChatPage() {
     });
 
     setIsTyping(false);
+    setThinkMode(false);
     if (isAutoScrollPinnedRef.current) {
       forceScrollToBottom();
     }
@@ -796,9 +798,6 @@ export default function ActiveChatPage() {
     filesOverride?: any[]
   ) => {
     const isThink = thinkOverride !== undefined ? thinkOverride : thinkMode;
-    if (thinkMode) {
-      setThinkMode(false);
-    }
     const currentFiles = filesOverride || [];
     setIsTyping(true);
     setPendingMessage({
@@ -871,6 +870,7 @@ export default function ActiveChatPage() {
         }
         setIsTyping(false);
         setPendingMessage(null);
+        setThinkMode(false);
       }
       await loadChats();
     } catch (error: any) {
@@ -879,6 +879,7 @@ export default function ActiveChatPage() {
       setInputValue(promptText);
       setIsTyping(false);
       setPendingMessage(null);
+      setThinkMode(false);
     }
   };
 
@@ -898,9 +899,6 @@ export default function ActiveChatPage() {
 
     // 2. Set pending message and typing indicator
     const currentThinkMode = thinkMode;
-    if (thinkMode) {
-      setThinkMode(false);
-    }
     setPendingMessage({
       content: newContent,
       files: [],
@@ -1060,9 +1058,6 @@ export default function ActiveChatPage() {
       setUploadedFiles([]);
     }
     const currentThinkMode = thinkMode;
-    if (thinkMode) {
-      setThinkMode(false);
-    }
 
     const allPendingFiles = [...currentFiles];
     if (previewFileData) {

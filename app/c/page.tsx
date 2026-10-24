@@ -274,10 +274,6 @@ function NewChatContent() {
         );
       }
 
-      if (thinkMode) {
-        setThinkMode(false);
-      }
-
       const tcQuery = isTemporary
         ? `?tc=true${!isPersonalized ? "&personalized=false" : ""}`
         : "";

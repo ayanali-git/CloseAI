@@ -769,6 +769,11 @@ body:has([data-chat-page="true"])::-webkit-scrollbar {
   display: none !important;
 }
 
+/* Instantly suppress dictation button on initial render if disabled in preferences */
+[data-dictation-disabled="true"] [data-dictation-button="true"] {
+  display: none !important;
+}
+
 /* Temporary Chat pill dashed border styling: larger gap, responsive border-radius, accent-adaptive */
 .temporary-chat-dashed-pill {
   position: absolute;
@@ -785,8 +790,8 @@ body:has([data-chat-page="true"])::-webkit-scrollbar {
   stroke: hsl(var(--bubble-foreground) / 0.45);
   stroke-width: 1.5;
   stroke-dasharray: 7 6;
-  rx: 16px;
-  ry: 16px;
+  rx: 25px;
+  ry: 25px;
 }
 
 .dark .temporary-chat-dashed-rect {
@@ -800,6 +805,14 @@ body:has([data-chat-page="true"])::-webkit-scrollbar {
 
 @media (min-width: 640px) {
   .temporary-chat-dashed-rect {
+    rx: 24px;
+    ry: 24px;
+  }
+  .temporary-chat-input-dashed-rect {
+    rx: 26px;
+    ry: 26px;
+  }
+  .temporary-chat-input-dashed-rect.expanded {
     rx: 24px;
     ry: 24px;
   }

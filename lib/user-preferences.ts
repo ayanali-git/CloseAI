@@ -54,6 +54,13 @@ export function getDictationEnabled(): boolean {
 
 export function setDictationEnabled(enabled: boolean) {
   write(KEYS.dictation, enabled ? "true" : "false");
+  if (typeof document !== "undefined") {
+    if (!enabled) {
+      document.documentElement.dataset.dictationDisabled = "true";
+    } else {
+      delete document.documentElement.dataset.dictationDisabled;
+    }
+  }
 }
 
 export function getContrastMode(): ContrastMode {
