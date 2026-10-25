@@ -575,7 +575,6 @@ export default function GuestChatSessionPage() {
         onOpenLoginModal={handleOpenLogin}
         onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
         onOpenAdvancedFeaturesModal={handleOpenLogin}
-        onWebSearchHover={() => setModelDropdownOpen(false)}
       />
 
       {/* Main Chat Workspace */}
@@ -609,8 +608,8 @@ export default function GuestChatSessionPage() {
               </svg>
             </button>
 
-            {/* CloseAI with ChevronDown and Popover — works on both small screens and desktop */}
-            <div className="group -ml-1">
+            {/* CloseAI with ChevronDown and Popover — small screen devices only (xl:hidden) */}
+            <div className="xl:hidden group -ml-1">
               <Popover
                 open={modelDropdownOpen}
                 onOpenChange={setModelDropdownOpen}
@@ -630,7 +629,7 @@ export default function GuestChatSessionPage() {
                   collisionPadding={isMobileScreen ? 16 : 8}
                   animate={false}
                   className={cn(
-                    "p-0 rounded-2xl bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none",
+                    "p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none",
                     isMobileScreen ? "w-[calc(100vw-2rem)] max-w-[350px]" : "w-[350px]"
                   )}
                 >

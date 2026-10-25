@@ -483,6 +483,7 @@ function NewChatContent() {
             <WelcomeScreen
               user={user}
               resetKey={newChatKey}
+              maxWidthClass="max-w-4xl"
               onPromptSelect={(prompt) => setMessage(prompt)}
               customTitle={isTemporary ? "Temporary chat" : undefined}
               customSubtitle={
@@ -494,6 +495,8 @@ function NewChatContent() {
               }
             >
               <ChatInput
+                className="max-w-4xl"
+                isWelcomeScreen={true}
                 message={message}
                 onMessageChange={setMessage}
                 onSend={handleSend}
@@ -523,34 +526,32 @@ function NewChatContent() {
                 For safety, we may keep a copy of this chat for up to 30 days.
               </p>
             ) : (
-              <div className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight flex flex-col items-center justify-center gap-0.5">
-                <div>
-                  CloseAI is AI. By using it, you agree to our{" "}
-                  <Link
-                    href="/support/terms"
-                    className="text-foreground hover:opacity-80 transition-colors whitespace-nowrap"
-                  >
-                    <span>Terms</span>
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/support/privacy"
-                    className="text-foreground hover:opacity-80 transition-colors whitespace-nowrap"
-                  >
-                    <span>Privacy</span>
-                  </Link>
-                  .
-                </div>
-                <div>
-                  Chats may be reviewed and used to improve our AI models.{" "}
-                  <Link
-                    href="/support/help"
-                    className="text-foreground hover:opacity-80 transition-colors whitespace-nowrap"
-                  >
-                    <span>Learn more</span>
-                  </Link>
-                </div>
-              </div>
+              <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
+                CloseAI is AI. By using it, you agree to our{" "}
+                <Link
+                  href="/support/terms"
+                  className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+                >
+                  <span>Terms</span>
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/support/privacy"
+                  className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+                >
+                  <span>Privacy</span>
+                </Link>
+                . Chats may be reviewed and used to improve our AI models.{" "}
+                <Link
+                  href="/support/help"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-foreground whitespace-nowrap"
+                >
+                  <span>Learn more</span>
+                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                </Link>
+              </p>
             )}
           </div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback, forwardRef, useImperativeHandle } from "react";
+import React, { useRef, useEffect, useLayoutEffect, useState, useCallback, forwardRef, useImperativeHandle } from "react";
 import {
   Plus,
   ArrowUp,
@@ -21,6 +21,7 @@ import {
   Maximize2,
   Minimize2,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useDropzone } from "react-dropzone";
 import {
   Tooltip,
@@ -45,6 +46,9 @@ import {
   PREFERENCE_EVENT,
 } from "@/lib/user-preferences";
 
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 interface ChatInputProps {
   message: string;
   onMessageChange: (msg: string) => void;
@@ -68,6 +72,8 @@ interface ChatInputProps {
   autoFocus?: boolean;
   isGuest?: boolean;
   isTemporary?: boolean;
+  isWelcomeScreen?: boolean;
+  className?: string;
   onOpenLoginModal?: (options?: { description?: string; title?: string }) => void;
   onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
   onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
@@ -200,6 +206,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     autoFocus = true,
     isGuest = false,
     isTemporary,
+    isWelcomeScreen,
+    className,
     onOpenLoginModal,
     onOpenWebSearchModal,
     onOpenAdvancedFeaturesModal,
@@ -236,6 +244,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const [previewFile, setPreviewFile] = useState<File | null>(null);
   const [dictationEnabled, setDictationEnabled] = useState(true);
   const [urlIsTemporary, setUrlIsTemporary] = useState(false);
+  const pathname = usePathname();
+  const isWelcomePage = Boolean(
+    isWelcomeScreen || pathname === "/c" || pathname === "/gc"
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -315,13 +327,25 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     uploadedFiles.length > 0 ||
     isTextMultiLine;
 
-  // Auto-resize textarea height smoothly
+  // Dynamic max height based on viewport
+  const getDynamicMaxHeight = useCallback(() => {
+    if (typeof window === "undefined") return 360;
+    if (isFullyExpanded) {
+      return Math.min(600, Math.max(300, Math.floor(window.innerHeight * 0.7)));
+    }
+    return Math.min(360, Math.max(180, Math.floor(window.innerHeight * 0.42)));
+  }, [isFullyExpanded]);
+
+  const overflowTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Auto-resize textarea height dynamically with smooth transition like TOC smooth scrolling
   const adjustHeight = useCallback(() => {
     const el = textareaRef.current;
     if (!el) return;
 
-    // When message is cleared or empty, immediately collapse
+    // When message is cleared or empty, smoothly collapse
     if (!message || message.trim() === "") {
+      el.style.transition = "height 0.25s cubic-bezier(0.16, 1, 0.3, 1)";
       el.style.height = "26px";
       el.style.overflowY = "hidden";
       setIsMultiLine(false);
@@ -329,29 +353,43 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       return;
     }
 
-    // Reset height to measure scrollHeight accurately
+    const prevHeight = el.offsetHeight || 44;
+    el.style.transition = "none";
     el.style.height = "auto";
     const scrollH = el.scrollHeight;
-    const maxH = isFullyExpanded ? 600 : 300;
+    el.style.height = `${prevHeight}px`;
+    // Force layout flush so browser registers prevHeight for smooth glide
+    void el.offsetHeight;
+
+    el.style.transition = "height 0.28s cubic-bezier(0.16, 1, 0.3, 1)";
+
+    const maxH = getDynamicMaxHeight();
 
     if (scrollH > 38 || message.includes("\n")) {
       setIsMultiLine(true);
       if (scrollH > maxH) {
         el.style.height = `${maxH}px`;
-        el.style.overflowY = "auto";
-      } else {
-        // Expand smoothly to exact height without micro-overflow
-        el.style.height = `${Math.max(scrollH, 44)}px`;
         el.style.overflowY = "hidden";
+        if (overflowTimerRef.current) clearTimeout(overflowTimerRef.current);
+        overflowTimerRef.current = setTimeout(() => {
+          if (textareaRef.current) {
+            textareaRef.current.style.overflowY = "auto";
+          }
+        }, 290);
+      } else {
+        const dynamicH = Math.max(scrollH, 44);
+        el.style.height = `${dynamicH}px`;
+        el.style.overflowY = "hidden";
+        if (overflowTimerRef.current) clearTimeout(overflowTimerRef.current);
       }
     } else {
       el.style.height = "26px";
       el.style.overflowY = "hidden";
       setIsMultiLine(false);
     }
-  }, [message, isFullyExpanded]);
+  }, [message, isFullyExpanded, getDynamicMaxHeight]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     adjustHeight();
   }, [adjustHeight]);
 
@@ -406,10 +444,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   }, [isExpandedLayout]);
 
   // Calculate dynamic menu & tooltip sideOffsets so they are ALWAYS positioned above the chat input pill
+  // Dynamic menu position and width
   const updateMenuPosition = useCallback(() => {
     if (pillRef.current) {
       const pillRect = pillRef.current.getBoundingClientRect();
-      const isMobile = window.innerWidth < 1280;
+      const isMobile = window.innerWidth < 640;
 
       const refButton = plusButtonRef.current;
       if (refButton) {
@@ -440,13 +479,17 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       }
 
       if (isMobile) {
-        // On small screen devices, match the exact width of the input pill so left & right edges align
+        // On small screen devices (< 640px), match the exact width of the input pill so left & right edges align
         setMenuWidth(Math.round(pillRect.width));
+      } else if (isWelcomePage && (window.innerWidth >= 1024 || pillRect.width >= 720)) {
+        const colWidth = Math.round((pillRect.width + 9) / 3);
+        setMenuWidth(colWidth);
       } else {
+        // On other pages (/c/[id], /gc/[id], etc.) keep standard width
         setMenuWidth(undefined);
       }
     }
-  }, []);
+  }, [isWelcomePage]);
 
   useEffect(() => {
     updateMenuPosition();
@@ -612,6 +655,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           ? "Image attached from clipboard"
           : `${filesToAdd.length} images attached from clipboard`
       );
+      return;
+    }
+
+    // Immediately handle long or multiline text paste to expand dynamically and smoothly
+    const pastedText = clipboardData.getData("text");
+    if (pastedText && (pastedText.includes("\n") || pastedText.length > 25)) {
+      setIsMultiLine(true);
     }
 
     // Always preserve focus on text paste
@@ -737,6 +787,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           onTierChange={onTierChange}
           isOpen={plusMenuOpen}
           disableAttach={disableAttach}
+          menuWidth={menuWidth}
           isGuest={isGuest}
           onOpenLoginModal={(opts) => {
             setPlusMenuOpen(false);
@@ -893,8 +944,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   return (
     <div
       className={cn(
-        "w-full select-none transition-all duration-200 relative",
-        centered ? "max-w-2xl mx-auto px-6" : "max-w-3xl mx-auto px-6"
+        "w-full select-none transition-colors duration-200 relative",
+        centered ? "max-w-2xl mx-auto px-6" : "max-w-3xl mx-auto px-6",
+        className
       )}
     >
       {children}
@@ -1009,17 +1061,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 onChange={(e) => {
                   cursorPositionRef.current = e.target.selectionEnd;
                   onMessageChange(e.target.value);
-                  const el = e.target;
-                  el.style.height = "auto";
-                  const scrollH = el.scrollHeight;
-                  const maxH = isFullyExpanded ? 460 : 200;
-                  if (scrollH > maxH) {
-                    el.style.height = `${maxH}px`;
-                    el.style.overflowY = "auto";
-                  } else {
-                    el.style.height = `${Math.max(scrollH, 44)}px`;
-                    el.style.overflowY = "hidden";
-                  }
                 }}
                 onSelect={(e) => {
                   cursorPositionRef.current = e.currentTarget.selectionEnd;
@@ -1036,7 +1077,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 rows={1}
                 disabled={isTyping || isUploading}
                 className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
+                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-[height,color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
                   isFullyExpanded ? "min-h-[280px]" : "min-h-[44px]",
                   isBigContent && "pr-14 sm:pr-16"
                 )}
@@ -1105,11 +1146,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 value={message}
                 onChange={(e) => {
                   cursorPositionRef.current = e.target.selectionEnd;
-                  onMessageChange(e.target.value);
-                  const el = e.target;
-                  el.style.height = "auto";
-                  const scrollH = el.scrollHeight;
-                  if (scrollH > 38 || e.target.value.includes("\n")) {
+                  const val = e.target.value;
+                  onMessageChange(val);
+                  if (val.includes("\n") || val.length > 25 || e.target.scrollHeight > 38) {
                     setIsMultiLine(true);
                   }
                 }}

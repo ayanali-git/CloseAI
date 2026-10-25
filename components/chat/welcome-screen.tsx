@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+
 import React, { useState, useEffect, useRef } from "react";
 import { User } from "@supabase/supabase-js";
 
@@ -10,6 +12,7 @@ interface WelcomeScreenProps {
   children?: React.ReactNode;
   customTitle?: string;
   customSubtitle?: string;
+  maxWidthClass?: string;
 }
 
 export function WelcomeScreen({
@@ -19,6 +22,7 @@ export function WelcomeScreen({
   children,
   customTitle,
   customSubtitle,
+  maxWidthClass,
 }: WelcomeScreenProps) {
   const [dynamicTitle, setDynamicTitle] = useState<string>(
     "What would you like to explore?"
@@ -91,7 +95,7 @@ export function WelcomeScreen({
 
   return (
     <div className="flex-1 w-full h-full flex flex-col items-center justify-center text-center select-none pb-6 sm:pb-8">
-      <div className="w-full max-w-3xl relative flex flex-col items-center">
+      <div className={cn("w-full relative flex flex-col items-center", maxWidthClass || "max-w-4xl")}>
         {/* Title & Subtitle — Anchored strictly above input pill so pill NEVER shifts */}
         <div className="absolute bottom-full left-0 right-0 mb-6 px-6 flex flex-col items-center justify-end pointer-events-none">
           <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground/90 transition-all duration-200 pointer-events-auto">
