@@ -789,14 +789,14 @@ export function MarketingHeader() {
                     <p className="text-foreground">
                       It looks like your question goes beyond what we can assist
                       with here. Advanced search is designed to help you find
-                      information on closeAI, such as our products, research,
+                      information on CloseAI, such as our products, research,
                       and updates.
                     </p>
                     <p className="text-muted-foreground">
                       At this time, it may not cover all topics, including some
-                      GPT-related ones we don't yet fully support. You can try
-                      asking a different question related to GPT-specific
-                      content, or use closeAI for broader topics or
+                      chat-related ones we don't yet fully support. You can try
+                      asking a different question related to chat-specific
+                      content, or use CloseAI for broader topics or
                       creative prompts.
                     </p>
                   </div>

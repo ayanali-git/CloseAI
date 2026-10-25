@@ -337,7 +337,7 @@ function GuestChatContent() {
           <WelcomeScreen
             user={null}
             resetKey={newChatKey}
-            maxWidthClass="max-w-4xl"
+            maxWidthClass="max-w-[820px]"
             onPromptSelect={(prompt) => {
               handleStartGuestChat(prompt, []);
             }}
@@ -345,7 +345,7 @@ function GuestChatContent() {
             <div className="w-full flex flex-col items-center gap-6">
               <ChatInput
                 ref={chatInputRef}
-                className="max-w-4xl"
+                className="max-w-[820px]"
                 isWelcomeScreen={true}
                 message={message}
                 onMessageChange={setMessage}

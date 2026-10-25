@@ -945,7 +945,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     <div
       className={cn(
         "w-full select-none transition-colors duration-200 relative",
-        centered ? "max-w-2xl mx-auto px-6" : "max-w-3xl mx-auto px-6",
+        isWelcomePage
+          ? "max-w-[820px] mx-auto px-6"
+          : centered
+          ? "max-w-2xl mx-auto px-6"
+          : "max-w-3xl mx-auto px-6",
         className
       )}
     >

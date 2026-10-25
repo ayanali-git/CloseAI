@@ -483,7 +483,7 @@ function NewChatContent() {
             <WelcomeScreen
               user={user}
               resetKey={newChatKey}
-              maxWidthClass="max-w-4xl"
+              maxWidthClass="max-w-[820px]"
               onPromptSelect={(prompt) => setMessage(prompt)}
               customTitle={isTemporary ? "Temporary chat" : undefined}
               customSubtitle={
@@ -495,7 +495,7 @@ function NewChatContent() {
               }
             >
               <ChatInput
-                className="max-w-4xl"
+                className="max-w-[820px]"
                 isWelcomeScreen={true}
                 message={message}
                 onMessageChange={setMessage}
