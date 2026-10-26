@@ -866,7 +866,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
             className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
           >
@@ -876,7 +876,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
             className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
           >
@@ -1590,7 +1590,7 @@ export function Sidebar({
                           onClick={() => {
                             handleOpenSearchModal();
                             setRailWebSearchHoverOpen(false);
-                            (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+                            (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
                             "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer",

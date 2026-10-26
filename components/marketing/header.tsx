@@ -453,7 +453,7 @@ export function MarketingHeader() {
 
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
-  const isLocked = isSearchOpen || mobileNavOpen;
+  const isLocked = isSearchOpen || mobileNavOpen || loginDropdownOpen;
 
   const searchResults = React.useMemo(() => {
     const q = submittedQuery.trim().toLowerCase();
@@ -552,7 +552,7 @@ export function MarketingHeader() {
     }
   }, []);
 
-  // Lock background scroll when search or mobile nav is open.
+  // Lock background scroll when search, mobile nav, or login dropdown is open.
   // Runs synchronously before paint so the browser paints the exact compensation on frame 1.
   useIsomorphicLayoutEffect(() => {
     if (!isLocked) return;
@@ -587,7 +587,7 @@ export function MarketingHeader() {
     };
   }, [isLocked, isSearchOpen]);
 
-  // Handle escape key to close menu/search/logout modal
+  // Handle escape key to close menu/search/logout modal/login dropdown
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -596,6 +596,8 @@ export function MarketingHeader() {
         setIsSearchOpen(false);
         setMobileNavOpen(false);
         setLogoutModalOpen(false);
+        isHoveringLoginRef.current = false;
+        setLoginDropdownOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -607,6 +609,10 @@ export function MarketingHeader() {
     const handleResize = () => {
       if (window.innerWidth >= 1280) {
         setMobileNavOpen(false);
+      }
+      if (window.innerWidth < 1280) {
+        isHoveringLoginRef.current = false;
+        setLoginDropdownOpen(false);
       }
       if (!isLocked) {
         const sb = window.innerWidth - document.documentElement.clientWidth;
@@ -700,7 +706,7 @@ export function MarketingHeader() {
                     "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
                     searchQuery.trim().length > 0
                       ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                      : "bg-neutral-300 dark:bg-[#2f2f2f] text-muted-foreground cursor-not-allowed opacity-50"
+                      : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
                 >
@@ -804,7 +810,7 @@ export function MarketingHeader() {
                   <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Button
                       asChild
-                      className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
+                      className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer select-none"
                     >
                       <Link
                         href={user ? "/c" : "/gc"}
@@ -1023,7 +1029,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer outline-none select-none"
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer select-none focus-visible:bg-secondary dark:focus-visible:bg-[#383838]"
                 >
                   <span>Log Out</span>
                 </button>
@@ -1048,6 +1054,8 @@ export function MarketingHeader() {
                   <button
                     type="button"
                     onClick={() => {
+                      setActiveMenu(null);
+                      setHoveredNav(null);
                       setLoginDropdownOpen((prev) => {
                         const next = !prev;
                         isHoveringLoginRef.current = next;
@@ -1055,8 +1063,8 @@ export function MarketingHeader() {
                       });
                     }}
                     className={cn(
-                      "h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#383838] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center gap-1.5 text-[15px] font-normal transition-all cursor-pointer outline-none select-none",
-                      loginDropdownOpen && "bg-secondary dark:bg-[#2f2f2f]"
+                      "h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center gap-1.5 text-[15px] font-normal transition-all cursor-pointer select-none focus-visible:bg-secondary dark:focus-visible:bg-[#383838]",
+                      loginDropdownOpen && "bg-secondary dark:bg-[#383838]"
                     )}
                   >
                     <span>Log in</span>
@@ -1068,7 +1076,7 @@ export function MarketingHeader() {
 
                   {loginDropdownOpen && (
                     <div className="absolute top-full right-0 pt-1.5 z-50">
-                      <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#383838] border border-border/80 dark:border-none space-y-0.5 select-none">
+                      <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none space-y-0.5 select-none">
                         <button
                           type="button"
                           onClick={() => {
@@ -1076,14 +1084,14 @@ export function MarketingHeader() {
                             setLoginDropdownOpen(false);
                             openLoginModal();
                           }}
-                          className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#383838] text-foreground"
+                          className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] text-foreground"
                         >
                           <span>CloseAI Chat</span>
                         </button>
                         <button
                           type="button"
                           onClick={(e) => e.preventDefault()}
-                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#383838] text-foreground cursor-not-allowed"
+                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] text-foreground cursor-not-allowed"
                         >
                           <AnimatedComingSoonText
                             label="API Platform"
