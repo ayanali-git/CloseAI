@@ -250,10 +250,10 @@ export default function LandingPage() {
                   className={cn(
                     "h-12 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none",
                     pill.disabled
-                      ? "cursor-not-allowed select-none bg-white hover:bg-secondary/60 text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#2f2f2f]/60"
+                      ? "bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838] cursor-not-allowed opacity-50 select-none"
                       : isSelected
-                      ? "cursor-pointer bg-secondary text-black dark:bg-[#383838] dark:text-white"
-                      : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
+                      ? "cursor-pointer bg-secondary dark:bg-[#383838] text-foreground"
+                      : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#2f2f2f] dark:hover:bg-[#383838]"
                   )}
                 >
                   {pill.disabled ? (

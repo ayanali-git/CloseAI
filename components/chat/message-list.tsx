@@ -1040,7 +1040,7 @@ export function MessageList({
                               "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all select-none",
                               !isUnchangedOrEmpty && !isTyping
                                 ? "bg-bubble-foreground text-bubble hover:opacity-80 active:scale-[0.99] cursor-pointer"
-                                : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed"
+                                : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed opacity-50"
                             )}
                           >
                             Send
@@ -1565,7 +1565,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                   >
                                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
@@ -1723,7 +1723,7 @@ export function MessageList({
                                           <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
                                             onClick={(e) => e.preventDefault()}
-                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                           >
                                             <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <AnimatedComingSoonText
@@ -1739,7 +1739,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
                                   >
                                     <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText

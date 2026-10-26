@@ -1091,7 +1091,7 @@ export function MarketingHeader() {
                         <button
                           type="button"
                           onClick={(e) => e.preventDefault()}
-                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] text-foreground cursor-not-allowed"
+                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] text-foreground cursor-not-allowed opacity-50"
                         >
                           <AnimatedComingSoonText
                             label="API Platform"
@@ -2205,7 +2205,7 @@ export function MarketingHeader() {
                           </button>
                           <button
                             type="button"
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-80 transition-opacity py-1 cursor-not-allowed w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-80 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
                           >
                             <AnimatedComingSoonText
                               label="API Platform"

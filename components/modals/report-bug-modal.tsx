@@ -240,7 +240,7 @@ export function ReportBugModal({
                 : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
               !isSubmitEnabled || isSubmitting
                 ? cn(
-                    "cursor-not-allowed opacity-60",
+                    "cursor-not-allowed opacity-50",
                     isGuest
                       ? "bg-secondary dark:bg-[#383838] text-muted-foreground"
                       : "bg-secondary dark:bg-[#2f2f2f] text-muted-foreground"

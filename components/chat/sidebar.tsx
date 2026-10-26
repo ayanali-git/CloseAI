@@ -771,9 +771,9 @@ export function Sidebar({
       <DropdownMenuItem
         asChild
         onSelect={(e) => e.preventDefault()}
-        className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
+        className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
       >
-        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal !cursor-not-allowed [&_*]:!cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
+        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 transition-colors outline-none whitespace-nowrap text-left group">
           <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
             label="Download app"
@@ -940,7 +940,7 @@ export function Sidebar({
           <DropdownMenuItem
             asChild
             onSelect={(e) => e.preventDefault()}
-            className="!cursor-not-allowed [&_*]:!cursor-not-allowed"
+            className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
           >
             <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]">
               <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
@@ -1235,7 +1235,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
               >
                 <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
@@ -1554,7 +1554,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           type="button"
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-not-allowed"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-not-allowed opacity-50"
                           aria-label="Create Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -2053,7 +2053,7 @@ export function Sidebar({
                     type="button"
                     onMouseEnter={() => setIsImagesHovered(true)}
                     onMouseLeave={() => setIsImagesHovered(false)}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed group transition-all duration-150 text-left"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed opacity-50 group transition-all duration-150 text-left"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />

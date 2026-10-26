@@ -1023,7 +1023,7 @@ export function PlusMenuContent({
           // onClick={() => {
           //   if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Images" });
           // }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground hover:bg-secondary dark:hover:bg-[#383838] dark:focus:bg-[#383838] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#383838] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
@@ -1562,7 +1562,7 @@ export function PlusMenuContent({
         className={cn(
           "flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left",
           disableAttach
-            ? "cursor-not-allowed select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+            ? "cursor-not-allowed opacity-50 select-none text-muted-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
             : "cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80"
         )}
       >

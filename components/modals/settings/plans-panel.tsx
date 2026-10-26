@@ -193,7 +193,7 @@ export function PlansPanel() {
                 <button
                   type="button"
                   disabled
-                  className="w-full h-10 rounded-full border border-border/80 text-sm text-muted-foreground cursor-not-allowed"
+                  className="w-full h-10 rounded-full border border-border/80 text-sm text-muted-foreground cursor-not-allowed opacity-50"
                 >
                   {isCurrent ? "Current plan" : "Free plan"}
                 </button>
@@ -201,7 +201,7 @@ export function PlansPanel() {
                 <button
                   type="button"
                   disabled
-                  className="w-full h-10 rounded-full border border-border/80 text-sm text-muted-foreground cursor-not-allowed"
+                  className="w-full h-10 rounded-full border border-border/80 text-sm text-muted-foreground cursor-not-allowed opacity-50"
                 >
                   Included in Ultra Pro
                 </button>

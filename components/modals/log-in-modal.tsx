@@ -536,7 +536,7 @@ export function LoginModal({
             type="submit"
             disabled={loading}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed opacity-50 flex items-center justify-center text-center leading-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
