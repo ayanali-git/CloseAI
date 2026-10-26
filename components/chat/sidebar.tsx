@@ -1839,7 +1839,8 @@ export function Sidebar({
                         align="start"
                         sideOffset={6}
                         collisionPadding={12}
-                        className="w-[350px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none"
+                        onOpenAutoFocus={(e) => e.preventDefault()}
+                        className="w-[350px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
                       >
                         <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                           <img
@@ -1863,7 +1864,7 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 ring-0 select-none"
                             >
                               Log in
                             </button>
@@ -1873,7 +1874,7 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 ring-0 select-none"
                             >
                               Sign up for free
                             </button>

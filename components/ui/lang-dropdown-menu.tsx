@@ -80,6 +80,7 @@ export function LangDropdownMenu({
   const [internalOpen, setInternalOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const [isListScrolled, setIsListScrolled] = React.useState(false);
   const [currentLang, setCurrentLang] = React.useState<string>(() => {
     if (typeof window !== "undefined") {
       const pref = getLanguagePref();
@@ -120,6 +121,7 @@ export function LangDropdownMenu({
       }
       if (!nextOpen) {
         setSearch("");
+        setIsListScrolled(false);
       }
     },
     [isControlledOpen, setControlledOpen]
@@ -307,16 +309,24 @@ export function LangDropdownMenu({
                     {/* Top Box: Languages List Card */}
                     <div
                       className={cn(
-                        "flex flex-col rounded-3xl overflow-hidden h-auto",
+                        "flex flex-col rounded-3xl overflow-hidden",
                         "bg-white dark:bg-[#2f2f2f] text-foreground",
                         "border border-border/80 dark:border-none"
                       )}
                       style={{
+                        height: `${maxTopBoxHeight}px`,
                         maxHeight: `${maxTopBoxHeight}px`,
                       }}
                     >
                   {/* Header */}
-                  <div className="flex items-center justify-between px-5 py-4 border-b border-border/80 dark:border-white/10 shrink-0">
+                  <div
+                    className={cn(
+                      "flex items-center justify-between px-5 py-4 border-b shrink-0 transition-colors duration-200",
+                      isListScrolled
+                        ? "border-border/80 dark:border-white/10"
+                        : "border-transparent"
+                    )}
+                  >
                     <h2 className="text-xl font-semibold text-foreground">
                       Select language
                     </h2>
@@ -336,13 +346,21 @@ export function LangDropdownMenu({
 
                   {/* Dynamic Content */}
                   {filteredLanguages.length === 0 ? (
-                    <div className="py-12 px-4 text-center shrink-0">
+                    <div className="flex-1 min-h-0 w-full flex flex-col items-center justify-center p-4 text-center select-none">
                       <p className="text-base font-medium text-foreground">
                         No languages found
                       </p>
                     </div>
                   ) : (
-                    <div className="flex-1 min-h-0 h-full overflow-y-auto px-1.5 py-1.5 scrollbar-thin">
+                    <div
+                      onScroll={(e) => {
+                        const isScrolled = e.currentTarget.scrollTop > 0;
+                        if (isListScrolled !== isScrolled) {
+                          setIsListScrolled(isScrolled);
+                        }
+                      }}
+                      className="flex-1 min-h-0 h-full overflow-y-auto px-1.5 py-1.5 scrollbar-thin"
+                    >
                       <div className="space-y-0.5">
                         {filteredLanguages.map((lang) => {
                           const isSelected = activeCode === lang.code;
@@ -398,6 +416,7 @@ export function LangDropdownMenu({
                     onClick={() => {
                       if (search) {
                         setSearch("");
+                        setIsListScrolled(false);
                         inputRef.current?.focus();
                       } else {
                         inputRef.current?.focus();
@@ -420,15 +439,19 @@ export function LangDropdownMenu({
                     ref={inputRef}
                     type="text"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      setIsListScrolled(false);
+                    }}
                     onKeyDown={(e) => {
                       if (e.key === "Escape" && search) {
                         e.stopPropagation();
                         setSearch("");
+                        setIsListScrolled(false);
                       }
                     }}
-                    placeholder="Search"
-                    aria-label="Search"
+                    placeholder="Search languages"
+                    aria-label="Search languages"
                     className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
                   />
                 </div>

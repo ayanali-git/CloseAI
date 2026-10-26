@@ -7,13 +7,6 @@
     "dial_code": "+93"
   },
   {
-    "name": "Åland Islands",
-    "code": "AX",
-    "code3": "ALA",
-    "flag": "🇦🇽",
-    "dial_code": "+358"
-  },
-  {
     "name": "Albania",
     "code": "AL",
     "code3": "ALB",
@@ -28,13 +21,6 @@
     "dial_code": "+213"
   },
   {
-    "name": "American Samoa",
-    "code": "AS",
-    "code3": "ASM",
-    "flag": "🇦🇸",
-    "dial_code": "+1-684"
-  },
-  {
     "name": "Andorra",
     "code": "AD",
     "code3": "AND",
@@ -47,20 +33,6 @@
     "code3": "AGO",
     "flag": "🇦🇴",
     "dial_code": "+244"
-  },
-  {
-    "name": "Anguilla",
-    "code": "AI",
-    "code3": "AIA",
-    "flag": "🇦🇮",
-    "dial_code": "+1-264"
-  },
-  {
-    "name": "Antarctica",
-    "code": "AQ",
-    "code3": "ATA",
-    "flag": "🇦🇶",
-    "dial_code": "+672"
   },
   {
     "name": "Antigua and Barbuda",
@@ -82,13 +54,6 @@
     "code3": "ARM",
     "flag": "🇦🇲",
     "dial_code": "+374"
-  },
-  {
-    "name": "Aruba",
-    "code": "AW",
-    "code3": "ABW",
-    "flag": "🇦🇼",
-    "dial_code": "+297"
   },
   {
     "name": "Australia",
@@ -168,13 +133,6 @@
     "dial_code": "+229"
   },
   {
-    "name": "Bermuda",
-    "code": "BM",
-    "code3": "BMU",
-    "flag": "🇧🇲",
-    "dial_code": "+1-441"
-  },
-  {
     "name": "Bhutan",
     "code": "BT",
     "code3": "BTN",
@@ -187,13 +145,6 @@
     "code3": "BOL",
     "flag": "🇧🇴",
     "dial_code": "+591"
-  },
-  {
-    "name": "Bonaire, Sint Eustatius and Saba",
-    "code": "BQ",
-    "code3": "BES",
-    "flag": "🇧🇶",
-    "dial_code": "+599"
   },
   {
     "name": "Bosnia and Herzegovina",
@@ -210,25 +161,11 @@
     "dial_code": "+267"
   },
   {
-    "name": "Bouvet Island",
-    "code": "BV",
-    "code3": "BVT",
-    "flag": "🇧🇻",
-    "dial_code": "+47"
-  },
-  {
     "name": "Brazil",
     "code": "BR",
     "code3": "BRA",
     "flag": "🇧🇷",
     "dial_code": "+55"
-  },
-  {
-    "name": "British Indian Ocean Territory",
-    "code": "IO",
-    "code3": "IOT",
-    "flag": "🇮🇴",
-    "dial_code": "+246"
   },
   {
     "name": "Brunei Darussalam",
@@ -287,13 +224,6 @@
     "dial_code": "+1"
   },
   {
-    "name": "Cayman Islands",
-    "code": "KY",
-    "code3": "CYM",
-    "flag": "🇰🇾",
-    "dial_code": "+1-345"
-  },
-  {
     "name": "Central African Republic",
     "code": "CF",
     "code3": "CAF",
@@ -320,20 +250,6 @@
     "code3": "CHN",
     "flag": "🇨🇳",
     "dial_code": "+86"
-  },
-  {
-    "name": "Christmas Island",
-    "code": "CX",
-    "code3": "CXR",
-    "flag": "🇨🇽",
-    "dial_code": "+61"
-  },
-  {
-    "name": "Cocos (Keeling) Islands",
-    "code": "CC",
-    "code3": "CCK",
-    "flag": "🇨🇨",
-    "dial_code": "+61"
   },
   {
     "name": "Colombia",
@@ -364,13 +280,6 @@
     "dial_code": "+243"
   },
   {
-    "name": "Cook Islands",
-    "code": "CK",
-    "code3": "COK",
-    "flag": "🇨🇰",
-    "dial_code": "+682"
-  },
-  {
     "name": "Costa Rica",
     "code": "CR",
     "code3": "CRI",
@@ -397,13 +306,6 @@
     "code3": "CUB",
     "flag": "🇨🇺",
     "dial_code": "+53"
-  },
-  {
-    "name": "Curaçao",
-    "code": "CW",
-    "code3": "CUW",
-    "flag": "🇨🇼",
-    "dial_code": "+599"
   },
   {
     "name": "Cyprus",
@@ -504,20 +406,6 @@
     "dial_code": "+251"
   },
   {
-    "name": "Falkland Islands (Malvinas)",
-    "code": "FK",
-    "code3": "FLK",
-    "flag": "🇫🇰",
-    "dial_code": "+500"
-  },
-  {
-    "name": "Faroe Islands",
-    "code": "FO",
-    "code3": "FRO",
-    "flag": "🇫🇴",
-    "dial_code": "+298"
-  },
-  {
     "name": "Fiji",
     "code": "FJ",
     "code3": "FJI",
@@ -537,27 +425,6 @@
     "code3": "FRA",
     "flag": "🇫🇷",
     "dial_code": "+33"
-  },
-  {
-    "name": "French Guiana",
-    "code": "GF",
-    "code3": "GUF",
-    "flag": "🇬🇫",
-    "dial_code": "+594"
-  },
-  {
-    "name": "French Polynesia",
-    "code": "PF",
-    "code3": "PYF",
-    "flag": "🇵🇫",
-    "dial_code": "+689"
-  },
-  {
-    "name": "French Southern Territories",
-    "code": "TF",
-    "code3": "ATF",
-    "flag": "🇹🇫",
-    "dial_code": "+262"
   },
   {
     "name": "Gabon",
@@ -595,25 +462,11 @@
     "dial_code": "+233"
   },
   {
-    "name": "Gibraltar",
-    "code": "GI",
-    "code3": "GIB",
-    "flag": "🇬🇮",
-    "dial_code": "+350"
-  },
-  {
     "name": "Greece",
     "code": "GR",
     "code3": "GRC",
     "flag": "🇬🇷",
     "dial_code": "+30"
-  },
-  {
-    "name": "Greenland",
-    "code": "GL",
-    "code3": "GRL",
-    "flag": "🇬🇱",
-    "dial_code": "+299"
   },
   {
     "name": "Grenada",
@@ -623,32 +476,11 @@
     "dial_code": "+1-473"
   },
   {
-    "name": "Guadeloupe",
-    "code": "GP",
-    "code3": "GLP",
-    "flag": "🇬🇵",
-    "dial_code": "+590"
-  },
-  {
-    "name": "Guam",
-    "code": "GU",
-    "code3": "GUM",
-    "flag": "🇬🇺",
-    "dial_code": "+1-671"
-  },
-  {
     "name": "Guatemala",
     "code": "GT",
     "code3": "GTM",
     "flag": "🇬🇹",
     "dial_code": "+502"
-  },
-  {
-    "name": "Guernsey",
-    "code": "GG",
-    "code3": "GGY",
-    "flag": "🇬🇬",
-    "dial_code": "+44"
   },
   {
     "name": "Guinea",
@@ -679,14 +511,7 @@
     "dial_code": "+509"
   },
   {
-    "name": "Heard Island and McDonald Islands",
-    "code": "HM",
-    "code3": "HMD",
-    "flag": "🇭🇲",
-    "dial_code": "+672"
-  },
-  {
-    "name": "Holy See (Vatican City State)",
+    "name": "Holy See (Vatican City)",
     "code": "VA",
     "code3": "VAT",
     "flag": "🇻🇦",
@@ -698,13 +523,6 @@
     "code3": "HND",
     "flag": "🇭🇳",
     "dial_code": "+504"
-  },
-  {
-    "name": "Hong Kong",
-    "code": "HK",
-    "code3": "HKG",
-    "flag": "🇭🇰",
-    "dial_code": "+852"
   },
   {
     "name": "Hungary",
@@ -756,13 +574,6 @@
     "dial_code": "+353"
   },
   {
-    "name": "Isle of Man",
-    "code": "IM",
-    "code3": "IMN",
-    "flag": "🇮🇲",
-    "dial_code": "+44"
-  },
-  {
     "name": "Israel",
     "code": "IL",
     "code3": "ISR",
@@ -789,13 +600,6 @@
     "code3": "JPN",
     "flag": "🇯🇵",
     "dial_code": "+81"
-  },
-  {
-    "name": "Jersey",
-    "code": "JE",
-    "code3": "JEY",
-    "flag": "🇯🇪",
-    "dial_code": "+44"
   },
   {
     "name": "Jordan",
@@ -903,13 +707,6 @@
     "dial_code": "+352"
   },
   {
-    "name": "Macao",
-    "code": "MO",
-    "code3": "MAC",
-    "flag": "🇲🇴",
-    "dial_code": "+853"
-  },
-  {
     "name": "Madagascar",
     "code": "MG",
     "code3": "MDG",
@@ -959,13 +756,6 @@
     "dial_code": "+692"
   },
   {
-    "name": "Martinique",
-    "code": "MQ",
-    "code3": "MTQ",
-    "flag": "🇲🇶",
-    "dial_code": "+596"
-  },
-  {
     "name": "Mauritania",
     "code": "MR",
     "code3": "MRT",
@@ -978,13 +768,6 @@
     "code3": "MUS",
     "flag": "🇲🇺",
     "dial_code": "+230"
-  },
-  {
-    "name": "Mayotte",
-    "code": "YT",
-    "code3": "MYT",
-    "flag": "🇾🇹",
-    "dial_code": "+262"
   },
   {
     "name": "Mexico",
@@ -1027,13 +810,6 @@
     "code3": "MNE",
     "flag": "🇲🇪",
     "dial_code": "+382"
-  },
-  {
-    "name": "Montserrat",
-    "code": "MS",
-    "code3": "MSR",
-    "flag": "🇲🇸",
-    "dial_code": "+1-664"
   },
   {
     "name": "Morocco",
@@ -1085,13 +861,6 @@
     "dial_code": "+31"
   },
   {
-    "name": "New Caledonia",
-    "code": "NC",
-    "code3": "NCL",
-    "flag": "🇳🇨",
-    "dial_code": "+687"
-  },
-  {
     "name": "New Zealand",
     "code": "NZ",
     "code3": "NZL",
@@ -1120,20 +889,6 @@
     "dial_code": "+234"
   },
   {
-    "name": "Niue",
-    "code": "NU",
-    "code3": "NIU",
-    "flag": "🇳🇺",
-    "dial_code": "+683"
-  },
-  {
-    "name": "Norfolk Island",
-    "code": "NF",
-    "code3": "NFK",
-    "flag": "🇳🇫",
-    "dial_code": "+672"
-  },
-  {
     "name": "North Korea",
     "code": "KP",
     "code3": "PRK",
@@ -1146,13 +901,6 @@
     "code3": "MKD",
     "flag": "🇲🇰",
     "dial_code": "+389"
-  },
-  {
-    "name": "Northern Mariana Islands",
-    "code": "MP",
-    "code3": "MNP",
-    "flag": "🇲🇵",
-    "dial_code": "+1-670"
   },
   {
     "name": "Norway",
@@ -1183,7 +931,7 @@
     "dial_code": "+680"
   },
   {
-    "name": "Palestine, State of",
+    "name": "Palestine",
     "code": "PS",
     "code3": "PSE",
     "flag": "🇵🇸",
@@ -1225,13 +973,6 @@
     "dial_code": "+63"
   },
   {
-    "name": "Pitcairn",
-    "code": "PN",
-    "code3": "PCN",
-    "flag": "🇵🇳",
-    "dial_code": "+64"
-  },
-  {
     "name": "Poland",
     "code": "PL",
     "code3": "POL",
@@ -1246,25 +987,11 @@
     "dial_code": "+351"
   },
   {
-    "name": "Puerto Rico",
-    "code": "PR",
-    "code3": "PRI",
-    "flag": "🇵🇷",
-    "dial_code": "+1-787"
-  },
-  {
     "name": "Qatar",
     "code": "QA",
     "code3": "QAT",
     "flag": "🇶🇦",
     "dial_code": "+974"
-  },
-  {
-    "name": "Réunion",
-    "code": "RE",
-    "code3": "REU",
-    "flag": "🇷🇪",
-    "dial_code": "+262"
   },
   {
     "name": "Romania",
@@ -1288,20 +1015,6 @@
     "dial_code": "+250"
   },
   {
-    "name": "Saint Barthélemy",
-    "code": "BL",
-    "code3": "BLM",
-    "flag": "🇧🇱",
-    "dial_code": "+590"
-  },
-  {
-    "name": "Saint Helena, Ascension and Tristan da Cunha",
-    "code": "SH",
-    "code3": "SHN",
-    "flag": "🇸🇭",
-    "dial_code": "+290"
-  },
-  {
     "name": "Saint Kitts and Nevis",
     "code": "KN",
     "code3": "KNA",
@@ -1314,20 +1027,6 @@
     "code3": "LCA",
     "flag": "🇱🇨",
     "dial_code": "+1-758"
-  },
-  {
-    "name": "Saint Martin (French part)",
-    "code": "MF",
-    "code3": "MAF",
-    "flag": "🇲🇫",
-    "dial_code": "+590"
-  },
-  {
-    "name": "Saint Pierre and Miquelon",
-    "code": "PM",
-    "code3": "SPM",
-    "flag": "🇵🇲",
-    "dial_code": "+508"
   },
   {
     "name": "Saint Vincent and the Grenadines",
@@ -1400,13 +1099,6 @@
     "dial_code": "+65"
   },
   {
-    "name": "Sint Maarten (Dutch part)",
-    "code": "SX",
-    "code3": "SXM",
-    "flag": "🇸🇽",
-    "dial_code": "+1-721"
-  },
-  {
     "name": "Slovakia",
     "code": "SK",
     "code3": "SVK",
@@ -1440,13 +1132,6 @@
     "code3": "ZAF",
     "flag": "🇿🇦",
     "dial_code": "+27"
-  },
-  {
-    "name": "South Georgia and the South Sandwich Islands",
-    "code": "GS",
-    "code3": "SGS",
-    "flag": "🇬🇸",
-    "dial_code": "+500"
   },
   {
     "name": "South Korea",
@@ -1491,13 +1176,6 @@
     "dial_code": "+597"
   },
   {
-    "name": "Svalbard and Jan Mayen",
-    "code": "SJ",
-    "code3": "SJM",
-    "flag": "🇸🇯",
-    "dial_code": "+47"
-  },
-  {
     "name": "Sweden",
     "code": "SE",
     "code3": "SWE",
@@ -1517,13 +1195,6 @@
     "code3": "SYR",
     "flag": "🇸🇾",
     "dial_code": "+963"
-  },
-  {
-    "name": "Taiwan",
-    "code": "TW",
-    "code3": "TWN",
-    "flag": "🇹🇼",
-    "dial_code": "+886"
   },
   {
     "name": "Tajikistan",
@@ -1561,13 +1232,6 @@
     "dial_code": "+228"
   },
   {
-    "name": "Tokelau",
-    "code": "TK",
-    "code3": "TKL",
-    "flag": "🇹🇰",
-    "dial_code": "+690"
-  },
-  {
     "name": "Tonga",
     "code": "TO",
     "code3": "TON",
@@ -1601,13 +1265,6 @@
     "code3": "TKM",
     "flag": "🇹🇲",
     "dial_code": "+993"
-  },
-  {
-    "name": "Turks and Caicos Islands",
-    "code": "TC",
-    "code3": "TCA",
-    "flag": "🇹🇨",
-    "dial_code": "+1-649"
   },
   {
     "name": "Tuvalu",
@@ -1652,13 +1309,6 @@
     "dial_code": "+1"
   },
   {
-    "name": "United States Minor Outlying Islands",
-    "code": "UM",
-    "code3": "UMI",
-    "flag": "🇺🇲",
-    "dial_code": "+1"
-  },
-  {
     "name": "Uruguay",
     "code": "UY",
     "code3": "URY",
@@ -1692,34 +1342,6 @@
     "code3": "VNM",
     "flag": "🇻🇳",
     "dial_code": "+84"
-  },
-  {
-    "name": "Virgin Islands, British",
-    "code": "VG",
-    "code3": "VGB",
-    "flag": "🇻🇬",
-    "dial_code": "+1-284"
-  },
-  {
-    "name": "Virgin Islands, U.S.",
-    "code": "VI",
-    "code3": "VIR",
-    "flag": "🇻🇮",
-    "dial_code": "+1-340"
-  },
-  {
-    "name": "Wallis and Futuna",
-    "code": "WF",
-    "code3": "WLF",
-    "flag": "🇼🇫",
-    "dial_code": "+681"
-  },
-  {
-    "name": "Western Sahara",
-    "code": "EH",
-    "code3": "ESH",
-    "flag": "🇪🇭",
-    "dial_code": "+212"
   },
   {
     "name": "Yemen",

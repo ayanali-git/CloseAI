@@ -78,6 +78,8 @@ export default function ActiveChatPage() {
   });
   const [showSaveChatModal, setShowSaveChatModal] = useState(false);
 
+  const showHeaderButtons = !isSigningOut && !loading && !!user;
+
   useEffect(() => {
     const isTemp = isTemporaryChatParam(searchParams) || isTemporaryChat(chatId);
     setIsTemporary(isTemp);
@@ -1302,7 +1304,8 @@ export default function ActiveChatPage() {
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
           {/* Top gradient overlay — fades scrolled text behind header buttons */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
-          {activePreviewFile ? (
+          {showHeaderButtons && (
+            activePreviewFile ? (
             /* PREVIEW HEADER: Filename on left, Download + Close on right */
             <>
               <div className="flex items-center gap-2.5 pointer-events-auto mt-3 pl-3 sm:pl-0 min-w-0 pr-3">
@@ -1606,8 +1609,9 @@ export default function ActiveChatPage() {
                 )}
               </div>
             </>
-          )}
-        </header>
+          )
+        )}
+      </header>
 
         {/* Full-Height Scrollable Message Stream — smooth scrolling with native OS scrollbar */}
         <div
@@ -1649,79 +1653,81 @@ export default function ActiveChatPage() {
             )}
 
             {/* Floating Input Dock inside scroll container for 100% scrollbar-aware width alignment */}
-            <div
-              ref={dockRef}
-              className="sticky bottom-0 left-0 right-4 sm:right-5 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
-            >
-              <div className="pointer-events-auto">
-                <ChatInput
-                  message={inputValue}
-                  onMessageChange={setInputValue}
-                  onSend={handleSend}
-                  onStop={handleStop}
-                  uploadedFiles={uploadedFiles}
-                  onFilesChange={setUploadedFiles}
-                  isTyping={isTyping}
-                  isUploading={isUploading}
-                  placeholder={
-                    activePreviewFile
-                      ? "Ask CloseAI about this"
-                      : "Ask CloseAI"
-                  }
-                  showDisclaimer={true}
-                  selectedModel={selectedModel}
-                  onModelChange={setSelectedModel}
-                  selectedTier={selectedModelTier}
-                  onTierChange={setSelectedModelTier}
-                  thinkMode={thinkMode}
-                  onThinkModeChange={setThinkMode}
-                  isGuest={isGuest}
-                  isTemporary={isTemporary}
-                >
-                  {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
-                  <AnimatePresence>
-                    {showScrollBottom && !activePreviewFile && !isFilesDrawerOpen && (
-                      <div className="absolute bottom-full mb-3 inset-x-0 flex justify-center pointer-events-none z-30">
-                        <div className="pointer-events-auto">
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  isAutoScrollPinnedRef.current = true;
-                                  scrollToBottom("smooth");
-                                }}
-                                className={cn(
-                                  "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
-                                  isGuest
-                                    ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-                                    : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
-                                )}
-                                aria-label="Scroll to bottom"
+            {showHeaderButtons && (
+              <div
+                ref={dockRef}
+                className="sticky bottom-0 left-0 right-4 sm:right-5 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
+              >
+                <div className="pointer-events-auto">
+                  <ChatInput
+                    message={inputValue}
+                    onMessageChange={setInputValue}
+                    onSend={handleSend}
+                    onStop={handleStop}
+                    uploadedFiles={uploadedFiles}
+                    onFilesChange={setUploadedFiles}
+                    isTyping={isTyping}
+                    isUploading={isUploading}
+                    placeholder={
+                      activePreviewFile
+                        ? "Ask CloseAI about this"
+                        : "Ask CloseAI"
+                    }
+                    showDisclaimer={true}
+                    selectedModel={selectedModel}
+                    onModelChange={setSelectedModel}
+                    selectedTier={selectedModelTier}
+                    onTierChange={setSelectedModelTier}
+                    thinkMode={thinkMode}
+                    onThinkModeChange={setThinkMode}
+                    isGuest={isGuest}
+                    isTemporary={isTemporary}
+                  >
+                    {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
+                    <AnimatePresence>
+                      {showScrollBottom && !activePreviewFile && !isFilesDrawerOpen && (
+                        <div className="absolute bottom-full mb-3 inset-x-0 flex justify-center pointer-events-none z-30">
+                          <div className="pointer-events-auto">
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    isAutoScrollPinnedRef.current = true;
+                                    scrollToBottom("smooth");
+                                  }}
+                                  className={cn(
+                                    "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
+                                    isGuest
+                                      ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+                                  )}
+                                  aria-label="Scroll to bottom"
+                                >
+                                  <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent
+                                side="top"
+                                sideOffset={8}
+                                className="text-base"
                               >
-                                <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-                              </button>
-                            </TooltipTrigger>
-                            <TooltipContent
-                              side="top"
-                              sideOffset={8}
-                              className="text-base"
-                            >
-                              Scroll to bottom
-                            </TooltipContent>
-                          </Tooltip>
+                                Scroll to bottom
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </AnimatePresence>
-                </ChatInput>
+                      )}
+                    </AnimatePresence>
+                  </ChatInput>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
         {/* Right-Edge TOC Navigator — placed relative to Main Chat Area so it glides beside scrollbar when drawer opens */}
-        {!isChatLoading && !activePreviewFile && (
+        {showHeaderButtons && !isChatLoading && !activePreviewFile && (
           <TocNavigator messages={messages} containerRef={scrollContainerRef} />
         )}
       </div>

@@ -67,6 +67,8 @@ function NewChatContent() {
   const isPersonalized = searchParams?.get("personalized") !== "false";
   const [isPersonalizedMenuOpen, setIsPersonalizedMenuOpen] = useState(false);
 
+  const showHeaderButtons = !isSigningOut && !loading && !!user;
+
   useEffect(() => {
     setIsTemporary(isTemporaryChatParam(searchParams));
   }, [searchParams]);
@@ -332,142 +334,146 @@ function NewChatContent() {
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
           {/* Left Header Area: Sidebar toggle on small screens */}
-          <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
-            {!sidebarOpen && (
-              <div className="xl:hidden flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+          {showHeaderButtons && (
+            <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
+              {!sidebarOpen && (
+                <div className="xl:hidden flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleSidebar()}
+                        className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        aria-label="Open sidebar"
+                      >
+                        <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      align="start"
+                      sideOffset={6}
+                      className="text-base"
+                    >
+                      Open sidebar
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Right Header Area: Temporary Chat Controls */}
+          {showHeaderButtons && (
+            <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+              <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                {isTemporary && (
+                  <DropdownMenu
+                    open={isPersonalizedMenuOpen}
+                    onOpenChange={setIsPersonalizedMenuOpen}
+                  >
+                    <Tooltip open={isPersonalizedMenuOpen ? false : undefined}>
+                      <TooltipTrigger asChild>
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            type="button"
+                            className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                            aria-label={isPersonalized ? "Personalization" : "Unpersonalized"}
+                          >
+                            <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
+                            <ChevronDown className="w-3.5 h-3.5 stroke-[2] text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
+                          </button>
+                        </DropdownMenuTrigger>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        align="center"
+                        sideOffset={6}
+                        className="text-base"
+                      >
+                        {isPersonalized ? "Personalization" : "Unpersonalized"}
+                      </TooltipContent>
+                    </Tooltip>
+
+                    <DropdownMenuContent
+                      align="end"
+                      sideOffset={6}
+                      className="w-80 rounded-xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
+                    >
+                      <DropdownMenuItem
+                        onClick={() => handleSetPersonalized(true)}
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
+                      >
+                        <div className="flex flex-col text-left">
+                          <span className="text-sm font-semibold text-foreground">
+                            Personalized
+                          </span>
+                          <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                            This chat can reference memory and custom instructions
+                          </span>
+                        </div>
+                        {isPersonalized && (
+                          <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" />
+                        )}
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem
+                        onClick={() => handleSetPersonalized(false)}
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
+                      >
+                        <div className="flex flex-col text-left">
+                          <span className="text-sm font-semibold text-foreground">
+                            Unpersonalized
+                          </span>
+                          <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                            This chat will ignore memory and custom instructions
+                          </span>
+                        </div>
+                        {!isPersonalized && (
+                          <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" />
+                        )}
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      onClick={() => handleToggleSidebar()}
-                      className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                      aria-label="Open sidebar"
+                      onClick={handleToggleTemporaryChat}
+                      className={cn(
+                        "group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                        isTemporary
+                          ? "bg-black/10 dark:bg-white/15 text-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      )}
+                      aria-label="Temporary chat"
                     >
-                      <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                      <AnimatedTempChat
+                        open={isTemporary}
+                        size={20}
+                        className={cn(
+                          "transition-colors",
+                          isTemporary
+                            ? "text-foreground"
+                            : "text-muted-foreground group-hover:text-foreground"
+                        )}
+                      />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent
                     side="bottom"
-                    align="start"
+                    align="end"
                     sideOffset={6}
                     className="text-base"
                   >
-                    Open sidebar
+                    {isTemporary ? "Turn off temporary chat" : "Turn on temporary chat"}
                   </TooltipContent>
                 </Tooltip>
               </div>
-            )}
-          </div>
-
-          {/* Right Header Area: Temporary Chat Controls */}
-          <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-            <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
-              {isTemporary && (
-                <DropdownMenu
-                  open={isPersonalizedMenuOpen}
-                  onOpenChange={setIsPersonalizedMenuOpen}
-                >
-                  <Tooltip open={isPersonalizedMenuOpen ? false : undefined}>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type="button"
-                          className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                          aria-label={isPersonalized ? "Personalization" : "Unpersonalized"}
-                        >
-                          <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
-                          <ChevronDown className="w-3.5 h-3.5 stroke-[2] text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
-                        </button>
-                      </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      align="center"
-                      sideOffset={6}
-                      className="text-base"
-                    >
-                      {isPersonalized ? "Personalization" : "Unpersonalized"}
-                    </TooltipContent>
-                  </Tooltip>
-
-                  <DropdownMenuContent
-                    align="end"
-                    sideOffset={6}
-                    className="w-80 rounded-xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
-                  >
-                    <DropdownMenuItem
-                      onClick={() => handleSetPersonalized(true)}
-                      className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
-                    >
-                      <div className="flex flex-col text-left">
-                        <span className="text-sm font-semibold text-foreground">
-                          Personalized
-                        </span>
-                        <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                          This chat can reference memory and custom instructions
-                        </span>
-                      </div>
-                      {isPersonalized && (
-                        <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" />
-                      )}
-                    </DropdownMenuItem>
-
-                    <DropdownMenuItem
-                      onClick={() => handleSetPersonalized(false)}
-                      className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
-                    >
-                      <div className="flex flex-col text-left">
-                        <span className="text-sm font-semibold text-foreground">
-                          Unpersonalized
-                        </span>
-                        <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                          This chat will ignore memory and custom instructions
-                        </span>
-                      </div>
-                      {!isPersonalized && (
-                        <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" />
-                      )}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={handleToggleTemporaryChat}
-                    className={cn(
-                      "group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
-                      isTemporary
-                        ? "bg-black/10 dark:bg-white/15 text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                    aria-label="Temporary chat"
-                  >
-                    <AnimatedTempChat
-                      open={isTemporary}
-                      size={20}
-                      className={cn(
-                        "transition-colors",
-                        isTemporary
-                          ? "text-foreground"
-                          : "text-muted-foreground group-hover:text-foreground"
-                      )}
-                    />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="bottom"
-                  align="end"
-                  sideOffset={6}
-                  className="text-base"
-                >
-                  {isTemporary ? "Turn off temporary chat" : "Turn on temporary chat"}
-                </TooltipContent>
-              </Tooltip>
             </div>
-          </div>
+          )}
         </header>
 
         {/* Content Stream */}
@@ -519,42 +525,44 @@ function NewChatContent() {
         </div>
 
         {/* Bottom Disclaimer for Empty State — Constant height and absolute position so content area never changes size */}
-        <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
-          <div className="pointer-events-auto">
-            {isTemporary ? (
-              <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
-                For safety, we may keep a copy of this chat for up to 30 days.
-              </p>
-            ) : (
-              <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
-                CloseAI is AI. By using it, you agree to our{" "}
-                <Link
-                  href="/support/terms"
-                  className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
-                >
-                  <span>Terms</span>
-                </Link>{" "}
-                and{" "}
-                <Link
-                  href="/support/privacy"
-                  className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
-                >
-                  <span>Privacy</span>
-                </Link>
-                . Chats may be reviewed and used to improve our AI models.{" "}
-                <Link
-                  href="/support/help"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-foreground whitespace-nowrap"
-                >
-                  <span>Learn more</span>
-                  <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
-                </Link>
-              </p>
-            )}
+        {showHeaderButtons && (
+          <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
+            <div className="pointer-events-auto">
+              {isTemporary ? (
+                <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
+                  For safety, we may keep a copy of this chat for up to 30 days.
+                </p>
+              ) : (
+                <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
+                  CloseAI is AI. By using it, you agree to our{" "}
+                  <Link
+                    href="/support/terms"
+                    className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+                  >
+                    <span>Terms</span>
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/support/privacy"
+                    className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+                  >
+                    <span>Privacy</span>
+                  </Link>
+                  . Chats may be reviewed and used to improve our AI models.{" "}
+                  <Link
+                    href="/support/help"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group text-foreground whitespace-nowrap"
+                  >
+                    <span>Learn more</span>
+                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  </Link>
+                </p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
