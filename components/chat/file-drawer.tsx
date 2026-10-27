@@ -410,7 +410,7 @@ function DrawerCloseTrigger({
       }}
       aria-label="Close drawer"
       className={cn(
-        "drawer__close-trigger p-3 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "drawer__close-trigger p-3 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className
       )}
       {...props}
@@ -555,7 +555,7 @@ function FileItemRow({
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
+      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] active:bg-secondary/80 dark:active:bg-[#1f1f1f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
       title={`Preview ${fileName}`}
     >
       {/* File Icon Squircle */}

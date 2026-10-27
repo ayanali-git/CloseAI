@@ -160,7 +160,7 @@ function CodeBlock({
       className={cn(
         "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 dark:border-none text-left isolate overflow-visible",
         isGuest
-          ? "bg-white dark:bg-[#2f2f2f] text-foreground"
+          ? "bg-white dark:bg-[#1f1f1f] text-foreground"
           : "bg-white/50 dark:bg-[#212121]/50 text-foreground"
       )}
     >
@@ -330,7 +330,7 @@ export function ShareResponseModal({
   const shareButtonRing = cn(
     "group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
     isGuest
-      ? "dark:group-focus-visible:ring-offset-[#2f2f2f]"
+      ? "dark:group-focus-visible:ring-offset-[#1f1f1f]"
       : "dark:group-focus-visible:ring-offset-card"
   );
 
@@ -356,7 +356,7 @@ export function ShareResponseModal({
             className={cn(
               "hidden min-[1280px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
-                ? "hover:bg-[#383838] dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "hover:bg-[#2f2f2f] dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "hover:bg-secondary dark:focus-visible:ring-offset-card"
             )}
             aria-label="Close"
@@ -398,7 +398,7 @@ export function ShareResponseModal({
                         className={cn(
                           "border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase",
                           isGuest
-                            ? "bg-white dark:bg-[#2f2f2f]"
+                            ? "bg-white dark:bg-[#1f1f1f]"
                             : "bg-white/50 dark:bg-[#212121]/50"
                         )}
                       >
@@ -515,7 +515,7 @@ export function ShareResponseModal({
                         className={cn(
                           "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
                           isGuest
-                            ? "bg-white dark:bg-[#2f2f2f]"
+                            ? "bg-white dark:bg-[#1f1f1f]"
                             : "bg-white/50 dark:bg-[#212121]/50"
                         )}
                       >
@@ -531,7 +531,7 @@ export function ShareResponseModal({
                         className={cn(
                           "px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text text-foreground",
                           isGuest
-                            ? "bg-white dark:bg-[#2f2f2f]"
+                            ? "bg-white dark:bg-[#1f1f1f]"
                             : "bg-white/50 dark:bg-[#212121]/50"
                         )}
                         {...props}

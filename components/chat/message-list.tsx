@@ -325,7 +325,7 @@ const CodeBlock = React.memo(
         className={cn(
           "relative my-4 rounded-[25px] sm:rounded-3xl border text-left isolate overflow-visible",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] text-foreground border-border/80 dark:border-white/10"
+            ? "bg-white dark:bg-[#1f1f1f] text-foreground border-border/80 dark:border-white/10"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm text-foreground border-border/80 dark:border-none"
         )}
       >
@@ -335,11 +335,11 @@ const CodeBlock = React.memo(
             "sticky -top-3.5 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
             headerState === "stuck"
               ? isGuest
-                ? "bg-white dark:bg-[#2f2f2f] rounded-b-[25px] sm:rounded-b-3xl border-border/80 dark:border-white/10"
+                ? "bg-white dark:bg-[#1f1f1f] rounded-b-[25px] sm:rounded-b-3xl border-border/80 dark:border-white/10"
                 : "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl border-border/80"
               : headerState === "bottom"
               ? isGuest
-                ? "bg-white dark:bg-[#2f2f2f] rounded-b-[25px] sm:rounded-b-3xl"
+                ? "bg-white dark:bg-[#1f1f1f] rounded-b-[25px] sm:rounded-b-3xl"
                 : "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl"
               : "bg-transparent rounded-t-[25px] sm:rounded-t-3xl"
           )}
@@ -593,7 +593,7 @@ export function MessageList({
             className={cn(
               "border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase",
               isGuestMode
-                ? "bg-white dark:bg-[#2f2f2f]"
+                ? "bg-white dark:bg-[#1f1f1f]"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm"
             )}
           >
@@ -708,7 +708,7 @@ export function MessageList({
             className={cn(
               "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
               isGuestMode
-                ? "bg-white dark:bg-[#2f2f2f]"
+                ? "bg-white dark:bg-[#1f1f1f]"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm"
             )}
           >
@@ -724,7 +724,7 @@ export function MessageList({
             className={cn(
               "px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text text-foreground",
               isGuestMode
-                ? "bg-white dark:bg-[#2f2f2f]"
+                ? "bg-white dark:bg-[#1f1f1f]"
                 : "bg-white/50 dark:bg-[#212121]/50"
             )}
             {...props}
@@ -1473,7 +1473,7 @@ export function MessageList({
                               className={cn(
                                 "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                 isGuestMode
-                                  ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                  ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
                                   : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
                               )}
                             >
@@ -1488,13 +1488,13 @@ export function MessageList({
                                       e.stopPropagation();
                                       setDropdownSubView("main");
                                     }}
-                                    className="flex items-center gap-2 px-2.5 py-1.5 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+                                    className="flex items-center gap-2 px-2.5 py-1.5 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f] active:bg-secondary/80 dark:active:bg-[#1f1f1f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
                                   >
                                     <ChevronLeft className="w-4 h-4 stroke-[2]" />
                                     <span>Try again</span>
                                   </button>
 
-                                  <div className="h-[1px] bg-neutral-200/80 dark:bg-[#383838] my-1 -mx-0.5" />
+                                  <div className="h-[1px] bg-neutral-200/80 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
 
                                   {/* Top Input Bar: Ask CloseAI to change */}
                                   <div
@@ -1538,7 +1538,7 @@ export function MessageList({
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                           (changePrompts[msgId] || "").trim()
                                             ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                                            : "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                                            : "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
                                       >
@@ -1547,7 +1547,7 @@ export function MessageList({
                                     </div>
                                   </div>
 
-                                  <div className="h-[1px] bg-neutral-200/80 dark:bg-[#383838] my-1 -mx-0.5" />
+                                  <div className="h-[1px] bg-neutral-200/80 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
 
                                   {/* Option 1: Try again */}
                                   <DropdownMenuItem
@@ -1555,7 +1555,7 @@ export function MessageList({
                                       onRegenerate?.(msg, index);
                                       setDropdownSubView("main");
                                     }}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] transition-colors outline-none"
                                   >
                                     <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <span>Try again</span>
@@ -1565,7 +1565,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f]"
                                   >
                                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
@@ -1587,7 +1587,7 @@ export function MessageList({
                                     onClick={() =>
                                       handleReadAloud(msgId, msg.content)
                                     }
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] transition-colors outline-none"
                                   >
                                     {speakingMessageId === msgId ? (
                                       <>
@@ -1614,7 +1614,7 @@ export function MessageList({
                                           e.stopPropagation();
                                           setDropdownSubView("try-again");
                                         }}
-                                        className="w-full flex items-center justify-between px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
+                                        className="w-full flex items-center justify-between px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
                                       >
                                         <div className="flex items-center gap-2.5">
                                           <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -1624,7 +1624,7 @@ export function MessageList({
                                       </button>
                                     ) : (
                                       <DropdownMenuSub>
-                                        <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#2f2f2f] transition-colors outline-none">
+                                        <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#1f1f1f] transition-colors outline-none">
                                           <div className="flex items-center gap-2.5">
                                             <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <span>Try again</span>
@@ -1639,7 +1639,7 @@ export function MessageList({
                                           className={cn(
                                             "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                             isGuestMode
-                                              ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                              ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
                                               : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
                                           )}
                                         >
@@ -1697,7 +1697,7 @@ export function MessageList({
                                                     changePrompts[msgId] || ""
                                                   ).trim()
                                                     ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                                                    : "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                                                    : "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"
                                               >
@@ -1706,14 +1706,14 @@ export function MessageList({
                                             </div>
                                           </div>
 
-                                          <div className="h-[1px] bg-neutral-200/80 dark:bg-[#383838] my-1 -mx-0.5" />
+                                          <div className="h-[1px] bg-neutral-200/80 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
 
                                           {/* Option 1: Try again */}
                                           <DropdownMenuItem
                                             onClick={() =>
                                               onRegenerate(msg, index)
                                             }
-                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] transition-colors outline-none"
                                           >
                                             <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <span>Try again</span>
@@ -1723,7 +1723,7 @@ export function MessageList({
                                           <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
                                             onClick={(e) => e.preventDefault()}
-                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f]"
                                           >
                                             <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <AnimatedComingSoonText
@@ -1739,7 +1739,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f]"
                                   >
                                     <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText

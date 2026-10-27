@@ -678,11 +678,11 @@ export function NativeDropdownMenu<T extends string = string>({
         className={cn(
           "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
           isGuest
-            ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+            ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
             : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
-          isGuest ? "dark:hover:bg-[#383838]" : "dark:hover:bg-[#2f2f2f]",
+          isGuest ? "dark:hover:bg-[#2f2f2f]" : "dark:hover:bg-[#1f1f1f]",
           triggerClassName,
           className
         )}
@@ -730,7 +730,7 @@ export function NativeDropdownMenu<T extends string = string>({
               !isScrollable && "touch-none overscroll-none",
               isGuest
                 ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
-                  "!bg-white dark:!bg-[#2f2f2f] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
+                  "!bg-white dark:!bg-[#1f1f1f] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
                 :
                   "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none lg:translate-y-px",
               contentClassName
@@ -765,8 +765,8 @@ export function NativeDropdownMenu<T extends string = string>({
                       "focus:bg-secondary focus:text-foreground",
                       "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
                       isGuest
-                        ? "dark:hover:bg-[#383838] dark:focus:bg-[#383838] dark:data-[highlighted]:bg-[#383838]"
-                        : "dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] dark:data-[highlighted]:bg-[#2f2f2f]",
+                        ? "dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] dark:data-[highlighted]:bg-[#2f2f2f]"
+                        : "dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] dark:data-[highlighted]:bg-[#1f1f1f]",
                       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                       itemClassName
                     )}
@@ -787,7 +787,7 @@ export function NativeDropdownMenu<T extends string = string>({
                     </SelectPrimitive.ItemIndicator>
                   </SelectPrimitive.Item>
                   {option.divider && (
-                    <SelectPrimitive.Separator className="my-1.5 -mx-1 h-[1px] bg-neutral-200 dark:bg-[#383838] border-0 shrink-0 block" />
+                    <SelectPrimitive.Separator className="my-1.5 -mx-1 h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] border-0 shrink-0 block" />
                   )}
                 </React.Fragment>
               ))}

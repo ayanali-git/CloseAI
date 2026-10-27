@@ -44,7 +44,7 @@ export default function EnterprisePage() {
           Empower your teams with industry-leading intelligence, enterprise security, and administrative governance designed for global scale.
         </p>
         <div className="flex flex-wrap items-center gap-4">
-          <Button asChild className="rounded-full h-12 px-4 font-normal bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white cursor-pointer">
+          <Button asChild className="rounded-full h-12 px-4 font-normal bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white cursor-pointer">
             <Link href="/product/plans">View Plans</Link>
           </Button>
           <Button asChild size="lg" className="group rounded-full h-12 px-4 font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
@@ -78,7 +78,7 @@ export default function EnterprisePage() {
       </div>
 
       {/* Customer Trust Banner */}
-      <div className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <div className="rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4">
           Trusted by millions of users
         </h2>

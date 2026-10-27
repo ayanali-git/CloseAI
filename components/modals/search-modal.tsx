@@ -33,7 +33,7 @@ export interface SearchModalProps {
 }
 
 const DARK_HOVER_BG = {
-  guest: "dark:hover:bg-[#383838]",
+  guest: "dark:hover:bg-[#2f2f2f]",
   auth: "dark:hover:bg-secondary",
 } as const;
 
@@ -44,7 +44,7 @@ const getFocusRingClasses = (isGuest?: boolean) =>
   cn(
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
     isGuest
-      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
       : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
   );
 
@@ -314,7 +314,7 @@ function SearchImageItem({
         // Always show focus rings on hover (settings modal type)
         "hover:ring-2 hover:ring-black dark:hover:ring-white hover:ring-offset-2 hover:z-10",
         isGuest
-          ? "ring-offset-white dark:ring-offset-[#2f2f2f]"
+          ? "ring-offset-white dark:ring-offset-[#1f1f1f]"
           : "ring-offset-white dark:ring-offset-[#212121]"
       )}
     >
@@ -781,7 +781,7 @@ export function SearchModal({
         isGuest
           ? "min-[1280px]:max-w-[900px] min-[1280px]:h-[min(500px,90vh)]"
           : "min-[1280px]:max-w-[800px] min-[1280px]:h-[min(500px,90vh)]",
-        isGuest && "bg-white dark:bg-[#2f2f2f] border border-border/80"
+        isGuest && "bg-white dark:bg-[#1f1f1f] border border-border/80"
       )}
     >
       <div className="flex flex-col h-full min-h-0 overflow-hidden">

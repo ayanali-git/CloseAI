@@ -137,8 +137,8 @@ function TocItemRow({
       className={cn(
         "hover-box relative mx-1 rounded-sm px-3 py-2 text-[15px] leading-snug cursor-pointer transition-colors duration-150 flex items-center min-w-0 overflow-hidden text-left",
         isActive
-          ? "bg-secondary dark:bg-[#2f2f2f] text-foreground"
-          : "text-muted-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
+          ? "bg-secondary dark:bg-[#1f1f1f] text-foreground"
+          : "text-muted-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] active:bg-secondary dark:active:bg-[#1f1f1f]"
       )}
     >
       <TocTitleMarquee

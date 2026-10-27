@@ -133,8 +133,8 @@ export function ReportBugModal({
               "hidden min-[1280px]:flex p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
-                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+                ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
             aria-label="Close"
@@ -156,14 +156,14 @@ export function ReportBugModal({
                   "group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] sm:text-sm font-normal transition-colors cursor-pointer outline-none select-none border focus:outline-none active:outline-none focus:ring-0 active:ring-0",
                   "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
-                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
                     : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
                   isSelected
                     ? "bg-foreground text-background border-foreground dark:bg-white dark:text-neutral-900 dark:border-white"
                     : cn(
                         isGuest
-                          ? "text-foreground border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] hover:bg-secondary dark:hover:bg-[#383838]"
-                          : "text-foreground border-border/80 bg-white dark:bg-[#212121] hover:bg-secondary dark:hover:bg-[#383838]"
+                          ? "text-foreground border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                          : "text-foreground border-border/80 bg-white dark:bg-[#212121] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
                       )
                 )}
                 style={{ outline: "none" }}
@@ -217,7 +217,7 @@ export function ReportBugModal({
               "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
@@ -236,14 +236,14 @@ export function ReportBugModal({
               "w-full h-11 rounded-full font-medium text-sm sm:text-base transition-all select-none flex items-center justify-center outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
               !isSubmitEnabled || isSubmitting
                 ? cn(
                     "cursor-not-allowed opacity-50",
                     isGuest
-                      ? "bg-secondary dark:bg-[#383838] text-muted-foreground"
-                      : "bg-secondary dark:bg-[#2f2f2f] text-muted-foreground"
+                      ? "bg-secondary dark:bg-[#2f2f2f] text-muted-foreground"
+                      : "bg-secondary dark:bg-[#1f1f1f] text-muted-foreground"
                   )
                 : cn(
                     "cursor-pointer active:scale-[0.99] hover:opacity-80",

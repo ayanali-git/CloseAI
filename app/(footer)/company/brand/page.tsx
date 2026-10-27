@@ -53,7 +53,7 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 sm:mb-16">
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
+            className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
           >
             <Link href="/company/contact">
               <span>Contact Us</span>
@@ -319,7 +319,7 @@ export default function CompanyBrandPage() {
       </section>
 
       {/* 5. BOTTOM CTA SECTION (BRAND GUIDELINES) */}
-      <section className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <section className="rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-3xl sm:text-5xl font-semibold text-foreground mb-4">
           Explore our brand guidelines
         </h2>

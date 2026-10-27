@@ -124,7 +124,7 @@ function PromptCardRow({
 
         if (isDark) {
           // Dark mode:
-          // bg: #383838 (56) → #0d0d0d (13)
+          // bg: #2f2f2f (56) → #0d0d0d (13)
           const bgVal = lerp(56, 13, muteFactor);
           card.style.backgroundColor = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
 
@@ -181,7 +181,7 @@ function PromptCardRow({
             href={`/gc?p=${encodeURIComponent(item.text)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group shrink-0 w-[250px] sm:w-[275px] md:w-[300px] h-[70px] sm:h-[80px] px-3 py-1.5 sm:py-3 rounded-sm bg-white hover:bg-secondary border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] flex flex-col justify-center transition-colors duration-150 cursor-pointer select-none text-left whitespace-normal overflow-hidden"
+            className="group shrink-0 w-[250px] sm:w-[275px] md:w-[300px] h-[70px] sm:h-[80px] px-3 py-1.5 sm:py-3 rounded-sm bg-white hover:bg-secondary border border-border/80 dark:border-none dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] flex flex-col justify-center transition-colors duration-150 cursor-pointer select-none text-left whitespace-normal overflow-hidden"
           >
             <span className="text-[14px] sm:text-base leading-[1.3] text-foreground transition-colors line-clamp-4 whitespace-normal break-words">
               {item.text}
@@ -230,7 +230,7 @@ export default function NotFound() {
           animation-play-state: paused;
         }
         .dark [data-prompt-card]:hover {
-          background-color: #2f2f2f !important;
+          background-color: #1f1f1f !important;
         }
         html:not(.dark) [data-prompt-card]:hover {
           background-color: #f4f4f5 !important;
@@ -297,7 +297,7 @@ export default function NotFound() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Log in
             </button>

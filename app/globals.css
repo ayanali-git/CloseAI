@@ -454,7 +454,7 @@ html:not(.dark) .gooey-title {
 }
 
 .dark [data-radix-dropdown-menu-separator] {
-  background-color: #383838 !important;
+  background-color: #2f2f2f !important;
 }
 
 /* Animated Shimmer for Thinking / Loading text (Continuous smooth wave) */

@@ -123,8 +123,8 @@ export function LogoutModal({
               "hidden min-[1280px]:flex absolute top-0 right-0 p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 disabled:opacity-50 disabled:pointer-events-none",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
-                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+                ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
             aria-label="Close"
@@ -183,7 +183,7 @@ export function LogoutModal({
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 transition-all cursor-pointer select-none gap-2",
                 isGuest
-                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
               )}
             >
@@ -256,7 +256,7 @@ export function LogoutModal({
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center",
                 isGuest
-                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
               )}
             >
@@ -273,7 +273,7 @@ export function LogoutModal({
               className={cn(
                 "w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none",
                 isGuest
-                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+                  ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
               )}
             >

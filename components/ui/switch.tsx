@@ -25,7 +25,7 @@ const Switch = React.forwardRef<
         "transition-colors duration-200 ease-in-out motion-reduce:transition-none",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2",
         isGuest
-          ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+          ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
           : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-background",
         "disabled:cursor-not-allowed disabled:opacity-50",
         "data-[state=checked]:bg-primary data-[state=unchecked]:bg-input hover:data-[state=unchecked]:bg-input/80 hover:data-[state=checked]:bg-primary/90",

@@ -136,7 +136,7 @@ export function SharePromptModal({
   const shareButtonRing = cn(
     "group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
     isGuest
-      ? "dark:group-focus-visible:ring-offset-[#2f2f2f]"
+      ? "dark:group-focus-visible:ring-offset-[#1f1f1f]"
       : "dark:group-focus-visible:ring-offset-card"
   );
 
@@ -162,7 +162,7 @@ export function SharePromptModal({
             className={cn(
               "hidden min-[1280px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
-                ? "hover:bg-[#383838] dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "hover:bg-[#2f2f2f] dark:focus-visible:ring-offset-[#1f1f1f]"
                 : " hover:bg-secondary dark:focus-visible:ring-offset-card"
             )}
             aria-label="Close"

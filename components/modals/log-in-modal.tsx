@@ -254,8 +254,8 @@ export function LoginModal({
             "hidden min-[1280px]:flex absolute top-0 right-0 p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
             "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
             isGuest
-              ? "rounded-full hover:bg-secondary dark:hover:bg-[#383838] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
-              : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+              ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
+              : "rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
           )}
           style={{ outline: "none" }}
           aria-label="Close"
@@ -306,7 +306,7 @@ export function LoginModal({
             className={cn(
               "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
-                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
@@ -365,7 +365,7 @@ export function LoginModal({
             className={cn(
               "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
-                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
@@ -403,7 +403,7 @@ export function LoginModal({
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
-                  ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                  ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                   : "dark:focus-visible:ring-offset-[#212121]"
               )}
               style={{ outline: "none" }}
@@ -429,7 +429,7 @@ export function LoginModal({
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
-                  ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                  ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                   : "dark:focus-visible:ring-offset-[#212121]"
               )}
               style={{ outline: "none" }}
@@ -453,7 +453,7 @@ export function LoginModal({
             <span
               className={cn(
                 "px-3 text-muted-foreground font-normal tracking-wider",
-                isGuest ? "bg-white dark:bg-[#2f2f2f]" : "bg-card"
+                isGuest ? "bg-white dark:bg-[#1f1f1f]" : "bg-card"
               )}
             >
               or
@@ -472,7 +472,7 @@ export function LoginModal({
                     ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
                     : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                   isGuest
-                    ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
+                    ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10 dark:ring-offset-[#1f1f1f] dark:focus-within:ring-offset-[#1f1f1f]"
                     : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
                 )}
               >
@@ -482,6 +482,8 @@ export function LoginModal({
                   type="email"
                   name="email"
                   id="email"
+                  inputMode="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -496,7 +498,6 @@ export function LoginModal({
                     }
                   }}
                   placeholder="Email address"
-                  autoComplete="email"
                   className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
                 />
               </div>
@@ -525,7 +526,7 @@ export function LoginModal({
                       ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
                       : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
-                      ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
+                      ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10 dark:ring-offset-[#1f1f1f] dark:focus-within:ring-offset-[#1f1f1f]"
                       : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
                   )}
                 >
@@ -536,6 +537,8 @@ export function LoginModal({
                     ref={phoneInputRef}
                     autoFocus={open && authMode === "phone"}
                     type="tel"
+                    name="tel"
+                    id="tel"
                     inputMode="tel"
                     autoComplete="tel-national"
                     value={phone}
@@ -562,7 +565,7 @@ export function LoginModal({
             className={cn(
               "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
               isGuest
-                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}

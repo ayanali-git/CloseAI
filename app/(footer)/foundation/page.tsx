@@ -62,7 +62,7 @@ export default function FoundationPage() {
       </div>
 
       {/* Grant Application Box */}
-      <div className="rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center">
+      <div className="rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center">
         <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4">
           Apply for funding and mentorship
         </h2>

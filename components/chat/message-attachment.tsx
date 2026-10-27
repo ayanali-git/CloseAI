@@ -69,7 +69,7 @@ export function MessageAttachmentItem({
     const imageContent = (
       <div
         className={cn(
-          "relative flex leading-[0] overflow-clip rounded-[25px] sm:rounded-3xl bg-[#e8e8e8] dark:bg-[#383838] border border-border/80 max-w-[100px] sm:max-w-[200px] select-none",
+          "relative flex leading-[0] overflow-clip rounded-[25px] sm:rounded-3xl bg-[#e8e8e8] dark:bg-[#2f2f2f] border border-border/80 max-w-[100px] sm:max-w-[200px] select-none",
           interactive && "cursor-pointer hover:opacity-80 transition-opacity"
         )}
       >
@@ -98,7 +98,7 @@ export function MessageAttachmentItem({
       <button
         type="button"
         onClick={() => onPreview?.(file)}
-        className="flex self-end items-center gap-2.5 bg-[#e8e8e8] dark:bg-[#383838] hover:opacity-80 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-[25px] sm:rounded-3xl border border-border/80 transition-opacity cursor-pointer group select-none text-left"
+        className="flex self-end items-center gap-2.5 bg-[#e8e8e8] dark:bg-[#2f2f2f] hover:opacity-80 text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-[25px] sm:rounded-3xl border border-border/80 transition-opacity cursor-pointer group select-none text-left"
       >
         <Icon className="w-5 h-5 shrink-0 text-muted-foreground" weight="fill" />
         <span className="truncate max-w-[100px] sm:max-w-[200px] font-normal">
@@ -110,7 +110,7 @@ export function MessageAttachmentItem({
 
   return (
     <div
-      className="flex self-end items-center gap-2.5 bg-[#e8e8e8] dark:bg-[#383838] text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-[25px] sm:rounded-3xl border border-border/80 select-none text-left"
+      className="flex self-end items-center gap-2.5 bg-[#e8e8e8] dark:bg-[#2f2f2f] text-foreground text-xs sm:text-sm px-3 py-2.5 rounded-[25px] sm:rounded-3xl border border-border/80 select-none text-left"
     >
       <Icon className="w-5 h-5 shrink-0 text-muted-foreground" weight="fill" />
       <span className="truncate max-w-[100px] sm:max-w-[200px] font-normal">

@@ -85,7 +85,7 @@ class ChatGPTModelSelector extends HTMLElement {
         --ink-3: #545458;
         --track: #303030;
         --pill-bg: #212121;
-        --pill-bg-hover: #2f2f2f;
+        --pill-bg-hover: #1f1f1f;
         --card: #1e1e1e;
         --hairline: #2e2e2e;
       }

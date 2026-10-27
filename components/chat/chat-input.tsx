@@ -690,7 +690,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const pillButtonFocusRing = cn(
     "outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
     isGuest
-      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2f2f2f]"
+      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
       : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
   );
 
@@ -733,8 +733,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 cursor-pointer",
                 pillButtonFocusRing,
                 plusMenuOpen
-                  ? "bg-secondary dark:bg-[#2f2f2f] text-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
+                  ? "bg-secondary dark:bg-[#1f1f1f] text-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
               )}
               aria-label="Attach files and more"
             >
@@ -760,7 +760,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+            ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
@@ -830,7 +830,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             pillButtonFocusRing,
             thinkMode
               ? "bg-send-btn text-send-btn-foreground hover:opacity-80"
-              : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
           )}
           aria-label="Think harder"
         >
@@ -876,7 +876,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               pillButtonFocusRing,
               isListening
                 ? "bg-red-500/15 text-red-500 hover:bg-red-500/25 ring-red-500/30"
-                : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
             )}
             aria-label={isListening ? "Stop dictation" : "Start dictation"}
           >
@@ -920,7 +920,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 : hasContent
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
-                ? "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
+                ? "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}
@@ -972,7 +972,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "relative transition-all duration-200",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f]"
+            ? "bg-white dark:bg-[#1f1f1f]"
             : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm",
           effectiveIsTemporary
             ? "border border-transparent"
@@ -1100,7 +1100,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                         }}
                         onKeyDown={handlePillButtonKeyDown}
                         className={cn(
-                          "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838] transition-all shrink-0 cursor-pointer",
+                          "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-all shrink-0 cursor-pointer",
                           pillButtonFocusRing
                         )}
                         aria-label={isFullyExpanded ? "Collapse" : "Expand"}

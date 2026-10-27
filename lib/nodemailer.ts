@@ -171,7 +171,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
               -webkit-text-fill-color: #000000 !important;
             }
             .footer-card {
-              background-color: #2f2f2f !important;
+              background-color: #1f1f1f !important;
               border: none !important;
             }
             .footer-link {
@@ -358,7 +358,7 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
               -webkit-text-fill-color: #000000 !important;
             }
             .footer-card {
-              background-color: #2f2f2f !important;
+              background-color: #1f1f1f !important;
               border: none !important;
             }
             .footer-link {

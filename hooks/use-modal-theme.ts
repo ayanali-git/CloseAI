@@ -60,10 +60,10 @@ export function useModalTheme(
   return {
     isGuest,
     modalBgClass: isGuest
-      ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
       : "bg-card border border-border/80 dark:border-none",
     ringOffsetClass: isGuest
-      ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+      ? "dark:focus-visible:ring-offset-[#1f1f1f]"
       : "dark:focus-visible:ring-offset-[#212121]",
   };
 }

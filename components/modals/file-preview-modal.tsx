@@ -209,7 +209,7 @@ export function FilePreviewModal({
                 className={cn(
                   "flex items-center h-11 rounded-sm transition-colors",
                   isGuestMode
-                    ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                    ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
                     : "bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none"
                 )}
               >
@@ -219,7 +219,7 @@ export function FilePreviewModal({
                   className={cn(
                     "group h-full w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
-                      ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] active:bg-secondary/80 dark:active:bg-[#383838]/80 text-muted-foreground hover:text-foreground"
+                      ? "hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 text-muted-foreground hover:text-foreground"
                       : "hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
                   )}
                   title="Close preview"

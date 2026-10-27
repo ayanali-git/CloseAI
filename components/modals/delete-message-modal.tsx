@@ -98,7 +98,7 @@ export function DeleteMessageModal({
             className={cn(
               "w-full h-11 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
-                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "dark:focus-visible:ring-offset-card"
             )}
           >
@@ -110,7 +110,7 @@ export function DeleteMessageModal({
             className={cn(
               "w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
-                ? "dark:focus-visible:ring-offset-[#2f2f2f]"
+                ? "dark:focus-visible:ring-offset-[#1f1f1f]"
                 : "dark:focus-visible:ring-offset-card"
             )}
           >

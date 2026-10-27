@@ -166,7 +166,7 @@ export function CountDropdownMenu({
           "flex items-center gap-3 text-left cursor-pointer select-none",
           "transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
           isGuest
-            ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10"
+            ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10"
             : "bg-background",
           className
         )}
@@ -210,7 +210,7 @@ export function CountDropdownMenu({
               className={cn(
                 "fixed z-[106] flex flex-col rounded-3xl overflow-hidden",
                 isGuest
-                  ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                  ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
                   : "bg-background border border-border/80"
               )}
               style={{
@@ -235,7 +235,7 @@ export function CountDropdownMenu({
                     "h-12 rounded-full border px-4 flex items-center gap-3 transition-all w-full",
                     "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
-                      ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
+                      ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10 dark:ring-offset-[#1f1f1f] dark:focus-within:ring-offset-[#1f1f1f]"
                       : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
                   )}
                 >
@@ -329,7 +329,7 @@ export function CountDropdownMenu({
                           className={cn(
                             "relative w-full flex items-center gap-3 px-4 py-3 rounded-sm text-foreground text-left cursor-pointer transition-colors outline-none focus:outline-none",
                             isGuest
-                              ? "hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838]"
+                              ? "hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f]"
                               : "hover:bg-secondary focus:bg-secondary"
                           )}
                         >
