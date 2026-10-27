@@ -60,28 +60,33 @@ export function LoginModal({
   const emailInputRef = useRef<HTMLInputElement>(null);
   const phoneInputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-focus input when modal opens or when switching between email and phone modes
+  // Helper to detect touch/mobile devices where auto-focus forces the on-screen
+  // keyboard to open, shrinking the viewport and displacing the modal position.
+  const isTouchOrSmallDevice = () => {
+    if (typeof window === "undefined") return false;
+    return (
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+      window.innerWidth < 1024
+    );
+  };
+
+  // Auto-focus input only on desktop (non-touch) devices to keep mobile layout stable
+  // and prevent virtual keyboard from unexpectedly shifting the modal position.
   useEffect(() => {
     if (!open) return;
+    if (isTouchOrSmallDevice()) return;
 
-    const focusActiveInput = () => {
+    const timer = setTimeout(() => {
       if (authMode === "email") {
-        emailInputRef.current?.focus();
+        emailInputRef.current?.focus({ preventScroll: true });
       } else if (authMode === "phone") {
-        phoneInputRef.current?.focus();
+        phoneInputRef.current?.focus({ preventScroll: true });
       }
-    };
+    }, 120);
 
-    focusActiveInput();
-    const rafId = requestAnimationFrame(focusActiveInput);
-    const timer = setTimeout(focusActiveInput, 60);
-    const fallbackTimer = setTimeout(focusActiveInput, 180);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      clearTimeout(timer);
-      clearTimeout(fallbackTimer);
-    };
+    return () => clearTimeout(timer);
   }, [open, authMode]);
 
   const selectedCountry = useMemo(
@@ -239,6 +244,7 @@ export function LoginModal({
       onOpenChange={onOpenChange}
       snapPoints={["auto"]}
       maxSnap={0.96}
+      scrollable={true}
       className={cn(
         "max-w-[440px]",
         modalBgClass
@@ -396,9 +402,15 @@ export function LoginModal({
                 setAuthMode("phone");
                 setErrors({});
                 setSubmitted(false);
-                setTimeout(() => {
-                  phoneInputRef.current?.focus();
-                }, 0);
+                const wasInputFocused =
+                  typeof document !== "undefined" &&
+                  (document.activeElement === emailInputRef.current ||
+                    document.activeElement === phoneInputRef.current);
+                if (!isTouchOrSmallDevice() || wasInputFocused) {
+                  setTimeout(() => {
+                    phoneInputRef.current?.focus({ preventScroll: true });
+                  }, 50);
+                }
               }}
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
@@ -422,9 +434,15 @@ export function LoginModal({
                 setAuthMode("email");
                 setErrors({});
                 setSubmitted(false);
-                setTimeout(() => {
-                  emailInputRef.current?.focus();
-                }, 0);
+                const wasInputFocused =
+                  typeof document !== "undefined" &&
+                  (document.activeElement === emailInputRef.current ||
+                    document.activeElement === phoneInputRef.current);
+                if (!isTouchOrSmallDevice() || wasInputFocused) {
+                  setTimeout(() => {
+                    emailInputRef.current?.focus({ preventScroll: true });
+                  }, 50);
+                }
               }}
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
@@ -478,7 +496,6 @@ export function LoginModal({
               >
                 <input
                   ref={emailInputRef}
-                  autoFocus={open && authMode === "email"}
                   type="email"
                   name="email"
                   id="email"
@@ -535,7 +552,6 @@ export function LoginModal({
                   </span>
                   <input
                     ref={phoneInputRef}
-                    autoFocus={open && authMode === "phone"}
                     type="tel"
                     name="tel"
                     id="tel"
