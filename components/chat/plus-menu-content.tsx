@@ -1619,7 +1619,7 @@ export function PlusMenuContent({
             collisionPadding={12}
             style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
             className={cn(
-              "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 select-none outline-none",
+              "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none select-none outline-none",
               menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
             )}
           >
@@ -1644,7 +1644,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 select-none outline-none",
+                  "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
               >
@@ -1714,7 +1714,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 select-none outline-none",
+                  "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
               >
@@ -1760,7 +1760,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 select-none outline-none",
+                  "rounded-2xl p-1.5 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
               >
@@ -1800,7 +1800,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-3 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 select-none outline-none",
+                  "rounded-2xl p-3 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
                 onPointerDown={(e) => e.stopPropagation()}

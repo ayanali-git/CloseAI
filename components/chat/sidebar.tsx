@@ -1140,7 +1140,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-108}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
             >
               <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
                 <UserIcon className="w-5 h-5 shrink-0" />
@@ -1247,7 +1247,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-238}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
             >
               <DropdownMenuItem asChild>
                 <Link
@@ -1791,7 +1791,7 @@ export function Sidebar({
                       side="right"
                       align="end"
                       sideOffset={5}
-                      className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
@@ -2562,7 +2562,7 @@ export function Sidebar({
                       side="top"
                       align="start"
                       sideOffset={5}
-                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 outline-none focus:outline-none ring-0"
+                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>

@@ -761,7 +761,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
           isGuest
             ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80",
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
         style={{
@@ -920,7 +920,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 : hasContent
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
-                ? "bg-neutral-300 dark:bg-[#2f2f2f] text-muted-foreground cursor-not-allowed opacity-50"
+                ? "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}
@@ -978,7 +978,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             ? "border border-transparent"
             : isGuest
             ? "border border-border/80 dark:border-white/10"
-            : "border border-border/80",
+            : "border border-border/80 dark:border-none",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
             ? "rounded-[25px] sm:rounded-3xl"

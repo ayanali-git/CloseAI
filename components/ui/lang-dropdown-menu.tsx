@@ -241,8 +241,8 @@ export function LangDropdownMenu({
       onClick={() => handleOpenChange(true)}
       className={cn(
         "flex items-center text-base gap-2 px-4 py-3 rounded-full select-none",
-        "bg-white dark:bg-[#2f2f2f] dark:hover:bg-[#383838] text-foreground",
-        "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none",
+        "bg-white dark:bg-[#2f2f2f] text-foreground",
+        "whitespace-nowrap cursor-pointer border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#383838] focus:bg-secondary dark:focus:bg-[#383838] focus:text-foreground",
         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
         isOpen && "opacity-0 invisible pointer-events-none",
         className
@@ -311,7 +311,7 @@ export function LangDropdownMenu({
                       className={cn(
                         "flex flex-col rounded-3xl overflow-hidden",
                         "bg-white dark:bg-[#2f2f2f] text-foreground",
-                        "border border-border/80 dark:border-none"
+                        "border border-border/80 dark:border-white/10"
                       )}
                       style={{
                         height: `${maxTopBoxHeight}px`,
@@ -452,7 +452,7 @@ export function LangDropdownMenu({
                     }}
                     placeholder="Search languages"
                     aria-label="Search languages"
-                    className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
+                    className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 outline-none focus:outline-none transition-colors"
                   />
                 </div>
               </div>

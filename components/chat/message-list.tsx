@@ -326,7 +326,7 @@ const CodeBlock = React.memo(
           "relative my-4 rounded-[25px] sm:rounded-3xl border text-left isolate overflow-visible",
           isGuest
             ? "bg-white dark:bg-[#2f2f2f] text-foreground border-border/80 dark:border-white/10"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm text-foreground border-border/80"
+            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm text-foreground border-border/80 dark:border-none"
         )}
       >
         <div
@@ -1474,7 +1474,7 @@ export function MessageList({
                                 "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                 isGuestMode
                                   ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-                                  : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+                                  : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
                               )}
                             >
                               {isMobileScreen &&
@@ -1538,7 +1538,7 @@ export function MessageList({
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                           (changePrompts[msgId] || "").trim()
                                             ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                                            : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
+                                            : "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
                                       >
@@ -1640,7 +1640,7 @@ export function MessageList({
                                             "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                             isGuestMode
                                               ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-                                              : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+                                              : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
                                           )}
                                         >
                                           {/* Top Input Bar: Ask CloseAI to change */}
@@ -1697,7 +1697,7 @@ export function MessageList({
                                                     changePrompts[msgId] || ""
                                                   ).trim()
                                                     ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                                                    : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground/50 cursor-not-allowed opacity-50"
+                                                    : "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"
                                               >

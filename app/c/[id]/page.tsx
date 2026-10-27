@@ -1700,7 +1700,7 @@ export default function ActiveChatPage() {
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
                                       ? "bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80"
+                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

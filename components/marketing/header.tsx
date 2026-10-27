@@ -377,6 +377,7 @@ export function MarketingHeader() {
   const [tryMenuOpen, setTryMenuOpen] = useState(false);
   const [loginDropdownOpen, setLoginDropdownOpen] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const [focusedChevron, setFocusedChevron] = useState<MegaMenuCategory>(null);
   const [scrollbarWidth, setScrollbarWidth] = useState(0);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -408,10 +409,10 @@ export function MarketingHeader() {
   }, []);
 
   useEffect(() => {
-    if (activeMenu) {
+    if (activeMenu || focusedChevron) {
       updateFoundationOffset();
     }
-  }, [activeMenu]);
+  }, [activeMenu, focusedChevron]);
 
   useEffect(() => {
     if (isSearchOpen || activeMenu || mobileNavOpen) {
@@ -469,7 +470,7 @@ export function MarketingHeader() {
     });
   }, [submittedQuery]);
 
-  const currentActiveNav = hoveredNav || activeMenu;
+  const currentActiveNav = hoveredNav || activeMenu || focusedChevron;
 
   const getNavButtonColor = (key: string) => {
     if (!currentActiveNav) return "text-foreground";
@@ -593,6 +594,7 @@ export function MarketingHeader() {
       if (e.key === "Escape") {
         setActiveMenu(null);
         setHoveredNav(null);
+        setFocusedChevron(null);
         setIsSearchOpen(false);
         setMobileNavOpen(false);
         setLogoutModalOpen(false);
@@ -703,10 +705,10 @@ export function MarketingHeader() {
                   type="submit"
                   disabled={!searchQuery.trim()}
                   className={cn(
-                    "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4",
+                    "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 ring-offset-background",
                     searchQuery.trim().length > 0
                       ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                      : "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
+                      : "bg-neutral-300 dark:bg-[#383838] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
                 >
@@ -810,7 +812,7 @@ export function MarketingHeader() {
                   <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Button
                       asChild
-                      className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer select-none"
+                      className="h-12 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                     >
                       <Link
                         href={user ? "/c" : "/gc"}
@@ -826,7 +828,7 @@ export function MarketingHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
-                      className="group rounded-full h-12 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5"
+                      className="group rounded-full h-12 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                     >
                       <span>API Docs</span>
                       <AnimatedArrowUpRight className="w-5 h-5" />
@@ -868,7 +870,7 @@ export function MarketingHeader() {
                 setHoveredNav(null);
                 setIsSearchOpen(false);
               }}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span className="font-bold text-xl tracking-tight text-foreground transition-opacity hover:opacity-80">
                 CloseAI
@@ -881,96 +883,271 @@ export function MarketingHeader() {
               onMouseLeave={() => setHoveredNav(null)}
             >
               {/* Research */}
-              <button
-                onMouseEnter={() => {
-                  setHoveredNav("research");
-                  handleMouseEnter("research");
-                }}
-                onClick={() => {
-                  setIsSearchOpen(false);
-                  setActiveMenu(activeMenu === "research" ? null : "research");
-                }}
-                className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
-                  getNavButtonColor("research")
-                )}
-              >
-                <span>Research</span>
-              </button>
+              <div className="relative flex items-center">
+                <Link
+                  href="/research/overview"
+                  onMouseEnter={() => {
+                    setHoveredNav("research");
+                    handleMouseEnter("research");
+                  }}
+                  onClick={() => {
+                    setActiveMenu(null);
+                    setHoveredNav(null);
+                    setIsSearchOpen(false);
+                  }}
+                  className={cn(
+                    "text-[15px] transition-colors py-1 px-1.5 rounded-full cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring flex items-center whitespace-nowrap",
+                    getNavButtonColor("research")
+                  )}
+                >
+                  <span>Research</span>
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    activeMenu === "research"
+                      ? "Close Research menu"
+                      : "Open Research menu"
+                  }
+                  aria-expanded={activeMenu === "research"}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    setActiveMenu(activeMenu === "research" ? null : "research");
+                  }}
+                  onFocus={() => setFocusedChevron("research")}
+                  onBlur={() =>
+                    setFocusedChevron((prev) =>
+                      prev === "research" ? null : prev
+                    )
+                  }
+                  className={cn(
+                    "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
+                    "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
+                    focusedChevron === "research"
+                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
+                  )}
+                >
+                  <AnimatedChevron
+                    open={activeMenu === "research"}
+                    size={14}
+                  />
+                </button>
+              </div>
 
               {/* Products */}
-              <button
-                onMouseEnter={() => {
-                  setHoveredNav("products");
-                  handleMouseEnter("products");
-                }}
-                onClick={() => {
-                  setIsSearchOpen(false);
-                  setActiveMenu(activeMenu === "products" ? null : "products");
-                }}
-                className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
-                  getNavButtonColor("products")
-                )}
-              >
-                <span>Products</span>
-              </button>
+              <div className="relative flex items-center">
+                <Link
+                  href={user ? "/c" : "/gc"}
+                  onMouseEnter={() => {
+                    setHoveredNav("products");
+                    handleMouseEnter("products");
+                  }}
+                  onClick={() => {
+                    setActiveMenu(null);
+                    setHoveredNav(null);
+                    setIsSearchOpen(false);
+                  }}
+                  className={cn(
+                    "text-[15px] transition-colors py-1 px-1.5 rounded-full cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring flex items-center whitespace-nowrap",
+                    getNavButtonColor("products")
+                  )}
+                >
+                  <span>Products</span>
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    activeMenu === "products"
+                      ? "Close Products menu"
+                      : "Open Products menu"
+                  }
+                  aria-expanded={activeMenu === "products"}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    setActiveMenu(activeMenu === "products" ? null : "products");
+                  }}
+                  onFocus={() => setFocusedChevron("products")}
+                  onBlur={() =>
+                    setFocusedChevron((prev) =>
+                      prev === "products" ? null : prev
+                    )
+                  }
+                  className={cn(
+                    "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
+                    "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
+                    focusedChevron === "products"
+                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
+                  )}
+                >
+                  <AnimatedChevron
+                    open={activeMenu === "products"}
+                    size={14}
+                  />
+                </button>
+              </div>
 
               {/* Business */}
-              <button
-                onMouseEnter={() => {
-                  setHoveredNav("business");
-                  handleMouseEnter("business");
-                }}
-                onClick={() => {
-                  setIsSearchOpen(false);
-                  setActiveMenu(activeMenu === "business" ? null : "business");
-                }}
-                className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
-                  getNavButtonColor("business")
-                )}
-              >
-                <span>Business</span>
-              </button>
+              <div className="relative flex items-center">
+                <Link
+                  href="/business/enterprise"
+                  onMouseEnter={() => {
+                    setHoveredNav("business");
+                    handleMouseEnter("business");
+                  }}
+                  onClick={() => {
+                    setActiveMenu(null);
+                    setHoveredNav(null);
+                    setIsSearchOpen(false);
+                  }}
+                  className={cn(
+                    "text-[15px] transition-colors py-1 px-1.5 rounded-full cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring flex items-center whitespace-nowrap",
+                    getNavButtonColor("business")
+                  )}
+                >
+                  <span>Business</span>
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    activeMenu === "business"
+                      ? "Close Business menu"
+                      : "Open Business menu"
+                  }
+                  aria-expanded={activeMenu === "business"}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    setActiveMenu(activeMenu === "business" ? null : "business");
+                  }}
+                  onFocus={() => setFocusedChevron("business")}
+                  onBlur={() =>
+                    setFocusedChevron((prev) =>
+                      prev === "business" ? null : prev
+                    )
+                  }
+                  className={cn(
+                    "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
+                    "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
+                    focusedChevron === "business"
+                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
+                  )}
+                >
+                  <AnimatedChevron
+                    open={activeMenu === "business"}
+                    size={14}
+                  />
+                </button>
+              </div>
 
               {/* Developers */}
-              <button
-                onMouseEnter={() => {
-                  setHoveredNav("developers");
-                  handleMouseEnter("developers");
-                }}
-                onClick={() => {
-                  setIsSearchOpen(false);
-                  setActiveMenu(
-                    activeMenu === "developers" ? null : "developers"
-                  );
-                }}
-                className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
-                  getNavButtonColor("developers")
-                )}
-              >
-                <span>Developers</span>
-              </button>
+              <div className="relative flex items-center">
+                <Link
+                  href="/product/api-docs"
+                  onMouseEnter={() => {
+                    setHoveredNav("developers");
+                    handleMouseEnter("developers");
+                  }}
+                  onClick={() => {
+                    setActiveMenu(null);
+                    setHoveredNav(null);
+                    setIsSearchOpen(false);
+                  }}
+                  className={cn(
+                    "text-[15px] transition-colors py-1 px-1.5 rounded-full cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring flex items-center whitespace-nowrap",
+                    getNavButtonColor("developers")
+                  )}
+                >
+                  <span>Developers</span>
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    activeMenu === "developers"
+                      ? "Close Developers menu"
+                      : "Open Developers menu"
+                  }
+                  aria-expanded={activeMenu === "developers"}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    setActiveMenu(
+                      activeMenu === "developers" ? null : "developers"
+                    );
+                  }}
+                  onFocus={() => setFocusedChevron("developers")}
+                  onBlur={() =>
+                    setFocusedChevron((prev) =>
+                      prev === "developers" ? null : prev
+                    )
+                  }
+                  className={cn(
+                    "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
+                    "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
+                    focusedChevron === "developers"
+                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
+                  )}
+                >
+                  <AnimatedChevron
+                    open={activeMenu === "developers"}
+                    size={14}
+                  />
+                </button>
+              </div>
 
               {/* Company */}
-              <button
-                onMouseEnter={() => {
-                  setHoveredNav("company");
-                  handleMouseEnter("company");
-                }}
-                onClick={() => {
-                  setIsSearchOpen(false);
-                  setActiveMenu(activeMenu === "company" ? null : "company");
-                }}
-                className={cn(
-                  "group text-[15px] transition-colors py-1 cursor-pointer flex items-center",
-                  getNavButtonColor("company")
-                )}
-              >
-                <span>Company</span>
-              </button>
+              <div className="relative flex items-center">
+                <Link
+                  href="/company/about"
+                  onMouseEnter={() => {
+                    setHoveredNav("company");
+                    handleMouseEnter("company");
+                  }}
+                  onClick={() => {
+                    setActiveMenu(null);
+                    setHoveredNav(null);
+                    setIsSearchOpen(false);
+                  }}
+                  className={cn(
+                    "text-[15px] transition-colors py-1 px-1.5 rounded-full cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring flex items-center whitespace-nowrap",
+                    getNavButtonColor("company")
+                  )}
+                >
+                  <span>Company</span>
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    activeMenu === "company"
+                      ? "Close Company menu"
+                      : "Open Company menu"
+                  }
+                  aria-expanded={activeMenu === "company"}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    setActiveMenu(activeMenu === "company" ? null : "company");
+                  }}
+                  onFocus={() => setFocusedChevron("company")}
+                  onBlur={() =>
+                    setFocusedChevron((prev) =>
+                      prev === "company" ? null : prev
+                    )
+                  }
+                  className={cn(
+                    "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
+                    "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
+                    focusedChevron === "company"
+                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
+                  )}
+                >
+                  <AnimatedChevron
+                    open={activeMenu === "company"}
+                    size={14}
+                  />
+                </button>
+              </div>
 
               {/* Foundation (Non-dropdown link: closes menu immediately on hover) */}
               <Link
@@ -986,7 +1163,7 @@ export function MarketingHeader() {
                   setIsSearchOpen(false);
                 }}
                 className={cn(
-                  "text-[15px] transition-colors py-1",
+                  "text-[15px] transition-colors py-1 px-1.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
                   getNavButtonColor("foundation")
                 )}
               >
@@ -1003,7 +1180,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="p-1 pt-2 transition-opacity hover:opacity-80 cursor-pointer flex items-center justify-center text-foreground"
+                className="w-8 h-8 rounded-full transition-opacity hover:opacity-80 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1029,7 +1206,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>Log Out</span>
                 </button>
@@ -1063,7 +1240,7 @@ export function MarketingHeader() {
                       });
                     }}
                     className={cn(
-                      "h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center gap-1.5 text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                      "h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white flex items-center justify-center gap-1.5 text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                       loginDropdownOpen && "bg-secondary dark:bg-[#383838]"
                     )}
                   >
@@ -1076,7 +1253,7 @@ export function MarketingHeader() {
 
                   {loginDropdownOpen && (
                     <div className="absolute top-full right-0 pt-1.5 z-50">
-                      <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none space-y-0.5 select-none">
+                      <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 space-y-0.5 select-none">
                         <button
                           type="button"
                           onClick={() => {
@@ -1123,7 +1300,7 @@ export function MarketingHeader() {
                 setIsSearchOpen(!isSearchOpen);
                 setMobileNavOpen(false);
               }}
-              className="p-2 text-foreground transition-colors flex items-center justify-center"
+              className="w-9 h-9 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               aria-label={isSearchOpen ? "Close search" : "Search"}
             >
               <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1135,7 +1312,7 @@ export function MarketingHeader() {
                 setMobileNavOpen(!mobileNavOpen);
                 setMobileSubMenu(null);
               }}
-              className="p-2 text-foreground transition-colors flex items-center justify-center"
+              className="w-9 h-9 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
             >
               <AnimatedPanelToggle open={mobileNavOpen} size={20} />

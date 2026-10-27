@@ -85,8 +85,8 @@ export default function PlansPage() {
             key={plan.id}
             className={`relative rounded-sm p-8 flex flex-col justify-between border transition-colors ${
               plan.popular
-                ? "bg-card border-foreground/30 scale-[1.02]"
-                : "bg-card/60 border-border/80"
+                ? "bg-card border-border/80"
+                : "bg-background border-border/80"
             }`}
           >
             {plan.popular && (
@@ -134,8 +134,8 @@ export default function PlansPage() {
               }}
               className={`w-full h-11 rounded-full text-base font-medium transition-colors cursor-pointer ${
                 plan.popular
-                  ? "bg-foreground text-background hover:opacity-80"
-                  : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"
+                  ? "bg-foreground text-background hover:opacity-80 active:scale-[0.99]"
+                  : "bg-secondary text-foreground hover:bg-secondary/80 border border-border/80 dark:border-white/10"
               }`}
             >
               <span className="group flex items-center justify-center">

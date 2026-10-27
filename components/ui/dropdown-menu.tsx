@@ -75,7 +75,7 @@ const DropdownMenuSubContent = React.forwardRef<
           'z-[9999] min-w-[10rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
           isGuest
             ? 'bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10'
-            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80',
+            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none',
           className
         )}
         {...props}
@@ -121,7 +121,7 @@ const DropdownMenuContent = React.forwardRef<
           'z-[9999] min-w-[8rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
           isGuest
             ? 'bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10'
-            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80',
+            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none',
           className
         )}
         {...props}

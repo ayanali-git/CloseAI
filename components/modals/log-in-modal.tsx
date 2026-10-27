@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
@@ -55,8 +55,34 @@ export function LoginModal({
   const [loading, setLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(initialError || null);
   const [errors, setErrors] = useState<AuthFormErrors>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-focus input when modal opens or when switching between email and phone modes
+  useEffect(() => {
+    if (!open) return;
+
+    const focusActiveInput = () => {
+      if (authMode === "email") {
+        emailInputRef.current?.focus();
+      } else if (authMode === "phone") {
+        phoneInputRef.current?.focus();
+      }
+    };
+
+    focusActiveInput();
+    const rafId = requestAnimationFrame(focusActiveInput);
+    const timer = setTimeout(focusActiveInput, 60);
+    const fallbackTimer = setTimeout(focusActiveInput, 180);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timer);
+      clearTimeout(fallbackTimer);
+    };
+  }, [open, authMode]);
 
   const selectedCountry = useMemo(
     () =>
@@ -101,7 +127,6 @@ export function LoginModal({
       setAuthMode("email");
       setCountryCode("IN");
       setErrors({});
-      setTouched({});
       setSubmitted(false);
       setLoading(false);
       setAuthError(null);
@@ -126,15 +151,6 @@ export function LoginModal({
       newErrors.phone = "Please enter a valid phone number";
     }
     return newErrors;
-  };
-
-  const handleBlur = (field: keyof AuthFormErrors) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-    if (field === "email") {
-      setErrors((prev) => ({ ...prev, ...validateEmail() }));
-    } else if (field === "phone") {
-      setErrors((prev) => ({ ...prev, ...validatePhone() }));
-    }
   };
 
   const handleGoogleAuth = async () => {
@@ -380,6 +396,9 @@ export function LoginModal({
                 setAuthMode("phone");
                 setErrors({});
                 setSubmitted(false);
+                setTimeout(() => {
+                  phoneInputRef.current?.focus();
+                }, 0);
               }}
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
@@ -403,6 +422,9 @@ export function LoginModal({
                 setAuthMode("email");
                 setErrors({});
                 setSubmitted(false);
+                setTimeout(() => {
+                  emailInputRef.current?.focus();
+                }, 0);
               }}
               className={cn(
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
@@ -446,7 +468,7 @@ export function LoginModal({
               <div
                 className={cn(
                   "h-12 rounded-full border px-4 flex items-center transition-all",
-                  errors.email && (touched.email || submitted)
+                  submitted && errors.email
                     ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
                     : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                   isGuest
@@ -455,29 +477,30 @@ export function LoginModal({
                 )}
               >
                 <input
+                  ref={emailInputRef}
+                  autoFocus={open && authMode === "email"}
                   type="email"
                   name="email"
                   id="email"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
-                    if (touched.email || submitted) {
+                    if (submitted) {
                       setErrors(validateEmail(e.target.value));
                     }
                   }}
                   onInput={(e) => {
                     setEmail(e.currentTarget.value);
-                    if (touched.email || submitted) {
+                    if (submitted) {
                       setErrors(validateEmail(e.currentTarget.value));
                     }
                   }}
-                  onBlur={() => handleBlur("email")}
                   placeholder="Email address"
                   autoComplete="email"
                   className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
                 />
               </div>
-              {errors.email && (touched.email || submitted) && (
+              {submitted && errors.email && (
                 <p className="mt-1 text-xs text-red-500 px-3">{errors.email}</p>
               )}
             </div>
@@ -498,7 +521,7 @@ export function LoginModal({
                 <div
                   className={cn(
                     "h-12 rounded-full border px-4 flex items-center gap-3 transition-all",
-                    errors.phone && (touched.phone || submitted)
+                    submitted && errors.phone
                       ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
                       : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
@@ -510,22 +533,23 @@ export function LoginModal({
                     {selectedCountry.dial_code}
                   </span>
                   <input
+                    ref={phoneInputRef}
+                    autoFocus={open && authMode === "phone"}
                     type="tel"
                     inputMode="tel"
                     autoComplete="tel-national"
                     value={phone}
                     onChange={(e) => {
                       setPhone(e.target.value);
-                      if (touched.phone || submitted) {
+                      if (submitted) {
                         setErrors(validatePhone(e.target.value));
                       }
                     }}
-                    onBlur={() => handleBlur("phone")}
                     placeholder="Phone number"
                     className="w-full h-full bg-transparent text-base placeholder:text-foreground outline-none border-none focus:outline-none focus:ring-0"
                   />
                 </div>
-                {errors.phone && (touched.phone || submitted) && (
+                {submitted && errors.phone && (
                   <p className="mt-1 text-xs text-red-500 px-3">{errors.phone}</p>
                 )}
               </div>
