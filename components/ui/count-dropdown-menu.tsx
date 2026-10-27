@@ -236,7 +236,7 @@ export function CountDropdownMenu({
                     "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
                       ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
-                      : "bg-background dark:ring-offset-[#212121] dark:focus-within:ring-offset-[#212121]"
+                      : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
                   )}
                 >
                   <button

@@ -733,7 +733,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 cursor-pointer",
                 pillButtonFocusRing,
                 plusMenuOpen
-                  ? "bg-secondary dark:bg-[#383838] text-foreground"
+                  ? "bg-secondary dark:bg-[#2f2f2f] text-foreground"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#383838]"
               )}
               aria-label="Attach files and more"
@@ -920,7 +920,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 : hasContent
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
-                ? "bg-neutral-300 dark:bg-[#383838] text-muted-foreground cursor-not-allowed opacity-50"
+                ? "bg-neutral-300 dark:bg-[#2f2f2f] text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}

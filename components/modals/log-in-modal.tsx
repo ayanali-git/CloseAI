@@ -324,7 +324,7 @@ export function LoginModal({
           <button
             type="button"
             disabled
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center border border-transparent select-none opacity-50 cursor-not-allowed disabled:opacity-50 disabled:cursor-not-allowed transition-all outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center border border-transparent select-none opacity-50 active:scale-[0.99] cursor-not-allowed disabled:opacity-50 disabled:cursor-not-allowed transition-all outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0"
             style={{ outline: "none" }}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
@@ -451,7 +451,7 @@ export function LoginModal({
                     : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                   isGuest
                     ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
-                    : "bg-background dark:ring-offset-[#212121] dark:focus-within:ring-offset-[#212121]"
+                    : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
                 )}
               >
                 <input
@@ -503,7 +503,7 @@ export function LoginModal({
                       : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
                       ? "bg-white dark:bg-[#2f2f2f] dark:border-white/10 dark:ring-offset-[#2f2f2f] dark:focus-within:ring-offset-[#2f2f2f]"
-                      : "bg-background dark:ring-offset-[#212121] dark:focus-within:ring-offset-[#212121]"
+                      : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
                   )}
                 >
                   <span className="text-base text-foreground font-normal select-none shrink-0 pl-1">
@@ -536,7 +536,7 @@ export function LoginModal({
             type="submit"
             disabled={loading}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:pointer-events-auto disabled:cursor-not-allowed opacity-50 flex items-center justify-center text-center leading-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#2f2f2f]"
                 : "dark:focus-visible:ring-offset-[#212121]"
@@ -549,24 +549,6 @@ export function LoginModal({
               "Continue"
             )}
           </button>
-
-          <p className="text-center text-xs text-muted-foreground px-2 pt-1 leading-relaxed select-none">
-            By continuing, you agree to our{" "}
-            <Link
-              href="/support/terms"
-              className="rounded-full text-foreground hover:opacity-80 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
-            >
-              <span>Terms of Use</span>
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/support/privacy"
-              className="rounded-full text-foreground hover:opacity-80 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
-            >
-              <span>Privacy Policy</span>
-            </Link>
-            .
-          </p>
         </form>
       </div>
     </BottomSheet>

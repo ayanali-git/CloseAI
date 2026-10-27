@@ -109,6 +109,7 @@ interface SidebarProps {
   isOpen: boolean;
   onToggle: () => void;
   isLoading?: boolean;
+  isGuest?: boolean;
   onOpenLoginModal?: (options?: { description?: string; title?: string }) => void;
   onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
   onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
@@ -349,7 +350,7 @@ const SidebarChatItem = React.memo(
                   e.stopPropagation();
                   onToggleStarRef.current(chat.id, !chat.starred);
                 }}
-                className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
+                className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 {chat.starred ? (
                   <PinOff className="w-5 h-5 text-foreground" />
@@ -371,7 +372,7 @@ const SidebarChatItem = React.memo(
                     e.stopPropagation();
                     onToggleArchiveRef.current?.(chat.id, !chat.archived);
                   }}
-                  className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto"
+                  className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                 >
                   {chat.archived ? (
                     <ArchiveX className="w-5 h-5" />
@@ -393,7 +394,7 @@ const SidebarChatItem = React.memo(
                   e.stopPropagation();
                   setChatToDeleteRef.current(chat);
                 }}
-                className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto"
+                className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 <Trash2 className="w-5 h-5" />
               </button>
@@ -427,11 +428,15 @@ export function Sidebar({
   isOpen,
   onToggle,
   isLoading = false,
+  isGuest: isGuestProp,
   onOpenLoginModal,
   onOpenWebSearchModal,
   onOpenAdvancedFeaturesModal,
   onWebSearchHover,
 }: SidebarProps) {
+  const isGuestMode = isGuestProp !== undefined ? isGuestProp : !user;
+  const isAuthenticated = !isGuestMode && Boolean(user);
+
   const pathname = usePathname();
   const isNewChat =
     !currentChatId &&
@@ -446,12 +451,47 @@ export function Sidebar({
   const showProfileSkeleton = isAuthLoading || (!!user && isLoading);
   const { plan: userPlan } = useSubscription();
   const { theme, setTheme } = useTheme();
+  const { setSidebarOpen } = useSidebarContext();
+  const [collapsedSections, setCollapsedSections] = useState<
+    Record<string, boolean>
+  >({});
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [chatStreamScrolled, setChatStreamScrolled] = useState(false);
+  const [chatStreamCanScrollDown, setChatStreamCanScrollDown] = useState(false);
+  const chatListRef = useRef<HTMLDivElement>(null);
+
+  const updateChatListScrollBorders = useCallback(
+    (target?: HTMLElement | null) => {
+      const el = target || chatListRef.current;
+      if (!el) return;
+      const isScrolled = el.scrollTop > 0;
+      const canScrollDown = el.scrollHeight - el.scrollTop - el.clientHeight > 2;
+      setChatStreamScrolled(isScrolled);
+      setChatStreamCanScrollDown(canScrollDown);
+    },
+    []
+  );
+
+  useEffect(() => {
+    const el = chatListRef.current;
+    if (!el) return;
+    updateChatListScrollBorders(el);
+    const ro = new ResizeObserver(() => {
+      updateChatListScrollBorders(el);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [chats, isLoading, collapsedSections, searchQuery, isOpen, updateChatListScrollBorders]);
 
   const [isLogoHovered, setIsLogoHovered] = useState(false);
+  const [isBorderHovered, setIsBorderHovered] = useState(false);
+  const [isEmptySpaceHovered, setIsEmptySpaceHovered] = useState(false);
   const [isCloseBtnHovered, setIsCloseBtnHovered] = useState(false);
   const [isImagesHovered, setIsImagesHovered] = useState(false);
+
+  const shouldShowPanelIcon = isAuthenticated
+    ? isLogoHovered || (!isOpen && (isBorderHovered || isEmptySpaceHovered))
+    : true;
 
   useEffect(() => {
     if (false) {
@@ -463,10 +503,6 @@ export function Sidebar({
     }
   }, []);
 
-  const { setSidebarOpen } = useSidebarContext();
-  const [collapsedSections, setCollapsedSections] = useState<
-    Record<string, boolean>
-  >({});
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showReportBugModal, setShowReportBugModal] = useState(false);
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
@@ -663,6 +699,9 @@ export function Sidebar({
   useEffect(() => {
     setWebSearchHoverOpen(false);
     setRailWebSearchHoverOpen(false);
+    setIsLogoHovered(false);
+    setIsBorderHovered(false);
+    setIsEmptySpaceHovered(false);
     if (!isOpen) {
       setMobileHelpMenuOpen(false);
     }
@@ -829,11 +868,6 @@ export function Sidebar({
     </div>
   );
 
-  /**
-   * Guest Web Search Hover Card Content
-   * Matches the background and border of the guest Help dropdown:
-   * bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-none
-   */
   const renderWebSearchHoverCardContent = (
     closeCard: () => void,
     side: "bottom" | "right" = "bottom"
@@ -842,8 +876,8 @@ export function Sidebar({
       side={side}
       align="start"
       sideOffset={side === "bottom" ? 6 : 20}
-      collisionPadding={12}
-      className="w-[calc(100vw-2rem)] sm:w-[350px] max-w-[350px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
+      collisionPadding={9}
+      className="w-[calc(100vw-2rem)] sm:w-[330px] max-w-[330px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
     >
       {/* Web Search Simple Sky Blue & Soft Lilac Gradient Banner with DiceBear Glass SVG */}
       <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
@@ -868,7 +902,7 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
+            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
             Log in
           </button>
@@ -878,7 +912,7 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
+            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
             Sign up for free
           </button>
@@ -1377,9 +1411,32 @@ export function Sidebar({
       >
         {/* Full-height border resize/toggle handle */}
         <div
-          onClick={onToggle}
-          style={{ cursor: "ew-resize" }}
-          className="absolute -right-[3px] top-0 bottom-0 w-[6px] z-30 hover:bg-foreground/15 transition-colors cursor-ew-resize"
+          onClick={(e) => {
+            if (isAuthenticated) {
+              (e.currentTarget as HTMLElement)?.blur();
+              setIsBorderHovered(false);
+              setIsLogoHovered(false);
+              setIsEmptySpaceHovered(false);
+              onToggle();
+            }
+          }}
+          onMouseEnter={() => {
+            if (isAuthenticated && !isOpen) {
+              setIsBorderHovered(true);
+            }
+          }}
+          onMouseLeave={() => {
+            if (isAuthenticated) {
+              setIsBorderHovered(false);
+            }
+          }}
+          style={isAuthenticated ? { cursor: "ew-resize" } : undefined}
+          className={cn(
+            "absolute -right-[3px] top-0 bottom-0 w-[6px] z-30 transition-colors",
+            isAuthenticated
+              ? "hover:bg-foreground/15 cursor-ew-resize !cursor-ew-resize"
+              : "pointer-events-none cursor-default"
+          )}
         />
 
         {/* Persistent Non-Blinking Profile Avatar for Authenticated Users.
@@ -1407,11 +1464,15 @@ export function Sidebar({
               "w-[60px] h-full flex flex-col items-center shrink-0 absolute top-0 left-0 z-10 max-xl:hidden",
               mounted && "transition-opacity duration-200",
               !isOpen
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
+                ? "opacity-100 pointer-events-auto visible"
+                : "opacity-0 pointer-events-none invisible"
             )}
             aria-hidden={isOpen}
-            onMouseLeave={() => setIsLogoHovered(false)}
+            onMouseLeave={() => {
+              setIsLogoHovered(false);
+              setIsBorderHovered(false);
+              setIsEmptySpaceHovered(false);
+            }}
           >
             <div className="flex flex-col items-center relative z-20">
               {/* Brand Emblem / Expand (h-14 container matching header h-14) */}
@@ -1423,22 +1484,36 @@ export function Sidebar({
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
                         setIsLogoHovered(false);
+                        setIsBorderHovered(false);
+                        setIsEmptySpaceHovered(false);
                         onToggle();
                       }}
                       onMouseEnter={() => setIsLogoHovered(true)}
                       onMouseLeave={() => setIsLogoHovered(false)}
                       onBlur={() => setIsLogoHovered(false)}
-                      style={{ cursor: "ew-resize" }}
-                      className="group w-11 h-11 rounded-sm flex items-center justify-center text-foreground hover:bg-secondary transition-colors !cursor-ew-resize [&_*]:!cursor-ew-resize"
+                      style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
+                      className={cn(
+                        "group w-11 h-11 rounded-sm flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                        isAuthenticated
+                          ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
+                          : "cursor-pointer [&_*]:cursor-pointer"
+                      )}
                       aria-label="Open sidebar"
                     >
-                      {user && !isLogoHovered ? (
+                      {isAuthenticated && !shouldShowPanelIcon ? (
                         <CloseAIIcon
                           size={26}
                           className="w-5 h-5 pointer-events-none"
                         />
                       ) : (
-                        <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground pointer-events-none" />
+                        <PanelRight
+                          className={cn(
+                            "w-5 h-5 pointer-events-none transition-colors",
+                            isBorderHovered || isEmptySpaceHovered
+                              ? "text-foreground"
+                              : "text-muted-foreground group-hover:text-foreground"
+                          )}
+                        />
                       )}
                     </button>
                   </TooltipTrigger>
@@ -1468,7 +1543,7 @@ export function Sidebar({
                           onToggle();
                         }
                       }}
-                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="New chat"
                     >
                       <SquarePen className="w-5 h-5" />
@@ -1492,7 +1567,7 @@ export function Sidebar({
                           onClick={() => {
                             handleOpenSearchModal();
                           }}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Search chats"
                         >
                           <Search className="w-5 h-5" />
@@ -1512,7 +1587,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Pinned chats"
                         >
                           <Pin className="w-5 h-5" />
@@ -1532,7 +1607,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Archived chats"
                         >
                           <Archive className="w-5 h-5" />
@@ -1554,7 +1629,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           type="button"
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-not-allowed opacity-50"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-not-allowed opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Create Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1593,7 +1668,7 @@ export function Sidebar({
                             (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
-                            "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer",
+                            "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             railWebSearchHoverOpen &&
                               "bg-secondary text-foreground"
                           )}
@@ -1604,13 +1679,45 @@ export function Sidebar({
                       </HoverCardTrigger>
                       {renderWebSearchHoverCardContent(
                         () => setRailWebSearchHoverOpen(false),
-                        "right"
+                        "bottom"
                       )}
                     </HoverCard>
                   </>
                 )}
               </div>
             </div>
+
+            {/* Middle Empty Space in Collapsed Rail (Expandable for authenticated users) */}
+            <div
+              data-sidebar-rail-empty
+              onClick={(e) => {
+                if (isAuthenticated) {
+                  (e.currentTarget as HTMLElement)?.blur();
+                  setIsEmptySpaceHovered(false);
+                  setIsLogoHovered(false);
+                  setIsBorderHovered(false);
+                  onToggle();
+                }
+              }}
+              onMouseEnter={() => {
+                if (isAuthenticated) {
+                  setIsEmptySpaceHovered(true);
+                }
+              }}
+              onMouseLeave={() => {
+                if (isAuthenticated) {
+                  setIsEmptySpaceHovered(false);
+                }
+              }}
+              style={isAuthenticated ? { cursor: "ew-resize" } : undefined}
+              className={cn(
+                "w-full flex-1 min-h-0 select-none relative z-10",
+                isAuthenticated
+                  ? "cursor-ew-resize !cursor-ew-resize"
+                  : "cursor-default pointer-events-none"
+              )}
+              aria-hidden="true"
+            />
 
             {/* Rail Bottom Dock (mt-auto) */}
             <div className="mt-auto w-full pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 flex flex-col items-center gap-1.5 relative z-20">
@@ -1628,7 +1735,7 @@ export function Sidebar({
                         onClick={() => {
                           toast.info("App coming soon");
                         }}
-                        className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary hover:text-foreground cursor-pointer"
+                        className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Download app"
                       >
                         <Store className="w-5 h-5 shrink-0" />
@@ -1657,7 +1764,7 @@ export function Sidebar({
                           <button
                             type="button"
                             className={cn(
-                              "w-12 h-12 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none",
+                              "w-12 h-12 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               collapsedAccountMenuOpen && "bg-secondary"
                             )}
                             aria-label="Account menu"
@@ -1700,7 +1807,7 @@ export function Sidebar({
                         target="_blank"
                         rel="noopener noreferrer"
                         tabIndex={isOpen ? -1 : 0}
-                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Plans"
                       >
                         <CreditCard className="w-5 h-5 shrink-0" />
@@ -1727,7 +1834,7 @@ export function Sidebar({
                             type="button"
                             tabIndex={isOpen ? -1 : 0}
                             className={cn(
-                              "w-11 h-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none",
+                              "w-11 h-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               "text-muted-foreground hover:text-foreground hover:bg-secondary",
                               railHelpOpen && "bg-secondary text-foreground"
                             )}
@@ -1769,7 +1876,7 @@ export function Sidebar({
                             isMobileScreen ? undefined : "general"
                           )
                         }
-                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Settings"
                       >
                         <Settings className="w-5 h-5 shrink-0" />
@@ -1794,16 +1901,13 @@ export function Sidebar({
             suppressHydrationWarning
             className={cn(
               "w-full xl:w-[250px] xl:min-w-[250px] h-full flex flex-col shrink-0 absolute top-0 left-0 z-10",
-              mounted && "transition-opacity duration-200",
+              mounted && "transition-[opacity,visibility] duration-200",
               isOpen
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none max-xl:opacity-100"
+                ? "opacity-100 pointer-events-auto visible"
+                : "opacity-0 pointer-events-none invisible"
             )}
             aria-hidden={!isOpen}
           >
-            {/* Top Header
-                Guest: px-2 + w-11 link = the same 44px box (x 8–52) as the 60px rail emblem,
-                so the logo doesn't move when the sidebar expands/collapses. */}
             <div
               className="h-14 pt-[env(safe-area-inset-top,0px)] flex items-center justify-between relative z-20 shrink-0 px-2"
             >
@@ -1811,7 +1915,7 @@ export function Sidebar({
                 <>
                   <Link
                     href="/"
-                    className="xl:hidden flex items-center justify-center w-11 h-11 rounded-sm hover:bg-secondary"
+                    className="xl:hidden flex items-center justify-center w-11 h-11 rounded-sm hover:bg-secondary outline-none focus:outline-none focus-visible:outline-none"
                     aria-label="CloseAI"
                   >
                     <CloseAIIcon size={26} />
@@ -1829,7 +1933,7 @@ export function Sidebar({
                       <PopoverTrigger asChild>
                         <button
                           type="button"
-                          className="h-11 px-3 flex items-center gap-1.5 rounded-sm hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-xl font-bold tracking-tight transition-colors cursor-pointer outline-none focus:outline-none group select-none"
+                          className="h-11 px-3 flex items-center gap-1.5 rounded-sm hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-xl font-bold tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
                         >
                           <span className="leading-none">CloseAI</span>
                           <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -1838,9 +1942,9 @@ export function Sidebar({
                       <PopoverContent
                         align="start"
                         sideOffset={6}
-                        collisionPadding={12}
+                        collisionPadding={9}
                         onOpenAutoFocus={(e) => e.preventDefault()}
-                        className="w-[350px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
+                        className="w-[330px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
                       >
                         <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                           <img
@@ -1864,7 +1968,7 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 ring-0 select-none"
+                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
                               Log in
                             </button>
@@ -1874,7 +1978,7 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 ring-0 select-none"
+                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
                               Sign up for free
                             </button>
@@ -1887,7 +1991,7 @@ export function Sidebar({
               ) : (
                 <Link
                   href="/"
-                  className="flex items-center transition-opacity hover:opacity-80 h-11 gap-2 px-1"
+                  className="flex items-center transition-opacity hover:opacity-80 h-11 gap-2 px-1 rounded-sm outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   aria-label="CloseAI"
                 >
                   <span className="text-xl font-semibold leading-none tracking-tight text-foreground">
@@ -1903,12 +2007,12 @@ export function Sidebar({
                 )}
               >
                 {user ? (
-                  <Tooltip>
+                  <Tooltip open={isOpen && !isAnyModalOpen ? undefined : false}>
                     <TooltipTrigger asChild>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                        className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                         onClick={handleOpenSearchModal}
                       >
                         <Search className="w-5 h-5" />
@@ -1925,12 +2029,12 @@ export function Sidebar({
                 ) : (
                   <>
                     {/* Big Screen Devices: Desktop Search Button for Guest Mode */}
-                    <Tooltip>
+                    <Tooltip open={isOpen && !isAnyModalOpen ? undefined : false}>
                       <TooltipTrigger asChild>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                          className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                           onClick={() => {
                             handleOpenSearchModal();
                           }}
@@ -1955,7 +2059,7 @@ export function Sidebar({
                           description: "To continue with Search chats",
                         });
                       }}
-                      className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
+                      className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
                       aria-label="Search chats"
                     >
                       <Search className="w-5 h-5 shrink-0" />
@@ -1968,9 +2072,11 @@ export function Sidebar({
                         (e.currentTarget as HTMLElement)?.blur();
                         setIsCloseBtnHovered(false);
                         setIsLogoHovered(false);
+                        setIsBorderHovered(false);
+                        setIsEmptySpaceHovered(false);
                         onToggle();
                       }}
-                      className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
+                      className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
                       aria-label="Close sidebar"
                     >
                       <X className="w-5 h-5 shrink-0" />
@@ -1978,20 +2084,25 @@ export function Sidebar({
                   </>
                 )}
 
-                <Tooltip>
+                <Tooltip open={isOpen && !isAnyModalOpen ? undefined : false}>
                   <TooltipTrigger asChild>
                     <Button
                       variant="ghost"
                       size="icon"
-                      style={{ cursor: "ew-resize" }}
+                      style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
                       className={cn(
-                        "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary !cursor-ew-resize [&_*]:!cursor-ew-resize",
+                        "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        isAuthenticated
+                          ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
+                          : "cursor-pointer [&_*]:cursor-pointer",
                         !user && "hidden xl:inline-flex"
                       )}
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
                         setIsCloseBtnHovered(false);
                         setIsLogoHovered(false);
+                        setIsBorderHovered(false);
+                        setIsEmptySpaceHovered(false);
                         onToggle();
                       }}
                       onMouseEnter={() => setIsCloseBtnHovered(true)}
@@ -2037,7 +2148,7 @@ export function Sidebar({
                   }
                 }}
                 className={cn(
-                  "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150",
+                  "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                   isNewChat && "max-xl:bg-secondary/70"
                 )}
               >
@@ -2054,7 +2165,7 @@ export function Sidebar({
                     type="button"
                     onMouseEnter={() => setIsImagesHovered(true)}
                     onMouseLeave={() => setIsImagesHovered(false)}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed opacity-50 group transition-all duration-150 text-left"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm text-foreground [@media(hover:hover)]:hover:bg-secondary text-base select-none cursor-not-allowed opacity-50 group transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -2111,7 +2222,7 @@ export function Sidebar({
                           }
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary",
+                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                           webSearchHoverOpen && "bg-secondary"
                         )}
                       >
@@ -2130,8 +2241,8 @@ export function Sidebar({
                       side="bottom"
                       align="start"
                       sideOffset={6}
-                      collisionPadding={12}
-                      className="w-[calc(100vw-2rem)] sm:w-[350px] max-w-[350px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
+                      collisionPadding={9}
+                      className="w-[calc(100vw-2rem)] sm:w-[330px] max-w-[330px] p-0 rounded-sm bg-white dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
                     >
                       <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
                         <img
@@ -2157,7 +2268,7 @@ export function Sidebar({
                                 description: "To continue with Search",
                               });
                             }}
-                            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center"
+                            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           >
                             Log in
                           </button>
@@ -2169,7 +2280,7 @@ export function Sidebar({
                                 description: "To continue with Search",
                               });
                             }}
-                            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center"
+                            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           >
                             Sign up for free
                           </button>
@@ -2184,11 +2295,9 @@ export function Sidebar({
             {/* Chat History Stream (Only for authenticated users) */}
             {user ? (
               <div
+                ref={chatListRef}
                 onScroll={(e) => {
-                  const isScrolled = e.currentTarget.scrollTop > 0;
-                  if (chatStreamScrolled !== isScrolled) {
-                    setChatStreamScrolled(isScrolled);
-                  }
+                  updateChatListScrollBorders(e.currentTarget);
                 }}
                 className={cn(
                   "flex-1 px-2 overflow-y-auto border-t transition-colors duration-200 sidebar-scroll min-h-0",
@@ -2231,7 +2340,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Pinned")}
-                        className="w-full flex items-center justify-between px-2 py-1 text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left"
+                        className="w-full flex items-center justify-between px-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Pinned</span>
                         <AnimatedChevron
@@ -2262,7 +2371,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Archived")}
-                        className="w-full flex items-center justify-between px-2 py-1 text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left"
+                        className="w-full flex items-center justify-between px-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Archived</span>
                         <AnimatedChevron
@@ -2293,7 +2402,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Recents")}
-                        className="w-full flex items-center justify-between px-2 py-1 text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left"
+                        className="w-full flex items-center justify-between px-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Recents</span>
                         <AnimatedChevron
@@ -2333,7 +2442,12 @@ export function Sidebar({
               className={cn(
                 "mt-auto w-full relative z-20 select-none",
                 user || isAuthLoading
-                  ? "px-2 pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] border-t border-border/80 dark:border-white/10"
+                  ? cn(
+                      "px-2 pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] border-t transition-colors duration-200",
+                      chatStreamCanScrollDown
+                        ? "border-border/80 dark:border-white/10"
+                        : "border-transparent"
+                    )
                   : "px-2 max-xl:px-3 pt-2 max-xl:pt-0 max-xl:pb-[max(env(safe-area-inset-bottom),0.75rem)] pb-[max(env(safe-area-inset-bottom),0.5rem)]"
               )}
             >
@@ -2362,8 +2476,14 @@ export function Sidebar({
                           <div
                             role="button"
                             tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                setAccountMenuOpen((prev) => !prev);
+                              }
+                            }}
                             className={cn(
-                              "w-full h-12 flex items-center justify-between rounded-sm hover:bg-secondary data-[state=open]:bg-secondary transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 pl-[6px] pr-1.5 min-w-0",
+                              "w-full h-12 flex items-center justify-between rounded-sm hover:bg-secondary data-[state=open]:bg-secondary transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
                               accountMenuOpen && "bg-secondary"
                             )}
                           >
@@ -2416,7 +2536,7 @@ export function Sidebar({
                                       e.stopPropagation();
                                       if (user) toast.info("App coming soon");
                                     }}
-                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
+                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                                     aria-label="Download app"
                                   >
                                     <Store className="w-5 h-5 shrink-0" />
@@ -2466,7 +2586,7 @@ export function Sidebar({
                           type="button"
                           tabIndex={!isOpen ? -1 : 0}
                           className={cn(
-                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none",
+                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             guestHelpMenuOpen && !isMobileScreen && "bg-secondary"
                           )}
                           aria-label="Help"
@@ -2500,7 +2620,7 @@ export function Sidebar({
                       target="_blank"
                       rel="noopener noreferrer"
                       tabIndex={!isOpen ? -1 : 0}
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Plans"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2521,7 +2641,7 @@ export function Sidebar({
                           isMobileScreen ? undefined : "general"
                         )
                       }
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Settings"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2547,7 +2667,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       >
                         Log in
                       </button>
@@ -2569,7 +2689,7 @@ export function Sidebar({
                           type="button"
                           tabIndex={!isOpen ? -1 : 0}
                           className={cn(
-                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none",
+                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none",
                             mobileHelpMenuOpen && isMobileScreen && "bg-secondary"
                           )}
                           aria-label="Help"
@@ -2608,7 +2728,7 @@ export function Sidebar({
                           onToggle();
                         }
                       }}
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none"
                       aria-label="Plans"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2629,7 +2749,7 @@ export function Sidebar({
                           isMobileScreen ? undefined : "general"
                         );
                       }}
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none"
                       aria-label="Settings"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2655,7 +2775,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none"
                       >
                         Log in
                       </button>

@@ -377,7 +377,7 @@ function NewChatContent() {
                         <DropdownMenuTrigger asChild>
                           <button
                             type="button"
-                            className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                            className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                             aria-label={isPersonalized ? "Personalization" : "Unpersonalized"}
                           >
                             <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
@@ -398,18 +398,18 @@ function NewChatContent() {
                     <DropdownMenuContent
                       align="end"
                       sideOffset={6}
-                      className="w-80 rounded-xl p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
+                      className="w-full rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
                     >
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(true)}
-                        className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-sm cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
                       >
                         <div className="flex flex-col text-left">
                           <span className="text-sm font-semibold text-foreground">
                             Personalized
                           </span>
                           <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                            This chat can reference memory and custom instructions
+                            This chat can reference memory, and custom instructions
                           </span>
                         </div>
                         {isPersonalized && (
@@ -419,14 +419,14 @@ function NewChatContent() {
 
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(false)}
-                        className="group flex items-start justify-between gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-sm cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 data-[highlighted]:bg-black/5 dark:data-[highlighted]:bg-white/10 transition-colors"
                       >
                         <div className="flex flex-col text-left">
                           <span className="text-sm font-semibold text-foreground">
                             Unpersonalized
                           </span>
                           <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                            This chat will ignore memory and custom instructions
+                            This chat will ignore memory, and custom instructions
                           </span>
                         </div>
                         {!isPersonalized && (
@@ -443,7 +443,7 @@ function NewChatContent() {
                       type="button"
                       onClick={handleToggleTemporaryChat}
                       className={cn(
-                        "group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                        "group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isTemporary
                           ? "bg-black/10 dark:bg-white/15 text-foreground"
                           : "text-muted-foreground hover:text-foreground"

@@ -162,8 +162,8 @@ export function ReportBugModal({
                     ? "bg-foreground text-background border-foreground dark:bg-white dark:text-neutral-900 dark:border-white"
                     : cn(
                         isGuest
-                          ? "bg-secondary text-foreground hover:bg-secondary/80 border-border/80 dark:bg-[#383838] dark:hover:bg-[#424242] dark:text-neutral-200 dark:border-transparent"
-                          : "bg-secondary text-foreground hover:bg-secondary/80 border-border/80 dark:bg-[#2f2f2f] dark:hover:bg-[#383838] dark:text-neutral-200 dark:border-transparent"
+                          ? "text-foreground border-border/80 dark:border-white/10 dark:bg-[#2f2f2f] hover:bg-secondary dark:hover:bg-[#383838]"
+                          : "text-foreground border-border/80 bg-white dark:bg-[#212121] hover:bg-secondary dark:hover:bg-[#383838]"
                       )
                 )}
                 style={{ outline: "none" }}
@@ -202,7 +202,7 @@ export function ReportBugModal({
               "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-foreground transition-colors resize-y outline-none border",
               isGuest
                 ? "bg-transparent border-border/80 dark:border-white/10"
-                : "bg-secondary border-border/80 dark:border-none"
+                : "bg-white dark:bg-[#212121] border-border/80"
             )}
           />
         </div>
