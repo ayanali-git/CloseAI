@@ -75,7 +75,7 @@ export function LoginModal({
     focusActiveInput();
     const rafId = requestAnimationFrame(focusActiveInput);
     const timer = setTimeout(focusActiveInput, 60);
-    const fallbackTimer = setTimeout(focusActiveInput, 180);
+    const fallbackTimer = setTimeout(focusActiveInput, 120);
 
     return () => {
       cancelAnimationFrame(rafId);
