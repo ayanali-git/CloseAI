@@ -91,8 +91,10 @@ import { SearchModal } from "@/components/modals/search-modal";
 import toast from "@/lib/toast";
 import { openSettings, isSettingsHash, SettingsSection } from "@/lib/settings-hash";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
-import { motion } from "framer-motion";
+import { EASE_DRAWER } from "@/lib/ease";
+import { motion, useDragControls, type PanInfo } from "framer-motion";
 
+const DRAWER = { duration: 0.35, ease: EASE_DRAWER } as const;
 const SIDEBAR_SPRING = { type: "spring", damping: 30, stiffness: 320 } as const;
 
 interface SidebarProps {
@@ -756,9 +758,46 @@ export function Sidebar({
   const [accountSubView, setAccountSubView] = useState<
     "main" | "theme" | "help" | "accounts"
   >("main");
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const [isMobileScreen, setIsMobileScreen] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 1280;
+    }
+    return false;
+  });
   const [mounted, setMounted] = useState(false);
   const [isReadyToAnimate, setIsReadyToAnimate] = useState(false);
+
+  const dragControls = useDragControls();
+
+  const handleNewChatAction = useCallback(() => {
+    onNewChat();
+    if (isGuestMode) {
+      setSidebarOpen(false);
+    } else if (
+      isOpen &&
+      typeof window !== "undefined" &&
+      window.innerWidth < 1280
+    ) {
+      setSidebarOpen(false);
+    }
+  }, [onNewChat, isGuestMode, isOpen, setSidebarOpen]);
+
+  const onSidebarDragEnd = useCallback(
+    (_: unknown, info: PanInfo) => {
+      if (!isMobileScreen) return;
+      const velocity = info.velocity.x;
+      const offset = info.offset.x;
+
+      // Consistent with bottom-sheet (velocity > 300 || offset > 80):
+      // Only dismiss when dragged left towards close (offset < -80 || velocity < -300).
+      // Dragging right (offset >= 0, velocity >= 0) or small moves NEVER close the sidebar.
+      if (velocity < -300 || offset < -80) {
+        setSidebarOpen(false);
+        return;
+      }
+    },
+    [isMobileScreen, setSidebarOpen]
+  );
 
   useEffect(() => {
     setIsMobileScreen(window.innerWidth < 1280);
@@ -1388,10 +1427,18 @@ export function Sidebar({
       {/* Main Sidebar (Expands smoothly from 50px to 250px on Desktop, slides over on Mobile) */}
       <motion.aside
         suppressHydrationWarning
-        initial={false}
-        animate={{ x: isMobileScreen && !isOpen ? "-100%" : 0 }}
+        initial={isMobileScreen ? { x: "-100%" } : false}
+        drag={isMobileScreen && isOpen ? "x" : false}
+        dragControls={dragControls}
+        dragListener={isMobileScreen && isOpen}
+        dragDirectionLock={true}
+        dragConstraints={isOpen ? { left: 0, right: 0 } : undefined}
+        dragElastic={{ left: 0.4, right: 0.02 }}
+        dragMomentum={false}
+        onDragEnd={onSidebarDragEnd}
+        animate={{ x: isMobileScreen ? (isOpen ? 0 : "-100%") : 0 }}
         transition={
-          isReadyToAnimate && mounted && isMobileScreen
+          isMobileScreen
             ? SIDEBAR_SPRING
             : { duration: 0 }
         }
@@ -1399,20 +1446,19 @@ export function Sidebar({
           "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/80 dark:border-white/10 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
           isGuestMode && "max-xl:bg-white dark:max-xl:bg-[#1f1f1f]",
           mounted &&
-            "transition-[width] duration-300 ease-in-out will-change-[width]",
+            "xl:transition-[width] xl:duration-300 xl:ease-in-out xl:will-change-[width]",
           // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
           // xl and up: normal in-flow sidebar (60px rail / 250px open), same as before.
           "fixed xl:relative inset-y-0 left-0 w-[78%] max-w-[78%] sm:w-[250px] sm:max-w-[250px]",
           isOpen ? "z-50 xl:z-20" : "max-xl:z-50 xl:w-[60px]",
-          // Before mount we don't know the screen size yet, so keep the closed
-          // drawer out of sight (no flash on mobile page load).
-          !mounted && !isOpen && "max-xl:invisible"
+          // Before mount, hide mobile drawer completely so it never flashes, overlaps, or sits at 0 on reload
+          !mounted && "max-xl:hidden"
         )}
       >
-        {/* Full-height border resize/toggle handle */}
+        {/* Full-height border resize/toggle handle (desktop only) */}
         <div
           onClick={(e) => {
-            if (isAuthenticated) {
+            if (isAuthenticated && !isMobileScreen) {
               (e.currentTarget as HTMLElement)?.blur();
               setIsBorderHovered(false);
               setIsLogoHovered(false);
@@ -1432,7 +1478,7 @@ export function Sidebar({
           }}
           style={isAuthenticated ? { cursor: "ew-resize" } : undefined}
           className={cn(
-            "absolute -right-[3px] top-0 bottom-0 w-[6px] z-30 transition-colors",
+            "absolute -right-[3px] top-0 bottom-0 w-[6px] z-30 transition-colors max-xl:hidden",
             isAuthenticated
               ? "hover:bg-foreground/15 cursor-ew-resize !cursor-ew-resize"
               : "pointer-events-none cursor-default"
@@ -1534,14 +1580,7 @@ export function Sidebar({
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => {
-                        onNewChat();
-                        if (
-                          isOpen &&
-                          typeof window !== "undefined" &&
-                          window.innerWidth < 1280
-                        ) {
-                          onToggle();
-                        }
+                        handleNewChatAction();
                       }}
                       className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="New chat"
@@ -1906,10 +1945,10 @@ export function Sidebar({
             suppressHydrationWarning
             className={cn(
               "w-full xl:w-[250px] xl:min-w-[250px] h-full flex flex-col shrink-0 absolute top-0 left-0 z-10",
-              mounted && "transition-[opacity,visibility] duration-200",
+              mounted && "xl:transition-[opacity,visibility] xl:duration-200",
               isOpen
                 ? "opacity-100 pointer-events-auto visible"
-                : "opacity-0 pointer-events-none invisible"
+                : "max-xl:opacity-100 max-xl:visible max-xl:pointer-events-none xl:opacity-0 xl:pointer-events-none xl:invisible"
             )}
             aria-hidden={!isOpen}
           >
@@ -2148,14 +2187,7 @@ export function Sidebar({
 
               <button
                 onClick={() => {
-                  onNewChat();
-                  if (
-                    isOpen &&
-                    typeof window !== "undefined" &&
-                    window.innerWidth < 1280
-                  ) {
-                    onToggle();
-                  }
+                  handleNewChatAction();
                 }}
                 className={cn(
                   "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
@@ -2728,14 +2760,7 @@ export function Sidebar({
                     <button
                       type="button"
                       onClick={() => {
-                        onNewChat();
-                        if (
-                          isOpen &&
-                          typeof window !== "undefined" &&
-                          window.innerWidth < 1280
-                        ) {
-                          onToggle();
-                        }
+                        handleNewChatAction();
                       }}
                       className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
                     >
