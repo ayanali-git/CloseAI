@@ -1020,13 +1020,13 @@ export function PlusMenuContent({
 
         {/* 3. Create images */}
         <DropdownMenuItem
-          // onClick={() => {
-          //   if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Images" });
-          // }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] transition-colors outline-none whitespace-nowrap text-left"
+          onClick={() => {
+            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Create images" });
+          }}
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <AnimatedComingSoonText label="Create images" comingSoonText="Coming soon" />
+          <span>Create images</span>
         </DropdownMenuItem> 
 
         {/* 4. Attach files */}

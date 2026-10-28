@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { Message } from "@/lib/chat-service";
@@ -580,7 +581,7 @@ export default function GuestChatSessionPage() {
       {/* Main Chat Workspace */}
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header - Buttons float cleanly on top, matching c/[id] and sc/[id] */}
-        <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
+        <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-6 flex items-center justify-between select-none pointer-events-none bg-transparent">
           {/* Top gradient overlay */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
 
@@ -617,7 +618,7 @@ export default function GuestChatSessionPage() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-11 px-2 sm:px-4 flex items-center gap-1.5 rounded-sm hover:bg-secondary text-foreground text-xl font-bold tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-11 px-2 sm:px-4 flex items-center gap-1.5 rounded-sm hover:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -636,7 +637,7 @@ export default function GuestChatSessionPage() {
                 >
                   <div className="hidden xl:block h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                     <img
-                      src="https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=Try%20advanced%20features%20for%20free"
+                      src="https://api.dicebear.com/10.x/glass/svg?seed=Try%20advanced%20features%20for%20free"
                       alt="Try advanced features for free"
                       className="w-full h-full object-cover select-none pointer-events-none"
                     />
@@ -675,6 +676,13 @@ export default function GuestChatSessionPage() {
                 </PopoverContent>
               </Popover>
             </div> */}
+          </div>
+
+          {/* Center Brand Text — small screen devices only */}
+          <div className="xl:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
+            <span className="font-medium text-2xl tracking-tight text-foreground select-none">
+              CloseAI
+            </span>
           </div>
 
           {/* Right area */}

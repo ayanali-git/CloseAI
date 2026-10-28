@@ -870,9 +870,9 @@ export function MarketingHeader() {
                 setHoveredNav(null);
                 setIsSearchOpen(false);
               }}
-              className="flex items-center gap-2 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span className="font-bold text-xl tracking-tight text-foreground transition-opacity hover:opacity-80">
+              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-80">
                 CloseAI
               </span>
             </Link>

@@ -23,7 +23,7 @@ const ROLES_DATA: RoleItem[] = [];
 
 // DiceBear glass avatars generator matching main page
 const glassAvatar = (seed: string) =>
-  `https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=${encodeURIComponent(
+  `https://api.dicebear.com/10.x/glass/svg?seed=${encodeURIComponent(
     seed
   )}`;
 

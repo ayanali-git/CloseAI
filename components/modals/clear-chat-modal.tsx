@@ -83,18 +83,18 @@ export function ClearChatModal({
         <div className="space-y-2.5 pt-2">
           <button
             type="button"
-            onClick={handleNewChat}
-            className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f] transition-all cursor-pointer select-none"
-          >
-            New chat
-          </button>
-
-          <button
-            type="button"
             onClick={handleLogin}
             className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] flex items-center justify-center border border-transparent outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f] transition-all cursor-pointer select-none"
           >
             Log in
+          </button>
+
+          <button
+            type="button"
+            onClick={handleNewChat}
+            className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f] transition-all cursor-pointer select-none"
+          >
+            New chat
           </button>
         </div>
       </div>

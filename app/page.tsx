@@ -150,7 +150,7 @@ export default function LandingPage() {
 
   // DiceBear glass avatars
   const glassAvatar = (seed: string) =>
-    `https://api.dicebear.com/10.x/glass/svg?tags=animation&seed=${encodeURIComponent(
+    `https://api.dicebear.com/10.x/glass/svg?seed=${encodeURIComponent(
       seed
     )}`;
 
