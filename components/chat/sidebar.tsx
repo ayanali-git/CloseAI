@@ -1398,7 +1398,7 @@ export function Sidebar({
         }
         className={cn(
           "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/80 dark:border-white/10 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
-          isGuestMode && "max-xl:bg-[#1f1f1f]",
+          isGuestMode && "max-xl:bg-white dark:max-xl:dark:bg-[#1f1f1f]",
           mounted &&
             "transition-[width] duration-300 ease-in-out will-change-[width]",
           // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
@@ -2060,14 +2060,14 @@ export function Sidebar({
                           description: "To continue with Search chats",
                         });
                       }}
-                      className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
+                      className="xl:hidden w-11 h-11 rounded-full bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
                       aria-label="Search chats"
                     >
                       <Search className="w-5 h-5 shrink-0" />
                     </button>
 
                     {/* Small Screen Devices: Sidebar Close Button */}
-                    <button
+                    {/* <button
                       type="button"
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
@@ -2081,7 +2081,7 @@ export function Sidebar({
                       aria-label="Close sidebar"
                     >
                       <X className="w-5 h-5 shrink-0" />
-                    </button>
+                    </button> */}
                   </>
                 )}
 

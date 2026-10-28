@@ -234,7 +234,7 @@ function GuestChatContent() {
                 setIsSidebarBtnHovered(false);
                 handleToggleSidebar();
               }}
-              className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
+              className="xl:hidden w-11 h-11 rounded-full bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0"
               aria-label="Open sidebar"
             >
               <svg
@@ -251,7 +251,7 @@ function GuestChatContent() {
             </button>
 
             {/* CloseAI with ChevronDown and Popover — small screen devices only (xl:hidden) */}
-            <div className="xl:hidden group -ml-1">
+            {/* <div className="xl:hidden group -ml-1">
               <Popover
                 open={modelDropdownOpen}
                 onOpenChange={setModelDropdownOpen}
@@ -316,7 +316,7 @@ function GuestChatContent() {
                   </div>
                 </PopoverContent>
               </Popover>
-            </div>
+            </div> */}
           </div>
 
           {/* Right area */}

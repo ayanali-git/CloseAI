@@ -733,7 +733,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 cursor-pointer",
                 pillButtonFocusRing,
                 plusMenuOpen
-                  ? "bg-secondary dark:bg-[#1f1f1f] text-foreground"
+                  ? "bg-secondary dark:bg-[#2f2f2f] text-foreground"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
               )}
               aria-label="Attach files and more"
