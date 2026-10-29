@@ -793,8 +793,8 @@ export function Sidebar({
       const offset = info.offset.x;
 
       // Consistent with bottom-sheet logic adapted for horizontal dismiss:
-      // Moving half-way towards left (offset < -25) or swiping left (velocity < -80) automatically closes the sidebar.
-      if (velocity < -80 || offset < -25) {
+      // Moving half-way towards left (offset < -35) or swiping left (velocity < -120) automatically closes the sidebar.
+      if (velocity < -120 || offset < -35) {
         if (isOpen) {
           onToggle();
         }
