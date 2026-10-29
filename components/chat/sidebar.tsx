@@ -792,9 +792,9 @@ export function Sidebar({
       const velocity = info.velocity.x;
       const offset = info.offset.x;
 
-      // Consistent with bottom-sheet (velocity > 300 || offset > 80 in dismiss direction):
-      // Only dismiss when dragged left towards close (offset < -80 || velocity < -300).
-      if (velocity < -300 || offset < -80) {
+      // Consistent with bottom-sheet logic adapted for horizontal dismiss:
+      // Moving half-way towards left (offset < -35) or swiping left (velocity < -120) automatically closes the sidebar.
+      if (velocity < -120 || offset < -35) {
         if (isOpen) {
           onToggle();
         }
@@ -1425,7 +1425,7 @@ export function Sidebar({
       {/* Main Sidebar (Expands smoothly from 50px to 250px on Desktop, slides over on Mobile) */}
       <motion.aside
         suppressHydrationWarning
-        initial={!isMobileScreen ? false : { x: "-100%" }}
+        initial={!isMobileScreen ? false : { x: isOpen ? 0 : "-100%" }}
         animate={{ x: isMobileScreen ? (isOpen ? 0 : "-100%") : 0 }}
         drag={isMobileScreen && isOpen ? "x" : false}
         dragControls={dragControls}

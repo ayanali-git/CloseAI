@@ -305,7 +305,7 @@ export function AnimatedChevron({
   orientation = "up-down",
   className,
   size = 18,
-  strokeWidth = 1.5,
+  strokeWidth = 1,
   style,
   ...props
 }: AnimatedChevronProps) {
@@ -414,7 +414,7 @@ export function AnimatedPlusMinus({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.5,
+  strokeWidth = 1,
   style,
   ...props
 }: AnimatedPlusMinusProps) {
@@ -524,7 +524,7 @@ export function AnimatedPlusCheck({
   disableHover = false,
   className,
   size = 18,
-  strokeWidth = 1.5,
+  strokeWidth = 1,
   style,
   ...props
 }: AnimatedPlusCheckProps) {

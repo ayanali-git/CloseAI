@@ -189,7 +189,7 @@ export const chatService = {
   },
 
   async toggleChatArchive(supabase: SupabaseClient, chatId: string, archived: boolean) {
-    // 1. Synchronize cookie state as fallback/persisted state (no localStorage used)
+    // 1. Synchronize cookie state as fallback/persisted state
     if (typeof document !== 'undefined') {
       let currentIds: string[] = [];
       const match = document.cookie.match(/(?:^|; )archived_chats=([^;]*)/);
