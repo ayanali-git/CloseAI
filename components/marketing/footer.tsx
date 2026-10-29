@@ -501,6 +501,15 @@ export function Footer() {
               <span>LinkedIn</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
+            <a
+              href="https://www.instagram.com/ayanali_ig/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              <span>Instagram</span>
+              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
+            </a>
           </div>
           {/* Left: Brand & Copyright */}
           <div className="flex flex-wrap items-center justify-center text-base md:justify-start gap-x-1 text-center md:text-left">

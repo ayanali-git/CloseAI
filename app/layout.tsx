@@ -71,22 +71,19 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className="dark" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-        <meta name="color-scheme" content="dark light" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(localStorage.getItem('closeai-contrast')==='more'){document.documentElement.classList.add('contrast-more')}var a=localStorage.getItem('closeai-accent');if(a==='blue'||a==='green'||a==='purple'||a==='yellow'||a==='pink'||a==='white'){document.documentElement.dataset.accent=a}if(localStorage.getItem('closeai-dictation')==='false'){document.documentElement.dataset.dictationDisabled='true'}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('theme');var isDark=t==='dark'||((!t||t==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;if(isDark){r.classList.add('dark');r.style.colorScheme='dark';}else{r.classList.remove('dark');r.style.colorScheme='light';}if(localStorage.getItem('closeai-contrast')==='more'){r.classList.add('contrast-more');}var a=localStorage.getItem('closeai-accent');if(a==='blue'||a==='green'||a==='purple'||a==='yellow'||a==='pink'||a==='white'){r.dataset.accent=a;}if(localStorage.getItem('closeai-dictation')==='false'){r.dataset.dictationDisabled='true';}}catch(e){}})();`,
           }}
         />
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased font-sans">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
