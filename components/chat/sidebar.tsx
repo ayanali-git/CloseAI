@@ -773,14 +773,18 @@ export function Sidebar({
     onNewChat();
     if (isGuestMode) {
       setSidebarOpen(false);
+      if (isOpen) {
+        onToggle();
+      }
     } else if (
       isOpen &&
       typeof window !== "undefined" &&
       window.innerWidth < 1280
     ) {
       setSidebarOpen(false);
+      onToggle();
     }
-  }, [onNewChat, isGuestMode, isOpen, setSidebarOpen]);
+  }, [onNewChat, isGuestMode, isOpen, onToggle, setSidebarOpen]);
 
   const onSidebarDragEnd = useCallback(
     (_: unknown, info: PanInfo) => {
@@ -788,15 +792,17 @@ export function Sidebar({
       const velocity = info.velocity.x;
       const offset = info.offset.x;
 
-      // Consistent with bottom-sheet (velocity > 300 || offset > 80):
+      // Consistent with bottom-sheet (velocity > 300 || offset > 80 in dismiss direction):
       // Only dismiss when dragged left towards close (offset < -80 || velocity < -300).
-      // Dragging right (offset >= 0, velocity >= 0) or small moves NEVER close the sidebar.
       if (velocity < -300 || offset < -80) {
+        if (isOpen) {
+          onToggle();
+        }
         setSidebarOpen(false);
         return;
       }
     },
-    [isMobileScreen, setSidebarOpen]
+    [isMobileScreen, isOpen, onToggle, setSidebarOpen]
   );
 
   useEffect(() => {
@@ -1403,14 +1409,6 @@ export function Sidebar({
     </div>
   );
 
-  // ----------------------------------------------------
-  // Both Sidebar variants (Collapsed Rail + Expanded) are rendered from this
-  // single return so the Logout/Delete modals always mount, regardless of
-  // whether the sidebar itself is open or collapsed to the 50px rail.
-  // Previously the modals lived only after the expanded <aside>, so opening
-  // them from the collapsed rail's dropdown set state with nothing mounted
-  // to render it.
-  // ----------------------------------------------------
   return (
     <>
       {/* Mobile overlay backdrop */}
@@ -1427,20 +1425,20 @@ export function Sidebar({
       {/* Main Sidebar (Expands smoothly from 50px to 250px on Desktop, slides over on Mobile) */}
       <motion.aside
         suppressHydrationWarning
-        initial={isMobileScreen ? { x: "-100%" } : false}
+        initial={!isMobileScreen ? false : { x: "-100%" }}
+        animate={{ x: isMobileScreen ? (isOpen ? 0 : "-100%") : 0 }}
         drag={isMobileScreen && isOpen ? "x" : false}
         dragControls={dragControls}
         dragListener={isMobileScreen && isOpen}
-        dragDirectionLock={true}
-        dragConstraints={isOpen ? { left: 0, right: 0 } : undefined}
+        dragConstraints={{ left: 0, right: 0 }}
         dragElastic={{ left: 0.4, right: 0.02 }}
         dragMomentum={false}
+        dragSnapToOrigin={true}
         onDragEnd={onSidebarDragEnd}
-        animate={{ x: isMobileScreen ? (isOpen ? 0 : "-100%") : 0 }}
         transition={
-          isMobileScreen
-            ? SIDEBAR_SPRING
-            : { duration: 0 }
+          !isMobileScreen
+            ? { duration: 0 }
+            : DRAWER
         }
         className={cn(
           "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/80 dark:border-white/10 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
@@ -2115,7 +2113,7 @@ export function Sidebar({
                     </button>
 
                     {/* Small Screen Devices: Sidebar Close Button */}
-                    {/* <button
+                    <button
                       type="button"
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
@@ -2125,11 +2123,11 @@ export function Sidebar({
                         setIsEmptySpaceHovered(false);
                         onToggle();
                       }}
-                      className="xl:hidden w-11 h-11 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
+                      className="xl:hidden w-11 h-11 rounded-full bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
                       aria-label="Close sidebar"
                     >
                       <X className="w-5 h-5 shrink-0" />
-                    </button> */}
+                    </button>
                   </>
                 )}
 
