@@ -482,7 +482,7 @@ export default function CareersPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-1.5"
             >
-              <span>Open roles</span>
+              <span>Open Roles</span>
               <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>

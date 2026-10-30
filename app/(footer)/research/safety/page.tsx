@@ -87,7 +87,7 @@ export default function SafetyPage() {
             href="/research/overview"
             className="inline-flex items-center justify-center"
           >
-            <span>Explore here</span>
+            <span>Explore Now</span>
             <AnimatedArrow size={20} />
           </Link>
         </Button>

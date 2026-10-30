@@ -475,12 +475,12 @@ export function Footer() {
           {/* Center: Social Links with ArrowUpRight Icons */}
           <div className="footer-group flex flex-wrap text-base items-center justify-center md:justify-end gap-x-5 gap-y-2">
             <a
-              href="https://x.com/ayanali_x"
+              href="https://www.linkedin.com/in/ayanali-in"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span>X</span>
+              <span>LinkedIn</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
             <a
@@ -493,12 +493,12 @@ export function Footer() {
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
             <a
-              href="https://www.linkedin.com/in/ayanali-in"
+              href="https://x.com/ayanali_x"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span>LinkedIn</span>
+              <span>X</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
             <a
@@ -508,6 +508,15 @@ export function Footer() {
               className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span>Instagram</span>
+              <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
+            </a>
+            <a
+              href="https://linktr.ee/ayanali_tree"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              <span>LinkTree</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
             </a>
           </div>

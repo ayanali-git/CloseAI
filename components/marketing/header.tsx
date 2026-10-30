@@ -1280,15 +1280,13 @@ export function MarketingHeader() {
                   )}
                 </div>
                 
-                <Link
-                  href="/gc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                <button
+                  type="button"
+                  onClick={() => openLoginModal()}
+                  className="rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                 >
-                  <span>Try CloseAI</span>
-                  <AnimatedArrowUpRight size={20} />
-                </Link>
+                  <span>Sign up for free</span>
+                </button>
               </>
             )}
           </div>
@@ -1939,16 +1937,16 @@ export function MarketingHeader() {
                     </>
                   ) : (
                     <>
-                      <Link
-                        href="/gc"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileNavOpen(false)}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          openLoginModal();
+                        }}
                         className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        <span>Try CloseAI</span>
-                        <AnimatedArrowUpRight size={26} />
-                      </Link>
+                        Sign up for free
+                      </button>
 
                       <button
                         type="button"

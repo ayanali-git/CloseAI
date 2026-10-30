@@ -551,12 +551,9 @@ function NewChatContent() {
                   . Chats may be reviewed and used to improve our AI models.{" "}
                   <Link
                     href="/support/help"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group text-foreground whitespace-nowrap"
+                    className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
                   >
                     <span>Learn more</span>
-                    <AnimatedArrowUpRight size={14} className="shrink-0 text-muted-foreground group-hover:text-foreground" />
                   </Link>
                 </p>
               )}

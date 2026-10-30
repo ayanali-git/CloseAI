@@ -8,6 +8,7 @@ import { MarketingHeader } from "@/components/marketing/header";
 import { Footer } from "@/components/marketing/footer";
 import {
   AnimatedArrow,
+  AnimatedArrowUpRight,
   AnimatedComingSoonText,
 } from "@/components/ui/animated";
 import {
@@ -750,9 +751,9 @@ export default function LandingPage() {
                 size="lg"
                 className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer"
               >
-                <Link href={user ? "/c" : "/gc"} className="flex items-center">
-                  <span>Explore Now</span>
-                  <AnimatedArrow size={20} />
+                <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  <span>Try CloseAI</span>
+                  <AnimatedArrowUpRight size={20} />
                 </Link>
               </Button>
             </div>

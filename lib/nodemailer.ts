@@ -242,13 +242,15 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
             </div>
 
             <div style="margin-bottom: 14px; font-size: 14px; line-height: 1.5;">
-              <a href="https://x.com/ayanali_x" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">X</a>
+              <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
               <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
               <a href="https://github.com/ayanali-git" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">GitHub</a>
               <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
-              <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
+              <a href="https://x.com/ayanali_x" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">X</a>
               <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
               <a href="https://www.instagram.com/ayanali_ig/" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">Instagram</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="https://linktr.ee/ayanali_tree" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkTree</a>
             </div>
 
             <div class="footer-copy" style="font-size: 13px; color: #a1a1aa; line-height: 1.4;">
@@ -446,13 +448,15 @@ export async function sendFeedbackEmail(payload: FeedbackEmailPayload) {
             </div>
 
             <div style="margin-bottom: 14px; font-size: 14px; line-height: 1.5;">
-              <a href="https://x.com/ayanali_x" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">X</a>
+              <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
               <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
               <a href="https://github.com/ayanali-git" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">GitHub</a>
               <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
-              <a href="https://www.linkedin.com/in/ayanali-in" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkedIn</a>
+              <a href="https://x.com/ayanali_x" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">X</a>
               <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
               <a href="https://www.instagram.com/ayanali_ig/" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">Instagram</a>
+              <span class="footer-dot" style="color: #a1a1aa; padding: 0 6px;">&middot;</span>
+              <a href="https://linktr.ee/ayanali_tree" class="footer-link" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: underline;">LinkTree</a>
             </div>
 
             <div class="footer-copy" style="font-size: 13px; color: #a1a1aa; line-height: 1.4;">
