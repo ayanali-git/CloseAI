@@ -85,7 +85,7 @@ export default function EnterprisePage() {
         <p className="text-muted-foreground text-base max-w-lg mx-auto mb-8">
           Join thousands of enterprises transforming productivity with closeAI's secure reasoning infrastructure.
         </p>
-        <Button asChild className="group rounded-full px-4 h-12 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
+        <Button asChild className="group rounded-full px-4 h-12 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
             <span>Schedule Now</span>
             <AnimatedArrow size={20} />

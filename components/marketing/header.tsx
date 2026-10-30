@@ -50,7 +50,7 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
     id: "res-6",
     category: "Research",
-    title: "GPT-6 Astra: The Next Paradigm in Multistep Deductive Inference",
+    title: "GPT-6.1 Terra: The Next Paradigm in Multistep Deductive Inference",
     description:
       "Introducing the next generation of AI with enhanced reasoning capabilities and real-time multimodal processing.",
     url: "/research/overview",
@@ -1398,6 +1398,24 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
+                          GPT-6.1 Terra
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/research/overview"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-foreground transition-colors"
+                        >
+                          GPT-6 Astra
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/research/overview"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-foreground transition-colors"
+                        >
                           GPT-5.6
                         </Link>
                       </li>
@@ -1417,24 +1435,6 @@ export function MarketingHeader() {
                           className="text-foreground transition-colors"
                         >
                           GPT-5.4
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/research/overview"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          GPT-5.3 Instant
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/research/overview"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          GPT-5.3-Codex
                         </Link>
                       </li>
                     </ul>
@@ -2020,17 +2020,17 @@ export function MarketingHeader() {
                         </div>
                         <div className="space-y-2.5">
                           {[
+                            { 
+                              label: "GPT-6.1 Terra",
+                              href: "/research/overview"
+                            },
+                            { 
+                              label: "GPT-6 Astra",
+                              href: "/research/overview"
+                           },
                             { label: "GPT-5.6", href: "/research/overview" },
                             { label: "GPT-5.5", href: "/research/overview" },
                             { label: "GPT-5.4", href: "/research/overview" },
-                            {
-                              label: "GPT-5.3 Instant",
-                              href: "/research/overview",
-                            },
-                            {
-                              label: "GPT-5.3-Codex",
-                              href: "/research/overview",
-                            },
                           ].map((adv, i) => (
                             <Link
                               key={i}

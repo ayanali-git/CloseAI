@@ -56,12 +56,17 @@ export function Footer() {
                 <li>
                   <Link
                     href="/research/overview"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  >
+                    GPT-6.1 Terra
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/research/overview"
                     className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     GPT-6 Astra
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -85,15 +90,7 @@ export function Footer() {
                     href="/research/overview"
                     className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
-                    GPT-5.3 Instant
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/research/overview"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    GPT-5.3-Codex
+                    GPT-5.4
                   </Link>
                 </li>
               </ul>
