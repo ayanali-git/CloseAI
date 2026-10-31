@@ -1421,15 +1421,6 @@ export function MarketingHeader() {
                           GPT-5.5
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          href="/research/overview"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          GPT-5.4
-                        </Link>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -2023,7 +2014,6 @@ export function MarketingHeader() {
                            },
                             { label: "GPT-5.6", href: "/research/overview" },
                             { label: "GPT-5.5", href: "/research/overview" },
-                            { label: "GPT-5.4", href: "/research/overview" },
                           ].map((adv, i) => (
                             <Link
                               key={i}

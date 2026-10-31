@@ -655,7 +655,7 @@ class ChatGPTModelSelector extends HTMLElement {
     }
     const modelRow = this.shadowRoot.querySelector('[data-row="model"]');
     if (modelRow) {
-      const models = ['GPT-6', 'GPT-5.5', 'GPT-5.4'];
+      const models = ['GPT-6.1 Terra', 'GPT-6 Astra', 'GPT-5.6', 'GPT-5.6'];
       modelRow.addEventListener('click', () => {
         const cur = this.getAttribute('model-name') || 'Gemini 3.8 flash';
         const next = models[(models.indexOf(cur) + 1) % models.length];

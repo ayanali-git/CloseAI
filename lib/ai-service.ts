@@ -68,7 +68,7 @@ export class AIService {
     messages: Message[],
     fileContext?: string,
     imageUrls?: string[],
-    modelName: string = "GPT-5.4",
+    modelName: string = "GPT-5.6",
     think: boolean = false,
     userContext?: string
   ): Promise<AIResponse> {
@@ -93,8 +93,8 @@ export class AIService {
     const lower = modelName.toLowerCase();
     if (lower.includes('5.5')) {
       openAiModel = 'gpt-5.5';
-    } else if (lower.includes('5.4')) {
-      openAiModel = 'gpt-5.4';
+    } else if (lower.includes('5.6')) {
+      openAiModel = 'gpt-5.6';
     } else {
       openAiModel = 'gpt-6';
     }
@@ -186,7 +186,7 @@ export class AIService {
     if (!genAI) {
       const openaiClient = this.getOpenAIClient();
       if (openaiClient) {
-        return await this.generateOpenAIResponse(messages, fileContext, imageUrls, "GPT-5.4", think, userContext);
+        return await this.generateOpenAIResponse(messages, fileContext, imageUrls, "GPT-5.6", think, userContext);
       }
       throw new Error('Google Generative AI not initialized (Missing GOOGLE_API_KEY)');
     }

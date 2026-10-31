@@ -60,7 +60,6 @@ const MODEL_OPTIONS = [
   { key: "GPT-6 Astra", label: "GPT-6 Astra" },
   { key: "GPT-5.6", label: "GPT-5.6" },
   { key: "GPT-5.5", label: "GPT-5.5" },
-  { key: "GPT-5.4", label: "GPT-5.4" },
   { key: "Gemini 3.8 flash", label: "Gemini 3.8 flash" },
 ];
 
@@ -157,7 +156,7 @@ function TierMarqueeText({
 }
 
 /**
- * Auto-scrolling model name on hover (e.g. Gemini 3.8 flash, GPT-5.4 Thinking)
+ * Auto-scrolling model name on hover (e.g. Gemini 3.8 flash)
  * Matching sidebar chat list marquee animation
  */
 function ModelMarqueeText({
