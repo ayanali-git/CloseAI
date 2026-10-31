@@ -1447,7 +1447,7 @@ export function Sidebar({
             "xl:transition-[width] xl:duration-300 xl:ease-in-out xl:will-change-[width]",
           // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
           // xl and up: normal in-flow sidebar (60px rail / 250px open), same as before.
-          "fixed xl:relative inset-y-0 left-0 w-[77%] max-w-[77%] sm:w-[250px] sm:max-w-[250px]",
+          "fixed xl:relative inset-y-0 left-0 w-[76%] max-w-[76%] sm:w-[250px] sm:max-w-[250px]",
           isOpen ? "z-50 xl:z-20" : "max-xl:z-50 xl:w-[60px]",
           // Before mount, hide mobile drawer completely so it never flashes, overlaps, or sits at 0 on reload
           !mounted && "max-xl:hidden"
