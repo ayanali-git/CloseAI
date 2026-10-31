@@ -11,7 +11,7 @@ export default function ResearchOverviewPage() {
   const researchPapers = [
     {
       title: "Frontier Reasoning with Hierarchical Self-Consistency Chains",
-      authors: "closeAI Research Team",
+      authors: "CloseAI Research Team",
       date: "August 2026",
       tag: "Reasoning",
       abstract: "We introduce a novel architecture for multi-turn deductive reasoning that evaluates candidate proof steps through parallel search trees.",
@@ -44,10 +44,10 @@ export default function ResearchOverviewPage() {
       {/* Header */}
       <div className="max-w-3xl mb-16">
         <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-3">
-          closeAI Research
+          CloseAI Research
         </p>
         <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-foreground mb-6 leading-[1.1]">
-          Pioneering safe, beneficial artificial general intelligence.
+          Pioneering safe, beneficial artificial intelligence.
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
           Our research focuses on frontier reasoning architectures, multimodal understanding, and verifiable alignment systems that empower human potential.
@@ -55,10 +55,9 @@ export default function ResearchOverviewPage() {
       </div>
 
       {/* Hero Research Spotlight */}
-      <div className="rounded-sm border border-border/80 dark:border-none bg-gradient-to-br from-indigo-950/40 via-card to-background p-8 sm:p-12 mb-16">
+      <div className="rounded-sm border border-border/80 dark:border-none bg-card p-8 sm:p-12 mb-16">
         <div className="flex items-center gap-2 mb-4">
-          <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
-          <span className="text-base font-semibold uppercase tracking-wider text-indigo-400">
+          <span className="text-base font-semibold uppercase tracking-wider text-foreground">
             Featured Breakthrough
           </span>
         </div>
@@ -74,7 +73,7 @@ export default function ResearchOverviewPage() {
           rel="noopener noreferrer"
           className="group inline-flex items-center text-base font-semibold text-foreground"
         >
-          <span>Try it now</span>
+          <span>Try it for free</span>
           <AnimatedArrow size={20} />
         </Link>
       </div>
@@ -92,7 +91,7 @@ export default function ResearchOverviewPage() {
           {researchPapers.map((paper, i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl border border-border/80 dark:border-none bg-card transition-all flex flex-col justify-between group"
+              className="p-6 rounded-2xl border border-border/80 dark:border-none bg-card transition-all flex flex-col justify-between"
             >
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[15px] font-semibold tracking-wider uppercase bg-secondary px-2.5 py-1 rounded-full text-foreground">
@@ -100,7 +99,7 @@ export default function ResearchOverviewPage() {
                 </span>
                 <span className="text-base text-muted-foreground">{paper.date}</span>
               </div>
-              <h3 className="text-xl font-semibold text-muted-foreground group-hover:text-foreground mb-2">
+              <h3 className="text-xl font-semibold text-foreground mb-2">
                 {paper.title}
               </h3>
               <p className="text-base text-muted-foreground mb-4 leading-relaxed">

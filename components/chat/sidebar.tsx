@@ -1946,7 +1946,7 @@ export function Sidebar({
             <div
               className={cn(
                 "h-14 pt-[env(safe-area-inset-top,0px)] flex items-center justify-between relative z-20 shrink-0",
-                "px-2 max-xl:px-6 sm:max-xl:px-8"
+                "pl-2 pr-2 max-xl:pl-6 sm:max-xl:pl-8"
               )}
             >
               {!user ? (
@@ -2507,19 +2507,18 @@ export function Sidebar({
             )}
 
             {/* Expanded Bottom Dock (mt-auto)
-                Signed in: px-2 so the profile row box starts at x 8 and the avatar sits 6px inside it (8 + 6 = 14,
-                matching the persistent avatar at x 14 in the 60px rail). Guest: px-2 + pl-3 (12px) rows put icons at x 20 (center x 30). */}
+                Unified px-2 across screens provides consistent 8px margins for New Chat on the left and Settings / Profile on the right. */}
             <div
               className={cn(
-                "mt-auto w-full relative z-20 select-none",
+                "mt-auto w-full relative z-20 select-none px-2",
                 user || isAuthLoading
                   ? cn(
-                      "px-2 pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] border-t transition-colors duration-200",
+                      "pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] border-t transition-colors duration-200",
                       chatStreamCanScrollDown
                         ? "border-border/80 dark:border-white/10"
                         : "border-transparent"
                     )
-                  : "px-2 max-xl:px-6 sm:max-xl:px-8 pt-2 max-xl:pt-0 max-xl:pb-0 pb-[max(env(safe-area-inset-bottom),0.5rem)]"
+                  : "pt-2 max-xl:pt-0 max-xl:pb-0 pb-[max(env(safe-area-inset-bottom),0.5rem)]"
               )}
             >
               {isAuthLoading ? (

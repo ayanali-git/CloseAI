@@ -286,7 +286,9 @@ export default function LandingPage() {
               className="w-full md:w-[56%] lg:w-[58%] xl:w-[75%] relative md:sticky md:top-24 md:self-start"
             >
               <Link
-                href="/research/overview"
+                href={user ? "/c" : "/gc"}
+                target="_blank"
+                rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredSpotlight(0)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
@@ -301,7 +303,7 @@ export default function LandingPage() {
                 >
                   <Image
                     src="/assets/images/gpt-6.1.png"
-                    alt="GPT-6 Astra Intelligent UI for everyone"
+                    alt="Introducing GPT-6.1 Terra"
                     fill
                     className="object-cover"
                     priority
@@ -342,7 +344,7 @@ export default function LandingPage() {
             >
               {/* Item 1 */}
               <Link
-                href="/overview/research"
+                href="/research/overview"
                 onMouseEnter={() => setHoveredSpotlight(3)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
@@ -350,12 +352,12 @@ export default function LandingPage() {
                   getOpacity(hoveredSpotlight, 3)
                 )}
               >
-                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-[#fbfbfb] transition-all duration-300">
                   <Image
                     src="/assets/images/intelligent-ui.png"
                     alt="GPT-6 Astra Intelligent UI for everyone"
                     fill
-                    className="object-cover"
+                    className="object-cover object-left"
                   />
                 </div>
                 <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
@@ -381,8 +383,9 @@ export default function LandingPage() {
 
               {/* Item 2 */}
               <Link
-                ref={item3Ref}
-                href="/product/features"
+                href={user ? "/c" : "/gc"}
+                target="_blank"
+                rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredSpotlight(1)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
@@ -503,7 +506,7 @@ export default function LandingPage() {
               {
                 title:
                   "Frontier safety commitments and verifiable alignment benchmarks",
-                category: "Research",
+                category: "Foundation",
                 date: "Jun 10, 2026",
                 seed: "Frontier safety commitments and verifiable alignment benchmarks",
               },
@@ -516,7 +519,7 @@ export default function LandingPage() {
               },
               {
                 title: "Expanding developer grants for open frontier research",
-                category: "Foundation",
+                category: "Research",
                 date: "Nov 30, 2026",
                 seed: "Expanding developer grants for open frontier research",
               },

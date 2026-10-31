@@ -101,7 +101,7 @@ export function Footer() {
                     href={user ? "/c" : "/gc"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>CloseAI</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -136,7 +136,7 @@ export function Footer() {
                     href="/product/features"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     Codex
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -171,7 +171,7 @@ export function Footer() {
                     href="/product/api-docs"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Docs</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -233,7 +233,7 @@ export function Footer() {
                     href="/company/contact"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Contact Sales</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -268,7 +268,7 @@ export function Footer() {
                     href="/product/api-docs"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Developer Forum</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -298,7 +298,7 @@ export function Footer() {
                     href="/company/careers"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Careers</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -325,7 +325,7 @@ export function Footer() {
                     href="/company/brand"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Brand</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -352,7 +352,7 @@ export function Footer() {
                     href="/foundation"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     Academy
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -448,7 +448,7 @@ export function Footer() {
                     href="/support/help"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Help Center</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -467,7 +467,7 @@ export function Footer() {
               href="https://www.linkedin.com/in/ayanali-in"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span>LinkedIn</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -476,7 +476,7 @@ export function Footer() {
               href="https://github.com/ayanali-git"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span>GitHub</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -485,7 +485,7 @@ export function Footer() {
               href="https://x.com/ayanali_x"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span>X</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -494,7 +494,7 @@ export function Footer() {
               href="https://www.instagram.com/ayanali_ig/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span>Instagram</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
@@ -503,7 +503,7 @@ export function Footer() {
               href="https://linktr.ee/ayanali_tree"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="text-foreground transition-colors whitespace-nowrap -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               <span>LinkTree</span>
               <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
