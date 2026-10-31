@@ -28,12 +28,12 @@ export default function ApiDocsPage() {
         
         <h3 className="text-base sm:text-lg font-medium mb-3">Endpoint</h3>
         <div className="bg-card border border-border/80 dark:border-none rounded-xl p-3 sm:p-4 mb-6 font-mono text-base sm:text-base overflow-x-auto break-all text-foreground">
-          <span className="font-bold text-emerald-500 mr-2">POST</span>
+          <span className="font-bold text-muted-foreground mr-2">POST</span>
           <span>https://api.trycloseai.vercel.app/v1/chat/completions</span>
         </div>
 
         <h3 className="text-base sm:text-lg font-medium mb-3">Example Request</h3>
-        <pre className="bg-card border border-border/80 dark:border-none rounded-xl p-3 sm:p-4 overflow-x-auto text-base sm:text-base text-muted-foreground w-full max-w-full font-mono">
+        <pre className="bg-card border border-border/80 dark:border-none rounded-xl p-3 sm:p-4 overflow-x-auto text-base sm:text-base text-foreground w-full max-w-full font-mono">
           <code>{`curl https://api.trycloseai.vercel.app/v1/chat/completions \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer $CLOSEAI_API_KEY" \\

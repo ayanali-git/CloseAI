@@ -45,7 +45,7 @@ export default function BlogPage() {
               <span>•</span>
               <span>{post.readTime}</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-muted-foreground group-hover:text-foreground">{post.title}</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-foreground">{post.title}</h2>
             <p className="text-muted-foreground text-base sm:text-base mb-4 leading-relaxed">{post.excerpt}</p>
             <div className="inline-flex items-center text-base sm:text-base font-medium text-foreground">
               <span>Read article</span>

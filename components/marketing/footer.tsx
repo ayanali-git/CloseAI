@@ -306,14 +306,6 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/company/blog"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    News
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     href="/company/contact"
                     className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >

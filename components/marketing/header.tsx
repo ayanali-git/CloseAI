@@ -275,7 +275,6 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     keywords: [
       "blog",
       "release notes",
-      "news",
       "announcements",
       "updates",
       "changelog",
@@ -746,7 +745,7 @@ export function MarketingHeader() {
                                 : item.url;
                             router.push(targetUrl);
                           }}
-                          className="py-5 border-b border-border/80 hover:border-foreground/40 dark:hover:border-neutral-400 transition-colors group cursor-pointer"
+                          className="py-5 border-b border-border/80 hover:border-foreground/80 dark:hover:border-neutral-400 transition-colors group cursor-pointer"
                         >
                           <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground/80 uppercase tracking-wider mb-1">
                             <span>{item.category}</span>
@@ -760,7 +759,7 @@ export function MarketingHeader() {
                             )}
                           </div>
 
-                          <h3 className="text-xl sm:text-2xl font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
+                          <h3 className="text-xl sm:text-2xl font-semibold text-foreground transition-colors">
                             {item.title}
                           </h3>
 
@@ -1770,15 +1769,6 @@ export function MarketingHeader() {
                       </li>
                       <li>
                         <Link
-                          href="/company/blog"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-2xl font-medium text-foreground transition-colors"
-                        >
-                          News
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
                           href="/company/contact"
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
@@ -2282,13 +2272,6 @@ export function MarketingHeader() {
                           >
                             <span>Careers</span>
                             <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
-                          </Link>
-                          <Link
-                            href="/company/blog"
-                            onClick={() => setMobileNavOpen(false)}
-                            className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
-                          >
-                            News
                           </Link>
                           <Link
                             href="/company/contact"

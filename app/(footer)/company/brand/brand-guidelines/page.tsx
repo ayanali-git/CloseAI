@@ -440,10 +440,10 @@ export default function CompanyBrandGuidelinesPage() {
           </div>
         </div>
 
-        {/* Emblem Incorrect Usage Grid (6 Generous Cards with proper badges) */}
+        {/* Emblem Usage Grid (6 Generous Cards with proper badges) */}
         <div className="mb-8">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-5">
-            Incorrect Emblem Usage
+            Incorrect &amp; Approved Emblem Usage
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
