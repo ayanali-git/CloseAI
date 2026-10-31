@@ -56,12 +56,12 @@ const SPEED_OPTIONS = [
 ];
 
 const MODEL_OPTIONS = [
-  { key: "Gemini 3.8 flash", label: "Gemini 3.8 flash" },
   { key: "GPT-6.1 Terra", label: "GPT-6.1 Terra" },
   { key: "GPT-6 Astra", label: "GPT-6 Astra" },
   { key: "GPT-5.6", label: "GPT-5.6" },
   { key: "GPT-5.5", label: "GPT-5.5" },
   { key: "GPT-5.4", label: "GPT-5.4" },
+  { key: "Gemini 3.8 flash", label: "Gemini 3.8 flash" },
 ];
 
 /**
@@ -862,23 +862,49 @@ export function PlusMenuContent({
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
 
-          {MODEL_OPTIONS.map((m, globalIdx) => (
-            <button
-              key={m.key}
-              type="button"
-              onClick={(e) => {
-                (e.currentTarget as HTMLElement)?.blur();
-                e.stopPropagation();
-                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-              }}
-              onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-              onMouseLeave={() => setHoveredModelIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f] active:bg-secondary/80 dark:active:bg-[#1f1f1f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
-            >
-              <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-              {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-            </button>
-          ))}
+          {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
+            const globalIdx = MODEL_OPTIONS.indexOf(m);
+            return (
+              <button
+                key={m.key}
+                type="button"
+                onClick={(e) => {
+                  (e.currentTarget as HTMLElement)?.blur();
+                  e.stopPropagation();
+                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                }}
+                onMouseEnter={() => setHoveredModelIdx(globalIdx)}
+                onMouseLeave={() => setHoveredModelIdx(null)}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f] active:bg-secondary/80 dark:active:bg-[#1f1f1f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
+              >
+                <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
+                {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
+              </button>
+            );
+          })}
+
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
+
+          {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
+            const globalIdx = MODEL_OPTIONS.indexOf(m);
+            return (
+              <button
+                key={m.key}
+                type="button"
+                onClick={(e) => {
+                  (e.currentTarget as HTMLElement)?.blur();
+                  e.stopPropagation();
+                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                }}
+                onMouseEnter={() => setHoveredModelIdx(globalIdx)}
+                onMouseLeave={() => setHoveredModelIdx(null)}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f] active:bg-secondary/80 dark:active:bg-[#1f1f1f]/80 transition-colors cursor-pointer min-w-0 outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none text-left"
+              >
+                <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
+                {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
+              </button>
+            );
+          })}
         </div>
       );
     }
@@ -1118,7 +1144,7 @@ export function PlusMenuContent({
                     menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                   )}
                 >
-                  {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
+                  {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
                     return (
                       <DropdownMenuItem
@@ -1136,7 +1162,7 @@ export function PlusMenuContent({
 
                   <div className="h-[1px] bg-neutral-200 dark:bg-neutral-700/60 my-1 -mx-0.5" />
 
-                  {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
+                  {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
                     return (
                       <DropdownMenuItem
@@ -1394,7 +1420,7 @@ export function PlusMenuContent({
         </button>
         <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
 
-        {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
+        {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
           const globalIdx = MODEL_OPTIONS.indexOf(m);
           return (
             <button
@@ -1420,7 +1446,7 @@ export function PlusMenuContent({
 
         <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1 -mx-0.5" />
 
-        {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
+        {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
           const globalIdx = MODEL_OPTIONS.indexOf(m);
           return (
             <button
@@ -1654,7 +1680,7 @@ export function PlusMenuContent({
                   value={model}
                   onValueChange={(val) => handleModelSelect(val)}
                 >
-                  {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
+                  {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
                     return (
                       <DropdownMenuRadioItem
@@ -1673,7 +1699,7 @@ export function PlusMenuContent({
 
                   <div className="h-[1px] bg-neutral-200 dark:bg-neutral-700/60 my-1 -mx-0.5" />
 
-                  {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
+                  {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
                     return (
                       <DropdownMenuRadioItem

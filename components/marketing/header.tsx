@@ -14,13 +14,6 @@ import {
   AnimatedArrowUpRight,
 } from "@/components/ui/animated";
 import { useAuth } from "@/hooks/use-auth";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { LogoutModal } from "@/components/modals/log-out-modal";
 import { cn } from "@/lib/utils";

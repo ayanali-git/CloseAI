@@ -655,10 +655,10 @@ export function Sidebar({
   const handleLogoutConfirm = useCallback(async () => {
     try {
       prevSidebarOpenForModalRef.current = null;
-      setShowLogoutModal(false);
       await signOut();
     } catch (e) {
       console.error(e);
+      setShowLogoutModal(false);
     }
   }, [signOut]);
 
@@ -773,18 +773,14 @@ export function Sidebar({
     onNewChat();
     if (isGuestMode) {
       setSidebarOpen(false);
-      if (isOpen) {
-        onToggle();
-      }
     } else if (
       isOpen &&
       typeof window !== "undefined" &&
       window.innerWidth < 1280
     ) {
       setSidebarOpen(false);
-      onToggle();
     }
-  }, [onNewChat, isGuestMode, isOpen, onToggle, setSidebarOpen]);
+  }, [onNewChat, isGuestMode, isOpen, setSidebarOpen]);
 
   const onSidebarDragEnd = useCallback(
     (_: unknown, info: PanInfo) => {
@@ -795,14 +791,11 @@ export function Sidebar({
       // Consistent with bottom-sheet logic adapted for horizontal dismiss:
       // Moving half-way towards left (offset < -20) or swiping left (velocity < -80) automatically closes the sidebar.
       if (velocity < -80 || offset < -20) {
-        if (isOpen) {
-          onToggle();
-        }
         setSidebarOpen(false);
         return;
       }
     },
-    [isMobileScreen, isOpen, onToggle, setSidebarOpen]
+    [isMobileScreen, setSidebarOpen]
   );
 
   useEffect(() => {
@@ -1447,7 +1440,7 @@ export function Sidebar({
             "xl:transition-[width] xl:duration-300 xl:ease-in-out xl:will-change-[width]",
           // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
           // xl and up: normal in-flow sidebar (60px rail / 250px open), same as before.
-          "fixed xl:relative inset-y-0 left-0 w-[76%] max-w-[76%] sm:w-[250px] sm:max-w-[250px]",
+          "fixed xl:relative inset-y-0 left-0 w-[75%] max-w-[75%] sm:w-[250px] sm:max-w-[250px]",
           isOpen ? "z-50 xl:z-20" : "max-xl:z-50 xl:w-[60px]",
           // Before mount, hide mobile drawer completely so it never flashes, overlaps, or sits at 0 on reload
           !mounted && "max-xl:hidden"
@@ -2752,9 +2745,9 @@ export function Sidebar({
                     </div>
                   </div>
 
-                  {/* Small Screen Devices: Guest Bottom Action Dock (Chat + Settings) */}
+                  {/* Small Screen Devices: Guest Bottom Action Dock (New Chat + Settings) */}
                   <div className="xl:hidden w-full h-14 pb-[env(safe-area-inset-bottom,0px)] flex items-center justify-between gap-3">
-                    {/* Chat button (accent color) */}
+                    {/* New Chat button */}
                     <button
                       type="button"
                       onClick={() => {
@@ -2763,7 +2756,7 @@ export function Sidebar({
                       className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
                     >
                       <SquarePen className="w-5 h-5 shrink-0" />
-                      <span>Chat</span>
+                      <span>New Chat</span>
                     </button>
 
                     {/* Settings button */}
