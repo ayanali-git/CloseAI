@@ -710,29 +710,27 @@ export function FilePreviewViewer({
             </span>
           </div>
 
-          <div className="flex items-center shrink-0">
-            <div className="flex items-center h-11 p-0.5 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
-              {fileUrl && (
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
-                  title="Download file"
-                  aria-label="Download file"
-                >
-                  <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                </button>
-              )}
+          <div className="flex items-center shrink-0 gap-2">
+            {fileUrl && (
               <button
                 type="button"
-                onClick={onClose}
-                className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
-                title="Close preview"
-                aria-label="Close preview"
+                onClick={handleDownload}
+                className="group h-11 w-11 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                title="Download file"
+                aria-label="Download file"
               >
-                <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+                <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               </button>
-            </div>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="group h-11 w-11 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+              title="Close preview"
+              aria-label="Close preview"
+            >
+              <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+            </button>
           </div>
         </div>
       )}

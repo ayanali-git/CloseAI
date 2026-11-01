@@ -995,10 +995,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
             ? "rounded-[25px] sm:rounded-3xl"
-            : "rounded-full",
+            : isGuest
+            ? "rounded-full"
+            : "rounded-[25px] sm:rounded-full",
           isExpandedLayout
             ? "pt-2.5 px-2 pb-3 sm:p-2"
-            : "px-1 py-1 min-h-[50px] flex items-center",
+            : isGuest
+            ? "px-1 py-1 min-h-[50px] flex items-center"
+            : "pt-2.5 px-2 pb-3 sm:px-1 sm:py-1 sm:min-h-[50px] sm:flex sm:items-center",
           isDragActive && "ring-2 ring-primary border-primary"
         )}
       >
@@ -1145,8 +1149,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               </div>
             </div>
           </div>
-        ) : (
-          /* Single-line Layout: 1 row rounded-full */
+        ) : isGuest ? (
+          /* Single-line Layout for Guests: 1 row rounded-full */
           <div className="flex items-center gap-1 sm:gap-x-2 w-full">
             <div className="flex items-center shrink-0 pl-0.5 sm:pl-1">
               {renderPlusButton()}
@@ -1188,6 +1192,52 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </div>
 
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
+              {renderRightActions()}
+            </div>
+          </div>
+        ) : (
+          /* Authenticated Users: 2-row layout on small screens, 1-row rounded-full on desktop */
+          <div className="grid grid-cols-2 gap-y-1.5 w-full sm:flex sm:items-center sm:gap-1 sm:gap-x-2">
+            <div className="col-start-1 row-start-2 flex items-center justify-self-start pl-0.5 sm:pl-1 sm:order-1 sm:shrink-0">
+              {renderPlusButton()}
+              {renderSmallScreenThinkGroup()}
+            </div>
+
+            <div
+              className="col-span-2 row-start-1 w-full px-1.5 sm:px-0 flex items-center cursor-text sm:order-2 sm:flex-1 sm:min-w-0"
+              onClick={() => textareaRef.current?.focus()}
+            >
+              <textarea
+                ref={textareaRef}
+                autoFocus={autoFocus}
+                value={message}
+                onChange={(e) => {
+                  cursorPositionRef.current = e.target.selectionEnd;
+                  const val = e.target.value;
+                  onMessageChange(val);
+                  if (val.includes("\n") || e.target.scrollHeight > 38) {
+                    setIsMultiLine(true);
+                  }
+                }}
+                onSelect={(e) => {
+                  cursorPositionRef.current = e.currentTarget.selectionEnd;
+                }}
+                onClick={(e) => {
+                  cursorPositionRef.current = e.currentTarget.selectionEnd;
+                }}
+                onKeyUp={(e) => {
+                  cursorPositionRef.current = e.currentTarget.selectionEnd;
+                }}
+                onKeyDown={handleKeyDown}
+                onPaste={handlePaste}
+                placeholder={placeholder}
+                rows={1}
+                disabled={isTyping || isUploading}
+                className="w-full min-w-0 bg-transparent border-0 px-0.5 sm:px-1 py-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-0 resize-none h-[26px] leading-[26px] overflow-hidden scrollbar-none select-text"
+              />
+            </div>
+
+            <div className="col-start-2 row-start-2 flex items-center justify-self-end gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1 sm:order-3">
               {renderRightActions()}
             </div>
           </div>

@@ -13,6 +13,7 @@ interface WelcomeScreenProps {
   customTitle?: string;
   customSubtitle?: string;
   maxWidthClass?: string;
+  bottomInputOnMobile?: boolean;
 }
 
 export function WelcomeScreen({
@@ -23,6 +24,7 @@ export function WelcomeScreen({
   customTitle,
   customSubtitle,
   maxWidthClass,
+  bottomInputOnMobile,
 }: WelcomeScreenProps) {
   const [dynamicTitle, setDynamicTitle] = useState<string>(
     "What would you like to explore?"
@@ -92,6 +94,29 @@ export function WelcomeScreen({
     const listIndex = chosenSeedRef.current % titlesWithUser.length;
     setDynamicTitle(titlesWithUser[listIndex]);
   }, [user, resetKey]);
+
+  if (bottomInputOnMobile) {
+    return (
+      <div className="flex-1 w-full h-full flex flex-col justify-between sm:justify-center items-center text-center select-none pb-2 sm:pb-8">
+        <div className={cn("w-full h-full sm:h-auto flex-1 sm:flex-initial flex flex-col justify-between sm:justify-center relative items-center", maxWidthClass || "max-w-4xl")}>
+          {/* Title & Subtitle — Vertically centered on small screens, anchored strictly above input pill on desktop */}
+          <div className="flex-1 sm:flex-initial flex flex-col items-center justify-center px-4 w-full sm:absolute sm:bottom-full sm:left-0 sm:right-0 sm:mb-6 sm:px-6 sm:justify-end sm:pointer-events-none">
+            <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground/90 transition-all duration-200 pointer-events-auto">
+              {customTitle || dynamicTitle}
+            </h1>
+            {customSubtitle && (
+              <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-3xl sm:max-w-none mx-auto whitespace-normal sm:whitespace-nowrap leading-relaxed transition-all duration-200 pointer-events-auto">
+                {customSubtitle}
+              </p>
+            )}
+          </div>
+
+          {/* Floating Input Bar — Bottom anchored on mobile, centered on desktop */}
+          {children && <div className="w-full shrink-0">{children}</div>}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 w-full h-full flex flex-col items-center justify-center text-center select-none pb-6 sm:pb-8">

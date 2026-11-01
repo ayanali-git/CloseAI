@@ -337,13 +337,13 @@ function NewChatContent() {
           {showHeaderButtons && (
             <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
               {!sidebarOpen && (
-                <div className="xl:hidden flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+                <div className="xl:hidden flex items-center">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
                         type="button"
                         onClick={() => handleToggleSidebar()}
-                        className="group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -366,7 +366,7 @@ function NewChatContent() {
           {/* Right Header Area: Temporary Chat Controls */}
           {showHeaderButtons && (
             <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
-              <div className="flex items-center h-11 gap-0.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none">
+              <div className="flex items-center gap-2">
                 {isTemporary && (
                   <DropdownMenu
                     open={isPersonalizedMenuOpen}
@@ -377,7 +377,7 @@ function NewChatContent() {
                         <DropdownMenuTrigger asChild>
                           <button
                             type="button"
-                            className="group h-full px-2.5 sm:px-3 gap-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                            className="group h-11 px-2.5 sm:px-3 gap-1 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/10 text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                             aria-label={isPersonalized ? "Personalization" : "Unpersonalized"}
                           >
                             <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
@@ -398,7 +398,7 @@ function NewChatContent() {
                     <DropdownMenuContent
                       align="end"
                       sideOffset={6}
-                      className="w-full rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
+                      className="w-64 rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none z-50"
                     >
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(true)}
@@ -443,7 +443,7 @@ function NewChatContent() {
                       type="button"
                       onClick={handleToggleTemporaryChat}
                       className={cn(
-                        "group h-full w-11 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "group h-11 w-11 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isTemporary
                           ? "bg-black/10 dark:bg-white/15 text-foreground"
                           : "text-muted-foreground hover:text-foreground"
@@ -477,7 +477,7 @@ function NewChatContent() {
         </header>
 
         {/* Content Stream */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-14 no-overscroll">
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-[max(env(safe-area-inset-bottom),0.75rem)] sm:pb-8 no-overscroll">
           {isAutoCreating ||
           (queryPrompt && !autoCreateTriggeredRef.current) ||
           isSigningOut ||
@@ -499,6 +499,7 @@ function NewChatContent() {
                     : "This chat will ignore memory, and custom instructions and it won't appear in your history"
                   : undefined
               }
+              bottomInputOnMobile={true}
             >
               <ChatInput
                 className="max-w-[820px]"
@@ -524,42 +525,7 @@ function NewChatContent() {
           )}
         </div>
 
-        {/* Bottom Disclaimer for Empty State — Constant height and absolute position so content area never changes size */}
-        {showHeaderButtons && (
-          <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
-            <div className="pointer-events-auto">
-              {isTemporary ? (
-                <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
-                  For safety, we may keep a copy of this chat for up to 30 days.
-                </p>
-              ) : (
-                <p className="max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
-                  CloseAI is AI. By using it, you agree to our{" "}
-                  <Link
-                    href="/support/terms"
-                    className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
-                  >
-                    <span>Terms</span>
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/support/privacy"
-                    className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
-                  >
-                    <span>Privacy</span>
-                  </Link>
-                  . Chats may be reviewed and used to improve our AI models.{" "}
-                  <Link
-                    href="/support/help"
-                    className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
-                  >
-                    <span>Learn more</span>
-                  </Link>
-                </p>
-              )}
-            </div>
-          </div>
-        )}
+
       </div>
     </div>
   );
