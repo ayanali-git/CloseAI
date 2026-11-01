@@ -507,7 +507,12 @@ export default function PublicSharedChatPage() {
                   type="button"
                   disabled={isSharing}
                   onClick={handleShareClick}
-                  className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                  className={cn(
+                    "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm backdrop-blur-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
+                    isGuest
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                      : "bg-background sm:bg-background/50 hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15"
+                  )}
                 >
                   {isSharing ? (
                     <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
@@ -527,7 +532,12 @@ export default function PublicSharedChatPage() {
                 <button
                   type="button"
                   onClick={() => window.open("/c", "_blank")}
-                  className="group h-11 w-11 rounded-sm bg-white/50 dark:bg-[#212121]/50 sm:bg-background/50 sm:dark:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                  className={cn(
+                    "group h-11 w-11 rounded-sm backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    isGuest
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                      : "bg-background sm:bg-background/50 hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15"
+                  )}
                   aria-label="New chat"
                 >
                   <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -551,10 +561,10 @@ export default function PublicSharedChatPage() {
         ref={scrollContainerRef}
         data-chat-scroll="true"
         onScroll={handleScroll}
-        className="flex-1 w-full overflow-x-hidden relative flex flex-col pt-14 overflow-y-auto overscroll-y-contain"
+        className="flex-1 w-full overflow-x-hidden relative flex flex-col overflow-y-auto overscroll-y-contain"
       >
         {/* Message Stream & Content */}
-        <div className="flex-1 flex flex-col min-h-full">
+        <div className="flex-1 flex flex-col min-h-full pt-14">
           {isError ? (
             <div className="flex-1 w-full flex flex-col items-center justify-center p-6 text-center space-y-4">
               <div className="space-y-1">

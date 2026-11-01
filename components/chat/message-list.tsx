@@ -332,7 +332,7 @@ const CodeBlock = React.memo(
         <div
           ref={headerRef}
           className={cn(
-            "sticky -top-3.5 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
+            "sticky top-0 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
             headerState === "stuck"
               ? isGuest
                 ? "bg-white dark:bg-[#1f1f1f] rounded-b-[25px] sm:rounded-b-3xl border-border/80 dark:border-white/10"

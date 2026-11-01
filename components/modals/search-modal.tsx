@@ -212,7 +212,7 @@ const SearchChatItem = React.memo(function SearchChatItem({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "group relative w-full h-[42px] flex items-center gap-3 px-3 rounded-xl text-left cursor-pointer transition-colors text-[14.5px] sm:text-[15px] select-none shrink-0 focus-visible:z-10",
+        "group relative w-full h-11 flex items-center gap-3 px-4 rounded-xl text-left cursor-pointer transition-colors text-[14.5px] sm:text-[15px] select-none shrink-0 focus-visible:z-10",
         getFocusRingClasses(isGuest),
         showHoverBox
           ? cn("bg-secondary text-foreground", darkHover)
@@ -273,7 +273,7 @@ function SearchFileItem({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group w-full h-[46px] flex items-center justify-between px-3 rounded-xl transition-colors text-left select-none cursor-pointer shrink-0 focus-visible:z-10",
+        "group w-full h-11 flex items-center justify-between px-3 rounded-xl transition-colors text-left select-none cursor-pointer shrink-0 focus-visible:z-10",
         getFocusRingClasses(isGuest),
         "hover:bg-secondary text-foreground",
         darkHover
@@ -349,7 +349,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
         {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
-            className="w-full h-[42px] flex items-center px-3 rounded-xl animate-pulse"
+            className="w-full h-11 flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
               className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
@@ -404,7 +404,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="w-full h-[42px] flex items-center px-3 rounded-xl animate-pulse"
+            className="w-full h-11 flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
               className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
@@ -580,8 +580,8 @@ export function SearchModal({
       };
     }
 
-    // Default empty query: only two recent chats show, others found by searching
-    const recents = chats.slice(0, 2);
+    // Default empty query: only five recent chats show, others found by searching
+    const recents = chats.slice(0, 5);
 
     return {
       recentChats: recents,
@@ -864,7 +864,7 @@ export function SearchModal({
                   setKeyboardNavIndex(null);
                 }}
                 className={cn(
-                  "h-11 px-4 rounded-sm flex items-center justify-center text-[13px] sm:text-[13.5px] transition-all cursor-pointer select-none shrink-0 font-medium focus-visible:z-10",
+                  "h-11 px-4 rounded-full flex items-center justify-center text-[13px] sm:text-[13.5px] transition-all cursor-pointer select-none shrink-0 font-medium focus-visible:z-10",
                   getFocusRingClasses(isGuest),
                   activeCategory === cat.id
                     ? "bg-muted text-foreground"
@@ -980,7 +980,7 @@ export function SearchModal({
                           <div className="h-6 flex items-center text-[12px] font-medium text-muted-foreground px-3 select-none shrink-0">
                             Chats
                           </div>
-                          {matchingChats.slice(0, 6).map((chat, idx) => (
+                          {matchingChats.slice(0, 10).map((chat, idx) => (
                             <SearchChatItem
                               key={chat.id}
                               chat={chat}
@@ -1012,7 +1012,7 @@ export function SearchModal({
                             Images
                           </div>
                           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 p-2">
-                            {matchingImages.slice(0, 8).map((img) => (
+                            {matchingImages.slice(0, 10).map((img) => (
                               <SearchImageItem
                                 key={img.id}
                                 img={img}
@@ -1030,7 +1030,7 @@ export function SearchModal({
                           <div className="h-6 flex items-center text-[12px] font-medium text-muted-foreground px-3 select-none shrink-0">
                             Files
                           </div>
-                          {matchingFiles.slice(0, 5).map((f) => (
+                          {matchingFiles.slice(0, 10).map((f) => (
                             <SearchFileItem
                               key={f.id}
                               file={f}
@@ -1046,7 +1046,7 @@ export function SearchModal({
                   )
                 )
               ) : (
-                // Default State: only two recent chats show, others are accessed by searching
+                // Default State: only five recent chats show, others are accessed by searching
                 <>
                   {recentChats.length > 0 && (
                     <div className="space-y-0.5">
