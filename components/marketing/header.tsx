@@ -1213,7 +1213,7 @@ export function MarketingHeader() {
               </>
             ) : (
               <>
-                <div
+                {/* <div
                   ref={loginContainerRef}
                   className="relative"
                   onMouseEnter={handleLoginEnter}
@@ -1270,12 +1270,19 @@ export function MarketingHeader() {
                       </div>
                     </div>
                   )}
-                </div>
-                
+                </div> */}
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
                   className="rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                >
+                  <span>Log In</span>
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => openLoginModal()}
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>Sign up for free</span>
                 </button>
@@ -1924,7 +1931,10 @@ export function MarketingHeader() {
 
                       <button
                         type="button"
-                        onClick={() => setMobileSubMenu("login")}
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          openLoginModal();
+                        }}
                         className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log In
@@ -2380,9 +2390,6 @@ export function MarketingHeader() {
         userAvatar={user?.user_metadata?.avatar_url}
         variant="auth"
       />
-
-      {/* Spacer to preserve 56px (h-14) in document flow for fixed header */}
-      <div className="h-14 w-full shrink-0" aria-hidden="true" />
     </>
   );
 }

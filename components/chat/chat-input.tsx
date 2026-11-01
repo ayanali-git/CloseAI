@@ -310,16 +310,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   // Check if content is bigger (e.g. 5-10 lines or one-two paragraphs)
   const lineCount = (message || "").split("\n").length;
   const isBigContent =
-    lineCount >= 4 ||
+    (lineCount >= 4 && message.trim().length > 0) ||
     (message && message.trim().length >= 180) ||
     ((message || "").includes("\n") && (message || "").trim().length >= 80) ||
     isFullyExpanded;
 
   // Check if content dynamically requires multiline layout
   const isTextMultiLine = Boolean(
-    message &&
-    message.trim().length > 0 &&
-    (message.includes("\n") || message.length > 25 || isMultiLine)
+    message && (message.includes("\n") || isMultiLine)
   );
 
   const isExpandedLayout =
@@ -329,23 +327,44 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
 
   // Dynamic max height based on viewport
   const getDynamicMaxHeight = useCallback(() => {
-    if (typeof window === "undefined") return 360;
+    if (typeof window === "undefined") return 180;
+    const vh = window.innerHeight;
+    const isMobile = window.innerWidth < 640;
+    const hasFiles = uploadedFiles.length > 0;
+
     if (isFullyExpanded) {
-      return Math.min(600, Math.max(300, Math.floor(window.innerHeight * 0.7)));
+      if (isMobile) {
+        return hasFiles
+          ? Math.min(220, Math.max(140, Math.floor(vh * 0.32)))
+          : Math.min(280, Math.max(160, Math.floor(vh * 0.40)));
+      }
+      return hasFiles
+        ? Math.min(360, Math.max(220, Math.floor(vh * 0.42)))
+        : Math.min(440, Math.max(260, Math.floor(vh * 0.50)));
     }
-    return Math.min(360, Math.max(180, Math.floor(window.innerHeight * 0.42)));
-  }, [isFullyExpanded]);
+
+    // Normal max height (when typing or pasting big content)
+    // Kept compact so the upper welcome screen text never hides behind the header!
+    if (isMobile) {
+      return hasFiles
+        ? Math.min(130, Math.max(90, Math.floor(vh * 0.18)))
+        : Math.min(150, Math.max(100, Math.floor(vh * 0.22)));
+    }
+    return hasFiles
+      ? Math.min(180, Math.max(120, Math.floor(vh * 0.24)))
+      : Math.min(210, Math.max(140, Math.floor(vh * 0.28)));
+  }, [isFullyExpanded, uploadedFiles.length]);
 
   const overflowTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-resize textarea height dynamically with smooth transition like TOC smooth scrolling
+  // Auto-resize textarea height dynamically
   const adjustHeight = useCallback(() => {
     const el = textareaRef.current;
     if (!el) return;
 
-    // When message is cleared or empty, smoothly collapse
-    if (!message || message.trim() === "") {
-      el.style.transition = "height 0.25s cubic-bezier(0.16, 1, 0.3, 1)";
+    // When message is completely empty (no text and no newlines), collapse to 1 row
+    if (!message || message === "") {
+      el.style.transition = "height 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
       el.style.height = "26px";
       el.style.overflowY = "hidden";
       setIsMultiLine(false);
@@ -353,34 +372,28 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       return;
     }
 
-    const prevHeight = el.offsetHeight || 44;
+    // Reset height temporarily to measure scrollHeight accurately without CSS transition interference
     el.style.transition = "none";
     el.style.height = "auto";
     const scrollH = el.scrollHeight;
-    el.style.height = `${prevHeight}px`;
-    // Force layout flush so browser registers prevHeight for smooth glide
-    void el.offsetHeight;
 
-    el.style.transition = "height 0.28s cubic-bezier(0.16, 1, 0.3, 1)";
+    // Count lines to guarantee every Shift+Enter (including empty newlines) expands height
+    const lines = message.split("\n");
+    const lineCount = lines.length;
+    // 1 line = 26px; each additional line adds ~24px (e.g. 2 lines = 50px, 3 lines = 74px)
+    const lineBasedH = lineCount <= 1 ? 26 : 26 + (lineCount - 1) * 24;
+    const dynamicH = Math.max(scrollH, lineBasedH, 26);
 
     const maxH = getDynamicMaxHeight();
 
-    if (scrollH > 38 || message.includes("\n")) {
+    if (dynamicH > 34 || message.includes("\n")) {
       setIsMultiLine(true);
-      if (scrollH > maxH) {
+      if (dynamicH > maxH) {
         el.style.height = `${maxH}px`;
-        el.style.overflowY = "hidden";
-        if (overflowTimerRef.current) clearTimeout(overflowTimerRef.current);
-        overflowTimerRef.current = setTimeout(() => {
-          if (textareaRef.current) {
-            textareaRef.current.style.overflowY = "auto";
-          }
-        }, 290);
+        el.style.overflowY = "auto";
       } else {
-        const dynamicH = Math.max(scrollH, 44);
         el.style.height = `${dynamicH}px`;
         el.style.overflowY = "hidden";
-        if (overflowTimerRef.current) clearTimeout(overflowTimerRef.current);
       }
     } else {
       el.style.height = "26px";
@@ -946,10 +959,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       className={cn(
         "w-full select-none transition-colors duration-200 relative",
         isWelcomePage
-          ? "max-w-[820px] mx-auto px-6"
+          ? "max-w-[820px] mx-auto px-4 sm:px-6"
           : centered
-          ? "max-w-2xl mx-auto px-6"
-          : "max-w-3xl mx-auto px-6",
+          ? "max-w-2xl mx-auto px-4 sm:px-6"
+          : "max-w-3xl mx-auto px-4 sm:px-6",
         className
       )}
     >
@@ -982,10 +995,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
             ? "rounded-[25px] sm:rounded-3xl"
-            : "rounded-[25px] sm:rounded-full",
+            : "rounded-full",
           isExpandedLayout
             ? "pt-2.5 px-2 pb-3 sm:p-2"
-            : "pt-2.5 px-2 pb-3 sm:px-1 sm:py-1 sm:min-h-[50px] sm:flex sm:items-center",
+            : "px-1 py-1 min-h-[50px] flex items-center",
           isDragActive && "ring-2 ring-primary border-primary"
         )}
       >
@@ -1081,8 +1094,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 rows={1}
                 disabled={isTyping || isUploading}
                 className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground transition-[height,color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none focus:ring-0 resize-none leading-relaxed select-text",
-                  isFullyExpanded ? "min-h-[280px]" : "min-h-[44px]",
+                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground focus:outline-none focus:ring-0 resize-none leading-[26px] select-text",
+                  isFullyExpanded ? "min-h-[150px] sm:min-h-[300px]" : "min-h-[25px]",
                   isBigContent && "pr-14 sm:pr-16"
                 )}
               />
@@ -1133,15 +1146,15 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </div>
           </div>
         ) : (
-          /* Single-line Layout on desktop, Two-row layout on small screen devices */
-          <div className="grid grid-cols-2 gap-y-1.5 w-full sm:flex sm:items-center sm:gap-1 sm:gap-x-2">
-            <div className="col-start-1 row-start-2 flex items-center justify-self-start pl-0.5 sm:pl-1 sm:order-1 sm:shrink-0">
+          /* Single-line Layout: 1 row rounded-full */
+          <div className="flex items-center gap-1 sm:gap-x-2 w-full">
+            <div className="flex items-center shrink-0 pl-0.5 sm:pl-1">
               {renderPlusButton()}
               {renderSmallScreenThinkGroup()}
             </div>
 
             <div
-              className="col-span-2 row-start-1 w-full px-1.5 sm:px-0 flex items-center cursor-text sm:order-2 sm:flex-1 sm:min-w-0"
+              className="flex-1 min-w-0 px-1 sm:px-0 flex items-center cursor-text"
               onClick={() => textareaRef.current?.focus()}
             >
               <textarea
@@ -1152,7 +1165,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                   cursorPositionRef.current = e.target.selectionEnd;
                   const val = e.target.value;
                   onMessageChange(val);
-                  if (val.includes("\n") || val.length > 25 || e.target.scrollHeight > 38) {
+                  if (val.includes("\n") || e.target.scrollHeight > 38) {
                     setIsMultiLine(true);
                   }
                 }}
@@ -1174,7 +1187,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               />
             </div>
 
-            <div className="col-start-2 row-start-2 flex items-center justify-self-end gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1 sm:order-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
               {renderRightActions()}
             </div>
           </div>

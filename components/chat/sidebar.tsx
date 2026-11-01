@@ -2338,13 +2338,13 @@ export function Sidebar({
                       </DropdownMenuContent>
                     </DropdownMenu>
 
-                    {/* Divider above 'Get efficient responses' */}
+                    {/* Divider above 'Get efficient responses to you' */}
                     <div className="w-full border-t border-border/80 dark:border-white/10 my-1" />
 
                     {/* Guest Callout Card */}
                     <div className="w-full pt-1 pb-1 px-1 space-y-1.5 select-text text-left">
                       <div className="text-[15.5px] font-semibold text-foreground text-left leading-snug">
-                        Get efficient responses
+                        Get efficient responses to you
                       </div>
                       <div className="text-[13px] text-muted-foreground leading-snug text-left">
                         Log in to get efficient answers, plus thinking
@@ -2722,13 +2722,13 @@ export function Sidebar({
                       </div>
                     </button>
 
-                    {/* Divider above 'Get efficient responses' */}
+                    {/* Divider above 'Get efficient responses to you' */}
                     <div className="w-full border-t border-border/80 dark:border-white/10 my-2" />
 
                     {/* Desktop Guest Callout Card */}
                     <div className="w-full pt-1 pb-1 px-1 space-y-1.5 select-text text-left">
                       <div className="text-[15.5px] font-semibold text-foreground text-left leading-snug">
-                        Get efficient responses
+                        Get efficient responses to you
                       </div>
                       <div className="text-[13px] text-muted-foreground leading-snug text-left">
                         Log in to get efficient answers, plus thinking

@@ -294,7 +294,7 @@ export function BottomSheet({
                   "pointer-events-auto flex flex-col overflow-hidden bg-card border border-border/80 dark:border-none will-change-transform",
                   isMobileScreen
                     ? "w-full max-w-2xl rounded-t-[75px] rounded-b-[25px]"
-                    : "w-full max-w-xl rounded-3xl max-h-[85vh]",
+                    : "w-full max-w-2xl rounded-3xl max-h-[85vh]",
                   className
                 )}
                 role="dialog"
