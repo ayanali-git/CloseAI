@@ -249,6 +249,22 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     isWelcomeScreen || pathname === "/c" || pathname === "/gc"
   );
 
+  const [isMobileScreen, setIsMobileScreen] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 640;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const checkTemp = () => {
@@ -316,6 +332,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     isFullyExpanded;
 
   // Check if content dynamically requires multiline layout
+  const isGuestMobileTyping = Boolean(
+    isGuest && isMobileScreen && message && message.length > 0
+  );
+
   const isTextMultiLine = Boolean(
     message && (message.includes("\n") || isMultiLine)
   );
@@ -323,7 +343,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const isExpandedLayout =
     isFullyExpanded ||
     uploadedFiles.length > 0 ||
-    isTextMultiLine;
+    isTextMultiLine ||
+    isGuestMobileTyping;
 
   // Dynamic max height based on viewport
   const getDynamicMaxHeight = useCallback(() => {
@@ -398,7 +419,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     } else {
       el.style.height = "26px";
       el.style.overflowY = "hidden";
-      setIsMultiLine(false);
+      // Avoid oscillation when text wraps in narrower layout but fits 1 line in wider layout
+      if (!message || message.length < 45) {
+        setIsMultiLine(false);
+      }
     }
   }, [message, isFullyExpanded, getDynamicMaxHeight]);
 
@@ -928,7 +952,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             aria-label={isTyping ? "Stop generating" : "Send message"}
           >
             {isTyping ? (
-              <Square className="w-5 h-5 fill-current" />
+              <Square className="w-4 h-4 fill-current" />
             ) : isUploading ? (
               <Loader className="w-5 h-5 animate-spin text-foreground" />
             ) : (
@@ -983,15 +1007,15 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             : "border border-border/80 dark:border-none",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
-            ? "rounded-[25px] sm:rounded-3xl"
+            ? "rounded-[24px] sm:rounded-3xl"
             : isGuest
-            ? "rounded-full"
-            : "rounded-[25px] sm:rounded-full",
+            ? "rounded-[26px]"
+            : "rounded-[24px] sm:rounded-[26px]",
           isExpandedLayout
-            ? "pt-2.5 px-2 pb-3 sm:p-2"
+            ? "pt-2.5 px-3 pb-2.5 sm:pt-3 sm:px-3 sm:pb-3"
             : isGuest
             ? "px-1 py-1 min-h-[50px] flex items-center"
-            : "pt-2.5 px-2 pb-3 sm:px-1 sm:py-1 sm:min-h-[50px] sm:flex sm:items-center",
+            : "pt-2.5 px-3 pb-2.5 sm:px-1 sm:py-1 sm:min-h-[50px] sm:flex sm:items-center",
           isDragActive && "ring-2 ring-primary border-primary"
         )}
       >
@@ -1063,7 +1087,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         {isExpandedLayout ? (
           /* Multiline Layout: full-width textarea on top, bottom toolbar with + on left and tools on right */
           <div className="flex flex-col w-full">
-            <div className="w-full px-1.5 sm:px-2 pt-0.5 pb-1 relative">
+            <div className="w-full px-1 sm:px-1.5 pt-0.5 pb-1 relative">
               <textarea
                 ref={textareaRef}
                 autoFocus={autoFocus}
@@ -1089,13 +1113,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 className={cn(
                   "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground focus:outline-none focus:ring-0 resize-none leading-[26px] select-text",
                   isFullyExpanded ? "min-h-[150px] sm:min-h-[300px]" : "min-h-[25px]",
-                  isBigContent && "pr-14 sm:pr-16"
+                  isBigContent && "pr-12 sm:pr-14"
                 )}
               />
 
               {/* Expand / Collapse button: matches Attach files & Dictate button style & tooltip */}
               {isBigContent && (
-                <div className="absolute top-0.5 right-6 sm:right-8 z-10">
+                <div className="absolute top-0.5 right-0.5 sm:right-1 z-10">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
@@ -1128,12 +1152,12 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
 
             {/* Bottom Toolbar Row: + button placed down side like others buttons */}
             <div className="flex items-center justify-between w-full pt-1">
-              <div className="flex items-center pl-0.5">
+              <div className="flex items-center pl-0">
                 {renderPlusButton()}
                 {renderSmallScreenThinkGroup()}
               </div>
 
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
                 {renderRightActions()}
               </div>
             </div>

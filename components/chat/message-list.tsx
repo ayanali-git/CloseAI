@@ -268,6 +268,7 @@ const CodeBlock = React.memo(
 
     // Detect when the sticky header is at the top, stuck in middle, or reached bottom (max touch)
     useIsomorphicLayoutEffect(() => {
+      if (isGuest) return;
       let rafId: number | null = null;
 
       const checkHeaderPosition = () => {
@@ -317,7 +318,7 @@ const CodeBlock = React.memo(
         window.removeEventListener("scroll", handleScroll, { capture: true });
         window.removeEventListener("resize", handleScroll);
       };
-    }, []);
+    }, [isGuest]);
 
     return (
       <div
@@ -332,16 +333,16 @@ const CodeBlock = React.memo(
         <div
           ref={headerRef}
           className={cn(
-            "sticky top-0 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
-            headerState === "stuck"
-              ? isGuest
-                ? "bg-white dark:bg-[#1f1f1f] rounded-b-[25px] sm:rounded-b-3xl border-border/80 dark:border-white/10"
-                : "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl border-border/80"
-              : headerState === "bottom"
-              ? isGuest
-                ? "bg-white dark:bg-[#1f1f1f] rounded-b-[25px] sm:rounded-b-3xl"
-                : "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl"
-              : "bg-transparent rounded-t-[25px] sm:rounded-t-3xl"
+            isGuest
+              ? "flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none bg-transparent rounded-t-[25px] sm:rounded-t-3xl"
+              : cn(
+                  "sticky top-0 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
+                  headerState === "stuck"
+                    ? "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl border-border/80"
+                    : headerState === "bottom"
+                    ? "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl"
+                    : "bg-transparent rounded-t-[25px] sm:rounded-t-3xl"
+                )
           )}
         >
           <span className="font-mono text-base lowercase font-normal tracking-wide text-foreground">

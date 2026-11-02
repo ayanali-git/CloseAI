@@ -509,6 +509,7 @@ export function Sidebar({
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
   const isAnyModalOpen = showLogoutModal || showReportBugModal || !!chatToDelete || showSearchModal;
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const [isDownloadHovered, setIsDownloadHovered] = useState(false);
   const [collapsedAccountMenuOpen, setCollapsedAccountMenuOpen] = useState(false);
   const [guestHelpMenuOpen, setGuestHelpMenuOpen] = useState(false);
   const [mobileHelpMenuOpen, setMobileHelpMenuOpen] = useState(false);
@@ -1484,7 +1485,7 @@ export function Sidebar({
             suppressHydrationWarning
             className="absolute left-[14px] z-30 pointer-events-none select-none transition-none"
             style={{
-              bottom: "calc(max(env(safe-area-inset-bottom), 0.5rem) + 8px)",
+              bottom: "calc(max(env(safe-area-inset-bottom), 0.5rem) + 6px)",
             }}
           >
             {renderAvatarContent()}
@@ -1763,14 +1764,14 @@ export function Sidebar({
               ) : user ? (
                 <>
                   {/* Collapsed View Download Button */}
-                  <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                  {/* <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                     <TooltipTrigger asChild>
                       <button
                         type="button"
                         onClick={() => {
                           toast.info("App coming soon");
                         }}
-                        className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Download app"
                       >
                         <Store className="w-5 h-5 shrink-0" />
@@ -1783,7 +1784,7 @@ export function Sidebar({
                     >
                       Download app
                     </TooltipContent>
-                  </Tooltip>
+                  </Tooltip> */}
 
                   {/* Collapsed Avatar Trigger */}
                   <DropdownMenu
@@ -1799,7 +1800,7 @@ export function Sidebar({
                           <button
                             type="button"
                             className={cn(
-                              "w-12 h-12 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-11 h-11 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               collapsedAccountMenuOpen && "bg-secondary"
                             )}
                             aria-label="Account menu"
@@ -2106,7 +2107,7 @@ export function Sidebar({
                     </button>
 
                     {/* Small Screen Devices: Sidebar Close Button */}
-                    <button
+                    {/* <button
                       type="button"
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
@@ -2120,7 +2121,7 @@ export function Sidebar({
                       aria-label="Close sidebar"
                     >
                       <X className="w-5 h-5 shrink-0" />
-                    </button>
+                    </button> */}
                   </>
                 )}
 
@@ -2523,7 +2524,7 @@ export function Sidebar({
             >
               {isAuthLoading ? (
                 /* Profile skeleton while the session loads */
-                <div className="w-full h-10 flex items-center gap-2.5 pl-[6px] pr-2 animate-pulse">
+                <div className="w-full h-11 flex items-center gap-2.5 pl-[6px] pr-2 animate-pulse">
                   <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
                   <div className="flex-1 space-y-1.5">
                     <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
@@ -2532,7 +2533,7 @@ export function Sidebar({
                 </div>
               ) : user ? (
                 /* Authenticated User Profile Row */
-                <div className="w-full h-12 flex items-center justify-between relative">
+                <div className="w-full h-11 flex items-center justify-between relative">
                   <DropdownMenu
                     open={accountMenuOpen}
                     onOpenChange={(open) => {
@@ -2552,8 +2553,10 @@ export function Sidebar({
                                 setAccountMenuOpen((prev) => !prev);
                               }
                             }}
+                            onMouseLeave={() => setIsDownloadHovered(false)}
                             className={cn(
-                              "w-full h-12 flex items-center justify-between rounded-sm hover:bg-secondary data-[state=open]:bg-secondary transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
+                              "w-full h-11 flex items-center justify-between rounded-sm transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
+                              !isDownloadHovered && "hover:bg-secondary",
                               accountMenuOpen && "bg-secondary"
                             )}
                           >
@@ -2592,8 +2595,10 @@ export function Sidebar({
                             </div>
 
                             {/* Download App Button */}
-                            <div
+                            {/* <div
                               className="shrink-0"
+                              onMouseEnter={() => setIsDownloadHovered(true)}
+                              onMouseLeave={() => setIsDownloadHovered(false)}
                               onPointerDown={(e) => e.stopPropagation()}
                               onClick={(e) => e.stopPropagation()}
                             >
@@ -2601,12 +2606,19 @@ export function Sidebar({
                                 <TooltipTrigger asChild>
                                   <button
                                     type="button"
+                                    onMouseEnter={() => setIsDownloadHovered(true)}
+                                    onMouseLeave={() => setIsDownloadHovered(false)}
                                     onPointerDown={(e) => e.stopPropagation()}
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       if (user) toast.info("App coming soon");
                                     }}
-                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-secondary active:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                                    onKeyDown={(e) => {
+                                      if (e.key === "Enter" || e.key === " ") {
+                                        e.stopPropagation();
+                                      }
+                                    }}
+                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-secondary active:bg-secondarycursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                                     aria-label="Download app"
                                   >
                                     <Store className="w-5 h-5 shrink-0" />
@@ -2621,7 +2633,7 @@ export function Sidebar({
                                   Download app
                                 </TooltipContent>
                               </Tooltip>
-                            </div>
+                            </div> */}
                           </div>
                         </DropdownMenuTrigger>
                       </TooltipTrigger>

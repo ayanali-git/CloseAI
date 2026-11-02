@@ -583,7 +583,7 @@ export default function GuestChatSessionPage() {
         {/* Transparent Floating Header - Buttons float cleanly on top, matching c/[id] and sc/[id] */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-2 xl:px-5 flex items-center justify-between select-none pointer-events-none bg-transparent">
           {/* Top gradient overlay */}
-          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
+          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
 
           {/* Left area */}
           <div className="flex items-center gap-1.5 pointer-events-auto">
@@ -684,11 +684,11 @@ export default function GuestChatSessionPage() {
           </div>
 
           {/* Center Brand Text — small screen devices only */}
-          <div className="xl:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
+          {/* <div className="xl:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
             <span className="font-medium text-2xl tracking-tight text-foreground select-none">
               CloseAI
             </span>
-          </div>
+          </div> */}
 
           {/* Right area */}
           <div className="flex items-center gap-2 pointer-events-auto">
