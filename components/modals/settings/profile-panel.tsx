@@ -628,7 +628,7 @@ export function ProfilePanel() {
           <button
             type="button"
             onClick={() => setImageOpen(true)}
-            className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] transition-all"
+            className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white dark:bg-[#111111] border border-border/80 dark:border-none flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121] transition-all"
             aria-label="Update profile picture"
           >
             <Pencil className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />

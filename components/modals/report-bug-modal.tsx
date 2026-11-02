@@ -134,7 +134,7 @@ export function ReportBugModal({
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
             aria-label="Close"
@@ -163,7 +163,7 @@ export function ReportBugModal({
                     : cn(
                         isGuest
                           ? "text-foreground border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
-                          : "text-foreground border-border/80 bg-white dark:bg-[#212121] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                          : "text-foreground border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
                       )
                 )}
                 style={{ outline: "none" }}
@@ -202,7 +202,7 @@ export function ReportBugModal({
               "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-foreground transition-colors resize-y outline-none border",
               isGuest
                 ? "bg-transparent border-border/80 dark:border-white/10"
-                : "bg-white dark:bg-[#212121] border-border/80"
+                : "bg-white dark:bg-[#111111] border-border/80"
             )}
           />
         </div>

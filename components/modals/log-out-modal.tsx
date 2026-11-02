@@ -124,7 +124,7 @@ export function LogoutModal({
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
             )}
             style={{ outline: "none" }}
             aria-label="Close"

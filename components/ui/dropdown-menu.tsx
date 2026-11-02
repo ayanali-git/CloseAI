@@ -33,7 +33,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
       onPointerMove?.(e);
     }}
     className={cn(
-      'flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-base outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#1f1f1f] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#1f1f1f] text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
+      'flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-base outline-none transition-colors duration-75 hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary data-[state=open]:bg-secondary text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
       inset && 'pl-8',
       className
     )}
@@ -75,7 +75,7 @@ const DropdownMenuSubContent = React.forwardRef<
           'z-[9999] min-w-[10rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
           isGuest
             ? 'bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10'
-            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none',
+            : 'bg-white dark:bg-[#111111] border border-border/80 dark:border-none',
           className
         )}
         {...props}
@@ -121,7 +121,7 @@ const DropdownMenuContent = React.forwardRef<
           'z-[9999] min-w-[8rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
           isGuest
             ? 'bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10'
-            : 'bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none',
+            : 'bg-white dark:bg-[#111111] border border-border/80 dark:border-none',
           className
         )}
         {...props}
@@ -144,7 +144,7 @@ const DropdownMenuItem = React.forwardRef<
       onPointerMove?.(e);
     }}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-base outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#1f1f1f] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
+      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-base outline-none transition-colors duration-75 hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
       inset && 'pl-8',
       className
     )}
@@ -160,7 +160,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-sm py-2 pl-8 pr-3 text-base outline-none transition-colors duration-100 hover:bg-secondary dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground focus:outline-none focus:ring-0 ring-0 text-left',
+      'relative flex cursor-pointer select-none items-center rounded-sm py-2 pl-8 pr-3 text-base outline-none transition-colors duration-100 hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground focus:outline-none focus:ring-0 ring-0 text-left',
       className
     )}
     checked={checked}
@@ -184,7 +184,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center justify-between rounded-sm px-3 py-2 text-base outline-none transition-colors duration-100 hover:bg-secondary dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
+      'relative flex cursor-pointer select-none items-center justify-between rounded-sm px-3 py-2 text-base outline-none transition-colors duration-100 hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
       className
     )}
     {...props}
@@ -215,16 +215,37 @@ const DropdownMenuLabel = React.forwardRef<
 ));
 DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
 
+export interface DropdownMenuSeparatorProps
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator> {
+  isGuest?: boolean;
+}
+
 const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
->(({ className, ...props }, ref) => (
+  DropdownMenuSeparatorProps
+>(({ className, isGuest: isGuestProp, ...props }, ref) => {
+  let isGuest = isGuestProp;
+  if (isGuest === undefined) {
+    try {
+      const { user, loading } = useAuth();
+      isGuest = !loading && !user;
+    } catch {
+      isGuest = false;
+    }
+  }
+
+  return (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn(' my-1.5 h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] border-0 shrink-0 block', className)}
+    className={cn(
+      'my-1.5 h-[1px] bg-neutral-200 border-0 shrink-0 block',
+      isGuest ? 'dark:bg-[#2f2f2f]' : 'dark:bg-[#212121]',
+      className
+    )}
     {...props}
   />
-));
+  );
+});
 DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 
 const DropdownMenuShortcut = ({

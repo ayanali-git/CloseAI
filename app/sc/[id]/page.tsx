@@ -508,10 +508,10 @@ export default function PublicSharedChatPage() {
                   disabled={isSharing}
                   onClick={handleShareClick}
                   className={cn(
-                    "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm backdrop-blur-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
+                    "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
                     isGuest
-                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
-                      : "bg-background sm:bg-background/50 hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15"
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                      : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
                 >
                   {isSharing ? (
@@ -533,10 +533,10 @@ export default function PublicSharedChatPage() {
                   type="button"
                   onClick={() => window.open("/c", "_blank")}
                   className={cn(
-                    "group h-11 w-11 rounded-sm backdrop-blur-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-11 w-11 rounded-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
-                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f]"
-                      : "bg-background sm:bg-background/50 hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15"
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                      : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
                   aria-label="New chat"
                 >
@@ -639,7 +639,7 @@ export default function PublicSharedChatPage() {
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
                                       ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                      : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+                                      : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

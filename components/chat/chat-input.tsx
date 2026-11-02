@@ -134,7 +134,7 @@ function FilePreviewCard({
             e.stopPropagation();
             onRemove();
           }}
-          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-neutral-200/80 dark:hover:bg-[#303030] flex items-center justify-center cursor-pointer transition-transform z-10"
+          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white dark:bg-[#111111] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10"
           aria-label="Remove image"
         >
           <X className="w-2.5 h-2.5 stroke-[2]" />
@@ -147,7 +147,7 @@ function FilePreviewCard({
   return (
     <div
       onClick={onPreview}
-      className="relative group flex items-center gap-2.5 bg-white/50 dark:bg-[#212121]/50 hover:bg-white dark:hover:bg-neutral-700 border border-border/80 dark:border-none rounded-2xl p-2.5 text-foreground min-w-0 cursor-pointer select-none transition-colors"
+      className="relative group flex items-center gap-2.5 bg-white dark:bg-[#111111] hover:bg-secondary border border-border/80 dark:border-none rounded-2xl p-2.5 text-foreground min-w-0 cursor-pointer select-none transition-colors"
       title={`Preview ${file.name}`}
     >
       {/* File type icon */}
@@ -169,7 +169,7 @@ function FilePreviewCard({
           e.stopPropagation();
           onRemove();
         }}
-        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-neutral-200/80 dark:hover:bg-[#303030] flex items-center justify-center cursor-pointer transition-transform z-10"
+        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white dark:bg-[#111111] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10"
         aria-label="Remove file"
       >
         <X className="w-2.5 h-2.5 stroke-[2]" />
@@ -466,29 +466,18 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       const refButton = plusButtonRef.current;
       if (refButton) {
         const buttonRect = refButton.getBoundingClientRect();
-        if (isMobile) {
-          // On small screens: open directly above the plus button with a small gap
-          setMenuSideOffset(10);
-          setTooltipSideOffset(8);
-        } else {
-          // On desktop: position above the top edge of the chat input pill
-          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-          setMenuSideOffset(Math.round(distToPillTop + 10));
-          setTooltipSideOffset(Math.round(distToPillTop + 8));
-        }
+        // Position above the top edge of the chat input pill on all screens (including small screen 2-row layout):
+        const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
+        setMenuSideOffset(Math.round(distToPillTop + 10));
+        setTooltipSideOffset(Math.round(distToPillTop + 8));
 
         // Always align cleanly with the left edge of the chat input pill:
         const distToPillLeft = Math.max(0, buttonRect.left - pillRect.left);
         setMenuAlignOffset(-Math.round(distToPillLeft));
       } else {
-        if (isMobile) {
-          setMenuSideOffset(10);
-          setTooltipSideOffset(8);
-        } else {
-          const estimatedDist = Math.max(0, pillRect.height - 44);
-          setMenuSideOffset(Math.round(estimatedDist + 10));
-          setTooltipSideOffset(Math.round(estimatedDist + 8));
-        }
+        const estimatedDist = Math.max(0, pillRect.height - 44);
+        setMenuSideOffset(Math.round(estimatedDist + 10));
+        setTooltipSideOffset(Math.round(estimatedDist + 8));
       }
 
       if (isMobile) {
@@ -774,7 +763,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none",
+            : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
         style={{
@@ -934,7 +923,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
                 ? "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
-                : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
+                : "bg-white dark:bg-[#212121] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}
           >
@@ -986,7 +975,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           "relative transition-all duration-200",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f]"
-            : "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm",
+            : "bg-white dark:bg-[#111111]",
           effectiveIsTemporary
             ? "border border-transparent"
             : isGuest

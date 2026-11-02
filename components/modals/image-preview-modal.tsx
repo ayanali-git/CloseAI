@@ -103,8 +103,8 @@ export function ImagePreview({
                     className={cn(
                       "group h-11 w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                       isGuestMode
-                        ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 text-muted-foreground hover:text-foreground"
-                        : "bg-background sm:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
+                        ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary focus:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
+                        : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
                     )}
                     title="Download image"
                     aria-label="Download image"
@@ -119,8 +119,8 @@ export function ImagePreview({
                   className={cn(
                     "group h-11 w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
-                      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 text-muted-foreground hover:text-foreground"
-                      : "bg-background sm:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground"
+                      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary focus:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
+                      : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
                   )}
                   title="Close preview"
                   aria-label="Close preview"

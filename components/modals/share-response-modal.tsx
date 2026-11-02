@@ -161,7 +161,7 @@ function CodeBlock({
         "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 dark:border-none text-left isolate overflow-visible",
         isGuest
           ? "bg-white dark:bg-[#1f1f1f] text-foreground"
-          : "bg-white/50 dark:bg-[#212121]/50 text-foreground"
+          : "bg-white dark:bg-[#111111] text-foreground"
       )}
     >
       <div
@@ -399,7 +399,7 @@ export function ShareResponseModal({
                           "border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase",
                           isGuest
                             ? "bg-white dark:bg-[#1f1f1f]"
-                            : "bg-white/50 dark:bg-[#212121]/50"
+                            : "bg-white dark:bg-[#111111]"
                         )}
                       >
                         {children}
@@ -516,7 +516,7 @@ export function ShareResponseModal({
                           "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
                           isGuest
                             ? "bg-white dark:bg-[#1f1f1f]"
-                            : "bg-white/50 dark:bg-[#212121]/50"
+                            : "bg-white dark:bg-[#111111]"
                         )}
                       >
                         <pre className="text-[15px] font-mono text-foreground whitespace-pre w-max min-w-full">
@@ -532,7 +532,7 @@ export function ShareResponseModal({
                           "px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text text-foreground",
                           isGuest
                             ? "bg-white dark:bg-[#1f1f1f]"
-                            : "bg-white/50 dark:bg-[#212121]/50"
+                            : "bg-white dark:bg-[#111111]"
                         )}
                         {...props}
                       >

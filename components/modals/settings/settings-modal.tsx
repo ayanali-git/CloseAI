@@ -51,13 +51,13 @@ const PANE_MOTION =
   "transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none";
 
 const DARK_HOVER_BG = {
-  guest: "dark:hover:bg-[#2f2f2f]",
-  auth: "dark:hover:bg-[#1f1f1f]",
+  guest: "hover:bg-secondary active:bg-secondary",
+  auth: "hover:bg-secondary active:bg-secondary",
 } as const;
 
 const DARK_SELECTED_BG = {
-  guest: "dark:bg-[#2f2f2f]",
-  auth: "dark:bg-[#1f1f1f]",
+  guest: "bg-secondary",
+  auth: "bg-secondary",
 } as const;
 
 export function SettingsModal({

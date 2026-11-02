@@ -827,7 +827,7 @@ export function Sidebar({
       <DropdownMenuItem asChild>
         <Link
           href="/support/help"
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left group"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
           <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Help center</span>
@@ -837,7 +837,7 @@ export function Sidebar({
       <DropdownMenuItem asChild>
         <Link
           href="/company/blog"
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left group"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
           <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Release notes</span>
@@ -849,7 +849,7 @@ export function Sidebar({
         onSelect={(e) => e.preventDefault()}
         className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
       >
-        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left group">
+        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left group">
           <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
             label="Download app"
@@ -859,14 +859,14 @@ export function Sidebar({
         </div>
       </DropdownMenuItem>
 
-      <DropdownMenuSeparator className="my-1 bg-neutral-200 dark:bg-[#2f2f2f]" />
+      <DropdownMenuSeparator className={cn("my-1 bg-neutral-200", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
 
       <DropdownMenuItem asChild>
         <Link
           href="/support/terms"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
             <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -881,7 +881,7 @@ export function Sidebar({
           href="/support/privacy"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
             <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -891,11 +891,11 @@ export function Sidebar({
         </Link>
       </DropdownMenuItem>
 
-      <DropdownMenuSeparator className="my-1 bg-neutral-200 dark:bg-[#2f2f2f]" />
+      <DropdownMenuSeparator className={cn("my-1 bg-neutral-200", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
 
       <DropdownMenuItem
         onClick={handleOpenReportBug}
-        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary/80 dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 transition-colors outline-none whitespace-nowrap text-left"
       >
         <div className="flex items-center gap-2.5">
           <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -972,12 +972,12 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Help</span>
           </button>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1" />
+          <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
           <DropdownMenuItem asChild>
             <Link
               href="/support/help"
@@ -987,7 +987,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
@@ -1002,7 +1002,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
@@ -1013,7 +1013,7 @@ export function Sidebar({
             onSelect={(e) => e.preventDefault()}
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
           >
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f]">
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]">
               <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
@@ -1022,14 +1022,14 @@ export function Sidebar({
               />
             </div>
           </DropdownMenuItem>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1" />
+          <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
           <DropdownMenuItem asChild>
             <Link
               href="/support/terms"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1044,7 +1044,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1053,10 +1053,10 @@ export function Sidebar({
               <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
             </Link>
           </DropdownMenuItem>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1" />
+          <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
           <DropdownMenuItem
             onClick={handleOpenReportBug}
-            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
+            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
               <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1076,12 +1076,12 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Accounts</span>
           </button>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1" />
+          <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
           <div className="flex items-center gap-2 px-2 py-1.5 text-base text-muted-foreground hover:text-foreground select-none">
             <UserIcon className="w-5 h-5 shrink-0" />
             <span className="truncate">{userEmail}</span>
@@ -1108,11 +1108,11 @@ export function Sidebar({
             </div>
             <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />
           </div>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1" />
+          <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
           <button
             type="button"
             onClick={handleOpenAddAccount}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Plus className="w-5 h-5 text-muted-foreground" />
             <span>Add account</span>
@@ -1132,7 +1132,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("accounts");
             }}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 text-left transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm [@media(hover:hover)]:hover:bg-secondary active:bg-secondary text-left transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
               <AvatarImage src={avatarUrl} />
@@ -1177,7 +1177,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-108}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
             >
               <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
                 <UserIcon className="w-5 h-5 shrink-0" />
@@ -1217,7 +1217,7 @@ export function Sidebar({
           </DropdownMenuSub>
         )}
 
-        <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1 -mx-1.5" />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-1.5", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
 
         {/* Upgrade plan */}
         <DropdownMenuItem
@@ -1257,7 +1257,7 @@ export function Sidebar({
           <span>Settings</span>
         </DropdownMenuItem>
 
-        <div className="h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] my-1 -mx-1.5" />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-1.5", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
 
         {/* Help Button / Dropdown */}
         {isMobileScreen ? (
@@ -1267,7 +1267,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("help");
             }}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <div className="flex items-center gap-2.5">
               <LifeBuoy className="w-5 h-5 text-muted-foreground" />
@@ -1284,7 +1284,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-238}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
             >
               <DropdownMenuItem asChild>
                 <Link
@@ -1306,7 +1306,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#1f1f1f]"
+                className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
               >
                 <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
@@ -1826,7 +1826,7 @@ export function Sidebar({
                       side="right"
                       align="end"
                       sideOffset={5}
-                      className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
@@ -2606,7 +2606,7 @@ export function Sidebar({
                                       e.stopPropagation();
                                       if (user) toast.info("App coming soon");
                                     }}
-                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-secondary active:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                                     aria-label="Download app"
                                   >
                                     <Store className="w-5 h-5 shrink-0" />
@@ -2632,7 +2632,7 @@ export function Sidebar({
                       side="top"
                       align="start"
                       sideOffset={5}
-                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
+                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 dark:border-none outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>

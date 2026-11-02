@@ -410,7 +410,7 @@ function DrawerCloseTrigger({
       }}
       aria-label="Close drawer"
       className={cn(
-        "drawer__close-trigger p-3 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#1f1f1f] transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "drawer__close-trigger p-3 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className
       )}
       {...props}
@@ -511,7 +511,7 @@ function DrawerFooter({ className, children, ...props }: DrawerFooterProps) {
   return (
     <div
       className={cn(
-        "drawer__footer px-5 py-3 border-t border-border/80 dark:border-neutral-800/80 flex items-center justify-between gap-2 shrink-0 bg-background backdrop-blur-sm",
+        "drawer__footer px-5 py-3 border-t border-border/80 dark:border-neutral-800/80 flex items-center justify-between gap-2 shrink-0 bg-background",
         className
       )}
       {...props}
@@ -555,7 +555,7 @@ function FileItemRow({
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-sm hover:bg-secondary dark:hover:bg-[#1f1f1f] active:bg-secondary/80 dark:active:bg-[#1f1f1f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
+      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#1f1f1f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
       title={`Preview ${fileName}`}
     >
       {/* File Icon Squircle */}
@@ -703,7 +703,7 @@ export function FilePreviewViewer({
     <div className="w-full flex-1 flex flex-col min-h-0 bg-transparent animate-in fade-in-50 duration-200">
       {/* Optional Top Header (only if showHeader is explicitly true) */}
       {showHeader && (
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/80 dark:border-neutral-800/80 bg-background backdrop-blur-sm rounded-2xl mx-3 sm:mx-6 mt-1 shrink-0 z-10">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/80 dark:border-neutral-800/80 bg-background rounded-2xl mx-3 sm:mx-6 mt-1 shrink-0 z-10">
           <div className="flex items-center gap-3 min-w-0 pr-3">
             <span className="text-foreground font-semibold text-[14.5px] sm:text-base truncate">
               {fileName}
@@ -715,7 +715,7 @@ export function FilePreviewViewer({
               <button
                 type="button"
                 onClick={handleDownload}
-                className="group h-11 w-11 rounded-sm bg-background sm:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
                 title="Download file"
                 aria-label="Download file"
               >
@@ -725,7 +725,7 @@ export function FilePreviewViewer({
             <button
               type="button"
               onClick={onClose}
-              className="group h-11 w-11 rounded-sm bg-background sm:bg-background/50 backdrop-blur-sm border border-border/80 dark:border-none hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/15 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+              className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
               title="Close preview"
               aria-label="Close preview"
             >

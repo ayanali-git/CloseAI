@@ -682,7 +682,7 @@ export function NativeDropdownMenu<T extends string = string>({
             : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
-          isGuest ? "dark:hover:bg-[#2f2f2f]" : "dark:hover:bg-[#1f1f1f]",
+          "active:bg-secondary",
           triggerClassName,
           className
         )}
@@ -732,7 +732,7 @@ export function NativeDropdownMenu<T extends string = string>({
                 ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
                   "!bg-white dark:!bg-[#1f1f1f] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
                 :
-                  "bg-white/50 dark:bg-[#212121]/50 backdrop-blur-sm border border-border/80 dark:border-none lg:translate-y-px dark:lg:translate-y-0",
+                  "bg-white dark:bg-[#111111] border border-border/80 dark:border-none lg:translate-y-px dark:lg:translate-y-0",
               contentClassName
             )}
           >
@@ -764,9 +764,9 @@ export function NativeDropdownMenu<T extends string = string>({
                       "text-foreground/90 hover:bg-secondary hover:text-foreground",
                       "focus:bg-secondary focus:text-foreground",
                       "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
-                      isGuest
-                        ? "dark:hover:bg-[#2f2f2f] dark:focus:bg-[#2f2f2f] dark:data-[highlighted]:bg-[#2f2f2f]"
-                        : "dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] dark:data-[highlighted]:bg-[#1f1f1f]",
+
+                      "active:bg-secondary",
+
                       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                       itemClassName
                     )}
@@ -787,7 +787,7 @@ export function NativeDropdownMenu<T extends string = string>({
                     </SelectPrimitive.ItemIndicator>
                   </SelectPrimitive.Item>
                   {option.divider && (
-                    <SelectPrimitive.Separator className="my-1.5 -mx-1 h-[1px] bg-neutral-200 dark:bg-[#2f2f2f] border-0 shrink-0 block" />
+                    <SelectPrimitive.Separator className={cn("my-1.5 -mx-1 h-[1px] bg-neutral-200 border-0 shrink-0 block", isGuest ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
                   )}
                 </React.Fragment>
               ))}
