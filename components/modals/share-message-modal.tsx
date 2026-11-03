@@ -154,7 +154,7 @@ export function SharePromptModal({
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
-            Share prompt
+            Share message
           </h2>
           <button
             type="button"

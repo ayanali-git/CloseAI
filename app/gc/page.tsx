@@ -325,27 +325,28 @@ function GuestChatContent() {
           </div>
 
           {/* Center Brand Text — small screen devices only */}
-          <div className="xl:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
+          {/* <div className="xl:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
             <span className="font-medium text-2xl tracking-tight text-foreground select-none">
               CloseAI
             </span>
-          </div>
+          </div> */}
 
           {/* Right area */}
           <div className="flex items-center gap-2 pointer-events-auto">
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
-              Log in
+              Sign up for free
             </button>
+            
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
-              Sign up for free
+              Log in
             </button>
           </div>
         </header>

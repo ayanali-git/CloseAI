@@ -1365,7 +1365,7 @@ export default function ActiveChatPage() {
               </div>
             </>
           ) : (
-            /* NORMAL CHAT HEADER: Sidebar toggle on left, Share & More options on right */
+            /* NORMAL CHAT HEADER: Sidebar toggle on left, Share & Chat options on right */
             <>
               <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
                 {!sidebarOpen && (
@@ -1452,7 +1452,7 @@ export default function ActiveChatPage() {
                     </TooltipContent>
                   </Tooltip>
                 ) : (
-                  /* Separate Share and More options buttons with gap-2 */
+                  /* Separate Share and Chat options buttons with gap-2 */
                   <div className="flex items-center gap-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -1506,7 +1506,7 @@ export default function ActiveChatPage() {
                                 "group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                                 optionsMenuOpen && "bg-secondary text-foreground"
                               )}
-                              aria-label="More options"
+                              aria-label="Chat options"
                             >
                               <MoreHorizontal className={cn(
                                 "w-5 h-5 text-muted-foreground group-hover:text-foreground",
@@ -1521,7 +1521,7 @@ export default function ActiveChatPage() {
                           sideOffset={6}
                           className="text-base"
                         >
-                          More options
+                          Chat options
                         </TooltipContent>
                       </Tooltip>
 

@@ -65,7 +65,7 @@ import {
 import { AnimatedComingSoonText } from "@/components/ui/animated";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
-import { SharePromptModal } from "@/components/modals/share-prompt-modal";
+import { SharePromptModal } from "@/components/modals/share-message-modal";
 import { ShareResponseModal } from "@/components/modals/share-response-modal";
 import { DeleteMessageModal } from "@/components/modals/delete-message-modal";
 import { ThinkReasoning } from "@/components/chat/think-reasoning";
@@ -134,6 +134,7 @@ export interface MessageListProps {
   onDeleteMessage?: (messageId: string, messageIndex: number) => void;
   showMessageActions?: boolean;
   isTemporary?: boolean;
+  isShared?: boolean;
 }
 
 const LANG_ALIAS: Record<string, string> = {
@@ -534,6 +535,7 @@ export function MessageList({
   onDeleteMessage,
   showMessageActions = true,
   isTemporary = false,
+  isShared = false,
 }: MessageListProps) {
   const isGuestMode = isGuest ?? !user;
   const scrollBottomRef = useRef<HTMLDivElement>(null);
@@ -1102,7 +1104,7 @@ export function MessageList({
                                     startEditing(msgId, msg.content)
                                   }
                                   className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                                  aria-label="Edit prompt"
+                                  aria-label="Edit message"
                                 >
                                   <Pencil className="w-4 h-4" />
                                 </button>
@@ -1112,13 +1114,13 @@ export function MessageList({
                                 sideOffset={4}
                                 className="text-base"
                               >
-                                Edit prompt
+                                Edit message
                               </TooltipContent>
                             </Tooltip>
                           )
-                        : user && (
+                        : (
                             <>
-                              {/* 2. Share prompt */}
+                              {/* 2. Share prompt / message (available for both guest and authenticated users) */}
                               {!isThisMsgThinking && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
@@ -1136,7 +1138,7 @@ export function MessageList({
                                         }, 300);
                                       }}
                                       className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                                      aria-label="Share prompt"
+                                      aria-label="Share message"
                                     >
                                       {loadingShareId === msgId ? (
                                         <Loader className="w-4 h-4 animate-spin" />
@@ -1150,65 +1152,70 @@ export function MessageList({
                                     sideOffset={4}
                                     className="text-base"
                                   >
-                                    Share prompt
+                                    Share message
                                   </TooltipContent>
                                 </Tooltip>
                               )}
 
-                              {/* 3. Edit prompt */}
-                              {(onEditAndResend || onEditMessage) &&
-                                !isThisMsgThinking && (
-                                  <Tooltip>
-                                    <TooltipTrigger asChild>
-                                      <button
-                                        type="button"
-                                        onClick={() =>
-                                          startEditing(msgId, msg.content)
-                                        }
-                                        className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                                        aria-label="Edit prompt"
-                                      >
-                                        <Pencil className="w-4 h-4" />
-                                      </button>
-                                    </TooltipTrigger>
-                                    <TooltipContent
-                                      side="bottom"
-                                      sideOffset={4}
-                                      className="text-base"
-                                    >
-                                      Edit prompt
-                                    </TooltipContent>
-                                  </Tooltip>
-                                )}
+                              {/* Edit & Delete are hidden in shared chat, only visible for authenticated users in regular chats */}
+                              {!isShared && user && (
+                                <>
+                                  {/* 3. Edit message */}
+                                  {(onEditAndResend || onEditMessage) &&
+                                    !isThisMsgThinking && (
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <button
+                                            type="button"
+                                            onClick={() =>
+                                              startEditing(msgId, msg.content)
+                                            }
+                                            className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                                            aria-label="Edit message"
+                                          >
+                                            <Pencil className="w-4 h-4" />
+                                          </button>
+                                        </TooltipTrigger>
+                                        <TooltipContent
+                                          side="bottom"
+                                          sideOffset={4}
+                                          className="text-base"
+                                        >
+                                          Edit message
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    )}
 
-                              {/* 4. Delete message */}
-                              {onDeleteMessage && !isThisMsgThinking && (
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        setDeleteMessageTarget({
-                                          id: msgId,
-                                          index,
-                                          content: msg.content,
-                                          files: msg.files,
-                                        })
-                                      }
-                                      className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
-                                      aria-label="Delete message"
-                                    >
-                                      <Trash2 className="w-4 h-4" />
-                                    </button>
-                                  </TooltipTrigger>
-                                  <TooltipContent
-                                    side="bottom"
-                                    sideOffset={4}
-                                    className="text-base"
-                                  >
-                                    Delete message
-                                  </TooltipContent>
-                                </Tooltip>
+                                  {/* 4. Delete message */}
+                                  {onDeleteMessage && !isThisMsgThinking && (
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <button
+                                          type="button"
+                                          onClick={() =>
+                                            setDeleteMessageTarget({
+                                              id: msgId,
+                                              index,
+                                              content: msg.content,
+                                              files: msg.files,
+                                            })
+                                          }
+                                          className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                                          aria-label="Delete message"
+                                        >
+                                          <Trash2 className="w-4 h-4" />
+                                        </button>
+                                      </TooltipTrigger>
+                                      <TooltipContent
+                                        side="bottom"
+                                        sideOffset={4}
+                                        className="text-base"
+                                      >
+                                        Delete message
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  )}
+                                </>
                               )}
                             </>
                           )}
@@ -1223,15 +1230,20 @@ export function MessageList({
           return (
             <div key={msgId} id={mId} className="w-full group space-y-2">
               <div className="w-full space-y-3">
-                {/* Collapsed Thought for Xs if this message was generated in think harder */}
+                {/* Collapsed Worked for Xs if this message was generated in think harder */}
                 {msg.metadata?.think && (
                   <div className="pt-1 pb-1">
                     <ThinkReasoning
                       isThinking={false}
                       promptText={
-                        index > 0 && messages[index - 1]?.role === "user"
-                          ? messages[index - 1]?.content
-                          : undefined
+                        (() => {
+                          for (let i = index - 1; i >= 0; i--) {
+                            if (messages[i]?.role === "user") {
+                              return messages[i]?.content;
+                            }
+                          }
+                          return undefined;
+                        })()
                       }
                       thinkingSteps={msg.metadata?.thinkingSteps}
                       elapsedSeconds={msg.metadata?.thinkTime || 5}
@@ -1318,13 +1330,13 @@ export function MessageList({
                         </TooltipContent>
                       </Tooltip>
                     ) : (
-                      user && (
-                        <>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button
-                                type="button"
-                                data-message-action="share-response"
+                      <>
+                        {/* 2. Share response (available for both guest and authenticated users) */}
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              data-message-action="share-response"
                                 onClick={() => {
                                   setLoadingShareId(msgId);
                                   setTimeout(() => {
@@ -1356,11 +1368,14 @@ export function MessageList({
                             </TooltipContent>
                           </Tooltip>
 
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button
-                                type="button"
-                                onClick={() => handleFeedback(msgId, "up")}
+                        {/* Good response, Bad response, More options are ONLY shown for authenticated users in non-shared chats */}
+                        {!isShared && user && (
+                          <>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type="button"
+                                  onClick={() => handleFeedback(msgId, "up")}
                                 disabled={loadingFeedbackId === `${msgId}-up`}
                                 className={cn(
                                   "p-1.5 rounded-sm transition-colors cursor-pointer disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed",
@@ -1753,8 +1768,9 @@ export function MessageList({
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </>
-                      )
-                    )}
+                      )}
+                    </>
+                  )}
                   </div>
                 )}
               </div>

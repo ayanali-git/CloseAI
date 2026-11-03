@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageList } from "@/components/chat/message-list";
+import { LoginModal } from "@/components/modals/log-in-modal";
 import TocNavigator, { getTargetElement } from "@/components/chat/toc-navigator";
 import { ChatInput } from "@/components/chat/chat-input";
 import { useAuth } from "@/hooks/use-auth";
@@ -193,6 +194,14 @@ export default function PublicSharedChatPage() {
   const [isError, setIsError] = useState<boolean>(false);
   const [isSharing, setIsSharing] = useState<boolean>(false);
   const [showScrollBottom, setShowScrollBottom] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginModalDescription, setLoginModalDescription] = useState<string | undefined>(undefined);
+
+  const handleOpenLogin = (opts?: { description?: string; title?: string } | string) => {
+    const desc = typeof opts === "string" ? opts : opts?.description;
+    setLoginModalDescription(desc);
+    setShowLoginModal(true);
+  };
 
   // ChatInput states
   const [inputValue, setInputValue] = useState("");
@@ -604,7 +613,7 @@ export default function PublicSharedChatPage() {
                     isGuest={isGuest}
                     isTyping={false}
                     pendingMessage={null}
-                    showMessageActions={false}
+                    isShared={true}
                   />
                 </div>
               )}
@@ -632,6 +641,9 @@ export default function PublicSharedChatPage() {
                     thinkMode={thinkMode}
                     onThinkModeChange={setThinkMode}
                     isGuest={isGuest}
+                    onOpenLoginModal={handleOpenLogin}
+                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                    onOpenAdvancedFeaturesModal={handleOpenLogin}
                   >
                     {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
                     <AnimatePresence>
@@ -677,6 +689,18 @@ export default function PublicSharedChatPage() {
         {/* TOC Navigator — Table of Contents on Desktop */}
         <TocNavigator messages={messages} containerRef={scrollContainerRef} />
       </div>
+
+      {/* Login Modal */}
+      <LoginModal
+        open={showLoginModal}
+        onOpenChange={(open) => {
+          setShowLoginModal(open);
+          if (!open) {
+            setLoginModalDescription(undefined);
+          }
+        }}
+        description={loginModalDescription}
+      />
     </div>
   );
 }

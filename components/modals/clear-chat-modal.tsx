@@ -65,7 +65,7 @@ export function ClearChatModal({
               onClick={handleLogin}
               className="font-normal text-foreground hover:opacity-80 transition-opacity cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
             >
-              Log in
+              Sign up for free
             </button>{" "}
             or{" "}
             <button
@@ -73,7 +73,7 @@ export function ClearChatModal({
               onClick={handleLogin}
               className="font-normal text-foreground hover:opacity-80 transition-opacity cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
             >
-              Sign up for free
+              Log in
             </button>{" "}
             to save chats.
           </p>

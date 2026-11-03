@@ -1,35 +1,83 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedChevron } from "@/components/ui/animated";
+
+export type ThinkingStepItem = string | React.ReactNode;
 
 export interface ThinkReasoningProps {
   isThinking?: boolean;
   promptText?: string;
-  thinkingSteps?: string[];
+  thinkingSteps?: ThinkingStepItem[];
   elapsedSeconds?: number;
 }
 
 function extractKeyTopic(prompt?: string): string {
   if (!prompt || !prompt.trim()) return "";
-  const cleaned = prompt
-    .replace(
-      /^(can you|could you|please|help me|i want to|i need to|write a|write an|write|create a|create|generate a|generate|draft a|draft|build a|build|explain|how do i|how to)\\s+/i,
-      ""
-    )
-    .replace(/[?.!]+$/, "")
-    .trim();
-  const words = cleaned.split(/\s+/);
-  if (words.length <= 5) return cleaned;
-  return words.slice(0, 5).join(" ") + "…";
+  // Strip outer quotes, double quotes, or backticks that may wrap the prompt
+  let cleaned = prompt.trim().replace(/^["'“”‘’`]+|["'“”‘’`]+$/g, "").trim();
+  // Clean multiple whitespace / newlines into a single space
+  cleaned = cleaned.replace(/\s+/g, " ");
+  // Strip polite conversational prefixes if present, keeping the actual request intact
+  cleaned = cleaned.replace(
+    /^(can you please|could you please|please help me to|help me to|please|can you|could you|help me|i want to|i need to|kindly)\s+/i,
+    ""
+  );
+  // Remove trailing punctuation marks so the step sentence ends cleanly
+  cleaned = cleaned.replace(/[?.!;,]+$/, "").trim();
+
+  // For all standard prompts (up to 80 words), show the entire full message without truncation!
+  const words = cleaned.split(" ");
+  if (words.length <= 80) {
+    return cleaned;
+  }
+  // For unusually massive multi-paragraph text dumps, take first 80 words cleanly without trailing ellipsis
+  return words.slice(0, 80).join(" ");
 }
 
-function getDynamicSteps(prompt?: string): string[] {
+function getDynamicSteps(prompt?: string): ThinkingStepItem[] {
   const p = (prompt || "").toLowerCase();
   const topic = extractKeyTopic(prompt);
-  const topicPrefix = topic ? ` for "${topic}"` : "";
+  const topicNode = topic ? (
+    <span className="font-medium text-foreground">{topic}</span>
+  ) : null;
 
-  // 1. Career / Cover Letter / Resume
+  const withTopic = (base: string) =>
+    topicNode ? (
+      <>
+        {base} for {topicNode}.
+      </>
+    ) : (
+      `${base}.`
+    );
+
+  // 1. Identity / Model / Assistant inquiries (e.g. "who are you and by which modal are you replying")
+  if (
+    p.includes("who are you") ||
+    p.includes("what are you") ||
+    p.includes("which model") ||
+    p.includes("what model") ||
+    p.includes("which modal") ||
+    p.includes("what modal") ||
+    p.includes("who made you") ||
+    p.includes("your name") ||
+    p.includes("who created you") ||
+    p.includes("what can you do")
+  ) {
+    return [
+      withTopic("Clarifying system identity and operational parameters"),
+      "Confirming model architecture, active reasoning engine, and configuration.",
+      "Reviewing prompt parameters, context constraints, and persona alignment.",
+      "Calibrating self-referential clarity, transparency, and factual presentation.",
+      "Synthesizing transparent, accurate response regarding AI identity and capabilities.",
+      "Formulating direct, comprehensive introduction.",
+      "Refining readability and verifying holistic clarity.",
+      "Finalizing polished answer presentation.",
+    ];
+  }
+
+  // 2. Career / Cover Letter / Resume
   if (
     p.includes("resume") ||
     p.includes("cv") ||
@@ -41,7 +89,7 @@ function getDynamicSteps(prompt?: string): string[] {
     p.includes("job")
   ) {
     return [
-      `Analyzing candidate background and target position expectations${topicPrefix}.`,
+      withTopic("Analyzing candidate background and target position expectations"),
       "Deconstructing job description requirements and identifying core alignment vectors.",
       "Synthesizing quantifiable accomplishments, impact metrics, and leadership indicators.",
       "Structuring narrative arc: impactful opening hook, proven achievements, and forward vision.",
@@ -59,7 +107,7 @@ function getDynamicSteps(prompt?: string): string[] {
     ];
   }
 
-  // 2. Code / Development / Debugging
+  // 3. Code / Development / Debugging / Architecture
   if (
     p.includes("code") ||
     p.includes("bug") ||
@@ -78,7 +126,7 @@ function getDynamicSteps(prompt?: string): string[] {
     p.includes("refactor")
   ) {
     return [
-      `Parsing technical requirements, syntax constraints, and runtime patterns${topicPrefix}.`,
+      withTopic("Parsing technical requirements, syntax constraints, and runtime patterns"),
       "Deconstructing architectural boundaries, state management, and lifecycle events.",
       "Tracing execution flow and pinpointing potential edge cases or race conditions.",
       "Evaluating type safety, interface contracts, and null-safety guarantees.",
@@ -96,7 +144,7 @@ function getDynamicSteps(prompt?: string): string[] {
     ];
   }
 
-  // 3. System Design / Architecture / Cloud / DB
+  // 4. System Design / Architecture / Cloud / DB
   if (
     p.includes("system") ||
     p.includes("architecture") ||
@@ -109,7 +157,7 @@ function getDynamicSteps(prompt?: string): string[] {
     p.includes("microservice")
   ) {
     return [
-      `Evaluating high-level scalability targets and throughput requirements${topicPrefix}.`,
+      withTopic("Evaluating high-level scalability targets and throughput requirements"),
       "Deconstructing functional and non-functional system constraints.",
       "Mapping data ingestion flows, persistence layers, and read/write access patterns.",
       "Evaluating storage paradigms: relational consistency vs distributed key-value models.",
@@ -124,7 +172,7 @@ function getDynamicSteps(prompt?: string): string[] {
     ];
   }
 
-  // 4. Math, Science & Algorithms
+  // 5. Math, Science & Algorithms
   if (
     p.includes("math") ||
     p.includes("physics") ||
@@ -135,7 +183,7 @@ function getDynamicSteps(prompt?: string): string[] {
     p.includes("matrix")
   ) {
     return [
-      `Deconstructing mathematical formulation and identifying underlying invariants${topicPrefix}.`,
+      withTopic("Deconstructing mathematical formulation and identifying underlying invariants"),
       "Mapping known boundary conditions, parameter constraints, and target theorems.",
       "Developing formal derivation step-by-step from foundational axioms.",
       "Evaluating asymptotic bounds, recurrence relations, and algorithmic optimizations.",
@@ -147,9 +195,29 @@ function getDynamicSteps(prompt?: string): string[] {
     ];
   }
 
-  // 5. General inquiries / Strategy / Writing
+  // 6. Data Analysis, Metrics & Research
+  if (
+    p.includes("data") ||
+    p.includes("dataset") ||
+    p.includes("analytics") ||
+    p.includes("research") ||
+    p.includes("benchmark") ||
+    p.includes("statistics")
+  ) {
+    return [
+      withTopic("Structuring quantitative data analysis framework"),
+      "Identifying statistical distributions, variance metrics, and sample significance.",
+      "Evaluating correlations, anomalies, and structural distribution patterns.",
+      "Formulating empirical hypotheses and validating methodological rigor.",
+      "Synthesizing data-driven insights with actionable analytical conclusions.",
+      "Reviewing precision of numerical indicators and domain implications.",
+      "Finalizing structured analytical summary and key takeaways.",
+    ];
+  }
+
+  // 7. General inquiries / Strategy / Writing
   return [
-    `Analyzing prompt intent and establishing core objectives${topicPrefix}.`,
+    withTopic("Analyzing prompt intent and establishing core objectives"),
     "Exploring contextual nuances, underlying principles, and key thematic vectors.",
     "Synthesizing multifaceted perspectives, objective trade-offs, and critical context.",
     "Structuring narrative progression from foundational premises to concrete insights.",
@@ -190,7 +258,7 @@ export function ThinkReasoning({
   thinkingSteps,
   elapsedSeconds,
 }: ThinkReasoningProps) {
-  const baseSentences = useMemo(() => {
+  const baseSentences = useMemo<ThinkingStepItem[]>(() => {
     if (thinkingSteps && thinkingSteps.length > 0) return thinkingSteps;
     return getDynamicSteps(promptText);
   }, [thinkingSteps, promptText]);
@@ -292,45 +360,57 @@ export function ThinkReasoning({
     <div className="flex flex-col w-full max-w-full select-none">
       <button
         type="button"
+        data-state={open ? "open" : "closed"}
         className="inline-flex items-center gap-1.5 self-start min-h-[22px] p-0 border-0 bg-transparent cursor-pointer outline-none select-none group"
         aria-expanded={open}
-        aria-label="Toggle thought"
+        aria-label="Toggle thinking steps"
         onClick={toggle}
       >
         {done ? (
-          <span className="text-[13.5px] leading-[18px] font-normal text-muted-foreground tracking-[-0.005em]">
-            <span className="font-medium text-foreground">Thought</span> for {formattedElapsed}
+          <span className="text-base leading-[18px] font-normal text-muted-foreground tracking-[-0.005em]">
+            <span className="font-medium text-foreground">Worked</span> for {formattedElapsed}
           </span>
         ) : (
           <span className="inline-flex items-center gap-1.5 text-[13.5px] leading-[18px] text-muted-foreground">
-            <span className="font-medium animate-shimmer-text text-muted-foreground">Thinking…</span>
-            <span className="font-normal text-xs opacity-80 text-muted-foreground">{formattedElapsed}</span>
+            <span className="font-medium text-base animate-shimmer-text text-muted-foreground">Thinking…</span>
+            <span className="font-normal text-base opacity-80 text-muted-foreground">{formattedElapsed}</span>
           </span>
         )}
         <AnimatedChevron
           open={open}
           orientation="right-down"
-          size={15}
+          size={18}
           disableHover
-          className="text-muted-foreground group-hover:text-foreground shrink-0 transition-colors"
+          data-state={open ? "open" : "closed"}
+          className="text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground data-[state=open]:text-foreground shrink-0 transition-colors"
         />
       </button>
 
-      {open && (
-        <div className="mt-1.5 overflow-hidden">
-          <div className="flex flex-col gap-1 max-h-[480px] overflow-y-auto scrollbar-thin pr-1 select-text">
-            {visibleSentences.map((line, i) => (
-              <p
-                key={`${i}-${line}`}
-                className="m-0 py-0.5 text-[13.5px] leading-5 text-muted-foreground/90 select-text"
-              >
-                {line}
-              </p>
-            ))}
-            <div ref={stepsEndRef} />
-          </div>
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="pt-1.5 pb-0.5 overflow-hidden">
+              <div className="flex flex-col gap-1 max-h-[480px] overflow-y-auto scrollbar-thin pr-1 select-text">
+                {visibleSentences.map((line, i) => (
+                  <p
+                    key={typeof line === "string" ? `${i}-${line}` : i}
+                    className="m-0 py-0.5 text-[13.5px] leading-5 text-muted-foreground/90 select-text"
+                  >
+                    {line}
+                  </p>
+                ))}
+                <div ref={stepsEndRef} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -287,8 +287,6 @@ export default function LandingPage() {
             >
               <Link
                 href={user ? "/c" : "/gc"}
-                target="_blank"
-                rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredSpotlight(0)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
@@ -344,39 +342,39 @@ export default function LandingPage() {
             >
               {/* Item 1 */}
               <Link
-                href="/research/overview"
-                onMouseEnter={() => setHoveredSpotlight(3)}
+                href="/company/blog"
+                onMouseEnter={() => setHoveredSpotlight(2)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
                   "flex flex-col transition-opacity duration-200",
-                  getOpacity(hoveredSpotlight, 3)
+                  getOpacity(hoveredSpotlight, 2)
                 )}
               >
-                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-[#fbfbfb] transition-all duration-300">
+                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
                   <Image
-                    src="/assets/images/intelligent-ui.png"
-                    alt="GPT-6 Astra Intelligent UI for everyone"
+                    src="/assets/images/lifeval.png"
+                    alt="Measuring AI progress on the tasks that matter in everyday life"
                     fill
-                    className="object-cover object-left"
+                    className="object-cover"
                   />
                 </div>
                 <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
                   <h3
                     className={cn(
                       "text-base sm:text-lg xl:text-xl font-medium leading-snug transition-colors",
-                      getCardColor(hoveredSpotlight, 3)
+                      getCardColor(hoveredSpotlight, 2)
                     )}
                   >
-                    Introducing GPT-6 Astra Intelligent UI for everyone
+                    Measuring AI progress on the tasks that matter in everyday life
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
                     <span className="font-medium text-foreground shrink-0">
                       Research
                     </span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">Oct 7, 2026</span>
+                    <span className="whitespace-nowrap">Nov 2, 2026</span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">12 min read</span>
+                    <span className="whitespace-nowrap">4 min read</span>
                   </div>
                 </div>
               </Link>
@@ -384,8 +382,6 @@ export default function LandingPage() {
               {/* Item 2 */}
               <Link
                 href={user ? "/c" : "/gc"}
-                target="_blank"
-                rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredSpotlight(1)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
@@ -427,39 +423,39 @@ export default function LandingPage() {
 
               {/* Item 3 */}
               <Link
-                href="/company/blog"
-                onMouseEnter={() => setHoveredSpotlight(2)}
+                href="/research/overview"
+                onMouseEnter={() => setHoveredSpotlight(3)}
                 onMouseLeave={() => setHoveredSpotlight(null)}
                 className={cn(
                   "flex flex-col transition-opacity duration-200",
-                  getOpacity(hoveredSpotlight, 2)
+                  getOpacity(hoveredSpotlight, 3)
                 )}
               >
-                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-black transition-all duration-300">
+                <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-[#fbfbfb] transition-all duration-300">
                   <Image
-                    src="/assets/images/racing-x-closeai.png"
-                    alt="Chip ganassi Racing × CloseAI"
+                    src="/assets/images/intelligent-ui-1.png"
+                    alt="GPT-6 Astra Intelligent UI for everyone"
                     fill
-                    className="object-cover"
+                    className="object-cover object-left"
                   />
                 </div>
                 <div className="mt-3 md:mt-4 flex flex-col gap-2.5 sm:gap-3">
                   <h3
                     className={cn(
                       "text-base sm:text-lg xl:text-xl font-medium leading-snug transition-colors",
-                      getCardColor(hoveredSpotlight, 2)
+                      getCardColor(hoveredSpotlight, 3)
                     )}
                   >
-                    Chip ganassi Racing × CloseAI
+                    Introducing GPT-6 Astra Intelligent UI for everyone
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
                     <span className="font-medium text-foreground shrink-0">
-                      Publication
+                      Research
                     </span>
                     <span>·</span>
                     <span className="whitespace-nowrap">Oct 7, 2026</span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">3 min read</span>
+                    <span className="whitespace-nowrap">12 min read</span>
                   </div>
                 </div>
               </Link>

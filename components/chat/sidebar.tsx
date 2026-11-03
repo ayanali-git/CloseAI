@@ -940,19 +940,20 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
-            Log in
+            Sign up for free
           </button>
+
           <button
             type="button"
             onClick={() => {
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
-            Sign up for free
+            Log in
           </button>
         </div>
       </div>
@@ -1977,7 +1978,7 @@ export function Sidebar({
                           className="h-11 px-3 flex items-center rounded-sm hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
                         >
                           <span className="leading-none">CloseAI</span>
-                          <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
+                          <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground shrink-0 transition-colors" />
                         </button>
                       </PopoverTrigger>
                       <PopoverContent
@@ -2009,19 +2010,20 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
-                              Log in
+                              Sign up for free
                             </button>
+                            
                             <button
                               type="button"
                               onClick={() => {
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
-                              Sign up for free
+                              Log in
                             </button>
                           </div>
                         </div>

@@ -614,6 +614,32 @@ export default function GuestChatSessionPage() {
               </svg>
             </button>
 
+            {/* New chat button — small screen devices only */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  onClick={handleNewChat}
+                  className={cn(
+                    "xl:hidden group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
+                    user
+                      ? "bg-background hover:bg-secondary active:bg-secondary"
+                      : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                  )}
+                  aria-label="New chat"
+                >
+                  <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="bottom"
+                sideOffset={6}
+                className="text-base"
+              >
+                New chat
+              </TooltipContent>
+            </Tooltip>
+
             {/* CloseAI with ChevronDown and Popover — small screen devices only (xl:hidden) */}
             {/* <div className="xl:hidden group -ml-1">
               <Popover
@@ -695,16 +721,17 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
-              Log in
+              Sign up for free
             </button>
+            
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="hidden xl:flex h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
-              Sign up for free
+              Log in
             </button>
           </div>
         </header>

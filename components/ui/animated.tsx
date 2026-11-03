@@ -378,6 +378,7 @@ export function AnimatedChevron({
   return (
     <svg
       ref={ref}
+      data-state={isActive ? "open" : "closed"}
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
