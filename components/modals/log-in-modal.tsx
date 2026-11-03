@@ -255,7 +255,7 @@ export function LoginModal({
             "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
             isGuest
               ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-              : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+              : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
           )}
           style={{ outline: "none" }}
           aria-label="Close"
@@ -307,7 +307,7 @@ export function LoginModal({
               "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "dark:focus-visible:ring-offset-[#212121]"
+                : "dark:focus-visible:ring-offset-[#111111]"
             )}
             style={{ outline: "none" }}
           >
@@ -366,7 +366,7 @@ export function LoginModal({
               "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "dark:focus-visible:ring-offset-[#212121]"
+                : "dark:focus-visible:ring-offset-[#111111]"
             )}
             style={{ outline: "none" }}
           >
@@ -404,7 +404,7 @@ export function LoginModal({
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
                   ? "dark:focus-visible:ring-offset-[#1f1f1f]"
-                  : "dark:focus-visible:ring-offset-[#212121]"
+                  : "dark:focus-visible:ring-offset-[#111111]"
               )}
               style={{ outline: "none" }}
             >
@@ -430,7 +430,7 @@ export function LoginModal({
                 "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
                   ? "dark:focus-visible:ring-offset-[#1f1f1f]"
-                  : "dark:focus-visible:ring-offset-[#212121]"
+                  : "dark:focus-visible:ring-offset-[#111111]"
               )}
               style={{ outline: "none" }}
             >
@@ -566,7 +566,7 @@ export function LoginModal({
               "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "dark:focus-visible:ring-offset-[#212121]"
+                : "dark:focus-visible:ring-offset-[#111111]"
             )}
             style={{ outline: "none" }}
           >

@@ -61,9 +61,9 @@ export function useModalTheme(
     isGuest,
     modalBgClass: isGuest
       ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
-      : "bg-card border border-border/80 dark:border-none",
+      : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none",
     ringOffsetClass: isGuest
       ? "dark:focus-visible:ring-offset-[#1f1f1f]"
-      : "dark:focus-visible:ring-offset-[#212121]",
+      : "dark:focus-visible:ring-offset-[#111111]",
   };
 }

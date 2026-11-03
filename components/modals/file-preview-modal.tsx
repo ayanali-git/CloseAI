@@ -224,7 +224,7 @@ export function FilePreviewModal({
                   className={cn(
                     "group h-11 w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
-                      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary focus:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
+                      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
                       : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
                   )}
                   title="Download file"
@@ -240,11 +240,11 @@ export function FilePreviewModal({
                 className={cn(
                   "group h-11 w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                   isGuestMode
-                    ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary focus:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
+                    ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
                     : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
                 )}
-                title="Close preview"
-                aria-label="Close preview"
+                title="Close file preview"
+                aria-label="Close file preview"
               >
                 <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 <span className="sr-only">Close</span>

@@ -773,10 +773,10 @@ export default function GuestChatSessionPage() {
                                   scrollToBottom("smooth");
                                 }}
                                 className={cn(
-                                  "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
+                                  "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                   isGuest
-                                    ? " bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                    : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
+                                    ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                    : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80"
                                 )}
                                 aria-label="Scroll to bottom"
                               >

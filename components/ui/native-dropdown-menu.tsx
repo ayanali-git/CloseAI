@@ -679,7 +679,7 @@ export function NativeDropdownMenu<T extends string = string>({
           "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
           isGuest
             ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-            : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
+            : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
           "active:bg-secondary",
@@ -732,7 +732,7 @@ export function NativeDropdownMenu<T extends string = string>({
                 ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
                   "!bg-white dark:!bg-[#1f1f1f] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
                 :
-                  "bg-white dark:bg-[#111111] border border-border/80 dark:border-none lg:translate-y-px dark:lg:translate-y-0",
+                  "bg-white dark:bg-[#111111] border border-border/80 lg:translate-y-px dark:lg:translate-y-0",
               contentClassName
             )}
           >

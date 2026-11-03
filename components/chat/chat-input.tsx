@@ -84,10 +84,12 @@ function FilePreviewCard({
   file,
   onRemove,
   onPreview,
+  isGuest = false,
 }: {
   file: File;
   onRemove: () => void;
   onPreview?: () => void;
+  isGuest?: boolean;
 }) {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -112,7 +114,7 @@ function FilePreviewCard({
     return (
       <div
         className="relative group inline-block select-none"
-        title={`Preview ${file.name}`}
+        title="Preview image"
       >
         <ImagePreview src={imageUrl || ""} alt={file.name}>
           <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity-80 transition-all cursor-pointer">
@@ -134,7 +136,13 @@ function FilePreviewCard({
             e.stopPropagation();
             onRemove();
           }}
-          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white dark:bg-[#111111] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10"
+          className={cn(
+            "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
+            isGuest
+              ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f]"
+              : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121]"
+          )}
+          title="Remove image"
           aria-label="Remove image"
         >
           <X className="w-2.5 h-2.5 stroke-[2]" />
@@ -147,8 +155,13 @@ function FilePreviewCard({
   return (
     <div
       onClick={onPreview}
-      className="relative group flex items-center gap-2.5 bg-white dark:bg-[#111111] hover:bg-secondary border border-border/80 dark:border-none rounded-2xl p-2.5 text-foreground min-w-0 cursor-pointer select-none transition-colors"
-      title={`Preview ${file.name}`}
+      className={cn(
+        "relative group flex items-center gap-2.5 hover:bg-secondary border border-border/80 dark:border-none rounded-2xl p-2.5 text-foreground min-w-0 cursor-pointer select-none transition-colors",
+        isGuest
+          ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f]"
+          : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121]"
+      )}
+      title="Preview file"
     >
       {/* File type icon */}
       <div className="w-11 h-11 rounded-xl overflow-hidden border border-border/80 dark:border-none flex items-center justify-center shrink-0">
@@ -162,14 +175,20 @@ function FilePreviewCard({
         </span>
       </div>
 
-      {/* Remove button — frosted glass circle with same design as scroll-to-bottom button */}
+      {/* Remove button */}
       <button
         type="button"
         onClick={(e) => {
           e.stopPropagation();
           onRemove();
         }}
-        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white dark:bg-[#111111] border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10"
+        className={cn(
+          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
+          isGuest
+            ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f]"
+            : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121]"
+        )}
+        title="Remove file"
         aria-label="Remove file"
       >
         <X className="w-2.5 h-2.5 stroke-[2]" />
@@ -490,18 +509,29 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       const refButton = plusButtonRef.current;
       if (refButton) {
         const buttonRect = refButton.getBoundingClientRect();
-        // Position above the top edge of the chat input pill on all screens (including small screen 2-row layout):
-        const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-        setMenuSideOffset(Math.round(distToPillTop + 10));
-        setTooltipSideOffset(Math.round(distToPillTop + 8));
+        if (isMobile) {
+          // On small screens: open directly above the plus button with a small gap
+          setMenuSideOffset(8);
+          setTooltipSideOffset(8);
+        } else {
+          // On desktop: position above the top edge of the chat input pill
+          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
+          setMenuSideOffset(Math.round(distToPillTop + 8));
+          setTooltipSideOffset(Math.round(distToPillTop + 8));
+        }
 
         // Always align cleanly with the left edge of the chat input pill:
         const distToPillLeft = Math.max(0, buttonRect.left - pillRect.left);
         setMenuAlignOffset(-Math.round(distToPillLeft));
       } else {
-        const estimatedDist = Math.max(0, pillRect.height - 44);
-        setMenuSideOffset(Math.round(estimatedDist + 10));
-        setTooltipSideOffset(Math.round(estimatedDist + 8));
+        if (isMobile) {
+          setMenuSideOffset(8);
+          setTooltipSideOffset(8);
+        } else {
+          const estimatedDist = Math.max(0, pillRect.height - 44);
+          setMenuSideOffset(Math.round(estimatedDist + 8));
+          setTooltipSideOffset(Math.round(estimatedDist + 8));
+        }
       }
 
       if (isMobile) {
@@ -717,7 +747,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     "outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
     isGuest
       ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
   );
 
   const renderPlusButton = () => (
@@ -787,7 +817,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-            : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none",
+            : "bg-white dark:bg-[#111111] border border-border/80",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
         style={{
@@ -947,7 +977,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
                 ? "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
-                : "bg-white dark:bg-[#212121] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
+                : "bg-neutral-300 dark:bg-[#212121] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}
           >
@@ -972,10 +1002,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       className={cn(
         "w-full select-none transition-colors duration-200 relative",
         isWelcomePage
-          ? "max-w-[820px] mx-auto px-4 sm:px-6"
+          ? "max-w-[820px] mx-auto px-6"
           : centered
-          ? "max-w-2xl mx-auto px-4 sm:px-6"
-          : "max-w-3xl mx-auto px-4 sm:px-6",
+          ? "max-w-2xl mx-auto px-6"
+          : "max-w-3xl mx-auto px-6",
         className
       )}
     >
@@ -1004,13 +1034,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             ? "border border-transparent"
             : isGuest
             ? "border border-border/80 dark:border-white/10"
-            : "border border-border/80 dark:border-none",
+            : "border border-border/80",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
-            ? "rounded-[24px] sm:rounded-3xl"
+            ? "rounded-[25px] sm:rounded-3xl"
             : isGuest
-            ? "rounded-[26px]"
-            : "rounded-[24px] sm:rounded-[26px]",
+            ? "rounded-[25px]"
+            : "rounded-[25px] sm:rounded-[25px]",
           isExpandedLayout
             ? "pt-2.5 px-3 pb-2.5 sm:pt-3 sm:px-3 sm:pb-3"
             : isGuest
@@ -1079,6 +1109,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 file={file}
                 onRemove={() => removeFile(i)}
                 onPreview={() => setPreviewFile(file)}
+                isGuest={isGuest}
               />
             ))}
           </div>

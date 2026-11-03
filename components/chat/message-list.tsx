@@ -327,7 +327,7 @@ const CodeBlock = React.memo(
           "relative my-4 rounded-[25px] sm:rounded-3xl border text-left isolate overflow-visible",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f] text-foreground border-border/80 dark:border-white/10"
-            : "bg-white dark:bg-[#111111] text-foreground border-border/80 dark:border-none"
+            : "bg-white dark:bg-[#111111] text-foreground border-border/80"
         )}
       >
         <div
@@ -707,7 +707,7 @@ export function MessageList({
         return (
           <div
             className={cn(
-              "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
+              "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 p-3 code-scroll",
               isGuestMode
                 ? "bg-white dark:bg-[#1f1f1f]"
                 : "bg-white dark:bg-[#111111]"
@@ -1475,7 +1475,7 @@ export function MessageList({
                                 "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                 isGuestMode
                                   ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                  : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
+                                  : "bg-white dark:bg-[#111111] border border-border/80"
                               )}
                             >
                               {isMobileScreen &&
@@ -1539,7 +1539,7 @@ export function MessageList({
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                           (changePrompts[msgId] || "").trim()
                                             ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                                            : "bg-white dark:bg-[#212121] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                                            : "bg-neutral-300 dark:bg-[#212121] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
                                       >
@@ -1641,7 +1641,7 @@ export function MessageList({
                                             "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                             isGuestMode
                                               ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                              : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
+                                              : "bg-white dark:bg-[#111111] border border-border/80"
                                           )}
                                         >
                                           {/* Top Input Bar: Ask CloseAI to change */}
@@ -1698,7 +1698,7 @@ export function MessageList({
                                                     changePrompts[msgId] || ""
                                                   ).trim()
                                                     ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                                                    : "bg-white dark:bg-[#212121] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                                                    : "bg-neutral-300 dark:bg-[#212121] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"
                                               >

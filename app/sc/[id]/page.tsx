@@ -478,8 +478,15 @@ export default function PublicSharedChatPage() {
 
       {/* Transparent Floating Header - Buttons float cleanly on top, matching c/[id] exactly */}
       <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-        <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mt-3 mr-3 sm:ml-0.5">
+        <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
+        <div
+          className={cn(
+            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mt-3 mr-3 sm:ml-0.5 h-11 px-3 rounded-sm border border-border/80 dark:border-none select-none",
+            isGuest
+              ? "bg-white dark:bg-[#1f1f1f]"
+              : "bg-background"
+          )}
+        >
           <Link
             href="/"
             className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0"
@@ -490,7 +497,10 @@ export default function PublicSharedChatPage() {
           </Link>
           <Separator
             orientation="vertical"
-            className="h-4 bg-border mx-0.5 sm:mx-1 shrink-0"
+            className={cn(
+              "h-4 bg-neutral-200 mx-0.5 sm:mx-1 shrink-0",
+              isGuest ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]"
+            )}
           />
           <SharedHeaderTitleMarquee
             title={displayTitle}
@@ -510,7 +520,7 @@ export default function PublicSharedChatPage() {
                   className={cn(
                     "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
                     isGuest
-                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
                       : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
                 >
@@ -535,7 +545,7 @@ export default function PublicSharedChatPage() {
                   className={cn(
                     "group h-11 w-11 rounded-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
-                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
                       : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
                   aria-label="New chat"
@@ -636,10 +646,10 @@ export default function PublicSharedChatPage() {
                                     scrollToBottom();
                                   }}
                                   className={cn(
-                                    "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer",
+                                    "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                      : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
+                                      ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
+                                      : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

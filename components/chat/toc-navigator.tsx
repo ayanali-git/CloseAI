@@ -169,7 +169,7 @@ function TocPopup({
   }, [scrollActiveSectionId]);
 
   return (
-    <div className="w-[min(20rem,calc(100vw-2rem))] rounded-sm bg-white dark:bg-[#111111] border border-border/80 dark:border-none py-2">
+    <div className="w-[min(20rem,calc(100vw-2rem))] rounded-sm bg-white dark:bg-[#111111] border border-border/80 py-2">
       <nav className="flex flex-col max-h-[360px] overflow-y-auto p-1 scrollbar-thin">
         {headings.map((heading) => {
           const isActive = heading.id === scrollActiveSectionId;

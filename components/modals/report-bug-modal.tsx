@@ -134,7 +134,7 @@ export function ReportBugModal({
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "rounded-full hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
             )}
             style={{ outline: "none" }}
             aria-label="Close"
@@ -157,7 +157,7 @@ export function ReportBugModal({
                   "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
                     ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
+                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
                   isSelected
                     ? "bg-foreground text-background border-foreground dark:bg-white dark:text-neutral-900 dark:border-white"
                     : cn(
@@ -218,7 +218,7 @@ export function ReportBugModal({
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]"
+                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
             )}
             style={{ outline: "none" }}
           >
@@ -237,7 +237,7 @@ export function ReportBugModal({
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#212121]",
+                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
               !isSubmitEnabled || isSubmitting
                 ? cn(
                     "cursor-not-allowed opacity-50",
