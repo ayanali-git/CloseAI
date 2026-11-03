@@ -1120,7 +1120,7 @@ export function MessageList({
                           )
                         : (
                             <>
-                              {/* 2. Share prompt / message (available for both guest and authenticated users) */}
+                              {/* 2. Share message (available for both guest and authenticated users) */}
                               {!isThisMsgThinking && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>

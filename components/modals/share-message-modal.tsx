@@ -120,7 +120,7 @@ export function SharePromptModal({
     if (navigator.share) {
       navigator
         .share({
-          title: "Shared prompt — CloseAI",
+          title: "Shared message — CloseAI",
           text: shareText,
           url: shareUrl,
         })
