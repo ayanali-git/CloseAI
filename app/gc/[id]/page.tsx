@@ -597,7 +597,7 @@ export default function GuestChatSessionPage() {
                 "xl:hidden w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
                 user
                   ? "bg-background hover:bg-secondary active:bg-secondary"
-                  : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                  : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
               )}
               aria-label="Open sidebar"
             >
@@ -624,7 +624,7 @@ export default function GuestChatSessionPage() {
                     "xl:hidden group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
                     user
                       ? "bg-background hover:bg-secondary active:bg-secondary"
-                      : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary active:bg-secondary"
+                      : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
                   )}
                   aria-label="New chat"
                 >
