@@ -433,7 +433,7 @@ export default function LandingPage() {
               >
                 <div className="relative w-full aspect-square md:aspect-[4/3] rounded-sm overflow-hidden bg-[#fbfbfb] transition-all duration-300">
                   <Image
-                    src="/assets/images/intelligent-ui-1.png"
+                    src="/assets/images/intelligent-ui.png"
                     alt="GPT-6 Astra Intelligent UI for everyone"
                     fill
                     className="object-cover object-left"
