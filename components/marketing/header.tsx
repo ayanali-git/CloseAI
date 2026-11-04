@@ -1195,6 +1195,13 @@ export function MarketingHeader() {
               </>
             ) : user ? (
               <>
+                <Link
+                  href="/c"
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                >
+                  <span>CloseAI Chat</span>
+                </Link>
+
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
@@ -1202,74 +1209,9 @@ export function MarketingHeader() {
                 >
                   <span>Log Out</span>
                 </button>
-
-                <Link
-                  href="/c"
-                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
-                >
-                  <span>CloseAI Chat</span>
-                </Link>
               </>
             ) : (
               <>
-                {/* <div
-                  ref={loginContainerRef}
-                  className="relative"
-                  onMouseEnter={handleLoginEnter}
-                  onMouseLeave={handleLoginLeave}
-                  onMouseMove={handleLoginMouseMove}
-                >
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveMenu(null);
-                      setHoveredNav(null);
-                      setLoginDropdownOpen((prev) => {
-                        const next = !prev;
-                        isHoveringLoginRef.current = next;
-                        return next;
-                      });
-                    }}
-                    className={cn(
-                      "h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center gap-1.5 text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
-                      loginDropdownOpen && "bg-secondary dark:bg-[#2f2f2f]"
-                    )}
-                  >
-                    <span>Log in</span>
-                    <AnimatedChevron
-                      open={loginDropdownOpen}
-                      size={20}
-                    />
-                  </button>
-
-                  {loginDropdownOpen && (
-                    <div className="absolute top-full right-0 pt-1.5 z-50">
-                      <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10 space-y-0.5 select-none">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            isHoveringLoginRef.current = false;
-                            setLoginDropdownOpen(false);
-                            openLoginModal();
-                          }}
-                          className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] text-foreground"
-                        >
-                          <span>CloseAI Chat</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(e) => e.preventDefault()}
-                          className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] text-foreground cursor-not-allowed opacity-50"
-                        >
-                          <AnimatedComingSoonText
-                            label="API Platform"
-                            comingSoonText="Coming soon"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div> */}
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
@@ -1278,13 +1220,72 @@ export function MarketingHeader() {
                   <span>Sign up for free</span>
                 </button>
 
-                <button
+                {/* <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
-                >
+                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                  >
                   <span>Log In</span>
-                </button>
+                </button> */}
+                
+                  <div
+                    ref={loginContainerRef}
+                    className="relative"
+                    onMouseEnter={handleLoginEnter}
+                    onMouseLeave={handleLoginLeave}
+                    onMouseMove={handleLoginMouseMove}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveMenu(null);
+                        setHoveredNav(null);
+                        setLoginDropdownOpen((prev) => {
+                          const next = !prev;
+                          isHoveringLoginRef.current = next;
+                          return next;
+                        });
+                      }}
+                      className={cn(
+                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background transition-opacity hover:opacity-80",
+                        loginDropdownOpen && "opacity-80"
+                      )}
+                    >
+                      <span>Log in</span>
+                      <AnimatedChevron
+                        open={loginDropdownOpen}
+                        size={20}
+                      />
+                    </button>
+  
+                    {loginDropdownOpen && (
+                      <div className="absolute top-full right-0 pt-1.5 z-50">
+                        <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10 space-y-0.5 select-none">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              isHoveringLoginRef.current = false;
+                              setLoginDropdownOpen(false);
+                              openLoginModal();
+                            }}
+                            className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] text-foreground"
+                          >
+                            <span>CloseAI Chat</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => e.preventDefault()}
+                            className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] text-foreground cursor-not-allowed opacity-50"
+                          >
+                            <AnimatedComingSoonText
+                              label="API Platform"
+                              comingSoonText="Coming soon"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
               </>
             )}
           </div>
@@ -1929,13 +1930,11 @@ export function MarketingHeader() {
 
                       <button
                         type="button"
-                        onClick={() => {
-                          setMobileNavOpen(false);
-                          openLoginModal();
-                        }}
+                        onClick={() => setMobileSubMenu("login")}
                         className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log In
+                        <AnimatedArrow size={26} />
                       </button>
                     </>
                   )}

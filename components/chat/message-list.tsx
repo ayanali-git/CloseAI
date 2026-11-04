@@ -47,6 +47,7 @@ import {
   Globe,
   ChevronLeft,
   ChevronRight,
+  SquareMousePointer,
 } from "lucide-react";
 import {
   Tooltip,
@@ -363,7 +364,7 @@ const CodeBlock = React.memo(
                 type="button"
                 onClick={handleCopy}
                 className="p-3 rounded-full hover:bg-secondary text-foreground transition-colors cursor-pointer"
-                aria-label={copied ? "Copied" : "Copy code"}
+                aria-label={copied ? "Copied" : "Copy"}
               >
                 {copied ? (
                   <Check className="w-4 h-4" />
@@ -896,6 +897,20 @@ export function MessageList({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  const handleSelectText = (e: React.MouseEvent, targetMsgId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const el = document.getElementById(`msg-text-${targetMsgId}`);
+    if (!el) return;
+    const selection = window.getSelection();
+    if (selection) {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  };
+
   const handleFeedback = (id: string, type: "up" | "down") => {
     const isCurrentlyActive = feedback[id] === type;
 
@@ -941,7 +956,7 @@ export function MessageList({
     <>
       <div
         data-message-actions={showMessageActions ? "visible" : "hidden"}
-        className="w-full max-w-3xl mx-auto pt-10 pb-2 space-y-5 px-6 selection:bg-secondary selection:text-foreground [&[data-message-actions=hidden]_[data-message-action=copy]]:hidden [&[data-message-actions=hidden]_[data-message-action=share]]:hidden"
+        className="w-full max-w-3xl mx-auto pt-10 pb-2 space-y-5 px-6 selection:bg-secondary selection:text-foreground [&[data-message-actions=hidden]_[data-message-action=copy]]:hidden [&[data-message-actions=hidden]_[data-message-action=share]]:hidden [&[data-message-actions=hidden]_[data-message-action=select-text]]:hidden"
       >
         {messages.map((msg, index) => {
           const isUser = msg.role === "user";
@@ -1057,6 +1072,7 @@ export function MessageList({
                   <>
                     {/* User Bubble Capsule */}
                     <div
+                      id={`msg-text-${msgId}`}
                       className={cn(
                         "relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words"
                       )}
@@ -1092,6 +1108,31 @@ export function MessageList({
                         </TooltipContent>
                       </Tooltip>
 
+                      {/* Select message (guest mode only) */}
+                      {isGuestMode && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              data-message-action="select-text"
+                              onMouseDown={(e) => e.preventDefault()}
+                              onClick={(e) => handleSelectText(e, msgId)}
+                              className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                              aria-label="Select message"
+                            >
+                              <SquareMousePointer className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent
+                            side="bottom"
+                            sideOffset={4}
+                            className="text-base"
+                          >
+                            Select message
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
+
                       {/* In temporary chat: ONLY Edit shows next to Copy. In regular chat: Share, Edit, Delete show for authorized users */}
                       {isTemporary
                         ? (onEditAndResend || onEditMessage) &&
@@ -1118,9 +1159,9 @@ export function MessageList({
                               </TooltipContent>
                             </Tooltip>
                           )
-                        : (
+                        : !isGuestMode && user && (
                             <>
-                              {/* 2. Share message (available for both guest and authenticated users) */}
+                              {/* 2. Share message */}
                               {!isThisMsgThinking && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
@@ -1158,7 +1199,7 @@ export function MessageList({
                               )}
 
                               {/* Edit & Delete are hidden in shared chat, only visible for authenticated users in regular chats */}
-                              {!isShared && user && (
+                              {!isShared && (
                                 <>
                                   {/* 3. Edit message */}
                                   {(onEditAndResend || onEditMessage) &&
@@ -1251,7 +1292,9 @@ export function MessageList({
                   </div>
                 )}
                 {/* Message Content */}
-                <div className="chat-markdown text-foreground select-text text-[15px] sm:text-[15.5px] leading-7 break-words w-full">
+                <div
+                  id={`msg-text-${msgId}`}
+                  className="chat-markdown text-foreground select-text text-[15px] sm:text-[15.5px] leading-7 break-words w-full">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm, remarkMath]}
                     rehypePlugins={[
@@ -1292,6 +1335,31 @@ export function MessageList({
                       </TooltipContent>
                     </Tooltip>
 
+                    {/* Select response (guest mode only) */}
+                    {isGuestMode && (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            data-message-action="select-text"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={(e) => handleSelectText(e, msgId)}
+                            className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                            aria-label="Select response"
+                          >
+                            <SquareMousePointer className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="bottom"
+                          sideOffset={4}
+                          className="text-base"
+                        >
+                          Select response
+                        </TooltipContent>
+                      </Tooltip>
+                    )}
+
                     {/* In temporary chat: ONLY show Read aloud button next to Copy. In regular chat: show Share, ThumbsUp, ThumbsDown, More Options for authorized users */}
                     {isTemporary ? (
                       /* In Temporary Chat: ONLY show Read Aloud button next to Copy */
@@ -1330,13 +1398,14 @@ export function MessageList({
                         </TooltipContent>
                       </Tooltip>
                     ) : (
-                      <>
-                        {/* 2. Share response (available for both guest and authenticated users) */}
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              data-message-action="share-response"
+                      !isGuestMode && user && (
+                        <>
+                          {/* 2. Share response */}
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                data-message-action="share-response"
                                 onClick={() => {
                                   setLoadingShareId(msgId);
                                   setTimeout(() => {
@@ -1368,8 +1437,8 @@ export function MessageList({
                             </TooltipContent>
                           </Tooltip>
 
-                        {/* Good response, Bad response, More options are ONLY shown for authenticated users in non-shared chats */}
-                        {!isShared && user && (
+                          {/* Good response, Bad response, More options are ONLY shown for authenticated users in non-shared chats */}
+                          {!isShared && (
                           <>
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -1770,7 +1839,8 @@ export function MessageList({
                         </>
                       )}
                     </>
-                  )}
+                  )
+                )}
                   </div>
                 )}
               </div>
@@ -1816,7 +1886,7 @@ export function MessageList({
                         copyToClipboard(pendingMessage.content, "pending-msg")
                       }
                       className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                      aria-label="Copy prompt"
+                      aria-label="Copy message"
                     >
                       {copiedId === "pending-msg" ? (
                         <Check className="w-4 h-4" />
@@ -1830,9 +1900,33 @@ export function MessageList({
                     sideOffset={4}
                     className="text-base"
                   >
-                    Copy
+                    Copy message
                   </TooltipContent>
                 </Tooltip>
+
+                {isGuestMode && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        data-message-action="select-text"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={(e) => handleSelectText(e, "pending-msg")}
+                        className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                        aria-label="Select message"
+                      >
+                        <SquareMousePointer className="w-4 h-4" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      sideOffset={4}
+                      className="text-base"
+                    >
+                      Select message
+                    </TooltipContent>
+                  </Tooltip>
+                )}
               </div>
             </div>
           )}
