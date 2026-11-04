@@ -936,11 +936,8 @@ export function MessageList({
         selection.removeAllRanges();
         selection.addRange(range);
 
-        // Only dispatch extension notifications when explicitly requested (user click), not on every re-render
         if (notify) {
           try {
-            document.dispatchEvent(new Event("selectionchange", { bubbles: true }));
-
             const rect = range.getBoundingClientRect();
             const x = Math.round(rect.right || rect.left + rect.width);
             const y = Math.round(rect.top + 10);
@@ -965,8 +962,26 @@ export function MessageList({
     }
   }, []);
 
-  // Persistent re-apply timer ref — survives across renders
-  const selectionTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  // Dynamically guard selection: whenever tooltip/focus/blur events clear the
+  // selection while we have an active target, immediately re-apply it.
+  // This replaces all setTimeout/delay approaches — it's fully event-driven.
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      const target = selectedMessageTargetRef.current;
+      if (!target) return;
+
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed || selection.rangeCount === 0) {
+        const el = document.getElementById(`msg-text-${target.id}`);
+        if (el) {
+          applyTextSelection(el, false);
+        }
+      }
+    };
+
+    document.addEventListener("selectionchange", handleSelectionChange);
+    return () => document.removeEventListener("selectionchange", handleSelectionChange);
+  }, [applyTextSelection]);
 
   const handleSelectText = useCallback(
     (
@@ -977,48 +992,24 @@ export function MessageList({
       e.preventDefault();
       e.stopPropagation();
 
-      // Clear any existing re-apply timers
-      selectionTimersRef.current.forEach(clearTimeout);
-      selectionTimersRef.current = [];
-
       const targetData = { id: targetMsgId, content };
       selectedMessageTargetRef.current = targetData;
       setSelectedTarget(targetData);
 
-      const doSelect = (notify: boolean) => {
-        // Bail if user has since clicked elsewhere (target cleared)
-        if (!selectedMessageTargetRef.current || selectedMessageTargetRef.current.id !== targetMsgId) return;
-        const el = document.getElementById(`msg-text-${targetMsgId}`);
-        applyTextSelection(el, notify);
-      };
-
-      // Apply immediately
-      doSelect(false);
-
-      // Re-apply in rAF (before next paint)
-      requestAnimationFrame(() => doSelect(false));
-
-      // Re-apply at multiple delays to survive tooltip close, blur, focus events
-      // These fire AFTER the browser's post-click event cycle completes
-      const delays = [10, 50, 100, 200, 350];
-      delays.forEach((delay, i) => {
-        const timer = setTimeout(() => {
-          doSelect(i === delays.length - 1); // notify extensions on the last re-apply
-        }, delay);
-        selectionTimersRef.current.push(timer);
-      });
+      const el = document.getElementById(`msg-text-${targetMsgId}`);
+      applyTextSelection(el, true);
     },
     [applyTextSelection]
   );
 
-  // Keep selection persistently active while messages are streaming/generating or re-rendering
+  // Keep selection alive during streaming re-renders and handle pending-msg → real msg transitions
   useIsomorphicLayoutEffect(() => {
     const target = selectedTarget || selectedMessageTargetRef.current;
     if (!target) return;
     let targetId = target.id;
     let el = document.getElementById(`msg-text-${targetId}`);
 
-    // If target was pending-msg but pending-msg transitioned to messages list, or id shifted, find it by content
+    // If target was pending-msg but transitioned to messages list, find it by content
     if (!el && target.content) {
       const matchingMsg = [...messages]
         .reverse()
