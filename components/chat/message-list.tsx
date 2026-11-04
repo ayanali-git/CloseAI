@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { User } from "@supabase/supabase-js";
 import { Message } from "@/lib/chat-service";
 import { CloseAIIcon } from "@/components/brand/logo";
@@ -901,6 +901,28 @@ export function MessageList({
     id: string;
     content?: string;
   } | null>(null);
+  const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
+
+  const applySelection = useCallback((targetId: string) => {
+    const el = document.getElementById(`msg-text-${targetId}`);
+    if (!el) return;
+
+    // Ensure target element can receive focus so OS copy/paste actions hook into it
+    if (!el.hasAttribute("tabindex")) {
+      el.setAttribute("tabindex", "-1");
+    }
+    try {
+      el.focus({ preventScroll: true });
+    } catch {}
+
+    const selection = window.getSelection();
+    if (selection) {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  }, []);
 
   // Clear tracked selected target when user clicks anywhere else in the document
   useEffect(() => {
@@ -910,6 +932,7 @@ export function MessageList({
         return;
       }
       selectedMessageTargetRef.current = null;
+      setSelectedTargetId(null);
     };
 
     window.addEventListener("mousedown", handleGlobalClear, true);
@@ -927,16 +950,28 @@ export function MessageList({
   ) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Blur button so button focus does not kill the selection or prevent OS menu
+    (e.currentTarget as HTMLElement)?.blur();
+
     selectedMessageTargetRef.current = { id: targetMsgId, content };
-    const el = document.getElementById(`msg-text-${targetMsgId}`);
-    if (!el) return;
-    const selection = window.getSelection();
-    if (selection) {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      selection.removeAllRanges();
-      selection.addRange(range);
-    }
+    setSelectedTargetId(targetMsgId);
+
+    // 1. Apply selection immediately in the user gesture event
+    applySelection(targetMsgId);
+
+    // 2. Re-apply on next animation frame after browser click/pointer event cycle finishes
+    requestAnimationFrame(() => {
+      applySelection(targetMsgId);
+    });
+
+    // 3. Timers to ensure selection stays active after Radix tooltip closes and React renders
+    setTimeout(() => {
+      applySelection(targetMsgId);
+    }, 20);
+    setTimeout(() => {
+      applySelection(targetMsgId);
+    }, 60);
   };
 
   // Keep selection persistently active even while messages are streaming/generating or re-rendering
@@ -959,21 +994,11 @@ export function MessageList({
         const newMsgId = matchingMsg.id || "msg-0";
         targetId = newMsgId;
         selectedMessageTargetRef.current.id = newMsgId;
-        el = document.getElementById(`msg-text-${newMsgId}`);
       }
     }
 
-    if (!el) return;
-    const selection = window.getSelection();
-    if (selection) {
-      const currentSelectedText = selection.toString();
-      const elText = el.textContent || "";
-      if (!currentSelectedText || currentSelectedText !== elText) {
-        const range = document.createRange();
-        range.selectNodeContents(el);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      }
+    if (targetId) {
+      applySelection(targetId);
     }
   });
 
@@ -1140,7 +1165,7 @@ export function MessageList({
                     <div
                       id={`msg-text-${msgId}`}
                       className={cn(
-                        "relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words"
+                        "relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words outline-none focus:outline-none"
                       )}
                     >
                       {msg.content}
@@ -1181,6 +1206,7 @@ export function MessageList({
                             type="button"
                             data-message-action="select-text"
                             onMouseDown={(e) => e.preventDefault()}
+                            onTouchStart={(e) => e.stopPropagation()}
                             onClick={(e) => handleSelectText(e, msgId, msg.content)}
                             className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                             aria-label="Select message"
@@ -1358,7 +1384,8 @@ export function MessageList({
                 {/* Message Content */}
                 <div
                   id={`msg-text-${msgId}`}
-                  className="chat-markdown text-foreground select-text text-[15px] sm:text-[15.5px] leading-7 break-words w-full">
+                  className="chat-markdown text-foreground select-text text-[15px] sm:text-[15.5px] leading-7 break-words w-full outline-none focus:outline-none"
+                >
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm, remarkMath]}
                     rehypePlugins={[
@@ -1406,6 +1433,7 @@ export function MessageList({
                           type="button"
                           data-message-action="select-text"
                           onMouseDown={(e) => e.preventDefault()}
+                          onTouchStart={(e) => e.stopPropagation()}
                           onClick={(e) => handleSelectText(e, msgId, msg.content)}
                           className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                           aria-label="Select response"
@@ -1932,7 +1960,7 @@ export function MessageList({
               <div
                 id="msg-text-pending-msg"
                 className={cn(
-                  "relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words"
+                  "relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words outline-none focus:outline-none"
                 )}
               >
                 {pendingMessage.content}
@@ -1974,6 +2002,7 @@ export function MessageList({
                       type="button"
                       data-message-action="select-text"
                       onMouseDown={(e) => e.preventDefault()}
+                      onTouchStart={(e) => e.stopPropagation()}
                       onClick={(e) => handleSelectText(e, "pending-msg", pendingMessage.content)}
                       className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                       aria-label="Select message"
