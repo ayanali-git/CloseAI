@@ -907,13 +907,31 @@ export function MessageList({
     content?: string;
   } | null>(null);
 
-  // Clear tracked selected target when user clicks anywhere else in the document
+  // Clear tracked selected target when user clicks or taps anywhere else outside the selected message
   useEffect(() => {
     const handleGlobalClear = (e: Event) => {
-      const target = e.target as HTMLElement | null;
-      if (target?.closest?.('[data-message-action="select-text"]')) {
+      const rawTarget = e.target;
+      const targetElem =
+        rawTarget instanceof Element
+          ? rawTarget
+          : (rawTarget as any)?.parentElement instanceof Element
+          ? (rawTarget as any).parentElement
+          : null;
+
+      // Ignore clicks on any select-text button or its children (SVG, path, etc.)
+      if (targetElem?.closest?.('[data-message-action="select-text"]')) {
         return;
       }
+
+      // Ignore clicks inside the active message text bubble or its contents
+      const currentTarget = selectedMessageTargetRef.current;
+      if (currentTarget) {
+        const el = document.getElementById(`msg-text-${currentTarget.id}`);
+        if (el && targetElem && (el === targetElem || el.contains(targetElem))) {
+          return;
+        }
+      }
+
       setSelectedTarget(null);
       selectedMessageTargetRef.current = null;
     };
@@ -930,36 +948,55 @@ export function MessageList({
     if (!targetEl) return;
     try {
       const selection = window.getSelection();
-      if (selection) {
-        const range = document.createRange();
-        range.selectNodeContents(targetEl);
-        selection.removeAllRanges();
-        selection.addRange(range);
+      if (!selection) return;
 
-        // Notify extensions (e.g. Google Translate) that text was selected by dispatching mouseup with coordinates
-        try {
-          const rect = range.getBoundingClientRect();
-          const x = Math.round(rect.right || rect.left + rect.width);
-          const y = Math.round(rect.top + 10);
+      const targetText = (targetEl.textContent || "").trim();
 
-          document.dispatchEvent(new Event("selectionchange", { bubbles: true }));
-
-          const mouseUpEvt = new MouseEvent("mouseup", {
-            bubbles: true,
-            cancelable: true,
-            view: window,
-            clientX: x,
-            clientY: y,
-            screenX: window.screenX + x,
-            screenY: window.screenY + y,
-            button: 0,
-            buttons: 0,
-          });
-          targetEl.dispatchEvent(mouseUpEvt);
-          document.dispatchEvent(mouseUpEvt);
-          window.dispatchEvent(mouseUpEvt);
-        } catch {}
+      // If the target element is already selected, do not remove ranges or reset selection
+      // (repeated removeAllRanges() collapses native iOS callout menus and closes extension popups)
+      if (selection.rangeCount > 0) {
+        const currentRange = selection.getRangeAt(0);
+        const selText = selection.toString().trim();
+        if (
+          selText &&
+          targetText &&
+          selText === targetText &&
+          (currentRange.intersectsNode(targetEl) ||
+            targetEl.contains(currentRange.startContainer))
+        ) {
+          return;
+        }
       }
+
+      const range = document.createRange();
+      range.selectNodeContents(targetEl);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      // Notify extensions (e.g. Google Translate) that text was selected
+      document.dispatchEvent(new Event("selectionchange", { bubbles: true }));
+
+      try {
+        let rect = range.getBoundingClientRect();
+        if (rect.width === 0 && rect.height === 0) {
+          rect = targetEl.getBoundingClientRect();
+        }
+        const x = Math.round(rect.right || rect.left + (rect.width || 0));
+        const y = Math.round(rect.top + 10);
+
+        const mouseUpEvt = new MouseEvent("mouseup", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: x,
+          clientY: y,
+          screenX: (window.screenX || 0) + x,
+          screenY: (window.screenY || 0) + y,
+          button: 0,
+          buttons: 0,
+        });
+        targetEl.dispatchEvent(mouseUpEvt);
+      } catch {}
     } catch (err) {
       console.error("Error applying text selection:", err);
     }
@@ -980,11 +1017,6 @@ export function MessageList({
 
       const el = document.getElementById(`msg-text-${targetMsgId}`);
       applyTextSelection(el);
-
-      requestAnimationFrame(() => {
-        const rafEl = document.getElementById(`msg-text-${targetMsgId}`);
-        applyTextSelection(rafEl);
-      });
     },
     [applyTextSelection]
   );
@@ -1221,12 +1253,19 @@ export function MessageList({
                           <button
                             type="button"
                             data-message-action="select-text"
-                            onMouseDown={(e) => {
+                            onPointerDown={(e) => {
                               e.preventDefault();
+                              e.stopPropagation();
+                              handleSelectText(e, msgId, msg.content);
+                            }}
+                            onTouchEnd={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
                               handleSelectText(e, msgId, msg.content);
                             }}
                             onClick={(e) => {
                               e.preventDefault();
+                              e.stopPropagation();
                               handleSelectText(e, msgId, msg.content);
                             }}
                             className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -1452,12 +1491,19 @@ export function MessageList({
                         <button
                           type="button"
                           data-message-action="select-text"
-                          onMouseDown={(e) => {
+                          onPointerDown={(e) => {
                             e.preventDefault();
+                            e.stopPropagation();
+                            handleSelectText(e, msgId, msg.content);
+                          }}
+                          onTouchEnd={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
                             handleSelectText(e, msgId, msg.content);
                           }}
                           onClick={(e) => {
                             e.preventDefault();
+                            e.stopPropagation();
                             handleSelectText(e, msgId, msg.content);
                           }}
                           className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -2026,12 +2072,19 @@ export function MessageList({
                     <button
                       type="button"
                       data-message-action="select-text"
-                      onMouseDown={(e) => {
+                      onPointerDown={(e) => {
                         e.preventDefault();
+                        e.stopPropagation();
+                        handleSelectText(e, "pending-msg", pendingMessage.content);
+                      }}
+                      onTouchEnd={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         handleSelectText(e, "pending-msg", pendingMessage.content);
                       }}
                       onClick={(e) => {
                         e.preventDefault();
+                        e.stopPropagation();
                         handleSelectText(e, "pending-msg", pendingMessage.content);
                       }}
                       className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
