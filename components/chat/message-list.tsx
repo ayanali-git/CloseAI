@@ -907,31 +907,13 @@ export function MessageList({
     content?: string;
   } | null>(null);
 
-  // Clear tracked selected target when user clicks or taps anywhere else outside the selected message
+  // Clear tracked selected target when user clicks anywhere else in the document
   useEffect(() => {
     const handleGlobalClear = (e: Event) => {
-      const rawTarget = e.target;
-      const targetElem =
-        rawTarget instanceof Element
-          ? rawTarget
-          : (rawTarget as any)?.parentElement instanceof Element
-          ? (rawTarget as any).parentElement
-          : null;
-
-      // Ignore clicks on any select-text button or its children (SVG, path, etc.)
-      if (targetElem?.closest?.('[data-message-action="select-text"]')) {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest?.('[data-message-action="select-text"]')) {
         return;
       }
-
-      // Ignore clicks inside the active message text bubble or its contents
-      const currentTarget = selectedMessageTargetRef.current;
-      if (currentTarget) {
-        const el = document.getElementById(`msg-text-${currentTarget.id}`);
-        if (el && targetElem && (el === targetElem || el.contains(targetElem))) {
-          return;
-        }
-      }
-
       setSelectedTarget(null);
       selectedMessageTargetRef.current = null;
     };
@@ -944,63 +926,47 @@ export function MessageList({
     };
   }, []);
 
-  const applyTextSelection = useCallback((targetEl: HTMLElement | null) => {
+  const applyTextSelection = useCallback((targetEl: HTMLElement | null, notify = false) => {
     if (!targetEl) return;
     try {
       const selection = window.getSelection();
-      if (!selection) return;
+      if (selection) {
+        const range = document.createRange();
+        range.selectNodeContents(targetEl);
+        selection.removeAllRanges();
+        selection.addRange(range);
 
-      const targetText = (targetEl.textContent || "").trim();
+        // Only dispatch extension notifications when explicitly requested (user click), not on every re-render
+        if (notify) {
+          try {
+            document.dispatchEvent(new Event("selectionchange", { bubbles: true }));
 
-      // If the target element is already selected, do not remove ranges or reset selection
-      // (repeated removeAllRanges() collapses native iOS callout menus and closes extension popups)
-      if (selection.rangeCount > 0) {
-        const currentRange = selection.getRangeAt(0);
-        const selText = selection.toString().trim();
-        if (
-          selText &&
-          targetText &&
-          selText === targetText &&
-          (currentRange.intersectsNode(targetEl) ||
-            targetEl.contains(currentRange.startContainer))
-        ) {
-          return;
+            const rect = range.getBoundingClientRect();
+            const x = Math.round(rect.right || rect.left + rect.width);
+            const y = Math.round(rect.top + 10);
+
+            const mouseUpEvt = new MouseEvent("mouseup", {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              clientX: x,
+              clientY: y,
+              screenX: window.screenX + x,
+              screenY: window.screenY + y,
+              button: 0,
+              buttons: 0,
+            });
+            targetEl.dispatchEvent(mouseUpEvt);
+          } catch {}
         }
       }
-
-      const range = document.createRange();
-      range.selectNodeContents(targetEl);
-      selection.removeAllRanges();
-      selection.addRange(range);
-
-      // Notify extensions (e.g. Google Translate) that text was selected
-      document.dispatchEvent(new Event("selectionchange", { bubbles: true }));
-
-      try {
-        let rect = range.getBoundingClientRect();
-        if (rect.width === 0 && rect.height === 0) {
-          rect = targetEl.getBoundingClientRect();
-        }
-        const x = Math.round(rect.right || rect.left + (rect.width || 0));
-        const y = Math.round(rect.top + 10);
-
-        const mouseUpEvt = new MouseEvent("mouseup", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-          clientX: x,
-          clientY: y,
-          screenX: (window.screenX || 0) + x,
-          screenY: (window.screenY || 0) + y,
-          button: 0,
-          buttons: 0,
-        });
-        targetEl.dispatchEvent(mouseUpEvt);
-      } catch {}
     } catch (err) {
       console.error("Error applying text selection:", err);
     }
   }, []);
+
+  // Persistent re-apply timer ref — survives across renders
+  const selectionTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const handleSelectText = useCallback(
     (
@@ -1011,17 +977,41 @@ export function MessageList({
       e.preventDefault();
       e.stopPropagation();
 
+      // Clear any existing re-apply timers
+      selectionTimersRef.current.forEach(clearTimeout);
+      selectionTimersRef.current = [];
+
       const targetData = { id: targetMsgId, content };
       selectedMessageTargetRef.current = targetData;
       setSelectedTarget(targetData);
 
-      const el = document.getElementById(`msg-text-${targetMsgId}`);
-      applyTextSelection(el);
+      const doSelect = (notify: boolean) => {
+        // Bail if user has since clicked elsewhere (target cleared)
+        if (!selectedMessageTargetRef.current || selectedMessageTargetRef.current.id !== targetMsgId) return;
+        const el = document.getElementById(`msg-text-${targetMsgId}`);
+        applyTextSelection(el, notify);
+      };
+
+      // Apply immediately
+      doSelect(false);
+
+      // Re-apply in rAF (before next paint)
+      requestAnimationFrame(() => doSelect(false));
+
+      // Re-apply at multiple delays to survive tooltip close, blur, focus events
+      // These fire AFTER the browser's post-click event cycle completes
+      const delays = [10, 50, 100, 200, 350];
+      delays.forEach((delay, i) => {
+        const timer = setTimeout(() => {
+          doSelect(i === delays.length - 1); // notify extensions on the last re-apply
+        }, delay);
+        selectionTimersRef.current.push(timer);
+      });
     },
     [applyTextSelection]
   );
 
-  // Keep selection persistently active even while messages are streaming/generating or re-rendering
+  // Keep selection persistently active while messages are streaming/generating or re-rendering
   useIsomorphicLayoutEffect(() => {
     const target = selectedTarget || selectedMessageTargetRef.current;
     if (!target) return;
@@ -1047,7 +1037,7 @@ export function MessageList({
     }
 
     if (!el) return;
-    applyTextSelection(el);
+    applyTextSelection(el, false);
   });
 
   const handleFeedback = (id: string, type: "up" | "down") => {
@@ -1253,19 +1243,12 @@ export function MessageList({
                           <button
                             type="button"
                             data-message-action="select-text"
-                            onPointerDown={(e) => {
+                            onMouseDown={(e) => {
                               e.preventDefault();
-                              e.stopPropagation();
-                              handleSelectText(e, msgId, msg.content);
-                            }}
-                            onTouchEnd={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
                               handleSelectText(e, msgId, msg.content);
                             }}
                             onClick={(e) => {
                               e.preventDefault();
-                              e.stopPropagation();
                               handleSelectText(e, msgId, msg.content);
                             }}
                             className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -1491,19 +1474,12 @@ export function MessageList({
                         <button
                           type="button"
                           data-message-action="select-text"
-                          onPointerDown={(e) => {
+                          onMouseDown={(e) => {
                             e.preventDefault();
-                            e.stopPropagation();
-                            handleSelectText(e, msgId, msg.content);
-                          }}
-                          onTouchEnd={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
                             handleSelectText(e, msgId, msg.content);
                           }}
                           onClick={(e) => {
                             e.preventDefault();
-                            e.stopPropagation();
                             handleSelectText(e, msgId, msg.content);
                           }}
                           className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -2072,19 +2048,12 @@ export function MessageList({
                     <button
                       type="button"
                       data-message-action="select-text"
-                      onPointerDown={(e) => {
+                      onMouseDown={(e) => {
                         e.preventDefault();
-                        e.stopPropagation();
-                        handleSelectText(e, "pending-msg", pendingMessage.content);
-                      }}
-                      onTouchEnd={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
                         handleSelectText(e, "pending-msg", pendingMessage.content);
                       }}
                       onClick={(e) => {
                         e.preventDefault();
-                        e.stopPropagation();
                         handleSelectText(e, "pending-msg", pendingMessage.content);
                       }}
                       className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
