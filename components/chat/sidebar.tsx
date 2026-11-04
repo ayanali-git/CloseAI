@@ -930,8 +930,8 @@ export function Sidebar({
           Search the web
         </h4>
         <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
-          Search the web, synthesize multiple sources, and get up-to-date
-          answers with citations.
+          Search the web, synthesize multiple sources, plus get up-to-date
+          answers and more by logging in.
         </p>
         <div className="flex items-center gap-2.5 mt-4">
           <button
@@ -2000,8 +2000,7 @@ export function Sidebar({
                             Try advanced features for free
                           </h4>
                           <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
-                            Get smarter responses, upload files, create images, and
-                            more by logging in.
+                            Get efficient responses, upload files, plus thinking capabilities, upload files, and more by logging in.
                           </p>
                           <div className="flex items-center gap-2.5 mt-4">
                             <button

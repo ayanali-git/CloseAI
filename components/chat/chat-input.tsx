@@ -254,7 +254,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const [menuSideOffset, setMenuSideOffset] = useState(14);
   const [menuAlignOffset, setMenuAlignOffset] = useState(0);
   const [menuWidth, setMenuWidth] = useState<number | undefined>(undefined);
-  const [tooltipSideOffset, setTooltipSideOffset] = useState(8);
   const [isPlusTooltipOpen, setIsPlusTooltipOpen] = useState(false);
   const plusHoverTimerRef = useRef<NodeJS.Timeout | null>(null);
   const recognitionRef = useRef<any>(null);
@@ -396,6 +395,41 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   }, [isFullyExpanded, uploadedFiles.length]);
 
   const overflowTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [scrollMask, setScrollMask] = useState<string | undefined>(undefined);
+
+  // Update dynamic top and bottom gradient mask (consistent with sidebar chat mask)
+  const updateScrollMask = useCallback(() => {
+    const el = textareaRef.current;
+    if (!el) {
+      setScrollMask(undefined);
+      return;
+    }
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const isOverflowing = scrollHeight > clientHeight + 1;
+    if (!isOverflowing) {
+      setScrollMask(undefined);
+      return;
+    }
+
+    const hasTopOverflow = scrollTop > 2;
+    const hasBottomOverflow = Math.ceil(scrollTop + clientHeight) < scrollHeight - 2;
+
+    if (hasTopOverflow && hasBottomOverflow) {
+      setScrollMask(
+        "linear-gradient(to bottom, transparent 0%, black 26px, black calc(100% - 26px), transparent 100%)"
+      );
+    } else if (hasTopOverflow) {
+      setScrollMask(
+        "linear-gradient(to bottom, transparent 0%, black 26px, black 100%)"
+      );
+    } else if (hasBottomOverflow) {
+      setScrollMask(
+        "linear-gradient(to bottom, black 0%, black calc(100% - 26px), transparent 100%)"
+      );
+    } else {
+      setScrollMask(undefined);
+    }
+  }, []);
 
   // Auto-resize textarea height dynamically
   const adjustHeight = useCallback(() => {
@@ -420,8 +454,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     // Count lines to guarantee every Shift+Enter (including empty newlines) expands height
     const lines = message.split("\n");
     const lineCount = lines.length;
-    // 1 line = 26px; each additional line adds ~24px (e.g. 2 lines = 50px, 3 lines = 74px)
-    const lineBasedH = lineCount <= 1 ? 26 : 26 + (lineCount - 1) * 24;
+    // 1 line = 26px; each additional line adds ~26px
+    const lineBasedH = lineCount <= 1 ? 26 : 26 + (lineCount - 1) * 26;
     const dynamicH = Math.max(scrollH, lineBasedH, 26);
 
     const maxH = getDynamicMaxHeight();
@@ -443,16 +477,26 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         setIsMultiLine(false);
       }
     }
-  }, [message, isFullyExpanded, getDynamicMaxHeight]);
+    updateScrollMask();
+    requestAnimationFrame(updateScrollMask);
+  }, [message, isFullyExpanded, getDynamicMaxHeight, updateScrollMask]);
 
   useIsomorphicLayoutEffect(() => {
     adjustHeight();
   }, [adjustHeight]);
 
   useEffect(() => {
-    window.addEventListener("resize", adjustHeight);
-    return () => window.removeEventListener("resize", adjustHeight);
-  }, [adjustHeight]);
+    const handleResize = () => {
+      adjustHeight();
+      updateScrollMask();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [adjustHeight, updateScrollMask]);
+
+  useEffect(() => {
+    updateScrollMask();
+  }, [message, isFullyExpanded, isExpandedLayout, updateScrollMask]);
 
   // Auto-focus textarea on mount / page reload (matching sc/[id] behavior)
   useEffect(() => {
@@ -512,12 +556,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         if (isMobile) {
           // On small screens: open directly above the plus button with a small gap
           setMenuSideOffset(8);
-          setTooltipSideOffset(8);
         } else {
           // On desktop: position above the top edge of the chat input pill
           const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
           setMenuSideOffset(Math.round(distToPillTop + 8));
-          setTooltipSideOffset(Math.round(distToPillTop + 8));
         }
 
         // Always align cleanly with the left edge of the chat input pill:
@@ -526,11 +568,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       } else {
         if (isMobile) {
           setMenuSideOffset(8);
-          setTooltipSideOffset(8);
         } else {
           const estimatedDist = Math.max(0, pillRect.height - 44);
           setMenuSideOffset(Math.round(estimatedDist + 8));
-          setTooltipSideOffset(Math.round(estimatedDist + 8));
         }
       }
 
@@ -798,7 +838,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side="top" sideOffset={5} className="text-base">
           Attach and more
         </TooltipContent>
       </Tooltip>
@@ -876,7 +916,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             }
             onThinkModeChange?.(!thinkMode);
           }}
-          onMouseEnter={updateMenuPosition}
           onKeyDown={handlePillButtonKeyDown}
           className={cn(
             "rounded-full flex items-center justify-center transition-all shrink-0 cursor-pointer select-none",
@@ -894,7 +933,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           {!isMobile && <span className="hidden sm:inline">Think</span>}
         </button>
       </TooltipTrigger>
-      <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
+      <TooltipContent side="top" sideOffset={5} className="text-base">
         Think harder
       </TooltipContent>
     </Tooltip>
@@ -925,7 +964,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               (e.currentTarget as HTMLElement)?.blur();
               toggleDictation();
             }}
-            onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
               "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0",
@@ -943,7 +981,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side="top" sideOffset={5} className="text-base">
           {isListening ? "Stop dictation" : "Start dictation"}
         </TooltipContent>
       </Tooltip>
@@ -963,7 +1001,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 onSend();
               }
             }}
-            onMouseEnter={updateMenuPosition}
             onKeyDown={handlePillButtonKeyDown}
             disabled={(!hasContent && !isTyping) || isUploading}
             className={cn(
@@ -982,7 +1019,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             aria-label={isTyping ? "Stop generating" : "Send message"}
           >
             {isTyping ? (
-              <Square className="w-4 h-4 fill-current" />
+              <Square className="w-5 h-5 fill-current" />
             ) : isUploading ? (
               <Loader className="w-5 h-5 animate-spin text-foreground" />
             ) : (
@@ -990,7 +1027,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="bottom" sideOffset={tooltipSideOffset} className="text-base">
+        <TooltipContent side="top" sideOffset={5} className="text-base">
           {isTyping ? "Stop generating" : isUploading ? "Uploading files" : "Send message"}
         </TooltipContent>
       </Tooltip>
@@ -1117,40 +1154,49 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
 
         {isExpandedLayout ? (
           /* Multiline Layout: full-width textarea on top, bottom toolbar with + on left and tools on right */
-          <div className="flex flex-col w-full">
-            <div className="w-full px-1 sm:px-1.5 pt-0.5 pb-1 relative">
-              <textarea
-                ref={textareaRef}
-                autoFocus={autoFocus}
-                value={message}
-                onChange={(e) => {
-                  cursorPositionRef.current = e.target.selectionEnd;
-                  onMessageChange(e.target.value);
+          <div className="flex flex-col w-full relative">
+            <div className="flex items-start w-full pt-0.5 pb-1 relative">
+              {/* Textarea container with top & bottom gradient mask (matching sidebar chat mask) */}
+              <div
+                className="flex-1 min-w-0 px-1 sm:px-1.5 relative overflow-hidden"
+                style={{
+                  maskImage: scrollMask,
+                  WebkitMaskImage: scrollMask,
                 }}
-                onSelect={(e) => {
-                  cursorPositionRef.current = e.currentTarget.selectionEnd;
-                }}
-                onClick={(e) => {
-                  cursorPositionRef.current = e.currentTarget.selectionEnd;
-                }}
-                onKeyUp={(e) => {
-                  cursorPositionRef.current = e.currentTarget.selectionEnd;
-                }}
-                onKeyDown={handleKeyDown}
-                onPaste={handlePaste}
-                placeholder={placeholder}
-                rows={1}
-                disabled={isTyping || isUploading}
-                className={cn(
-                  "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground focus:outline-none focus:ring-0 resize-none leading-[26px] select-text",
-                  isFullyExpanded ? "min-h-[150px] sm:min-h-[300px]" : "min-h-[25px]",
-                  isBigContent && "pr-12 sm:pr-14"
-                )}
-              />
+              >
+                <textarea
+                  ref={textareaRef}
+                  autoFocus={autoFocus}
+                  value={message}
+                  onChange={(e) => {
+                    cursorPositionRef.current = e.target.selectionEnd;
+                    onMessageChange(e.target.value);
+                  }}
+                  onSelect={(e) => {
+                    cursorPositionRef.current = e.currentTarget.selectionEnd;
+                  }}
+                  onClick={(e) => {
+                    cursorPositionRef.current = e.currentTarget.selectionEnd;
+                  }}
+                  onKeyUp={(e) => {
+                    cursorPositionRef.current = e.currentTarget.selectionEnd;
+                  }}
+                  onKeyDown={handleKeyDown}
+                  onPaste={handlePaste}
+                  onScroll={updateScrollMask}
+                  placeholder={placeholder}
+                  rows={1}
+                  disabled={isTyping || isUploading}
+                  className={cn(
+                    "w-full min-w-0 bg-transparent border-0 p-0 text-[16px] sm:text-[16.5px] placeholder:text-muted-foreground focus:outline-none focus:ring-0 resize-none leading-[26px] select-text block",
+                    isFullyExpanded ? "min-h-[150px] sm:min-h-[300px]" : "min-h-[25px]"
+                  )}
+                />
+              </div>
 
-              {/* Expand / Collapse button: matches Attach files & Dictate button style & tooltip */}
+              {/* Expand / Collapse button: perfectly aligned vertically with send button, outside scrollbar & gradient mask */}
               {isBigContent && (
-                <div className="absolute top-0.5 right-0.5 sm:right-1 z-10">
+                <div className="shrink-0 flex items-center justify-center pl-1 pr-0.5 sm:pr-1">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
@@ -1173,7 +1219,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                         )}
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent className="text-base">
+                    <TooltipContent side="top" sideOffset={5} className="text-base">
                       {isFullyExpanded ? "Collapse" : "Expand"}
                     </TooltipContent>
                   </Tooltip>

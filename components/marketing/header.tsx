@@ -446,7 +446,7 @@ export function MarketingHeader() {
 
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
-  const isLocked = isSearchOpen || mobileNavOpen || loginDropdownOpen;
+  const isLocked = isSearchOpen || mobileNavOpen;
 
   const searchResults = React.useMemo(() => {
     const q = submittedQuery.trim().toLowerCase();

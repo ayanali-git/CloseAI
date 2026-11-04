@@ -1707,7 +1707,7 @@ export default function ActiveChatPage() {
                               </TooltipTrigger>
                               <TooltipContent
                                 side="top"
-                                sideOffset={8}
+                                sideOffset={5}
                                 className="text-base"
                               >
                                 Scroll to bottom

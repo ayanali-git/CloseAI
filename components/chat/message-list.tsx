@@ -897,9 +897,37 @@ export function MessageList({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const handleSelectText = (e: React.MouseEvent, targetMsgId: string) => {
+  const selectedMessageTargetRef = useRef<{
+    id: string;
+    content?: string;
+  } | null>(null);
+
+  // Clear tracked selected target when user clicks anywhere else in the document
+  useEffect(() => {
+    const handleGlobalClear = (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest?.('[data-message-action="select-text"]')) {
+        return;
+      }
+      selectedMessageTargetRef.current = null;
+    };
+
+    window.addEventListener("mousedown", handleGlobalClear, true);
+    window.addEventListener("touchstart", handleGlobalClear, true);
+    return () => {
+      window.removeEventListener("mousedown", handleGlobalClear, true);
+      window.removeEventListener("touchstart", handleGlobalClear, true);
+    };
+  }, []);
+
+  const handleSelectText = (
+    e: React.MouseEvent,
+    targetMsgId: string,
+    content?: string
+  ) => {
     e.preventDefault();
     e.stopPropagation();
+    selectedMessageTargetRef.current = { id: targetMsgId, content };
     const el = document.getElementById(`msg-text-${targetMsgId}`);
     if (!el) return;
     const selection = window.getSelection();
@@ -910,6 +938,44 @@ export function MessageList({
       selection.addRange(range);
     }
   };
+
+  // Keep selection persistently active even while messages are streaming/generating or re-rendering
+  useIsomorphicLayoutEffect(() => {
+    if (!selectedMessageTargetRef.current) return;
+    let targetId = selectedMessageTargetRef.current.id;
+    let el = document.getElementById(`msg-text-${targetId}`);
+
+    // If target was pending-msg but pending-msg transitioned to messages list, find it by content
+    if (!el && selectedMessageTargetRef.current.content) {
+      const matchingMsg = [...messages]
+        .reverse()
+        .find(
+          (m) =>
+            m.role === "user" &&
+            m.content?.trim() ===
+              selectedMessageTargetRef.current?.content?.trim()
+        );
+      if (matchingMsg) {
+        const newMsgId = matchingMsg.id || "msg-0";
+        targetId = newMsgId;
+        selectedMessageTargetRef.current.id = newMsgId;
+        el = document.getElementById(`msg-text-${newMsgId}`);
+      }
+    }
+
+    if (!el) return;
+    const selection = window.getSelection();
+    if (selection) {
+      const currentSelectedText = selection.toString();
+      const elText = el.textContent || "";
+      if (!currentSelectedText || currentSelectedText !== elText) {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+  });
 
   const handleFeedback = (id: string, type: "up" | "down") => {
     const isCurrentlyActive = feedback[id] === type;
@@ -1108,30 +1174,28 @@ export function MessageList({
                         </TooltipContent>
                       </Tooltip>
 
-                      {/* Select message (guest mode only) */}
-                      {isGuestMode && (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              data-message-action="select-text"
-                              onMouseDown={(e) => e.preventDefault()}
-                              onClick={(e) => handleSelectText(e, msgId)}
-                              className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                              aria-label="Select message"
-                            >
-                              <SquareMousePointer className="w-4 h-4" />
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent
-                            side="bottom"
-                            sideOffset={4}
-                            className="text-base"
+                      {/* Select message */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            data-message-action="select-text"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={(e) => handleSelectText(e, msgId, msg.content)}
+                            className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                            aria-label="Select message"
                           >
-                            Select message
-                          </TooltipContent>
-                        </Tooltip>
-                      )}
+                            <SquareMousePointer className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="bottom"
+                          sideOffset={4}
+                          className="text-base"
+                        >
+                          Select message
+                        </TooltipContent>
+                      </Tooltip>
 
                       {/* In temporary chat: ONLY Edit shows next to Copy. In regular chat: Share, Edit, Delete show for authorized users */}
                       {isTemporary
@@ -1335,30 +1399,28 @@ export function MessageList({
                       </TooltipContent>
                     </Tooltip>
 
-                    {/* Select response (guest mode only) */}
-                    {isGuestMode && (
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            data-message-action="select-text"
-                            onMouseDown={(e) => e.preventDefault()}
-                            onClick={(e) => handleSelectText(e, msgId)}
-                            className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                            aria-label="Select response"
-                          >
-                            <SquareMousePointer className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent
-                          side="bottom"
-                          sideOffset={4}
-                          className="text-base"
+                    {/* Select response */}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          data-message-action="select-text"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={(e) => handleSelectText(e, msgId, msg.content)}
+                          className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                          aria-label="Select response"
                         >
-                          Select response
-                        </TooltipContent>
-                      </Tooltip>
-                    )}
+                          <SquareMousePointer className="w-4 h-4" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={4}
+                        className="text-base"
+                      >
+                        Select response
+                      </TooltipContent>
+                    </Tooltip>
 
                     {/* In temporary chat: ONLY show Read aloud button next to Copy. In regular chat: show Share, ThumbsUp, ThumbsDown, More Options for authorized users */}
                     {isTemporary ? (
@@ -1868,6 +1930,7 @@ export function MessageList({
                 </div>
               )}
               <div
+                id="msg-text-pending-msg"
                 className={cn(
                   "relative bg-bubble text-bubble-foreground text-[15px] sm:text-[15.5px] leading-relaxed rounded-[25px] sm:rounded-3xl px-4 sm:px-5 py-2.5 sm:py-3 max-w-[85%] sm:max-w-[75%] whitespace-pre-wrap select-text break-words"
                 )}
@@ -1876,7 +1939,7 @@ export function MessageList({
                 {isTemporary && <TemporaryChatDashedBorder />}
               </div>
 
-              {/* User Hover Actions Toolbar — Copy button during pending/thinking (Edit hidden while thinking) */}
+              {/* User Hover Actions Toolbar — Copy and Select buttons during pending/thinking (Edit hidden while thinking) */}
               <div className="flex items-center gap-1 mt-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-within:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -1904,29 +1967,28 @@ export function MessageList({
                   </TooltipContent>
                 </Tooltip>
 
-                {isGuestMode && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        data-message-action="select-text"
-                        onMouseDown={(e) => e.preventDefault()}
-                        onClick={(e) => handleSelectText(e, "pending-msg")}
-                        className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                        aria-label="Select message"
-                      >
-                        <SquareMousePointer className="w-4 h-4" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      sideOffset={4}
-                      className="text-base"
+                {/* Select message */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      data-message-action="select-text"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={(e) => handleSelectText(e, "pending-msg", pendingMessage.content)}
+                      className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                      aria-label="Select message"
                     >
-                      Select message
-                    </TooltipContent>
-                  </Tooltip>
-                )}
+                      <SquareMousePointer className="w-4 h-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    sideOffset={4}
+                    className="text-base"
+                  >
+                    Select message
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </div>
           )}

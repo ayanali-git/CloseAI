@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 
-export interface ClearChatModalProps {
+export interface NewChatModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onNewChat: () => void;
@@ -15,14 +15,14 @@ export interface ClearChatModalProps {
   forceModal?: boolean;
 }
 
-export function ClearChatModal({
+export function NewChatModal({
   open,
   onOpenChange,
   onNewChat,
   onOpenLogin,
   onOpenSignup,
   forceModal,
-}: ClearChatModalProps) {
+}: NewChatModalProps) {
   const { modalBgClass } = useModalTheme(undefined, open);
   const handleNewChat = () => {
     onOpenChange(false);
@@ -56,7 +56,7 @@ export function ClearChatModal({
         {/* Header */}
         <div className="text-center">
           <h2 className="text-2xl font-normal tracking-tight text-foreground">
-            Clear chat
+            New chat
           </h2>
           <p className="text-base text-muted-foreground mt-1.5 leading-relaxed px-2 sm:px-4">
             Start a new chat? Your current conversation will be discarded.{" "}
@@ -102,4 +102,4 @@ export function ClearChatModal({
   );
 }
 
-export default ClearChatModal;
+export default NewChatModal;

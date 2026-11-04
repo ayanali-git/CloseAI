@@ -9,7 +9,7 @@ import { Sidebar } from "@/components/chat/sidebar";
 import { MessageList } from "@/components/chat/message-list";
 import { ChatInput } from "@/components/chat/chat-input";
 import { LoginModal } from "@/components/modals/log-in-modal";
-import { ClearChatModal } from "@/components/modals/clear-chat-modal";
+import { NewChatModal } from "@/components/modals/new-chat-modal";
 import {
   Popover,
   PopoverTrigger,
@@ -56,7 +56,7 @@ export default function GuestChatSessionPage() {
   // Modals
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginModalDescription, setLoginModalDescription] = useState<string | undefined>(undefined);
-  const [showClearChatModal, setShowClearChatModal] = useState(false);
+  const [showNewChatModal, setShowNewChatModal] = useState(false);
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
   const prevSidebarOpenForLoginRef = useRef<boolean | null>(null);
@@ -504,7 +504,7 @@ export default function GuestChatSessionPage() {
       if (sidebarOpen) {
         setSidebarOpen(false);
       }
-      setShowClearChatModal(true);
+      setShowNewChatModal(true);
       return;
     }
     if (typeof window !== "undefined" && window.innerWidth < 1280) {
@@ -678,8 +678,7 @@ export default function GuestChatSessionPage() {
                       Try advanced features for free
                     </h4>
                     <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
-                      Get smarter responses, upload files, create images, and
-                      more by logging in.
+                      Get efficient responses, upload files, plus thinking capabilities, upload files, and more by logging in.
                     </p>
                     <div className="flex items-center gap-2.5 mt-4">
                       <button
@@ -812,7 +811,7 @@ export default function GuestChatSessionPage() {
                             </TooltipTrigger>
                             <TooltipContent
                               side="top"
-                              sideOffset={8}
+                              sideOffset={5}
                               className="text-base"
                             >
                               Scroll to bottom
@@ -857,11 +856,11 @@ export default function GuestChatSessionPage() {
         description={loginModalDescription}
       />
 
-      {/* Clear Chat Confirmation Modal */}
-      <ClearChatModal
-        open={showClearChatModal}
+      {/* New Chat Confirmation Modal */}
+      <NewChatModal
+        open={showNewChatModal}
         onOpenChange={(open) => {
-          setShowClearChatModal(open);
+          setShowNewChatModal(open);
           if (!open) {
             if (prevSidebarOpenForClearRef.current === true) {
               requestAnimationFrame(() => {
@@ -873,13 +872,13 @@ export default function GuestChatSessionPage() {
         }}
         onNewChat={() => {
           prevSidebarOpenForClearRef.current = null;
-          setShowClearChatModal(false);
+          setShowNewChatModal(false);
           router.push("/gc");
         }}
         onOpenLogin={(opts) => {
           const wasOpen = prevSidebarOpenForClearRef.current;
           prevSidebarOpenForClearRef.current = null;
-          setShowClearChatModal(false);
+          setShowNewChatModal(false);
           if (wasOpen) {
             prevSidebarOpenForLoginRef.current = true;
           }
@@ -888,7 +887,7 @@ export default function GuestChatSessionPage() {
         onOpenSignup={(opts) => {
           const wasOpen = prevSidebarOpenForClearRef.current;
           prevSidebarOpenForClearRef.current = null;
-          setShowClearChatModal(false);
+          setShowNewChatModal(false);
           if (wasOpen) {
             prevSidebarOpenForLoginRef.current = true;
           }
