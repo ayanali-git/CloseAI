@@ -509,6 +509,7 @@ export function Sidebar({
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
   const isAnyModalOpen = showLogoutModal || showReportBugModal || !!chatToDelete || showSearchModal;
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const [mobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
   const [isDownloadHovered, setIsDownloadHovered] = useState(false);
   const [collapsedAccountMenuOpen, setCollapsedAccountMenuOpen] = useState(false);
   const [guestHelpMenuOpen, setGuestHelpMenuOpen] = useState(false);
@@ -519,6 +520,21 @@ export function Sidebar({
   const [guestPopoverOpen, setGuestPopoverOpen] = useState(false);
   const isWebSearchMouseHoveringRef = useRef(false);
   const ignoreNextWebSearchOpenRef = useRef(false);
+  const dockRef = useRef<HTMLDivElement>(null);
+  const [dockWidth, setDockWidth] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!dockRef.current) return;
+    const updateWidth = () => {
+      if (dockRef.current) {
+        setDockWidth(dockRef.current.clientWidth);
+      }
+    };
+    updateWidth();
+    const ro = new ResizeObserver(updateWidth);
+    ro.observe(dockRef.current);
+    return () => ro.disconnect();
+  }, [isOpen]);
 
   const prevSidebarOpenForModalRef = useRef<boolean | null>(null);
   const prevSidebarOpenForSettingsRef = useRef<boolean | null>(null);
@@ -554,6 +570,7 @@ export function Sidebar({
   const handleOpenSettings = useCallback(
     (section?: SettingsSection | "root") => {
       setAccountMenuOpen(false);
+      setMobileAccountMenuOpen(false);
       setCollapsedAccountMenuOpen(false);
       setRailHelpOpen(false);
       setGuestHelpMenuOpen(false);
@@ -571,6 +588,7 @@ export function Sidebar({
     (options?: { description?: string; title?: string }) => {
       setGuestPopoverOpen(false);
       setAccountMenuOpen(false);
+      setMobileAccountMenuOpen(false);
       setCollapsedAccountMenuOpen(false);
       setRailHelpOpen(false);
       setGuestHelpMenuOpen(false);
@@ -592,6 +610,7 @@ export function Sidebar({
 
   const handleOpenSearchModal = useCallback(() => {
     setAccountMenuOpen(false);
+    setMobileAccountMenuOpen(false);
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -619,6 +638,7 @@ export function Sidebar({
 
   const handleOpenLogout = useCallback(() => {
     setAccountMenuOpen(false);
+    setMobileAccountMenuOpen(false);
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -635,6 +655,7 @@ export function Sidebar({
 
   const handleOpenReportBug = useCallback(() => {
     setAccountMenuOpen(false);
+    setMobileAccountMenuOpen(false);
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -645,6 +666,7 @@ export function Sidebar({
 
   const handleOpenAddAccount = useCallback(() => {
     setAccountMenuOpen(false);
+    setMobileAccountMenuOpen(false);
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -706,6 +728,7 @@ export function Sidebar({
     setIsEmptySpaceHovered(false);
     if (!isOpen) {
       setMobileHelpMenuOpen(false);
+      setMobileAccountMenuOpen(false);
     }
   }, [isOpen]);
 
@@ -811,8 +834,10 @@ export function Sidebar({
       const isMob = window.innerWidth < 1280;
       setIsMobileScreen(isMob);
       if (isMob) {
+        setAccountMenuOpen(false);
         setGuestHelpMenuOpen(false);
       } else {
+        setMobileAccountMenuOpen(false);
         setMobileHelpMenuOpen(false);
       }
     };
@@ -974,7 +999,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl xl:rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Help</span>
@@ -989,7 +1014,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
@@ -1004,7 +1029,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
@@ -1015,7 +1040,7 @@ export function Sidebar({
             onSelect={(e) => e.preventDefault()}
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
           >
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]">
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]">
               <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
@@ -1031,7 +1056,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1046,7 +1071,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1058,7 +1083,7 @@ export function Sidebar({
           <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
           <DropdownMenuItem
             onClick={handleOpenReportBug}
-            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
+            className="group flex items-center justify-between px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
               <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1078,7 +1103,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl xl:rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Accounts</span>
@@ -1088,7 +1113,7 @@ export function Sidebar({
             <UserIcon className="w-5 h-5 shrink-0" />
             <span className="truncate">{userEmail}</span>
           </div>
-          <div className="flex items-center justify-between px-2 py-2 rounded-sm bg-secondary/50">
+          <div className="flex items-center justify-between px-2 py-2 rounded-xl xl:rounded-sm bg-secondary/50">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
@@ -1114,7 +1139,7 @@ export function Sidebar({
           <button
             type="button"
             onClick={handleOpenAddAccount}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Plus className="w-5 h-5 text-muted-foreground" />
             <span>Add account</span>
@@ -1134,7 +1159,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("accounts");
             }}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm [@media(hover:hover)]:hover:bg-secondary active:bg-secondary text-left transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm [@media(hover:hover)]:hover:bg-secondary active:bg-secondary text-left transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
               <AvatarImage src={avatarUrl} />
@@ -1157,7 +1182,7 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-sm cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl xl:rounded-sm cursor-pointer">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
@@ -1179,7 +1204,7 @@ export function Sidebar({
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-108}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-xl xl:rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80"
             >
               <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
                 <UserIcon className="w-5 h-5 shrink-0" />
@@ -1224,7 +1249,7 @@ export function Sidebar({
         {/* Upgrade plan */}
         <DropdownMenuItem
           onClick={() => handleOpenSettings("plans")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base cursor-pointer"
         >
           <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Plans</span>
@@ -1233,7 +1258,7 @@ export function Sidebar({
         {/* Data */}
         <DropdownMenuItem
           onClick={() => handleOpenSettings("data")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base cursor-pointer"
         >
           <Database className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Data</span>
@@ -1242,7 +1267,7 @@ export function Sidebar({
         {/* Profile */}
         <DropdownMenuItem
           onClick={() => handleOpenSettings("profile")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base cursor-pointer"
         >
           <UserIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Profile</span>
@@ -1253,7 +1278,7 @@ export function Sidebar({
           onClick={() =>
             handleOpenSettings(isMobileScreen ? undefined : "general")
           }
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base cursor-pointer"
         >
           <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Settings</span>
@@ -1269,7 +1294,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("help");
             }}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center justify-between px-2 py-2 rounded-xl xl:rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <div className="flex items-center gap-2.5">
               <LifeBuoy className="w-5 h-5 text-muted-foreground" />
@@ -1279,7 +1304,7 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-sm cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl xl:rounded-sm cursor-pointer">
               <LifeBuoy className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help</span>
             </DropdownMenuSubTrigger>
@@ -1291,7 +1316,7 @@ export function Sidebar({
               <DropdownMenuItem asChild>
                 <Link
                   href="/support/help"
-                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl xl:rounded-sm text-base"
                 >
                   <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Help center</span>
@@ -1300,7 +1325,7 @@ export function Sidebar({
               <DropdownMenuItem asChild>
                 <Link
                   href="/company/blog"
-                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl xl:rounded-sm text-base"
                 >
                   <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Release notes</span>
@@ -1308,7 +1333,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
               >
                 <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
@@ -1323,7 +1348,7 @@ export function Sidebar({
                   href="/support/terms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-sm text-base text-foreground"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl xl:rounded-sm text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
                     <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1337,7 +1362,7 @@ export function Sidebar({
                   href="/support/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-sm text-base text-foreground"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl xl:rounded-sm text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
                     <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1349,7 +1374,7 @@ export function Sidebar({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleOpenReportBug}
-                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-sm text-base text-foreground"
+                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl xl:rounded-sm text-base text-foreground"
               >
                 <div className="flex items-center gap-2.5">
                   <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1363,7 +1388,7 @@ export function Sidebar({
         {/* Log out */}
         <DropdownMenuItem
           onClick={handleOpenLogout}
-          className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+          className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl xl:rounded-sm text-base"
         >
           <LogOut className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Log out</span>
@@ -1484,7 +1509,7 @@ export function Sidebar({
         {user && !showProfileSkeleton && (
           <div
             suppressHydrationWarning
-            className="absolute left-[14px] z-30 pointer-events-none select-none transition-none"
+            className="absolute left-[14px] z-30 pointer-events-none select-none transition-none hidden xl:block"
             style={{
               bottom: "calc(max(env(safe-area-inset-bottom), 0.5rem) + 6px)",
             }}
@@ -1801,7 +1826,7 @@ export function Sidebar({
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-11 h-11 rounded-full flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               collapsedAccountMenuOpen && "bg-secondary"
                             )}
                             aria-label="Account menu"
@@ -2054,7 +2079,7 @@ export function Sidebar({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-11 h-11 rounded-full xl:rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                         onClick={handleOpenSearchModal}
                       >
                         <Search className="w-5 h-5" />
@@ -2133,11 +2158,10 @@ export function Sidebar({
                       size="icon"
                       style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
                       className={cn(
-                        "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isAuthenticated
                           ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
                           : "cursor-pointer [&_*]:cursor-pointer",
-                        !user && "hidden xl:inline-flex"
                       )}
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
@@ -2167,7 +2191,12 @@ export function Sidebar({
             {/* New Chat & Guest Items
                 Icon rows use pl-3 (12px): 8px container padding + 12px = icon at x 20 (center x 30),
                 the exact same x as the 60px collapsed rail icons. */}
-            <div className="px-2 pt-1 pb-2 space-y-1.5 relative z-20">
+            <div
+              className={cn(
+                "px-2 pt-1 pb-2 space-y-1.5 relative z-20",
+                user && "max-xl:hidden"
+              )}
+            >
               {false && (
                 <div className="relative group mb-1">
                   <input
@@ -2185,7 +2214,7 @@ export function Sidebar({
                 className={cn(
                   "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                   isNewChat && "max-xl:bg-secondary/70",
-                  isGuestMode && "max-xl:hidden"
+                  "max-xl:hidden"
                 )}
               >
                 <div className="flex items-center gap-2.5">
@@ -2525,132 +2554,167 @@ export function Sidebar({
             >
               {isAuthLoading ? (
                 /* Profile skeleton while the session loads */
-                <div className="w-full h-11 flex items-center gap-2.5 pl-[6px] pr-2 animate-pulse">
-                  <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
-                  <div className="flex-1 space-y-1.5">
-                    <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
-                    <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                <>
+                  <div className="hidden xl:flex w-full h-11 items-center gap-2.5 pl-[6px] pr-2 animate-pulse">
+                    <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
+                    <div className="flex-1 space-y-1.5">
+                      <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
+                      <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                    </div>
                   </div>
-                </div>
+                  <div className="xl:hidden w-full h-11 flex items-center justify-between gap-3 animate-pulse">
+                    <div className="h-11 w-32 rounded-full bg-secondary/80 dark:bg-neutral-800/80" />
+                    <div className="w-11 h-11 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
+                  </div>
+                </>
               ) : user ? (
-                /* Authenticated User Profile Row */
-                <div className="w-full h-11 flex items-center justify-between relative">
+                <>
+                  {/* Desktop Only: Authenticated User Profile Row */}
+                  <div className="hidden xl:flex w-full h-11 items-center justify-between relative">
+                    <DropdownMenu
+                      open={accountMenuOpen && !isMobileScreen}
+                      onOpenChange={(open) => {
+                        setAccountMenuOpen(open);
+                        if (!open) setAccountSubView("main");
+                      }}
+                    >
+                      <Tooltip open={accountMenuOpen ? false : undefined}>
+                        <TooltipTrigger asChild>
+                          <DropdownMenuTrigger asChild>
+                            <div
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setAccountMenuOpen((prev) => !prev);
+                                }
+                              }}
+                              onMouseLeave={() => setIsDownloadHovered(false)}
+                              className={cn(
+                                "w-full h-11 flex items-center justify-between rounded-sm transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
+                                !isDownloadHovered && "hover:bg-secondary",
+                                accountMenuOpen && "bg-secondary"
+                              )}
+                            >
+                              {/* Profile Section */}
+                              <div className="h-full flex items-center justify-start min-w-0 flex-1 gap-2.5 text-left">
+                                {showProfileSkeleton ? (
+                                  <>
+                                    {/* Skeleton: avatar + name + plan */}
+                                    <div className="w-8 h-8 rounded-full shrink-0 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+                                    <div className="flex-1 min-w-0 space-y-1.5 animate-pulse">
+                                      <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
+                                      <div className="h-2.5 w-12 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    {/* Non-blinking avatar placeholder */}
+                                    <div className="relative z-50 shrink-0 opacity-0">
+                                      {renderAvatarContent()}
+                                    </div>
+
+                                    {/* Expanded User Details */}
+                                    <div className="flex-1 min-w-0 transition-all duration-200 flex flex-col justify-center py-0.5">
+                                      <p className="text-base font-medium text-foreground truncate leading-tight pt-0.5">
+                                        {displayName}
+                                      </p>
+                                      <p
+                                        className="text-sm text-muted-foreground leading-tight truncate pb-0.5"
+                                        suppressHydrationWarning
+                                      >
+                                        @{username}
+                                      </p>
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </DropdownMenuTrigger>
+                        </TooltipTrigger>
+                      </Tooltip>
+
+                      {/* Account Dropdown */}
+                      <DropdownMenuContent
+                        side="top"
+                        align="start"
+                        sideOffset={5}
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 outline-none focus:outline-none ring-0"
+                      >
+                        {renderAccountMenuItems()}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+
+                  {/* Small Screen Devices: Authenticated Bottom Action Dock (New Chat + User Image Button) */}
                   <DropdownMenu
-                    open={accountMenuOpen}
+                    open={mobileAccountMenuOpen && isMobileScreen}
                     onOpenChange={(open) => {
-                      setAccountMenuOpen(open);
+                      setMobileAccountMenuOpen(open);
                       if (!open) setAccountSubView("main");
                     }}
                   >
-                    <Tooltip open={accountMenuOpen ? false : undefined}>
-                      <TooltipTrigger asChild>
-                        <DropdownMenuTrigger asChild>
-                          <div
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                e.preventDefault();
-                                setAccountMenuOpen((prev) => !prev);
-                              }
-                            }}
-                            onMouseLeave={() => setIsDownloadHovered(false)}
-                            className={cn(
-                              "w-full h-11 flex items-center justify-between rounded-sm transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
-                              !isDownloadHovered && "hover:bg-secondary",
-                              accountMenuOpen && "bg-secondary"
-                            )}
-                          >
-                            {/* Profile Section */}
-                            <div className="h-full flex items-center justify-start min-w-0 flex-1 gap-2.5 text-left">
-                              {showProfileSkeleton ? (
-                                <>
-                                  {/* Skeleton: avatar + name + plan */}
-                                  <div className="w-8 h-8 rounded-full shrink-0 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-                                  <div className="flex-1 min-w-0 space-y-1.5 animate-pulse">
-                                    <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
-                                    <div className="h-2.5 w-12 rounded bg-secondary/70 dark:bg-neutral-800/60" />
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  {/* Non-blinking avatar placeholder */}
-                                  <div className="relative z-50 shrink-0 opacity-0">
-                                    {renderAvatarContent()}
-                                  </div>
+                    <div
+                      ref={dockRef}
+                      className="xl:hidden w-full h-11 flex items-center justify-between gap-3"
+                    >
+                      {/* New Chat button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleNewChatAction();
+                        }}
+                        className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
+                      >
+                        <SquarePen className="w-5 h-5 shrink-0" />
+                        <span>New Chat</span>
+                      </button>
 
-                                  {/* Expanded User Details */}
-                                  <div className="flex-1 min-w-0 transition-all duration-200 flex flex-col justify-center py-0.5">
-                                    <p className="text-base font-medium text-foreground truncate leading-tight pt-0.5">
-                                      {displayName}
-                                    </p>
-                                    <p
-                                      className="text-sm text-muted-foreground leading-tight truncate pb-0.5"
-                                      suppressHydrationWarning
-                                    >
-                                      @{username}
-                                    </p>
-                                  </div>
-                                </>
+                      {/* User Image Button */}
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type="button"
+                          className={cn(
+                            "w-11 h-11 rounded-full overflow-hidden flex items-center justify-center transition-all cursor-pointer select-none outline-none focus:outline-none shrink-0 hover:opacity-80",
+                            mobileAccountMenuOpen && "opacity-80"
+                          )}
+                          aria-label="Account menu"
+                        >
+                          {showProfileSkeleton ? (
+                            <div className="w-11 h-11 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+                          ) : (
+                            <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 bg-secondary flex items-center justify-center select-none">
+                              {avatarUrl ? (
+                                <img
+                                  src={avatarUrl}
+                                  alt={displayName}
+                                  className="w-full h-full object-cover select-none"
+                                  loading="eager"
+                                  decoding="sync"
+                                />
+                              ) : (
+                                <span className="text-base font-semibold text-foreground select-none">
+                                  {displayName.charAt(0).toUpperCase()}
+                                </span>
                               )}
                             </div>
+                          )}
+                        </button>
+                      </DropdownMenuTrigger>
+                    </div>
 
-                            {/* Download App Button */}
-                            {/* <div
-                              className="shrink-0"
-                              onMouseEnter={() => setIsDownloadHovered(true)}
-                              onMouseLeave={() => setIsDownloadHovered(false)}
-                              onPointerDown={(e) => e.stopPropagation()}
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <button
-                                    type="button"
-                                    onMouseEnter={() => setIsDownloadHovered(true)}
-                                    onMouseLeave={() => setIsDownloadHovered(false)}
-                                    onPointerDown={(e) => e.stopPropagation()}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      if (user) toast.info("App coming soon");
-                                    }}
-                                    onKeyDown={(e) => {
-                                      if (e.key === "Enter" || e.key === " ") {
-                                        e.stopPropagation();
-                                      }
-                                    }}
-                                    className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground hover:text-foreground bg-transparent hover:bg-secondary active:bg-secondarycursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
-                                    aria-label="Download app"
-                                  >
-                                    <Store className="w-5 h-5 shrink-0" />
-                                  </button>
-                                </TooltipTrigger>
-
-                                <TooltipContent
-                                  side="top"
-                                  sideOffset={5}
-                                  className="text-base"
-                                >
-                                  Download app
-                                </TooltipContent>
-                              </Tooltip>
-                            </div> */}
-                          </div>
-                        </DropdownMenuTrigger>
-                      </TooltipTrigger>
-                    </Tooltip>
-
-                    {/* Account Dropdown */}
                     <DropdownMenuContent
                       side="top"
-                      align="start"
+                      align="end"
                       sideOffset={5}
-                      className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 outline-none focus:outline-none ring-0"
+                      style={{ width: dockWidth ? `${dockWidth}px` : "auto" }}
+                      className="max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-xl xl:rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
                   </DropdownMenu>
-                </div>
+                </>
               ) : (
                 /* Guest Bottom Dock */
                 <div className="w-full space-y-1.5 select-none">

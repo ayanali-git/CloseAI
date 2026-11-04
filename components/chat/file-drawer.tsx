@@ -410,7 +410,7 @@ function DrawerCloseTrigger({
       }}
       aria-label="Close drawer"
       className={cn(
-        "drawer__close-trigger p-3 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "drawer__close-trigger p-3 rounded-full xl:rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className
       )}
       {...props}
@@ -715,7 +715,7 @@ export function FilePreviewViewer({
               <button
                 type="button"
                 onClick={handleDownload}
-                className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
                 title="Download file"
                 aria-label="Download file"
               >
@@ -725,7 +725,7 @@ export function FilePreviewViewer({
             <button
               type="button"
               onClick={onClose}
-              className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+              className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
               title="Close preview"
               aria-label="Close preview"
             >
@@ -888,7 +888,7 @@ export function FilesDrawer({
                 <button
                   type="button"
                   onClick={() => handleOpenChange(false)}
-                  className="p-3 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none"
+                  className="p-3 rounded-full xl:rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none"
                   aria-label="Close"
                 >
                   <X className="w-5 h-5" />
