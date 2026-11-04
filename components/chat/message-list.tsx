@@ -926,7 +926,7 @@ export function MessageList({
     };
   }, []);
 
-  const applyTextSelection = useCallback((targetEl: HTMLElement | null, notify = false) => {
+  const applyTextSelection = useCallback((targetEl: HTMLElement | null) => {
     if (!targetEl) return;
     try {
       const selection = window.getSelection();
@@ -936,68 +936,26 @@ export function MessageList({
         selection.removeAllRanges();
         selection.addRange(range);
 
-        if (notify) {
-          try {
-            const rect = range.getBoundingClientRect();
-            const x = Math.round(rect.right || rect.left + rect.width);
-            const y = Math.round(rect.top + 10);
-
-            const mouseUpEvt = new MouseEvent("mouseup", {
-              bubbles: true,
-              cancelable: true,
-              view: window,
-              clientX: x,
-              clientY: y,
-              screenX: window.screenX + x,
-              screenY: window.screenY + y,
-              button: 0,
-              buttons: 0,
-            });
-            targetEl.dispatchEvent(mouseUpEvt);
-          } catch {}
-        }
+        // Inform extensions (e.g. Google Translate) that text selection changed
+        try {
+          document.dispatchEvent(new Event("selectionchange", { bubbles: true }));
+        } catch {}
       }
     } catch (err) {
       console.error("Error applying text selection:", err);
     }
   }, []);
 
-  // Dynamically guard selection: whenever tooltip/focus/blur events clear the
-  // selection while we have an active target, immediately re-apply it.
-  // This replaces all setTimeout/delay approaches — it's fully event-driven.
-  useEffect(() => {
-    const handleSelectionChange = () => {
-      const target = selectedMessageTargetRef.current;
-      if (!target) return;
-
-      const selection = window.getSelection();
-      if (!selection || selection.isCollapsed || selection.rangeCount === 0) {
-        const el = document.getElementById(`msg-text-${target.id}`);
-        if (el) {
-          applyTextSelection(el, false);
-        }
-      }
-    };
-
-    document.addEventListener("selectionchange", handleSelectionChange);
-    return () => document.removeEventListener("selectionchange", handleSelectionChange);
-  }, [applyTextSelection]);
-
   const handleSelectText = useCallback(
-    (
-      e: React.SyntheticEvent,
-      targetMsgId: string,
-      content?: string
-    ) => {
-      e.preventDefault();
-      e.stopPropagation();
-
+    (targetMsgId: string, content?: string) => {
       const targetData = { id: targetMsgId, content };
       selectedMessageTargetRef.current = targetData;
       setSelectedTarget(targetData);
 
       const el = document.getElementById(`msg-text-${targetMsgId}`);
-      applyTextSelection(el, true);
+      if (el) {
+        applyTextSelection(el);
+      }
     },
     [applyTextSelection]
   );
@@ -1028,7 +986,22 @@ export function MessageList({
     }
 
     if (!el) return;
-    applyTextSelection(el, false);
+
+    const sel = typeof window !== "undefined" ? window.getSelection() : null;
+    let isAlreadySelected = false;
+    if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+      try {
+        if (typeof sel.containsNode === "function") {
+          isAlreadySelected = sel.containsNode(el, true);
+        } else if (sel.anchorNode) {
+          isAlreadySelected = el.contains(sel.anchorNode);
+        }
+      } catch {}
+    }
+
+    if (!isAlreadySelected) {
+      applyTextSelection(el);
+    }
   });
 
   const handleFeedback = (id: string, type: "up" | "down") => {
@@ -1236,11 +1209,11 @@ export function MessageList({
                             data-message-action="select-text"
                             onMouseDown={(e) => {
                               e.preventDefault();
-                              handleSelectText(e, msgId, msg.content);
                             }}
                             onClick={(e) => {
                               e.preventDefault();
-                              handleSelectText(e, msgId, msg.content);
+                              e.stopPropagation();
+                              handleSelectText(msgId, msg.content);
                             }}
                             className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                             aria-label="Select message"
@@ -1467,11 +1440,11 @@ export function MessageList({
                           data-message-action="select-text"
                           onMouseDown={(e) => {
                             e.preventDefault();
-                            handleSelectText(e, msgId, msg.content);
                           }}
                           onClick={(e) => {
                             e.preventDefault();
-                            handleSelectText(e, msgId, msg.content);
+                            e.stopPropagation();
+                            handleSelectText(msgId, msg.content);
                           }}
                           className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                           aria-label="Select response"
@@ -2041,11 +2014,11 @@ export function MessageList({
                       data-message-action="select-text"
                       onMouseDown={(e) => {
                         e.preventDefault();
-                        handleSelectText(e, "pending-msg", pendingMessage.content);
                       }}
                       onClick={(e) => {
                         e.preventDefault();
-                        handleSelectText(e, "pending-msg", pendingMessage.content);
+                        e.stopPropagation();
+                        handleSelectText("pending-msg", pendingMessage.content);
                       }}
                       className="p-1.5 rounded-sm hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                       aria-label="Select message"
