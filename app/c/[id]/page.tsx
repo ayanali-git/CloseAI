@@ -13,7 +13,7 @@ import {
   TocNavigator,
   getTargetElement,
 } from "@/components/chat/toc-navigator";
-import { FilesDrawer, FilePreviewViewer } from "@/components/chat/file-drawer";
+import { FilesDrawer, FilePreviewViewer } from "@/components/chat/drawer";
 import {
   ChevronDown,
   Share2,
@@ -1333,7 +1333,7 @@ export default function ActiveChatPage() {
                       </TooltipTrigger>
                       <TooltipContent
                         side="bottom"
-                        sideOffset={6}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Download file
@@ -1355,7 +1355,7 @@ export default function ActiveChatPage() {
                     <TooltipContent
                       side="bottom"
                       align="end"
-                      sideOffset={6}
+                      sideOffset={5}
                       className="text-base"
                     >
                       Close preview
@@ -1391,7 +1391,7 @@ export default function ActiveChatPage() {
                       <TooltipContent
                         side="bottom"
                         align="start"
-                        sideOffset={6}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Open sidebar
@@ -1418,7 +1418,7 @@ export default function ActiveChatPage() {
                       <TooltipContent
                         side="bottom"
                         align="start"
-                        sideOffset={6}
+                        sideOffset={5}
                         className="text-base"
                       >
                         New chat
@@ -1445,7 +1445,7 @@ export default function ActiveChatPage() {
                     <TooltipContent
                       side="bottom"
                       align="end"
-                      sideOffset={6}
+                      sideOffset={5}
                       className="text-base"
                     >
                       Save chat
@@ -1489,7 +1489,7 @@ export default function ActiveChatPage() {
                       </TooltipTrigger>
                       <TooltipContent
                         side="bottom"
-                        sideOffset={6}
+                        sideOffset={5}
                         className="text-base"
                       >
                         Share conversation
@@ -1518,7 +1518,7 @@ export default function ActiveChatPage() {
                         <TooltipContent
                           side="bottom"
                           align="end"
-                          sideOffset={6}
+                          sideOffset={5}
                           className="text-base"
                         >
                           Chat options
@@ -1527,7 +1527,7 @@ export default function ActiveChatPage() {
 
                       <DropdownMenuContent
                         align="end"
-                        sideOffset={6}
+                        sideOffset={5}
                         className="w-52 rounded-xl xl:rounded-sm p-1.5 bg-white dark:bg-[#111111] border border-border/80"
                       >
                         <DropdownMenuItem

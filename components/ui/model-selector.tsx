@@ -1,7 +1,7 @@
 // @ts-nocheck
 import * as React from "react";
 
-class ChatGPTModelSelector extends HTMLElement {
+class CloseAIModelSelector extends HTMLElement {
   static observedAttributes = ['value', 'model-name', 'placement'];
 
   #tiers = [
@@ -1174,11 +1174,11 @@ class ChatGPTModelSelector extends HTMLElement {
   }
 }
 
-if (typeof customElements !== 'undefined' && !customElements.get('chatgpt-model-selector')) {
-  customElements.define('chatgpt-model-selector', ChatGPTModelSelector);
+if (typeof customElements !== 'undefined' && !customElements.get('closeai-model-selector')) {
+  customElements.define('closeai-model-selector', CloseAIModelSelector);
 }
 
-export type ChatGPTModelSelectorProps = {
+export type CloseAIModelSelectorProps = {
   modelName?: string;
   value?: number;
   className?: string;
@@ -1186,10 +1186,10 @@ export type ChatGPTModelSelectorProps = {
   onChange?: (detail: { index: number; tier: string; model: string }) => void;
 };
 
-const ChatGPTModelSelectorComponent = React.forwardRef<
+const CloseAIModelSelectorComponent = React.forwardRef<
   HTMLElement,
-  ChatGPTModelSelectorProps
->(function ChatGPTModelSelectorComponent(
+  CloseAIModelSelectorProps
+>(function CloseAIModelSelectorComponent(
   { modelName = "Gemini 3.8 flash", value = 4, placement = "bottom", className, onChange },
   forwardedRef,
 ) {
@@ -1206,7 +1206,7 @@ const ChatGPTModelSelectorComponent = React.forwardRef<
     return () => el.removeEventListener("change", handler);
   }, [ref, onChange]);
 
-  return React.createElement("chatgpt-model-selector", {
+  return React.createElement("closeai-model-selector", {
     ref,
     className,
     "model-name": modelName,
@@ -1215,5 +1215,5 @@ const ChatGPTModelSelectorComponent = React.forwardRef<
   });
 });
 
-export { ChatGPTModelSelector };
-export default ChatGPTModelSelectorComponent;
+export { CloseAIModelSelector };
+export default CloseAIModelSelectorComponent;

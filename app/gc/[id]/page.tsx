@@ -633,7 +633,7 @@ export default function GuestChatSessionPage() {
               </TooltipTrigger>
               <TooltipContent
                 side="bottom"
-                sideOffset={6}
+                sideOffset={5}
                 className="text-base"
               >
                 New chat

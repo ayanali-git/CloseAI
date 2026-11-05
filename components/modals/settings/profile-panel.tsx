@@ -32,7 +32,7 @@ const WEEK_COUNT = 53;
 const DAY_COUNT = 7;
 const MIN_CELL_SIZE = 10;
 const PILL_HEIGHT_ESTIMATE = 30;
-const FALLBACK_RADIUS_PX = 9999;
+const FALLBACK_RADIUS_PX = "9999px";
 
 const TONE_STEPS = [
   "bg-secondary dark:bg-neutral-800",
@@ -202,8 +202,7 @@ function formatPill(cell: DayCell, granularity: Granularity, weekStart: string) 
 }
 
 function circleRadius(size: number | null) {
-  if (!size) return FALLBACK_RADIUS_PX;
-  return size / 4;
+  return FALLBACK_RADIUS_PX;
 }
 
 function ActivityTooltip({
@@ -412,15 +411,16 @@ export function ChatActivityHeatmap({ dates }: { dates: string[] }) {
                               width: cellSize,
                               height: cellSize,
                               flexShrink: 0,
-                              borderRadius: radius,
+                              borderRadius: "9999px",
                             }
                           : {
                               aspectRatio: "1 / 1",
                               flex: "1 1 0%",
-                              borderRadius: radius,
+                              borderRadius: "9999px",
                             }
                       }
                       className={cn(
+                        "!rounded-full aspect-square shrink-0",
                         cell.future ? "cursor-default" : "cursor-pointer",
                         cellTone(cell.count, cell.future, granularity)
                       )}
@@ -497,13 +497,23 @@ function streakFrom(dates: Set<string>) {
   return { current, longest };
 }
 
-export function ProfilePanel() {
+export function ProfilePanel({
+  onUsernameUpdated,
+  className,
+  isLoading: externalLoading = false,
+}: {
+  onUsernameUpdated?: (newUsername: string) => void;
+  className?: string;
+  isLoading?: boolean;
+} = {}) {
   const { user, loading, refreshSession } = useAuth();
   const { plan, usage, loading: subLoading } = useSubscription();
 
   const initialName = user?.user_metadata?.name || user?.user_metadata?.full_name || "";
   const initialUsername =
     user?.user_metadata?.username || user?.user_metadata?.user_name || user?.email?.split("@")[0] || "";
+  const initialAvatarUrl =
+    user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null;
 
   const [savedName, setSavedName] = useState(initialName);
   const [savedUsername, setSavedUsername] = useState(initialUsername);
@@ -513,7 +523,9 @@ export function ProfilePanel() {
 
   const [saving, setSaving] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatarUrl);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [activityDates, setActivityDates] = useState<string[] | null>(null);
   const [chatCount, setChatCount] = useState<number | null>(null);
 
@@ -522,11 +534,18 @@ export function ProfilePanel() {
     const currentName = user.user_metadata?.name || user.user_metadata?.full_name || "";
     const currentUsername =
       user.user_metadata?.username || user.user_metadata?.user_name || user.email?.split("@")[0] || "";
+    const currentAvatar =
+      user.user_metadata?.avatar_url || user.user_metadata?.picture || null;
+
     setName(currentName);
     setUsername(currentUsername);
     setSavedName(currentName);
     setSavedUsername(currentUsername);
-    setAvatarUrl(user.user_metadata?.avatar_url || user.user_metadata?.picture || null);
+    setAvatarUrl(currentAvatar);
+    if (!currentAvatar) {
+      setImageLoaded(false);
+      setImageError(false);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -593,6 +612,9 @@ export function ProfilePanel() {
         setUsername(trimmedUsername);
         await refreshSession();
         toast.success("Profile updated");
+        if (usernameChanged && onUsernameUpdated) {
+          onUsernameUpdated(trimmedUsername);
+        }
       }
     } catch {
       toast.error("An error occurred");
@@ -601,62 +623,103 @@ export function ProfilePanel() {
     }
   };
 
-  if (loading && !user) {
-    return (
-      <div className="space-y-4 pt-4">
-        <div className="mx-auto w-20 h-20 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="mx-auto h-5 w-32 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="h-16 rounded-2xl bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
-        <div className="h-24 rounded-2xl bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
-      </div>
-    );
-  }
+  const isProfileLoading =
+    externalLoading ||
+    loading ||
+    !user ||
+    activityDates === null ||
+    chatCount === null;
 
   return (
-    <div className="space-y-6">
+    <div className={cn("space-y-6", className)}>
       <div className="flex flex-col items-center text-center pt-2">
         <div className="relative group">
-          <Avatar
-            className="w-20 h-20 border border-border cursor-pointer"
-            onClick={() => setImageOpen(true)}
-          >
-            <AvatarImage src={avatarUrl || undefined} />
-            <AvatarFallback className="bg-secondary text-foreground text-xl font-medium">
-              {displayName.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <button
-            type="button"
-            onClick={() => setImageOpen(true)}
-            className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white dark:bg-[#111111] border border-border/80 flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] transition-all"
-            aria-label="Update profile picture"
-          >
-            <Pencil className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
-          </button>
+          {isProfileLoading ? (
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse mx-auto shrink-0 border border-border/40" />
+          ) : avatarUrl ? (
+            <>
+              <div
+                className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border border-border cursor-pointer select-none bg-secondary/80 dark:bg-neutral-800/80 shrink-0"
+                onClick={() => setImageOpen(true)}
+              >
+                {!imageLoaded && !imageError && (
+                  <div className="absolute inset-0 w-full h-full rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+                )}
+                <img
+                  src={avatarUrl}
+                  alt={displayName}
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => setImageError(true)}
+                  className={cn(
+                    "w-full h-full object-cover select-none transition-opacity duration-150",
+                    imageLoaded ? "opacity-100" : "opacity-0"
+                  )}
+                  loading="eager"
+                  decoding="sync"
+                />
+                {imageError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-secondary text-foreground text-3xl sm:text-4xl font-semibold select-none">
+                    {displayName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => setImageOpen(true)}
+                className="absolute bottom-0.5 right-0.5 w-8 h-8 rounded-full bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] border border-border/80 flex items-center justify-center cursor-pointer hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] transition-all"
+                aria-label="Update profile picture"
+              >
+                <Pencil className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              </button>
+            </>
+          ) : (
+            <>
+              <div
+                className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border border-border cursor-pointer select-none bg-secondary text-foreground flex items-center justify-center text-3xl sm:text-4xl font-semibold select-none shrink-0"
+                onClick={() => setImageOpen(true)}
+              >
+                {displayName.charAt(0).toUpperCase()}
+              </div>
+              <button
+                type="button"
+                onClick={() => setImageOpen(true)}
+                className="absolute bottom-0.5 right-0.5 w-8 h-8 rounded-full bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] border border-border/80 flex items-center justify-center cursor-pointer hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] transition-all"
+                aria-label="Update profile picture"
+              >
+                <Pencil className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+              </button>
+            </>
+          )}
         </div>
-        <h3 className="mt-3 text-lg font-medium text-foreground">{displayName}</h3>
-        <p className="text-sm text-muted-foreground">
-          {usersubtitle}
-        </p>
+        {isProfileLoading && !displayName ? (
+          <div className="mt-3 h-6 w-36 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+        ) : (
+          <h3 className="mt-3 text-lg font-medium text-foreground">{displayName}</h3>
+        )}
+        {isProfileLoading && !user ? (
+          <div className="mt-1.5 h-4 w-28 rounded bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
+        ) : (
+          <p className="mt-0.5 text-sm text-muted-foreground">{usersubtitle}</p>
+        )}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 rounded-2xl border border-border/80 dark:border-none overflow-hidden">
         {[
           {
-            label: "Lifetime chats",
-            value: chatCount === null ? null : formatCompact(chatCount),
+            label: "Total messages",
+            value: isProfileLoading || chatCount === null ? null : `${formatCompact(chatCount)} chats`,
           },
           {
-            label: "Messages today",
-            value: subLoading ? null : formatCompact(usage.messages.used),
-          },
-          {
-            label: "Current streak",
-            value: activityDates === null ? null : `${streaks.current} days`,
+            label: "Today messages",
+            value: isProfileLoading || subLoading ? null : `${formatCompact(usage.messages.used)} chats`,
           },
           {
             label: "Longest streak",
-            value: activityDates === null ? null : `${streaks.longest} days`,
+            value: isProfileLoading || activityDates === null ? null : `${streaks.longest} days`,
+          },
+          {
+            label: "Current streak",
+            value: isProfileLoading || activityDates === null ? null : `${streaks.current} days`,
           },
         ].map((stat, index) => (
           <div
@@ -671,7 +734,7 @@ export function ProfilePanel() {
             )}
           >
             {stat.value === null ? (
-              <div className="h-5 w-10 mx-auto rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+              <div className="h-5 w-12 mx-auto rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
             ) : (
               <p className="text-[15px] font-medium text-foreground">{stat.value}</p>
             )}
@@ -680,10 +743,27 @@ export function ProfilePanel() {
         ))}
       </div>
 
-      {activityDates === null ? (
-        <div>
-          <p className="text-sm font-medium text-foreground mb-2">Chat activity</p>
-          <div className="h-[110px] rounded-xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+      {isProfileLoading || activityDates === null ? (
+        <div className="w-full">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-sm font-medium text-foreground">Chat activity</p>
+            <div className="flex items-center gap-3">
+              {GRANULARITIES.map((g) => (
+                <span
+                  key={g}
+                  className={cn(
+                    "text-xs capitalize",
+                    g === "daily"
+                      ? "text-foreground font-normal"
+                      : "text-muted-foreground font-normal"
+                  )}
+                >
+                  {g}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="h-[120px] xl:h-[130px] w-full rounded-xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
         </div>
       ) : (
         <ChatActivityHeatmap dates={activityDates} />
@@ -692,15 +772,27 @@ export function ProfilePanel() {
       <div className="space-y-2 text-sm">
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Email</span>
-          <span className="text-foreground truncate ml-4">{user?.email}</span>
+          {isProfileLoading && !user?.email ? (
+            <div className="h-4 w-40 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+          ) : (
+            <span className="text-foreground truncate ml-4">{user?.email}</span>
+          )}
         </div>
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Username</span>
-          <span className="text-foreground">@{activeSavedUsername}</span>
+          {isProfileLoading && !activeSavedUsername ? (
+            <div className="h-4 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+          ) : (
+            <span className="text-foreground">@{activeSavedUsername}</span>
+          )}
         </div>
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Plan</span>
-          <span className="text-foreground">{planLabel}</span>
+          {isProfileLoading && subLoading ? (
+            <div className="h-4 w-12 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+          ) : (
+            <span className="text-foreground">{planLabel}</span>
+          )}
         </div>
       </div>
 
@@ -712,6 +804,7 @@ export function ProfilePanel() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
+            disabled={isProfileLoading}
             className="text-muted-foreground focus-within:text-foreground"
           />
         </div>
@@ -724,12 +817,13 @@ export function ProfilePanel() {
               setUsername(e.target.value.replace(/[@\s]/g, ""))
             }
             placeholder="username"
+            disabled={isProfileLoading}
             className="text-muted-foreground focus-within:text-foreground"
           />
         </div>
         <button
           type="submit"
-          disabled={saving || !name.trim() || !username.trim() || !hasChanges}
+          disabled={isProfileLoading || saving || !name.trim() || !username.trim() || !hasChanges}
           className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
         >
           {saving ? <Loader className="w-5 h-5 animate-spin" /> : "Update profile"}

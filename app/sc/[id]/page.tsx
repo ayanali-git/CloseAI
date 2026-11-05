@@ -541,7 +541,7 @@ export default function PublicSharedChatPage() {
                   <span className="hidden sm:inline">Share</span>
                 </button>
               </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={6} className="text-base">
+              <TooltipContent side="bottom" sideOffset={5} className="text-base">
                 Share conversation
               </TooltipContent>
             </Tooltip>
@@ -565,7 +565,7 @@ export default function PublicSharedChatPage() {
               <TooltipContent
                 side="bottom"
                 align="end"
-                sideOffset={6}
+                sideOffset={5}
                 className="text-base"
               >
                 New chat

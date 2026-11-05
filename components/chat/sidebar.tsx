@@ -77,7 +77,7 @@ import {
 } from "@/components/ui/popover";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   AnimatedChevron,
@@ -440,6 +440,7 @@ export function Sidebar({
   const isAuthenticated = !isGuestMode && Boolean(user);
 
   const pathname = usePathname();
+  const router = useRouter();
   const isNewChat =
     !currentChatId &&
     (pathname === "/c" ||
@@ -1266,7 +1267,15 @@ export function Sidebar({
 
         {/* Profile */}
         <DropdownMenuItem
-          onClick={() => handleOpenSettings("profile")}
+          onClick={() => {
+            setAccountMenuOpen(false);
+            setMobileAccountMenuOpen(false);
+            setCollapsedAccountMenuOpen(false);
+            if (isMobileScreen) {
+              setSidebarOpen(false);
+            }
+            router.push("/profile");
+          }}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base cursor-pointer"
         >
           <UserIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1435,7 +1444,7 @@ export function Sidebar({
       <div
         className={cn(
           "fixed inset-0 z-40 bg-black/60 xl:hidden transition-opacity duration-200",
-          isOpen
+          isOpen && mounted
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         )}
@@ -1445,7 +1454,7 @@ export function Sidebar({
       {/* Main Sidebar (Expands smoothly from 50px to 250px on Desktop, slides over on Mobile) */}
       <motion.aside
         suppressHydrationWarning
-        initial={!isMobileScreen ? false : { x: isOpen ? 0 : "-100%" }}
+        initial={!isMobileScreen ? false : { x: "-100%" }}
         animate={{ x: isMobileScreen ? (isOpen ? 0 : "-100%") : 0 }}
         drag={isMobileScreen && isOpen ? "x" : false}
         dragControls={dragControls}
@@ -2008,7 +2017,7 @@ export function Sidebar({
                       </PopoverTrigger>
                       <PopoverContent
                         align="start"
-                        sideOffset={6}
+                        sideOffset={5}
                         collisionPadding={9}
                         onOpenAutoFocus={(e) => e.preventDefault()}
                         className="w-[330px] p-0 rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
@@ -2647,7 +2656,7 @@ export function Sidebar({
                     </DropdownMenu>
                   </div>
 
-                  {/* Small Screen Devices: Authenticated Bottom Action Dock (New Chat + User Image Button) */}
+                  {/* Small Screen Devices: Authenticated Bottom Action Dock (New Chat + Profile Image Button on left + Settings Button on right) */}
                   <DropdownMenu
                     open={mobileAccountMenuOpen && isMobileScreen}
                     onOpenChange={(open) => {
@@ -2671,37 +2680,46 @@ export function Sidebar({
                         <span>New Chat</span>
                       </button>
 
-                      {/* User Image Button */}
-                      <DropdownMenuTrigger asChild>
+                      {/* Right Group: Profile Image Button (left) + Settings Button (right) */}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {/* Profile Image Button (navigates directly to profile page) */}
                         <button
                           type="button"
-                          className={cn(
-                            "w-11 h-11 rounded-full overflow-hidden flex items-center justify-center transition-all cursor-pointer select-none outline-none focus:outline-none shrink-0 hover:opacity-80",
-                            mobileAccountMenuOpen && "opacity-80"
-                          )}
-                          aria-label="Account menu"
+                          onClick={() => {
+                            if (isOpen && isMobileScreen) {
+                              setSidebarOpen(false);
+                            }
+                            router.push("/profile");
+                          }}
+                          className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center transition-all cursor-pointer select-none outline-none focus:outline-none shrink-0 hover:opacity-80 active:scale-[0.98]"
+                          aria-label="Profile"
                         >
                           {showProfileSkeleton ? (
                             <div className="w-11 h-11 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
                           ) : (
-                            <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 bg-secondary flex items-center justify-center select-none">
-                              {avatarUrl ? (
-                                <img
-                                  src={avatarUrl}
-                                  alt={displayName}
-                                  className="w-full h-full object-cover select-none"
-                                  loading="eager"
-                                  decoding="sync"
-                                />
-                              ) : (
-                                <span className="text-base font-semibold text-foreground select-none">
-                                  {displayName.charAt(0).toUpperCase()}
-                                </span>
-                              )}
-                            </div>
+                            <Avatar className="w-11 h-11 rounded-full border border-border shrink-0 pointer-events-none select-none">
+                              <AvatarImage src={avatarUrl || undefined} />
+                              <AvatarFallback className="text-base font-semibold bg-secondary text-foreground select-none">
+                                {displayName.charAt(0).toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
                           )}
                         </button>
-                      </DropdownMenuTrigger>
+
+                        {/* Settings Button (triggers dropdown menu, ghost button like search button) */}
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            type="button"
+                            className={cn(
+                              "w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
+                              mobileAccountMenuOpen && "bg-secondary text-foreground"
+                            )}
+                            aria-label="Account menu"
+                          >
+                            <Settings className="w-5 h-5 shrink-0" />
+                          </button>
+                        </DropdownMenuTrigger>
+                      </div>
                     </div>
 
                     <DropdownMenuContent

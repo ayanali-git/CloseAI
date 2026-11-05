@@ -116,7 +116,7 @@ export async function middleware(request: NextRequest) {
   // Protected routes:
   // /c is accessible to guest users. Only saved chats (/c/:id) and private sections require auth.
   const isSavedChat = request.nextUrl.pathname.startsWith('/c/') && request.nextUrl.pathname !== '/c';
-  const otherProtectedPaths = ['/upgrade'];
+  const otherProtectedPaths = ['/upgrade', '/profile', '/u'];
   const isOtherProtected = otherProtectedPaths.some(path => 
     request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(path + '/')
   );
@@ -131,6 +131,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/c', '/c/:path*', '/gc', '/gc/:path*', '/chat', '/settings', '/settings/:path*', '/upgrade', '/upgrade/:path*', '/auth/login', '/auth/signup'],
+  matcher: ['/', '/c', '/c/:path*', '/gc', '/gc/:path*', '/chat', '/settings', '/settings/:path*', '/upgrade', '/upgrade/:path*', '/profile', '/profile/:path*', '/u', '/u/:path*', '/auth/login', '/auth/signup'],
 };
 

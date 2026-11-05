@@ -67,8 +67,13 @@ export function SidebarProvider({
   const isDesktopRef = useRef<boolean>(true);
   const prevPathnameRef = useRef<string | null>(null);
 
-  // Initial state MUST match server-rendered defaultOpen for hydration
-  const [sidebarOpen, setSidebarOpenRaw] = useState<boolean>(defaultOpen);
+  // Initial state on mobile must always be false; on desktop match defaultOpen
+  const [sidebarOpen, setSidebarOpenRaw] = useState<boolean>(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < DESKTOP_BREAKPOINT) {
+      return false;
+    }
+    return defaultOpen;
+  });
 
   const [chats, setChats] = useState<Chat[]>([]);
   const [isChatsLoading, setIsChatsLoading] = useState<boolean>(true);

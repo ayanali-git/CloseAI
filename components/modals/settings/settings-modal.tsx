@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Bell,
   CreditCard,
@@ -68,6 +69,7 @@ export function SettingsModal({
   section: SettingsSection | "root";
 }) {
   const { user, loading } = useAuth();
+  const router = useRouter();
   const [loginOpen, setLoginOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -379,7 +381,14 @@ export function SettingsModal({
                     type="button"
                     // The search is cleared by the effect above once the list
                     // has slid out of view, not here.
-                    onClick={() => openSettings(item.id)}
+                    onClick={() => {
+                      if (item.id === "profile") {
+                        closeSettings();
+                        router.push("/profile");
+                        return;
+                      }
+                      openSettings(item.id);
+                    }}
                     className={cn(
                       "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                       isGuest
@@ -538,6 +547,7 @@ export function SettingsSelect<T extends string>({
   ariaLabel: string;
 }) {
   const { user, loading } = useAuth();
+  const router = useRouter();
   const { isGuest } = useModalTheme();
 
   return (
@@ -566,6 +576,7 @@ export function SettingsPanelSkeleton() {
 
 export function SettingsHost() {
   const { user, loading } = useAuth();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [section, setSection] = useState<SettingsSection | "root">("root");
 
@@ -583,6 +594,12 @@ export function SettingsHost() {
 
     const sync = () => {
       const parsed = parseSettingsHash(window.location.hash);
+      if (parsed === "profile") {
+        setOpen(false);
+        closeSettings();
+        router.push("/profile");
+        return;
+      }
       if (!parsed) {
         setOpen(false);
         return;
@@ -603,7 +620,7 @@ export function SettingsHost() {
       window.removeEventListener("hashchange", sync);
       window.removeEventListener("popstate", sync);
     };
-  }, [user, loading]);
+  }, [user, loading, router]);
 
   return <SettingsModal open={open} section={section} />;
 }

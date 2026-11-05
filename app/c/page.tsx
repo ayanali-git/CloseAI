@@ -331,7 +331,7 @@ function NewChatContent() {
         {/* Transparent Floating Header */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
           {/* Top gradient overlay */}
-          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none bg-gradient-to-b from-background via-background to-transparent -z-10" />
+          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
 
           {/* Left Header Area: Sidebar toggle on small screens */}
           {showHeaderButtons && (
@@ -352,7 +352,7 @@ function NewChatContent() {
                     <TooltipContent
                       side="bottom"
                       align="start"
-                      sideOffset={6}
+                      sideOffset={5}
                       className="text-base"
                     >
                       Open sidebar
@@ -388,7 +388,7 @@ function NewChatContent() {
                       <TooltipContent
                         side="bottom"
                         align="center"
-                        sideOffset={6}
+                        sideOffset={5}
                         className="text-base"
                       >
                         {isPersonalized ? "Personalization" : "Unpersonalized"}
@@ -397,7 +397,7 @@ function NewChatContent() {
 
                     <DropdownMenuContent
                       align="end"
-                      sideOffset={6}
+                      sideOffset={5}
                       className="w-full rounded-xl xl:rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 z-50"
                     >
                       <DropdownMenuItem
@@ -465,7 +465,7 @@ function NewChatContent() {
                   <TooltipContent
                     side="bottom"
                     align="end"
-                    sideOffset={6}
+                    sideOffset={5}
                     className="text-base"
                   >
                     {isTemporary ? "Turn off temporary chat" : "Turn on temporary chat"}
