@@ -135,7 +135,7 @@ export default function ContactPage() {
                 value={name}
                 onChange={(e) => handleChange("name", e.target.value, setName)}
                 onBlur={() => handleBlur("name")}
-                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-foreground transition-colors ${
+                className={`w-full p-3 bg-card border rounded-full focus:outline-none text-base placeholder:text-foreground transition-colors ${
                   errors.name && touched.name
                     ? "border-red-500/80"
                     : "border-border/80"
@@ -162,7 +162,7 @@ export default function ContactPage() {
                   handleChange("email", e.target.value, setEmail)
                 }
                 onBlur={() => handleBlur("email")}
-                className={`w-full p-3 bg-card border rounded-xl focus:outline-none text-base placeholder:text-foreground transition-colors ${
+                className={`w-full p-3 bg-card border rounded-full focus:outline-none text-base placeholder:text-foreground transition-colors ${
                   errors.email && touched.email
                     ? "border-red-500/80"
                     : "border-border/80"

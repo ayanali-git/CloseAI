@@ -384,7 +384,14 @@ export function SettingsModal({
                     onClick={() => {
                       if (item.id === "profile") {
                         closeSettings();
-                        router.push("/profile");
+                        const rawUser =
+                          user?.user_metadata?.username ||
+                          user?.user_metadata?.user_name ||
+                          user?.email?.split("@")[0];
+                        const targetUrl = rawUser
+                          ? `/u/@${encodeURIComponent(rawUser.trim())}`
+                          : "/profile";
+                        router.push(targetUrl);
                         return;
                       }
                       openSettings(item.id);
@@ -597,7 +604,14 @@ export function SettingsHost() {
       if (parsed === "profile") {
         setOpen(false);
         closeSettings();
-        router.push("/profile");
+        const rawUser =
+          user?.user_metadata?.username ||
+          user?.user_metadata?.user_name ||
+          user?.email?.split("@")[0];
+        const targetUrl = rawUser
+          ? `/u/@${encodeURIComponent(rawUser.trim())}`
+          : "/profile";
+        router.push(targetUrl);
         return;
       }
       if (!parsed) {

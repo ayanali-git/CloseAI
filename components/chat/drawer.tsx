@@ -8,6 +8,7 @@ import React, {
   forwardRef,
   cloneElement,
   isValidElement,
+  useRef,
 } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +18,15 @@ import {
   Download,
   ExternalLink,
   Loader,
+  Image as ImageIcon,
+  Check,
+  Camera,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/hooks/use-auth";
+import toast from "@/lib/toast";
 import {
   isImageFile,
   isPdfFile,
@@ -27,6 +36,12 @@ import {
   getFileExtension,
 } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
+import {
+  AvatarShapeId,
+  AVATAR_SHAPES,
+  AvatarShapeDefs,
+  getAvatarClipStyle,
+} from "@/lib/avatar-shapes";
 
 // ============================================================================
 // Types
@@ -534,9 +549,8 @@ export const Drawer = Object.assign(DrawerRoot, {
   Footer: DrawerFooter,
 });
 
-// ============================================================================
+// Files Drawer & Preview Components
 // File Item Row
-// ============================================================================
 
 function FileItemRow({
   file,
@@ -555,8 +569,8 @@ function FileItemRow({
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full flex items-center gap-3.5 px-3 py-2.5 rounded-sm hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#1f1f1f]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
-      title={`Preview ${fileName}`}
+      className="group w-full flex items-center gap-3.5 px-3 py-1.5 rounded-sm hover:bg-secondary dark:hover:bg-[#212121] active:bg-secondary dark:active:bg-[#212121]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
+      title={`${fileName}`}
     >
       {/* File Icon Squircle */}
       <div className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 border border-border/80 dark:border-none overflow-hidden">
@@ -715,7 +729,7 @@ export function FilePreviewViewer({
               <button
                 type="button"
                 onClick={handleDownload}
-                className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
                 title="Download file"
                 aria-label="Download file"
               >
@@ -725,7 +739,7 @@ export function FilePreviewViewer({
             <button
               type="button"
               onClick={onClose}
-              className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+              className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
               title="Close preview"
               aria-label="Close preview"
             >
@@ -945,30 +959,42 @@ export function FilesDrawer({
             isDismissable={isDismissable}
             isKeyboardDismissDisabled={isKeyboardDismissDisabled}
           >
-            <Drawer.Content placement={placement} className={className}>
+            <Drawer.Content
+              placement={placement}
+              className={cn(
+                "w-[85%] max-w-[85%] sm:w-[380px] sm:max-w-[380px] bg-sidebar text-foreground border-l border-border/80",
+                className
+              )}
+            >
               <Drawer.Dialog>
                 {(placement === "bottom" || placement === "top") && (
                   <Drawer.Handle />
                 )}
 
-                {/* Header */}
-                <Drawer.Header>
-                  <div className="flex items-center gap-2 min-w-0">
-                    <Drawer.Heading>{title}</Drawer.Heading>
-                  </div>
-
-                  <Drawer.CloseTrigger />
-                </Drawer.Header>
+                {/* Header matching EditProfileDrawer & desktop FilesDrawer: px-4 py-2.5 */}
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/80 shrink-0">
+                  <h2 className="text-base font-semibold tracking-tight text-foreground">
+                    {title}
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => handleOpenChange(false)}
+                    className="p-3 rounded-full xl:rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none"
+                    aria-label="Close"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
 
                 {/* Optional Description */}
                 {description && (
-                  <div className="px-5 pt-2 text-xs text-muted-foreground">
+                  <div className="px-4 pt-2 text-xs text-muted-foreground">
                     {description}
                   </div>
                 )}
 
-                {/* Body: Vertically Scrollable List of Files */}
-                <Drawer.Body>
+                {/* Body: Vertically Scrollable List of Files matching desktop p-2 */}
+                <div className="flex-1 overflow-y-auto p-2 sidebar-scroll">
                   {files.length === 0 ? (
                     <div className="h-full min-h-[260px] flex flex-col items-center justify-center text-center p-6 select-none">
                       <p className="text-sm sm:text-base text-muted-foreground">
@@ -986,7 +1012,7 @@ export function FilesDrawer({
                       ))}
                     </div>
                   )}
-                </Drawer.Body>
+                </div>
               </Drawer.Dialog>
             </Drawer.Content>
           </Drawer.Backdrop>
@@ -998,4 +1024,429 @@ export function FilesDrawer({
 
 // Component aliases for HeroUI parity and requirements
 export { FilesDrawer as Files };
+
+// Profile Edit Drawer Component
+
+export interface EditProfileDrawerProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  currentName: string;
+  currentUsername: string;
+  currentAvatarUrl: string | null;
+  currentAvatarShape?: AvatarShapeId;
+  onProfileUpdated?: (updated: {
+    name: string;
+    username: string;
+    avatarUrl: string | null;
+    avatarShape?: AvatarShapeId;
+  }) => void;
+}
+
+export function EditProfileDrawer({
+  isOpen,
+  onOpenChange,
+  currentName,
+  currentUsername,
+  currentAvatarUrl,
+  currentAvatarShape = "circle",
+  onProfileUpdated,
+}: EditProfileDrawerProps) {
+  const { user, refreshSession } = useAuth();
+  const [name, setName] = useState(currentName);
+  const [username, setUsername] = useState(currentUsername);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(currentAvatarUrl);
+  const [selectedShape, setSelectedShape] = useState<AvatarShapeId>(() => {
+    if (typeof window !== "undefined") {
+      const cached = localStorage.getItem("closeai_avatar_shape") as AvatarShapeId | null;
+      if (cached && AVATAR_SHAPES.some((s) => s.id === cached)) return cached;
+    }
+    return (user?.user_metadata?.avatar_shape as AvatarShapeId) || currentAvatarShape || "circle";
+  });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 1280);
+    };
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // Sync state whenever drawer opens with fresh props
+  useEffect(() => {
+    if (isOpen) {
+      setName(currentName);
+      setUsername(currentUsername);
+      setAvatarUrl(currentAvatarUrl);
+      const userShape =
+        (user?.user_metadata?.avatar_shape as AvatarShapeId) ||
+        currentAvatarShape ||
+        ((typeof window !== "undefined" &&
+          (localStorage.getItem("closeai_avatar_shape") as AvatarShapeId)) ||
+          "circle");
+      setSelectedShape(userShape);
+      setSelectedFile(null);
+      setPreviewUrl(null);
+    }
+  }, [isOpen, currentName, currentUsername, currentAvatarUrl, currentAvatarShape, user]);
+
+  // Clean up blob URL on close
+  useEffect(() => {
+    if (!isOpen && previewUrl?.startsWith("blob:")) {
+      URL.revokeObjectURL(previewUrl);
+    }
+  }, [isOpen, previewUrl]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image size must be less than 5MB");
+      return;
+    }
+
+    if (previewUrl?.startsWith("blob:")) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(file);
+    const newPreview = URL.createObjectURL(file);
+    setPreviewUrl(newPreview);
+    setAvatarUrl(newPreview);
+  };
+
+  const activeAvatar = previewUrl || avatarUrl;
+  const nameChanged = name.trim() !== currentName.trim();
+  const usernameChanged = username.trim() !== currentUsername.trim();
+  const avatarChanged = Boolean(selectedFile) || avatarUrl !== currentAvatarUrl;
+  const initialShape =
+    (user?.user_metadata?.avatar_shape as AvatarShapeId) ||
+    currentAvatarShape ||
+    "circle";
+  const shapeChanged = selectedShape !== initialShape;
+  const hasChanges = nameChanged || usernameChanged || avatarChanged || shapeChanged;
+
+  const handleSave = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const trimmedName = name.trim();
+    const trimmedUsername = username.trim().replace(/^@/, "");
+
+    if (!trimmedName) {
+      toast.error("Name cannot be empty");
+      return;
+    }
+    if (!trimmedUsername) {
+      toast.error("Username cannot be empty");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      let finalAvatarUrl = avatarUrl;
+
+      // 1. Upload new file if selected
+      if (selectedFile) {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const res = await fetch("/api/user/avatar", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Failed to upload avatar");
+        }
+        finalAvatarUrl = data.avatar_url;
+      }
+
+      // 2. Update Supabase profiles table
+      if (user?.id) {
+        await supabase
+          .from("profiles")
+          .update({
+            name: trimmedName,
+            username: trimmedUsername,
+            avatar_url: finalAvatarUrl,
+            avatar_shape: selectedShape,
+          })
+          .eq("id", user.id);
+      }
+
+      // 3. Update Supabase auth user metadata
+      const { error: authErr } = await supabase.auth.updateUser({
+        data: {
+          name: trimmedName,
+          full_name: trimmedName,
+          username: trimmedUsername,
+          avatar_url: finalAvatarUrl,
+          avatar_shape: selectedShape,
+        },
+      });
+
+      if (authErr) {
+        toast.error(authErr.message);
+        return;
+      }
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem("closeai_avatar_shape", selectedShape);
+      }
+
+      await refreshSession();
+      toast.success("Profile updated");
+
+      onProfileUpdated?.({
+        name: trimmedName,
+        username: trimmedUsername,
+        avatarUrl: finalAvatarUrl,
+        avatarShape: selectedShape,
+      });
+
+      // Automatically close drawer on save
+      onOpenChange(false);
+    } catch (err: any) {
+      console.error("Save profile error:", err);
+      toast.error(err.message || "Failed to save profile");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleCancel = () => {
+    onOpenChange(false);
+  };
+
+  // Shared inner content for Photo & Details
+  const drawerBodyContent = (
+    <div className="space-y-4">
+      <AvatarShapeDefs />
+
+      {/* Photo Section */}
+      <div className="space-y-2">
+        <h3 className="text-sm font-medium text-foreground">Photo</h3>
+        <div className="rounded-2xl border border-border/80 bg-secondary/30 dark:bg-neutral-900/40 overflow-hidden">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+
+          {/* Upload photo button: full-width, edge-to-edge hover filling the top section with divider */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium text-foreground hover:bg-secondary dark:hover:[#212121] active:bg-secondary dark:active:bg-neutral-800 transition-colors cursor-pointer select-none"
+          >
+            <span>Upload photo</span>
+            <ImageIcon className="w-5 h-5 text-muted-foreground" />
+          </button>
+
+          {/* 5 Avatar Shape Options Row (Circle, Flower, Squircle, Oval, Badge) — full-width, edge-to-edge distribution */}
+          <div className="px-4 py-3.5">
+            <div className="flex items-center justify-between w-full select-none">
+              {AVATAR_SHAPES.map((shape) => {
+                const isSelected = selectedShape === shape.id;
+                const clipStyle = getAvatarClipStyle(shape.id);
+                return (
+                  <button
+                    key={shape.id}
+                    type="button"
+                    onClick={() => setSelectedShape(shape.id)}
+                    className="relative group shrink-0 focus-visible:outline-none cursor-pointer"
+                    aria-label={`Select ${shape.label} shape`}
+                    title={shape.label}
+                  >
+                    <div
+                      style={clipStyle}
+                      className={cn(
+                        "w-12 h-12 bg-secondary flex items-center justify-center overflow-hidden transition-all duration-150",
+                        isSelected
+                          ? "ring-2 ring-foreground ring-offset-2 ring-offset-sidebar"
+                          : "hover:opacity-80"
+                      )}
+                    >
+                      {activeAvatar ? (
+                        <img
+                          src={activeAvatar}
+                          alt={shape.label}
+                          className="w-full h-full object-cover select-none pointer-events-none"
+                        />
+                      ) : (
+                        <span className="text-lg font-bold text-foreground">
+                          {name.charAt(0).toUpperCase() || "U"}
+                        </span>
+                      )}
+                    </div>
+
+                    {isSelected && (
+                      <div className="absolute top-0 right-0 w-4 h-4 rounded-full bg-foreground text-background flex items-center justify-center pointer-events-none">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Profile */}
+      <div className="space-y-2">
+        <h3 className="text-sm font-medium text-foreground">Profile</h3>
+        <div className="rounded-2xl border border-border/80 bg-white dark:bg-[#111111] p-4 space-y-4">
+          {/* Name Input */}
+          <div className="space-y-1.5">
+            <Label htmlFor="drawer-profile-name" className="text-xs text-muted-foreground">
+              Name
+            </Label>
+            <Input
+              id="drawer-profile-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name"
+              className="h-11 text-sm rounded-full bg-secondary border-border/80 dark:border-none text-foreground"
+            />
+          </div>
+
+          {/* Username Input */}
+          <div className="space-y-1.5">
+            <Label htmlFor="drawer-profile-username" className="text-xs text-muted-foreground">
+              Username
+            </Label>
+            <div className="flex items-center h-11 w-full rounded-full border border-border/80 dark:border-none bg-secondary px-3">
+              <span className="text-sm text-foreground font-normal select-none pointer-events-none shrink-0 translate-y-[1px]">
+                @
+              </span>
+              <input
+                id="drawer-profile-username"
+                value={username}
+                onChange={(e) =>
+                  setUsername(e.target.value.replace(/[@\s]/g, ""))
+                }
+                placeholder="username"
+                className="h-full w-full bg-transparent border-0 outline-none p-0 pl-1 text-sm text-foreground font-normal placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus-visible:outline-none"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop In-Flow Side Panel (>= 1280px) — Slides in next to profile stream */}
+      {!isMobile && (
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              key="desktop-edit-profile-panel"
+              initial={{ width: 0 }}
+              animate={{ width: 400 }}
+              exit={{ width: 0, borderLeftColor: "transparent" }}
+              transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
+              className="h-full flex flex-col shrink-0 border-l border-border/80 bg-sidebar select-none overflow-hidden z-20"
+            >
+              <div className="w-[400px] h-full flex flex-col shrink-0">
+                {/* Header: Title on left, Cancel + Save on right (size matching file drawer close button) */}
+                <div className="px-4 py-2.5 border-b border-border/80 flex items-center justify-between shrink-0">
+                  <h2 className="text-base font-semibold text-foreground tracking-tight">
+                    Edit profile
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleCancel}
+                      disabled={saving}
+                      className="h-11 px-4 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSave()}
+                      disabled={saving || !hasChanges || !name.trim() || !username.trim()}
+                      className="h-11 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm font-medium hover:opacity-85 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
+                    >
+                      {saving ? (
+                        <Loader className="w-5 h-5 animate-spin text-background" />
+                      ) : (
+                        "Save"
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Body: Vertically Scrollable */}
+                <div className="flex-1 overflow-y-auto px-4 pt-2.5 pb-5">
+                  {drawerBodyContent}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+
+      {/* Mobile Portal Drawer (< 1280px) */}
+      {isMobile && (
+        <Drawer isOpen={isOpen} onOpenChange={onOpenChange} placement="right" backdrop="blur">
+          <Drawer.Backdrop>
+            <Drawer.Content className="w-[85%] max-w-[85%] sm:w-[380px] sm:max-w-[380px] bg-sidebar text-foreground border-l border-border/80">
+              <Drawer.Dialog>
+                {/* Header: Title on left, Cancel + Save on right */}
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/80 shrink-0">
+                  <h2 className="text-base font-semibold tracking-tight text-foreground">
+                    Edit profile
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleCancel}
+                      disabled={saving}
+                      className="h-11 px-4 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSave()}
+                      disabled={saving || !hasChanges || !name.trim() || !username.trim()}
+                      className="h-11 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm font-medium hover:opacity-85 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
+                    >
+                      {saving ? (
+                        <Loader className="w-5 h-5 animate-spin text-background" />
+                      ) : (
+                        "Save"
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <Drawer.Body className="px-4 pt-2.5 pb-5">
+                  {drawerBodyContent}
+                </Drawer.Body>
+              </Drawer.Dialog>
+            </Drawer.Content>
+          </Drawer.Backdrop>
+        </Drawer>
+      )}
+    </>
+  );
+}
+
 export default FilesDrawer;

@@ -3,15 +3,17 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Loader, Pencil } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ProfileImageModal } from "@/components/modals/profile-image-modal";
 import { useAuth } from "@/hooks/use-auth";
 import { useSubscription } from "@/components/subscription-provider";
 import { supabase } from "@/lib/supabase";
 import toast from "@/lib/toast";
 import { cn } from "@/lib/utils";
+import {
+  AvatarShapeId,
+  AvatarShapeDefs,
+  getAvatarClipStyle,
+} from "@/lib/avatar-shapes";
 
 /* ==========================================================================
    Chat Activity Heatmap Types & Constants
@@ -227,7 +229,7 @@ function ActivityTooltip({
     <div
       role="tooltip"
       className={cn(
-        "pointer-events-none fixed z-[10000] -translate-x-1/2 rounded-full bg-secondary px-2.5 py-1 text-xs text-foreground border border-border/80 dark:border-white/10 whitespace-nowrap",
+        "pointer-events-none fixed z-[10000] -translate-x-1/2 rounded-full bg-secondary px-2.5 py-1 text-xs text-foreground border border-border/80 whitespace-nowrap",
         showBelow ? "translate-y-0" : "-translate-y-full"
       )}
       style={{ left: clampedX, top }}
@@ -499,10 +501,12 @@ function streakFrom(dates: Set<string>) {
 
 export function ProfilePanel({
   onUsernameUpdated,
+  onOpenEdit,
   className,
   isLoading: externalLoading = false,
 }: {
   onUsernameUpdated?: (newUsername: string) => void;
+  onOpenEdit?: () => void;
   className?: string;
   isLoading?: boolean;
 } = {}) {
@@ -518,10 +522,6 @@ export function ProfilePanel({
   const [savedName, setSavedName] = useState(initialName);
   const [savedUsername, setSavedUsername] = useState(initialUsername);
 
-  const [name, setName] = useState(initialName);
-  const [username, setUsername] = useState(initialUsername);
-
-  const [saving, setSaving] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatarUrl);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -537,8 +537,6 @@ export function ProfilePanel({
     const currentAvatar =
       user.user_metadata?.avatar_url || user.user_metadata?.picture || null;
 
-    setName(currentName);
-    setUsername(currentUsername);
     setSavedName(currentName);
     setSavedUsername(currentUsername);
     setAvatarUrl(currentAvatar);
@@ -579,49 +577,12 @@ export function ProfilePanel({
     plan === "ultra" ? "Ultra Pro" : plan === "pro" ? "Pro" : "Free";
   const usersubtitle = `@${activeSavedUsername} · ${planLabel}`;
 
-  const nameChanged = name.trim() !== (savedName || initialName).trim();
-  const usernameChanged = username.trim() !== (savedUsername || initialUsername).trim();
-  const hasChanges = nameChanged || usernameChanged;
-
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const trimmedName = name.trim();
-    const trimmedUsername = username.trim().replace(/^@/, "");
-    if (!trimmedName || !trimmedUsername || !hasChanges) return;
-    setSaving(true);
-    try {
-      if (user?.id) {
-        await supabase
-          .from("profiles")
-          .update({ name: trimmedName, username: trimmedUsername })
-          .eq("id", user.id);
-      }
-      const { error } = await supabase.auth.updateUser({
-        data: {
-          name: trimmedName,
-          full_name: trimmedName,
-          username: trimmedUsername,
-        },
-      });
-      if (error) {
-        toast.error(error.message);
-      } else {
-        setSavedName(trimmedName);
-        setSavedUsername(trimmedUsername);
-        setName(trimmedName);
-        setUsername(trimmedUsername);
-        await refreshSession();
-        toast.success("Profile updated");
-        if (usernameChanged && onUsernameUpdated) {
-          onUsernameUpdated(trimmedUsername);
-        }
-      }
-    } catch {
-      toast.error("An error occurred");
-    } finally {
-      setSaving(false);
-    }
-  };
+  const avatarShape =
+    (user?.user_metadata?.avatar_shape as AvatarShapeId) ||
+    ((typeof window !== "undefined" &&
+      (localStorage.getItem("closeai_avatar_shape") as AvatarShapeId)) ||
+      "circle");
+  const avatarClipStyle = getAvatarClipStyle(avatarShape);
 
   const isProfileLoading =
     externalLoading ||
@@ -632,63 +593,50 @@ export function ProfilePanel({
 
   return (
     <div className={cn("space-y-6", className)}>
+      <AvatarShapeDefs />
       <div className="flex flex-col items-center text-center pt-2">
         <div className="relative group">
           {isProfileLoading ? (
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse mx-auto shrink-0 border border-border/40" />
+            <div
+              style={avatarClipStyle}
+              className="w-28 h-28 sm:w-32 sm:h-32 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse mx-auto shrink-0 border border-border/40 select-none overflow-hidden"
+            />
           ) : avatarUrl ? (
-            <>
-              <div
-                className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border border-border cursor-pointer select-none bg-secondary/80 dark:bg-neutral-800/80 shrink-0"
-                onClick={() => setImageOpen(true)}
-              >
-                {!imageLoaded && !imageError && (
-                  <div className="absolute inset-0 w-full h-full rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-                )}
-                <img
-                  src={avatarUrl}
-                  alt={displayName}
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageError(true)}
-                  className={cn(
-                    "w-full h-full object-cover select-none transition-opacity duration-150",
-                    imageLoaded ? "opacity-100" : "opacity-0"
-                  )}
-                  loading="eager"
-                  decoding="sync"
+            <div
+              style={avatarClipStyle}
+              className="relative w-28 h-28 sm:w-32 sm:h-32 overflow-hidden border border-border/80 dark:border-none select-none bg-secondary/80 dark:bg-neutral-800/80 shrink-0"
+            >
+              {!imageLoaded && !imageError && (
+                <div
+                  style={avatarClipStyle}
+                  className="absolute inset-0 w-full h-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse"
                 />
-                {imageError && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-secondary text-foreground text-3xl sm:text-4xl font-semibold select-none">
-                    {displayName.charAt(0).toUpperCase()}
-                  </div>
+              )}
+              <img
+                src={avatarUrl}
+                alt={displayName}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageError(true)}
+                className={cn(
+                  "w-full h-full object-cover select-none transition-opacity duration-150 pointer-events-none",
+                  imageLoaded ? "opacity-100" : "opacity-0"
                 )}
-              </div>
-              <button
-                type="button"
-                onClick={() => setImageOpen(true)}
-                className="absolute bottom-0.5 right-0.5 w-8 h-8 rounded-full bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] border border-border/80 flex items-center justify-center cursor-pointer hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] transition-all"
-                aria-label="Update profile picture"
-              >
-                <Pencil className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-              </button>
-            </>
+                loading="eager"
+                decoding="sync"
+              />
+              {imageError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-secondary text-foreground text-3xl sm:text-4xl font-semibold select-none">
+                  {displayName.charAt(0).toUpperCase()}
+                </div>
+              )}
+            </div>
           ) : (
-            <>
-              <div
-                className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border border-border cursor-pointer select-none bg-secondary text-foreground flex items-center justify-center text-3xl sm:text-4xl font-semibold select-none shrink-0"
-                onClick={() => setImageOpen(true)}
-              >
-                {displayName.charAt(0).toUpperCase()}
-              </div>
-              <button
-                type="button"
-                onClick={() => setImageOpen(true)}
-                className="absolute bottom-0.5 right-0.5 w-8 h-8 rounded-full bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] border border-border/80 flex items-center justify-center cursor-pointer hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] transition-all"
-                aria-label="Update profile picture"
-              >
-                <Pencil className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-              </button>
-            </>
+            <div
+              style={avatarClipStyle}
+              className="w-28 h-28 sm:w-32 sm:h-32 border border-border select-none bg-secondary text-foreground flex items-center justify-center text-3xl sm:text-4xl font-semibold select-none shrink-0 overflow-hidden"
+            >
+              {displayName.charAt(0).toUpperCase()}
+            </div>
           )}
         </div>
         {isProfileLoading && !displayName ? (
@@ -734,7 +682,7 @@ export function ProfilePanel({
             )}
           >
             {stat.value === null ? (
-              <div className="h-5 w-12 mx-auto rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+              <div className="h-5 w-16 mx-auto rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
             ) : (
               <p className="text-[15px] font-medium text-foreground">{stat.value}</p>
             )}
@@ -795,40 +743,6 @@ export function ProfilePanel({
           )}
         </div>
       </div>
-
-      <form onSubmit={handleSave} className="space-y-3">
-        <div className="space-y-2">
-          <Label htmlFor="profile-name">Name</Label>
-          <Input
-            id="profile-name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
-            disabled={isProfileLoading}
-            className="text-muted-foreground focus-within:text-foreground"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="profile-username">Username</Label>
-          <Input
-            id="profile-username"
-            value={username}
-            onChange={(e) =>
-              setUsername(e.target.value.replace(/[@\s]/g, ""))
-            }
-            placeholder="username"
-            disabled={isProfileLoading}
-            className="text-muted-foreground focus-within:text-foreground"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={isProfileLoading || saving || !name.trim() || !username.trim() || !hasChanges}
-          className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
-        >
-          {saving ? <Loader className="w-5 h-5 animate-spin" /> : "Update profile"}
-        </button>
-      </form>
 
       <ProfileImageModal
         open={imageOpen}

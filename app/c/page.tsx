@@ -330,7 +330,6 @@ function NewChatContent() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          {/* Top gradient overlay */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
 
           {/* Left Header Area: Sidebar toggle on small screens */}
@@ -343,7 +342,7 @@ function NewChatContent() {
                       <button
                         type="button"
                         onClick={() => handleToggleSidebar()}
-                        className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />

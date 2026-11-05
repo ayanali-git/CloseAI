@@ -1274,7 +1274,10 @@ export function Sidebar({
             if (isMobileScreen) {
               setSidebarOpen(false);
             }
-            router.push("/profile");
+            const profileUrl = username
+              ? `/u/@${encodeURIComponent(username)}`
+              : "/profile";
+            router.push(profileUrl);
           }}
           className="flex items-center gap-2.5 px-2 py-2 rounded-xl xl:rounded-sm text-base cursor-pointer"
         >
@@ -2686,12 +2689,15 @@ export function Sidebar({
                         <button
                           type="button"
                           onClick={() => {
-                            if (isOpen && isMobileScreen) {
+                            if (isMobileScreen) {
                               setSidebarOpen(false);
                             }
-                            router.push("/profile");
+                            const profileUrl = username
+                              ? `/u/@${encodeURIComponent(username)}`
+                              : "/profile";
+                            router.push(profileUrl);
                           }}
-                          className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center transition-all cursor-pointer select-none outline-none focus:outline-none shrink-0 hover:opacity-80 active:scale-[0.98]"
+                          className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center transition-all cursor-pointer select-none outline-none focus:outline-none shrink-0 hover:opacity-80"
                           aria-label="Profile"
                         >
                           {showProfileSkeleton ? (

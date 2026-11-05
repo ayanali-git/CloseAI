@@ -9,7 +9,10 @@ import { ProfilePanel } from "@/components/modals/settings/profile-panel";
 import { chatService } from "@/lib/chat-service";
 import { supabase } from "@/lib/supabase";
 import toast from "@/lib/toast";
-import { Loader, PanelRight } from "lucide-react";
+import { Loader, PanelRight, Pencil, Share2, Upload } from "lucide-react";
+import { EditProfileDrawer } from "@/components/chat/drawer";
+import { ShareProfileModal } from "@/components/modals/share-profile-modal";
+import { AvatarShapeId } from "@/lib/avatar-shapes";
 import {
   Tooltip,
   TooltipContent,
@@ -24,15 +27,47 @@ export default function UserProfilePage() {
 
   const { user, loading, isSigningOut } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
+  const [editDrawerOpen, setEditDrawerOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const {
     sidebarOpen,
+    setSidebarOpen,
     toggleSidebar,
     chats,
     isChatsLoading,
     loadChats,
     deleteChat,
   } = useSidebarContext();
+
+  // Close sidebar on small screens when entering profile page
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 1280) {
+      setSidebarOpen(false);
+    }
+  }, [setSidebarOpen]);
+
+  const currentName =
+    user?.user_metadata?.name ||
+    user?.user_metadata?.full_name ||
+    cleanUsername ||
+    "User";
+
+  const currentUsername =
+    user?.user_metadata?.username ||
+    user?.user_metadata?.user_name ||
+    user?.email?.split("@")[0] ||
+    cleanUsername ||
+    "user";
+
+  const currentAvatarUrl =
+    user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null;
+
+  const currentAvatarShape =
+    (user?.user_metadata?.avatar_shape as AvatarShapeId) ||
+    ((typeof window !== "undefined" &&
+      (localStorage.getItem("closeai_avatar_shape") as AvatarShapeId)) ||
+      "circle");
 
 
   // Enforce consistent /u/@username URL format if user arrived at /u/username without @
@@ -107,7 +142,6 @@ export default function UserProfilePage() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header for small-screen sidebar toggle */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          {/* Top gradient overlay */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
 
           {/* Left Header Area: Sidebar toggle on small screens */}
@@ -119,7 +153,7 @@ export default function UserProfilePage() {
                     <button
                       type="button"
                       onClick={() => toggleSidebar()}
-                      className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Open sidebar"
                     >
                       <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -137,6 +171,57 @@ export default function UserProfilePage() {
               </div>
             )}
           </div>
+
+          {/* Right Header Area: Share & Edit actions (hidden when edit drawer is open, matching /c/id positioning) */}
+          {!editDrawerOpen && (
+            <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+              <div className="flex items-center gap-2">
+                {/* Share your profile button (left side) */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => setShareModalOpen(true)}
+                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="Share your profile"
+                    >
+                      <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                      <span className="hidden sm:inline">Share</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    Share your profile
+                  </TooltipContent>
+                </Tooltip>
+
+                {/* Edit profile button */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => setEditDrawerOpen(true)}
+                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="Edit profile"
+                    >
+                      <Pencil className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                      <span className="hidden sm:inline">Edit</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    Edit profile
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
+          )}
         </header>
 
         {/* Content Stream */}
@@ -144,6 +229,7 @@ export default function UserProfilePage() {
           <div className="w-full max-w-[820px] mx-auto py-2">
             <ProfilePanel
               isLoading={isChatsLoading || loading || !user}
+              onOpenEdit={() => setEditDrawerOpen(true)}
               onUsernameUpdated={(newUsername) => {
                 router.replace(`/u/@${encodeURIComponent(newUsername)}`);
               }}
@@ -151,6 +237,31 @@ export default function UserProfilePage() {
           </div>
         </div>
       </div>
+
+      {/* Edit profile Drawer */}
+      <EditProfileDrawer
+        isOpen={editDrawerOpen}
+        onOpenChange={setEditDrawerOpen}
+        currentName={currentName}
+        currentUsername={currentUsername}
+        currentAvatarUrl={currentAvatarUrl}
+        currentAvatarShape={currentAvatarShape}
+        onProfileUpdated={({ username: newUsername }) => {
+          if (newUsername && newUsername !== cleanUsername) {
+            router.replace(`/u/@${encodeURIComponent(newUsername)}`);
+          }
+        }}
+      />
+
+      {/* Share your profile Modal */}
+      <ShareProfileModal
+        open={shareModalOpen}
+        onOpenChange={setShareModalOpen}
+        username={cleanUsername}
+        displayName={currentName}
+        avatarUrl={currentAvatarUrl}
+        avatarShape={currentAvatarShape}
+      />
     </div>
   );
 }

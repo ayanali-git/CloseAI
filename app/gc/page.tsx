@@ -223,7 +223,6 @@ function GuestChatContent() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header with Unified 28px Alignment */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-2 xl:px-5 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          {/* Top gradient overlay */}
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
 
           {/* Left area */}

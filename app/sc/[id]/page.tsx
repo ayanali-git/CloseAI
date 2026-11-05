@@ -542,7 +542,7 @@ export default function PublicSharedChatPage() {
                 </button>
               </TooltipTrigger>
               <TooltipContent side="bottom" sideOffset={5} className="text-base">
-                Share conversation
+                Create a public link
               </TooltipContent>
             </Tooltip>
 
@@ -552,7 +552,7 @@ export default function PublicSharedChatPage() {
                   type="button"
                   onClick={() => window.open("/c", "_blank")}
                   className={cn(
-                    "group h-11 w-11 rounded-sm border border-border/80 dark:border-none text-neutral-700 dark:text-neutral-200 hover:text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-11 w-11 rounded-sm border border-border/80 dark:border-none text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
                       ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
                       : "bg-background hover:bg-secondary active:bg-secondary"

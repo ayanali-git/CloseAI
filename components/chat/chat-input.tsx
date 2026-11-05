@@ -1009,7 +1009,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               isTyping
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isUploading
-                ? "bg-secondary dark:bg-neutral-800 text-foreground cursor-wait opacity-90"
+                ? "bg-secondary text-foreground cursor-wait opacity-80"
                 : hasContent
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
