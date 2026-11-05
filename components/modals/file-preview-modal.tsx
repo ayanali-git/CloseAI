@@ -222,7 +222,7 @@ export function FilePreviewModal({
                   type="button"
                   onClick={handleDownload}
                   className={cn(
-                    "group h-11 w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-11 w-11 rounded-full xl:rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
                       ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
                       : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
@@ -238,7 +238,7 @@ export function FilePreviewModal({
                 type="button"
                 onClick={() => onOpenChange(false)}
                 className={cn(
-                  "group h-11 w-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                  "group h-11 w-11 rounded-full xl:rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                   isGuestMode
                     ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
                     : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-muted-foreground hover:text-foreground"
