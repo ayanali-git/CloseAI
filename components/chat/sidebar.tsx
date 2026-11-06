@@ -2683,35 +2683,8 @@ export function Sidebar({
                         <span>New Chat</span>
                       </button>
 
-                      {/* Right Group: Profile Image Button (left) + Settings Button (right) */}
+                      {/* Settings Button */}
                       <div className="flex items-center gap-1.5 shrink-0">
-                        {/* Profile Image Button (navigates directly to profile page) */}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (isMobileScreen) {
-                              setSidebarOpen(false);
-                            }
-                            const profileUrl = username
-                              ? `/u/@${encodeURIComponent(username)}`
-                              : "/profile";
-                            router.push(profileUrl);
-                          }}
-                          className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center transition-all cursor-pointer select-none outline-none focus:outline-none shrink-0 hover:opacity-80"
-                          aria-label="Profile"
-                        >
-                          {showProfileSkeleton ? (
-                            <div className="w-11 h-11 rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-                          ) : (
-                            <Avatar className="w-11 h-11 rounded-full border border-border shrink-0 pointer-events-none select-none">
-                              <AvatarImage src={avatarUrl || undefined} />
-                              <AvatarFallback className="text-base font-semibold bg-secondary text-foreground select-none">
-                                {displayName.charAt(0).toUpperCase()}
-                              </AvatarFallback>
-                            </Avatar>
-                          )}
-                        </button>
-
                         {/* Settings Button (triggers dropdown menu, ghost button like search button) */}
                         <DropdownMenuTrigger asChild>
                           <button

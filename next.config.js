@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    NEXT_PRODUCTION_APP_URL: process.env.NEXT_PRODUCTION_APP_URL,
+  },
   // output: 'export', // Removed to enable dynamic API routes
   eslint: {
     ignoreDuringBuilds: true,

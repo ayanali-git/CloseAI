@@ -14,6 +14,7 @@ import {
   AvatarShapeDefs,
   getAvatarClipStyle,
 } from "@/lib/avatar-shapes";
+import { getProductionAppUrl, getProductionDomain } from "@/lib/url";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
@@ -58,11 +59,12 @@ export function ShareProfileModal({
     planLabelProp ??
     (plan === "ultra" ? "Ultra Pro" : plan === "pro" ? "Pro" : "Free");
 
-  const PRODUCTION_DOMAIN = "trycloseai.vercel.app";
+  const productionAppUrl = getProductionAppUrl();
+  const productionDomain = getProductionDomain();
 
   const cleanUsername = username.replace(/^@/, "").trim();
-  const profileUrl = `https://${PRODUCTION_DOMAIN}/u/@${cleanUsername}`;
-  const displayUrl = `${PRODUCTION_DOMAIN}/u/@${cleanUsername}`;
+  const profileUrl = `${productionAppUrl}/u/@${cleanUsername}`;
+  const displayUrl = `${productionDomain}/u/@${cleanUsername}`;
 
   const handleCopy = async () => {
     try {
@@ -135,31 +137,37 @@ export function ShareProfileModal({
         {/* Profile Thumbnail Section — Displays Avatar, Name, Handle · Plan (matching profile page) */}
         <div className="space-y-2">
           <div className="relative w-full rounded-[25px] sm:rounded-3xl overflow-hidden bg-background border border-border/80 dark:border-none p-8 sm:p-10 flex flex-col items-center justify-center min-h-[240px] text-center select-none">
-            {/* Avatar with selected shape */}
-            <div
-              style={clipStyle}
-              className="w-28 h-28 sm:w-32 sm:h-32 overflow-hidden border border-border/80 dark:border-none  bg-secondary flex items-center justify-center shrink-0 select-none"
-            >
-              {avatarUrl ? (
-                <img
-                  src={avatarUrl}
-                  alt={displayName}
-                  className="w-full h-full object-cover select-none pointer-events-none"
-                />
-              ) : (
-                <span className="text-3xl font-bold text-foreground">
-                  {displayName.charAt(0).toUpperCase()}
-                </span>
-              )}
+            {/* Profile Content — z-20 to ensure all image & texts show clearly and crisply above gradient */}
+            <div className="relative z-20 flex flex-col items-center justify-center text-center">
+              {/* Avatar with selected shape */}
+              <div
+                style={clipStyle}
+                className="w-28 h-28 sm:w-32 sm:h-32 overflow-hidden border border-border/80 dark:border-none  bg-secondary flex items-center justify-center shrink-0 select-none"
+              >
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt={displayName}
+                    className="w-full h-full object-cover select-none pointer-events-none"
+                  />
+                ) : (
+                  <span className="text-3xl font-bold text-foreground">
+                    {displayName.charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </div>
+
+              {/* Name & Handle · Plan matching profile page (Image 4) */}
+              <h3 className="mt-3 text-lg font-semibold tracking-tight text-foreground select-none">
+                {displayName}
+              </h3>
+              <p className="mt-0.5 text-sm text-muted-foreground select-none">
+                @{cleanUsername} {derivedPlanLabel ? `· ${derivedPlanLabel}` : ""}
+              </p>
             </div>
 
-            {/* Name & Handle · Plan matching profile page (Image 4) */}
-            <h3 className="mt-3 text-lg font-semibold tracking-tight text-foreground select-none">
-              {displayName}
-            </h3>
-            <p className="mt-0.5 text-sm text-muted-foreground select-none">
-              @{cleanUsername} {derivedPlanLabel ? `· ${derivedPlanLabel}` : ""}
-            </p>
+            {/* Bottom gradient overlay — 25% full fade across entire card width */}
+            <div className="absolute bottom-0 left-0 right-0 h-[25%] min-h-[95px] sm:min-h-[105px] z-10 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent" />
 
             {/* CloseAI Watermark */}
             <div className="absolute right-5 sm:right-6 bottom-4 sm:bottom-5 z-20 pointer-events-none">
@@ -184,7 +192,7 @@ export function ShareProfileModal({
           aria-label={ copied ? "Link copied" : "Copy link"}
           title={ copied ? "Link copied" : "Copy link"}
         >
-          <span className="text-sm text-foreground truncate font-mono select-none">
+          <span className="text-[13px] sm:text-sm text-foreground font-mono select-none break-all leading-normal flex-1 min-w-0">
             {displayUrl}
           </span>
           <div className="p-1.5 flex items-center justify-center shrink-0">

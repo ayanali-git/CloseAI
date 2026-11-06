@@ -447,13 +447,13 @@ export function LoginModal({
         {/* OR Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-border/80 dark:border-white/10" />
+            <div className="w-full border border-border/80" />
           </div>
           <div className="relative flex justify-center text-base">
             <span
               className={cn(
                 "px-3 text-muted-foreground font-normal tracking-wider",
-                isGuest ? "bg-white dark:bg-[#1f1f1f]" : "bg-card"
+                isGuest ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10" : "bg-white dark:bg-[#111111] dark:border-none"
               )}
             >
               or
@@ -473,7 +473,7 @@ export function LoginModal({
                     : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                   isGuest
                     ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10 dark:ring-offset-[#1f1f1f] dark:focus-within:ring-offset-[#1f1f1f]"
-                    : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
+                    : "bg-background dark:border-none dark:ring-offset-background dark:focus-within:ring-offset-background"
                 )}
               >
                 <input
@@ -527,7 +527,7 @@ export function LoginModal({
                       : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
                       ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10 dark:ring-offset-[#1f1f1f] dark:focus-within:ring-offset-[#1f1f1f]"
-                      : "bg-background dark:ring-offset-background dark:focus-within:ring-offset-background"
+                      : "bg-background dark:border-none dark:ring-offset-background dark:focus-within:ring-offset-background"
                   )}
                 >
                   <span className="text-base text-foreground font-normal select-none shrink-0 pl-1">

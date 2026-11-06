@@ -31,7 +31,7 @@ function getAppBaseUrl(): string {
   if (url && !url.includes("localhost")) {
     return url.replace(/\/$/, "");
   }
-  return "https://trycloseai.vercel.app";
+  return process.env.NEXT_PRODUCTION_APP_URL || "";
 }
 
 function escapeHtml(text: string): string {

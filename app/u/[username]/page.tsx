@@ -194,7 +194,7 @@ export default function UserProfilePage() {
                     sideOffset={5}
                     className="text-base"
                   >
-                    Share your profile
+                    Share profile
                   </TooltipContent>
                 </Tooltip>
 
@@ -204,11 +204,10 @@ export default function UserProfilePage() {
                     <button
                       type="button"
                       onClick={() => setEditDrawerOpen(true)}
-                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-11 w-11 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Edit profile"
                     >
                       <Pencil className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                      <span className="hidden sm:inline">Edit</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent

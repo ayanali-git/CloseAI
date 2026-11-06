@@ -241,8 +241,8 @@ function DrawerBackdrop({
   if (!mounted) return null;
 
   const backdropVariants: Record<DrawerBackdropVariant, string> = {
-    opaque: "bg-sidebar/50",
-    blur: "bg-sidebar/50",
+    opaque: "bg-transparent sm:bg-sidebar/50",
+    blur: "bg-transparent sm:bg-sidebar/50",
     transparent: "bg-transparent pointer-events-none [&>*]:pointer-events-auto",
   };
 
@@ -255,12 +255,12 @@ function DrawerBackdrop({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
             onClick={() => {
               if (dismissable) close();
             }}
             className={cn(
-              "drawer__backdrop fixed inset-0 transition-opacity",
+              "drawer__backdrop fixed inset-0 pointer-events-auto",
               backdropVariants[activeVariant] || backdropVariants.blur,
               className
             )}
@@ -339,7 +339,7 @@ function DrawerContent({
       initial={config.initial}
       animate={config.animate}
       exit={config.exit}
-      transition={{ type: "spring", damping: 30, stiffness: 320 }}
+      transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
       className={cn(
         "drawer__content pointer-events-auto flex flex-col z-50 bg-sidebar text-foreground",
         config.containerClasses,
@@ -889,7 +889,7 @@ export function FilesDrawer({
               key="desktop-files-panel"
               initial={{ width: 0 }}
               animate={{ width: 400 }}
-              exit={{ width: 0, borderLeftColor: "transparent" }}
+              exit={{ width: 0 }}
               transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
               className="h-full flex flex-col shrink-0 border-l border-border/80 bg-sidebar select-none overflow-hidden z-20"
             >
@@ -1357,7 +1357,7 @@ export function EditProfileDrawer({
               key="desktop-edit-profile-panel"
               initial={{ width: 0 }}
               animate={{ width: 400 }}
-              exit={{ width: 0, borderLeftColor: "transparent" }}
+              exit={{ width: 0 }}
               transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
               className="h-full flex flex-col shrink-0 border-l border-border/80 bg-sidebar select-none overflow-hidden z-20"
             >

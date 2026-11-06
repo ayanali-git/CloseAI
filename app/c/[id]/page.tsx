@@ -1464,14 +1464,10 @@ export default function ActiveChatPage() {
                               const shareUrl = `${window.location.origin}/sc/${chatId}`;
                               await navigator.clipboard.writeText(shareUrl);
                               toast.success(
-                                "Public link copied to your clipboard",
-                                {
-                                  description:
-                                    "Anyone with this link can see this conversation",
-                                }
+                                "Public link copied"
                               );
                             } catch (e) {
-                              toast.error("Failed to copy link");
+                              toast.error("Failed to copy public link");
                             } finally {
                               setTimeout(() => setIsSharing(false), 300);
                             }
@@ -1491,7 +1487,7 @@ export default function ActiveChatPage() {
                         sideOffset={5}
                         className="text-base"
                       >
-                        Create a public link
+                        Share chat
                       </TooltipContent>
                     </Tooltip>
 

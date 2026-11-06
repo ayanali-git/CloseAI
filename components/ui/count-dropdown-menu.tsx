@@ -167,7 +167,7 @@ export function CountDropdownMenu({
           "transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10"
-            : "bg-background",
+            : "bg-background dark:border-none",
           className
         )}
         style={{ outline: "none" }}
@@ -211,7 +211,7 @@ export function CountDropdownMenu({
                 "fixed z-[106] flex flex-col rounded-3xl overflow-hidden",
                 isGuest
                   ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                  : "bg-background border border-border/80"
+                  : "bg-background border border-border/80 dark:border-none"
               )}
               style={{
                 bottom: `${Math.max(8, window.innerHeight - triggerRect.top + 6)}px`,

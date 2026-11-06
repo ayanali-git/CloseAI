@@ -32,8 +32,9 @@ export function getAppUrl(request?: Request): string {
     }
   }
 
-  // 3. From environment variables (production domain > app url > vercel url)
+  // 3. From environment variables (production url > site url > app url > vercel url)
   const envUrl =
+    process.env.NEXT_PRODUCTION_APP_URL ||
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_APP_URL ||
     (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : null) ||
@@ -58,4 +59,37 @@ export function getAuthCallbackUrl(nextPath = '/c', request?: Request): string {
   const base = getAppUrl(request);
   const cleanNext = nextPath.startsWith('/') ? nextPath : `/${nextPath}`;
   return `${base}/auth/callback?next=${encodeURIComponent(cleanNext)}`;
+}
+
+/**
+ * Returns the canonical production base URL strictly from NEXT_PRODUCTION_APP_URL.
+ */
+export function getProductionAppUrl(): string {
+  const envUrl =
+    process.env.NEXT_PRODUCTION_APP_URL ||
+    (process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost')
+      ? process.env.NEXT_PUBLIC_APP_URL
+      : '') ||
+    (typeof window !== 'undefined' ? window.location.origin : '');
+
+  if (!envUrl) return '';
+
+  let clean = envUrl.trim().replace(/\/$/, '');
+  if (clean && !clean.startsWith('http://') && !clean.startsWith('https://')) {
+    clean = `https://${clean}`;
+  }
+  return clean;
+}
+
+/**
+ * Returns the production host domain without protocol strictly from NEXT_PRODUCTION_APP_URL.
+ */
+export function getProductionDomain(): string {
+  const url = getProductionAppUrl();
+  if (!url) return '';
+  try {
+    return new URL(url).host;
+  } catch {
+    return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  }
 }

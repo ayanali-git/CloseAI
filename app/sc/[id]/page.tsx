@@ -437,11 +437,9 @@ export default function PublicSharedChatPage() {
     setIsSharing(true);
     try {
       await navigator.clipboard.writeText(window.location.href);
-      toast.success("Public link copied to your clipboard", {
-        description: "Anyone with this link can see this conversation",
-      });
+      toast.success("Public link copied");
     } catch (e) {
-      toast.error("Failed to copy link");
+      toast.error("Failed to copy public link");
     } finally {
       setTimeout(() => setIsSharing(false), 300);
     }
@@ -542,7 +540,7 @@ export default function PublicSharedChatPage() {
                 </button>
               </TooltipTrigger>
               <TooltipContent side="bottom" sideOffset={5} className="text-base">
-                Create a public link
+                Share chat
               </TooltipContent>
             </Tooltip>
 
