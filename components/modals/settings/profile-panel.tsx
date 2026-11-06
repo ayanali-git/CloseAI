@@ -229,7 +229,7 @@ function ActivityTooltip({
     <div
       role="tooltip"
       className={cn(
-        "pointer-events-none fixed z-[10000] -translate-x-1/2 rounded-full bg-secondary px-2.5 py-1 text-xs text-foreground border border-border/80 whitespace-nowrap",
+        "pointer-events-none fixed z-[10000] -translate-x-1/2 rounded-full bg-secondary px-2.5 py-1 text-sm text-foreground border border-border/80 dark:border-none whitespace-nowrap",
         showBelow ? "translate-y-0" : "-translate-y-full"
       )}
       style={{ left: clampedX, top }}

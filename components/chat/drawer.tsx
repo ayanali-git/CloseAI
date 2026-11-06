@@ -304,14 +304,14 @@ function DrawerContent({
   > = {
     right: {
       containerClasses:
-        "fixed inset-y-0 right-0 h-full w-[78%] max-w-[78%] sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-l border-border/80",
+        "fixed inset-y-0 right-0 h-full w-full max-w-full sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-l-0 sm:border-l border-border/80",
       initial: { x: "100%" },
       animate: { x: 0 },
       exit: { x: "100%" },
     },
     left: {
       containerClasses:
-        "fixed inset-y-0 left-0 h-full w-[78%] max-w-[78%] sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-r border-border/80",
+        "fixed inset-y-0 left-0 h-full w-full max-w-full sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-r-0 sm:border-r border-border/80",
       initial: { x: "-100%" },
       animate: { x: 0 },
       exit: { x: "-100%" },
@@ -962,7 +962,7 @@ export function FilesDrawer({
             <Drawer.Content
               placement={placement}
               className={cn(
-                "w-[85%] max-w-[85%] sm:w-[380px] sm:max-w-[380px] bg-sidebar text-foreground border-l border-border/80",
+                "w-full max-w-full sm:w-[380px] sm:max-w-[380px] bg-sidebar text-foreground border-l-0 sm:border-l border-border/80",
                 className
               )}
             >
@@ -1405,7 +1405,7 @@ export function EditProfileDrawer({
       {isMobile && (
         <Drawer isOpen={isOpen} onOpenChange={onOpenChange} placement="right" backdrop="blur">
           <Drawer.Backdrop>
-            <Drawer.Content className="w-[85%] max-w-[85%] sm:w-[380px] sm:max-w-[380px] bg-sidebar text-foreground border-l border-border/80">
+            <Drawer.Content className="w-full max-w-full sm:w-[380px] sm:max-w-[380px] bg-sidebar text-foreground border-l-0 sm:border-l border-border/80">
               <Drawer.Dialog>
                 {/* Header: Title on left, Cancel + Save on right */}
                 <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/80 shrink-0">
