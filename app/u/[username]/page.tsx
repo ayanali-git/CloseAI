@@ -91,8 +91,38 @@ export default function UserProfilePage() {
   }, [user, loading, isSigningOut, router, loadChats]);
 
   useEffect(() => {
-    document.title = "CloseAI";
-  }, []);
+    if (!cleanUsername && !currentUsername) {
+      document.title = "CloseAI";
+      return;
+    }
+
+    const u = cleanUsername || currentUsername;
+    const name = currentName || u;
+    document.title = `${name} (@${u}) | CloseAI`;
+
+    // Also fetch the canonical profile from Supabase profiles table to ensure freshest display name
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from("profiles")
+          .select("name, username")
+          .ilike("username", u)
+          .maybeSingle();
+
+        if (cancelled || !data) return;
+        const resolvedName = data.name || name;
+        const resolvedUsername = data.username || u;
+        document.title = `${resolvedName} (@${resolvedUsername}) | CloseAI`;
+      } catch {
+        // keep current title
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cleanUsername, currentUsername, currentName]);
 
   const handleToggleArchive = async (id: string, archived: boolean) => {
     try {
@@ -110,7 +140,6 @@ export default function UserProfilePage() {
 
   return (
     <div className="flex h-full w-full bg-background text-foreground overflow-hidden">
-      {/* Sidebar (identical to /c and /gc) */}
       <Sidebar
         user={user}
         chats={chats}

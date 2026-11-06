@@ -37,6 +37,26 @@ export default function ProfileRedirectPage() {
     }
   }, [setSidebarOpen]);
 
+  // Dynamic document title: "Name (@username) | CloseAI"
+  useEffect(() => {
+    if (!user) {
+      document.title = "CloseAI";
+      return;
+    }
+    const name =
+      user.user_metadata?.name ||
+      user.user_metadata?.full_name ||
+      user.email?.split("@")[0] ||
+      "User";
+    const username = (
+      user.user_metadata?.username ||
+      user.user_metadata?.user_name ||
+      user.email?.split("@")[0] ||
+      "user"
+    ).trim();
+    document.title = `${name} (@${username}) | CloseAI`;
+  }, [user]);
+
   useEffect(() => {
     if (loading) return;
     if (!user) {

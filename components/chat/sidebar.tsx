@@ -2168,13 +2168,7 @@ export function Sidebar({
                     <Button
                       variant="ghost"
                       size="icon"
-                      style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
-                      className={cn(
-                        "hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
-                        isAuthenticated
-                          ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
-                          : "cursor-pointer [&_*]:cursor-pointer",
-                      )}
+                      className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background cursor-pointer"
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
                         setIsCloseBtnHovered(false);
