@@ -41,7 +41,7 @@ export default function LandingPage() {
 
   // Dynamic bottom offset to ensure bottom of left card part (image) aligns horizontally with Item 3 card part at max scroll
   const [spotlightBottomOffset, setSpotlightBottomOffset] =
-    useState<number>(16);
+    useState<number>(0);
   const leftColRef = useRef<HTMLDivElement>(null);
   const leftCardImgRef = useRef<HTMLDivElement>(null);
   const item3Ref = useRef<HTMLAnchorElement>(null);
@@ -280,7 +280,7 @@ export default function LandingPage() {
             className="relative flex flex-col md:flex-row justify-between gap-8 md:gap-10 lg:gap-12 xl:gap-14"
             onMouseLeave={() => setHoveredSpotlight(null)}
           >
-            {/* STICKY LEFT COLUMN TRACK: Astra GPT-6 Spotlight */}
+            {/* STICKY LEFT COLUMN TRACK */}
             <div
               ref={leftColRef}
               className="w-full md:w-[56%] lg:w-[58%] xl:w-[75%] relative md:sticky md:top-24 md:self-start"
