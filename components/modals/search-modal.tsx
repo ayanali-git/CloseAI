@@ -388,7 +388,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
                 style={{ width: `${50 + ((i * 11) % 40)}%` }}
               />
             </div>
-            <div className="h-3 w-12 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
+            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -438,7 +438,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             <div className="flex-1 pr-4">
               <div className="h-3.5 w-44 rounded bg-secondary dark:bg-[#212121]" />
             </div>
-            <div className="h-3 w-12 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
+            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
           </div>
         ))}
       </div>

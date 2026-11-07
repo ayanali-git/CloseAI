@@ -574,9 +574,9 @@ export function SettingsPanelSkeleton() {
   return (
     <div className="space-y-4 py-2">
       <div className="h-4 w-28 rounded-sm bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-      <div className="h-12 w-full rounded-sm bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-      <div className="h-12 w-full rounded-sm bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
-      <div className="h-12 w-full rounded-sm bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
+      <div className="h-11 w-full rounded-sm bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+      <div className="h-11 w-full rounded-sm bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
+      <div className="h-11 w-full rounded-sm bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
     </div>
   );
 }

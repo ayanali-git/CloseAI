@@ -393,7 +393,7 @@ function DrawerHandle({ className, ...props }: DrawerHandleProps) {
     <div
       aria-hidden="true"
       className={cn(
-        "drawer__handle mx-auto my-2.5 h-1.5 w-12 rounded-full bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-600 transition-colors shrink-0 cursor-grab active:cursor-grabbing",
+        "drawer__handle mx-auto my-2.5 h-1.5 w-11 rounded-full bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-600 transition-colors shrink-0 cursor-grab active:cursor-grabbing",
         className
       )}
       {...props}
@@ -1272,7 +1272,7 @@ export function EditProfileDrawer({
                     <div
                       style={clipStyle}
                       className={cn(
-                        "w-12 h-12 bg-secondary flex items-center justify-center overflow-hidden transition-all duration-150",
+                        "w-11 h-11 bg-secondary flex items-center justify-center overflow-hidden transition-all duration-150",
                         isSelected
                           ? "ring-2 ring-foreground ring-offset-2 ring-offset-sidebar"
                           : "hover:opacity-80"

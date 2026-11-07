@@ -118,7 +118,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 w-full">
         <div className="w-full p-6 sm:p-8 md:p-10 bg-card border border-border/80 dark:border-none rounded-sm">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">
-            Get in Touch
+            Get in touch
           </h2>
           <form className="space-y-4" onSubmit={handleSubmit} noValidate>
             <div>
@@ -204,13 +204,13 @@ export default function ContactPage() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-12 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <Loader className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  <span>Send Message</span>
+                  <span>Send message</span>
                 </>
               )}
             </Button>

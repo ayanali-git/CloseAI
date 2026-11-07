@@ -162,7 +162,7 @@ export function CountDropdownMenu({
         type="button"
         onClick={handleToggle}
         className={cn(
-          "group w-full h-12 rounded-full border border-border/80 px-4",
+          "group w-full h-11 rounded-full border border-border/80 px-4",
           "flex items-center gap-3 text-left cursor-pointer select-none",
           "transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
           isGuest
@@ -232,7 +232,7 @@ export function CountDropdownMenu({
               >
                 <div
                   className={cn(
-                    "h-12 rounded-full border px-4 flex items-center gap-3 transition-all w-full",
+                    "h-11 rounded-full border px-4 flex items-center gap-3 transition-all w-full",
                     "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
                     isGuest
                       ? "bg-white dark:bg-[#1f1f1f] dark:border-white/10 dark:ring-offset-[#1f1f1f] dark:focus-within:ring-offset-[#1f1f1f]"

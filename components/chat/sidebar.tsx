@@ -2611,7 +2611,7 @@ export function Sidebar({
                                     <div className="w-8 h-8 rounded-full shrink-0 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
                                     <div className="flex-1 min-w-0 space-y-1.5 animate-pulse">
                                       <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
-                                      <div className="h-2.5 w-12 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                                      <div className="h-2.5 w-11 rounded bg-secondary/70 dark:bg-neutral-800/60" />
                                     </div>
                                   </>
                                 ) : (

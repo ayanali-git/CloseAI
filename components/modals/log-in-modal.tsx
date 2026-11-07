@@ -476,7 +476,7 @@ export function LoginModal({
             <div>
               <div
                 className={cn(
-                  "h-12 rounded-full border px-4 flex items-center transition-all",
+                  "h-11 rounded-full border px-4 flex items-center transition-all",
                   submitted && errors.email
                     ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
                     : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",
@@ -530,7 +530,7 @@ export function LoginModal({
               <div>
                 <div
                   className={cn(
-                    "h-12 rounded-full border px-4 flex items-center gap-3 transition-all",
+                    "h-11 rounded-full border px-4 flex items-center gap-3 transition-all",
                     submitted && errors.phone
                       ? "border-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-white"
                       : "border-border/80 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-white",

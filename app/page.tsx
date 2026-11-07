@@ -122,7 +122,7 @@ export default function LandingPage() {
     },
     {
       id: "api",
-      label: "API Platform",
+      label: "API platform",
       prompt: "How do I get started with the API and developer platform?",
       // disabled: true,
       // hoverText: "Coming soon",
@@ -164,7 +164,7 @@ export default function LandingPage() {
         {/* HERO PROMPT DOCK */}
         {/* ---------------------------------------------------------------- */}
         <section className="min-h-[calc(100svh-180px)] sm:min-h-[calc(100svh-300px)] lg:min-h-[calc(100vh-350px)] flex flex-col items-center justify-center pt-8 pb-4 px-6 sm:px-8 text-center max-w-4xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-foreground mb-8">
+          <h1 className="text-3xl xl:text-4xl font-medium tracking-tight text-foreground mb-8">
             What can I help with?
           </h1>
 
@@ -180,7 +180,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10 p-3 flex items-end gap-2 transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -202,10 +202,10 @@ export default function LandingPage() {
                 type="submit"
                 disabled={!heroPrompt.trim() || isSubmitting}
                 className={cn(
-                  "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]",
+                  "w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]",
                   heroPrompt.trim().length > 0 && !isSubmitting
                     ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                    : "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
+                    : "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                 )}
                 aria-label="Send prompt"
               >
@@ -249,12 +249,12 @@ export default function LandingPage() {
                     handlePillClick(pill.prompt);
                   }}
                   className={cn(
-                    "h-12 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-white/10",
+                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-white/10",
                     pill.disabled
-                      ? "bg-white hover:bg-secondary text-muted-foreground dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] cursor-not-allowed opacity-50 select-none"
+                      ? "bg-background hover:bg-secondary text-muted-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
-                      ? "cursor-pointer bg-secondary dark:bg-[#1f1f1f] text-foreground"
-                      : "cursor-pointer bg-white hover:bg-secondary text-muted-foreground hover:text-foreground dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f]"
+                      ? "cursor-pointer bg-background text-foreground"
+                      : "cursor-pointer bg-background hover:bg-secondary text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {pill.disabled ? (
@@ -275,7 +275,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* FEATURED SPOTLIGHT (Sticky Left + Scrolling Right on Medium & Large Screens, Stacked on Mobile) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
+        <section className="px-6 sm:px-8 max-w-[1490px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
           <div
             className="relative flex flex-col md:flex-row justify-between gap-8 md:gap-10 lg:gap-12 xl:gap-14"
             onMouseLeave={() => setHoveredSpotlight(null)}
@@ -333,7 +333,7 @@ export default function LandingPage() {
 
             {/* SCROLLING RIGHT COLUMN: 3 Items Stream (one by one) */}
             <div
-              className="w-full md:w-[36%] lg:w-[38%] xl:w-[25%] flex flex-col gap-8 lg:gap-10"
+              className="w-full md:w-[36%] lg:w-[38%] xl:w-[30%] flex flex-col gap-8 lg:gap-10"
               style={
                 spotlightBottomOffset > 0
                   ? { paddingBottom: `${spotlightBottomOffset}px` }
@@ -736,22 +736,22 @@ export default function LandingPage() {
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-16">
-          <div className="rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-10 sm:p-20 text-center flex flex-col items-center justify-center space-y-6">
+          <div className="rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
             <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
             </h2>
-            <p className="text-muted-foreground text-sm xl:text-xl max-w-md">
+            {/* <p className="text-muted-foreground text-sm xl:text-xl max-w-md">
               Experience the frontier intelligence designed to think, create,
               and build alongside you.
-            </p>
+            </p> */}
             <div className="pt-2">
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full px-4 h-12 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer"
+                className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                  <span>Try CloseAI</span>
+                  <span>Try now</span>
                   <AnimatedArrowUpRight size={20} />
                 </Link>
               </Button>

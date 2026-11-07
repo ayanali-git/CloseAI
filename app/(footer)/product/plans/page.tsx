@@ -24,7 +24,7 @@ export default function PlansPage() {
         "Standard response speed",
         "Web search grounding",
       ],
-      cta: "Get started",
+      cta: "Get Started",
       href: "/?auth=signup",
       popular: false,
     },
@@ -71,7 +71,7 @@ export default function PlansPage() {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-16">
         <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-foreground mb-6">
-          Simple, transparent plans.
+          Simple, Transparent plans.
         </h1>
         <p className="text-lg text-muted-foreground">
           Start for free, then scale with limitless reasoning as your needs grow.

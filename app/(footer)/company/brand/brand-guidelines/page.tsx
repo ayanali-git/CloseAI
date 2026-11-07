@@ -98,7 +98,7 @@ export default function CompanyBrandGuidelinesPage() {
           </p>
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <a href="/closeai-brand-kit.zip" download="closeai-brand-kit.zip">
               <span>Download Kit</span>
@@ -498,8 +498,8 @@ export default function CompanyBrandGuidelinesPage() {
 
             <div className="p-6 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
               <div className="h-44 sm:h-52 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center p-6 relative">
-                <img src="/closeai-new.png" alt="Contrast" className="w-12 h-12 object-contain dark:hidden" />
-                <img src="/closeai-new-white.png" alt="Contrast" className="w-12 h-12 object-contain hidden dark:block" />
+                <img src="/closeai-new.png" alt="Contrast" className="w-11 h-11 object-contain dark:hidden" />
+                <img src="/closeai-new-white.png" alt="Contrast" className="w-11 h-11 object-contain hidden dark:block" />
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
                   <Check className="w-5 h-5 stroke-[2]" />
                 </div>
@@ -510,8 +510,8 @@ export default function CompanyBrandGuidelinesPage() {
             <div className="p-6 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-center p-6 relative">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-border/80 dark:border-none bg-card flex items-center justify-center p-3">
-                  <img src="/closeai-new.png" alt="Proportional 1:1" className="w-12 h-12 object-contain dark:hidden" />
-                  <img src="/closeai-new-white.png" alt="Proportional 1:1" className="w-12 h-12 object-contain hidden dark:block" />
+                  <img src="/closeai-new.png" alt="Proportional 1:1" className="w-11 h-11 object-contain dark:hidden" />
+                  <img src="/closeai-new-white.png" alt="Proportional 1:1" className="w-11 h-11 object-contain hidden dark:block" />
                 </div>
                 <div className="absolute bottom-3.5 right-3.5 w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center">
                   <Check className="w-5 h-5 stroke-[2]" />
@@ -973,7 +973,7 @@ export default function CompanyBrandGuidelinesPage() {
               className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center mb-6">
+                <div className="w-11 h-11 rounded-2xl bg-secondary flex items-center justify-center mb-6">
                   <channel.icon className="w-6 h-6 text-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">

@@ -737,7 +737,7 @@ export function ProfilePanel({
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Plan</span>
           {isProfileLoading && subLoading ? (
-            <div className="h-4 w-12 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+            <div className="h-4 w-11 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
           ) : (
             <span className="text-foreground">{planLabel}</span>
           )}

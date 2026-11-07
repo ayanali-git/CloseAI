@@ -826,7 +826,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               }}
               onKeyDown={handlePillButtonKeyDown}
               className={cn(
-                "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 cursor-pointer",
+                "w-11 h-11 rounded-full flex items-center justify-center transition-colors shrink-0 cursor-pointer",
                 pillButtonFocusRing,
                 plusMenuOpen
                   ? "bg-secondary dark:bg-[#2f2f2f] text-foreground"
@@ -854,7 +854,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         alignOffset={menuAlignOffset}
         avoidCollisions={false}
         className={cn(
-          "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-120px)] overflow-y-auto",
+          "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-110px)] overflow-y-auto",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
             : "bg-white dark:bg-[#111111] border border-border/80",
@@ -966,7 +966,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             }}
             onKeyDown={handlePillButtonKeyDown}
             className={cn(
-              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0",
+              "w-11 h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0",
               pillButtonFocusRing,
               isListening
                 ? "bg-red-500/15 text-red-500 hover:bg-red-500/25 ring-red-500/30"
@@ -1004,7 +1004,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onKeyDown={handlePillButtonKeyDown}
             disabled={(!hasContent && !isTyping) || isUploading}
             className={cn(
-              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
+              "w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0",
               pillButtonFocusRing,
               isTyping
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
@@ -1013,7 +1013,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 : hasContent
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
                 : isGuest
-                ? "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-white/10 text-muted-foreground cursor-not-allowed opacity-50"
+                ? "bg-neutral-300 dark:bg-[#2f2f2f] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                 : "bg-neutral-300 dark:bg-[#212121] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
             )}
             aria-label={isTyping ? "Stop generating" : "Send message"}
@@ -1207,7 +1207,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                         }}
                         onKeyDown={handlePillButtonKeyDown}
                         className={cn(
-                          "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-all shrink-0 cursor-pointer",
+                          "w-11 h-11 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-all shrink-0 cursor-pointer",
                           pillButtonFocusRing
                         )}
                         aria-label={isFullyExpanded ? "Collapse" : "Expand"}

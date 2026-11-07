@@ -401,7 +401,7 @@ function PreviewRail({
           className={cn(
             "relative z-10 grid shrink-0",
             isHorizontal
-              ? "h-12 w-full max-w-full justify-center"
+              ? "h-11 w-full max-w-full justify-center"
               : "h-fit w-7 content-center justify-items-end"
           )}
         >

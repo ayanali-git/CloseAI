@@ -53,16 +53,16 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 sm:mb-16">
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
+            className="group rounded-full h-11 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
           >
             <Link href="/company/contact">
-              <span>Contact Us</span>
+              <span>Contact us</span>
             </Link>
           </Button>
 
           <Button
             asChild
-            className="group rounded-full h-12 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <Link
               href="/company/brand/brand-guidelines"
@@ -70,7 +70,7 @@ export default function CompanyBrandPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-1.5"
             >
-              <span>Brand Guidelines</span>
+              <span>Brand guidelines</span>
               <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>
@@ -97,7 +97,7 @@ export default function CompanyBrandPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
             <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex flex-col items-center justify-center p-6 text-center">
-              <div className="w-12 h-12 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
+              <div className="w-11 h-11 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
                 <ShieldCheck className="w-6 h-6 text-foreground" />
               </div>
               <span className="text-base font-semibold tracking-tight text-foreground">
@@ -120,7 +120,7 @@ export default function CompanyBrandPage() {
 
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
             <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex flex-col items-center justify-center p-6 text-center">
-              <div className="w-12 h-12 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
+              <div className="w-11 h-11 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
                 <Sparkles className="w-6 h-6 text-foreground" />
               </div>
               <span className="text-base font-semibold tracking-tight text-foreground">
@@ -143,7 +143,7 @@ export default function CompanyBrandPage() {
 
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
             <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex flex-col items-center justify-center p-6 text-center">
-              <div className="w-12 h-12 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
+              <div className="w-11 h-11 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
                 <Layers className="w-6 h-6 text-foreground" />
               </div>
               <span className="text-base font-semibold tracking-tight text-foreground">
@@ -331,7 +331,7 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="group rounded-full px-4 h-12 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center gap-1.5"
+            className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center gap-1.5"
           >
             <Link
               href="/company/brand/brand-guidelines"
@@ -339,7 +339,7 @@ export default function CompanyBrandPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-1.5"
             >
-              <span>Brand Guidelines</span>
+              <span>Brand guidelines</span>
               <AnimatedArrowUpRight size={20} />
             </Link>
           </Button>

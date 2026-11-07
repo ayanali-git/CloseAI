@@ -452,7 +452,7 @@ export function LangDropdownMenu({
                     }}
                     placeholder="Search languages"
                     aria-label="Search languages"
-                    className="w-full h-12 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10 outline-none focus:outline-none transition-colors"
+                    className="w-full h-11 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10 outline-none focus:outline-none transition-colors"
                   />
                 </div>
               </div>
