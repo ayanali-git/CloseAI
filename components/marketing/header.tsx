@@ -1220,15 +1220,15 @@ export function MarketingHeader() {
                   <span>Sign up for free</span>
                 </button>
 
-                {/* <button
+                <button
                   type="button"
                   onClick={() => openLoginModal()}
                   className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                   >
                   <span>Log In</span>
-                </button> */}
+                </button>
                 
-                  <div
+                  {/* <div
                     ref={loginContainerRef}
                     className="relative"
                     onMouseEnter={handleLoginEnter}
@@ -1285,7 +1285,7 @@ export function MarketingHeader() {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </div> */}
               </>
             )}
           </div>
@@ -1930,11 +1930,14 @@ export function MarketingHeader() {
 
                       <button
                         type="button"
-                        onClick={() => setMobileSubMenu("login")}
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          openLoginModal();
+                        }}
                         className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log In
-                        <AnimatedArrow size={26} />
+                        {/* <AnimatedArrow size={26} /> */}
                       </button>
                     </>
                   )}
