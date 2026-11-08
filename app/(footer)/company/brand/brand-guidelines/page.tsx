@@ -26,7 +26,7 @@ export default function CompanyBrandGuidelinesPage() {
       name: "CloseAI White",
       role: "Inverted Logomark & Canvas",
       hex: "#ffffff",
-      className: "bg-white text-black border border-border/80",
+      className: "bg-white text-black border border-border/80 dark:border-none",
     },
     {
       name: "Neutral Surface",
@@ -398,7 +398,7 @@ export default function CompanyBrandGuidelinesPage() {
         {/* Approved Emblem 3-Card Showcase (Generous Height) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
-            <div className="h-44 sm:h-52 rounded-2xl bg-white flex items-center justify-center p-6 border border-border/80">
+            <div className="h-44 sm:h-52 rounded-2xl bg-white flex items-center justify-center p-6 border border-border/80 dark:border-none">
               <img
                 src="/closeai-new.png"
                 alt="CloseAI Black Emblem"
@@ -810,7 +810,7 @@ export default function CompanyBrandGuidelinesPage() {
 
             {/* 6. Approved standard light lockup */}
             <div className="p-6 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
-              <div className="h-44 sm:h-52 rounded-2xl bg-white text-black border border-border/80 flex items-center justify-center gap-3.5 p-6 relative">
+              <div className="h-44 sm:h-52 rounded-2xl bg-white text-black border border-border/80 dark:border-none flex items-center justify-center gap-3.5 p-6 relative">
                 <img
                   src="/closeai-new.png"
                   alt="CloseAI"

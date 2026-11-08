@@ -325,12 +325,8 @@ const CodeBlock = React.memo(
     return (
       <div
         ref={containerRef}
-        className={cn(
-          "relative my-4 rounded-[25px] sm:rounded-3xl border text-left isolate overflow-visible",
-          isGuest
-            ? "bg-white dark:bg-[#1f1f1f] text-foreground border-border/80 dark:border-white/10"
-            : "bg-white dark:bg-[#111111] text-foreground border-border/80"
-        )}
+        className=
+          "relative my-4 rounded-[25px] sm:rounded-3xl bg-bubble text-bubble-foreground text-left isolate overflow-visible"
       >
         <div
           ref={headerRef}
@@ -340,9 +336,9 @@ const CodeBlock = React.memo(
               : cn(
                   "sticky top-0 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
                   headerState === "stuck"
-                    ? "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl border-border/80"
+                    ? "bg-bubble rounded-b-[25px] sm:rounded-b-3xl border-bubble"
                     : headerState === "bottom"
-                    ? "bg-white dark:bg-[#111111] rounded-b-[25px] sm:rounded-b-3xl"
+                    ? "bg-bubble rounded-b-[25px] sm:rounded-b-3xl"
                     : "bg-transparent rounded-t-[25px] sm:rounded-t-3xl"
                 )
           )}
@@ -584,7 +580,7 @@ export function MessageList({
     () => ({
       table({ children }: any) {
         return (
-          <div className="my-4 w-full overflow-x-auto rounded-xl border border-border/80 bg-card [&_tr:hover_td]:!bg-transparent">
+          <div className="my-4 w-full overflow-x-auto rounded-xl border border-bubble bg-background [&_tr:hover_td]:!bg-transparent">
             <table className="w-full text-left border-collapse text-sm !m-0">
               {children}
             </table>
@@ -594,12 +590,7 @@ export function MessageList({
       thead({ children }: any) {
         return (
           <thead
-            className={cn(
-              "border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase",
-              isGuestMode
-                ? "bg-white dark:bg-[#1f1f1f]"
-                : "bg-white dark:bg-[#111111]"
-            )}
+            className="border-b border-bubble bg-bubble text-bubble-foreground font-semibold text-xs tracking-wider uppercase"
           >
             {children}
           </thead>
@@ -607,14 +598,14 @@ export function MessageList({
       },
       th({ children }: any) {
         return (
-          <th className="px-4 py-2.5 font-semibold text-foreground text-xs uppercase tracking-wider">
+          <th className="px-4 py-2.5 font-semibold text-bubble-foreground text-xs uppercase tracking-wider border-b border-bubble">
             {children}
           </th>
         );
       },
       td({ children }: any) {
         return (
-          <td className="px-4 py-2.5 border-t border-border/80 text-foreground/90 text-sm align-top leading-relaxed">
+          <td className="px-4 py-2.5 border-t border-bubble text-bubble-foreground/90 text-sm align-top leading-relaxed">
             {children}
           </td>
         );
@@ -710,7 +701,7 @@ export function MessageList({
         return (
           <div
             className={cn(
-              "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 p-3 code-scroll",
+              "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
               isGuestMode
                 ? "bg-white dark:bg-[#1f1f1f]"
                 : "bg-white dark:bg-[#111111]"
@@ -1659,8 +1650,8 @@ export function MessageList({
                               className={cn(
                                 "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                 isGuestMode
-                                  ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                  : "bg-white dark:bg-[#111111] border border-border/80"
+                                  ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
+                                  : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                               )}
                             >
                               {isMobileScreen &&
@@ -1825,8 +1816,8 @@ export function MessageList({
                                           className={cn(
                                             "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                             isGuestMode
-                                              ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-                                              : "bg-white dark:bg-[#111111] border border-border/80"
+                                              ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
+                                              : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                                           )}
                                         >
                                           {/* Top Input Bar: Ask CloseAI to change */}

@@ -308,7 +308,7 @@ function SearchImageItem({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group relative aspect-square w-full rounded-xl overflow-hidden bg-secondary dark:bg-[#212121] border border-border/80 cursor-pointer transition-all flex items-center justify-center select-none outline-none focus:outline-none",
+        "group relative aspect-square w-full rounded-xl overflow-hidden bg-secondary dark:bg-[#212121] border border-border/80 dark:border-none cursor-pointer transition-all flex items-center justify-center select-none outline-none focus:outline-none",
         // Focus rings like settings modal type on focus-visible
         "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:z-10",
         // Always show focus rings on hover (settings modal type)
@@ -781,7 +781,7 @@ export function SearchModal({
         isGuest
           ? "min-[1280px]:max-w-[900px] min-[1280px]:h-[min(500px,90vh)]"
           : "min-[1280px]:max-w-[800px] min-[1280px]:h-[min(500px,90vh)]",
-        isGuest && "bg-white dark:bg-[#1f1f1f] border border-border/80"
+        isGuest && "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
       )}
     >
       <div className="flex flex-col h-full min-h-0 overflow-hidden">

@@ -249,12 +249,12 @@ export default function LandingPage() {
                     handlePillClick(pill.prompt);
                   }}
                   className={cn(
-                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-white/10",
+                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-none",
                     pill.disabled
-                      ? "bg-background hover:bg-secondary text-muted-foreground cursor-not-allowed opacity-50 select-none"
+                      ? "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] text-muted-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
-                      ? "cursor-pointer bg-background text-foreground"
-                      : "cursor-pointer bg-background hover:bg-secondary text-muted-foreground hover:text-foreground"
+                      ? "cursor-pointer bg-white dark:bg-[#1f1f1f] text-foreground"
+                      : "cursor-pointer bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {pill.disabled ? (

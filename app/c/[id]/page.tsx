@@ -1523,7 +1523,7 @@ export default function ActiveChatPage() {
                       <DropdownMenuContent
                         align="end"
                         sideOffset={5}
-                        className="w-52 rounded-xl xl:rounded-sm p-1.5 bg-white dark:bg-[#111111] border border-border/80"
+                        className="w-52 rounded-xl xl:rounded-sm p-1.5 bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                       >
                         <DropdownMenuItem
                           onClick={() => setIsFilesDrawerOpen(true)}
@@ -1692,8 +1692,8 @@ export default function ActiveChatPage() {
                                   className={cn(
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-white/10"
-                                      : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80"
+                                      ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                                      : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80 dark:border-none"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

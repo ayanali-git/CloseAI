@@ -157,12 +157,7 @@ function CodeBlock({
 
   return (
     <div
-      className={cn(
-        "relative my-4 rounded-[25px] sm:rounded-3xl border border-border/80 dark:border-none text-left isolate overflow-visible",
-        isGuest
-          ? "bg-white dark:bg-[#1f1f1f] text-foreground"
-          : "bg-white dark:bg-[#111111] text-foreground"
-      )}
+      className="relative my-4 rounded-[25px] sm:rounded-3xl bg-bubble text-bubble-foreground text-left isolate overflow-visible"
     >
       <div
         className="
@@ -385,7 +380,7 @@ export function ShareResponseModal({
                 components={{
                   table({ children }: any) {
                     return (
-                      <div className="my-4 w-full overflow-x-auto rounded-xl border border-border/80 bg-card [&_tr:hover_td]:!bg-transparent">
+                      <div className="my-4 w-full overflow-x-auto rounded-xl border border-bubble bg-background [&_tr:hover_td]:!bg-transparent">
                         <table className="w-full text-left border-collapse text-sm !m-0">
                           {children}
                         </table>
@@ -395,12 +390,7 @@ export function ShareResponseModal({
                   thead({ children }: any) {
                     return (
                       <thead
-                        className={cn(
-                          "border-b border-border/80 text-foreground font-semibold text-xs tracking-wider uppercase",
-                          isGuest
-                            ? "bg-white dark:bg-[#1f1f1f]"
-                            : "bg-white dark:bg-[#111111]"
-                        )}
+                        className="border-b border-bubble bg-bubble text-bubble-foreground font-semibold text-xs tracking-wider uppercase"
                       >
                         {children}
                       </thead>
@@ -408,14 +398,14 @@ export function ShareResponseModal({
                   },
                   th({ children }: any) {
                     return (
-                      <th className="px-4 py-2.5 font-semibold text-foreground text-xs uppercase tracking-wider">
+                      <th className="px-4 py-2.5 font-semibold text-bubble-foreground text-xs uppercase tracking-wider border-b border-bubble">
                         {children}
                       </th>
                     );
                   },
                   td({ children }: any) {
                     return (
-                      <td className="px-4 py-2.5 border-t border-border/80 text-foreground/90 text-sm align-top leading-relaxed">
+                      <td className="px-4 py-2.5 border-t border-bubble text-bubble-foreground/90 text-sm align-top leading-relaxed">
                         {children}
                       </td>
                     );

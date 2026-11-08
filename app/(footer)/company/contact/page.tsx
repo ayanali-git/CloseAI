@@ -228,7 +228,7 @@ export default function ContactPage() {
                 className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl border border-border/80 flex items-center justify-center shrink-0">
+                  <div className="w-11 h-11 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0">
                     <Mail className="h-5 w-5 text-foreground" />
                   </div>
                   <div>
@@ -248,7 +248,7 @@ export default function ContactPage() {
                 className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl border border-border/80 flex items-center justify-center shrink-0">
+                  <div className="w-11 h-11 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0">
                     <Mail className="h-5 w-5 text-foreground" />
                   </div>
                   <div>
@@ -276,7 +276,7 @@ export default function ContactPage() {
               className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
             >
               <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-xl border border-border/80 flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-11 h-11 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin className="h-5 w-5 text-foreground" />
                 </div>
                 <div>

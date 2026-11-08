@@ -68,7 +68,9 @@ const config: Config = {
         bubble: {
           DEFAULT: 'hsl(var(--bubble))',
           foreground: 'hsl(var(--bubble-foreground))',
+          border: 'hsl(var(--border-bubble))',
         },
+        'border-bubble': 'hsl(var(--border-bubble))',
         'send-btn': {
           DEFAULT: 'hsl(var(--send-btn))',
           foreground: 'hsl(var(--send-btn-foreground))',
@@ -77,6 +79,9 @@ const config: Config = {
           DEFAULT: 'hsl(var(--emerald))',
           500: 'hsl(var(--emerald))',
         },
+      },
+      borderColor: {
+        bubble: 'hsl(var(--border-bubble))',
       },
       keyframes: {
         'accordion-down': {

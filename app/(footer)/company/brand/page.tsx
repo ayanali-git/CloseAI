@@ -18,7 +18,7 @@ export default function CompanyBrandPage() {
       name: "CloseAI White",
       role: "Inverted Logomark & Canvas",
       hex: "#FFFFFF",
-      className: "bg-white text-black border border-border/80",
+      className: "bg-white text-black border border-border/80 dark:border-none",
     },
     {
       name: "Neutral Surface",
@@ -53,7 +53,7 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 sm:mb-16">
           <Button
             asChild
-            className="group rounded-full h-11 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
+            className="group rounded-full h-11 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
           >
             <Link href="/company/contact">
               <span>Contact us</span>
@@ -184,7 +184,7 @@ export default function CompanyBrandPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
-            <div className="h-44 sm:h-52 rounded-2xl bg-white flex items-center justify-center p-6 border border-border/80">
+            <div className="h-44 sm:h-52 rounded-2xl bg-white flex items-center justify-center p-6 border border-border/80 dark:border-none">
               <img
                 src="/closeai-new.png"
                 alt="CloseAI Black Emblem"

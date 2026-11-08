@@ -397,7 +397,7 @@ function NewChatContent() {
                     <DropdownMenuContent
                       align="end"
                       sideOffset={5}
-                      className="w-full rounded-xl xl:rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 z-50"
+                      className="w-full rounded-xl xl:rounded-sm p-2 bg-white dark:bg-[#111111] border border-border/80 dark:border-none z-50"
                     >
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(true)}

@@ -145,7 +145,7 @@ export function LogoutModal({
           {/* User Card */}
           {hasUser && (
             <div className="flex items-center gap-3.5 p-3 rounded-full bg-background border border-border/80 dark:border-none select-none">
-              <Avatar className="w-11 h-11 rounded-full border border-border/80 shrink-0">
+              <Avatar className="w-11 h-11 rounded-full border border-border/80 dark:border-none shrink-0">
                 <AvatarImage src={effectiveUserAvatar} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
                   {effectiveUserName || effectiveUserEmail?.[0]?.toUpperCase() || "U"}
@@ -216,7 +216,7 @@ export function LogoutModal({
                 )}
               >
                 <div className="flex items-center gap-3.5 select-none">
-                  <Avatar className="w-20 h-20 rounded-full border border-border/80 shrink-0">
+                  <Avatar className="w-20 h-20 rounded-full border border-border/80 dark:border-none shrink-0">
                     <AvatarImage src={effectiveUserAvatar} />
                     <AvatarFallback className="text-sm font-semibold bg-secondary text-foreground">
                       {effectiveUserName || effectiveUserEmail?.[0]?.toUpperCase() || "U"}

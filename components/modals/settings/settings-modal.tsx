@@ -250,7 +250,7 @@ export function SettingsModal({
             : "min-[1280px]:max-w-[800px] min-[1280px]:h-[min(500px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
-            "bg-white dark:bg-[#1f1f1f] border border-border/80"
+            "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
         )}
       >
         {/* Mobile: both panes are stacked and slide horizontally (like a native
@@ -352,7 +352,7 @@ export function SettingsModal({
                     aria-label="Search settings"
                     // 16px on small screens so iOS Safari doesn't zoom the page on focus
                     className={cn(
-                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-white/10 pl-10 pr-4 text-base min-[1280px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
+                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-none pl-10 pr-4 text-base min-[1280px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
                       isSearchTabFocused &&
                         "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#212121]"
                     )}

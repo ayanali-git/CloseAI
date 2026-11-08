@@ -27,6 +27,7 @@
     --sidebar: 0 0% 98%;
     --bubble: 0 0% 91%;
     --bubble-foreground: 0 0% 0%;
+    --border-bubble: 0 0% 82%;
     --send-btn: 0 0% 0%;
     --send-btn-foreground: 0 0% 100%;
     --emerald: 160 84% 39%;
@@ -35,21 +36,25 @@
   html.contrast-more {
     --border: 0 0% 62%;
     --muted-foreground: 0 0% 22%;
+    --border-bubble: 0 0% 65%;
   }
 
   html.dark.contrast-more {
     --border: 0 0% 42%;
     --muted-foreground: 0 0% 82%;
+    --border-bubble: 0 0% 100% / 0.25;
   }
 
   html.contrast-less {
     --border: 0 0% 88%;
     --muted-foreground: 0 0% 62%;
+    --border-bubble: 0 0% 86%;
   }
 
   html.dark.contrast-less {
     --border: 0 0% 10%;
     --muted-foreground: 0 0% 42%;
+    --border-bubble: 0 0% 100% / 0.06;
   }
 
   .dark {
@@ -75,6 +80,7 @@
     --sidebar: 0 0% 3%;
     --bubble: 0 0% 18.4%;
     --bubble-foreground: 0 0% 100%;
+    --border-bubble: 0 0% 100% / 0.1;
     --send-btn: 0 0% 100%;
     --send-btn-foreground: 0 0% 0%;
     --emerald: 160 84% 39%;
@@ -245,11 +251,13 @@
   color: hsl(var(--foreground));
   --bubble: 0 0% 91%;
   --bubble-foreground: 0 0% 0%;
+  --border-bubble: 0 0% 82%;
 }
 
 .dark .chat-markdown {
   --bubble: 0 0% 18.4%;
   --bubble-foreground: 0 0% 100%;
+  --border-bubble: 0 0% 100% / 0.1;
 }
 
 /* Code blocks and table headers remain neutral bubble type and do not change with accent colors */
@@ -257,6 +265,7 @@ html[data-accent] .chat-markdown,
 [data-accent] .chat-markdown {
   --bubble: 0 0% 91%;
   --bubble-foreground: 0 0% 0%;
+  --border-bubble: 0 0% 82%;
 }
 
 html.dark[data-accent] .chat-markdown,
@@ -264,6 +273,7 @@ html.dark[data-accent] .chat-markdown,
 .dark [data-accent] .chat-markdown {
   --bubble: 0 0% 18.4%;
   --bubble-foreground: 0 0% 100%;
+  --border-bubble: 0 0% 100% / 0.1;
 }
 .chat-markdown p {
   margin-top: 0.85rem;
@@ -320,7 +330,7 @@ html.dark[data-accent] .chat-markdown,
   font-size: 0.875rem;
 }
 .chat-markdown th, .chat-markdown td {
-  border: 1px solid hsl(var(--border) / 0.6);
+  border: 1px solid hsl(var(--border-bubble));
   padding: 0.65rem 0.9rem;
   text-align: left;
 }
@@ -818,10 +828,14 @@ body:has([data-chat-page="true"])::-webkit-scrollbar {
   }
 }
 
-
-
 /* Prevent KaTeX errors from rendering as bright red text walls */
 .chat-markdown .katex-error {
   color: inherit !important;
   background-color: transparent !important;
+}
+
+@layer utilities {
+  .border-bubble {
+    border-color: hsl(var(--border-bubble));
+  }
 }

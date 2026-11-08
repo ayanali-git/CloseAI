@@ -137,7 +137,7 @@ function FilePreviewCard({
             onRemove();
           }}
           className={cn(
-            "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
+            "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
             isGuest
               ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f]"
               : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121]"
@@ -183,7 +183,7 @@ function FilePreviewCard({
           onRemove();
         }}
         className={cn(
-          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
+          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
           isGuest
             ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f]"
             : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121]"
@@ -856,8 +856,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-110px)] overflow-y-auto",
           isGuest
-            ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-white/10"
-            : "bg-white dark:bg-[#111111] border border-border/80",
+            ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
+            : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none",
           menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
         )}
         style={{
@@ -1070,8 +1070,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           effectiveIsTemporary
             ? "border border-transparent"
             : isGuest
-            ? "border border-border/80 dark:border-white/10"
-            : "border border-border/80",
+            ? "border border-border/80 dark:border-none"
+            : "border border-border/80 dark:border-none",
           "focus-within:text-foreground dark:focus-within:text-foreground",
           isExpandedLayout
             ? "rounded-[25px] sm:rounded-3xl"

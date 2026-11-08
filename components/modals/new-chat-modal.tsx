@@ -92,7 +92,7 @@ export function NewChatModal({
           <button
             type="button"
             onClick={handleNewChat}
-            className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f] transition-all cursor-pointer select-none"
+            className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] font-normal text-base flex items-center justify-center border border-border/80 dark:border-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f] transition-all cursor-pointer select-none"
           >
             New chat
           </button>
