@@ -86,7 +86,7 @@ export default function LandingPage() {
 
   const getOpacity = (hoveredIndex: number | null, i: number) => {
     if (hoveredIndex === null) return "opacity-100";
-    return hoveredIndex === i ? "opacity-100" : "opacity-50";
+    return hoveredIndex === i ? "opacity-100" : "opacity-80";
   };
 
   const handleHeroSubmit = (e: React.FormEvent) => {
@@ -275,7 +275,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* FEATURED SPOTLIGHT (Sticky Left + Scrolling Right on Medium & Large Screens, Stacked on Mobile) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1490px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
+        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
           <div
             className="relative flex flex-col md:flex-row justify-between gap-8 md:gap-10 lg:gap-12 xl:gap-14"
             onMouseLeave={() => setHoveredSpotlight(null)}
@@ -283,7 +283,7 @@ export default function LandingPage() {
             {/* STICKY LEFT COLUMN TRACK */}
             <div
               ref={leftColRef}
-              className="w-full md:w-[56%] lg:w-[58%] xl:w-[75%] relative md:sticky md:top-24 md:self-start"
+              className="w-full md:w-[56%] lg:w-[58%] xl:w-[70%] relative md:sticky md:top-24 md:self-start"
             >
               <Link
                 href={user ? "/c" : "/gc"}
@@ -466,7 +466,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* LATEST NEWS & UPDATES (2-column horizontal card layout) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
+        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               Recent News
@@ -542,7 +542,7 @@ export default function LandingPage() {
                   <img
                     src={glassAvatar(news.seed)}
                     alt={news.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-80"
                   />
                 </div>
                 <div className="flex flex-col justify-center min-w-0">
@@ -569,7 +569,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* FRONTIER RESEARCH SHOWCASE (3-column square cards)  */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
+        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               Latest Research
@@ -625,7 +625,7 @@ export default function LandingPage() {
                   <img
                     src={glassAvatar(paper.seed)}
                     alt={paper.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-80"
                   />
                 </div>
                 <div className="mt-4 flex flex-col gap-2">
@@ -652,7 +652,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* BUSINESS & ENTERPRISE PARTNERS (3-column square cards) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
+        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               CloseAI for Business
@@ -708,7 +708,7 @@ export default function LandingPage() {
                   <img
                     src={glassAvatar(study.seed)}
                     alt={study.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-80"
                   />
                 </div>
                 <div className="mt-4 flex flex-col gap-2">
@@ -735,7 +735,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-16">
+        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-16">
           <div className="rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
             <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
@@ -751,7 +751,7 @@ export default function LandingPage() {
                 className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                  <span>Try now</span>
+                  <span>Chat now</span>
                   <AnimatedArrowUpRight size={20} />
                 </Link>
               </Button>

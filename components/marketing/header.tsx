@@ -1199,7 +1199,7 @@ export function MarketingHeader() {
                   href="/c"
                   className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
-                  <span>CloseAI chat</span>
+                  <span>Try it for free</span>
                 </Link>
 
                 <button
@@ -1902,7 +1902,7 @@ export function MarketingHeader() {
                         onClick={() => setMobileNavOpen(false)}
                         className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        <span>CloseAI chat</span>
+                        <span>Try it for free</span>
                       </Link>
 
                       <button

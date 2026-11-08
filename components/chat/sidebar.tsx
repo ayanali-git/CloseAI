@@ -2384,7 +2384,7 @@ export function Sidebar({
                         Get efficient responses to you
                       </div>
                       <div className="text-[13px] text-muted-foreground leading-snug text-left">
-                        Log in to get efficient answers, plus thinking
+                        Log in to get efficient responses, plus thinking
                         capabilities, upload files and more.
                       </div>
                       <button
@@ -2799,7 +2799,7 @@ export function Sidebar({
                         Get efficient responses to you
                       </div>
                       <div className="text-[13px] text-muted-foreground leading-snug text-left">
-                        Log in to get efficient answers, plus thinking
+                        Log in to get efficient responses, plus thinking
                         capabilities, upload files and more.
                       </div>
                       <button
