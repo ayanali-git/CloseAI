@@ -1605,7 +1605,7 @@ export function Sidebar({
 
               {/* Rail Navigation Items */}
               <div className="flex flex-col items-center gap-1.5 pt-1">
-                {/* New Chat */}
+                {/* New chat */}
                 <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                   <TooltipTrigger asChild>
                     <button
@@ -2194,7 +2194,7 @@ export function Sidebar({
               </div>
             </div>
 
-            {/* New Chat & Guest Items
+            {/* New chat & Guest Items
                 Icon rows use pl-3 (12px): 8px container padding + 12px = icon at x 20 (center x 30),
                 the exact same x as the 60px collapsed rail icons. */}
             <div
@@ -2544,7 +2544,7 @@ export function Sidebar({
             )}
 
             {/* Expanded Bottom Dock (mt-auto)
-                Unified px-2 across screens provides consistent 8px margins for New Chat on the left and Settings / Profile on the right. */}
+                Unified px-2 across screens provides consistent 8px margins for New chat on the left and Settings / Profile on the right. */}
             <div
               className={cn(
                 "mt-auto w-full relative z-20 select-none px-2",
@@ -2653,7 +2653,7 @@ export function Sidebar({
                     </DropdownMenu>
                   </div>
 
-                  {/* Small Screen Devices: Authenticated Bottom Action Dock (New Chat + Profile Image Button on left + Settings Button on right) */}
+                  {/* Small Screen Devices: Authenticated Bottom Action Dock (New chat + Profile Image Button on left + Settings Button on right) */}
                   <DropdownMenu
                     open={mobileAccountMenuOpen && isMobileScreen}
                     onOpenChange={(open) => {
@@ -2665,7 +2665,7 @@ export function Sidebar({
                       ref={dockRef}
                       className="xl:hidden w-full h-11 flex items-center justify-between gap-3"
                     >
-                      {/* New Chat button */}
+                      {/* New chat button */}
                       <button
                         type="button"
                         onClick={() => {
@@ -2674,7 +2674,7 @@ export function Sidebar({
                         className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
                       >
                         <SquarePen className="w-5 h-5 shrink-0" />
-                        <span>New Chat</span>
+                        <span>New chat</span>
                       </button>
 
                       {/* Settings Button */}
@@ -2812,9 +2812,9 @@ export function Sidebar({
                     </div>
                   </div>
 
-                  {/* Small Screen Devices: Guest Bottom Action Dock (New Chat + Settings) */}
+                  {/* Small Screen Devices: Guest Bottom Action Dock (New chat + Settings) */}
                   <div className="xl:hidden w-full h-14 pb-[env(safe-area-inset-bottom,0px)] flex items-center justify-between gap-3">
-                    {/* New Chat button */}
+                    {/* New chat button */}
                     <button
                       type="button"
                       onClick={() => {
@@ -2823,7 +2823,7 @@ export function Sidebar({
                       className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
                     >
                       <SquarePen className="w-5 h-5 shrink-0" />
-                      <span>New Chat</span>
+                      <span>New chat</span>
                     </button>
 
                     {/* Settings button */}

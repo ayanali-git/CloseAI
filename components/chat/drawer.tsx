@@ -1328,7 +1328,7 @@ export function EditProfileDrawer({
               Username
             </Label>
             <div className="flex items-center h-11 w-full rounded-full border border-border/80 dark:border-none bg-secondary px-3">
-              <span className="text-sm text-foreground font-normal select-none pointer-events-none shrink-0 translate-y-[1px]">
+              <span className="text-sm text-muted-foreground font-normal select-none pointer-events-none shrink-0 translate-y-[1px]">
                 @
               </span>
               <input

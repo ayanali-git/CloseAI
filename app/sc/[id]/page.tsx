@@ -631,7 +631,6 @@ export default function PublicSharedChatPage() {
                     isTyping={false}
                     isUploading={isUploading}
                     showDisclaimer={true}
-                    placeholder="Continue chatting"
                     selectedModel={selectedModel}
                     onModelChange={setSelectedModel}
                     selectedTier={selectedModelTier}

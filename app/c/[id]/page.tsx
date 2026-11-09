@@ -1661,11 +1661,6 @@ export default function ActiveChatPage() {
                     onFilesChange={setUploadedFiles}
                     isTyping={isTyping}
                     isUploading={isUploading}
-                    placeholder={
-                      activePreviewFile
-                        ? "Ask CloseAI about this"
-                        : "Ask CloseAI"
-                    }
                     showDisclaimer={true}
                     selectedModel={selectedModel}
                     onModelChange={setSelectedModel}

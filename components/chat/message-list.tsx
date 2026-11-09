@@ -1673,7 +1673,7 @@ export function MessageList({
 
                                   <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
 
-                                  {/* Top Input Bar: Ask CloseAI to change */}
+                                  {/* Top Input Bar: Ask CloseAI */}
                                   <div
                                     className="px-2 py-1"
                                     onClick={(e) => e.stopPropagation()}
@@ -1682,7 +1682,7 @@ export function MessageList({
                                     <div className="relative flex items-center justify-between gap-1.5 bg-transparent">
                                       <input
                                         type="text"
-                                        placeholder="Ask CloseAI to change"
+                                        placeholder="Ask CloseAI"
                                         value={changePrompts[msgId] || ""}
                                         onChange={(e) =>
                                           setChangePrompts((prev) => ({
@@ -1820,7 +1820,7 @@ export function MessageList({
                                               : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                                           )}
                                         >
-                                          {/* Top Input Bar: Ask CloseAI to change */}
+                                          {/* Top Input Bar: Ask CloseAI */}
                                           <div
                                             className="px-2 py-1"
                                             onClick={(e) => e.stopPropagation()}
@@ -1831,7 +1831,7 @@ export function MessageList({
                                             <div className="relative flex items-center justify-between gap-1.5 bg-transparent">
                                               <input
                                                 type="text"
-                                                placeholder="Ask CloseAI to change"
+                                                placeholder="Ask CloseAI"
                                                 value={
                                                   changePrompts[msgId] || ""
                                                 }
