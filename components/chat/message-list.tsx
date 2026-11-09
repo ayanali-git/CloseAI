@@ -703,7 +703,7 @@ export function MessageList({
             className={cn(
               "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
               isGuestMode
-                ? "bg-white dark:bg-[#1f1f1f]"
+                ? "bg-white dark:bg-[#202020]"
                 : "bg-white dark:bg-[#111111]"
             )}
           >
@@ -719,7 +719,7 @@ export function MessageList({
             className={cn(
               "px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text text-foreground",
               isGuestMode
-                ? "bg-white dark:bg-[#1f1f1f]"
+                ? "bg-white dark:bg-[#202020]"
                 : "bg-white dark:bg-[#111111]"
             )}
             {...props}
@@ -1650,7 +1650,7 @@ export function MessageList({
                               className={cn(
                                 "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                 isGuestMode
-                                  ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
+                                  ? "bg-white dark:bg-[#202020] border border-border/80 dark:border-none"
                                   : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                               )}
                             >
@@ -1665,13 +1665,13 @@ export function MessageList({
                                       e.stopPropagation();
                                       setDropdownSubView("main");
                                     }}
-                                    className="flex items-center gap-2 px-2.5 py-1.5 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+                                    className="flex items-center gap-2 px-2.5 py-1.5 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
                                   >
                                     <ChevronLeft className="w-4 h-4 stroke-[2]" />
                                     <span>Try again</span>
                                   </button>
 
-                                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
+                                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
 
                                   {/* Top Input Bar: Ask CloseAI */}
                                   <div
@@ -1724,7 +1724,7 @@ export function MessageList({
                                     </div>
                                   </div>
 
-                                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
+                                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
 
                                   {/* Option 1: Try again */}
                                   <DropdownMenuItem
@@ -1732,7 +1732,7 @@ export function MessageList({
                                       onRegenerate?.(msg, index);
                                       setDropdownSubView("main");
                                     }}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] transition-colors outline-none"
                                   >
                                     <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <span>Try again</span>
@@ -1742,7 +1742,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#303030]"
                                   >
                                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
@@ -1764,7 +1764,7 @@ export function MessageList({
                                     onClick={() =>
                                       handleReadAloud(msgId, msg.content)
                                     }
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] transition-colors outline-none"
                                   >
                                     {speakingMessageId === msgId ? (
                                       <>
@@ -1791,7 +1791,7 @@ export function MessageList({
                                           e.stopPropagation();
                                           setDropdownSubView("try-again");
                                         }}
-                                        className="w-full flex items-center justify-between px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none text-left"
+                                        className="w-full flex items-center justify-between px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] transition-colors outline-none text-left"
                                       >
                                         <div className="flex items-center gap-2.5">
                                           <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -1801,7 +1801,7 @@ export function MessageList({
                                       </button>
                                     ) : (
                                       <DropdownMenuSub>
-                                        <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#2f2f2f] transition-colors outline-none">
+                                        <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none">
                                           <div className="flex items-center gap-2.5">
                                             <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <span>Try again</span>
@@ -1816,7 +1816,7 @@ export function MessageList({
                                           className={cn(
                                             "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                             isGuestMode
-                                              ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none"
+                                              ? "bg-white dark:bg-[#202020] border border-border/80 dark:border-none"
                                               : "bg-white dark:bg-[#111111] border border-border/80 dark:border-none"
                                           )}
                                         >
@@ -1883,14 +1883,14 @@ export function MessageList({
                                             </div>
                                           </div>
 
-                                          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
+                                          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuestMode ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
 
                                           {/* Option 1: Try again */}
                                           <DropdownMenuItem
                                             onClick={() =>
                                               onRegenerate(msg, index)
                                             }
-                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] transition-colors outline-none"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] transition-colors outline-none"
                                           >
                                             <RefreshCw className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <span>Try again</span>
@@ -1900,7 +1900,7 @@ export function MessageList({
                                           <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
                                             onClick={(e) => e.preventDefault()}
-                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                                            className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#303030]"
                                           >
                                             <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <AnimatedComingSoonText
@@ -1916,7 +1916,7 @@ export function MessageList({
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
-                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]"
+                                    className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl transition-colors outline-none whitespace-nowrap text-left cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#303030]"
                                   >
                                     <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText

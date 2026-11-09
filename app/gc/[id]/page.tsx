@@ -593,10 +593,10 @@ export default function GuestChatSessionPage() {
                 handleToggleSidebar();
               }}
               className={cn(
-                "xl:hidden w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
+                "xl:hidden w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
                 user
                   ? "bg-background hover:bg-secondary active:bg-secondary"
-                  : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
+                  : "bg-white dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]"
               )}
               aria-label="Open sidebar"
             >
@@ -620,10 +620,10 @@ export default function GuestChatSessionPage() {
                   type="button"
                   onClick={handleNewChat}
                   className={cn(
-                    "xl:hidden group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-none flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
+                    "xl:hidden group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
                     user
                       ? "bg-background hover:bg-secondary active:bg-secondary"
-                      : "bg-white dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f]"
+                      : "bg-white dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]"
                   )}
                   aria-label="New chat"
                 >
@@ -661,7 +661,7 @@ export default function GuestChatSessionPage() {
                   animate={false}
                   onOpenAutoFocus={(e) => e.preventDefault()}
                   className={cn(
-                    "p-0 rounded-sm bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0",
+                    "p-0 rounded-sm bg-white dark:bg-[#202020] border border-border/80 dark:border-none overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0",
                     isMobileScreen ? "w-[calc(100vw-2rem)] max-w-[350px]" : "w-[350px]"
                   )}
                 >
@@ -696,7 +696,7 @@ export default function GuestChatSessionPage() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#202020] dark:hover:bg-[#303030] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
                         Sign up for free
                       </button>
@@ -719,7 +719,7 @@ export default function GuestChatSessionPage() {
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#202020] dark:hover:bg-[#303030] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
               Sign up for free
             </button>
@@ -800,7 +800,7 @@ export default function GuestChatSessionPage() {
                                 className={cn(
                                   "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                   isGuest
-                                    ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                                    ? "bg-white dark:bg-[#202020] dark:hover:bg-[#303030] border border-border/80 dark:border-none"
                                     : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80 dark:border-none"
                                 )}
                                 aria-label="Scroll to bottom"

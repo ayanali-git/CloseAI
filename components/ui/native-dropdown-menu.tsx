@@ -678,7 +678,7 @@ export function NativeDropdownMenu<T extends string = string>({
         className={cn(
           "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
           isGuest
-            ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
+            ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
             : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
@@ -730,7 +730,7 @@ export function NativeDropdownMenu<T extends string = string>({
               !isScrollable && "touch-none overscroll-none",
               isGuest
                 ? // Guest: solid surface with dark:border-white/10 (lg:translate-y-px aligns opened label with trigger in both light & dark)
-                  "!bg-white dark:!bg-[#1f1f1f] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
+                  "!bg-white dark:!bg-[#202020] backdrop-blur-none border border-border/80 dark:border-white/10 lg:translate-y-px"
                 :
                   "bg-white dark:bg-[#111111] border border-border/80 dark:border-none lg:translate-y-px dark:lg:translate-y-0",
               contentClassName
@@ -787,7 +787,7 @@ export function NativeDropdownMenu<T extends string = string>({
                     </SelectPrimitive.ItemIndicator>
                   </SelectPrimitive.Item>
                   {option.divider && (
-                    <SelectPrimitive.Separator className={cn("my-1.5 -mx-1 h-[1px] bg-neutral-200 border-0 shrink-0 block", isGuest ? "dark:bg-[#2f2f2f]" : "dark:bg-[#212121]")} />
+                    <SelectPrimitive.Separator className={cn("my-1.5 -mx-1 h-[1px] bg-neutral-200 border-0 shrink-0 block", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
                   )}
                 </React.Fragment>
               ))}

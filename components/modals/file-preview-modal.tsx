@@ -224,8 +224,8 @@ export function FilePreviewModal({
                   className={cn(
                     "group h-11 w-11 rounded-full xl:rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
-                      ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
-                      : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
+                      ? "bg-white dark:bg-[#202020] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030] text-muted-foreground hover:text-foreground"
+                      : "bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground"
                   )}
                   title="Download file"
                   aria-label="Download file"
@@ -240,8 +240,8 @@ export function FilePreviewModal({
                 className={cn(
                   "group h-11 w-11 rounded-full xl:rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                   isGuestMode
-                    ? "bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] active:bg-secondary dark:active:bg-[#2f2f2f] text-muted-foreground hover:text-foreground"
-                    : "bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
+                    ? "bg-white dark:bg-[#202020] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030] text-muted-foreground hover:text-foreground"
+                    : "bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground"
                 )}
                 title="Close file preview"
                 aria-label="Close file preview"

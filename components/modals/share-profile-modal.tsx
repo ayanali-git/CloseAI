@@ -125,7 +125,7 @@ export function ShareProfileModal({
             className={cn(
               "hidden min-[1280px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
-                ? "hover:bg-[#2f2f2f] dark:focus-visible:ring-offset-[#1f1f1f]"
+                ? "hover:bg-[#303030] dark:focus-visible:ring-offset-[#202020]"
                 : "hover:bg-secondary dark:focus-visible:ring-offset-card"
             )}
             aria-label="Close"
@@ -186,8 +186,8 @@ export function ShareProfileModal({
             "group w-full flex items-center justify-between gap-3 px-4 py-3 rounded-2xl border transition-colors cursor-pointer select-none text-left outline-none focus:outline-none",
             "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
             isGuest
-              ? "border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-              : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+              ? "border-border/80 dark:border-white/10 dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
+              : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
           )}
           aria-label={ copied ? "Link copied" : "Copy link"}
           title={ copied ? "Link copied" : "Copy link"}
@@ -214,8 +214,8 @@ export function ShareProfileModal({
               "h-11 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+                ? "border-border/80 dark:border-white/10 dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
+                : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
             )}
             aria-label="Share on X"
             title="Share on X"
@@ -231,8 +231,8 @@ export function ShareProfileModal({
               "h-11 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+                ? "border-border/80 dark:border-white/10 dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
+                : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
             )}
             aria-label="Share on LinkedIn"
             title="Share on LinkedIn"
@@ -248,8 +248,8 @@ export function ShareProfileModal({
               "h-11 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "border-border/80 dark:border-white/10 dark:bg-[#1f1f1f] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#1f1f1f]"
-                : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#2f2f2f] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+                ? "border-border/80 dark:border-white/10 dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
+                : "border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
             )}
             aria-label="Share on Reddit"
             title="Share on Reddit"

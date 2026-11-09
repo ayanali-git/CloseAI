@@ -241,8 +241,8 @@ export function LangDropdownMenu({
       onClick={() => handleOpenChange(true)}
       className={cn(
         "group flex items-center text-base gap-2 px-4 py-3 rounded-full select-none",
-        "bg-white dark:bg-[#1f1f1f] text-foreground",
-        "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] focus:text-foreground",
+        "bg-white dark:bg-[#202020] text-foreground",
+        "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#303030] focus:bg-secondary dark:focus:bg-[#303030] focus:text-foreground",
         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
         isOpen && "opacity-0 invisible pointer-events-none",
         className
@@ -310,7 +310,7 @@ export function LangDropdownMenu({
                     <div
                       className={cn(
                         "flex flex-col rounded-3xl overflow-hidden",
-                        "bg-white dark:bg-[#1f1f1f] text-foreground",
+                        "bg-white dark:bg-[#202020] text-foreground",
                         "border border-border/80 dark:border-none"
                       )}
                       style={{
@@ -335,7 +335,7 @@ export function LangDropdownMenu({
                       onClick={() => handleOpenChange(false)}
                       className={cn(
                         "p-3 rounded-full flex items-center justify-center cursor-pointer transition-colors",
-                        "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f]",
+                        "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#303030]",
                         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       )}
                       aria-label="Close language selector"
@@ -384,7 +384,7 @@ export function LangDropdownMenu({
                               key={lang.code}
                               type="button"
                               onClick={() => handleSelectLanguage(lang.code)}
-                              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#2f2f2f] focus:bg-secondary dark:focus:bg-[#2f2f2f] focus:text-foreground cursor-pointer transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+                              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#303030] focus:bg-secondary dark:focus:bg-[#303030] focus:text-foreground cursor-pointer transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
                             >
                               <div className="flex flex-col min-w-0 pr-3">
                                 <span className="text-base font-medium leading-snug truncate text-foreground">
@@ -452,7 +452,7 @@ export function LangDropdownMenu({
                     }}
                     placeholder="Search languages"
                     aria-label="Search languages"
-                    className="w-full h-11 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#1f1f1f] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
+                    className="w-full h-11 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#202020] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
                   />
                 </div>
               </div>

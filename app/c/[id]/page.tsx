@@ -1324,7 +1324,7 @@ export default function ActiveChatPage() {
                         <button
                           type="button"
                           onClick={handleDownloadActiveFile}
-                          className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="Download file"
                         >
                           <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1345,7 +1345,7 @@ export default function ActiveChatPage() {
                       <button
                         type="button"
                         onClick={handleClosePreview}
-                        className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Close preview"
                       >
                         <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1381,7 +1381,7 @@ export default function ActiveChatPage() {
                           onMouseEnter={() => setIsSidebarBtnHovered(true)}
                           onMouseLeave={() => setIsSidebarBtnHovered(false)}
                           onBlur={() => setIsSidebarBtnHovered(false)}
-                          className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="Open sidebar"
                         >
                           <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1408,7 +1408,7 @@ export default function ActiveChatPage() {
                             }
                             router.push("/c");
                           }}
-                          className="sm:hidden group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          className="sm:hidden group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="New chat"
                         >
                           <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1435,7 +1435,7 @@ export default function ActiveChatPage() {
                       <button
                         type="button"
                         onClick={() => setShowSaveChatModal(true)}
-                        className="group h-11 w-11 gap-1.5 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
+                        className="group h-11 w-11 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
                         aria-label="Save chat"
                       >
                         <Bookmark className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -1472,7 +1472,7 @@ export default function ActiveChatPage() {
                               setTimeout(() => setIsSharing(false), 300);
                             }
                           }}
-                          className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                          className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
                         >
                           {isSharing ? (
                             <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
@@ -1498,7 +1498,7 @@ export default function ActiveChatPage() {
                           <DropdownMenuTrigger asChild>
                             <button
                               className={cn(
-                                "group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                                "group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                                 optionsMenuOpen && "bg-secondary text-foreground"
                               )}
                               aria-label="Chat options"
@@ -1687,7 +1687,7 @@ export default function ActiveChatPage() {
                                   className={cn(
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#1f1f1f] dark:hover:bg-[#2f2f2f] border border-border/80 dark:border-none"
+                                      ? "bg-white dark:bg-[#202020] dark:hover:bg-[#303030] border border-border/80 dark:border-none"
                                       : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80 dark:border-none"
                                   )}
                                   aria-label="Scroll to bottom"
