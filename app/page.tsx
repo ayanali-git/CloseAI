@@ -275,7 +275,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* FEATURED SPOTLIGHT (Sticky Left + Scrolling Right on Medium & Large Screens, Stacked on Mobile) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
+        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto mt-9 sm:mt-12 pb-20 lg:pb-28">
           <div
             className="relative flex flex-col md:flex-row justify-between gap-8 md:gap-10 lg:gap-12 xl:gap-14"
             onMouseLeave={() => setHoveredSpotlight(null)}
@@ -466,7 +466,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* LATEST NEWS & UPDATES (2-column horizontal card layout) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-12 border-t border-border/80">
+        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               Recent News
@@ -569,7 +569,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* FRONTIER RESEARCH SHOWCASE (3-column square cards)  */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-12 border-t border-border/80">
+        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               Latest Research
@@ -652,7 +652,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* BUSINESS & ENTERPRISE PARTNERS (3-column square cards) */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-12 border-t border-border/80">
+        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-12 border-t border-border/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
               CloseAI for Business
@@ -735,7 +735,7 @@ export default function LandingPage() {
         {/* ---------------------------------------------------------------- */}
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
-        <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-16">
+        <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-16">
           <div className="rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
             <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
