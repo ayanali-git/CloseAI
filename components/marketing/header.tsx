@@ -1215,7 +1215,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>Sign up for free</span>
                 </button>

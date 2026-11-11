@@ -311,7 +311,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
                         Sign up for free
                       </button>
@@ -334,7 +334,7 @@ function GuestChatContent() {
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
               Sign up for free
             </button>
