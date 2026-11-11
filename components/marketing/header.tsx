@@ -699,7 +699,7 @@ export function MarketingHeader() {
                   className={cn(
                     "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 ring-offset-background",
                     searchQuery.trim().length > 0
-                      ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
+                      ? "bg-foreground text-background cursor-pointer hover:opacity-75 active:opacity-50"
                       : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
@@ -820,7 +820,7 @@ export function MarketingHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
-                      className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                     >
                       <span>API Docs</span>
                       <AnimatedArrowUpRight className="w-5 h-5" />
@@ -864,7 +864,7 @@ export function MarketingHeader() {
               }}
               className="flex items-center gap-2 -ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-80">
+              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-75 active:opacity-50">
                 CloseAI
               </span>
             </Link>
@@ -916,7 +916,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "research"
-                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      ? "w-5 h-5 opacity-75 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -969,7 +969,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "products"
-                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      ? "w-5 h-5 opacity-75 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1022,7 +1022,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "business"
-                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      ? "w-5 h-5 opacity-75 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1077,7 +1077,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "developers"
-                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      ? "w-5 h-5 opacity-75 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1130,7 +1130,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "company"
-                      ? "w-5 h-5 opacity-100 pointer-events-auto"
+                      ? "w-5 h-5 opacity-75 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1172,7 +1172,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="w-8 h-8 rounded-full transition-opacity hover:opacity-80 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-8 h-8 rounded-full transition-opacity hover:opacity-75 active:opacity-50 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1205,7 +1205,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>Log out</span>
                 </button>
@@ -1223,7 +1223,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                   >
                   <span>Log in</span>
                 </button>
@@ -1247,8 +1247,8 @@ export function MarketingHeader() {
                         });
                       }}
                       className={cn(
-                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background transition-opacity hover:opacity-80",
-                        loginDropdownOpen && "opacity-80"
+                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background transition-opacity hover:opacity-75 active:opacity-50",
+                        loginDropdownOpen && "opacity-75"
                       )}
                     >
                       <span>Log in</span>
@@ -1950,7 +1950,7 @@ export function MarketingHeader() {
                   {/* Top Back Navigation Button */}
                   <button
                     onClick={() => setMobileSubMenu(null)}
-                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-80 transition-opacity cursor-pointer mb-6"
+                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-75 active:opacity-50 transition-opacity cursor-pointer mb-6"
                   >
                     <ArrowLeft className="w-5 h-5 stroke-[2]" />
                     <span>Home</span>
@@ -2350,13 +2350,13 @@ export function MarketingHeader() {
                               setMobileSubMenu(null);
                               openLoginModal();
                             }}
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-80 transition-opacity py-1 cursor-pointer w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-75 active:opacity-50 transition-opacity py-1 cursor-pointer w-full outline-none"
                           >
                             CloseAI chat
                           </button>
                           <button
                             type="button"
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-80 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-75 active:opacity-50 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
                           >
                             <AnimatedComingSoonText
                               label="API platform"

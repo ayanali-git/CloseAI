@@ -977,7 +977,7 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
             Log in
           </button>
@@ -1995,7 +1995,7 @@ export function Sidebar({
                     className="xl:hidden flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none"
                     aria-label="CloseAI"
                   >
-                    <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-80">
+                    <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-75 active:opacity-50">
                       CloseAI
                     </span>
                   </Link>
@@ -2057,7 +2057,7 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
                               Log in
                             </button>
@@ -2073,7 +2073,7 @@ export function Sidebar({
                   className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   aria-label="CloseAI"
                 >
-                  <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-80">
+                  <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-75 active:opacity-50">
                     CloseAI
                   </span>
                 </Link>
@@ -2390,7 +2390,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none"
+                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none"
                       >
                         Log in
                       </button>
@@ -2671,7 +2671,7 @@ export function Sidebar({
                         onClick={() => {
                           handleNewChatAction();
                         }}
-                        className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
+                        className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-75 active:opacity-50 transition-all cursor-pointer outline-none focus:outline-none select-none"
                       >
                         <SquarePen className="w-5 h-5 shrink-0" />
                         <span>New chat</span>
@@ -2805,7 +2805,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       >
                         Log in
                       </button>
@@ -2820,7 +2820,7 @@ export function Sidebar({
                       onClick={() => {
                         handleNewChatAction();
                       }}
-                      className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer outline-none focus:outline-none select-none"
+                      className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-75 active:opacity-50 transition-all cursor-pointer outline-none focus:outline-none select-none"
                     >
                       <SquarePen className="w-5 h-5 shrink-0" />
                       <span>New chat</span>

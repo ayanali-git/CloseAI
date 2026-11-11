@@ -134,7 +134,7 @@ export default function PlansPage() {
               }}
               className={`w-full h-11 rounded-full text-base font-medium transition-colors cursor-pointer ${
                 plan.popular
-                  ? "bg-foreground text-background hover:opacity-80 active:scale-[0.99]"
+                  ? "bg-foreground text-background hover:opacity-75 active:opacity-50"
                   : "bg-secondary text-foreground hover:bg-secondary/80 border border-border/80 dark:border-none"
               }`}
             >

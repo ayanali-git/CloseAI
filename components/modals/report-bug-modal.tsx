@@ -213,7 +213,7 @@ export function ReportBugModal({
           <Link
             href="/support/help"
             className={cn(
-              "text-foreground hover:opacity-80 rounded-full",
+              "text-foreground hover:opacity-75 active:opacity-50 rounded-full",
               "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
@@ -246,7 +246,7 @@ export function ReportBugModal({
                       : "bg-secondary dark:bg-[#303030] text-muted-foreground"
                   )
                 : cn(
-                    "cursor-pointer active:scale-[0.99] hover:opacity-80",
+                    "cursor-pointer hover:opacity-75 active:opacity-50",
                     "bg-foreground text-background dark:bg-white dark:text-neutral-900"
                   )
             )}

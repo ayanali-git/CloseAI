@@ -104,7 +104,7 @@ export default function OpenRolesPage() {
               className={cn(
                 'absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10 outline-none rounded-full p-0.5',
                 searchQuery
-                  ? 'text-foreground cursor-pointer hover:opacity-80'
+                  ? 'text-foreground cursor-pointer hover:opacity-75 active:opacity-50'
                   : 'text-muted-foreground group-focus-within:text-foreground cursor-text'
               )}
               aria-label={searchQuery ? 'Clear search' : 'Search'}
@@ -246,7 +246,7 @@ export default function OpenRolesPage() {
           Want to learn more about our mission, culture, and benefits?{' '}
           <Link
             href="/company/careers"
-            className="rounded-full text-foreground transition-opacity hover:opacity-80 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="rounded-full text-foreground transition-opacity hover:opacity-75 active:opacity-50 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <span>Learn more</span>
           </Link>

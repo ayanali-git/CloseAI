@@ -86,7 +86,7 @@ export default function LandingPage() {
 
   const getOpacity = (hoveredIndex: number | null, i: number) => {
     if (hoveredIndex === null) return "opacity-100";
-    return hoveredIndex === i ? "opacity-100" : "opacity-80";
+    return hoveredIndex === i ? "opacity-100" : "opacity-75";
   };
 
   const handleHeroSubmit = (e: React.FormEvent) => {
@@ -204,7 +204,7 @@ export default function LandingPage() {
                 className={cn(
                   "w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]",
                   heroPrompt.trim().length > 0 && !isSubmitting
-                    ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
+                    ? "bg-foreground text-background cursor-pointer hover:opacity-75 active:opacity-50"
                     : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                 )}
                 aria-label="Send prompt"
@@ -748,7 +748,7 @@ export default function LandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-opacity cursor-pointer"
+                className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-75 active:opacity-50 transition-opacity cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">
                   <span>Chat now</span>

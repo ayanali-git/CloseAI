@@ -204,7 +204,7 @@ export default function ContactPage() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-75 active:opacity-50 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <Loader className="w-5 h-5 animate-spin" />

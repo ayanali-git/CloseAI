@@ -245,7 +245,7 @@ export default function HelpPage() {
             className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
               searchQuery
-                ? "text-foreground cursor-pointer hover:opacity-80"
+                ? "text-foreground cursor-pointer hover:opacity-75 active:opacity-50"
                 : "text-muted-foreground group-focus-within:text-foreground cursor-text"
             )}
             aria-label={searchQuery ? "Clear search" : "Search"}

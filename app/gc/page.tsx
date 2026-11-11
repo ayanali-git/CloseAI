@@ -301,7 +301,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
                         Log in
                       </button>
@@ -342,7 +342,7 @@ function GuestChatContent() {
             <button
               type="button"
               onClick={() => handleOpenLogin()}
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 active:scale-[0.99] text-white border border-transparent dark:bg-white dark:text-black dark:border-none dark:hover:opacity-80 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
             >
               Log in
             </button>
@@ -416,21 +416,21 @@ function GuestChatContent() {
             CloseAI is AI. By using it, you agree to our{" "}
             <Link
               href="/support/terms"
-              className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+              className="text-foreground hover:opacity-75 active:opacity-50 transition-opacity whitespace-nowrap"
             >
               <span>Terms</span>
             </Link>{" "}
             and{" "}
             <Link
               href="/support/privacy"
-              className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+              className="text-foreground hover:opacity-75 active:opacity-50 transition-opacity whitespace-nowrap"
             >
               <span>Privacy</span>
             </Link>
             . Chats may be reviewed and used to improve AI models.{" "}
             <Link
               href="/support/help"
-              className="text-foreground hover:opacity-80 transition-opacity whitespace-nowrap"
+              className="text-foreground hover:opacity-75 active:opacity-50 transition-opacity whitespace-nowrap"
             >
               <span>Learn more</span>
             </Link>

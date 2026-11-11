@@ -181,7 +181,7 @@ export function LogoutModal({
               disabled={isLoggingOut}
               onClick={handleConfirm}
               className={cn(
-                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 transition-all cursor-pointer select-none gap-2",
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-75 active:opacity-50 disabled:opacity-50 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 transition-all cursor-pointer select-none gap-2",
                 isGuest
                   ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"
@@ -254,7 +254,7 @@ export function LogoutModal({
               disabled={isLoggingOut}
               onClick={handleConfirm}
               className={cn(
-                "w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center",
+                "w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-75 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center",
                 isGuest
                   ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"

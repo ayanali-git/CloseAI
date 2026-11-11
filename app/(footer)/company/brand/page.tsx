@@ -62,7 +62,7 @@ export default function CompanyBrandPage() {
 
           <Button
             asChild
-            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-75 active:opacity-50 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <Link
               href="/company/brand/brand-guidelines"
@@ -331,7 +331,7 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-80 active:scale-[0.99] transition-all cursor-pointer inline-flex items-center gap-1.5"
+            className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-75 active:opacity-50 transition-all cursor-pointer inline-flex items-center gap-1.5"
           >
             <Link
               href="/company/brand/brand-guidelines"

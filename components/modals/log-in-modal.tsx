@@ -304,7 +304,7 @@ export function LoginModal({
             type="button"
             onClick={handleGoogleAuth}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-75 active:opacity-50 border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-[#101010]"
@@ -340,7 +340,7 @@ export function LoginModal({
           <button
             type="button"
             disabled
-            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center border border-transparent select-none opacity-50 active:scale-[0.99] cursor-not-allowed disabled:opacity-50 disabled:cursor-not-allowed transition-all outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0"
+            className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center border border-transparent select-none opacity-50 cursor-not-allowed disabled:opacity-50 disabled:cursor-not-allowed transition-all outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0"
             style={{ outline: "none" }}
           >
             <div className="w-[220px] max-w-full flex items-center gap-3">
@@ -363,7 +363,7 @@ export function LoginModal({
             type="button"
             onClick={handleGithubAuth}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-75 active:opacity-50 border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-[#101010]"
@@ -401,7 +401,7 @@ export function LoginModal({
                 }, 0);
               }}
               className={cn(
-                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-75 active:opacity-50 border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
                   ? "dark:focus-visible:ring-offset-[#303030]"
                   : "dark:focus-visible:ring-offset-[#101010]"
@@ -427,7 +427,7 @@ export function LoginModal({
                 }, 0);
               }}
               className={cn(
-                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+                "w-full h-11 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-75 active:opacity-50 border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
                 isGuest
                   ? "dark:focus-visible:ring-offset-[#303030]"
                   : "dark:focus-visible:ring-offset-[#101010]"
@@ -572,7 +572,7 @@ export function LoginModal({
             type="submit"
             disabled={loading}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-80 active:scale-[0.99] border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
+              "w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-75 active:opacity-50 border border-transparent outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-center leading-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-[#101010]"

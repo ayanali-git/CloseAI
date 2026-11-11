@@ -735,7 +735,7 @@ export function MessageList({
             <ImagePreview
               src={src}
               alt={alt || "Image preview"}
-              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-80 transition-opacity"
+              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-75 active:opacity-50 transition-opacity"
             />
           </div>
         );
@@ -1141,7 +1141,7 @@ export function MessageList({
                             className={cn(
                               "px-4 py-1.5 rounded-full text-[15px] font-medium transition-all select-none",
                               !isUnchangedOrEmpty && !isTyping
-                                ? "bg-bubble-foreground text-bubble hover:opacity-80 active:scale-[0.99] cursor-pointer"
+                                ? "bg-bubble-foreground text-bubble hover:opacity-75 active:opacity-50 cursor-pointer"
                                 : "bg-bubble-foreground/20 text-bubble-foreground/40 cursor-not-allowed opacity-50"
                             )}
                           >
@@ -1714,7 +1714,7 @@ export function MessageList({
                                         className={cn(
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
                                           (changePrompts[msgId] || "").trim()
-                                            ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
+                                            ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-75 active:opacity-50"
                                             : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
@@ -1873,7 +1873,7 @@ export function MessageList({
                                                   (
                                                     changePrompts[msgId] || ""
                                                   ).trim()
-                                                    ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-80 active:scale-[0.99]"
+                                                    ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-75 active:opacity-50"
                                                     : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"

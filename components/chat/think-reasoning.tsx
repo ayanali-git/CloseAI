@@ -373,7 +373,7 @@ export function ThinkReasoning({
         ) : (
           <span className="inline-flex items-center gap-1.5 text-[13.5px] leading-[18px] text-muted-foreground">
             <span className="font-medium text-base animate-shimmer-text text-muted-foreground">Thinking…</span>
-            <span className="font-normal text-base opacity-80 text-muted-foreground">{formattedElapsed}</span>
+            <span className="font-normal text-base opacity-75 text-muted-foreground">{formattedElapsed}</span>
           </span>
         )}
         <AnimatedChevron

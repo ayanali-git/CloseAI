@@ -561,7 +561,7 @@ export function ShareResponseModal({
             aria-label={linkCopied ? "Link copied" : "Copy link"}
             title={linkCopied ? "Link copied" : "Copy link"}
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-75 active:opacity-50", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -581,7 +581,7 @@ export function ShareResponseModal({
             aria-label="Share on X"
             title="Share on X"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-75 active:opacity-50", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -597,7 +597,7 @@ export function ShareResponseModal({
             aria-label="Share on LinkedIn"
             title="Share on LinkedIn"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-75 active:opacity-50", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -613,7 +613,7 @@ export function ShareResponseModal({
             aria-label="Share more"
             title="Share more"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center active:scale-[0.99] transition-opacity group-hover:opacity-80", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-75 active:opacity-50", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
