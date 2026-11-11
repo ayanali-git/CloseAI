@@ -121,7 +121,7 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
     id: "prod-chat",
     category: "Products",
-    title: "CloseAI",
+    title: "CloseAI Chat",
     description:
       "Interactive AI assistant for conversation, coding, analysis, content creation, and creative problem solving.",
     url: "/c",
@@ -129,15 +129,13 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
       "chat",
       "closeai",
       "assistant",
-      "ui",
       "conversation",
-      "app",
     ],
   },
   {
-    id: "prod-codex",
+    id: "prod-code",
     category: "Products",
-    title: "Codex",
+    title: "Codex Code",
     description:
       "Collaborative interactive workspace and advanced code editor powered by CloseAI for pair programming and document editing.",
     url: "/product/features",
@@ -264,22 +262,6 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     keywords: ["brand", "logos", "assets", "identities", "download", "svgs", "pngs"],
   },
 
-  {
-    id: "comp-blog",
-    category: "Page",
-    title: "Release Notes & Blog",
-    description:
-      "Stay up to date with new features, model updates, research papers, and technical announcements.",
-    url: "/company/blog",
-    date: "Sep 2026",
-    keywords: [
-      "blog",
-      "release notes",
-      "announcements",
-      "updates",
-      "changelog",
-    ],
-  },
   {
     id: "comp-careers",
     category: "Company",
@@ -699,7 +681,7 @@ export function MarketingHeader() {
                   className={cn(
                     "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 ring-offset-background",
                     searchQuery.trim().length > 0
-                      ? "bg-foreground text-background cursor-pointer hover:opacity-75 active:opacity-50"
+                      ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:opacity-60"
                       : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                   )}
                   aria-label="Submit search"
@@ -820,7 +802,7 @@ export function MarketingHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsSearchOpen(false)}
-                      className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                     >
                       <span>API Docs</span>
                       <AnimatedArrowUpRight className="w-5 h-5" />
@@ -864,7 +846,7 @@ export function MarketingHeader() {
               }}
               className="flex items-center gap-2 -ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-75 active:opacity-50">
+              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90 active:opacity-60">
                 CloseAI
               </span>
             </Link>
@@ -916,7 +898,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "research"
-                      ? "w-5 h-5 opacity-75 pointer-events-auto"
+                      ? "w-5 h-5 opacity-50 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -969,7 +951,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "products"
-                      ? "w-5 h-5 opacity-75 pointer-events-auto"
+                      ? "w-5 h-5 opacity-50 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1022,7 +1004,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "business"
-                      ? "w-5 h-5 opacity-75 pointer-events-auto"
+                      ? "w-5 h-5 opacity-50 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1077,7 +1059,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "developers"
-                      ? "w-5 h-5 opacity-75 pointer-events-auto"
+                      ? "w-5 h-5 opacity-50 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1130,7 +1112,7 @@ export function MarketingHeader() {
                     "cursor-pointer flex items-center justify-center rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring text-foreground transition-opacity",
                     "absolute left-full top-1/2 -translate-y-1/2 ml-0.5",
                     focusedChevron === "company"
-                      ? "w-5 h-5 opacity-75 pointer-events-auto"
+                      ? "w-5 h-5 opacity-50 pointer-events-auto"
                       : "sr-only focus-visible:not-sr-only focus-visible:w-5 focus-visible:h-5 focus-visible:opacity-100 focus-visible:pointer-events-auto"
                   )}
                 >
@@ -1172,7 +1154,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="w-8 h-8 rounded-full transition-opacity hover:opacity-75 active:opacity-50 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-8 h-8 rounded-full transition-opacity hover:opacity-50 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1205,7 +1187,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                  className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>Log out</span>
                 </button>
@@ -1223,7 +1205,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                   >
                   <span>Log in</span>
                 </button>
@@ -1247,8 +1229,8 @@ export function MarketingHeader() {
                         });
                       }}
                       className={cn(
-                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background transition-opacity hover:opacity-75 active:opacity-50",
-                        loginDropdownOpen && "opacity-75"
+                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background transition-opacity hover:opacity-90 active:opacity-60",
+                        loginDropdownOpen && "opacity-90"
                       )}
                     >
                       <span>Log in</span>
@@ -1455,20 +1437,20 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
-                          <span>CloseAI</span>
+                          <span>CloseAI Chat</span>
                           <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                       <li>
                         <Link
                           href="/product/features"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          // target="_blank"
+                          // rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
-                          Codex
-                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
+                          Codex Code
+                          {/* <AnimatedArrowUpRight className="w-5 h-5 transition-colors" /> */}
                         </Link>
                       </li>
                     </ul>
@@ -1485,7 +1467,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
-                          CloseAI Work & Teams
+                          CloseAI Business
                         </Link>
                       </li>
                       <li>
@@ -1494,7 +1476,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
-                          Codex Enterprise
+                          CloseAI Education
                         </Link>
                       </li>
                       <li>
@@ -1503,16 +1485,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
-                          CloseAI Frontier
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/business/enterprise"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          CloseAI Presence
+                          ClosAI Foundation
                         </Link>
                       </li>
                     </ul>
@@ -1591,15 +1564,6 @@ export function MarketingHeader() {
                       Resources
                     </p>
                     <ul className="space-y-3 text-base">
-                      <li>
-                        <Link
-                          href="/company/blog"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          Release Notes
-                        </Link>
-                      </li>
                       <li>
                         <Link
                           href="/business/enterprise"
@@ -1685,16 +1649,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="inline-flex items-center text-foreground transition-colors"
                         >
-                          <span>Docs</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/product/api-docs"
-                          onClick={() => setActiveMenu(null)}
-                          className="inline-flex items-center text-foreground transition-colors"
-                        >
-                          <span>Codex Use Cases</span>
+                          <span>Use Cases</span>
                         </Link>
                       </li>
                       <li>
@@ -1950,7 +1905,7 @@ export function MarketingHeader() {
                   {/* Top Back Navigation Button */}
                   <button
                     onClick={() => setMobileSubMenu(null)}
-                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-75 active:opacity-50 transition-opacity cursor-pointer mb-6"
+                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer mb-6"
                   >
                     <ArrowLeft className="w-5 h-5 stroke-[2]" />
                     <span>Home</span>
@@ -2043,18 +1998,18 @@ export function MarketingHeader() {
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
-                            <span>CloseAI</span>
+                            <span>CloseAI Chat</span>
                             <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                           <Link
                             href="/product/features"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            // target="_blank"
+                            // rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
-                            Codex
-                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
+                            Codex Code
+                            {/* <AnimatedArrowUpRight className="w-5 h-5 transition-colors" /> */}
                           </Link>
                         </div>
                       </div>
@@ -2066,19 +2021,15 @@ export function MarketingHeader() {
                         <div className="space-y-2.5">
                           {[
                             {
-                              label: "CloseAI Work & Teams",
+                              label: "CloseAI Business",
                               href: "/business/enterprise",
                             },
                             {
-                              label: "Codex Enterprise",
+                              label: "CloseAI Education",
                               href: "/business/enterprise",
                             },
                             {
-                              label: "CloseAI Frontier",
-                              href: "/business/enterprise",
-                            },
-                            {
-                              label: "CloseAI Presence",
+                              label: "CloseAI Foundation",
                               href: "/business/enterprise",
                             },
                           ].map((adv, i) => (
@@ -2154,10 +2105,6 @@ export function MarketingHeader() {
                         <div className="space-y-2.5">
                           {[
                             {
-                              label: "Release Notes",
-                              href: "/company/blog",
-                            },
-                            {
                               label: "API Platform",
                               href: "/product/api-docs",
                             },
@@ -2223,9 +2170,8 @@ export function MarketingHeader() {
                         </div>
                         <div className="space-y-2.5">
                           {[
-                            { label: "Docs", href: "/product/api-docs" },
                             {
-                              label: "Codex Use Cases",
+                              label: "Use Cases",
                               href: "/product/api-docs",
                             },
                             {
@@ -2350,13 +2296,13 @@ export function MarketingHeader() {
                               setMobileSubMenu(null);
                               openLoginModal();
                             }}
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-75 active:opacity-50 transition-opacity py-1 cursor-pointer w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 active:opacity-60 transition-opacity py-1 cursor-pointer w-full outline-none"
                           >
                             CloseAI chat
                           </button>
                           <button
                             type="button"
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-75 active:opacity-50 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 active:opacity-60 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
                           >
                             <AnimatedComingSoonText
                               label="API platform"

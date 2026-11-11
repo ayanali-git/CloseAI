@@ -82,7 +82,7 @@ export default function SafetyPage() {
         <p className="text-muted-foreground text-base max-w-lg mb-6">
           Detailed technical reports on training mitigations, bias benchmarks, and safety evaluation suites across our model family.
         </p>
-        <Button asChild className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-75 active:opacity-50 transition-opacity cursor-pointer">
+        <Button asChild className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer">
           <Link
             href="/research/overview"
             className="inline-flex items-center justify-center"

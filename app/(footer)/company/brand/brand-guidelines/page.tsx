@@ -98,7 +98,7 @@ export default function CompanyBrandGuidelinesPage() {
           </p>
           <Button
             asChild
-            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-75 active:opacity-50 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <a href="/closeai-brand-kit.zip" download="closeai-brand-kit.zip">
               <span>Download Kit</span>
@@ -459,7 +459,7 @@ export default function CompanyBrandGuidelinesPage() {
 
             <div className="p-6 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-center p-6 relative">
-                <div className="flex items-center gap-2 opacity-75">
+                <div className="flex items-center gap-2 opacity-90">
                   <img src="/closeai-new.png" alt="Locked" className="w-7 h-7 object-contain dark:hidden" />
                   <img src="/closeai-new-white.png" alt="Locked" className="w-7 h-7 object-contain hidden dark:block" />
                   <span className="text-lg font-semibold text-foreground">CloseAI</span>
@@ -959,7 +959,7 @@ export default function CompanyBrandGuidelinesPage() {
             teams are here to assist you.{' '}
             <Link
               href="/support/help"
-              className="rounded-full text-foreground transition-opacity hover:opacity-75 active:opacity-50 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+              className="rounded-full text-foreground transition-opacity hover:opacity-90 active:opacity-60 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
             >
               <span>Learn more</span>
             </Link>
@@ -986,7 +986,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="pt-4 border-t border-border/80">
                 <a
                   href={channel.href}
-                  className="text-sm font-normal rounded-full text-foreground transition-opacity hover:opacity-75 active:opacity-50 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                  className="text-sm font-normal rounded-full text-foreground transition-opacity hover:opacity-90 active:opacity-60 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
                 >
                   <span>{channel.contact}</span>
                 </a>

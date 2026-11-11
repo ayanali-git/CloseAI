@@ -254,7 +254,7 @@ export function CountDropdownMenu({
                     className={cn(
                       "flex items-center justify-center transition-colors shrink-0",
                       search
-                        ? "text-foreground cursor-pointer hover:opacity-75 active:opacity-50"
+                        ? "text-foreground cursor-pointer hover:opacity-90 active:opacity-60"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                     aria-label={search ? "Clear search" : "Search"}

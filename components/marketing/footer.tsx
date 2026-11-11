@@ -103,8 +103,19 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
-                    <span>CloseAI</span>
+                    <span>CloseAI Chat</span>
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/product/features"
+                    // target="_blank"
+                    // rel="noopener noreferrer"
+                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  >
+                    Codex Code
+                    {/* <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" /> */}
                   </Link>
                 </li>
                 <li>
@@ -129,25 +140,6 @@ export function Footer() {
                     className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>CloseAI Enterprise</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/product/features"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    Codex
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/company/blog"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    Release Notes
                   </Link>
                 </li>
               </ul>
@@ -250,9 +242,12 @@ export function Footer() {
                 <li>
                   <Link
                     href="/product/api-docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
-                    <span>Apps SDK</span>
+                    <span>App SDKs</span>
+                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
                 <li>
@@ -266,12 +261,9 @@ export function Footer() {
                 <li>
                   <Link
                     href="/product/api-docs"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     <span>Developer Forum</span>
-                    <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
               </ul>

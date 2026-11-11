@@ -311,7 +311,7 @@ export function SettingsModal({
                     className={cn(
                       "absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
                       query
-                        ? "text-foreground cursor-pointer hover:opacity-75 active:opacity-50"
+                        ? "text-foreground cursor-pointer hover:opacity-90 active:opacity-60"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                   >
