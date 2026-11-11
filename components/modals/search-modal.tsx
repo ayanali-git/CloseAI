@@ -33,7 +33,7 @@ export interface SearchModalProps {
 }
 
 const DARK_HOVER_BG = {
-  guest: "dark:hover:bg-[#303030]",
+  guest: "dark:hover:bg-[#404040]",
   auth: "dark:hover:bg-secondary",
 } as const;
 
@@ -44,8 +44,8 @@ const getFocusRingClasses = (isGuest?: boolean) =>
   cn(
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
     isGuest
-      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+      ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+      : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"
   );
 
 const CATEGORIES: { id: SearchCategory; label: string }[] = [
@@ -308,14 +308,14 @@ function SearchImageItem({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group relative aspect-square w-full rounded-xl overflow-hidden bg-secondary dark:bg-[#212121] border border-border/80 dark:border-none cursor-pointer transition-all flex items-center justify-center select-none outline-none focus:outline-none",
+        "group relative aspect-square w-full rounded-xl overflow-hidden bg-secondary dark:bg-[#202020] border border-border/80 dark:border-none cursor-pointer transition-all flex items-center justify-center select-none outline-none focus:outline-none",
         // Focus rings like settings modal type on focus-visible
         "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:z-10",
         // Always show focus rings on hover (settings modal type)
         "hover:ring-2 hover:ring-black dark:hover:ring-white hover:ring-offset-2 hover:z-10",
         isGuest
-          ? "ring-offset-white dark:ring-offset-[#202020]"
-          : "ring-offset-white dark:ring-offset-[#212121]"
+          ? "ring-offset-white dark:ring-offset-[#303030]"
+          : "ring-offset-white dark:ring-offset-[#202020]"
       )}
     >
       {img.url && !imgError ? (
@@ -352,7 +352,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             className="w-full h-11 flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
-              className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
+              className="h-3.5 rounded bg-secondary dark:bg-[#202020]"
               style={{ width: `${55 + ((i * 9) % 35)}%` }}
             />
           </div>
@@ -367,7 +367,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
         {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
           <div
             key={i}
-            className="aspect-square rounded-xl bg-secondary dark:bg-[#212121] animate-pulse"
+            className="aspect-square rounded-xl bg-secondary dark:bg-[#202020] animate-pulse"
           />
         ))}
       </div>
@@ -384,11 +384,11 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
           >
             <div className="flex-1 pr-4">
               <div
-                className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
+                className="h-3.5 rounded bg-secondary dark:bg-[#202020]"
                 style={{ width: `${50 + ((i * 11) % 40)}%` }}
               />
             </div>
-            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
+            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#202020] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -407,7 +407,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             className="w-full h-11 flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
-              className="h-3.5 rounded bg-secondary dark:bg-[#212121]"
+              className="h-3.5 rounded bg-secondary dark:bg-[#202020]"
               style={{ width: `${55 + ((i * 13) % 35)}%` }}
             />
           </div>
@@ -421,7 +421,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="aspect-square rounded-xl bg-secondary dark:bg-[#212121] animate-pulse"
+              className="aspect-square rounded-xl bg-secondary dark:bg-[#202020] animate-pulse"
             />
           ))}
         </div>
@@ -436,9 +436,9 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             className="w-full h-[46px] flex items-center justify-between px-3 rounded-xl animate-pulse"
           >
             <div className="flex-1 pr-4">
-              <div className="h-3.5 w-44 rounded bg-secondary dark:bg-[#212121]" />
+              <div className="h-3.5 w-44 rounded bg-secondary dark:bg-[#202020]" />
             </div>
-            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#212121] shrink-0 ml-4" />
+            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#202020] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -781,7 +781,7 @@ export function SearchModal({
         isGuest
           ? "min-[1280px]:max-w-[900px] min-[1280px]:h-[min(500px,90vh)]"
           : "min-[1280px]:max-w-[800px] min-[1280px]:h-[min(500px,90vh)]",
-        isGuest && "bg-white dark:bg-[#202020] border border-border/80 dark:border-none"
+        isGuest && "bg-white dark:bg-[#303030] border border-border/80 dark:border-none"
       )}
     >
       <div className="flex flex-col h-full min-h-0 overflow-hidden">

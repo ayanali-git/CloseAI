@@ -569,7 +569,7 @@ function FileItemRow({
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full flex items-center gap-3.5 px-3 py-1.5 rounded-sm hover:bg-secondary dark:hover:bg-[#212121] active:bg-secondary dark:active:bg-[#212121]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
+      className="group w-full flex items-center gap-3.5 px-3 py-1.5 rounded-sm hover:bg-secondary dark:hover:bg-[#202020] active:bg-secondary dark:active:bg-[#202020]/80 transition-colors text-left cursor-pointer outline-none focus:outline-none focus-visible:ring-1.5 focus-visible:ring-ring"
       title={`${fileName}`}
     >
       {/* File Icon Squircle */}
@@ -1248,7 +1248,7 @@ export function EditProfileDrawer({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium text-foreground hover:bg-secondary dark:hover:[#212121] active:bg-secondary dark:active:bg-neutral-800 transition-colors cursor-pointer select-none"
+            className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium text-foreground hover:bg-secondary dark:hover:[#202020] active:bg-secondary dark:active:bg-neutral-800 transition-colors cursor-pointer select-none"
           >
             <span>Upload photo</span>
             <ImageIcon className="w-5 h-5 text-muted-foreground" />
@@ -1307,7 +1307,7 @@ export function EditProfileDrawer({
       {/* Profile */}
       <div className="space-y-2">
         <h3 className="text-sm font-medium text-foreground">Profile</h3>
-        <div className="rounded-2xl border border-border/80 dark:border-none bg-white dark:bg-[#111111] p-4 space-y-4">
+        <div className="rounded-2xl border border-border/80 dark:border-none bg-white dark:bg-[#101010] p-4 space-y-4">
           {/* Name Input */}
           <div className="space-y-1.5">
             <Label htmlFor="drawer-profile-name" className="text-xs text-muted-foreground">

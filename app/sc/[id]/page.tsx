@@ -490,7 +490,7 @@ export default function PublicSharedChatPage() {
           className={cn(
             "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mt-3 mr-3 sm:ml-0.5 h-11 px-3 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 select-none",
             isGuest
-              ? "bg-white dark:bg-[#202020]"
+              ? "bg-white dark:bg-[#303030]"
               : "bg-background"
           )}
         >
@@ -506,7 +506,7 @@ export default function PublicSharedChatPage() {
             orientation="vertical"
             className={cn(
               "h-4 bg-neutral-200 mx-0.5 sm:mx-1 shrink-0",
-              isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]"
+              isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]"
             )}
           />
           <SharedHeaderTitleMarquee
@@ -527,7 +527,7 @@ export default function PublicSharedChatPage() {
                   className={cn(
                     "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
                     isGuest
-                      ? "bg-white dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]"
+                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
                       : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
                 >
@@ -552,7 +552,7 @@ export default function PublicSharedChatPage() {
                   className={cn(
                     "group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
-                      ? "bg-white dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]"
+                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
                       : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
                   aria-label="New chat"
@@ -657,8 +657,8 @@ export default function PublicSharedChatPage() {
                                   className={cn(
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#202020] dark:hover:bg-[#303030] border border-border/80 dark:border-none"
-                                      : "bg-white dark:bg-[#111111] dark:hover:bg-[#212121] border border-border/80 dark:border-none"
+                                      ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border border-border/80 dark:border-none"
+                                      : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border border-border/80 dark:border-none"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

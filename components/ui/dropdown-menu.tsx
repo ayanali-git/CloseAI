@@ -74,8 +74,8 @@ const DropdownMenuSubContent = React.forwardRef<
         className={cn(
           'z-[9999] min-w-[10rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
           isGuest
-            ? 'bg-white dark:bg-[#202020] border border-border/80 dark:border-none'
-            : 'bg-white dark:bg-[#111111] border border-border/80 dark:border-none',
+            ? 'bg-white dark:bg-[#303030] border border-border/80 dark:border-none'
+            : 'bg-white dark:bg-[#101010] border border-border/80 dark:border-none',
           className
         )}
         {...props}
@@ -120,8 +120,8 @@ const DropdownMenuContent = React.forwardRef<
         className={cn(
           'z-[9999] min-w-[8rem] overflow-hidden rounded-2xl p-1.5 text-foreground outline-none focus:outline-none focus:ring-0',
           isGuest
-            ? 'bg-white dark:bg-[#202020] border border-border/80 dark:border-none'
-            : 'bg-white dark:bg-[#111111] border border-border/80 dark:border-none',
+            ? 'bg-white dark:bg-[#303030] border border-border/80 dark:border-none'
+            : 'bg-white dark:bg-[#101010] border border-border/80 dark:border-none',
           className
         )}
         {...props}
@@ -239,7 +239,7 @@ const DropdownMenuSeparator = React.forwardRef<
     ref={ref}
     className={cn(
       'my-1.5 h-[1px] bg-neutral-200 border-0 shrink-0 block',
-      isGuest ? 'dark:bg-[#303030]' : 'dark:bg-[#212121]',
+      isGuest ? 'dark:bg-[#404040]' : 'dark:bg-[#202020]',
       className
     )}
     {...props}

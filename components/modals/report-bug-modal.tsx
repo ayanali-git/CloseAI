@@ -133,8 +133,8 @@ export function ReportBugModal({
               "hidden min-[1280px]:flex p-3 items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "rounded-full hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-                : "rounded-sm hover:bg-secondary dark:hover:bg-[#303030] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+                ? "rounded-full hover:bg-secondary dark:hover:bg-[#404040] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+                : "rounded-sm hover:bg-secondary dark:hover:bg-[#404040] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"
             )}
             style={{ outline: "none" }}
             aria-label="Close"
@@ -156,14 +156,14 @@ export function ReportBugModal({
                   "group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] sm:text-sm font-normal transition-colors cursor-pointer outline-none select-none border focus:outline-none active:outline-none focus:ring-0 active:ring-0",
                   "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
-                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
+                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
                   isSelected
                     ? "bg-foreground text-background border-foreground dark:bg-white dark:text-neutral-900 dark:border-white"
                     : cn(
                         isGuest
-                          ? "text-foreground border-border/80 dark:border-white/10 dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030]"
-                          : "text-foreground border-border/80 bg-white dark:bg-[#111111] hover:bg-secondary dark:hover:bg-[#303030]"
+                          ? "text-foreground border-border/80 dark:border-white/10 dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040]"
+                          : "text-foreground border-border/80 bg-white dark:bg-[#101010] hover:bg-secondary dark:hover:bg-[#404040]"
                       )
                 )}
                 style={{ outline: "none" }}
@@ -202,7 +202,7 @@ export function ReportBugModal({
               "w-full min-h-[120px] max-h-[240px] p-3 rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed text-foreground placeholder:text-foreground transition-colors resize-y outline-none border",
               isGuest
                 ? "bg-transparent border-border/80 dark:border-white/10"
-                : "bg-white dark:bg-[#111111] border-border/80"
+                : "bg-white dark:bg-[#101010] border-border/80"
             )}
           />
         </div>
@@ -217,8 +217,8 @@ export function ReportBugModal({
               "transition-colors cursor-pointer outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]"
+                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"
             )}
             style={{ outline: "none" }}
           >
@@ -236,14 +236,14 @@ export function ReportBugModal({
               "w-full h-11 rounded-full font-medium text-sm sm:text-base transition-all select-none flex items-center justify-center outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
-                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
+                ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+                : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
               !isSubmitEnabled || isSubmitting
                 ? cn(
                     "cursor-not-allowed opacity-50",
                     isGuest
-                      ? "bg-secondary dark:bg-[#303030] text-muted-foreground"
-                      : "bg-secondary dark:bg-[#202020] text-muted-foreground"
+                      ? "bg-secondary dark:bg-[#404040] text-muted-foreground"
+                      : "bg-secondary dark:bg-[#303030] text-muted-foreground"
                   )
                 : cn(
                     "cursor-pointer active:scale-[0.99] hover:opacity-80",

@@ -325,7 +325,7 @@ export function ShareResponseModal({
   const shareButtonRing = cn(
     "group-focus-visible:ring-2 group-focus-visible:ring-black dark:group-focus-visible:ring-white group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
     isGuest
-      ? "dark:group-focus-visible:ring-offset-[#202020]"
+      ? "dark:group-focus-visible:ring-offset-[#303030]"
       : "dark:group-focus-visible:ring-offset-card"
   );
 
@@ -351,7 +351,7 @@ export function ShareResponseModal({
             className={cn(
               "hidden min-[1280px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
-                ? "hover:bg-[#303030] dark:focus-visible:ring-offset-[#202020]"
+                ? "hover:bg-[#404040] dark:focus-visible:ring-offset-[#303030]"
                 : "hover:bg-secondary dark:focus-visible:ring-offset-card"
             )}
             aria-label="Close"
@@ -505,8 +505,8 @@ export function ShareResponseModal({
                         className={cn(
                           "my-3 sm:my-4 rounded-xl overflow-hidden border border-border/80 dark:border-none p-3 code-scroll",
                           isGuest
-                            ? "bg-white dark:bg-[#202020]"
-                            : "bg-white dark:bg-[#111111]"
+                            ? "bg-white dark:bg-[#303030]"
+                            : "bg-white dark:bg-[#101010]"
                         )}
                       >
                         <pre className="text-[15px] font-mono text-foreground whitespace-pre w-max min-w-full">
@@ -521,8 +521,8 @@ export function ShareResponseModal({
                         className={cn(
                           "px-1.5 py-0.5 rounded-md font-mono text-[15px] font-normal select-text text-foreground",
                           isGuest
-                            ? "bg-white dark:bg-[#202020]"
-                            : "bg-white dark:bg-[#111111]"
+                            ? "bg-white dark:bg-[#303030]"
+                            : "bg-white dark:bg-[#101010]"
                         )}
                         {...props}
                       >

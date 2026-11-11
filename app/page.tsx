@@ -180,7 +180,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#202020] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -202,10 +202,10 @@ export default function LandingPage() {
                 type="submit"
                 disabled={!heroPrompt.trim() || isSubmitting}
                 className={cn(
-                  "w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]",
+                  "w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]",
                   heroPrompt.trim().length > 0 && !isSubmitting
                     ? "bg-foreground text-background cursor-pointer hover:opacity-80 active:scale-[0.99]"
-                    : "bg-neutral-300 dark:bg-[#303030] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                    : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                 )}
                 aria-label="Send prompt"
               >
@@ -251,10 +251,10 @@ export default function LandingPage() {
                   className={cn(
                     "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-none",
                     pill.disabled
-                      ? "bg-white dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] text-muted-foreground cursor-not-allowed opacity-50 select-none"
+                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
-                      ? "cursor-pointer bg-white dark:bg-[#202020] text-foreground"
-                      : "cursor-pointer bg-white dark:bg-[#202020] hover:bg-secondary dark:hover:bg-[#303030] text-muted-foreground hover:text-foreground"
+                      ? "cursor-pointer bg-white dark:bg-[#303030] text-foreground"
+                      : "cursor-pointer bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {pill.disabled ? (
@@ -736,7 +736,7 @@ export default function LandingPage() {
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1485px] mx-auto py-16">
-          <div className="rounded-sm bg-white dark:bg-[#202020] border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
+          <div className="rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
             <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
             </h2>

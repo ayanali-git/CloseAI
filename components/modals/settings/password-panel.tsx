@@ -72,7 +72,7 @@ export function PasswordPanel() {
       <button
         type="submit"
         disabled={saving || !newPassword || !confirmPassword}
-        className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
+        className="w-full h-11 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-80 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
       >
         {saving ? (
           <Loader className="w-5 h-5 animate-spin" />

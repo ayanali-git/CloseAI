@@ -250,7 +250,7 @@ export function SettingsModal({
             : "min-[1280px]:max-w-[800px] min-[1280px]:h-[min(500px,90vh)]",
           // Guest chat pages (/gc, /gc/[id]): same surface as the guest chat input
           isGuest &&
-            "bg-white dark:bg-[#202020] border border-border/80 dark:border-none"
+            "bg-white dark:bg-[#303030] border border-border/80 dark:border-none"
         )}
       >
         {/* Mobile: both panes are stacked and slide horizontally (like a native
@@ -279,8 +279,8 @@ export function SettingsModal({
                 className={cn(
                   "hidden min-[1280px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
-                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
+                    ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+                    : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
                   "cursor-pointer transition-colors",
                   darkHover
                 )}
@@ -354,7 +354,7 @@ export function SettingsModal({
                     className={cn(
                       "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-none pl-10 pr-4 text-base min-[1280px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
                       isSearchTabFocused &&
-                        "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#212121]"
+                        "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#202020]"
                     )}
                   />
                 </div>
@@ -399,8 +399,8 @@ export function SettingsModal({
                     className={cn(
                       "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                       isGuest
-                        ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#202020]"
-                        : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#111111]",
+                        ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+                        : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
                       "focus-visible:z-10 transition-colors",
                       isMobile
                         ? "py-3"

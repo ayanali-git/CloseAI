@@ -614,7 +614,7 @@ function ModelSliderCard({
         {/* Track */}
         <div
           ref={sliderTrackRef}
-          className="relative h-[28px] w-full rounded-full bg-[#E1E1E4] dark:bg-[#303030] overflow-hidden pointer-events-none"
+          className="relative h-[28px] w-full rounded-full bg-[#E1E1E4] dark:bg-[#404040] overflow-hidden pointer-events-none"
         >
           {[0, 1, 2, 3, 4].map((i) => {
             const f = i / 4;
@@ -763,12 +763,12 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("main");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Select models</span>
           </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
           {/* Row 1: Model */}
           <button
@@ -780,7 +780,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("model-picker");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer text-left outline-none"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer text-left outline-none"
           >
             <span className="font-medium shrink-0 mr-1.5">Model</span>
             <ModelMarqueeText text={model} isHovered={isMobileModelRowHovered} />
@@ -797,7 +797,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("effort");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer text-left outline-none"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer text-left outline-none"
           >
             <span className="font-medium shrink-0 mr-1.5">Effort</span>
             <ModelMarqueeText
@@ -818,14 +818,14 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("speed");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer text-left outline-none"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer text-left outline-none"
           >
             <span className="shrink-0 font-medium mr-1.5">Speed</span>
             <ModelMarqueeText text={speed} isHovered={isMobileSpeedRowHovered} />
             <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
           </button>
 
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
           {/* Row 4: Advanced */}
           <button
@@ -835,7 +835,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("advanced");
             }}
-            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer outline-none"
+            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer outline-none"
           >
             <span>Advanced</span>
             <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -854,12 +854,12 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Model</span>
           </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
           {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
             const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -874,7 +874,7 @@ export function PlusMenuContent({
                 }}
                 onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                 onMouseLeave={() => setHoveredModelIdx(null)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
               >
                 <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                 {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -882,7 +882,7 @@ export function PlusMenuContent({
             );
           })}
 
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
           {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
             const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -897,7 +897,7 @@ export function PlusMenuContent({
                 }}
                 onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                 onMouseLeave={() => setHoveredModelIdx(null)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
               >
                 <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                 {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -918,12 +918,12 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Effort</span>
           </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
           {TIERS.map((tier, idx) => (
             <button
@@ -936,7 +936,7 @@ export function PlusMenuContent({
               }}
               onMouseEnter={() => setHoveredTierIdx(idx)}
               onMouseLeave={() => setHoveredTierIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
             >
               <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
               {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -956,12 +956,12 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Speed</span>
           </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
           {SPEED_OPTIONS.map((s, idx) => (
             <button
@@ -974,7 +974,7 @@ export function PlusMenuContent({
               }}
               onMouseEnter={() => setHoveredSpeedIdx(idx)}
               onMouseLeave={() => setHoveredSpeedIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
             >
               <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
               {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -994,12 +994,12 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Advanced</span>
           </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
           <div
             className="p-2 pt-1 cursor-pointer"
             onPointerDown={(e) => {
@@ -1022,7 +1022,7 @@ export function PlusMenuContent({
         {/* 1. Attach photos */}
         <DropdownMenuItem
           onClick={onAddPhotos}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <Images className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
@@ -1039,7 +1039,7 @@ export function PlusMenuContent({
             if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
             else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Web search</span>
@@ -1050,7 +1050,7 @@ export function PlusMenuContent({
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Create images" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Create images</span>
@@ -1061,7 +1061,7 @@ export function PlusMenuContent({
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] transition-colors outline-none whitespace-nowrap text-left"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
@@ -1078,7 +1078,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
             }}
-            className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
+            className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
           >
             <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1095,7 +1095,7 @@ export function PlusMenuContent({
               onMouseEnter={() => setIsSelectModelsHovered(true)}
               onMouseLeave={() => setIsSelectModelsHovered(false)}
               chevronClassName="-ml-0.5"
-              className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+              className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
             >
               <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
               <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1113,7 +1113,7 @@ export function PlusMenuContent({
               collisionPadding={12}
               style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
               className={cn(
-                "rounded-2xl p-1.5 bg-white dark:bg-[#202020] border border-border/80 dark:border-none select-none outline-none",
+                "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-none select-none outline-none",
                 menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
               )}
             >
@@ -1124,7 +1124,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsModelSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Model</span>
                   <ModelMarqueeText
@@ -1139,7 +1139,7 @@ export function PlusMenuContent({
                   collisionPadding={12}
                   style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                   className={cn(
-                    "rounded-2xl p-1.5 bg-white dark:bg-[#202020] border border-border/80 dark:border-none select-none outline-none",
+                    "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-none select-none outline-none",
                     menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                   )}
                 >
@@ -1151,7 +1151,7 @@ export function PlusMenuContent({
                         onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                         {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1159,7 +1159,7 @@ export function PlusMenuContent({
                     );
                   })}
 
-                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
                   {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -1169,7 +1169,7 @@ export function PlusMenuContent({
                         onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                         {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1186,7 +1186,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsEffortSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Effort</span>
                   <ModelMarqueeText
@@ -1202,7 +1202,7 @@ export function PlusMenuContent({
                   collisionPadding={12}
                   style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                   className={cn(
-                    "rounded-2xl p-1.5 bg-white dark:bg-[#202020] border border-border/80 dark:border-none select-none outline-none",
+                    "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-none select-none outline-none",
                     menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                   )}
                 >
@@ -1212,7 +1212,7 @@ export function PlusMenuContent({
                       onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                       onMouseEnter={() => setHoveredTierIdx(idx)}
                       onMouseLeave={() => setHoveredTierIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
                       {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1228,7 +1228,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsSpeedSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
                   <span className="shrink-0 font-medium mr-1.5">Speed</span>
                   <ModelMarqueeText
@@ -1243,7 +1243,7 @@ export function PlusMenuContent({
                   collisionPadding={12}
                   style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                   className={cn(
-                    "rounded-2xl p-1.5 bg-white dark:bg-[#202020] border border-border/80 dark:border-none select-none outline-none",
+                    "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-none select-none outline-none",
                     menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                   )}
                 >
@@ -1253,7 +1253,7 @@ export function PlusMenuContent({
                       onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                       onMouseEnter={() => setHoveredSpeedIdx(idx)}
                       onMouseLeave={() => setHoveredSpeedIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
                       {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1263,13 +1263,13 @@ export function PlusMenuContent({
               </DropdownMenuSub>
 
               {/* Divider */}
-              <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+              <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
               {/* Row 4: Advanced Submenu */}
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                  className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left"
+                  className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left"
                 >
                   <span className="shrink-0">Advanced</span>
                 </DropdownMenuSubTrigger>
@@ -1280,7 +1280,7 @@ export function PlusMenuContent({
                   collisionPadding={12}
                   style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                   className={cn(
-                    "rounded-2xl p-3 bg-white dark:bg-[#202020] border border-border/80 dark:border-none select-none outline-none cursor-pointer",
+                    "rounded-2xl p-3 bg-white dark:bg-[#303030] border border-border/80 dark:border-none select-none outline-none cursor-pointer",
                     menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                   )}
                   onPointerDown={(e) => {
@@ -1315,12 +1315,12 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("main");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Select models</span>
         </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
         {/* Row 1: Model */}
         <button
@@ -1332,7 +1332,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("model-picker");
           }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Model</span>
           <ModelMarqueeText
@@ -1352,7 +1352,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("effort");
           }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Effort</span>
           <ModelMarqueeText
@@ -1373,7 +1373,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("speed");
           }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span className="shrink-0 font-medium mr-1.5">Speed</span>
           <ModelMarqueeText
@@ -1383,7 +1383,7 @@ export function PlusMenuContent({
           <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
         </button>
 
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
         {/* Row 4: Advanced */}
         <button
@@ -1393,7 +1393,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("advanced");
           }}
-          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <span>Advanced</span>
           <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -1412,12 +1412,12 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Model</span>
         </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
         {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
           const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -1435,7 +1435,7 @@ export function PlusMenuContent({
               onMouseLeave={() => setHoveredModelIdx(null)}
               onFocus={() => setHoveredModelIdx(globalIdx)}
               onBlur={() => setHoveredModelIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
             >
               <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
               {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1443,7 +1443,7 @@ export function PlusMenuContent({
           );
         })}
 
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
         {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
           const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -1461,7 +1461,7 @@ export function PlusMenuContent({
               onMouseLeave={() => setHoveredModelIdx(null)}
               onFocus={() => setHoveredModelIdx(globalIdx)}
               onBlur={() => setHoveredModelIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
             >
               <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
               {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1482,12 +1482,12 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Effort</span>
         </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
         {TIERS.map((tier, idx) => (
           <button
@@ -1503,7 +1503,7 @@ export function PlusMenuContent({
             onMouseLeave={() => setHoveredTierIdx(null)}
             onFocus={() => setHoveredTierIdx(idx)}
             onBlur={() => setHoveredTierIdx(null)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
             <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
             {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1523,12 +1523,12 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Speed</span>
         </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
         {SPEED_OPTIONS.map((s, idx) => (
           <button
@@ -1544,7 +1544,7 @@ export function PlusMenuContent({
             onMouseLeave={() => setHoveredSpeedIdx(null)}
             onFocus={() => setHoveredSpeedIdx(idx)}
             onBlur={() => setHoveredSpeedIdx(null)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
             <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
             {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1564,12 +1564,12 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Advanced</span>
         </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
         <div className="p-2 pt-1" onPointerDown={(e) => e.stopPropagation()}>
           <ModelSliderCard
             tierIndex={tierIndex}
@@ -1589,8 +1589,8 @@ export function PlusMenuContent({
         className={cn(
           "flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium transition-colors outline-none whitespace-nowrap text-left",
           disableAttach
-            ? "cursor-not-allowed opacity-50 select-none text-muted-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030]"
-            : "cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80"
+            ? "cursor-not-allowed opacity-50 select-none text-muted-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040]"
+            : "cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80"
         )}
       >
         <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -1612,7 +1612,7 @@ export function PlusMenuContent({
             e.stopPropagation();
             setSubView("models");
           }}
-          className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] active:bg-secondary dark:active:bg-[#303030]/80 transition-colors outline-none whitespace-nowrap text-left font-medium"
+          className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left font-medium"
         >
           <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
           <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1628,7 +1628,7 @@ export function PlusMenuContent({
             onMouseEnter={() => setIsSelectModelsHovered(true)}
             onMouseLeave={() => setIsSelectModelsHovered(false)}
             chevronClassName="-ml-0.5"
-            className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#303030] dark:focus:bg-[#303030] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left font-medium"
+            className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left font-medium"
           >
             <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1646,7 +1646,7 @@ export function PlusMenuContent({
             collisionPadding={12}
             style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
             className={cn(
-              "rounded-2xl p-1.5 bg-white dark:bg-[#111111] border border-border/80 dark:border-none select-none outline-none",
+              "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none select-none outline-none",
               menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
             )}
           >
@@ -1656,7 +1656,7 @@ export function PlusMenuContent({
                 onMouseEnter={() => setIsModelSubHovered(true)}
                 onMouseLeave={() => setIsModelSubHovered(false)}
                 chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
               >
                 <span className="font-medium shrink-0 mr-1.5">Model</span>
                 <ModelMarqueeText
@@ -1671,7 +1671,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-1.5 bg-white dark:bg-[#111111] border border-border/80 dark:border-none select-none outline-none",
+                  "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
               >
@@ -1689,14 +1689,14 @@ export function PlusMenuContent({
                         onMouseLeave={() => setHoveredModelIdx(null)}
                         onFocus={() => setHoveredModelIdx(globalIdx)}
                         onBlur={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                       </DropdownMenuRadioItem>
                     );
                   })}
 
-                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
                   {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
                     const globalIdx = MODEL_OPTIONS.indexOf(m);
@@ -1708,7 +1708,7 @@ export function PlusMenuContent({
                         onMouseLeave={() => setHoveredModelIdx(null)}
                         onFocus={() => setHoveredModelIdx(globalIdx)}
                         onBlur={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                       </DropdownMenuRadioItem>
@@ -1724,7 +1724,7 @@ export function PlusMenuContent({
                 onMouseEnter={() => setIsEffortSubHovered(true)}
                 onMouseLeave={() => setIsEffortSubHovered(false)}
                 chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
               >
                 <span className="font-medium shrink-0 mr-1.5">Effort</span>
                 <ModelMarqueeText
@@ -1741,7 +1741,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-1.5 bg-white dark:bg-[#111111] border border-border/80 dark:border-none select-none outline-none",
+                  "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
               >
@@ -1757,7 +1757,7 @@ export function PlusMenuContent({
                       onMouseLeave={() => setHoveredTierIdx(null)}
                       onFocus={() => setHoveredTierIdx(idx)}
                       onBlur={() => setHoveredTierIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
                     </DropdownMenuRadioItem>
@@ -1772,7 +1772,7 @@ export function PlusMenuContent({
                 onMouseEnter={() => setIsSpeedSubHovered(true)}
                 onMouseLeave={() => setIsSpeedSubHovered(false)}
                 chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
+                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
               >
                 <span className="shrink-0 font-medium mr-1.5">Speed</span>
                 <ModelMarqueeText
@@ -1787,7 +1787,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-1.5 bg-white dark:bg-[#111111] border border-border/80 dark:border-none select-none outline-none",
+                  "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
               >
@@ -1803,7 +1803,7 @@ export function PlusMenuContent({
                       onMouseLeave={() => setHoveredSpeedIdx(null)}
                       onFocus={() => setHoveredSpeedIdx(idx)}
                       onBlur={() => setHoveredSpeedIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#303030] flex items-center justify-between min-w-0 text-left"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] flex items-center justify-between min-w-0 text-left"
                     >
                       <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
                     </DropdownMenuRadioItem>
@@ -1813,11 +1813,11 @@ export function PlusMenuContent({
             </DropdownMenuSub>
 
             {/* Divider */}
-            <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#303030]" : "dark:bg-[#212121]")} />
+            <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
 
             {/* Row 4: Advanced Submenu */}
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#303030] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#303030] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
+              <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
                 <span className="shrink-0">Advanced</span>
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent
@@ -1827,7 +1827,7 @@ export function PlusMenuContent({
                 collisionPadding={12}
                 style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
                 className={cn(
-                  "rounded-2xl p-3 bg-white dark:bg-[#111111] border border-border/80 dark:border-none select-none outline-none",
+                  "rounded-2xl p-3 bg-white dark:bg-[#101010] border border-border/80 dark:border-none select-none outline-none",
                   menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
                 )}
                 onPointerDown={(e) => e.stopPropagation()}
