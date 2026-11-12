@@ -1248,10 +1248,10 @@ export function EditProfileDrawer({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium text-foreground hover:bg-secondary dark:hover:[#202020] active:bg-secondary dark:active:bg-neutral-800 transition-colors cursor-pointer select-none"
+            className="group w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium text-foreground hover:bg-secondary dark:hover:[#202020] active:bg-secondary dark:active:bg-neutral-800 transition-colors cursor-pointer select-none"
           >
             <span>Upload photo</span>
-            <ImageIcon className="w-5 h-5 text-muted-foreground" />
+            <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           </button>
 
           {/* 5 Avatar Shape Options Row (Circle, Flower, Squircle, Oval, Badge) — full-width, edge-to-edge distribution */}
@@ -1338,7 +1338,7 @@ export function EditProfileDrawer({
                   setUsername(e.target.value.replace(/[@\s]/g, ""))
                 }
                 placeholder="username"
-                className="h-full w-full bg-transparent border-0 outline-none p-0 pl-1 text-sm text-foreground font-normal placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus-visible:outline-none"
+                className="h-full w-full bg-transparent border-0 outline-none p-0 pl-0 text-sm text-foreground font-normal placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus-visible:outline-none"
               />
             </div>
           </div>
@@ -1372,7 +1372,7 @@ export function EditProfileDrawer({
                       type="button"
                       onClick={handleCancel}
                       disabled={saving}
-                      className="h-11 px-4 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                      className="h-11 px-4 rounded-full text-sm sm:text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     >
                       Cancel
                     </button>
@@ -1380,7 +1380,7 @@ export function EditProfileDrawer({
                       type="button"
                       onClick={() => handleSave()}
                       disabled={saving || !hasChanges || !name.trim() || !username.trim()}
-                      className="h-11 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm font-medium hover:opacity-85 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
+                      className="h-11 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-90 active:opacity-60 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
                     >
                       {saving ? (
                         <Loader className="w-5 h-5 animate-spin text-background" />
@@ -1417,7 +1417,7 @@ export function EditProfileDrawer({
                       type="button"
                       onClick={handleCancel}
                       disabled={saving}
-                      className="h-11 px-4 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
+                      className="h-11 px-4 rounded-full text-sm sm:text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none"
                     >
                       Cancel
                     </button>
@@ -1425,7 +1425,7 @@ export function EditProfileDrawer({
                       type="button"
                       onClick={() => handleSave()}
                       disabled={saving || !hasChanges || !name.trim() || !username.trim()}
-                      className="h-11 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm font-medium hover:opacity-85 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
+                      className="h-11 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-90 active:opacity-60 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
                     >
                       {saving ? (
                         <Loader className="w-5 h-5 animate-spin text-background" />

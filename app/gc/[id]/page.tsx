@@ -87,6 +87,14 @@ export default function GuestChatSessionPage() {
   const dockRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const autoSendTriggeredRef = useRef(false);
+  const executeGuestSendMessageRef = useRef<(
+    promptText: string,
+    filesToSend?: any[],
+    history?: Message[],
+    modelToUse?: string,
+    thinkToUse?: boolean,
+    truncateMessageId?: string
+  ) => void>(() => {});
   const streamAbortControllerRef = useRef<boolean>(false);
   const [showScrollBottom, setShowScrollBottom] = useState(false);
   const isAutoScrollPinnedRef = useRef(true);
@@ -197,10 +205,39 @@ export default function GuestChatSessionPage() {
       setIsChatLoading(true);
       try {
         const res = await fetch(`/api/guest-chat?chatId=${chatId}`);
+        let loadedMessages: Message[] = [];
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.messages && data.messages.length > 0) {
+            loadedMessages = data.messages;
             setMessages(data.messages);
+          }
+        }
+
+        // Check for auto-send handoff from /gc
+        if (typeof window !== "undefined" && !autoSendTriggeredRef.current) {
+          const autoSendKey = `guest_auto_send_${chatId}`;
+          const autoSendData = sessionStorage.getItem(autoSendKey);
+          if (autoSendData) {
+            sessionStorage.removeItem(autoSendKey);
+            autoSendTriggeredRef.current = true;
+            try {
+              const data = JSON.parse(autoSendData);
+              if (data && (data.prompt || (data.files && data.files.length > 0))) {
+                if (data.model) setSelectedModel(data.model);
+                if (data.think !== undefined) setThinkMode(data.think);
+
+                executeGuestSendMessageRef.current(
+                  data.prompt,
+                  data.files || [],
+                  loadedMessages,
+                  data.model || selectedModel,
+                  data.think ?? thinkMode
+                );
+              }
+            } catch (e) {
+              console.error("Error processing guest auto-send:", e);
+            }
           }
         }
       } catch (err) {
@@ -419,6 +456,8 @@ export default function GuestChatSessionPage() {
     }
   };
 
+  executeGuestSendMessageRef.current = executeGuestSendMessage;
+
   const handleEditAndResend = async (
     messageId: string,
     newContent: string,
@@ -543,6 +582,7 @@ export default function GuestChatSessionPage() {
     if (typeof window !== "undefined" && window.innerWidth < 1280) {
       setSidebarOpen(false);
     }
+    router.push("/gc");
   };
 
   const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -814,7 +854,7 @@ export default function GuestChatSessionPage() {
                       onClick={() => {
                         handleSend("What can you do?");
                       }}
-                      className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#303030] dark:hover:bg-[#404040]"
+                      className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#303030] dark:hover:bg-[#404040]"
                     >
                       What can you do?
                     </button>
@@ -1007,6 +1047,7 @@ export default function GuestChatSessionPage() {
           } catch (e) {
             console.error("Error clearing guest chat:", e);
           }
+          router.push("/gc");
         }}
         onOpenLogin={(opts) => {
           const wasOpen = prevSidebarOpenForClearRef.current;

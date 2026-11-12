@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Sidebar } from "@/components/chat/sidebar";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
 import { ProfilePanel } from "@/components/modals/settings/profile-panel";
-import { PanelRight, Pencil, Share2, Upload } from "lucide-react";
+import { PanelRight, Pencil, Share2, SquarePen, Upload } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -128,7 +128,7 @@ export default function ProfileRedirectPage() {
           {/* Left Header Area: Sidebar toggle on small screens */}
           <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
             {!sidebarOpen && (
-              <div className="xl:hidden flex items-center">
+              <div className="xl:hidden flex items-center gap-2">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
@@ -147,6 +147,33 @@ export default function ProfileRedirectPage() {
                     className="text-base"
                   >
                     Open sidebar
+                  </TooltipContent>
+                </Tooltip>
+
+                {/* New chat button right side of the sidebar open button */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (typeof window !== "undefined" && window.innerWidth < 1280) {
+                          setSidebarOpen(false);
+                        }
+                        router.push("/c");
+                      }}
+                      className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="New chat"
+                    >
+                      <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    align="start"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    New chat
                   </TooltipContent>
                 </Tooltip>
               </div>

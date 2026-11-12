@@ -116,7 +116,27 @@ function GuestChatContent() {
     promptText: string,
     filesToSend: File[] = []
   ) => {
-    router.push(`/gc/${gcId}`);
+    if (!promptText.trim() && filesToSend.length === 0) return;
+    const targetId = gcId;
+
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(
+        `guest_auto_send_${targetId}`,
+        JSON.stringify({
+          prompt: promptText,
+          model: selectedModel,
+          think: thinkMode,
+          files: filesToSend.map((f: any) => ({
+            name: f.name,
+            size: f.size,
+            type: f.type,
+            url: f.url || "",
+          })),
+        })
+      );
+    }
+
+    router.push(`/gc/${targetId}`);
   };
 
   const handleSend = (promptOverride?: string) => {
@@ -382,7 +402,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 150);
                     }}
-                    className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#303030] dark:hover:bg-[#404040]"
+                    className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#303030] dark:hover:bg-[#404040]"
                   >
                     What can you do?
                   </button>
