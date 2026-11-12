@@ -495,7 +495,7 @@ export function Footer() {
           </div>
           {/* Left: Brand & Copyright */}
           <div className="flex flex-wrap items-center justify-center text-base md:justify-start gap-x-1 text-center md:text-left">
-            <Copyright className="w-5 h-5" />
+            <Copyright className="w-4 h-4 mt-0.5" />
             <span className="text-muted-foreground">
               2026 CloseAI. All rights reserved.
             </span>

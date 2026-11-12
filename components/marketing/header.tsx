@@ -1181,7 +1181,7 @@ export function MarketingHeader() {
                   href="/c"
                   className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
-                  <span>Try it for free</span>
+                  <span>Try CloseAI For Free</span>
                 </Link>
 
                 <button
@@ -1189,7 +1189,7 @@ export function MarketingHeader() {
                   onClick={() => setLogoutModalOpen(true)}
                   className="group rounded-full h-11 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
-                  <span>Log out</span>
+                  <span>Log Out</span>
                 </button>
               </>
             ) : (
@@ -1199,7 +1199,7 @@ export function MarketingHeader() {
                   onClick={() => openLoginModal()}
                   className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
-                  <span>Sign up for free</span>
+                  <span>Sign Up For Free</span>
                 </button>
 
                 <button
@@ -1207,7 +1207,7 @@ export function MarketingHeader() {
                   onClick={() => openLoginModal()}
                   className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                   >
-                  <span>Log in</span>
+                  <span>Log In</span>
                 </button>
                 
                   {/* <div
@@ -1233,7 +1233,7 @@ export function MarketingHeader() {
                         loginDropdownOpen && "opacity-90"
                       )}
                     >
-                      <span>Log in</span>
+                      <span>Log In</span>
                       <AnimatedChevron
                         open={loginDropdownOpen}
                         size={20}
@@ -1252,7 +1252,7 @@ export function MarketingHeader() {
                             }}
                             className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#404040] focus:bg-secondary dark:focus:bg-[#404040] text-foreground"
                           >
-                            <span>CloseAI chat</span>
+                            <span>CloseAI Chat</span>
                           </button>
                           <button
                             type="button"
@@ -1260,7 +1260,7 @@ export function MarketingHeader() {
                             className="w-full text-left relative flex cursor-default select-none items-center rounded-sm px-4 py-2 text-[15px] font-normal outline-none transition-colors duration-75 hover:bg-secondary dark:hover:bg-[#404040] focus:bg-secondary dark:focus:bg-[#404040] text-foreground cursor-not-allowed opacity-50"
                           >
                             <AnimatedComingSoonText
-                              label="API platform"
+                              label="API Platform"
                               comingSoonText="Coming soon"
                             />
                           </button>
@@ -1857,7 +1857,7 @@ export function MarketingHeader() {
                         onClick={() => setMobileNavOpen(false)}
                         className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        <span>Try it for free</span>
+                        <span>Try CloseAI For Free</span>
                       </Link>
 
                       <button
@@ -1867,7 +1867,7 @@ export function MarketingHeader() {
                         }}
                         className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        Log out
+                        Log Out
                       </button>
                     </>
                   ) : (
@@ -1880,7 +1880,7 @@ export function MarketingHeader() {
                         }}
                         className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        Sign up for free
+                        Sign Up For Free
                       </button>
 
                       <button
@@ -1891,7 +1891,7 @@ export function MarketingHeader() {
                         }}
                         className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        Log in
+                        Log In
                         {/* <AnimatedArrow size={26} /> */}
                       </button>
                     </>
@@ -2298,14 +2298,14 @@ export function MarketingHeader() {
                             }}
                             className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 active:opacity-60 transition-opacity py-1 cursor-pointer w-full outline-none"
                           >
-                            CloseAI chat
+                            CloseAI Chat
                           </button>
                           <button
                             type="button"
                             className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 active:opacity-60 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
                           >
                             <AnimatedComingSoonText
-                              label="API platform"
+                              label="API Platform"
                               comingSoonText="Coming soon"
                             />
                           </button>

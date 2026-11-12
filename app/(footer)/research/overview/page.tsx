@@ -73,7 +73,7 @@ export default function ResearchOverviewPage() {
           rel="noopener noreferrer"
           className="group inline-flex items-center text-base font-semibold text-foreground"
         >
-          <span>Try it for free</span>
+          <span>Try Now</span>
           <AnimatedArrow size={20} />
         </Link>
       </div>
