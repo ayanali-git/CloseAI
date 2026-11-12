@@ -32,7 +32,7 @@ export default function GuestChatLayout({ children }: { children: React.ReactNod
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <ChatFavicon />
-      <div data-chat-page="true" className="chat-selection-theme selection:bg-secondary selection:text-foreground fixed inset-0 h-[100dvh] w-full overflow-hidden flex flex-col no-overscroll">
+      <div data-chat-page="true" data-guest="true" className="chat-selection-theme selection:bg-secondary selection:text-foreground fixed inset-0 h-[100dvh] w-full overflow-hidden flex flex-col no-overscroll">
         {children}
       </div>
     </SidebarProvider>

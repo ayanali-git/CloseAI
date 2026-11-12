@@ -27,6 +27,7 @@ export default function UserProfilePage() {
 
   const { user, loading, isSigningOut } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSharing, setIsSharing] = useState(false);
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
 
@@ -210,11 +211,22 @@ export default function UserProfilePage() {
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      onClick={() => setShareModalOpen(true)}
-                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      disabled={isSharing}
+                      onClick={() => {
+                        setIsSharing(true);
+                        setTimeout(() => {
+                          setIsSharing(false);
+                          setShareModalOpen(true);
+                        }, 300);
+                      }}
+                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none shrink-0"
                       aria-label="Share your profile"
                     >
-                      <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                      {isSharing ? (
+                        <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                      ) : (
+                        <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                      )}
                       <span className="hidden sm:inline">Share</span>
                     </button>
                   </TooltipTrigger>

@@ -1633,6 +1633,7 @@ export default function ActiveChatPage() {
                 <MessageList
                   messages={messages}
                   user={user}
+                  chatId={chatId}
                   isTyping={isTyping}
                   pendingMessage={pendingMessage}
                   onRegenerate={handleRegenerate}
@@ -1687,8 +1688,8 @@ export default function ActiveChatPage() {
                                   className={cn(
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border border-border/80 dark:border-none"
-                                      : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border border-border/80 dark:border-none"
+                                      ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border border-border/80 dark:border-white/10"
+                                      : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border border-border/80"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

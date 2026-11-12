@@ -43,6 +43,7 @@ export interface ShareResponseModalProps {
   responseText: string;
   modelName?: string;
   isGuest?: boolean;
+  chatId?: string;
 }
 
 const LANG_ALIAS: Record<string, string> = {
@@ -221,6 +222,7 @@ export function ShareResponseModal({
   responseText,
   modelName,
   isGuest: isGuestProp,
+  chatId,
 }: ShareResponseModalProps) {
   const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
   const [linkCopied, setLinkCopied] = useState(false);
@@ -277,7 +279,9 @@ export function ShareResponseModal({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const effectiveChatId = (chatId || (typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "") || process.env.GC_ID)?.replace(/^[mr]_/, "");
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL);
+  const shareUrl = `${baseUrl}/sc/r_${effectiveChatId}`;
   const shareText =
     responseText.length > 200 ? responseText.slice(0, 200) + "…" : responseText;
 
@@ -339,7 +343,7 @@ export function ShareResponseModal({
         modalBgClass
       )}
     >
-      <div className="flex flex-col space-y-5 pt-1 pb-3">
+      <div data-guest={isGuest ? "true" : undefined} className="flex flex-col space-y-5 pt-1 pb-3">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
@@ -349,10 +353,10 @@ export function ShareResponseModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "hidden min-[1280px]:flex p-3 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
+              "hidden min-[1280px]:flex p-3 items-center justify-center text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors cursor-pointer shrink-0",
               isGuest
-                ? "hover:bg-[#404040] dark:focus-visible:ring-offset-[#303030]"
-                : "hover:bg-secondary dark:focus-visible:ring-offset-card"
+                ? "hover:bg-[#404040] dark:focus-visible:ring-offset-[#303030] rounded-full"
+                : "hover:bg-secondary dark:focus-visible:ring-offset-card rounded-sm"
             )}
             aria-label="Close"
           >
@@ -561,7 +565,7 @@ export function ShareResponseModal({
             aria-label={linkCopied ? "Link copied" : "Copy link"}
             title={linkCopied ? "Link copied" : "Copy link"}
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -581,7 +585,7 @@ export function ShareResponseModal({
             aria-label="Share on X"
             title="Share on X"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -597,7 +601,7 @@ export function ShareResponseModal({
             aria-label="Share on LinkedIn"
             title="Share on LinkedIn"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -613,7 +617,7 @@ export function ShareResponseModal({
             aria-label="Share more"
             title="Share more"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity group-hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">

@@ -93,6 +93,8 @@ function GuestChatContent() {
 
   const photoInputRef = useRef<HTMLInputElement>(null);
 
+  const gcId = process.env.GC_ID;
+
   // If authenticated user lands on /gc, redirect to /c
   useEffect(() => {
     if (!loading && user) {
@@ -114,27 +116,7 @@ function GuestChatContent() {
     promptText: string,
     filesToSend: File[] = []
   ) => {
-    if (!promptText.trim() && filesToSend.length === 0) return;
-    const guestChatId = crypto.randomUUID();
-
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem(
-        `guest_auto_send_${guestChatId}`,
-        JSON.stringify({
-          prompt: promptText,
-          model: selectedModel,
-          think: thinkMode,
-          files: filesToSend.map((f: any) => ({
-            name: f.name,
-            size: f.size,
-            type: f.type,
-            url: f.url || "",
-          })),
-        })
-      );
-    }
-
-    router.push(`/gc/${guestChatId}`);
+    router.push(`/gc/${gcId}`);
   };
 
   const handleSend = (promptOverride?: string) => {

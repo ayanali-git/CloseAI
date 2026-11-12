@@ -78,12 +78,18 @@
     --input: 0 0% 14%;
     --ring: 0 0% 80%;
     --sidebar: 0 0% 2%;
-    --bubble: 0 0% 18.4%;
+    --bubble: 0 0% 6.3%;
     --bubble-foreground: 0 0% 100%;
     --border-bubble: 0 0% 100% / 0.1;
     --send-btn: 0 0% 100%;
     --send-btn-foreground: 0 0% 0%;
     --emerald: 160 84% 39%;
+  }
+
+  /* Guest mode in dark mode: keeps #303030 (18.4%) */
+  .dark [data-guest="true"],
+  .dark[data-guest="true"] {
+    --bubble: 0 0% 18.4%;
   }
 
   /* Blue Accent — (#1090e8) */
@@ -180,10 +186,17 @@
   }
 
   html.dark[data-accent="white"], .dark[data-accent="white"], .dark [data-accent="white"] {
-    --bubble: 0 0% 18.4%;
+    --bubble: 0 0% 6.3%;
     --bubble-foreground: 0 0% 100%;
     --send-btn: 0 0% 100%;
     --send-btn-foreground: 0 0% 0%;
+  }
+
+  html.dark[data-accent="white"] [data-guest="true"],
+  .dark[data-accent="white"] [data-guest="true"],
+  .dark [data-accent="white"] [data-guest="true"],
+  .dark [data-accent="white"][data-guest="true"] {
+    --bubble: 0 0% 18.4%;
   }
 }
 
@@ -255,6 +268,14 @@
 }
 
 .dark .chat-markdown {
+  --bubble: 0 0% 6.3%;
+  --bubble-foreground: 0 0% 100%;
+  --border-bubble: 0 0% 100% / 0.1;
+}
+
+.dark [data-guest="true"] .chat-markdown,
+.dark[data-guest="true"] .chat-markdown,
+[data-guest="true"] .dark .chat-markdown {
   --bubble: 0 0% 18.4%;
   --bubble-foreground: 0 0% 100%;
   --border-bubble: 0 0% 100% / 0.1;
@@ -271,6 +292,14 @@ html[data-accent] .chat-markdown,
 html.dark[data-accent] .chat-markdown,
 .dark[data-accent] .chat-markdown,
 .dark [data-accent] .chat-markdown {
+  --bubble: 0 0% 6.3%;
+  --bubble-foreground: 0 0% 100%;
+  --border-bubble: 0 0% 100% / 0.1;
+}
+
+html.dark[data-accent] [data-guest="true"] .chat-markdown,
+.dark[data-accent] [data-guest="true"] .chat-markdown,
+.dark [data-accent] [data-guest="true"] .chat-markdown {
   --bubble: 0 0% 18.4%;
   --bubble-foreground: 0 0% 100%;
   --border-bubble: 0 0% 100% / 0.1;

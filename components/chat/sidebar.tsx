@@ -679,7 +679,7 @@ export function Sidebar({
   const handleLogoutConfirm = useCallback(async () => {
     try {
       prevSidebarOpenForModalRef.current = null;
-      await signOut();
+      await signOut('/');
     } catch (e) {
       console.error(e);
       setShowLogoutModal(false);

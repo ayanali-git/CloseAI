@@ -16,10 +16,86 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Message is required' }, { status: 400 });
         }
 
-        // Support guest / unauthorized chatting without Supabase database persistence
+        // Support guest / unauthorized chatting with Supabase database persistence using static guest chatId
         if (!user) {
+            const guestChatId = process.env.GC_ID;
+            const currentChatId = chatId || guestChatId;
+
+            // Ensure guest chat row exists in database
+            const { data: existingChat } = await supabaseAdmin
+                .from('chats')
+                .select('id')
+                .eq('id', currentChatId)
+                .single();
+
+            if (!existingChat) {
+                const { data: anyProfile } = await supabaseAdmin
+                    .from('profiles')
+                    .select('id')
+                    .limit(1)
+                    .single();
+
+                await supabaseAdmin
+                    .from('chats')
+                    .upsert({
+                        id: currentChatId,
+                        user_id: anyProfile ? anyProfile.id : null,
+                        title: 'Guest Chat',
+                        starred: false,
+                    });
+            }
+
+            // Truncate messages if editing / regenerating from a specific point
+            if (truncateMessageId) {
+                try {
+                    const { data: targetMsg } = await supabaseAdmin
+                        .from('messages')
+                        .select('created_at')
+                        .eq('id', truncateMessageId)
+                        .single();
+
+                    if (targetMsg?.created_at) {
+                        await supabaseAdmin
+                            .from('messages')
+                            .delete()
+                            .eq('chat_id', currentChatId)
+                            .gte('created_at', targetMsg.created_at);
+                    }
+                } catch (truncError) {
+                    console.error('Error truncating guest messages for edit:', truncError);
+                }
+            }
+
+            // Get previous messages from DB for context
+            const { data: previousMessages } = await supabaseAdmin
+                .from('messages')
+                .select('role, content')
+                .eq('chat_id', currentChatId)
+                .order('created_at', { ascending: true });
+
+            // Create user message in database
+            const { data: userMessage, error: userMsgError } = await supabaseAdmin
+                .from('messages')
+                .insert({
+                    chat_id: currentChatId,
+                    role: 'user',
+                    content: message,
+                    metadata: files && files.length > 0 ? { files } : null,
+                })
+                .select()
+                .single();
+
+            if (userMsgError) {
+                console.error('Error saving guest user message:', userMsgError);
+            }
+
+            // Prepare messages for AI
+            const historyToUse = previousMessages && previousMessages.length > 0
+                ? previousMessages
+                : (Array.isArray(clientPreviousMessages) ? clientPreviousMessages : []);
+
             const aiMessages = [
-                ...(Array.isArray(clientPreviousMessages) ? clientPreviousMessages : []).map((m: any) => ({
+                ...historyToUse.map((m: any) => ({
                     role: m.role as 'user' | 'assistant',
                     content: m.content || '',
                 })),
@@ -32,6 +108,7 @@ export async function POST(request: NextRequest) {
 
             let aiResponse;
             const chosenModel = model || "Gemini 3.8 flash";
+            const genStartTime = Date.now();
             try {
                 aiResponse = await aiService.generateResponse(aiMessages, undefined, imageUrls, chosenModel, !!think, userContext);
             } catch (aiError: any) {
@@ -41,25 +118,55 @@ export async function POST(request: NextRequest) {
                 };
             }
 
+            const actualGenSeconds = Math.max(1, Math.round((Date.now() - genStartTime) / 1000));
+            const assistantMetadata: Record<string, any> = {
+                model: chosenModel,
+                think: !!think,
+            };
+            if (think) {
+                assistantMetadata.thinkTime = actualGenSeconds;
+            }
+
+            const { data: assistantMessage, error: assistantMsgError } = await supabaseAdmin
+                .from('messages')
+                .insert({
+                    chat_id: currentChatId,
+                    role: 'assistant',
+                    content: aiResponse.content,
+                    metadata: assistantMetadata,
+                })
+                .select()
+                .single();
+
+            if (assistantMsgError) {
+                console.error('Error saving guest assistant message:', assistantMsgError);
+            }
+
+            // Update chat's updated_at
+            await supabaseAdmin
+                .from('chats')
+                .update({ updated_at: new Date().toISOString() })
+                .eq('id', currentChatId);
+
             const guestTimestamp = new Date().toISOString();
             return NextResponse.json({
-                chatId: 'guest',
+                chatId: currentChatId,
                 userMessage: {
-                    id: `guest_u_${Date.now()}`,
+                    id: userMessage?.id || `guest_u_${Date.now()}`,
                     role: 'user',
                     content: message,
-                    createdAt: guestTimestamp,
-                    chatId: 'guest',
+                    createdAt: userMessage?.created_at || guestTimestamp,
+                    chatId: currentChatId,
                     files: files || [],
                 },
                 assistantMessage: {
-                    id: `guest_a_${Date.now()}`,
+                    id: assistantMessage?.id || `guest_a_${Date.now()}`,
                     role: 'assistant',
                     content: aiResponse.content,
-                    createdAt: guestTimestamp,
-                    chatId: 'guest',
+                    createdAt: assistantMessage?.created_at || guestTimestamp,
+                    chatId: currentChatId,
                     model: chosenModel,
-                    metadata: { model: chosenModel, think: !!think },
+                    metadata: assistantMetadata,
                 },
             });
         }
@@ -240,18 +347,27 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
     try {
         const { user, error: authError } = await getServerAuthUser(request);
-        if (authError || !user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
-
         const { messageId, pairedAssistantId, chatId } = await request.json();
 
         if (!messageId) {
             return NextResponse.json({ error: 'messageId is required' }, { status: 400 });
         }
 
+        const guestChatId = process.env.GC_ID;
+        const isGuestRequest = !user && (chatId === guestChatId || !chatId);
+
+        if (!isGuestRequest && (authError || !user)) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         // Verify chat ownership if chatId provided
-        if (chatId) {
+        if (isGuestRequest) {
+            if (chatId && chatId !== guestChatId) {
+                return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+            }
+        } else if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        } else if (chatId) {
             const { data: chat, error: chatError } = await supabaseAdmin
                 .from('chats')
                 .select('id')

@@ -231,7 +231,7 @@ export function AuthProvider({
     };
   }, [ensureProfile, healBloatedSession]);
 
-  const signOut = async (redirectTo: string = '/gc') => {
+  const signOut = async (redirectTo: string = '/') => {
     isSigningOutRef.current = true;
     setIsSigningOut(true);
     setLoading(true);

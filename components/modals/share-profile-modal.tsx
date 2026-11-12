@@ -192,7 +192,7 @@ export function ShareProfileModal({
           aria-label={ copied ? "Link copied" : "Copy link"}
           title={ copied ? "Link copied" : "Copy link"}
         >
-          <span className="text-[13px] sm:text-sm text-foreground font-mono select-none break-all leading-normal flex-1 min-w-0">
+          <span className="text-[13px] sm:text-sm text-foreground select-none break-all leading-normal flex-1 min-w-0">
             {displayUrl}
           </span>
           <div className="p-1.5 flex items-center justify-center shrink-0">

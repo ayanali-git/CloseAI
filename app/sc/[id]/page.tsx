@@ -184,7 +184,8 @@ function SharedHeaderTitleMarquee({
 export default function PublicSharedChatPage() {
   const params = useParams();
   const router = useRouter();
-  const chatId = params?.id as string;
+  const rawChatId = params?.id as string;
+  const chatId = rawChatId ? rawChatId.replace(/^[mr]_/, '') : '';
   const { user, token } = useAuth();
   const isGuest = !user;
 
@@ -608,6 +609,7 @@ export default function PublicSharedChatPage() {
                   <MessageList
                     messages={messages}
                     user={user}
+                    chatId={chatId}
                     isGuest={isGuest}
                     isTyping={false}
                     pendingMessage={null}
@@ -657,8 +659,8 @@ export default function PublicSharedChatPage() {
                                   className={cn(
                                     "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
-                                      ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border border-border/80 dark:border-none"
-                                      : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border border-border/80 dark:border-none"
+                                      ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border border-border/80 dark:border-white/10"
+                                      : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border border-border/80"
                                   )}
                                   aria-label="Scroll to bottom"
                                 >

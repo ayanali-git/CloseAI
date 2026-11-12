@@ -6,10 +6,11 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const chatId = params.id;
-    if (!chatId) {
+    const rawId = params.id;
+    if (!rawId) {
       return NextResponse.json({ error: 'Chat ID is required' }, { status: 400 });
     }
+    const chatId = rawId.replace(/^[mr]_/, '');
 
     // 1. Fetch Chat metadata using admin client (bypasses RLS for public read)
     const { data: chat, error: chatError } = await supabaseAdmin
