@@ -140,8 +140,8 @@ export default function PlansPage() {
             >
               <span className="group flex items-center justify-center">
                 <span>{plan.cta}</span>
-                <AnimatedArrow size={20} />
               </span>
+              <AnimatedArrow size={20} />
             </Button>
           </div>
         ))}
