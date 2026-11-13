@@ -325,6 +325,7 @@ const CodeBlock = React.memo(
     return (
       <div
         ref={containerRef}
+        data-code-block="true"
         className=
           "relative my-4 rounded-[25px] sm:rounded-3xl bg-bubble text-bubble-foreground text-left isolate overflow-visible"
       >

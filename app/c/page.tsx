@@ -397,11 +397,11 @@ function NewChatContent() {
                     <DropdownMenuContent
                       align="end"
                       sideOffset={5}
-                      className="w-full rounded-xl xl:rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80 dark:border-none z-50"
+                      className="w-full rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80 dark:border-none z-50"
                     >
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(true)}
-                        className="group flex items-start justify-between gap-3 p-2.5 rounded-xl xl:rounded-sm cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-sm cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                       >
                         <div className="flex flex-col text-left">
                           <span className="text-sm font-semibold text-foreground">
@@ -418,7 +418,7 @@ function NewChatContent() {
 
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(false)}
-                        className="group flex items-start justify-between gap-3 p-2.5 rounded-xl xl:rounded-sm cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-sm cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                       >
                         <div className="flex flex-col text-left">
                           <span className="text-sm font-semibold text-foreground">

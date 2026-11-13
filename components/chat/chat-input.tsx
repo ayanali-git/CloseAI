@@ -856,9 +856,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         className={cn(
           "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-110px)] overflow-y-auto",
           isGuest
-            ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-none"
-            : "bg-white dark:bg-[#101010] border border-border/80 dark:border-none",
-          menuWidth ? "" : "w-[244px] max-w-[calc(100vw-24px)]"
+            ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10"
+            : "bg-white dark:bg-[#101010] border border-border/80",
+          menuWidth ? "" : "w-[246px] max-w-[calc(100vw-24px)]"
         )}
         style={{
           width: menuWidth ? `${menuWidth}px` : undefined,

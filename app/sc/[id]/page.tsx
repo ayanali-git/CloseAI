@@ -621,7 +621,7 @@ export default function PublicSharedChatPage() {
               {/* Floating Input Dock inside scroll container for 100% scrollbar-aware width alignment */}
               <div
                 ref={dockRef}
-                className="sticky bottom-0 left-0 right-4 sm:right-5 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
+                className="sticky bottom-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
               >
                 <div className="pointer-events-auto">
                   <ChatInput

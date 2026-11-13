@@ -1523,11 +1523,11 @@ export default function ActiveChatPage() {
                       <DropdownMenuContent
                         align="end"
                         sideOffset={5}
-                        className="w-52 rounded-xl xl:rounded-sm p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none"
+                        className="w-52 rounded-sm p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none"
                       >
                         <DropdownMenuItem
                           onClick={() => setIsFilesDrawerOpen(true)}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl xl:rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                         >
                           <Folder className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                           <span>View files in chat</span>
@@ -1554,7 +1554,7 @@ export default function ActiveChatPage() {
                               isStarred ? "Chat unpinned" : "Chat pinned"
                             );
                           }}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl xl:rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                         >
                           {chats.find((c) => c.id === chatId)?.starred ? (
                             <>
@@ -1575,7 +1575,7 @@ export default function ActiveChatPage() {
                             const isArchived = !!currentChat?.archived;
                             await handleToggleArchive(chatId, !isArchived);
                           }}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl xl:rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                         >
                           {chats.find((c) => c.id === chatId)?.archived ? (
                             <ArchiveX className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1591,7 +1591,7 @@ export default function ActiveChatPage() {
 
                         <DropdownMenuItem
                           onClick={() => setShowDeleteModal(true)}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl xl:rounded-sm text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
+                          className="group flex items-center gap-2.5 px-3 py-2 rounded-sm text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
                         >
                           <Trash2 className="w-5 h-5 text-red-500 group-hover:text-red-600" />
                           <span>Delete</span>
@@ -1650,7 +1650,7 @@ export default function ActiveChatPage() {
             {showHeaderButtons && (
               <div
                 ref={dockRef}
-                className="sticky bottom-0 left-0 right-4 sm:right-5 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
+                className="sticky bottom-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-t from-background via-background/80 to-transparent pt-4 mt-auto"
               >
                 <div className="pointer-events-auto">
                   <ChatInput

@@ -94,8 +94,8 @@ function buildWeeks(dates: string[]): DayCell[][] {
       });
       cursor.setDate(cursor.getDate() + 1);
     }
-    weeks.push(week);
     if (week.every((cell) => cell.future)) break;
+    weeks.push(week);
   }
   return weeks;
 }
@@ -142,7 +142,7 @@ function toneIndexForCount(count: number, granularity: Granularity) {
 }
 
 function cellTone(count: number, future: boolean, granularity: Granularity) {
-  if (future) return "bg-secondary/50 dark:bg-neutral-800/50";
+  if (future) return "invisible pointer-events-none opacity-0 select-none";
   return TONE_STEPS[toneIndexForCount(count, granularity)];
 }
 
@@ -380,6 +380,8 @@ export function ChatActivityHeatmap({ dates }: { dates: string[] }) {
                       key={cell.date}
                       type="button"
                       disabled={cell.future}
+                      tabIndex={cell.future ? -1 : undefined}
+                      aria-hidden={cell.future ? true : undefined}
                       aria-label={
                         cell.future ? undefined : formatPill(cell, granularity, weekStart)
                       }
@@ -423,8 +425,9 @@ export function ChatActivityHeatmap({ dates }: { dates: string[] }) {
                       }
                       className={cn(
                         "!rounded-full aspect-square shrink-0",
-                        cell.future ? "cursor-default" : "cursor-pointer",
-                        cellTone(cell.count, cell.future, granularity)
+                        cell.future
+                          ? "invisible pointer-events-none opacity-0 select-none"
+                          : cn("cursor-pointer", cellTone(cell.count, cell.future, granularity))
                       )}
                     />
                   ))}
