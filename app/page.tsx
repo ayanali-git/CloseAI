@@ -180,7 +180,7 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 p-3 flex items-end gap-2 transition-all cursor-text select-text"
+              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
             >
               <textarea
                 ref={textareaRef}
@@ -249,7 +249,7 @@ export default function LandingPage() {
                     handlePillClick(pill.prompt);
                   }}
                   className={cn(
-                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-white/10",
+                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-none",
                     pill.disabled
                       ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
