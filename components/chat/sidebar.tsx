@@ -495,22 +495,14 @@ export function Sidebar({
     ? isLogoHovered || (!isOpen && (isBorderHovered || isEmptySpaceHovered))
     : true;
 
-  useEffect(() => {
-    if (false) {
-      const timer = window.setTimeout(() => {
-        // Search modal handles its own input focus
-      }, 50);
-
-      return () => window.clearTimeout(timer);
-    }
-  }, []);
-
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showReportBugModal, setShowReportBugModal] = useState(false);
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null);
   const isAnyModalOpen = showLogoutModal || showReportBugModal || !!chatToDelete || showSearchModal;
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [mobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
+  const [mobileGuestSettingsMenuOpen, setMobileGuestSettingsMenuOpen] = useState(false);
+  const [mobileGuestSubView, setMobileGuestSubView] = useState<"main" | "help">("main");
   const [isDownloadHovered, setIsDownloadHovered] = useState(false);
   const [collapsedAccountMenuOpen, setCollapsedAccountMenuOpen] = useState(false);
   const [guestHelpMenuOpen, setGuestHelpMenuOpen] = useState(false);
@@ -535,7 +527,7 @@ export function Sidebar({
     const ro = new ResizeObserver(updateWidth);
     ro.observe(dockRef.current);
     return () => ro.disconnect();
-  }, [isOpen]);
+  }, [isOpen, user, isGuestMode]);
 
   const prevSidebarOpenForModalRef = useRef<boolean | null>(null);
   const prevSidebarOpenForSettingsRef = useRef<boolean | null>(null);
@@ -572,6 +564,8 @@ export function Sidebar({
     (section?: SettingsSection | "root") => {
       setAccountMenuOpen(false);
       setMobileAccountMenuOpen(false);
+      setMobileGuestSettingsMenuOpen(false);
+      setMobileGuestSubView("main");
       setCollapsedAccountMenuOpen(false);
       setRailHelpOpen(false);
       setGuestHelpMenuOpen(false);
@@ -590,6 +584,8 @@ export function Sidebar({
       setGuestPopoverOpen(false);
       setAccountMenuOpen(false);
       setMobileAccountMenuOpen(false);
+      setMobileGuestSettingsMenuOpen(false);
+      setMobileGuestSubView("main");
       setCollapsedAccountMenuOpen(false);
       setRailHelpOpen(false);
       setGuestHelpMenuOpen(false);
@@ -612,6 +608,8 @@ export function Sidebar({
   const handleOpenSearchModal = useCallback(() => {
     setAccountMenuOpen(false);
     setMobileAccountMenuOpen(false);
+    setMobileGuestSettingsMenuOpen(false);
+    setMobileGuestSubView("main");
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -640,6 +638,8 @@ export function Sidebar({
   const handleOpenLogout = useCallback(() => {
     setAccountMenuOpen(false);
     setMobileAccountMenuOpen(false);
+    setMobileGuestSettingsMenuOpen(false);
+    setMobileGuestSubView("main");
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -657,6 +657,8 @@ export function Sidebar({
   const handleOpenReportBug = useCallback(() => {
     setAccountMenuOpen(false);
     setMobileAccountMenuOpen(false);
+    setMobileGuestSettingsMenuOpen(false);
+    setMobileGuestSubView("main");
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -668,6 +670,8 @@ export function Sidebar({
   const handleOpenAddAccount = useCallback(() => {
     setAccountMenuOpen(false);
     setMobileAccountMenuOpen(false);
+    setMobileGuestSettingsMenuOpen(false);
+    setMobileGuestSubView("main");
     setCollapsedAccountMenuOpen(false);
     setRailHelpOpen(false);
     setGuestHelpMenuOpen(false);
@@ -730,6 +734,8 @@ export function Sidebar({
     if (!isOpen) {
       setMobileHelpMenuOpen(false);
       setMobileAccountMenuOpen(false);
+      setMobileGuestSettingsMenuOpen(false);
+      setMobileGuestSubView("main");
     }
   }, [isOpen]);
 
@@ -840,6 +846,8 @@ export function Sidebar({
       } else {
         setMobileAccountMenuOpen(false);
         setMobileHelpMenuOpen(false);
+        setMobileGuestSettingsMenuOpen(false);
+        setMobileGuestSubView("main");
       }
     };
     window.addEventListener("resize", checkMobile);
@@ -1409,6 +1417,178 @@ export function Sidebar({
     );
   };
 
+  /**
+   * Guest Settings Dropdown Menu Items (for Small Screen Devices)
+   */
+  const renderGuestSettingsMenuItems = () => {
+    if (isMobileScreen && mobileGuestSubView === "help") {
+      return (
+        <div className="space-y-1 p-0.5">
+          <button
+            type="button"
+            onClick={(e) => {
+              (e.currentTarget as HTMLElement)?.blur();
+              setMobileGuestSubView("main");
+            }}
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          >
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
+            <span>Help</span>
+          </button>
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
+          <DropdownMenuItem asChild>
+            <Link
+              href="/support/help"
+              onClick={() => {
+                setMobileGuestSettingsMenuOpen(false);
+                if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+                  onToggle();
+                }
+              }}
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+              <span>Help center</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/company/blog"
+              onClick={() => {
+                setMobileGuestSettingsMenuOpen(false);
+                if (isOpen && typeof window !== "undefined" && window.innerWidth < 1280) {
+                  onToggle();
+                }
+              }}
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+              <span>Release notes</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            asChild
+            onSelect={(e) => e.preventDefault()}
+            className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+          >
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]">
+              <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
+              <AnimatedComingSoonText
+                label="Download app"
+                comingSoonText="Coming soon"
+                className="!cursor-not-allowed"
+              />
+            </div>
+          </DropdownMenuItem>
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
+          <DropdownMenuItem asChild>
+            <Link
+              href="/support/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileGuestSettingsMenuOpen(false)}
+              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <span>Terms of Use</span>
+              </div>
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href="/support/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileGuestSettingsMenuOpen(false)}
+              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <span>Privacy Policy</span>
+              </div>
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
+            </Link>
+          </DropdownMenuItem>
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
+          <DropdownMenuItem
+            onClick={() => {
+              setMobileGuestSettingsMenuOpen(false);
+              handleOpenReportBug();
+            }}
+            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
+          >
+            <div className="flex items-center gap-2.5">
+              <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+              <span>Report a bug</span>
+            </div>
+          </DropdownMenuItem>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-0.5 p-0.5">
+        {/* Plans */}
+        <DropdownMenuItem asChild>
+          <Link
+            href="/product/plans"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              setMobileGuestSettingsMenuOpen(false);
+              if (
+                isOpen &&
+                typeof window !== "undefined" &&
+                window.innerWidth < 1280
+              ) {
+                onToggle();
+              }
+            }}
+            className="flex items-center justify-between px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] transition-colors outline-none focus:outline-none"
+          >
+            <div className="flex items-center gap-2.5">
+              <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+              <span>Plans</span>
+            </div>
+            <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100" />
+          </Link>
+        </DropdownMenuItem>
+
+        {/* Help Button / Dropdown */}
+        <button
+          type="button"
+          onClick={(e) => {
+            (e.currentTarget as HTMLElement)?.blur();
+            setMobileGuestSubView("help");
+          }}
+          className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+        >
+          <div className="flex items-center gap-2.5">
+            <LifeBuoy className="w-5 h-5 text-muted-foreground" />
+            <span>Help</span>
+          </div>
+          <ChevronRight className="w-5 h-5 text-muted-foreground" />
+        </button>
+
+        <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1 -mx-1.5" />
+
+        {/* Settings */}
+        <DropdownMenuItem
+          onClick={() => {
+            setMobileGuestSettingsMenuOpen(false);
+            handleOpenSettings(isMobileScreen ? undefined : "general");
+          }}
+          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] transition-colors outline-none focus:outline-none"
+        >
+          <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+          <span>Settings</span>
+        </DropdownMenuItem>
+      </div>
+    );
+  };
+
   const renderChatItem = (chat: Chat) => (
     <SidebarChatItem
       key={chat.id}
@@ -1627,32 +1807,34 @@ export function Sidebar({
                   </TooltipContent>
                 </Tooltip>
 
+                {/* Search */}
+                <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      tabIndex={isOpen ? -1 : 0}
+                      onClick={() => {
+                        handleOpenSearchModal();
+                      }}
+                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      aria-label="Search chats"
+                    >
+                      <Search className="w-5 h-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="right"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    Search chats
+                  </TooltipContent>
+                </Tooltip>
+
                 {user ? (
                   <>
-                    {/* Search */}
-                    <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
-                      <TooltipTrigger asChild>
-                        <button
-                          onClick={() => {
-                            handleOpenSearchModal();
-                          }}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
-                          aria-label="Search chats"
-                        >
-                          <Search className="w-5 h-5" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="right"
-                        sideOffset={5}
-                        className="text-base"
-                      >
-                        Search chats
-                      </TooltipContent>
-                    </Tooltip>
-
                     {/* Pinned Shortcut */}
-                    <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                    {/* <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
@@ -1669,10 +1851,10 @@ export function Sidebar({
                       >
                         Pinned chats
                       </TooltipContent>
-                    </Tooltip>
+                    </Tooltip> */}
 
                     {/* Archived Shortcut */}
-                    <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                    {/* <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
@@ -1688,6 +1870,48 @@ export function Sidebar({
                         className="text-base"
                       >
                         Archived chats
+                      </TooltipContent>
+                    </Tooltip> */}
+
+                    {/* Create Images Shortcut */}
+                    <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          tabIndex={isOpen ? -1 : 0}
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          aria-label="Create images"
+                        >
+                          <ImageIcon className="w-5 h-5" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="right"
+                        sideOffset={5}
+                        className="text-base"
+                      >
+                        Create images
+                      </TooltipContent>
+                    </Tooltip>
+
+                    {/* Web Search Shortcut */}
+                    <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          tabIndex={isOpen ? -1 : 0}
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          aria-label="Web search"
+                        >
+                          <Globe className="w-5 h-5" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="right"
+                        sideOffset={5}
+                        className="text-base"
+                      >
+                        Web search
                       </TooltipContent>
                     </Tooltip>
                   </>
@@ -2197,12 +2421,7 @@ export function Sidebar({
             {/* New chat & Guest Items
                 Icon rows use pl-3 (12px): 8px container padding + 12px = icon at x 20 (center x 30),
                 the exact same x as the 60px collapsed rail icons. */}
-            <div
-              className={cn(
-                "px-2 pt-1 pb-2 space-y-1.5 relative z-20",
-                user && "max-xl:hidden"
-              )}
-            >
+            <div className="px-2 pt-1 pb-2 space-y-1.5 relative z-20">
               {false && (
                 <div className="relative group mb-1">
                   <input
@@ -2228,6 +2447,40 @@ export function Sidebar({
                   <span className="whitespace-nowrap">New chat</span>
                 </div>
               </button>
+
+              {user && (
+                <>
+                  {/* Create Images */}
+                  <button
+                    type="button"
+                    tabIndex={!isOpen ? -1 : 0}
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                      <AnimatedComingSoonText
+                        label="Create images"
+                        comingSoonText="Coming soon"
+                      />
+                    </div>
+                  </button>
+
+                  {/* Web search */}
+                  <button
+                    type="button"
+                    tabIndex={!isOpen ? -1 : 0}
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                      <AnimatedComingSoonText
+                        label="Web search"
+                        comingSoonText="Coming soon"
+                      />
+                    </div>
+                  </button>
+                </>
+              )}
 
               {!user && (
                 <>
@@ -2309,72 +2562,8 @@ export function Sidebar({
                     )}
                   </HoverCard>
 
-                  {/* Small Screen Devices: Guest Items moved under Web search */}
+                  {/* Small Screen Devices: Guest Callout Card moved under Web search */}
                   <div className="xl:hidden w-full flex flex-col space-y-1 select-none pt-0.5">
-                    {/* Plans */}
-                    <Link
-                      href="/product/plans"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      tabIndex={!isOpen ? -1 : 0}
-                      onClick={() => {
-                        if (
-                          isOpen &&
-                          typeof window !== "undefined" &&
-                          window.innerWidth < 1280
-                        ) {
-                          onToggle();
-                        }
-                      }}
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none"
-                      aria-label="Plans"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                        <span className="text-[14.5px] font-normal leading-normal whitespace-nowrap">
-                          Plans
-                        </span>
-                      </div>
-                      <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 opacity-100 transition-opacity duration-150" />
-                    </Link>
-
-                    {/* Help (last one) */}
-                    <DropdownMenu
-                      open={mobileHelpMenuOpen && isMobileScreen}
-                      onOpenChange={(open) => {
-                        setMobileHelpMenuOpen(open);
-                        if (open) setGuestHelpMenuOpen(false);
-                      }}
-                    >
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type="button"
-                          tabIndex={!isOpen ? -1 : 0}
-                          className={cn(
-                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none",
-                            mobileHelpMenuOpen && isMobileScreen && "bg-secondary"
-                          )}
-                          aria-label="Help"
-                        >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <LifeBuoy className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
-                            <span className="text-[14.5px] font-normal leading-normal whitespace-nowrap">
-                              Help
-                            </span>
-                          </div>
-                          <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-opacity duration-150" />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        side="top"
-                        align="start"
-                        sideOffset={5}
-                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-sm p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
-                      >
-                        {renderHelpMenuItems()}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-
                     {/* Divider above 'Get efficient responses to you' */}
                     <div className="w-full border-t border-border/80 dark:border-white/10 my-1" />
 
@@ -2812,35 +3001,57 @@ export function Sidebar({
                     </div>
                   </div>
 
-                  {/* Small Screen Devices: Guest Bottom Action Dock (New chat + Settings) */}
-                  <div className="xl:hidden w-full h-14 pb-[env(safe-area-inset-bottom,0px)] flex items-center justify-between gap-3">
-                    {/* New chat button */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleNewChatAction();
-                      }}
-                      className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-all cursor-pointer outline-none focus:outline-none select-none"
+                  {/* Small Screen Devices: Guest Bottom Action Dock (New chat + Settings Dropdown Button) */}
+                  <DropdownMenu
+                    open={mobileGuestSettingsMenuOpen && isMobileScreen}
+                    onOpenChange={(open) => {
+                      setMobileGuestSettingsMenuOpen(open);
+                      if (!open) setMobileGuestSubView("main");
+                    }}
+                  >
+                    <div
+                      ref={dockRef}
+                      className="xl:hidden w-full h-14 pb-[env(safe-area-inset-bottom,0px)] flex items-center justify-between gap-3"
                     >
-                      <SquarePen className="w-5 h-5 shrink-0" />
-                      <span>New chat</span>
-                    </button>
+                      {/* New chat button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleNewChatAction();
+                        }}
+                        className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-all cursor-pointer outline-none focus:outline-none select-none"
+                      >
+                        <SquarePen className="w-5 h-5 shrink-0" />
+                        <span>New chat</span>
+                      </button>
 
-                    {/* Settings button */}
-                    <button
-                      type="button"
-                      tabIndex={!isOpen ? -1 : 0}
-                      onClick={() =>
-                        handleOpenSettings(
-                          isMobileScreen ? undefined : "general"
-                        )
-                      }
-                      className="w-11 h-11 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
-                      aria-label="Settings"
+                      {/* Settings Button */}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            type="button"
+                            className={cn(
+                              "w-11 h-11 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
+                              mobileGuestSettingsMenuOpen && "bg-secondary dark:bg-[#404040] text-foreground"
+                            )}
+                            aria-label="Settings"
+                          >
+                            <Settings className="w-5 h-5 shrink-0" />
+                          </button>
+                        </DropdownMenuTrigger>
+                      </div>
+                    </div>
+
+                    <DropdownMenuContent
+                      side="top"
+                      align="end"
+                      sideOffset={5}
+                      style={{ width: dockWidth ? `${dockWidth}px` : "auto" }}
+                      className="w-64 max-w-[calc(100vw-24px)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 outline-none focus:outline-none ring-0"
                     >
-                      <Settings className="w-5 h-5 shrink-0" />
-                    </button>
-                  </div>
+                      {renderGuestSettingsMenuItems()}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               )}
             </div>
