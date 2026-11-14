@@ -2219,7 +2219,7 @@ export function Sidebar({
                     className="xl:hidden flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none"
                     aria-label="CloseAI"
                   >
-                    <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90 active:opacity-60">
+                    <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90">
                       CloseAI
                     </span>
                   </Link>
@@ -2236,7 +2236,7 @@ export function Sidebar({
                       <PopoverTrigger asChild>
                         <button
                           type="button"
-                          className="h-11 px-3 flex items-center rounded-sm hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
+                          className="h-11 px-3 flex items-center rounded-sm hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
                         >
                           <span className="leading-none">CloseAI</span>
                           <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground shrink-0 transition-colors" />
@@ -2294,10 +2294,10 @@ export function Sidebar({
               ) : (
                 <Link
                   href="/"
-                  className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                  className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 xl:px-3 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   aria-label="CloseAI"
                 >
-                  <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90 active:opacity-60">
+                  <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90">
                     CloseAI
                   </span>
                 </Link>

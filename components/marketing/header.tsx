@@ -846,7 +846,7 @@ export function MarketingHeader() {
               }}
               className="flex items-center gap-2 -ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90 active:opacity-60">
+              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90">
                 CloseAI
               </span>
             </Link>

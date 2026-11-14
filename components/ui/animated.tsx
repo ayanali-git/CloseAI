@@ -847,6 +847,7 @@ export function AnimatedComingSoonText({
     const parent =
       el.closest("button") ||
       el.closest('[role="button"]') ||
+      el.closest('[role="menuitem"]') ||
       el.closest("a") ||
       el.parentElement ||
       el;
@@ -893,6 +894,8 @@ export function AnimatedComingSoonText({
     parent.addEventListener("mouseenter", onEnter);
     parent.addEventListener("mouseleave", onLeave);
     parent.addEventListener("mousemove", onEnter);
+    parent.addEventListener("focusin", onEnter);
+    parent.addEventListener("focusout", onLeave);
     parent.addEventListener("click", onClick);
 
     return () => {
@@ -901,6 +904,8 @@ export function AnimatedComingSoonText({
       parent.removeEventListener("mouseenter", onEnter);
       parent.removeEventListener("mouseleave", onLeave);
       parent.removeEventListener("mousemove", onEnter);
+      parent.removeEventListener("focusin", onEnter);
+      parent.removeEventListener("focusout", onLeave);
       parent.removeEventListener("click", onClick);
     };
   }, []);
@@ -918,6 +923,7 @@ export function AnimatedComingSoonText({
       const parent =
         el.closest("button") ||
         el.closest('[role="button"]') ||
+        el.closest('[role="menuitem"]') ||
         el.closest("a") ||
         el.parentElement ||
         el;

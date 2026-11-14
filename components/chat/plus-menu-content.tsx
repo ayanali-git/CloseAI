@@ -1033,16 +1033,15 @@ export function PlusMenuContent({
           Log in to use
         </div>
         
-        {/* 2. Web search */}
+        {/* 2. Attach files */}
         <DropdownMenuItem
           onClick={() => {
-            if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
-            else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
+            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
-          <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <span>Web search</span>
+          <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <span>Attach files</span>
         </DropdownMenuItem>
 
         {/* 3. Create images */}
@@ -1056,15 +1055,16 @@ export function PlusMenuContent({
           <span>Create images</span>
         </DropdownMenuItem> 
 
-        {/* 4. Attach files */}
+        {/* 4. Web search */}
         <DropdownMenuItem
           onClick={() => {
-            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
+            if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
+            else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
-          <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <span>Attach files</span>
+          <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <span>Web search</span>
         </DropdownMenuItem>
 
         {/* 5. Select models (Replaces Deep research) */}
@@ -1582,18 +1582,18 @@ export function PlusMenuContent({
 
   // Default Main View
   return (
-    <>
+    <div className="space-y-0.5">
       {/* Button 1: Attach anything */}
       <DropdownMenuItem
         onClick={disableAttach ? (e: any) => e.preventDefault() : onAddFiles}
         className={cn(
-          "flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium transition-colors outline-none whitespace-nowrap text-left",
+          "group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium transition-colors outline-none whitespace-nowrap text-left",
           disableAttach
             ? "cursor-not-allowed opacity-50 select-none text-muted-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040]"
             : "cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80"
         )}
       >
-        <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+        <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         {disableAttach ? (
           <AnimatedComingSoonText label="Attach anything" comingSoonText="Coming soon" />
         ) : (
@@ -1601,7 +1601,33 @@ export function PlusMenuContent({
         )}
       </DropdownMenuItem>
 
-      {/* Button 2: Select models */}
+      {/* Button 2: Create images */}
+      <DropdownMenuItem
+        onSelect={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
+        className="group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
+      >
+        <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+        <AnimatedComingSoonText
+          label="Create images"
+          comingSoonText="Coming soon"
+        />
+      </DropdownMenuItem>
+
+      {/* Button 3: Web search */}
+      <DropdownMenuItem
+        onSelect={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
+        className="group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
+      >
+        <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+        <AnimatedComingSoonText
+          label="Web search"
+          comingSoonText="Coming soon"
+        />
+      </DropdownMenuItem>
+
+      {/* Button 4: Select models */}
       {isMobileScreen ? (
         <button
           type="button"
@@ -1841,7 +1867,7 @@ export function PlusMenuContent({
           </DropdownMenuSubContent>
         </DropdownMenuSub>
       )}
-    </>
+    </div>
   );
 }
 
