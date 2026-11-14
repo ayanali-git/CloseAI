@@ -1785,28 +1785,6 @@ export function Sidebar({
 
               {/* Rail Navigation Items */}
               <div className="flex flex-col items-center gap-1.5 pt-1">
-                {/* New chat */}
-                <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => {
-                        handleNewChatAction();
-                      }}
-                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
-                      aria-label="New chat"
-                    >
-                      <SquarePen className="w-5 h-5" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="right"
-                    sideOffset={5}
-                    className="text-base"
-                  >
-                    New chat
-                  </TooltipContent>
-                </Tooltip>
-
                 {/* Search */}
                 <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                   <TooltipTrigger asChild>
@@ -1828,6 +1806,28 @@ export function Sidebar({
                     className="text-base"
                   >
                     Search chats
+                  </TooltipContent>
+                </Tooltip>
+                
+                {/* New chat */}
+                <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => {
+                        handleNewChatAction();
+                      }}
+                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      aria-label="New chat"
+                    >
+                      <SquarePen className="w-5 h-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="right"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    New chat
                   </TooltipContent>
                 </Tooltip>
 
