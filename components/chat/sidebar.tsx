@@ -2216,7 +2216,7 @@ export function Sidebar({
                 <>
                   <Link
                     href="/"
-                    className="xl:hidden flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none"
+                    className="xl:hidden flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none"
                     aria-label="CloseAI"
                   >
                     <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90 active:opacity-60">
@@ -2294,7 +2294,7 @@ export function Sidebar({
               ) : (
                 <Link
                   href="/"
-                  className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                  className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   aria-label="CloseAI"
                 >
                   <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90 active:opacity-60">
