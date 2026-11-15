@@ -52,13 +52,13 @@ const PANE_MOTION =
   "transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none";
 
 const DARK_HOVER_BG = {
-  guest: "hover:bg-secondary active:bg-secondary",
-  auth: "hover:bg-secondary active:bg-secondary",
+  guest: "dark:hover:bg-[#404040] dark:active:bg-[#404040]",
+  auth: "dark:hover:bg-[#202020] dark:active:bg-[#202020]",
 } as const;
 
 const DARK_SELECTED_BG = {
-  guest: "bg-secondary",
-  auth: "bg-secondary",
+  guest: "dark:bg-[#404040]",
+  auth: "dark:bg-[#202020]",
 } as const;
 
 export function SettingsModal({
@@ -277,7 +277,7 @@ export function SettingsModal({
                 type="button"
                 onClick={() => closeSettings()}
                 className={cn(
-                  "hidden min-[1280px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                  "hidden min-[1280px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground bg-muted hover:bg-secondary active:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
                     ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
                     : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
@@ -352,9 +352,12 @@ export function SettingsModal({
                     aria-label="Search settings"
                     // 16px on small screens so iOS Safari doesn't zoom the page on focus
                     className={cn(
-                      "w-full h-10 rounded-full bg-transparent border border-border/80 dark:border-none pl-10 pr-4 text-base min-[1280px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
+                      "w-full h-10 rounded-full bg-transparent border pl-10 pr-4 text-base min-[1280px]:text-[15px] placeholder:text-foreground outline-none focus:outline-none transition-colors",
                       isSearchTabFocused &&
-                        "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#202020]"
+                        "ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-[#202020]",
+                      isGuest
+                        ? "border-border/80 dark:border-white/10"
+                        : "border-border/80",
                     )}
                   />
                 </div>
@@ -411,7 +414,7 @@ export function SettingsModal({
                         : // Hover row: same lighter bg as the dropdown highlight
                           cn(
                             showMobileNav
-                              ? "text-foreground hover:bg-secondary"
+                              ? "text-foreground hover:bg-secondary active:bg-secondary"
                               : "text-muted-foreground hover:bg-secondary",
                             darkHover
                           )

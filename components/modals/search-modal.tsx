@@ -33,8 +33,8 @@ export interface SearchModalProps {
 }
 
 const DARK_HOVER_BG = {
-  guest: "dark:hover:bg-[#404040]",
-  auth: "dark:hover:bg-secondary",
+  guest: "dark:hover:bg-[#404040] dark:active:bg-[#404040]",
+  auth: "dark:hover:bg-[#202020] dark:active:bg-[#202020]",
 } as const;
 
 /**
@@ -216,7 +216,7 @@ const SearchChatItem = React.memo(function SearchChatItem({
         getFocusRingClasses(isGuest),
         showHoverBox
           ? cn("bg-secondary text-foreground", darkHover)
-          : "text-foreground hover:bg-secondary"
+          : "text-foreground hover:bg-secondary active:bg-secondary"
       )}
     >
       {/* Chats icon: strictly locked dimensions */}
@@ -275,7 +275,7 @@ function SearchFileItem({
       className={cn(
         "group w-full h-11 flex items-center justify-between px-3 rounded-xl transition-colors text-left select-none cursor-pointer shrink-0 focus-visible:z-10",
         getFocusRingClasses(isGuest),
-        "hover:bg-secondary text-foreground",
+        "hover:bg-secondary active:bg-secondary text-foreground",
         darkHover
       )}
     >
@@ -817,7 +817,7 @@ export function SearchModal({
                     inputRef.current?.focus();
                   }}
                   className={cn(
-                    "h-11 px-4 rounded-sm flex items-center justify-center text-[13.5px] font-normal text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none shrink-0 hover:bg-secondary focus-visible:z-10",
+                    "h-11 px-4 rounded-sm flex items-center justify-center text-[13.5px] font-normal text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none shrink-0 hover:bg-secondary active:bg-secondary focus-visible:z-10",
                     getFocusRingClasses(isGuest),
                     darkHover
                   )}
@@ -834,7 +834,7 @@ export function SearchModal({
               type="button"
               onClick={handleClose}
               className={cn(
-                "hidden min-[1280px]:flex w-11 h-11 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:z-10",
+                "hidden min-[1280px]:flex w-11 h-11 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer focus-visible:z-10",
                 getFocusRingClasses(isGuest),
                 darkHover
               )}

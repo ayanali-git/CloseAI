@@ -678,8 +678,8 @@ export function NativeDropdownMenu<T extends string = string>({
         className={cn(
           "inline-flex items-center gap-1 text-[15px] text-muted-foreground hover:text-foreground hover:bg-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 rounded-sm px-3 py-2 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 select-none",
           isGuest
-            ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
-            : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
+            ? "dark:hover:bg-[#404040] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
+            : "dark:hover:bg-[#202020] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
           // Dark mode: same lighter highlight as the dropdown rows
           // (instead of the much darker bg-secondary).
           "active:bg-secondary",
@@ -768,6 +768,9 @@ export function NativeDropdownMenu<T extends string = string>({
                       "active:bg-secondary",
 
                       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+                      isGuest
+                        ? "dark:hover:bg-[#404040] dark:focus:bg-[#404040]"
+                        : "dark:hover:bg-[#202020] dark:focus:bg-[#202020]",
                       itemClassName
                     )}
                   >
