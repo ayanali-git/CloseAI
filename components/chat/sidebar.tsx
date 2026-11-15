@@ -1430,7 +1430,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setMobileGuestSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Help</span>
@@ -1445,7 +1445,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
@@ -1460,7 +1460,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
@@ -1487,7 +1487,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileGuestSettingsMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1502,7 +1502,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileGuestSettingsMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1517,7 +1517,7 @@ export function Sidebar({
               setMobileGuestSettingsMenuOpen(false);
               handleOpenReportBug();
             }}
-            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
+            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
               <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1546,7 +1546,7 @@ export function Sidebar({
                 onToggle();
               }
             }}
-            className="flex items-center justify-between px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] transition-colors outline-none focus:outline-none"
+            className="flex items-center justify-between px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:active:bg-[#404040] transition-colors outline-none focus:outline-none"
           >
             <div className="flex items-center gap-2.5">
               <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1563,7 +1563,7 @@ export function Sidebar({
             (e.currentTarget as HTMLElement)?.blur();
             setMobileGuestSubView("help");
           }}
-          className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:active:bg-[#404040] transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <div className="flex items-center gap-2.5">
             <LifeBuoy className="w-5 h-5 text-muted-foreground" />
@@ -1580,7 +1580,7 @@ export function Sidebar({
             setMobileGuestSettingsMenuOpen(false);
             handleOpenSettings(isMobileScreen ? undefined : "general");
           }}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] transition-colors outline-none focus:outline-none"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:active:bg-[#404040] transition-colors outline-none focus:outline-none"
         >
           <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Settings</span>
