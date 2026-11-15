@@ -531,7 +531,7 @@ export function SettingsRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-3 border-b border-border/80 last:border-b-0">
+    <div className="flex items-center justify-between gap-4 py-3 border-b border-border/80 dark:border-white/10 last:border-b-0">
       <div className="min-w-0 pr-3">
         <p className="text-[15px] text-foreground leading-snug">{label}</p>
         {description ? (
