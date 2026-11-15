@@ -2492,7 +2492,7 @@ export function Sidebar({
                         description: "To continue with Create images",
                       });
                     }}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -2541,7 +2541,7 @@ export function Sidebar({
                           });
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                           webSearchHoverOpen && "bg-secondary"
                         )}
                       >
