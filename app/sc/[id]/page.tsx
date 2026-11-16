@@ -126,7 +126,7 @@ function SharedHeaderTitleMarquee({
 
   if (isLoading || !title) {
     return (
-      <div className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[278px] lg:max-w-[378px] xl:max-w-[478px] py-1 select-none flex items-center">
+      <div className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[253px] lg:max-w-[353px] xl:max-w-[453px] py-1 select-none flex items-center">
         <div
           style={{ width: "var(--shared-title-w, 180px)" }}
           className="h-4 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse shrink-0 max-w-full"
@@ -143,7 +143,7 @@ function SharedHeaderTitleMarquee({
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[278px] lg:max-w-[378px] xl:max-w-[478px] py-1 select-none pr-1"
+      className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[253px] lg:max-w-[353px] xl:max-w-[453px] py-1 select-none pr-1"
       style={{
         animation: isScrolling
           ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
@@ -556,7 +556,7 @@ export default function PublicSharedChatPage() {
                       ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
                       : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
-                  aria-label="Chat"
+                  aria-label="New Chat"
                 >
                   <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 </button>
@@ -567,7 +567,7 @@ export default function PublicSharedChatPage() {
                 sideOffset={5}
                 className="text-base"
               >
-                Chat
+                New Chat
               </TooltipContent>
             </Tooltip>
           </div>
