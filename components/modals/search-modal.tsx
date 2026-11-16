@@ -150,7 +150,7 @@ function ChatTitleMarquee({
         }
         className="inline-block whitespace-nowrap text-[14.5px] sm:text-[15px] leading-none select-none will-change-transform text-foreground font-normal"
       >
-        {title || "New chat"}
+        {title || "Chat"}
       </span>
     </div>
   );
@@ -234,7 +234,7 @@ const SearchChatItem = React.memo(function SearchChatItem({
       {/* Marquee Title */}
       <div className="flex-1 min-w-0 pr-1 h-full overflow-hidden flex items-center">
         <ChatTitleMarquee
-          title={chat.title || "New chat"}
+          title={chat.title || "Chat"}
           isHovered={isHovered}
         />
       </div>
@@ -571,7 +571,7 @@ export function SearchModal({
 
     if (trimmedQuery) {
       const matches = chats.filter((c) =>
-        (c.title || "New chat").toLowerCase().includes(trimmedQuery)
+        (c.title || "Chat").toLowerCase().includes(trimmedQuery)
       );
       return {
         recentChats: [],

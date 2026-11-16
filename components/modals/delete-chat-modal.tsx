@@ -38,7 +38,7 @@ export function DeleteModal({
   isGuest: isGuestProp,
 }: DeleteModalProps) {
   const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
-  const displayText = promptText || itemTitle || "New chat";
+  const displayText = promptText || itemTitle || "Chat";
   const hasFiles = files && files.length > 0;
 
   return (

@@ -217,7 +217,7 @@ function GuestChatContent() {
         onToggle={handleToggleSidebar}
         isLoading={false}
         onOpenLoginModal={handleOpenLogin}
-        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
         onOpenAdvancedFeaturesModal={handleOpenLogin}
       />
 
@@ -381,7 +381,7 @@ function GuestChatContent() {
                 onThinkModeChange={setThinkMode}
                 isGuest={true}
                 onOpenLoginModal={handleOpenLogin}
-                onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
                 onOpenAdvancedFeaturesModal={handleOpenLogin}
                 centered={false}
                 showDisclaimer={false}

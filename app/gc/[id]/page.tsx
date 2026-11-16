@@ -646,7 +646,7 @@ export default function GuestChatSessionPage() {
         onToggle={handleToggleSidebar}
         isLoading={false}
         onOpenLoginModal={handleOpenLogin}
-        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
         onOpenAdvancedFeaturesModal={handleOpenLogin}
       />
 
@@ -685,7 +685,7 @@ export default function GuestChatSessionPage() {
               </svg>
             </button>
 
-            {/* New chat button — small screen devices only */}
+            {/* Chat button — small screen devices only */}
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
@@ -697,7 +697,7 @@ export default function GuestChatSessionPage() {
                       ? "bg-background hover:bg-secondary active:bg-secondary"
                       : "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
                   )}
-                  aria-label="New chat"
+                  aria-label="Chat"
                 >
                   <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
                 </button>
@@ -707,7 +707,7 @@ export default function GuestChatSessionPage() {
                 sideOffset={5}
                 className="text-base"
               >
-                New chat
+                Chat
               </TooltipContent>
             </Tooltip>
 
@@ -840,7 +840,7 @@ export default function GuestChatSessionPage() {
                   onThinkModeChange={setThinkMode}
                   isGuest={true}
                   onOpenLoginModal={handleOpenLogin}
-                  onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                  onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
                   onOpenAdvancedFeaturesModal={handleOpenLogin}
                   centered={false}
                   showDisclaimer={false}
@@ -910,7 +910,7 @@ export default function GuestChatSessionPage() {
                     onThinkModeChange={setThinkMode}
                     isGuest={true}
                     onOpenLoginModal={handleOpenLogin}
-                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
                     onOpenAdvancedFeaturesModal={handleOpenLogin}
                     centered={false}
                     showDisclaimer={true}
@@ -1016,7 +1016,7 @@ export default function GuestChatSessionPage() {
         description={loginModalDescription}
       />
 
-      {/* New Chat Confirmation Modal */}
+      {/* Chat Confirmation Modal */}
       <NewChatModal
         open={showNewChatModal}
         onOpenChange={(open) => {

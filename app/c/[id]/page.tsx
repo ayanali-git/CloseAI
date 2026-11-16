@@ -1213,7 +1213,7 @@ export default function ActiveChatPage() {
       setMessages(remainingMessages);
 
       if (remainingMessages.length === 0) {
-        // If chat becomes empty (single message chat), delete whole chat and open new chat instantly
+        // If chat becomes empty (single message chat), delete whole chat and open Chat instantly
         deleteChat(chatId).catch(console.error);
         toast.success("Chat deleted");
         router.replace("/c");
@@ -1368,7 +1368,7 @@ export default function ActiveChatPage() {
             <>
               <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
                 {!sidebarOpen && (
-                  /* Separate Open sidebar and New chat buttons with gap-2 */
+                  /* Separate Open sidebar and Chat buttons with gap-2 */
                   <div className="xl:hidden flex items-center gap-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -1397,7 +1397,7 @@ export default function ActiveChatPage() {
                       </TooltipContent>
                     </Tooltip>
 
-                    {/* New chat button for small screen devices */}
+                    {/* Chat button for small screen devices */}
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1409,7 +1409,7 @@ export default function ActiveChatPage() {
                             router.push("/c");
                           }}
                           className="sm:hidden group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                          aria-label="New chat"
+                          aria-label="Chat"
                         >
                           <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                         </button>
@@ -1420,7 +1420,7 @@ export default function ActiveChatPage() {
                         sideOffset={5}
                         className="text-base"
                       >
-                        New chat
+                        Chat
                       </TooltipContent>
                     </Tooltip>
                   </div>

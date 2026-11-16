@@ -30,7 +30,7 @@ export function WelcomeScreen({
     "What would you like to explore?"
   );
 
-  // Maintain a single stable random index for this new chat session.
+  // Maintain a single stable random index for this Chat session.
   // It will NEVER re-roll when switching tabs or when the user object is re-referenced.
   const chosenSeedRef = useRef<number | null>(null);
   const lastResetKeyRef = useRef<number | string | undefined>(resetKey);

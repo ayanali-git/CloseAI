@@ -56,10 +56,10 @@ export function NewChatModal({
         {/* Header */}
         <div className="text-center">
           <h2 className="text-2xl font-normal tracking-tight text-foreground">
-            New chat
+            Chat
           </h2>
           <p className="text-base text-muted-foreground mt-1.5 leading-relaxed px-2 sm:px-4">
-            Start a new chat? Your current conversation will be discarded.{" "}
+            Start a Chat? Your current conversation will be discarded.{" "}
             <button
               type="button"
               onClick={handleLogin}
@@ -86,7 +86,7 @@ export function NewChatModal({
             onClick={handleNewChat}
             className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#404040] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030] transition-all cursor-pointer select-none"
           >
-            New chat
+            Chat
           </button>
 
           <button

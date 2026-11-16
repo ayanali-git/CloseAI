@@ -1575,7 +1575,7 @@ export function MessageList({
                                     <span>Try again</span>
                                   </DropdownMenuItem>
 
-                                  {/* Option 2: Web search (Disabled) */}
+                                  {/* Option 2: Search (Disabled) */}
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={(e) => e.preventDefault()}
@@ -1583,7 +1583,7 @@ export function MessageList({
                                   >
                                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                     <AnimatedComingSoonText
-                                      label="Web search"
+                                      label="Search"
                                       comingSoonText="Coming soon"
                                     />
                                   </DropdownMenuItem>
@@ -1733,7 +1733,7 @@ export function MessageList({
                                             <span>Try again</span>
                                           </DropdownMenuItem>
 
-                                          {/* Option 2: Web search (Disabled) */}
+                                          {/* Option 2: Search (Disabled) */}
                                           <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
                                             onClick={(e) => e.preventDefault()}
@@ -1741,7 +1741,7 @@ export function MessageList({
                                           >
                                             <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0" />
                                             <AnimatedComingSoonText
-                                              label="Web search"
+                                              label="Search"
                                               comingSoonText="Coming soon"
                                             />
                                           </DropdownMenuItem>

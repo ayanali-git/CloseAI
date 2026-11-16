@@ -1044,27 +1044,27 @@ export function PlusMenuContent({
           <span>Attach files</span>
         </DropdownMenuItem>
 
-        {/* 3. Create images */}
+        {/* 3. Images */}
         <DropdownMenuItem
           onClick={() => {
-            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Create images" });
+            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Images" });
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <span>Create images</span>
+          <span>Images</span>
         </DropdownMenuItem> 
 
-        {/* 4. Web search */}
+        {/* 4. Search */}
         <DropdownMenuItem
           onClick={() => {
-            if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
-            else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
+            if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Search" });
+            else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Search" });
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <span>Web search</span>
+          <span>Search</span>
         </DropdownMenuItem>
 
         {/* 5. Select models (Replaces Deep research) */}
@@ -1601,7 +1601,7 @@ export function PlusMenuContent({
         )}
       </DropdownMenuItem>
 
-      {/* Button 2: Create images */}
+      {/* Button 2: Images */}
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
@@ -1609,12 +1609,12 @@ export function PlusMenuContent({
       >
         <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
-          label="Create images"
+          label="Images"
           comingSoonText="Coming soon"
         />
       </DropdownMenuItem>
 
-      {/* Button 3: Web search */}
+      {/* Button 3: Search */}
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
@@ -1622,7 +1622,7 @@ export function PlusMenuContent({
       >
         <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
-          label="Web search"
+          label="Search"
           comingSoonText="Coming soon"
         />
       </DropdownMenuItem>

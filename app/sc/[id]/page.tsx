@@ -556,7 +556,7 @@ export default function PublicSharedChatPage() {
                       ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
                       : "bg-background hover:bg-secondary active:bg-secondary"
                   )}
-                  aria-label="New chat"
+                  aria-label="Chat"
                 >
                   <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 </button>
@@ -567,7 +567,7 @@ export default function PublicSharedChatPage() {
                 sideOffset={5}
                 className="text-base"
               >
-                New chat
+                Chat
               </TooltipContent>
             </Tooltip>
           </div>
@@ -595,7 +595,7 @@ export default function PublicSharedChatPage() {
                 onClick={() => router.push("/c")}
                 className="rounded-xl cursor-pointer"
               >
-                Start new chat
+                Start Chat
               </Button>
             </div>
           ) : (
@@ -641,7 +641,7 @@ export default function PublicSharedChatPage() {
                     onThinkModeChange={setThinkMode}
                     isGuest={isGuest}
                     onOpenLoginModal={handleOpenLogin}
-                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
                     onOpenAdvancedFeaturesModal={handleOpenLogin}
                   >
                     {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
