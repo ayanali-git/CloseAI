@@ -2,7 +2,6 @@
 const nextConfig = {
   env: {
     NEXT_PRODUCTION_APP_URL: process.env.NEXT_PRODUCTION_APP_URL,
-    GC_ID: process.env.GC_ID,
   },
   // output: 'export', // Removed to enable dynamic API routes
   eslint: {

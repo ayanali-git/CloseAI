@@ -92,7 +92,7 @@ export function SharePromptModal({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const effectiveChatId = (chatId || (typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "") || process.env.GC_ID)?.replace(/^[mr]_/, "");
+  const effectiveChatId = (chatId || (typeof window !== "undefined" ? window.location.pathname.split("/").pop() : ""))?.replace(/^[mr]_/, "");
   const baseUrl = typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL);
   const shareUrl = `${baseUrl}/sc/m_${effectiveChatId}`;
   const shareText = promptText.length > 200 ? promptText.slice(0, 200) + "…" : promptText;

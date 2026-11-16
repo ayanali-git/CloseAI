@@ -42,10 +42,9 @@ export const chatService = {
     }
 
     const tempChatIds = getTemporaryChatIds();
-    const gcId = process.env.GC_ID;
 
     return data
-      .filter((chat: any) => !tempChatIds.has(chat.id) && (!gcId || chat.id !== gcId))
+      .filter((chat: any) => !tempChatIds.has(chat.id))
       .map((chat: any) => ({
       id: chat.id,
       title: chat.title,
