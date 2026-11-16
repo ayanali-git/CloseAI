@@ -1487,8 +1487,8 @@ export function MessageList({
                               className={cn(
                                 "w-56 rounded-2xl p-1.5 outline-none select-none z-50",
                                 isGuestMode
-                                  ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-none"
-                                  : "bg-white dark:bg-[#101010] border border-border/80 dark:border-none"
+                                  ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10"
+                                  : "bg-white dark:bg-[#101010] border border-border/80"
                               )}
                             >
                               {isMobileScreen &&

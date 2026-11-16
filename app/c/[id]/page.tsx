@@ -1523,7 +1523,7 @@ export default function ActiveChatPage() {
                       <DropdownMenuContent
                         align="end"
                         sideOffset={5}
-                        className="w-52 rounded-sm p-1.5 bg-white dark:bg-[#101010] border border-border/80 dark:border-none"
+                        className="w-52 rounded-sm p-1.5 bg-white dark:bg-[#101010] border border-border/80"
                       >
                         <DropdownMenuItem
                           onClick={() => setIsFilesDrawerOpen(true)}

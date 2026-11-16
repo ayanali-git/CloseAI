@@ -306,7 +306,7 @@ const SidebarChatItem = React.memo(
         onTouchEnd={() => setIsPressed(false)}
         onTouchCancel={() => setIsPressed(false)}
         className={cn(
-          "group relative flex items-center justify-between px-2 py-2.5 rounded-sm text-base cursor-pointer transition-all duration-150",
+          "group relative flex items-center justify-between pl-3 pr-2 py-2.5 rounded-sm text-base cursor-pointer transition-all duration-150",
           isSelected
             ? "bg-secondary text-foreground"
             : cn(
@@ -2568,15 +2568,13 @@ export function Sidebar({
                     <div className="w-full border-t border-border/80 dark:border-white/10 my-1" />
 
                     {/* Guest Callout Card */}
-                    <div className="w-full pt-1 pb-1 select-text text-left">
-                      <div className="px-3 space-y-1.5">
-                        <div className="text-[15.5px] font-semibold text-foreground text-left leading-snug">
-                          Get efficient responses to you
-                        </div>
-                        <div className="text-[13px] text-muted-foreground leading-snug text-left">
-                          Log in to get efficient responses, plus thinking
-                          capabilities, upload files and more.
-                        </div>
+                    <div className="w-full pt-1 pb-1 px-3 space-y-1.5 select-text text-left">
+                      <div className="text-[15.5px] font-semibold text-foreground text-left leading-snug">
+                        Get efficient responses to you
+                      </div>
+                      <div className="text-[13px] text-muted-foreground leading-snug text-left">
+                        Log in to get efficient responses, plus thinking
+                        capabilities, upload files and more.
                       </div>
                       <button
                         type="button"
@@ -2606,10 +2604,10 @@ export function Sidebar({
                 )}
               >
                 {isLoading ? (
-                  <div className="space-y-5 py-3 px-1 select-none">
+                  <div className="space-y-5 py-3 select-none">
                     {/* PINNED Skeleton Group */}
                     <div className="space-y-2">
-                      <div className="h-3 w-20 bg-muted-foreground/20 rounded animate-pulse ml-2" />
+                      <div className="h-3 w-20 bg-muted-foreground/20 rounded animate-pulse ml-3" />
                       <div className="space-y-1.5">
                         <div className="h-8 w-full bg-secondary/80 dark:bg-neutral-800/60 rounded-sm animate-pulse" />
                       </div>
@@ -2617,7 +2615,7 @@ export function Sidebar({
 
                     {/* ARCHIVED Skeleton Group */}
                     <div className="space-y-2 pt-1">
-                      <div className="h-3 w-24 bg-muted-foreground/20 rounded animate-pulse ml-2" />
+                      <div className="h-3 w-24 bg-muted-foreground/20 rounded animate-pulse ml-3" />
                       <div className="space-y-1.5">
                         <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-sm animate-pulse" />
                       </div>
@@ -2625,7 +2623,7 @@ export function Sidebar({
 
                     {/* CHATS Skeleton Group */}
                     <div className="space-y-2 pt-1">
-                      <div className="h-3 w-16 bg-muted-foreground/20 rounded animate-pulse ml-2" />
+                      <div className="h-3 w-16 bg-muted-foreground/20 rounded animate-pulse ml-3" />
                       <div className="space-y-1.5">
                         <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-sm animate-pulse" />
                         <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-sm animate-pulse" />
@@ -2639,7 +2637,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Pinned")}
-                        className="w-full flex items-center justify-between px-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Pinned</span>
                         <AnimatedChevron
@@ -2653,7 +2651,7 @@ export function Sidebar({
                       {!collapsedSections["Pinned"] && (
                         <>
                           {(groupedChats["Pinned"] || []).length === 0 ? (
-                            <div className="px-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
+                            <div className="pl-3 pr-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
                               No pinned chats
                             </div>
                           ) : (
@@ -2670,7 +2668,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Archived")}
-                        className="w-full flex items-center justify-between px-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Archived</span>
                         <AnimatedChevron
@@ -2684,7 +2682,7 @@ export function Sidebar({
                       {!collapsedSections["Archived"] && (
                         <>
                           {(groupedChats["Archived"] || []).length === 0 ? (
-                            <div className="px-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
+                            <div className="pl-3 pr-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
                               No archived chats
                             </div>
                           ) : (
@@ -2701,7 +2699,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Recents")}
-                        className="w-full flex items-center justify-between px-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Recents</span>
                         <AnimatedChevron
@@ -2716,7 +2714,7 @@ export function Sidebar({
                       {!collapsedSections["Recents"] && (
                         <>
                           {groupedChats["Recents"].length === 0 ? (
-                            <div className="px-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
+                            <div className="pl-3 pr-2 py-1 text-[13.5px] text-muted-foreground/60 select-none font-normal">
                               {searchQuery ? "No chats found" : "No chats"}
                             </div>
                           ) : (
@@ -2985,15 +2983,13 @@ export function Sidebar({
                     <div className="w-full border-t border-border/80 dark:border-white/10 my-2" />
 
                     {/* Desktop Guest Callout Card */}
-                    <div className="w-full pt-1 pb-1 select-text text-left">
-                      <div className="px-3 space-y-1.5">
-                        <div className="text-[15.5px] font-semibold text-foreground text-left leading-snug">
-                          Get efficient responses to you
-                        </div>
-                        <div className="text-[13px] text-muted-foreground leading-snug text-left">
-                          Log in to get efficient responses, plus thinking
-                          capabilities, upload files and more.
-                        </div>
+                    <div className="w-full pt-1 pb-1 px-3 space-y-1.5 select-text text-left">
+                      <div className="text-[15.5px] font-semibold text-foreground text-left leading-snug">
+                        Get efficient responses to you
+                      </div>
+                      <div className="text-[13px] text-muted-foreground leading-snug text-left">
+                        Log in to get efficient responses, plus thinking
+                        capabilities, upload files and more.
                       </div>
                       <button
                         type="button"

@@ -1516,15 +1516,6 @@ export function MarketingHeader() {
                       </li>
                       <li>
                         <Link
-                          href="/business/enterprise"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-2xl font-medium text-foreground transition-colors"
-                        >
-                          Resources
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
                           href="/product/plans"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -1751,7 +1742,7 @@ export function MarketingHeader() {
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
                         >
-                          Public Policy & Governance
+                          Public Policy
                         </Link>
                       </li>
                       <li>
@@ -2043,10 +2034,6 @@ export function MarketingHeader() {
                               href: "/business/enterprise",
                             },
                             {
-                              label: "Resources",
-                              href: "/business/enterprise",
-                            },
-                            {
                               label: "Plans",
                               href: "/product/plans",
                               target: "_blank",
@@ -2235,7 +2222,7 @@ export function MarketingHeader() {
                         <div className="space-y-2.5">
                           {[
                             {
-                              label: "Public Policy & Governance",
+                              label: "Public Policy",
                               href: "/support/privacy",
                             },
                             {
