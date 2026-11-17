@@ -59,15 +59,7 @@ export function NewChatModal({
             New Chat
           </h2>
           <p className="text-base text-muted-foreground mt-1.5 leading-relaxed px-2 sm:px-4">
-            Start a Chat? Your current conversation will be discarded.{" "}
-            <button
-              type="button"
-              onClick={handleLogin}
-              className="font-normal text-foreground hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
-            >
-              Sign up for free
-            </button>{" "}
-            or{" "}
+            To start a new chat, Your current conversation will be discarded.{" "}
             <button
               type="button"
               onClick={handleLogin}
@@ -75,7 +67,15 @@ export function NewChatModal({
             >
               Log in
             </button>{" "}
-            to save chats.
+            {/* or{" "}
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="font-normal text-foreground hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
+            >
+              Sign up for free
+            </button>{" "} */}
+            to save your current conversation.
           </p>
         </div>
 
@@ -83,18 +83,18 @@ export function NewChatModal({
         <div className="space-y-2.5 pt-2">
           <button
             type="button"
-            onClick={handleNewChat}
-            className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#404040] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030] transition-all cursor-pointer select-none"
-          >
-            New Chat
-          </button>
-
-          <button
-            type="button"
             onClick={handleLogin}
             className="w-full h-11 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:opacity-60 flex items-center justify-center border border-transparent outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030] transition-all cursor-pointer select-none"
           >
             Log in
+          </button>
+          
+          <button
+            type="button"
+            onClick={handleNewChat}
+            className="w-full h-11 rounded-full bg-transparent text-foreground hover:bg-secondary dark:hover:bg-[#404040] font-normal text-base flex items-center justify-center border border-border/80 dark:border-white/10 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030] transition-all cursor-pointer select-none"
+          >
+            New Chat
           </button>
         </div>
       </div>

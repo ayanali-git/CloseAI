@@ -214,7 +214,7 @@ export function FilePreviewModal({
           {/* Header toolbar matching Share & More buttons position */}
           <header className="fixed top-0 left-0 right-0 z-50 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-end select-none pointer-events-none bg-transparent">
             <div
-              className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 select-none gap-2"
+              className="flex items-center pointer-events-auto pr-3 sm:pr-1 select-none gap-2"
               onClick={(e) => e.stopPropagation()}
             >
               {fileUrl && (
@@ -222,10 +222,10 @@ export function FilePreviewModal({
                   type="button"
                   onClick={handleDownload}
                   className={cn(
-                    "group h-11 w-11 rounded-full xl:rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-11 w-11 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
-                      ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                      : "bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground"
+                      ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
+                      : "rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
                   )}
                   title="Download file"
                   aria-label="Download file"
@@ -238,10 +238,10 @@ export function FilePreviewModal({
                 type="button"
                 onClick={() => onOpenChange(false)}
                 className={cn(
-                  "group h-11 w-11 rounded-full xl:rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                  "group h-11 w-11 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                   isGuestMode
-                    ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                    : "bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground"
+                    ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
+                    : "rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
                 )}
                 title="Close file preview"
                 aria-label="Close file preview"

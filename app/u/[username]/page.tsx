@@ -175,7 +175,7 @@ export default function UserProfilePage() {
           <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
 
           {/* Left Header Area: Sidebar toggle on small screens */}
-          <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
+          <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
             {!sidebarOpen && (
               <div className="xl:hidden flex items-center gap-2">
                 <Tooltip>
@@ -183,7 +183,7 @@ export default function UserProfilePage() {
                     <button
                       type="button"
                       onClick={() => toggleSidebar()}
-                      className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Open sidebar"
                     >
                       <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -210,8 +210,8 @@ export default function UserProfilePage() {
                         }
                         router.push("/c");
                       }}
-                      className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                      aria-label="Chat"
+                      className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="New Chat"
                     >
                       <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
                     </button>
@@ -222,7 +222,7 @@ export default function UserProfilePage() {
                     sideOffset={5}
                     className="text-base"
                   >
-                    Chat
+                    New Chat
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -231,7 +231,7 @@ export default function UserProfilePage() {
 
           {/* Right Header Area: Share & Edit actions (hidden when edit drawer is open, matching /c/id positioning) */}
           {!editDrawerOpen && (
-            <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+            <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
               <div className="flex items-center gap-2">
                 {/* Share your profile button (left side) */}
                 <Tooltip>
@@ -246,7 +246,7 @@ export default function UserProfilePage() {
                           setShareModalOpen(true);
                         }, 300);
                       }}
-                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none shrink-0"
+                      className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none shrink-0"
                       aria-label="Share your profile"
                     >
                       {isSharing ? (
@@ -272,7 +272,7 @@ export default function UserProfilePage() {
                     <button
                       type="button"
                       onClick={() => setEditDrawerOpen(true)}
-                      className="group h-11 w-11 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-11 w-11 gap-1.5 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Edit profile"
                     >
                       <Pencil className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />

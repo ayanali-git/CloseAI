@@ -1307,7 +1307,7 @@ export default function ActiveChatPage() {
             activePreviewFile ? (
             /* PREVIEW HEADER: Filename on left, Download + Close on right */
             <>
-              <div className="flex items-center gap-2.5 pointer-events-auto mt-3 pl-3 sm:pl-0 min-w-0 pr-3">
+              <div className="flex items-center gap-2.5 pointer-events-auto pl-3 sm:pl-0 min-w-0 pr-3">
                 <span className="text-foreground font-semibold text-[14.5px] sm:text-base truncate max-w-[260px] sm:max-w-md select-none">
                   {activePreviewFile.name ||
                     activePreviewFile.filename ||
@@ -1315,7 +1315,7 @@ export default function ActiveChatPage() {
                 </span>
               </div>
 
-              <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1 shrink-0">
+              <div className="flex items-center pointer-events-auto pr-3 sm:pr-1 shrink-0">
                 {/* Separate Download and Close buttons with gap-2 */}
                 <div className="flex items-center gap-2">
                   {previewFileUrl && (
@@ -1324,7 +1324,7 @@ export default function ActiveChatPage() {
                         <button
                           type="button"
                           onClick={handleDownloadActiveFile}
-                          className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="Download file"
                         >
                           <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1345,7 +1345,7 @@ export default function ActiveChatPage() {
                       <button
                         type="button"
                         onClick={handleClosePreview}
-                        className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Close preview"
                       >
                         <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1366,7 +1366,7 @@ export default function ActiveChatPage() {
           ) : (
             /* NORMAL CHAT HEADER: Sidebar toggle on left, Share & Chat options on right */
             <>
-              <div className="flex items-center pointer-events-auto mt-3 pl-3 sm:pl-0">
+              <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
                 {!sidebarOpen && (
                   /* Separate Open sidebar and Chat buttons with gap-2 */
                   <div className="xl:hidden flex items-center gap-2">
@@ -1381,7 +1381,7 @@ export default function ActiveChatPage() {
                           onMouseEnter={() => setIsSidebarBtnHovered(true)}
                           onMouseLeave={() => setIsSidebarBtnHovered(false)}
                           onBlur={() => setIsSidebarBtnHovered(false)}
-                          className="group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                           aria-label="Open sidebar"
                         >
                           <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1408,8 +1408,8 @@ export default function ActiveChatPage() {
                             }
                             router.push("/c");
                           }}
-                          className="sm:hidden group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                          aria-label="Chat"
+                          className="sm:hidden group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                          aria-label="New Chat"
                         >
                           <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                         </button>
@@ -1420,14 +1420,14 @@ export default function ActiveChatPage() {
                         sideOffset={5}
                         className="text-base"
                       >
-                        Chat
+                        New Chat
                       </TooltipContent>
                     </Tooltip>
                   </div>
                 )}
               </div>
 
-              <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+              <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
                 {isTemporary ? (
                   /* Save chat button for temporary chat */
                   <Tooltip>
@@ -1435,7 +1435,7 @@ export default function ActiveChatPage() {
                       <button
                         type="button"
                         onClick={() => setShowSaveChatModal(true)}
-                        className="group h-11 w-11 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
+                        className="group h-11 w-11 gap-1.5 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none"
                         aria-label="Save chat"
                       >
                         <Bookmark className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -1472,7 +1472,7 @@ export default function ActiveChatPage() {
                               setTimeout(() => setIsSharing(false), 300);
                             }
                           }}
-                          className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                          className="group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
                         >
                           {isSharing ? (
                             <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
@@ -1498,7 +1498,7 @@ export default function ActiveChatPage() {
                           <DropdownMenuTrigger asChild>
                             <button
                               className={cn(
-                                "group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                                "group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-foreground dark:hover:text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                                 optionsMenuOpen && "bg-secondary text-foreground"
                               )}
                               aria-label="Chat options"

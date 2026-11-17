@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageList } from "@/components/chat/message-list";
 import { LoginModal } from "@/components/modals/log-in-modal";
-import TocNavigator, { getTargetElement } from "@/components/chat/toc-navigator";
 import { ChatInput } from "@/components/chat/chat-input";
 import { useAuth } from "@/hooks/use-auth";
 import { isSettingsHash } from "@/lib/settings-hash";
@@ -321,73 +320,6 @@ export default function PublicSharedChatPage() {
     }
   };
 
-  // A shared conversation should open at the newest message after a reload.
-  // Repeat across layout/asset settling so long markdown and images cannot
-  // leave the reader stranded above the actual bottom.
-  useEffect(() => {
-    if (isLoading || isError || messages.length === 0) return;
-
-    const hash = typeof window !== "undefined" ? window.location.hash : "";
-    if (hash && !isSettingsHash(hash)) {
-      const cleanId = decodeURIComponent(hash.replace(/^#/, "")).trim();
-      if (cleanId) {
-        const scrollToTarget = () => {
-          if (!scrollContainerRef.current) return false;
-          const elem = getTargetElement(cleanId);
-          if (elem) {
-            const container = scrollContainerRef.current;
-            const containerRect = container.getBoundingClientRect();
-            const elemRect = elem.getBoundingClientRect();
-            const targetScrollTop =
-              container.scrollTop + (elemRect.top - containerRect.top) - 96;
-            const maxScroll = Math.max(
-              0,
-              container.scrollHeight - container.clientHeight
-            );
-            const boundedTarget = Math.min(maxScroll, Math.max(0, targetScrollTop));
-
-            container.scrollTo({
-              top: boundedTarget,
-              behavior: "smooth",
-            });
-            return true;
-          }
-          return false;
-        };
-
-        scrollToTarget();
-        const timers = [
-          window.setTimeout(scrollToTarget, 80),
-          window.setTimeout(scrollToTarget, 250),
-          window.setTimeout(scrollToTarget, 600),
-          window.setTimeout(() => {
-            scrollToTarget();
-            hasInitialHashRef.current = false;
-          }, 900),
-        ];
-        return () => {
-          timers.forEach(clearTimeout);
-        };
-      }
-    }
-
-    const scroll = () => scrollToBottom();
-    scroll();
-    const frames = [
-      requestAnimationFrame(scroll),
-      requestAnimationFrame(() => requestAnimationFrame(scroll)),
-    ];
-    const timers = [
-      window.setTimeout(scroll, 80),
-      window.setTimeout(scroll, 250),
-      window.setTimeout(scroll, 600),
-    ];
-    return () => {
-      frames.forEach(cancelAnimationFrame);
-      timers.forEach(clearTimeout);
-    };
-  }, [isLoading, isError, messages.length]);
-
   useEffect(() => {
     if (!chatId) return;
 
@@ -489,10 +421,10 @@ export default function PublicSharedChatPage() {
         <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
         <div
           className={cn(
-            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mt-3 mr-3 sm:ml-0.5 h-11 px-3 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 select-none",
+            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mt-3 mr-3 sm:ml-0.5 h-11 px-3 rounded-sm bg-background border select-none",
             isGuest
-              ? "bg-white dark:bg-[#303030]"
-              : "bg-background"
+              ? "bg-white dark:bg-[#303030] border-border/80 dark:border-white/10"
+              : "bg-background border-border/80 dark:border-none"
           )}
         >
           <Link
@@ -517,7 +449,7 @@ export default function PublicSharedChatPage() {
           />
         </div>
 
-        <div className="flex items-center pointer-events-auto mt-3 pr-3 sm:pr-1">
+        <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
           <div className="flex items-center gap-2">
             <Tooltip>
               <TooltipTrigger asChild>
@@ -526,10 +458,10 @@ export default function PublicSharedChatPage() {
                   disabled={isSharing}
                   onClick={handleShareClick}
                   className={cn(
-                    "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
+                    "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 rounded-sm bg-background border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
                     isGuest
-                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-                      : "bg-background hover:bg-secondary active:bg-secondary"
+                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
+                      : "bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
                   )}
                 >
                   {isSharing ? (
@@ -551,10 +483,10 @@ export default function PublicSharedChatPage() {
                   type="button"
                   onClick={() => window.open("/c", "_blank")}
                   className={cn(
-                    "group h-11 w-11 rounded-full xl:rounded-sm bg-background border border-border/80 xl:border-0 text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-11 w-11 rounded-sm bg-background border text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
-                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-                      : "bg-background hover:bg-secondary active:bg-secondary"
+                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
+                      : "bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
                   )}
                   aria-label="New Chat"
                 >
@@ -685,8 +617,6 @@ export default function PublicSharedChatPage() {
             </>
           )}
         </div>
-        {/* TOC Navigator — Table of Contents on Desktop */}
-        <TocNavigator messages={messages} containerRef={scrollContainerRef} />
       </div>
 
       {/* Login Modal */}
