@@ -870,7 +870,7 @@ export function PlusMenuContent({
                 onClick={(e) => {
                   (e.currentTarget as HTMLElement)?.blur();
                   e.stopPropagation();
-                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
                 }}
                 onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                 onMouseLeave={() => setHoveredModelIdx(null)}
@@ -893,7 +893,7 @@ export function PlusMenuContent({
                 onClick={(e) => {
                   (e.currentTarget as HTMLElement)?.blur();
                   e.stopPropagation();
-                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
                 }}
                 onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                 onMouseLeave={() => setHoveredModelIdx(null)}
@@ -932,7 +932,7 @@ export function PlusMenuContent({
               onClick={(e) => {
                 (e.currentTarget as HTMLElement)?.blur();
                 e.stopPropagation();
-                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
               }}
               onMouseEnter={() => setHoveredTierIdx(idx)}
               onMouseLeave={() => setHoveredTierIdx(null)}
@@ -970,7 +970,7 @@ export function PlusMenuContent({
               onClick={(e) => {
                 (e.currentTarget as HTMLElement)?.blur();
                 e.stopPropagation();
-                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
               }}
               onMouseEnter={() => setHoveredSpeedIdx(idx)}
               onMouseLeave={() => setHoveredSpeedIdx(null)}
@@ -1004,13 +1004,13 @@ export function PlusMenuContent({
             className="p-2 pt-1 cursor-pointer"
             onPointerDown={(e) => {
               e.stopPropagation();
-              (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+              (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
             }}
-            onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+            onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
           >
             <ModelSliderCard
               tierIndex={tierIndex}
-              onTierChange={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+              onTierChange={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
             />
           </div>
         </div>
@@ -1036,7 +1036,7 @@ export function PlusMenuContent({
         {/* 2. Attach files */}
         <DropdownMenuItem
           onClick={() => {
-            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
+            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Files" });
           }}
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
@@ -1044,7 +1044,7 @@ export function PlusMenuContent({
           <span>Attach files</span>
         </DropdownMenuItem>
 
-        {/* 3. Images */}
+        {/* 3. Create images */}
         <DropdownMenuItem
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Images" });
@@ -1052,10 +1052,10 @@ export function PlusMenuContent({
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <span>Images</span>
+          <span>Create images</span>
         </DropdownMenuItem> 
 
-        {/* 4. Search */}
+        {/* 4. Web search */}
         <DropdownMenuItem
           onClick={() => {
             if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Search" });
@@ -1064,10 +1064,10 @@ export function PlusMenuContent({
           className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] transition-colors outline-none whitespace-nowrap text-left"
         >
           <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-          <span>Search</span>
+          <span>Web search</span>
         </DropdownMenuItem>
 
-        {/* 5. Select models (Replaces Deep research) */}
+        {/* 5. Select models */}
         {isMobileScreen ? (
           <button
             type="button"
@@ -1076,7 +1076,7 @@ export function PlusMenuContent({
             onClick={(e) => {
               (e.currentTarget as HTMLElement)?.blur();
               e.stopPropagation();
-              (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+              (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
             }}
             className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary dark:[@media(hover:hover)]:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left"
           >
@@ -1091,7 +1091,7 @@ export function PlusMenuContent({
         ) : (
           <DropdownMenuSub>
             <DropdownMenuSubTrigger
-              onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+              onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
               onMouseEnter={() => setIsSelectModelsHovered(true)}
               onMouseLeave={() => setIsSelectModelsHovered(false)}
               chevronClassName="-ml-0.5"
@@ -1122,7 +1122,7 @@ export function PlusMenuContent({
                 <DropdownMenuSubTrigger
                   onMouseEnter={() => setIsModelSubHovered(true)}
                   onMouseLeave={() => setIsModelSubHovered(false)}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                   chevronClassName="-ml-0.5"
                   className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
@@ -1148,7 +1148,7 @@ export function PlusMenuContent({
                     return (
                       <DropdownMenuItem
                         key={m.key}
-                        onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                        onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
                         className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
@@ -1166,7 +1166,7 @@ export function PlusMenuContent({
                     return (
                       <DropdownMenuItem
                         key={m.key}
-                        onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                        onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
                         className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
@@ -1184,7 +1184,7 @@ export function PlusMenuContent({
                 <DropdownMenuSubTrigger
                   onMouseEnter={() => setIsEffortSubHovered(true)}
                   onMouseLeave={() => setIsEffortSubHovered(false)}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                   chevronClassName="-ml-0.5"
                   className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
@@ -1209,7 +1209,7 @@ export function PlusMenuContent({
                   {TIERS.map((tier, idx) => (
                     <DropdownMenuItem
                       key={tier.key}
-                      onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                      onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                       onMouseEnter={() => setHoveredTierIdx(idx)}
                       onMouseLeave={() => setHoveredTierIdx(null)}
                       className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
@@ -1226,7 +1226,7 @@ export function PlusMenuContent({
                 <DropdownMenuSubTrigger
                   onMouseEnter={() => setIsSpeedSubHovered(true)}
                   onMouseLeave={() => setIsSpeedSubHovered(false)}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                   chevronClassName="-ml-0.5"
                   className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
                 >
@@ -1250,7 +1250,7 @@ export function PlusMenuContent({
                   {SPEED_OPTIONS.map((s, idx) => (
                     <DropdownMenuItem
                       key={s.key}
-                      onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                      onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                       onMouseEnter={() => setHoveredSpeedIdx(idx)}
                       onMouseLeave={() => setHoveredSpeedIdx(null)}
                       className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] flex items-center justify-between min-w-0 text-left"
@@ -1268,7 +1268,7 @@ export function PlusMenuContent({
               {/* Row 4: Advanced Submenu */}
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                   className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] data-[state=open]:bg-secondary dark:data-[state=open]:bg-[#404040] transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left"
                 >
                   <span className="shrink-0">Advanced</span>
@@ -1285,14 +1285,14 @@ export function PlusMenuContent({
                   )}
                   onPointerDown={(e) => {
                     e.stopPropagation();
-                    (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
+                    (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" });
                   }}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                 >
-                  <div onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}>
+                  <div onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}>
                     <ModelSliderCard
                       tierIndex={tierIndex}
-                      onTierChange={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+                      onTierChange={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Models" })}
                     />
                   </div>
                 </DropdownMenuSubContent>

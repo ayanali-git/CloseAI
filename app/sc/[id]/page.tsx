@@ -421,7 +421,7 @@ export default function PublicSharedChatPage() {
         <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
         <div
           className={cn(
-            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mt-3 mr-3 sm:ml-0.5 h-11 px-3 rounded-sm bg-background border select-none",
+            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mr-3 sm:ml-0.5 h-11 px-3 rounded-sm bg-background border select-none",
             isGuest
               ? "bg-white dark:bg-[#303030] border-border/80 dark:border-white/10"
               : "bg-background border-border/80 dark:border-none"
