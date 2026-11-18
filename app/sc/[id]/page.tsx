@@ -429,7 +429,7 @@ export default function PublicSharedChatPage() {
         >
           <Link
             href="/"
-            className="flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-opacity shrink-0"
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
           >
             <span className="font-semibold text-xl tracking-tight text-foreground">
               CloseAI

@@ -348,13 +348,13 @@ function GuestChatContent() {
           {/* Right area */}
           <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
             <div className="flex items-center gap-2">
-              {/* <button
+              <button
                 type="button"
                 onClick={() => handleOpenLogin()}
-                className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
+                className="max-xl:hidden h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
               >
                 Sign up for free
-              </button> */}
+              </button>
 
               <button
                 type="button"
@@ -434,23 +434,23 @@ function GuestChatContent() {
             CloseAI is AI. By using it, you agree to our{" "}
             <Link
               href="/support/terms"
-              className="text-foreground hover:opacity-90 active:opacity-60 transition-opacity whitespace-nowrap"
+              className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
             >
               <span>Terms</span>
             </Link>{" "}
             and{" "}
             <Link
               href="/support/privacy"
-              className="text-foreground hover:opacity-90 active:opacity-60 transition-opacity whitespace-nowrap"
+              className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
             >
               <span>Privacy</span>
             </Link>
             . Chats may be reviewed and used to improve AI models.{" "}
             <Link
               href="/support/help"
-              className="text-foreground hover:opacity-90 active:opacity-60 transition-opacity whitespace-nowrap"
+              className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
             >
-              <span>Learn more</span>
+              <span>Learn</span>
             </Link>
           </p>
         </div>

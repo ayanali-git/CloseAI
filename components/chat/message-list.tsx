@@ -737,7 +737,7 @@ export function MessageList({
             <ImagePreview
               src={src}
               alt={alt || "Image preview"}
-              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-90 active:opacity-60 transition-opacity"
+              className="block rounded-xl border border-border/60 max-h-[420px] object-contain cursor-pointer hover:opacity-90 transition-opacity"
             />
           </div>
         );

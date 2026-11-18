@@ -1884,7 +1884,7 @@ export function MarketingHeader() {
                   {/* Top Back Navigation Button */}
                   <button
                     onClick={() => setMobileSubMenu(null)}
-                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer mb-6"
+                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-90 transition-opacity cursor-pointer mb-6"
                   >
                     <ArrowLeft className="w-5 h-5 stroke-[2]" />
                     <span>Home</span>
@@ -2262,13 +2262,13 @@ export function MarketingHeader() {
                               setMobileSubMenu(null);
                               openLoginModal();
                             }}
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 active:opacity-60 transition-opacity py-1 cursor-pointer w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 transition-opacity py-1 cursor-pointer w-full outline-none"
                           >
                             CloseAI Chat
                           </button>
                           <button
                             type="button"
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 active:opacity-60 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
                           >
                             <AnimatedComingSoonText
                               label="API Platform"

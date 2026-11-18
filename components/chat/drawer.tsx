@@ -1275,7 +1275,7 @@ export function EditProfileDrawer({
                         "w-11 h-11 bg-secondary flex items-center justify-center overflow-hidden transition-all duration-150",
                         isSelected
                           ? "ring-2 ring-foreground ring-offset-2 ring-offset-sidebar"
-                          : "hover:opacity-90 active:opacity-60"
+                          : "hover:opacity-90"
                       )}
                     >
                       {activeAvatar ? (

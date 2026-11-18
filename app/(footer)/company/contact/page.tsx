@@ -229,7 +229,7 @@ export default function ContactPage() {
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-11 h-11 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0">
-                    <Mail className="h-5 w-5 text-foreground" />
+                    <Mail className="h-5 w-5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <div>
                     <div className="font-medium text-foreground text-base">
@@ -249,7 +249,7 @@ export default function ContactPage() {
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-11 h-11 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0">
-                    <Mail className="h-5 w-5 text-foreground" />
+                    <Mail className="h-5 w-5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <div>
                     <div className="font-medium text-foreground text-base">
@@ -277,7 +277,7 @@ export default function ContactPage() {
             >
               <div className="flex items-start gap-3.5">
                 <div className="w-11 h-11 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0 mt-0.5">
-                  <MapPin className="h-5 w-5 text-foreground" />
+                  <MapPin className="h-5 w-5 text-muted-foreground group-hover:text-foreground" />
                 </div>
                 <div>
                   <div className="font-medium text-foreground text-base mb-0.5">

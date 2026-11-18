@@ -104,7 +104,7 @@ export default function OpenRolesPage() {
               className={cn(
                 'absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10 outline-none rounded-full p-0.5',
                 searchQuery
-                  ? 'text-foreground cursor-pointer hover:opacity-90 active:opacity-60'
+                  ? 'text-foreground cursor-pointer hover:opacity-90'
                   : 'text-muted-foreground group-focus-within:text-foreground cursor-text'
               )}
               aria-label={searchQuery ? 'Clear search' : 'Search'}
@@ -134,14 +134,14 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-11 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group h-11 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="truncate">{selectedTeam}</span>
                 <AnimatedChevronDown
                   open={teamOpen}
                   disableHover={true}
                   size={20}
-                  className="text-muted-foreground shrink-0"
+                  className="text-muted-foreground group-hover:text-foreground shrink-0"
                 />
               </button>
             </DropdownMenuTrigger>
@@ -172,14 +172,14 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-11 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group h-11 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="truncate">{selectedLocation}</span>
                 <AnimatedChevronDown
                   open={locOpen}
                   disableHover={true}
                   size={20}
-                  className="text-muted-foreground shrink-0"
+                  className="text-muted-foreground group-hover:text-foreground shrink-0"
                 />
               </button>
             </DropdownMenuTrigger>
@@ -246,7 +246,7 @@ export default function OpenRolesPage() {
           Want to learn more about our mission, culture, and benefits?{' '}
           <Link
             href="/company/careers"
-            className="rounded-full text-foreground transition-opacity hover:opacity-90 active:opacity-60 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="rounded-full text-foreground transition-opacity hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <span>Learn more</span>
           </Link>

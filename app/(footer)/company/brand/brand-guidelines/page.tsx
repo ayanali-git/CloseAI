@@ -956,13 +956,7 @@ export default function CompanyBrandGuidelinesPage() {
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl">
             Have questions about using our brand kit, or seeking co-marketing permissions? Our media, brand and support
-            teams are here to assist you.{' '}
-            <Link
-              href="/support/help"
-              className="rounded-full text-foreground transition-opacity hover:opacity-90 active:opacity-60 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
-            >
-              <span>Learn more</span>
-            </Link>
+            teams are here to assist you.
           </p>
         </div>
 
@@ -986,7 +980,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="pt-4 border-t border-border/80">
                 <a
                   href={channel.href}
-                  className="text-sm font-normal rounded-full text-foreground transition-opacity hover:opacity-90 active:opacity-60 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                  className="text-sm font-normal rounded-full text-foreground transition-opacity hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
                 >
                   <span>{channel.contact}</span>
                 </a>
