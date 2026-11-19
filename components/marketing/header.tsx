@@ -1738,15 +1738,6 @@ export function MarketingHeader() {
                     <ul className="space-y-3 text-base">
                       <li>
                         <Link
-                          href="/support/privacy"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          Public Policy
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
                           href="/support/terms"
                           onClick={() => setActiveMenu(null)}
                           className="text-foreground transition-colors"
@@ -2221,10 +2212,6 @@ export function MarketingHeader() {
                         </div>
                         <div className="space-y-2.5">
                           {[
-                            {
-                              label: "Public Policy",
-                              href: "/support/privacy",
-                            },
                             {
                               label: "Terms of Use",
                               href: "/support/terms",
