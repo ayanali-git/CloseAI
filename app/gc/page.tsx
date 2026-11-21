@@ -368,7 +368,7 @@ function GuestChatContent() {
         </header>
 
         {/* Content Stream */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll pt-14">
+        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll pt-10">
           <WelcomeScreen
             user={null}
             resetKey={newChatKey}
@@ -377,7 +377,7 @@ function GuestChatContent() {
               handleStartGuestChat(prompt, []);
             }}
           >
-            <div className="w-full flex flex-col items-center gap-6">
+            <div className="w-full flex flex-col items-center">
               <ChatInput
                 ref={chatInputRef}
                 className="max-w-[820px]"
@@ -404,7 +404,7 @@ function GuestChatContent() {
               />
 
               {/* Suggestion pill — only visible when input is empty */}
-              <div className="w-full flex justify-center h-11">
+              <div className="w-full flex justify-center h-11 pt-10">
                 {message.trim().length === 0 && uploadedFiles.length === 0 && (
                   <button
                     type="button"
