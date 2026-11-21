@@ -339,11 +339,11 @@ function GuestChatContent() {
             </div> */}
 
           {/* Center Brand Text — small screen devices only */}
-          {/* <div className="xl:hidden flex items-center justify-center pointer-events-none">
+          <div className="xl:hidden flex items-center justify-center pointer-events-none">
             <span className="bg-background rounded-full h-11 px-4 flex items-center font-medium text-2xl tracking-tight text-foreground select-none">
               CloseAI
             </span>
-          </div> */}
+          </div>
 
           {/* Right area */}
           <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
@@ -351,7 +351,7 @@ function GuestChatContent() {
               <button
                 type="button"
                 onClick={() => handleOpenLogin()}
-                className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
+                className="max-xl:hidden h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
               >
                 Sign up for free
               </button>
@@ -409,7 +409,7 @@ function GuestChatContent() {
                   <button
                     type="button"
                     onClick={() => {
-                      const prompt = "What can you do?";
+                      const prompt = "What should i try first?";
                       setMessage(prompt);
                       requestAnimationFrame(() => {
                         chatInputRef.current?.focus();
@@ -420,7 +420,7 @@ function GuestChatContent() {
                     }}
                     className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#303030] dark:hover:bg-[#404040]"
                   >
-                    What can you do?
+                    What should i try first?
                   </button>
                 )}
               </div>
