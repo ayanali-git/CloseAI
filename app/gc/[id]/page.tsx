@@ -655,6 +655,14 @@ export default function GuestChatSessionPage() {
             </Tooltip>
               </div>
             )}
+          </div>
+
+          {/* Center Brand Text — properly centered on small screens */}
+          <div className="xl:hidden absolute inset-0 pt-[env(safe-area-inset-top,0px)] flex items-center justify-center pointer-events-none">
+            <span className="bg-background rounded-full h-11 px-4 flex items-center justify-center font-medium text-2xl tracking-tight text-foreground select-none">
+              CloseAI
+            </span>
+          </div>
 
             {/* CloseAI with ChevronDown and Popover — small screen devices only (xl:hidden) */}
             {/* <div className="xl:hidden group -ml-1">
@@ -722,14 +730,6 @@ export default function GuestChatSessionPage() {
                 </PopoverContent>
               </Popover>
             </div> */}
-          </div>
-
-          {/* Center Brand Text — small screen devices only */}
-          <div className="xl:hidden flex items-center justify-center pointer-events-none">
-            <span className="bg-background rounded-full h-11 px-4 flex items-center font-medium text-2xl tracking-tight text-foreground select-none">
-              CloseAI
-            </span>
-          </div>
 
           {/* Right area: Sign up for free and Log in buttons */}
           <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
