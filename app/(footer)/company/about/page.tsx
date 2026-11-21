@@ -5,7 +5,7 @@ import { Building2, Globe, Users, Zap } from 'lucide-react';
 export default function AboutPage() {
   return (
     <div className="py-12 sm:py-16 w-full max-w-4xl mx-auto min-w-0">
-      <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-foreground mb-4 sm:mb-6">About closeAI</h1>
+      <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-foreground mb-4 sm:mb-6">About CloseAI</h1>
       <p className="text-base sm:text-xl text-muted-foreground mb-12 sm:mb-16 leading-relaxed">
         We are an AI research and deployment company dedicated to ensuring that artificial general intelligence benefits all of humanity.
       </p>

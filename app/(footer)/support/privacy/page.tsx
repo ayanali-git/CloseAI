@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">1. Introduction</h2>
           <p>
-            At closeAI, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+            At CloseAI, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
           </p>
         </section>
 

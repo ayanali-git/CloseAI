@@ -35,7 +35,7 @@ export default function EnterprisePage() {
       {/* Header */}
       <div className="max-w-3xl mb-16">
         <p className="text-base font-semibold text-muted-foreground tracking-wider uppercase mb-3">
-          closeAI for Business
+          CloseAI for Business
         </p>
         <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-foreground mb-6 leading-[1.1]">
           Supercharge your organization with frontier AI.

@@ -6,7 +6,7 @@ export default function ApiDocsPage() {
       <header className="mb-12 sm:mb-16">
         <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-foreground mb-4 sm:mb-6">API Reference</h1>
         <p className="text-base sm:text-xl text-muted-foreground">
-          Complete documentation for the closeAI REST API. Learn how to authenticate, make requests, and integrate our models into your applications.
+          Complete documentation for the CloseAI REST API. Learn how to authenticate, make requests, and integrate our models into your applications.
         </p>
       </header>
 

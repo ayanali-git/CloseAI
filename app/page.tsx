@@ -604,10 +604,10 @@ export default function LandingPage() {
               },
               {
                 title:
-                  "Introducing closeAI-Rosalind for Molecular Biology & Therapeutic",
+                  "Introducing CloseAI-rosalind for Molecular Biology & Therapeutic",
                 category: "Publication",
                 date: "Aug 01, 2026",
-                seed: "Introducing closeAI-Rosalind for Molecular Biology & Therapeutic",
+                seed: "Introducing CloseAI-rosalind for Molecular Biology & Therapeutic",
               },
             ].map((paper, i) => (
               <Link

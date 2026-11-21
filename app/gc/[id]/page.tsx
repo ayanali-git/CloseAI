@@ -725,8 +725,8 @@ export default function GuestChatSessionPage() {
           </div>
 
           {/* Center Brand Text — small screen devices only */}
-          {/* <div className="xl:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
-            <span className="font-medium text-2xl tracking-tight text-foreground select-none">
+          {/* <div className="xl:hidden flex items-center justify-center pointer-events-none">
+            <span className="bg-background rounded-full h-11 px-4 flex items-center font-medium text-2xl tracking-tight text-foreground select-none">
               CloseAI
             </span>
           </div> */}
@@ -737,7 +737,7 @@ export default function GuestChatSessionPage() {
               <button
                 type="button"
                 onClick={() => handleOpenLogin()}
-                className="max-xl:hidden h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
+                className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
               >
                 Sign up for free
               </button>
