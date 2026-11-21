@@ -1116,8 +1116,8 @@ export function MessageList({
                         )
                       ) : (
                         <>
-                          {/* 2. Share message — visible for both guest and authorized users */}
-                          {!isThisMsgThinking && (
+                          {/* 2. Share message — hidden on shared chats */}
+                          {!isShared && !isThisMsgThinking && (
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <button
@@ -1329,7 +1329,8 @@ export function MessageList({
                       </Tooltip>
                     ) : (
                       <>
-                        {/* 2. Share response */ }
+                        {/* 2. Share response — hidden on shared chats */}
+                        {!isShared && (
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <button
@@ -1365,6 +1366,7 @@ export function MessageList({
                               Share response
                             </TooltipContent>
                           </Tooltip>
+                        )}
 
                           {/* Good response, Bad response, More options are ONLY shown for authenticated users in non-shared chats */}
                           {!isShared && !isGuestMode && user && (
@@ -1878,6 +1880,7 @@ export function MessageList({
         files={sharePromptMsg?.files}
         isGuest={isGuestMode}
         chatId={chatId}
+        allMessages={messages}
       />
 
       <ShareResponseModal
@@ -1889,6 +1892,7 @@ export function MessageList({
         modelName={shareResponseMsg?.model || "CloseAI"}
         isGuest={isGuestMode}
         chatId={chatId}
+        allMessages={messages}
       />
 
       <DeleteMessageModal

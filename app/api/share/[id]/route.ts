@@ -20,6 +20,21 @@ export async function GET(
       .single();
 
     if (chatError || !chat) {
+      // Storage fallback for guest-shared snippets
+      try {
+        const { data: fileData, error: dlError } = await supabaseAdmin.storage
+          .from('shared')
+          .download(`${chatId}.json`);
+
+        if (!dlError && fileData) {
+          const text = await fileData.text();
+          const snippet = JSON.parse(text);
+          return NextResponse.json(snippet);
+        }
+      } catch (storageErr) {
+        console.error('Error fetching shared snippet from storage:', storageErr);
+      }
+
       return NextResponse.json({ error: 'Shared chat not found' }, { status: 404 });
     }
 

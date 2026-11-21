@@ -846,7 +846,7 @@ export function MarketingHeader() {
               }}
               className="flex items-center gap-2 -ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span className="font-medium text-2xl tracking-tight text-foreground transition-opacity hover:opacity-90">
+              <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">
                 CloseAI
               </span>
             </Link>
@@ -1154,7 +1154,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="w-8 h-8 rounded-full transition-opacity hover:opacity-50 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-8 h-8 rounded-full hover:opacity-50 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1229,7 +1229,7 @@ export function MarketingHeader() {
                         });
                       }}
                       className={cn(
-                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background transition-opacity hover:opacity-90 active:opacity-60",
+                        "h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-1.5 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background hover:opacity-90 active:opacity-60",
                         loginDropdownOpen && "opacity-90"
                       )}
                     >

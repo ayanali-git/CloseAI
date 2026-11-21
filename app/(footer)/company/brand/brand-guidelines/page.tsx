@@ -980,7 +980,7 @@ export default function CompanyBrandGuidelinesPage() {
               <div className="pt-4 border-t border-border/80">
                 <a
                   href={channel.href}
-                  className="text-sm font-normal rounded-full text-foreground transition-opacity hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                  className="text-sm font-normal rounded-full text-foreground hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
                 >
                   <span>{channel.contact}</span>
                 </a>

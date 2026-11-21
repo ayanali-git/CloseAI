@@ -816,7 +816,7 @@ export function FilePreviewViewer({
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 cursor-pointer"
                   >
                     <Download className="w-5 h-5" />
                     Download File

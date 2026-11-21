@@ -27,11 +27,11 @@ function Calendar({
         nav: 'absolute inset-x-0 top-0 flex items-center justify-between',
         button_previous: cn(
           buttonVariants({ variant: 'outline' }),
-          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
+          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-90'
         ),
         button_next: cn(
           buttonVariants({ variant: 'outline' }),
-          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
+          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-90'
         ),
         month_grid: 'w-full border-collapse space-y-1',
         weekdays: 'flex',

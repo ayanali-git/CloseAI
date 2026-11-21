@@ -748,7 +748,7 @@ export default function LandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-opacity cursor-pointer"
+                className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">
                   <span>Chat now</span>

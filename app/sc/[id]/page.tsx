@@ -36,16 +36,22 @@ import toast from "@/lib/toast";
 function SharedHeaderTitleMarquee({
   title,
   isLoading = false,
+  isError = false,
   chatId,
 }: {
   title: string;
   isLoading?: boolean;
+  isError?: boolean;
   chatId?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [overflowWidth, setOverflowWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+
+  if (isError) {
+    return null;
+  }
   useEffect(() => {
     if (chatId && typeof window !== "undefined") {
       const storedW = localStorage.getItem(`shared_title_w_${chatId}`);
@@ -301,22 +307,37 @@ export default function PublicSharedChatPage() {
       }
 
       if (typeof window !== "undefined") {
-        sessionStorage.setItem(
-          `auto_send_${chatId}`,
-          JSON.stringify({
-            prompt: trimmed,
-            model: selectedModel,
-            think: thinkMode,
-            files: fileData,
-          })
-        );
+        if (isGuest) {
+          const guestChatId = crypto.randomUUID();
+          sessionStorage.setItem(
+            `guest_auto_send_${guestChatId}`,
+            JSON.stringify({
+              prompt: trimmed,
+              model: selectedModel,
+              think: thinkMode,
+              files: fileData,
+            })
+          );
+          router.push(`/gc/${guestChatId}`);
+          return;
+        } else {
+          sessionStorage.setItem(
+            `auto_send_${chatId}`,
+            JSON.stringify({
+              prompt: trimmed,
+              model: selectedModel,
+              think: thinkMode,
+              files: fileData,
+            })
+          );
+        }
       }
       if (thinkMode) {
         setThinkMode(false);
       }
       router.push(`/c/${chatId}`);
     } else {
-      router.push("/c");
+      router.push(isGuest ? "/gc" : "/c");
     }
   };
 
@@ -385,16 +406,26 @@ export default function PublicSharedChatPage() {
     .trim();
   const cleanTitle = displayTitle.replace(/\s+/g, " ").trim();
 
+  const isResponseShare = rawChatId?.startsWith("r_");
+  const isMessageShare = rawChatId?.startsWith("m_");
+  const shareTypeLabel = isResponseShare
+    ? "Shared Response"
+    : isMessageShare
+    ? "Shared Message"
+    : "Shared Chat";
+
   useEffect(() => {
-    if (cleanTitle) {
-      document.title = `CloseAI \u007C Shared Chat\u003A ${cleanTitle}`;
+    if (isError) {
+      document.title = "Conversation not found - CloseAI";
+    } else if (cleanTitle) {
+      document.title = `CloseAI \u007C ${shareTypeLabel}\u003A ${cleanTitle}`;
     } else {
       document.title = "CloseAI";
     }
     return () => {
       document.title = "CloseAI";
     };
-  }, [cleanTitle]);
+  }, [cleanTitle, isError, shareTypeLabel]);
 
   // Keep scroll glued to bottom on iOS Safari virtual keyboard resize without jumping on zoom
   useEffect(() => {
@@ -411,8 +442,10 @@ export default function PublicSharedChatPage() {
   return (
     <div className="flex flex-col h-full w-full bg-background text-foreground overflow-hidden relative">
       <title>
-        {cleanTitle
-          ? `CloseAI \u007C Shared Chat\u003A ${cleanTitle}`
+        {isError
+          ? "Conversation not found - CloseAI"
+          : cleanTitle
+          ? `CloseAI \u007C ${shareTypeLabel}\u003A ${cleanTitle}`
           : "CloseAI"}
       </title>
 
@@ -435,53 +468,64 @@ export default function PublicSharedChatPage() {
               CloseAI
             </span>
           </Link>
-          <Separator
-            orientation="vertical"
-            className={cn(
-              "h-4 bg-neutral-200 mx-0.5 sm:mx-1 shrink-0",
-              isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]"
-            )}
-          />
+          {!isError && (
+            <Separator
+              orientation="vertical"
+              className={cn(
+                "h-4 bg-neutral-200 mx-0.5 sm:mx-1 shrink-0",
+                isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]"
+              )}
+            />
+          )}
           <SharedHeaderTitleMarquee
             title={displayTitle}
             isLoading={isLoading}
+            isError={isError}
             chatId={chatId}
           />
         </div>
 
         <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
           <div className="flex items-center gap-2">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  disabled={isSharing}
-                  onClick={handleShareClick}
-                  className={cn(
-                    "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
-                    isGuest
-                      ? "rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
-                      : "rounded-sm bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
-                  )}
-                >
-                  {isSharing ? (
-                    <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
-                  ) : (
-                    <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                  )}
-                  <span className="hidden sm:inline">Share</span>
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={5} className="text-base">
-                Share chat
-              </TooltipContent>
-            </Tooltip>
+            {!isError && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    disabled={isSharing}
+                    onClick={handleShareClick}
+                    className={cn(
+                      "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
+                      isGuest
+                        ? "rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
+                        : "rounded-sm bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
+                    )}
+                  >
+                    {isSharing ? (
+                      <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                    ) : (
+                      <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                    )}
+                    <span className="hidden sm:inline">Share</span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={5} className="text-base">
+                  Share chat
+                </TooltipContent>
+              </Tooltip>
+            )}
 
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   type="button"
-                  onClick={() => window.open("/c", "_blank")}
+                  onClick={() => {
+                    if (isGuest) {
+                      window.open("/gc", "_blank");
+                    } else {
+                      window.open("/c", "_blank");
+                    }
+                  }}
                   className={cn(
                     "group h-11 w-11 rounded-sm border text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
@@ -524,10 +568,16 @@ export default function PublicSharedChatPage() {
                 </p>
               </div>
               <Button
-                onClick={() => router.push("/c")}
-                className="rounded-xl cursor-pointer"
+                onClick={() => {
+                  if (isGuest) {
+                    router.push("/gc");
+                  } else {
+                    router.push("/c");
+                  }
+                }}
+                className="rounded-full cursor-pointer select-none"
               >
-                Start Chat
+                New chat
               </Button>
             </div>
           ) : (

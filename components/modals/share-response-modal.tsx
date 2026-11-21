@@ -44,6 +44,7 @@ export interface ShareResponseModalProps {
   modelName?: string;
   isGuest?: boolean;
   chatId?: string;
+  allMessages?: any[];
 }
 
 const LANG_ALIAS: Record<string, string> = {
@@ -223,15 +224,19 @@ export function ShareResponseModal({
   modelName,
   isGuest: isGuestProp,
   chatId,
+  allMessages,
 }: ShareResponseModalProps) {
   const { isGuest, modalBgClass } = useModalTheme(isGuestProp, open);
   const [linkCopied, setLinkCopied] = useState(false);
   const [isCopyingLink, setIsCopyingLink] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const [assignedId, setAssignedId] = useState<string | null>(null);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [brandingRightOffset, setBrandingRightOffset] = useState<number | null>(null);
+  const savePromiseRef = useRef<Promise<any> | null>(null);
+  const savedIdRef = useRef<string | null>(null);
 
   // Measure preview card content edge to align CloseAI line-to-line with the rightmost content boundary
   useEffect(() => {
@@ -279,16 +284,68 @@ export function ShareResponseModal({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const effectiveChatId = (chatId || (typeof window !== "undefined" ? window.location.pathname.split("/").pop() : ""))?.replace(/^[mr]_/, "");
-  const baseUrl = typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL);
-  const shareUrl = `${baseUrl}/sc/r_${effectiveChatId}`;
+  const rawIdFromPath = typeof window !== "undefined" ? window.location.pathname.split("/").pop() : "";
+  const candidateId = chatId || (rawIdFromPath && rawIdFromPath !== "c" && rawIdFromPath !== "gc" && !rawIdFromPath.startsWith("guest") ? rawIdFromPath : "");
+  const effectiveChatId = candidateId?.replace(/^[mr]_/, "") || "";
+  const activeId = effectiveChatId || assignedId || "";
+
+  useEffect(() => {
+    if (open && !effectiveChatId && !assignedId) {
+      setAssignedId(crypto.randomUUID());
+    }
+  }, [open, effectiveChatId, assignedId]);
+
+  useEffect(() => {
+    if (!open) {
+      savedIdRef.current = null;
+      return;
+    }
+    if (!activeId) return;
+
+    if (isGuest && savedIdRef.current !== activeId) {
+      savedIdRef.current = activeId;
+      const msgsToSend = (allMessages && allMessages.length > 0)
+        ? allMessages
+        : [{
+            id: crypto.randomUUID(),
+            role: "assistant",
+            content: responseText,
+          }];
+
+      const title = msgsToSend.find((m: any) => m.role === "user")?.content?.slice(0, 100) || "Shared Response";
+
+      savePromiseRef.current = fetch("/api/share", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chatId: activeId,
+          title,
+          messages: msgsToSend,
+        }),
+      })
+      .then((res) => res.json())
+      .catch((err) => {
+        console.error("Error saving share snippet:", err);
+      });
+    }
+  }, [open, activeId, isGuest, allMessages, responseText]);
+
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL || "");
+  const shareUrl = activeId ? `${baseUrl}/sc/r_${activeId}` : "";
   const shareText =
     responseText.length > 200 ? responseText.slice(0, 200) + "…" : responseText;
 
   const handleCopyLink = async () => {
     if (isCopyingLink) return;
+    if (!activeId || !shareUrl) {
+      toast.error("Please start or save a conversation to share");
+      return;
+    }
     setIsCopyingLink(true);
     try {
+      if (savePromiseRef.current) {
+        await savePromiseRef.current;
+      }
       await navigator.clipboard.writeText(shareUrl);
       setLinkCopied(true);
       toast.success("Link copied to clipboard");
@@ -298,21 +355,42 @@ export function ShareResponseModal({
     }
   };
 
-  const handleShareX = () => {
+  const handleShareX = async () => {
+    if (!activeId || !shareUrl) {
+      toast.error("Please start or save a conversation to share");
+      return;
+    }
+    if (savePromiseRef.current) {
+      await savePromiseRef.current;
+    }
     const url = `https://x.com/intent/tweet?text=${encodeURIComponent(
       shareText
     )}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const handleShareLinkedIn = () => {
+  const handleShareLinkedIn = async () => {
+    if (!activeId || !shareUrl) {
+      toast.error("Please start or save a conversation to share");
+      return;
+    }
+    if (savePromiseRef.current) {
+      await savePromiseRef.current;
+    }
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
       shareUrl
     )}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const handleShareMore = () => {
+  const handleShareMore = async () => {
+    if (!activeId || !shareUrl) {
+      toast.error("Please start or save a conversation to share");
+      return;
+    }
+    if (savePromiseRef.current) {
+      await savePromiseRef.current;
+    }
     if (navigator.share) {
       navigator
         .share({
@@ -565,7 +643,7 @@ export function ShareResponseModal({
             aria-label={linkCopied ? "Link copied" : "Copy link"}
             title={linkCopied ? "Link copied" : "Copy link"}
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-90 active:opacity-60", shareButtonRing)}>
               {linkCopied ? (
                 <CheckIcon className="w-6 h-6" />
               ) : (
@@ -585,7 +663,7 @@ export function ShareResponseModal({
             aria-label="Share on X"
             title="Share on X"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-90 active:opacity-60", shareButtonRing)}>
               <XLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -601,7 +679,7 @@ export function ShareResponseModal({
             aria-label="Share on LinkedIn"
             title="Share on LinkedIn"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-90 active:opacity-60", shareButtonRing)}>
               <LinkedinLogoIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
@@ -617,7 +695,7 @@ export function ShareResponseModal({
             aria-label="Share more"
             title="Share more"
           >
-            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center transition-opacity hover:opacity-90 active:opacity-60", shareButtonRing)}>
+            <div className={cn("w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-90 active:opacity-60", shareButtonRing)}>
               <DotsThreeIcon className="w-6 h-6" />
             </div>
             <span className="text-base font-normal text-foreground select-none">
