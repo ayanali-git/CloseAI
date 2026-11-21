@@ -574,7 +574,7 @@ export default function GuestChatSessionPage() {
         onToggle={handleToggleSidebar}
         isLoading={false}
         onOpenLoginModal={handleOpenLogin}
-        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
+        onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
         onOpenAdvancedFeaturesModal={handleOpenLogin}
       />
 
@@ -799,7 +799,7 @@ export default function GuestChatSessionPage() {
                   onThinkModeChange={setThinkMode}
                   isGuest={true}
                   onOpenLoginModal={handleOpenLogin}
-                  onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
+                  onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
                   onOpenAdvancedFeaturesModal={handleOpenLogin}
                   centered={false}
                   showDisclaimer={true}

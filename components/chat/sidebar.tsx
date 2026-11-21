@@ -972,7 +972,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
             className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
@@ -983,7 +983,7 @@ export function Sidebar({
             type="button"
             onClick={() => {
               closeCard();
-              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+              (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
             className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
@@ -1873,7 +1873,7 @@ export function Sidebar({
                       </TooltipContent>
                     </Tooltip> */}
 
-                    {/* Images Shortcut */}
+                    {/* Create images shortcut */}
                     <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                       <TooltipTrigger asChild>
                         <button
@@ -1894,7 +1894,7 @@ export function Sidebar({
                       </TooltipContent>
                     </Tooltip>
 
-                    {/* Search Shortcut */}
+                    {/* Web search shortcut */}
                     <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                       <TooltipTrigger asChild>
                         <button
@@ -1917,14 +1917,14 @@ export function Sidebar({
                   </>
                 ) : (
                   <>
-                    {/* Images */}
+                    {/* Create images */}
                     <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                       <TooltipTrigger asChild>
                         <button
                           type="button"
                           onClick={() => {
                             handleOpenLoginModal({
-                              description: "To continue with Images",
+                              description: "To continue with Create images",
                             });
                           }}
                           className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
@@ -1938,7 +1938,7 @@ export function Sidebar({
                         sideOffset={5}
                         className="text-base"
                       >
-                        Images
+                        Create images
                       </TooltipContent>
                     </Tooltip>
 
@@ -1963,7 +1963,7 @@ export function Sidebar({
                           onClick={() => {
                             handleOpenSearchModal();
                             setRailWebSearchHoverOpen(false);
-                            (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Search" });
+                            (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
                             "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
@@ -2359,7 +2359,7 @@ export function Sidebar({
                       type="button"
                       onClick={() => {
                         handleOpenLoginModal({
-                          description: "To continue with Search chats",
+                          description: "To continue with Web search chats",
                         });
                       }}
                       className="xl:hidden w-11 h-11 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
@@ -2422,7 +2422,7 @@ export function Sidebar({
               </div>
             </div>
 
-            {/* Chat & Guest Items
+            {/* New chat & Guest Items
                 Icon rows use pl-3 (12px): 8px container padding + 12px = icon at x 20 (center x 30),
                 the exact same x as the 60px collapsed rail icons. */}
             <div className="px-2 pt-1 pb-2 space-y-1.5 relative z-20">
@@ -2448,13 +2448,13 @@ export function Sidebar({
               >
                 <div className="flex items-center gap-2.5">
                   <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                  <span className="whitespace-nowrap">Chat</span>
+                  <span className="whitespace-nowrap">New chat</span>
                 </div>
               </button>
 
               {user && (
                 <>
-                  {/* Images */}
+                  {/* Create images */}
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
@@ -2463,13 +2463,13 @@ export function Sidebar({
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                       <AnimatedComingSoonText
-                        label="Images"
+                        label="Create images"
                         comingSoonText="Coming soon"
                       />
                     </div>
                   </button>
 
-                  {/* Search */}
+                  {/* Web search */}
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
@@ -2478,7 +2478,7 @@ export function Sidebar({
                     <div className="flex items-center gap-2.5">
                       <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                       <AnimatedComingSoonText
-                        label="Search"
+                        label="Web search"
                         comingSoonText="Coming soon"
                       />
                     </div>
@@ -2488,23 +2488,23 @@ export function Sidebar({
 
               {!user && (
                 <>
-                  {/* Images */}
+                  {/* Create images */}
                   <button
                     type="button"
                     onClick={() => {
                       handleOpenLoginModal({
-                        description: "To continue with Images",
+                        description: "To continue with Create images",
                       });
                     }}
                     className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                      <span className="whitespace-nowrap">Images</span>
+                      <span className="whitespace-nowrap">Create images</span>
                     </div>
                   </button>
 
-                  {/* Search */}
+                  {/* Web search */}
                   <HoverCard
                     open={webSearchHoverOpen}
                     onOpenChange={(open) => {
@@ -2535,13 +2535,13 @@ export function Sidebar({
                             e.preventDefault();
                             setWebSearchHoverOpen(false);
                             (handleOpenLoginModal || onOpenWebSearchModal)?.({
-                              description: "To continue with Search",
+                              description: "To continue with Web search",
                             });
                             return;
                           }
                           setWebSearchHoverOpen(false);
                           (handleOpenLoginModal || onOpenWebSearchModal)?.({
-                            description: "To continue with Search",
+                            description: "To continue with Web search",
                           });
                         }}
                         className={cn(
@@ -2556,7 +2556,7 @@ export function Sidebar({
                               webSearchHoverOpen && "text-foreground"
                             )}
                           />
-                          <span className="whitespace-nowrap">Search</span>
+                          <span className="whitespace-nowrap">Web search</span>
                         </div>
                       </button>
                     </HoverCardTrigger>
@@ -3116,7 +3116,7 @@ export function Sidebar({
         isGuest={!user}
         onOpenLoginModal={() =>
           handleOpenLoginModal({
-            description: "To continue with Search chats",
+            description: "To continue with Web search chats",
           })
         }
       />

@@ -573,7 +573,7 @@ export default function PublicSharedChatPage() {
                     onThinkModeChange={setThinkMode}
                     isGuest={isGuest}
                     onOpenLoginModal={handleOpenLogin}
-                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Search" })}
+                    onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
                     onOpenAdvancedFeaturesModal={handleOpenLogin}
                   >
                     {/* Dynamic Floating Scroll-to-Bottom Button — stays right above input pill */}
