@@ -1551,7 +1551,7 @@ export function MessageList({
                                           !(changePrompts[msgId] || "").trim()
                                         }
                                         className={cn(
-                                          "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
+                                          "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-colors",
                                           (changePrompts[msgId] || "").trim()
                                             ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:opacity-60"
                                             : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
@@ -1708,7 +1708,7 @@ export function MessageList({
                                                   ).trim()
                                                 }
                                                 className={cn(
-                                                  "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all",
+                                                  "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-colors",
                                                   (
                                                     changePrompts[msgId] || ""
                                                   ).trim()

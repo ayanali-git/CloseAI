@@ -325,9 +325,9 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
-                        Log in
+                        Sign up for free
                       </button>
                       <button
                         type="button"
@@ -335,9 +335,9 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
-                        Sign up for free
+                        Log in
                       </button>
                     </div>
                   </div>
@@ -351,17 +351,17 @@ function GuestChatContent() {
               <button
                 type="button"
                 onClick={() => handleOpenLogin()}
-                className="max-xl:hidden h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
-              >
-                Sign up for free
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleOpenLogin()}
                 className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 Log in
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => handleOpenLogin()}
+                className="max-xl:hidden h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
+              >
+                Sign up for free
               </button>
             </div>
           </div>
@@ -409,7 +409,7 @@ function GuestChatContent() {
                   <button
                     type="button"
                     onClick={() => {
-                      const prompt = "What should i try first?";
+                      const prompt = "What can CloseAI do?";
                       setMessage(prompt);
                       requestAnimationFrame(() => {
                         chatInputRef.current?.focus();
@@ -418,9 +418,9 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 150);
                     }}
-                    className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-none select-none cursor-pointer bg-white hover:bg-secondary text-muted-foreground dark:bg-[#303030] dark:hover:bg-[#404040]"
+                    className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
                   >
-                    What should i try first?
+                    What can CloseAI do?
                   </button>
                 )}
               </div>

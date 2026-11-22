@@ -51,14 +51,12 @@ export default function CompanyBrandPage() {
 
         {/* Hero CTA Buttons: Contact Brand Support (left) & Brand Guidelines (right) */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 sm:mb-16">
-          <Button
-            asChild
-            className="group rounded-full h-11 px-4 bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white transition-all cursor-pointer inline-flex items-center justify-center font-normal text-base"
+          <Link
+            href="/company/contact"
+            className="rounded-full h-11 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
           >
-            <Link href="/company/contact">
-              <span>Contact us</span>
-            </Link>
-          </Button>
+            Contact us
+          </Link>
 
           <Button
             asChild

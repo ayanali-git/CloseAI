@@ -1004,7 +1004,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             onKeyDown={handlePillButtonKeyDown}
             disabled={(!hasContent && !isTyping) || isUploading}
             className={cn(
-              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0",
+              "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0",
               pillButtonFocusRing,
               isTyping
                 ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:opacity-60"

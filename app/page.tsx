@@ -202,7 +202,7 @@ export default function LandingPage() {
                 type="submit"
                 disabled={!heroPrompt.trim() || isSubmitting}
                 className={cn(
-                  "w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]",
+                  "w-11 h-11 rounded-full flex items-center justify-center transition-colors shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]",
                   heroPrompt.trim().length > 0 && !isSubmitting
                     ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:opacity-60"
                     : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
@@ -249,12 +249,12 @@ export default function LandingPage() {
                     handlePillClick(pill.prompt);
                   }}
                   className={cn(
-                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-none",
+                    "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-white/10",
                     pill.disabled
-                      ? "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground cursor-not-allowed opacity-50 select-none"
+                      ? "bg-background hover:bg-secondary text-muted-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
-                      ? "cursor-pointer bg-white dark:bg-[#303030] text-foreground"
-                      : "cursor-pointer bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground"
+                      ? "cursor-pointer bg-[#303030] text-foreground"
+                      : "cursor-pointer bg-background hover:bg-secondary text-foreground hover:text-foreground"
                   )}
                 >
                   {pill.disabled ? (

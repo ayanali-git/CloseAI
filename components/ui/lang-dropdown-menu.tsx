@@ -187,7 +187,7 @@ export function LangDropdownMenu({
       return { displayName: "English", nativeLabel: "India" };
     }
     if (currentLanguageObj.code === "en-US") {
-      return { displayName: "English", nativeLabel: "United States" };
+      return { displayName: "English (United States)", nativeLabel: "United States" };
     }
     return {
       displayName: currentLanguageObj.name,
@@ -241,8 +241,8 @@ export function LangDropdownMenu({
       onClick={() => handleOpenChange(true)}
       className={cn(
         "group flex items-center text-base gap-2 px-4 py-3 rounded-full select-none",
-        "bg-white dark:bg-[#303030] text-foreground",
-        "whitespace-nowrap cursor-pointer border border-border/80 dark:border-none hover:bg-secondary dark:hover:bg-[#404040] focus:bg-secondary dark:focus:bg-[#404040] focus:text-foreground",
+        "bg-background text-foreground",
+        "whitespace-nowrap cursor-pointer border border-border/80 dark:border-white/10 hover:bg-secondary",
         "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
         isOpen && "opacity-0 invisible pointer-events-none",
         className
@@ -452,7 +452,7 @@ export function LangDropdownMenu({
                     }}
                     placeholder="Search languages"
                     aria-label="Search languages"
-                    className="w-full h-11 rounded-full pl-12 pr-4 text-base placeholder:text-foreground bg-white dark:bg-[#303030] border border-border/80 dark:border-none outline-none focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-full pl-12 text-base placeholder:text-foreground bg-background border border-border/80 dark:border-white/10 outline-none focus:outline-none transition-colors"
                   />
                 </div>
               </div>

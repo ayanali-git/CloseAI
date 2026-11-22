@@ -949,7 +949,7 @@ export function Sidebar({
       align="start"
       sideOffset={side === "bottom" ? 6 : 20}
       collisionPadding={9}
-      className="w-[calc(100vw-2rem)] sm:w-[330px] max-w-[330px] p-0 rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
+      className="w-[calc(100vw-2rem)] sm:w-[330px] max-w-[330px] p-0 rounded-sm bg-background border border-border/80 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
     >
       {/* Search Simple Sky Blue & Soft Lilac Gradient Banner with DiceBear Glass SVG */}
       <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
@@ -974,9 +974,9 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
-            Sign up for free
+            Log in
           </button>
 
           <button
@@ -985,9 +985,9 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
-            Log in
+            Sign up for free
           </button>
         </div>
       </div>
@@ -2247,7 +2247,7 @@ export function Sidebar({
                         sideOffset={5}
                         collisionPadding={9}
                         onOpenAutoFocus={(e) => e.preventDefault()}
-                        className="w-[330px] p-0 rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
+                        className="w-[330px] p-0 rounded-sm bg-background border border-border/80 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
                       >
                         <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                           <img
@@ -2270,20 +2270,20 @@ export function Sidebar({
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
-                              Sign up for free
+                              Log in
                             </button>
-                            
+
                             <button
                               type="button"
                               onClick={() => {
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
-                              Log in
+                              Sign up for free
                             </button>
                           </div>
                         </div>

@@ -60,20 +60,20 @@ export function NewChatModal({
           </h2>
           <p className="text-base text-muted-foreground mt-1.5 leading-relaxed px-2 sm:px-4">
             To start a new chat, your current conversation will be discarded.{" "}
-            {/* <button
-              type="button"
-              onClick={handleLogin}
-              className="font-normal text-foreground hover:opacity-90 active:opacity-60 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
-            >
-              Sign up for free
-            </button>{" "}
-            or{" "} */}
             <button
               type="button"
               onClick={handleLogin}
               className="font-normal text-foreground hover:opacity-90 active:opacity-60 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
             >
               Log in
+            </button>{" "}
+            or{" "}
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="font-normal text-foreground hover:opacity-90 active:opacity-60 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
+            >
+              Sign up for free
             </button>{" "}
             to save your current conversation.
           </p>

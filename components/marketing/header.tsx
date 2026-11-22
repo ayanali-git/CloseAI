@@ -679,7 +679,7 @@ export function MarketingHeader() {
                   type="submit"
                   disabled={!searchQuery.trim()}
                   className={cn(
-                    "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all shrink-0 ml-4 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 ring-offset-background",
+                    "w-11 h-11 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ml-4 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 ring-offset-background",
                     searchQuery.trim().length > 0
                       ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:opacity-60"
                       : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
@@ -1177,13 +1177,6 @@ export function MarketingHeader() {
               </>
             ) : user ? (
               <>
-                <Link
-                  href="/c"
-                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
-                >
-                  <span>CloseAI Chat</span>
-                </Link>
-
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
@@ -1191,23 +1184,31 @@ export function MarketingHeader() {
                 >
                   <span>Log Out</span>
                 </button>
+
+                <Link
+                  href="/c"
+                  className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 text-base font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                >
+                  <span>CloseAI Chat</span>
+                </Link>
               </>
             ) : (
               <>
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white flex items-center justify-center text-[15px] font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
-                >
-                  <span>Sign Up For Free</span>
+                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                  >
+                  <span>Log In</span>
+                  {/* <AnimatedArrow size={20} /> */}
                 </button>
 
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="h-11 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
-                  >
-                  <span>Log In</span>
+                  className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-[15px] select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                >
+                  <span>Sign Up For Free</span>
                 </button>
                 
                   {/* <div
@@ -1848,9 +1849,9 @@ export function MarketingHeader() {
                           setMobileNavOpen(false);
                           openLoginModal();
                         }}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        Sign Up For Free
+                        Log In
                       </button>
 
                       <button
@@ -1859,9 +1860,9 @@ export function MarketingHeader() {
                           setMobileNavOpen(false);
                           openLoginModal();
                         }}
-                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
-                        Log In
+                        Sign Up For Free
                         {/* <AnimatedArrow size={26} /> */}
                       </button>
                     </>
