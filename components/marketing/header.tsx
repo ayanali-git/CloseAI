@@ -133,21 +133,6 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     ],
   },
   {
-    id: "prod-dots",
-    category: "Products",
-    title: "Dots",
-    description:
-      "A visual tool for creating and editing diagrams, flowcharts, and other graphical content.",
-    url: "/product/features",
-    keywords: [
-      "dots",
-      "diagrams",
-      "flowcharts",
-      "visual",
-      "editing",
-    ],
-  },
-  {
     id: "prod-codex",
     category: "Products",
     title: "Codex",
@@ -161,6 +146,21 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
       "editor",
       "code",
       "workspace",
+    ],
+  },
+  {
+    id: "prod-dots",
+    category: "Products",
+    title: "Dots",
+    description:
+      "A visual tool for creating and editing diagrams, flowcharts, and other graphical content.",
+    url: "/product/features",
+    keywords: [
+      "dots",
+      "diagrams",
+      "flowcharts",
+      "visual",
+      "editing",
     ],
   },
   {
@@ -1996,7 +1996,7 @@ export function MarketingHeader() {
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
-                            Dots
+                            Codex
                             <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                           <Link
@@ -2006,7 +2006,7 @@ export function MarketingHeader() {
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
-                            Codex
+                            Dots
                             <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                         </div>

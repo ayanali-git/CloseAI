@@ -114,7 +114,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
-                    Dots
+                    Codex
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
@@ -125,7 +125,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
-                    Codex
+                    Dots
                     <AnimatedArrowUpRight className="w-5 h-5 stroke-[2]" />
                   </Link>
                 </li>
