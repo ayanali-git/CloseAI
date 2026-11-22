@@ -377,9 +377,9 @@ function NewChatContent() {
                           <button
                             type="button"
                             className="group h-11 px-2.5 sm:px-3 gap-1 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
-                            aria-label={isPersonalized ? "Personalization" : "Unpersonalized"}
+                            aria-label={isPersonalized ? "Personalized" : "Unpersonalized"}
                           >
-                            <span>{isPersonalized ? "Personalized" : "Unpersonalized"}</span>
+                            <span>Personalization</span>
                             <ChevronDown className="w-3.5 h-3.5 stroke-[2] text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
                           </button>
                         </DropdownMenuTrigger>
@@ -390,7 +390,7 @@ function NewChatContent() {
                         sideOffset={5}
                         className="text-base"
                       >
-                        {isPersonalized ? "Personalization" : "Unpersonalized"}
+                        {isPersonalized ? "Personalized" : "Unpersonalized"}
                       </TooltipContent>
                     </Tooltip>
 
