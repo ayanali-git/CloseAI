@@ -119,23 +119,38 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     keywords: ["residency", "fellowship", "careers", "researchers", "program"],
   },
   {
-    id: "prod-chat",
+    id: "prod-closeai-chat",
     category: "Products",
     title: "CloseAI Chat",
     description:
       "Interactive AI assistant for conversation, coding, analysis, content creation, and creative problem solving.",
     url: "/c",
     keywords: [
-      "chat",
       "closeai",
-      "assistant",
+      "chat",
       "conversation",
+      "assistant",
     ],
   },
   {
-    id: "prod-code",
+    id: "prod-dots",
     category: "Products",
-    title: "Codex Code",
+    title: "Dots",
+    description:
+      "A visual tool for creating and editing diagrams, flowcharts, and other graphical content.",
+    url: "/product/features",
+    keywords: [
+      "dots",
+      "diagrams",
+      "flowcharts",
+      "visual",
+      "editing",
+    ],
+  },
+  {
+    id: "prod-codex",
+    category: "Products",
+    title: "Codex",
     description:
       "Collaborative interactive workspace and advanced code editor powered by CloseAI for pair programming and document editing.",
     url: "/product/features",
@@ -145,7 +160,6 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
       "features",
       "editor",
       "code",
-      "pair programming",
       "workspace",
     ],
   },
@@ -1977,13 +1991,23 @@ export function MarketingHeader() {
                           </Link>
                           <Link
                             href="/product/features"
-                            // target="_blank"
-                            // rel="noopener noreferrer"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
-                            Codex Code
-                            {/* <AnimatedArrowUpRight className="w-5 h-5 transition-colors" /> */}
+                            Dots
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
+                          </Link>
+                          <Link
+                            href="/product/features"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setMobileNavOpen(false)}
+                            className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
+                          >
+                            Codex
+                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                           </Link>
                         </div>
                       </div>

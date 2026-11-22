@@ -25,7 +25,7 @@ export default function ResearchOverviewPage() {
     },
     {
       title: "Self-Verifiable Code Synthesis Across Polyglot Codebases",
-      authors: "Codex Foundations",
+      authors: "Codex",
       date: "June 2026",
       tag: "Code & Math",
       abstract: "Achieving state-of-the-art benchmarks on SWE-bench through automated linting, test synthesis, and iterative sandbox execution.",
