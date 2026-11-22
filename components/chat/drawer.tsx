@@ -1235,7 +1235,7 @@ export function EditProfileDrawer({
       {/* Photo Section */}
       <div className="space-y-2">
         <h3 className="text-sm font-medium text-foreground">Photo</h3>
-        <div className="rounded-2xl border border-border/80 dark:border-none bg-secondary/30 dark:bg-neutral-900/40 overflow-hidden">
+        <div className="rounded-2xl border border-border/80 dark:border-none bg-white dark:bg-[#101010] overflow-hidden">
           <input
             ref={fileInputRef}
             type="file"

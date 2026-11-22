@@ -251,10 +251,10 @@ export default function LandingPage() {
                   className={cn(
                     "h-11 px-4 rounded-full text-base sm:text-[15px] font-normal transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-border/80 dark:border-white/10",
                     pill.disabled
-                      ? "bg-background hover:bg-secondary text-muted-foreground cursor-not-allowed opacity-50 select-none"
+                      ? "bg-background hover:bg-secondary text-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
-                      ? "cursor-pointer bg-[#303030] text-foreground"
-                      : "cursor-pointer bg-background hover:bg-secondary text-foreground hover:text-foreground"
+                      ? "cursor-pointer bg-secondary text-foreground"
+                      : "cursor-pointer bg-background hover:bg-secondary text-foreground"
                   )}
                 >
                   {pill.disabled ? (

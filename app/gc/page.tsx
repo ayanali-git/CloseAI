@@ -418,7 +418,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 150);
                     }}
-                    className="h-11 px-4 rounded-full text-base sm:text-[14.5px] transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
+                    className="h-11 px-4 rounded-full text-base transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
                   >
                     What can CloseAI do?
                   </button>

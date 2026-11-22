@@ -223,7 +223,7 @@ export default function OpenRolesPage() {
                 href={role.url || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between p-4 sm:p-5 bg-card border border-border/80 dark:border-none rounded-2xl hover:bg-secondary/60 transition-all cursor-pointer"
+                className="group flex items-center justify-between p-4 sm:p-5 bg-card border border-border/80 dark:border-none rounded-2xl hover:bg-secondary/50 transition-all cursor-pointer"
               >
                 <div>
                   <h3 className="text-base sm:text-lg font-medium text-foreground mb-1 group-hover:text-foreground">

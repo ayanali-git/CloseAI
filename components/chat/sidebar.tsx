@@ -1785,7 +1785,29 @@ export function Sidebar({
 
               {/* Rail Navigation Items */}
               <div className="flex flex-col items-center gap-1.5 pt-1">
-                {/* Search */}
+                {/* New chat */}
+                <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => {
+                        handleNewChatAction();
+                      }}
+                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      aria-label="New Chat"
+                    >
+                      <SquarePen className="w-5 h-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="right"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    New Chat
+                  </TooltipContent>
+                </Tooltip>
+
+                {/* Search chats */}
                 <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
                   <TooltipTrigger asChild>
                     <button
@@ -1806,28 +1828,6 @@ export function Sidebar({
                     className="text-base"
                   >
                     Search chats
-                  </TooltipContent>
-                </Tooltip>
-                
-                {/* Chat */}
-                <Tooltip open={isOpen || isAnyModalOpen ? false : undefined}>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => {
-                        handleNewChatAction();
-                      }}
-                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
-                      aria-label="New Chat"
-                    >
-                      <SquarePen className="w-5 h-5" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="right"
-                    sideOffset={5}
-                    className="text-base"
-                  >
-                    New Chat
                   </TooltipContent>
                 </Tooltip>
 
@@ -1879,7 +1879,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Create Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1900,7 +1900,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Web Search"
                         >
                           <Globe className="w-5 h-5" />
@@ -1942,7 +1942,7 @@ export function Sidebar({
                       </TooltipContent>
                     </Tooltip>
 
-                    {/* Search */}
+                    {/* Web search */}
                     <HoverCard
                       open={railWebSearchHoverOpen}
                       onOpenChange={(open) => {
@@ -2458,13 +2458,14 @@ export function Sidebar({
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                   >
                     <div className="flex items-center gap-2.5">
-                      <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                      <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 !cursor-not-allowed" />
                       <AnimatedComingSoonText
                         label="Create images"
                         comingSoonText="Coming soon"
+                        className="!cursor-not-allowed"
                       />
                     </div>
                   </button>
@@ -2473,13 +2474,14 @@ export function Sidebar({
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                   >
                     <div className="flex items-center gap-2.5">
-                      <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                      <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 !cursor-not-allowed" />
                       <AnimatedComingSoonText
                         label="Web search"
                         comingSoonText="Coming soon"
+                        className="!cursor-not-allowed"
                       />
                     </div>
                   </button>

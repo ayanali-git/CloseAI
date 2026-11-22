@@ -1187,7 +1187,7 @@ export function MarketingHeader() {
 
                 <Link
                   href="/c"
-                  className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 text-base font-normal transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                  className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-[15px] select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>CloseAI Chat</span>
                 </Link>
@@ -1433,13 +1433,25 @@ export function MarketingHeader() {
                       <li>
                         <Link
                           href="/product/features"
-                          // target="_blank"
-                          // rel="noopener noreferrer"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
-                          Codex Code
-                          {/* <AnimatedArrowUpRight className="w-5 h-5 transition-colors" /> */}
+                          Codex
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/product/features"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-2xl font-medium text-foreground transition-colors"
+                        >
+                          Dots
+                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
                         </Link>
                       </li>
                     </ul>
@@ -1823,23 +1835,23 @@ export function MarketingHeader() {
                 <div className="pt-8 border-t border-border/80 space-y-4 pb-4">
                   {user ? (
                     <>
-                      <Link
-                        href="/c"
-                        onClick={() => setMobileNavOpen(false)}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
-                      >
-                        <span>CloseAI Chat</span>
-                      </Link>
-
                       <button
                         onClick={() => {
                           setMobileNavOpen(false);
                           setLogoutModalOpen(true);
                         }}
-                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log Out
                       </button>
+
+                      <Link
+                        href="/c"
+                        onClick={() => setMobileNavOpen(false)}
+                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                      >
+                        <span>CloseAI Chat</span>
+                      </Link>
                     </>
                   ) : (
                     <>
@@ -1849,7 +1861,7 @@ export function MarketingHeader() {
                           setMobileNavOpen(false);
                           openLoginModal();
                         }}
-                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log In
                       </button>
@@ -1860,7 +1872,7 @@ export function MarketingHeader() {
                           setMobileNavOpen(false);
                           openLoginModal();
                         }}
-                        className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Sign Up For Free
                         {/* <AnimatedArrow size={26} /> */}
