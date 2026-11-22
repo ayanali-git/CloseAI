@@ -2315,7 +2315,7 @@ export function Sidebar({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground border border-border/80 dark:border-none hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                         onClick={handleOpenSearchModal}
                       >
                         <Search className="w-5 h-5" />
@@ -2394,7 +2394,7 @@ export function Sidebar({
                       size="icon"
                       aria-label="Close sidebar"
                       className={cn(
-                        "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground border border-border/80 dark:border-none hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         !user && "hidden xl:inline-flex"
                       )}
                       onClick={(e) => {
