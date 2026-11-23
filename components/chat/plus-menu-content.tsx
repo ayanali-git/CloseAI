@@ -1601,7 +1601,7 @@ export function PlusMenuContent({
         )}
       </DropdownMenuItem>
 
-      {/* Button 2: Images */}
+      {/* Button 2: Create images */}
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
@@ -1609,12 +1609,12 @@ export function PlusMenuContent({
       >
         <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
-          label="Images"
+          label="Create images"
           comingSoonText="Coming soon"
         />
       </DropdownMenuItem>
 
-      {/* Button 3: Search */}
+      {/* Button 3: Web search */}
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
@@ -1622,7 +1622,7 @@ export function PlusMenuContent({
       >
         <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
-          label="Search"
+          label="Web search"
           comingSoonText="Coming soon"
         />
       </DropdownMenuItem>
