@@ -125,7 +125,7 @@ export default function OpenRolesPage() {
                 }
               }}
               placeholder="Search roles"
-              className="w-full pl-12 pr-4 h-11 bg-card border border-border/80 dark:border-none rounded-full text-base text-foreground placeholder:text-foreground transition-all outline-none focus:outline-none"
+              className="w-full pl-12 pr-4 h-11 bg-card border border-border/80 dark:border-white/10 rounded-full text-base text-foreground placeholder:text-foreground transition-all outline-none focus:outline-none"
             />
           </div>
 
@@ -134,7 +134,7 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="group h-11 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group h-11 px-4 bg-card border border-border/80 dark:border-white/10 rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="truncate">{selectedTeam}</span>
                 <AnimatedChevronDown
@@ -147,7 +147,7 @@ export default function OpenRolesPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
-              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5 !bg-card dark:!bg-card !border !border-border/80 dark:!border-none rounded-2xl backdrop-blur-none"
+              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5 !bg-card dark:!bg-card !border !border-border/80 rounded-xl backdrop-blur-none"
             >
               {TEAMS.map((team) => (
                 <DropdownMenuItem
@@ -172,7 +172,7 @@ export default function OpenRolesPage() {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="group h-11 px-4 bg-card border border-border/80 dark:border-none rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group h-11 px-4 bg-card border border-border/80 dark:border-white/10 rounded-full text-sm sm:text-base text-foreground flex items-center justify-between gap-2.5 hover:bg-secondary transition-all cursor-pointer shrink-0 w-full sm:w-auto min-w-[160px] outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="truncate">{selectedLocation}</span>
                 <AnimatedChevronDown
@@ -185,7 +185,7 @@ export default function OpenRolesPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
-              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5 !bg-card dark:!bg-card !border !border-border/80 dark:!border-none rounded-2xl backdrop-blur-none"
+              className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] p-1.5 !bg-card dark:!bg-card !border !border-border/80 rounded-xl backdrop-blur-none"
             >
               {LOCATIONS.map((loc) => (
                 <DropdownMenuItem
@@ -223,7 +223,7 @@ export default function OpenRolesPage() {
                 href={role.url || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between p-4 sm:p-5 bg-card border border-border/80 dark:border-none rounded-2xl hover:bg-secondary/50 transition-all cursor-pointer"
+                className="group flex items-center justify-between p-4 sm:p-5 bg-card border border-border/80 dark:border-none rounded-xl hover:bg-secondary/50 transition-all cursor-pointer"
               >
                 <div>
                   <h3 className="text-base sm:text-lg font-medium text-foreground mb-1 group-hover:text-foreground">

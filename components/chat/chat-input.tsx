@@ -286,6 +286,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   useEffect(() => {
     if (typeof window !== "undefined") {
       const checkTemp = () => {
+        if (isGuest || window.location.pathname === "/gc" || window.location.pathname.startsWith("/gc/")) {
+          setUrlIsTemporary(false);
+          return;
+        }
         const params = new URLSearchParams(window.location.search);
         setUrlIsTemporary(isTemporaryChatParam(params));
       };
@@ -293,9 +297,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       window.addEventListener("popstate", checkTemp);
       return () => window.removeEventListener("popstate", checkTemp);
     }
-  }, []);
+  }, [isGuest]);
 
-  const effectiveIsTemporary = Boolean(isTemporary ?? urlIsTemporary);
+  const isGuestMode = Boolean(isGuest || pathname === "/gc" || pathname?.startsWith("/gc/"));
+  const effectiveIsTemporary = Boolean(!isGuestMode && (isTemporary ?? urlIsTemporary));
 
   useEffect(() => {
     const syncDictation = () => setDictationEnabled(getDictationEnabled());

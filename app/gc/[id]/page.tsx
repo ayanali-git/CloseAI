@@ -798,6 +798,7 @@ export default function GuestChatSessionPage() {
                   thinkMode={thinkMode}
                   onThinkModeChange={setThinkMode}
                   isGuest={true}
+                  isTemporary={false}
                   onOpenLoginModal={handleOpenLogin}
                   onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
                   onOpenAdvancedFeaturesModal={handleOpenLogin}

@@ -352,7 +352,7 @@ const SidebarChatItem = React.memo(
                   e.stopPropagation();
                   onToggleStarRef.current(chat.id, !chat.starred);
                 }}
-                className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                className="p-1 text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 {chat.starred ? (
                   <PinOff className="w-5 h-5 text-foreground" />
@@ -374,7 +374,7 @@ const SidebarChatItem = React.memo(
                     e.stopPropagation();
                     onToggleArchiveRef.current?.(chat.id, !chat.archived);
                   }}
-                  className="p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                  className="p-1 text-muted-foreground hover:text-foreground transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                 >
                   {chat.archived ? (
                     <ArchiveX className="w-5 h-5" />
@@ -396,7 +396,7 @@ const SidebarChatItem = React.memo(
                   e.stopPropagation();
                   setChatToDeleteRef.current(chat);
                 }}
-                className="p-1 rounded-sm text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                className="p-1 text-muted-foreground hover:text-red-500 transition-colors cursor-pointer pointer-events-auto outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 <Trash2 className="w-5 h-5" />
               </button>
@@ -862,7 +862,7 @@ export function Sidebar({
       <DropdownMenuItem asChild>
         <Link
           href="/support/help"
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
           <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Help center</span>
@@ -872,7 +872,7 @@ export function Sidebar({
       <DropdownMenuItem asChild>
         <Link
           href="/company/blog"
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group"
         >
           <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Release notes</span>
@@ -884,7 +884,7 @@ export function Sidebar({
         onSelect={(e) => e.preventDefault()}
         className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
       >
-        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-sm font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group">
+        <div className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group">
           <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
           <AnimatedComingSoonText
             label="Download app"
@@ -901,7 +901,7 @@ export function Sidebar({
           href="/support/terms"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
             <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -916,7 +916,7 @@ export function Sidebar({
           href="/support/privacy"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
+          className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
         >
           <div className="flex items-center gap-2.5">
             <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -930,7 +930,7 @@ export function Sidebar({
 
       <DropdownMenuItem
         onClick={handleOpenReportBug}
-        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-sm text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center justify-between px-3 py-2 cursor-pointer rounded-xl text-base font-normal text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left"
       >
         <div className="flex items-center gap-2.5">
           <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
@@ -949,7 +949,7 @@ export function Sidebar({
       align="start"
       sideOffset={side === "bottom" ? 6 : 20}
       collisionPadding={9}
-      className="w-[calc(100vw-2rem)] sm:w-[330px] max-w-[330px] p-0 rounded-sm bg-background border border-border/80 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
+      className="w-[calc(100vw-2rem)] sm:w-[330px] max-w-[330px] p-0 rounded-xl bg-background border border-border/80 overflow-hidden text-left z-50 select-none transition-none animate-none duration-0 !transition-none !animate-none"
     >
       {/* Search Simple Sky Blue & Soft Lilac Gradient Banner with DiceBear Glass SVG */}
       <div className="h-32 w-full relative overflow-hidden bg-gradient-to-tr from-[#ebb8f7] via-[#5bb5f8] via-25% to-[#72ccfd]">
@@ -1008,9 +1008,9 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="group flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
+            <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-foreground stroke-[2]" />
             <span>Help</span>
           </button>
           <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
@@ -1023,7 +1023,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
@@ -1038,7 +1038,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
@@ -1049,7 +1049,7 @@ export function Sidebar({
             onSelect={(e) => e.preventDefault()}
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
           >
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]">
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]">
               <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
@@ -1065,7 +1065,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1080,7 +1080,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setAccountMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1092,7 +1092,7 @@ export function Sidebar({
           <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
           <DropdownMenuItem
             onClick={handleOpenReportBug}
-            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
+            className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
               <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1112,17 +1112,13 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="group flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
+            <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-foreground stroke-[2]" />
             <span>Accounts</span>
           </button>
           <div className={cn("h-[1px] bg-neutral-200 my-1", isGuestMode ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-          <div className="flex items-center gap-2 px-2 py-1.5 text-base text-muted-foreground hover:text-foreground select-none">
-            <UserIcon className="w-5 h-5 shrink-0" />
-            <span className="truncate">{userEmail}</span>
-          </div>
-          <div className="flex items-center justify-between px-2 py-2 rounded-sm bg-secondary/50">
+          <div className="flex items-center justify-between px-2 py-2 rounded-xl bg-secondary/50">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
@@ -1138,7 +1134,7 @@ export function Sidebar({
                   className="text-sm text-muted-foreground leading-tight truncate"
                   suppressHydrationWarning
                 >
-                  @{username}
+                  {userEmail}
                 </p>
               </div>
             </div>
@@ -1148,9 +1144,9 @@ export function Sidebar({
           <button
             type="button"
             onClick={handleOpenAddAccount}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <Plus className="w-5 h-5 text-muted-foreground" />
+            <Plus className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
             <span>Add account</span>
           </button>
         </div>
@@ -1168,7 +1164,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("accounts");
             }}
-            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-sm [@media(hover:hover)]:hover:bg-secondary active:bg-secondary text-left transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-xl [@media(hover:hover)]:hover:bg-secondary active:bg-secondary text-left transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
               <AvatarImage src={avatarUrl} />
@@ -1191,7 +1187,7 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-sm cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-1 text-base rounded-xl cursor-pointer">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
@@ -1212,14 +1208,10 @@ export function Sidebar({
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-108}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80"
+              alignOffset={-66}
+              className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80"
             >
-              <div className="flex items-center gap-2 px-2 py-2 text-base text-muted-foreground hover:text-foreground select-none">
-                <UserIcon className="w-5 h-5 shrink-0" />
-                <span className="truncate">{userEmail}</span>
-              </div>
-              <DropdownMenuItem className="flex items-center justify-between px-2 py-2 rounded-sm cursor-pointer">
+              <DropdownMenuItem className="flex items-center justify-between px-2 py-1 rounded-xl cursor-pointer">
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                     <AvatarImage src={avatarUrl} />
@@ -1235,7 +1227,7 @@ export function Sidebar({
                       className="text-sm text-muted-foreground leading-tight truncate"
                       suppressHydrationWarning
                     >
-                      @{username}
+                      {userEmail}
                     </p>
                   </div>
                 </div>
@@ -1244,7 +1236,7 @@ export function Sidebar({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleOpenAddAccount}
-                className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+                className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
               >
                 <Plus className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                 <span>Add account</span>
@@ -1258,7 +1250,7 @@ export function Sidebar({
         {/* Upgrade plan */}
         <DropdownMenuItem
           onClick={() => handleOpenSettings("plans")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Plans</span>
@@ -1267,7 +1259,7 @@ export function Sidebar({
         {/* Data */}
         <DropdownMenuItem
           onClick={() => handleOpenSettings("data")}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <Database className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Data</span>
@@ -1287,7 +1279,7 @@ export function Sidebar({
               : "/profile";
             router.push(profileUrl);
           }}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <UserIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Profile</span>
@@ -1298,7 +1290,7 @@ export function Sidebar({
           onClick={() =>
             handleOpenSettings(isMobileScreen ? undefined : "general")
           }
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer"
         >
           <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Settings</span>
@@ -1314,7 +1306,7 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setAccountSubView("help");
             }}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="w-full flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
             <div className="flex items-center gap-2.5">
               <LifeBuoy className="w-5 h-5 text-muted-foreground" />
@@ -1324,19 +1316,19 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-sm cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl cursor-pointer">
               <LifeBuoy className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
               alignOffset={-238}
-              className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80"
+              className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80"
             >
               <DropdownMenuItem asChild>
                 <Link
                   href="/support/help"
-                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
                 >
                   <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Help center</span>
@@ -1345,7 +1337,7 @@ export function Sidebar({
               <DropdownMenuItem asChild>
                 <Link
                   href="/company/blog"
-                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+                  className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
                 >
                   <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Release notes</span>
@@ -1353,7 +1345,7 @@ export function Sidebar({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]"
+                className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]"
               >
                 <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 !cursor-not-allowed" />
                 <AnimatedComingSoonText
@@ -1368,7 +1360,7 @@ export function Sidebar({
                   href="/support/terms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-sm text-base text-foreground"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
                     <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1382,7 +1374,7 @@ export function Sidebar({
                   href="/support/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-sm text-base text-foreground"
+                  className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
                 >
                   <div className="flex items-center gap-2.5">
                     <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1394,7 +1386,7 @@ export function Sidebar({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleOpenReportBug}
-                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-sm text-base text-foreground"
+                className="group flex items-center justify-between px-2 py-2 cursor-pointer rounded-xl text-base text-foreground"
               >
                 <div className="flex items-center gap-2.5">
                   <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1408,7 +1400,7 @@ export function Sidebar({
         {/* Log out */}
         <DropdownMenuItem
           onClick={handleOpenLogout}
-          className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-sm text-base"
+          className="flex items-center gap-2.5 px-2 py-2 cursor-pointer rounded-xl text-base"
         >
           <LogOut className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Log out</span>
@@ -1430,9 +1422,9 @@ export function Sidebar({
               (e.currentTarget as HTMLElement)?.blur();
               setMobileGuestSubView("main");
             }}
-            className="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] rounded-sm cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+            className="group flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
+            <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-foreground stroke-[2]" />
             <span>Help</span>
           </button>
           <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
@@ -1445,7 +1437,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Help center</span>
@@ -1460,7 +1452,7 @@ export function Sidebar({
                   onToggle();
                 }
               }}
-              className="group flex items-center gap-2.5 px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
@@ -1471,7 +1463,7 @@ export function Sidebar({
             onSelect={(e) => e.preventDefault()}
             className="!cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
           >
-            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-sm text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]">
+            <div className="group w-full flex items-center gap-2.5 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]">
               <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground !cursor-not-allowed" />
               <AnimatedComingSoonText
                 label="Download app"
@@ -1487,7 +1479,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileGuestSettingsMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1502,7 +1494,7 @@ export function Sidebar({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileGuestSettingsMenuOpen(false)}
-              className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
+              className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <Info className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1517,7 +1509,7 @@ export function Sidebar({
               setMobileGuestSettingsMenuOpen(false);
               handleOpenReportBug();
             }}
-            className="group flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none w-full text-left cursor-pointer"
+            className="group flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] transition-colors outline-none focus:outline-none focus-visible:outline-none w-full text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
               <Bug className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -1546,7 +1538,7 @@ export function Sidebar({
                 onToggle();
               }
             }}
-            className="flex items-center justify-between px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:active:bg-[#404040] transition-colors outline-none focus:outline-none"
+            className="flex items-center justify-between px-2 py-2 rounded-xl text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:active:bg-[#404040] transition-colors outline-none focus:outline-none"
           >
             <div className="flex items-center gap-2.5">
               <CreditCard className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1563,7 +1555,7 @@ export function Sidebar({
             (e.currentTarget as HTMLElement)?.blur();
             setMobileGuestSubView("help");
           }}
-          className="w-full flex items-center justify-between px-2 py-2 rounded-sm text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:active:bg-[#404040] transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+          className="w-full flex items-center justify-between px-2 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:active:bg-[#404040] transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
         >
           <div className="flex items-center gap-2.5">
             <LifeBuoy className="w-5 h-5 text-muted-foreground" />
@@ -1580,7 +1572,7 @@ export function Sidebar({
             setMobileGuestSettingsMenuOpen(false);
             handleOpenSettings(isMobileScreen ? undefined : "general");
           }}
-          className="flex items-center gap-2.5 px-2 py-2 rounded-sm text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:active:bg-[#404040] transition-colors outline-none focus:outline-none"
+          className="flex items-center gap-2.5 px-2 py-2 rounded-xl text-base cursor-pointer text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:active:bg-[#404040] transition-colors outline-none focus:outline-none"
         >
           <Settings className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           <span>Settings</span>
@@ -1749,7 +1741,7 @@ export function Sidebar({
                       onBlur={() => setIsLogoHovered(false)}
                       style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
                       className={cn(
-                        "group w-11 h-11 rounded-sm flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                        "group w-11 h-11 rounded-sm xl:rounded-full flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                         isAuthenticated
                           ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
                           : "cursor-pointer [&_*]:cursor-pointer"
@@ -1792,7 +1784,7 @@ export function Sidebar({
                       onClick={() => {
                         handleNewChatAction();
                       }}
-                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="New Chat"
                     >
                       <SquarePen className="w-5 h-5" />
@@ -1816,7 +1808,7 @@ export function Sidebar({
                       onClick={() => {
                         handleOpenSearchModal();
                       }}
-                      className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Search chats"
                     >
                       <Search className="w-5 h-5" />
@@ -1838,7 +1830,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Pinned chats"
                         >
                           <Pin className="w-5 h-5" />
@@ -1858,7 +1850,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Archived chats"
                         >
                           <Archive className="w-5 h-5" />
@@ -1879,7 +1871,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Create Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1900,7 +1892,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Web Search"
                         >
                           <Globe className="w-5 h-5" />
@@ -1927,7 +1919,7 @@ export function Sidebar({
                               description: "To continue with Create images",
                             });
                           }}
-                          className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1966,7 +1958,7 @@ export function Sidebar({
                             (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
-                            "w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                            "w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             railWebSearchHoverOpen &&
                               "bg-secondary text-foreground"
                           )}
@@ -2033,7 +2025,7 @@ export function Sidebar({
                         onClick={() => {
                           toast.info("App coming soon");
                         }}
-                        className="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Download app"
                       >
                         <Store className="w-5 h-5 shrink-0" />
@@ -2062,7 +2054,7 @@ export function Sidebar({
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-sm flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-11 h-11 rounded-full flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               collapsedAccountMenuOpen && "bg-secondary"
                             )}
                             aria-label="Account menu"
@@ -2089,7 +2081,7 @@ export function Sidebar({
                       side="right"
                       align="end"
                       sideOffset={5}
-                      className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80 outline-none focus:outline-none ring-0"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80 outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
@@ -2105,7 +2097,7 @@ export function Sidebar({
                         target="_blank"
                         rel="noopener noreferrer"
                         tabIndex={isOpen ? -1 : 0}
-                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Plans"
                       >
                         <CreditCard className="w-5 h-5 shrink-0" />
@@ -2132,7 +2124,7 @@ export function Sidebar({
                             type="button"
                             tabIndex={isOpen ? -1 : 0}
                             className={cn(
-                              "w-11 h-11 rounded-sm flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-11 h-11 rounded-xl flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               "text-muted-foreground hover:text-foreground hover:bg-secondary",
                               railHelpOpen && "bg-secondary text-foreground"
                             )}
@@ -2157,7 +2149,7 @@ export function Sidebar({
                       onCloseAutoFocus={(e) => {
                         e.preventDefault();
                       }}
-                      className="w-64 max-w-[calc(100vw-24px)] rounded-sm p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                     >
                       {renderHelpMenuItems()}
                     </DropdownMenuContent>
@@ -2174,7 +2166,7 @@ export function Sidebar({
                             isMobileScreen ? undefined : "general"
                           )
                         }
-                        className="w-11 h-11 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Settings"
                       >
                         <Settings className="w-5 h-5 shrink-0" />
@@ -2216,7 +2208,7 @@ export function Sidebar({
                 <>
                   <Link
                     href="/"
-                    className="xl:hidden flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none"
+                    className="xl:hidden flex items-center gap-2 max-xl:-ml-1.5 px-1.5 py-0.5 rounded-xl outline-none focus:outline-none focus-visible:outline-none"
                     aria-label="CloseAI"
                   >
                     <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">
@@ -2234,20 +2226,21 @@ export function Sidebar({
                       }}
                     >
                       <PopoverTrigger asChild>
-                        <button
-                          type="button"
-                          className="h-11 px-3 flex items-center rounded-sm hover:bg-secondary data-[state=open]:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
+                        <Link
+                          href="/"
+                          className="h-11 px-3 flex items-center text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
                         >
-                          <span className="leading-none">CloseAI</span>
-                          <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground shrink-0 transition-colors" />
-                        </button>
+                          <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">
+CloseAI</span>
+                          {/* <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground shrink-0 transition-colors" /> */}
+                        </Link>
                       </PopoverTrigger>
-                      <PopoverContent
+                      {/* <PopoverContent
                         align="start"
                         sideOffset={5}
                         collisionPadding={9}
                         onOpenAutoFocus={(e) => e.preventDefault()}
-                        className="w-[330px] p-0 rounded-sm bg-background border border-border/80 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
+                        className="w-[330px] p-0 rounded-xl bg-background border border-border/80 overflow-hidden text-left z-50 transition-none animate-none duration-0 !transition-none !animate-none outline-none focus:outline-none focus:ring-0"
                       >
                         <div className="h-32 w-full relative overflow-hidden bg-gradient-to-br from-[#9eb1ff] via-[#b6c7ff] to-[#cfe2fe]">
                           <img
@@ -2287,14 +2280,14 @@ export function Sidebar({
                             </button>
                           </div>
                         </div>
-                      </PopoverContent>
+                      </PopoverContent> */}
                     </Popover>
                   </div>
                 </>
               ) : (
                 <Link
                   href="/"
-                  className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 xl:px-3 py-0.5 rounded-sm outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                  className="flex items-center gap-2 max-xl:-ml-1.5 px-1.5 xl:px-3 py-0.5 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   aria-label="CloseAI"
                 >
                   <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">
@@ -2315,7 +2308,7 @@ export function Sidebar({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-11 h-11 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                         onClick={handleOpenSearchModal}
                       >
                         <Search className="w-5 h-5" />
@@ -2337,7 +2330,7 @@ export function Sidebar({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="hidden xl:inline-flex w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                          className="hidden xl:inline-flex w-11 h-11 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                           onClick={() => {
                             handleOpenSearchModal();
                           }}
@@ -2394,7 +2387,7 @@ export function Sidebar({
                       size="icon"
                       aria-label="Close sidebar"
                       className={cn(
-                        "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "w-11 h-11 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         !user && "hidden xl:inline-flex"
                       )}
                       onClick={(e) => {
@@ -2441,7 +2434,7 @@ export function Sidebar({
                   handleNewChatAction();
                 }}
                 className={cn(
-                  "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                  "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                   isNewChat && "max-xl:bg-secondary/70",
                   "max-xl:hidden"
                 )}
@@ -2458,7 +2451,7 @@ export function Sidebar({
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 !cursor-not-allowed" />
@@ -2474,7 +2467,7 @@ export function Sidebar({
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                   >
                     <div className="flex items-center gap-2.5">
                       <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 !cursor-not-allowed" />
@@ -2498,7 +2491,7 @@ export function Sidebar({
                         description: "To continue with Create images",
                       });
                     }}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -2547,7 +2540,7 @@ export function Sidebar({
                           });
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-sm hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                           webSearchHoverOpen && "bg-secondary"
                         )}
                       >
@@ -2615,7 +2608,7 @@ export function Sidebar({
                     <div className="space-y-2">
                       <div className="h-3 w-20 bg-muted-foreground/20 rounded animate-pulse ml-3" />
                       <div className="space-y-1.5">
-                        <div className="h-8 w-full bg-secondary/80 dark:bg-neutral-800/60 rounded-sm animate-pulse" />
+                        <div className="h-8 w-full bg-secondary/80 dark:bg-neutral-800/60 rounded-xl animate-pulse" />
                       </div>
                     </div>
 
@@ -2623,7 +2616,7 @@ export function Sidebar({
                     <div className="space-y-2 pt-1">
                       <div className="h-3 w-24 bg-muted-foreground/20 rounded animate-pulse ml-3" />
                       <div className="space-y-1.5">
-                        <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-sm animate-pulse" />
+                        <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-xl animate-pulse" />
                       </div>
                     </div>
 
@@ -2631,8 +2624,8 @@ export function Sidebar({
                     <div className="space-y-2 pt-1">
                       <div className="h-3 w-16 bg-muted-foreground/20 rounded animate-pulse ml-3" />
                       <div className="space-y-1.5">
-                        <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-sm animate-pulse" />
-                        <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-sm animate-pulse" />
+                        <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-xl animate-pulse" />
+                        <div className="h-8 w-full bg-secondary/70 dark:bg-neutral-800/50 rounded-xl animate-pulse" />
                       </div>
                     </div>
                   </div>
@@ -2643,7 +2636,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Pinned")}
-                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-xl text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Pinned</span>
                         <AnimatedChevron
@@ -2674,7 +2667,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Archived")}
-                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-xl text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Archived</span>
                         <AnimatedChevron
@@ -2705,7 +2698,7 @@ export function Sidebar({
                       <button
                         type="button"
                         onClick={() => toggleSection("Recents")}
-                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-sm text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-full flex items-center justify-between pl-3 pr-2 py-1 rounded-xl text-[15px] font-semibold tracking-wider text-foreground select-none cursor-pointer transition-colors group/section text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                       >
                         <span>Recents</span>
                         <AnimatedChevron
@@ -2793,7 +2786,7 @@ export function Sidebar({
                               }}
                               onMouseLeave={() => setIsDownloadHovered(false)}
                               className={cn(
-                                "w-full h-11 flex items-center justify-between rounded-sm transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
+                                "w-full h-12 flex items-center justify-between rounded-xl transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
                                 !isDownloadHovered && "hover:bg-secondary",
                                 accountMenuOpen && "bg-secondary"
                               )}
@@ -2841,7 +2834,7 @@ export function Sidebar({
                         side="top"
                         align="start"
                         sideOffset={5}
-                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80 outline-none focus:outline-none ring-0"
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80 outline-none focus:outline-none ring-0"
                       >
                         {renderAccountMenuItems()}
                       </DropdownMenuContent>
@@ -2879,7 +2872,7 @@ export function Sidebar({
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-sm text-muted-foreground hover:text-foreground border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
+                              "w-11 h-11 rounded-xl text-muted-foreground hover:text-foreground border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
                               mobileAccountMenuOpen && "bg-secondary text-foreground"
                             )}
                             aria-label="Account menu"
@@ -2895,7 +2888,7 @@ export function Sidebar({
                       align="end"
                       sideOffset={5}
                       style={{ width: dockWidth ? `${dockWidth}px` : "auto" }}
-                      className="max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80 outline-none focus:outline-none ring-0"
+                      className="max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80 outline-none focus:outline-none ring-0"
                     >
                       {renderAccountMenuItems()}
                     </DropdownMenuContent>
@@ -2913,7 +2906,7 @@ export function Sidebar({
                       target="_blank"
                       rel="noopener noreferrer"
                       tabIndex={!isOpen ? -1 : 0}
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Plans"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2938,7 +2931,7 @@ export function Sidebar({
                           type="button"
                           tabIndex={!isOpen ? -1 : 0}
                           className={cn(
-                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             guestHelpMenuOpen && !isMobileScreen && "bg-secondary"
                           )}
                           aria-label="Help"
@@ -2959,7 +2952,7 @@ export function Sidebar({
                         side="top"
                         align="start"
                         sideOffset={5}
-                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-sm p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                        className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)] rounded-xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                       >
                         {renderHelpMenuItems()}
                       </DropdownMenuContent>
@@ -2974,7 +2967,7 @@ export function Sidebar({
                           isMobileScreen ? undefined : "general"
                         )
                       }
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-sm hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Settings"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -3053,7 +3046,7 @@ export function Sidebar({
                       align="end"
                       sideOffset={5}
                       style={{ width: dockWidth ? `${dockWidth}px` : "auto" }}
-                      className="w-64 max-w-[calc(100vw-24px)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-sm p-2 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 outline-none focus:outline-none ring-0"
+                      className="w-64 max-w-[calc(100vw-24px)] max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-xl p-2 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 outline-none focus:outline-none ring-0"
                     >
                       {renderGuestSettingsMenuItems()}
                     </DropdownMenuContent>

@@ -104,7 +104,14 @@ function NewChatContent() {
 
     if (!user) {
       if (isSigningOut) return;
-      const search = typeof window !== "undefined" ? window.location.search : "";
+      const params = new URLSearchParams(
+        typeof window !== "undefined" ? window.location.search : ""
+      );
+      params.delete("tc");
+      params.delete("temporary-chat");
+      params.delete("personalized");
+      const q = params.toString();
+      const search = q ? `?${q}` : "";
       const hash = typeof window !== "undefined" ? window.location.hash : "";
       router.replace(`/gc${search}${hash}`);
       return;
@@ -342,7 +349,7 @@ function NewChatContent() {
                       <button
                         type="button"
                         onClick={() => handleToggleSidebar()}
-                        className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-xl xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -376,17 +383,21 @@ function NewChatContent() {
                         <DropdownMenuTrigger asChild>
                           <button
                             type="button"
-                            className="group h-11 px-2.5 sm:px-3 gap-1 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary data-[state=open]:bg-secondary text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                            className={cn(
+                              "group h-11 px-2.5 sm:px-3 gap-1 hover:text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                              isPersonalizedMenuOpen
+                                ? "text-foreground"
+                                : "text-muted-foreground"
+                            )}
                             aria-label={isPersonalized ? "Personalized" : "Unpersonalized"}
                           >
                             <span>Personalization</span>
-                            <ChevronDown className="w-3.5 h-3.5 stroke-[2] text-muted-foreground group-hover:text-foreground shrink-0 transition-transform" />
+                            <ChevronDown className="w-3.5 h-3.5 stroke-[2] shrink-0" />
                           </button>
                         </DropdownMenuTrigger>
                       </TooltipTrigger>
                       <TooltipContent
                         side="bottom"
-                        align="center"
                         sideOffset={5}
                         className="text-base"
                       >
@@ -397,11 +408,11 @@ function NewChatContent() {
                     <DropdownMenuContent
                       align="end"
                       sideOffset={5}
-                      className="w-full rounded-sm p-2 bg-white dark:bg-[#101010] border border-border/80 z-50"
+                      className="w-full rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80 z-50"
                     >
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(true)}
-                        className="group flex items-start justify-between gap-3 p-2.5 rounded-sm cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                       >
                         <div className="flex flex-col text-left">
                           <span className="text-sm font-semibold text-foreground">
@@ -418,7 +429,7 @@ function NewChatContent() {
 
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(false)}
-                        className="group flex items-start justify-between gap-3 p-2.5 rounded-sm cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                        className="group flex items-start justify-between gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                       >
                         <div className="flex flex-col text-left">
                           <span className="text-sm font-semibold text-foreground">
@@ -442,7 +453,7 @@ function NewChatContent() {
                       type="button"
                       onClick={handleToggleTemporaryChat}
                       className={cn(
-                        "group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "group h-11 w-11 rounded-xl xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isTemporary
                           ? "bg-secondary text-foreground"
                           : "text-muted-foreground hover:text-foreground"

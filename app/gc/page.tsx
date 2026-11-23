@@ -102,6 +102,23 @@ function GuestChatContent() {
     }
   }, [user, loading, router]);
 
+  // Clean up any temporary chat params since guest chat does not support temporary chat
+  useEffect(() => {
+    if (!searchParams) return;
+    if (
+      searchParams.has("tc") ||
+      searchParams.has("temporary-chat") ||
+      searchParams.has("personalized")
+    ) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("tc");
+      params.delete("temporary-chat");
+      params.delete("personalized");
+      const q = params.toString();
+      router.replace(`/gc${q ? `?${q}` : ""}`, { scroll: false });
+    }
+  }, [searchParams, router]);
+
   // Handle URL query prompt auto-send: creates new guest chat session
   useEffect(() => {
     if (queryPrompt && !autoCreateTriggeredRef.current) {
@@ -396,6 +413,7 @@ function GuestChatContent() {
                 thinkMode={thinkMode}
                 onThinkModeChange={setThinkMode}
                 isGuest={true}
+                isTemporary={false}
                 onOpenLoginModal={handleOpenLogin}
                 onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
                 onOpenAdvancedFeaturesModal={handleOpenLogin}

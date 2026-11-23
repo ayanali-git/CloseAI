@@ -495,10 +495,10 @@ export default function PublicSharedChatPage() {
                     disabled={isSharing}
                     onClick={handleShareClick}
                     className={cn(
-                      "group h-11 w-11 sm:w-auto px-0 sm:px-4 gap-1.5 border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
+                      "group h-11 w-11 border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
                       isGuest
                         ? "rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
-                        : "rounded-sm bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
+                        : "rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
                     )}
                   >
                     {isSharing ? (
@@ -506,7 +506,7 @@ export default function PublicSharedChatPage() {
                     ) : (
                       <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
                     )}
-                    <span className="hidden sm:inline">Share</span>
+                    {/* <span className="hidden sm:inline">Share</span> */}
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" sideOffset={5} className="text-base">
@@ -527,7 +527,7 @@ export default function PublicSharedChatPage() {
                     }
                   }}
                   className={cn(
-                    "group h-11 w-11 rounded-sm border text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-11 w-11 rounded-sm xl:rounded-full border text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
                       ? "rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
                       : "rounded-sm bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"

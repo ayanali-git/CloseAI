@@ -729,7 +729,7 @@ export function FilePreviewViewer({
               <button
                 type="button"
                 onClick={handleDownload}
-                className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+                className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
                 title="Download file"
                 aria-label="Download file"
               >
@@ -739,7 +739,7 @@ export function FilePreviewViewer({
             <button
               type="button"
               onClick={onClose}
-              className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
+              className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none select-none shrink-0"
               title="Close preview"
               aria-label="Close preview"
             >

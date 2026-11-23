@@ -266,7 +266,7 @@ export default function HelpPage() {
               }
             }}
             placeholder="Search questions"
-            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-none rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-foreground transition-all"
+            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-white/10 rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-foreground transition-all"
           />
         </div>
       </header>
@@ -277,10 +277,10 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('getting-started')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'getting-started'
-              ? "border border-border/80 dark:border-none bg-secondary"
-              : "border border-border/80 dark:border-none hover:bg-secondary"
+              ? "border border-border/80 dark:border-white/10 bg-secondary"
+              : "border border-border/80 dark:border-white/10 hover:bg-secondary"
           )}
         >
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
@@ -295,10 +295,10 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('account-billing')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'account-billing'
-              ? "border border-border/80 dark:border-none bg-secondary"
-              : "border border-border/80 dark:border-none hover:bg-secondary"
+              ? "border border-border/80 dark:border-white/10 bg-secondary"
+              : "border border-border/80 dark:border-white/10 hover:bg-secondary"
           )}
         >
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
@@ -313,10 +313,10 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('troubleshooting')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'troubleshooting'
-              ? "border border-border/80 dark:border-none bg-secondary"
-              : "border border-border/80 dark:border-none hover:bg-secondary"
+              ? "border border-border/80 dark:border-white/10 bg-secondary"
+              : "border border-border/80 dark:border-white/10 hover:bg-secondary"
           )}
         >
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
@@ -331,10 +331,10 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('privacy')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'privacy'
-              ? "border border-border/80 dark:border-none bg-secondary"
-              : "border border-border/80 dark:border-none hover:bg-secondary"
+              ? "border border-border/80 dark:border-white/10 bg-secondary"
+              : "border border-border/80 dark:border-white/10 hover:bg-secondary"
           )}
         >
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
@@ -349,10 +349,10 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('careers')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'careers'
-              ? "border border-border/80 dark:border-none bg-secondary"
-              : "border border-border/80 dark:border-none hover:bg-secondary"
+              ? "border border-border/80 dark:border-white/10 bg-secondary"
+              : "border border-border/80 dark:border-white/10 hover:bg-secondary"
           )}
         >
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
@@ -367,10 +367,10 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('brand')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-sm cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'brand'
-              ? "border border-border/80 dark:border-none bg-secondary"
-              : "border border-border/80 dark:border-none hover:bg-secondary"
+              ? "border border-border/80 dark:border-white/10 bg-secondary"
+              : "border border-border/80 dark:border-white/10 hover:bg-secondary"
           )}
         >
           <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-foreground">
@@ -422,7 +422,7 @@ export default function HelpPage() {
                 <div
                   key={faq.id}
                   className={cn(
-                    "group rounded-sm border-b transition-all duration-200 overflow-hidden",
+                    "group rounded-xl border-b transition-all duration-200 overflow-hidden",
                     isOpen
                       ? "bg-secondary"
                       : "border-b border-border/80 hover:bg-secondary"
@@ -431,14 +431,14 @@ export default function HelpPage() {
                   <button
                     type="button"
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 cursor-pointer rounded-sm outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 cursor-pointer rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${faq.id}`}
                   >
                     <span className="font-medium text-base sm:text-lg text-foreground transition-colors">
                       {faq.question}
                     </span>
-                    <span className="shrink-0 p-1 rounded-md text-muted-foreground group-hover:text-foreground transition-colors">
+                    <span className="shrink-0 p-1 rounded-xl text-muted-foreground group-hover:text-foreground transition-colors">
                       <AnimatedPlusMinus
                         open={isOpen}
                         size={20}

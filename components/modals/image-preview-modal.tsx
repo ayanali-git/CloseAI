@@ -104,7 +104,7 @@ export function ImagePreview({
                       "group h-11 w-11 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                       isGuestMode
                         ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                        : "rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
+                        : "rounded-sm xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
                     )}
                     title="Download image"
                     aria-label="Download image"
@@ -120,7 +120,7 @@ export function ImagePreview({
                     "group h-11 w-11 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuestMode
                       ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                      : "rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
+                      : "rounded-sm xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
                   )}
                   title="Close image preview"
                   aria-label="Close image preview"

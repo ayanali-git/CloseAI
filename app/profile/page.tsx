@@ -134,7 +134,7 @@ export default function ProfileRedirectPage() {
                     <button
                       type="button"
                       onClick={() => toggleSidebar()}
-                      className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Open sidebar"
                     >
                       <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -161,7 +161,7 @@ export default function ProfileRedirectPage() {
                         }
                         router.push("/c");
                       }}
-                      className="group h-11 w-11 rounded-sm bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="New Chat"
                     >
                       <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
