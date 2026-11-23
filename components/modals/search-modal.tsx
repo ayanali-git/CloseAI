@@ -212,7 +212,7 @@ const SearchChatItem = React.memo(function SearchChatItem({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "group relative w-full h-11 flex items-center gap-3 px-4 rounded-xl text-left cursor-pointer transition-colors text-[14.5px] sm:text-[15px] select-none shrink-0 focus-visible:z-10",
+        "group relative w-full h-10 flex items-center gap-3 px-4 rounded-xl text-left cursor-pointer transition-colors text-[14.5px] sm:text-[15px] select-none shrink-0 focus-visible:z-10",
         getFocusRingClasses(isGuest),
         showHoverBox
           ? cn("bg-secondary text-foreground", darkHover)
@@ -273,7 +273,7 @@ function SearchFileItem({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group w-full h-11 flex items-center justify-between px-3 rounded-xl transition-colors text-left select-none cursor-pointer shrink-0 focus-visible:z-10",
+        "group w-full h-10 flex items-center justify-between px-3 rounded-xl transition-colors text-left select-none cursor-pointer shrink-0 focus-visible:z-10",
         getFocusRingClasses(isGuest),
         "hover:bg-secondary active:bg-secondary text-foreground",
         darkHover
@@ -349,7 +349,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
         {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
-            className="w-full h-11 flex items-center px-3 rounded-xl animate-pulse"
+            className="w-full h-10 flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
               className="h-3.5 rounded bg-secondary dark:bg-[#202020]"
@@ -388,7 +388,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
                 style={{ width: `${50 + ((i * 11) % 40)}%` }}
               />
             </div>
-            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#202020] shrink-0 ml-4" />
+            <div className="h-3 w-10 rounded bg-secondary dark:bg-[#202020] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -404,7 +404,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="w-full h-11 flex items-center px-3 rounded-xl animate-pulse"
+            className="w-full h-10 flex items-center px-3 rounded-xl animate-pulse"
           >
             <div
               className="h-3.5 rounded bg-secondary dark:bg-[#202020]"
@@ -438,7 +438,7 @@ function SearchSkeletons({ category }: { category: SearchCategory }) {
             <div className="flex-1 pr-4">
               <div className="h-3.5 w-44 rounded bg-secondary dark:bg-[#202020]" />
             </div>
-            <div className="h-3 w-11 rounded bg-secondary dark:bg-[#202020] shrink-0 ml-4" />
+            <div className="h-3 w-10 rounded bg-secondary dark:bg-[#202020] shrink-0 ml-4" />
           </div>
         ))}
       </div>
@@ -807,7 +807,7 @@ export function SearchModal({
           />
 
           {/* Right Actions: Clear Text Button + Divider + Close Button */}
-          <div className="flex items-center shrink-0 gap-1 h-11">
+          <div className="flex items-center shrink-0 gap-1 h-10">
             {query && (
               <>
                 <button
@@ -817,7 +817,7 @@ export function SearchModal({
                     inputRef.current?.focus();
                   }}
                   className={cn(
-                    "h-11 px-4 rounded-sm flex items-center justify-center text-[13.5px] font-normal text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none shrink-0 hover:bg-secondary active:bg-secondary focus-visible:z-10",
+                    "h-10 px-4 rounded-sm flex items-center justify-center text-[13.5px] font-normal text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none shrink-0 hover:bg-secondary active:bg-secondary focus-visible:z-10",
                     getFocusRingClasses(isGuest),
                     darkHover
                   )}
@@ -834,7 +834,7 @@ export function SearchModal({
               type="button"
               onClick={handleClose}
               className={cn(
-                "hidden min-[1280px]:flex w-11 h-11 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer focus-visible:z-10",
+                "hidden min-[1280px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer focus-visible:z-10",
                 getFocusRingClasses(isGuest),
                 darkHover
               )}
@@ -864,7 +864,7 @@ export function SearchModal({
                   setKeyboardNavIndex(null);
                 }}
                 className={cn(
-                  "h-11 px-4 rounded-full flex items-center justify-center text-[13px] sm:text-[13.5px] transition-all cursor-pointer select-none shrink-0 font-medium focus-visible:z-10",
+                  "h-10 px-4 rounded-full flex items-center justify-center text-[13px] sm:text-[13.5px] transition-all cursor-pointer select-none shrink-0 font-medium focus-visible:z-10",
                   getFocusRingClasses(isGuest),
                   activeCategory === cat.id
                     ? "bg-muted text-foreground"

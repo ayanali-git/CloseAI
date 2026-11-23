@@ -23,12 +23,68 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   AnimatedArrowUpRight,
+  AnimatedComingSoonText,
   AnimatedTempChat,
 } from "@/components/ui/animated";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
 import { isTemporaryChatParam, addTemporaryChat } from "@/lib/temporary-chat";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
+
+function ChatWorkPill() {
+  const [showComingSoon, setShowComingSoon] = useState(false);
+
+  return (
+    <div
+      role="group"
+      aria-label="Chat and Work"
+      onPointerLeave={(event) => {
+        if (event.pointerType === "mouse") setShowComingSoon(false);
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setShowComingSoon(false);
+      }}
+      className="pointer-events-auto mx-1 flex h-10 w-80 min-w-0 items-stretch rounded-full bg-white dark:bg-[#101010] border border-border/80 dark:border-none text-sm font-normal"
+    >
+      {[
+        ["Chat", "Coming", "Ask questions and explore ideas"],
+        ["Work", "Soon", "Get tasks done with your files and more"],
+      ].map(([label, feedback, description]) => (
+        <Tooltip key={label} open={showComingSoon ? false : undefined}>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              aria-label={label}
+              aria-current={label === "Chat" ? "true" : undefined}
+              onClick={(event) => {
+                event.currentTarget.focus({ preventScroll: true });
+                setShowComingSoon(true);
+              }}
+              className={cn(
+                "flex min-w-0 flex-1 cursor-pointer items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                label === "Chat"
+                  ? "bg-secondary text-foreground"
+                  : "text-muted-foreground"
+              )}
+            >
+              <AnimatedComingSoonText
+                label={label}
+                comingSoonText={feedback}
+                isHovered={showComingSoon}
+                align="center"
+              />
+              <span className="hidden motion-reduce:inline">{showComingSoon ? feedback : label}</span>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom" sideOffset={5} className="text-sm">
+            {description}
+          </TooltipContent>
+        </Tooltip>
+      ))}
+      <span className="sr-only" role="status">{showComingSoon ? "Coming soon" : ""}</span>
+    </div>
+  );
+}
 
 function NewChatContent() {
   const { user, token, loading, isSigningOut } = useAuth();
@@ -349,7 +405,7 @@ function NewChatContent() {
                       <button
                         type="button"
                         onClick={() => handleToggleSidebar()}
-                        className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -368,33 +424,7 @@ function NewChatContent() {
               )}
             </div>
           )}
-
-          {showHeaderButtons && !isTemporary && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div
-                  role="group"
-                  aria-label="Chat and Work"
-                  aria-disabled="true"
-                  tabIndex={0}
-                  className="pointer-events-auto mx-1 flex h-9 w-56 min-w-0 cursor-not-allowed opacity-50 items-stretch rounded-full bg-white dark:bg-[#101010] border border-border/80 dark:border-none text-sm font-normal focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
-                >
-                  <span
-                    aria-current="true"
-                    className="relative -my-px -ml-px flex flex-1 items-center justify-center rounded-full bg-secondary bg-background"
-                  >
-                    Chat
-                  </span>
-                  <span className="flex flex-1 items-center justify-center text-muted-foreground">
-                    Work
-                  </span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={5}>
-                Coming soon
-              </TooltipContent>
-            </Tooltip>
-          )}
+          {showHeaderButtons && !isTemporary && <ChatWorkPill />}
 
           {/* Right Header Area: Temporary Chat Controls */}
           {showHeaderButtons && (
@@ -411,7 +441,7 @@ function NewChatContent() {
                           <button
                             type="button"
                             className={cn(
-                              "group h-11 px-2.5 sm:px-3 gap-1 hover:text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                              "group h-10 px-2.5 sm:px-3 gap-1 hover:text-foreground flex items-center justify-center text-xs sm:text-[13px] font-medium transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                               isPersonalizedMenuOpen
                                 ? "text-foreground"
                                 : "text-muted-foreground"
@@ -446,7 +476,7 @@ function NewChatContent() {
                             Personalized
                           </span>
                           <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                            This chat can reference memory, and custom instructions
+                            Reference memory, plugins, and custom instructions
                           </span>
                         </div>
                         {isPersonalized && (
@@ -463,7 +493,7 @@ function NewChatContent() {
                             Unpersonalized
                           </span>
                           <span className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                            This chat will ignore memory, and custom instructions
+                            Reference memory, plugins, and custom instructions
                           </span>
                         </div>
                         {!isPersonalized && (
@@ -480,7 +510,7 @@ function NewChatContent() {
                       type="button"
                       onClick={handleToggleTemporaryChat}
                       className={cn(
-                        "group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isTemporary
                           ? "bg-secondary text-foreground"
                           : "text-muted-foreground hover:text-foreground"
@@ -532,8 +562,8 @@ function NewChatContent() {
               customSubtitle={
                 isTemporary
                   ? isPersonalized
-                    ? "This chat can reference memory, and custom instructions but it won't appear in your history"
-                    : "This chat will ignore memory, and custom instructions and it won't appear in your history"
+                    ? "This chat can reference memory, plugins, and custom instructions but it won't appear in your history"
+                    : "This chat will ignore memory, plugins, and custom instructions and it won't appear in your history"
                   : undefined
               }
               bottomInputOnMobile={true}
@@ -557,6 +587,7 @@ function NewChatContent() {
                 centered={false}
                 showDisclaimer={false}
                 isTemporary={isTemporary}
+                isPersonalized={isPersonalized}
               />
             </WelcomeScreen>
           )}

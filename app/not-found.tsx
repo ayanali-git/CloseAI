@@ -303,7 +303,7 @@ export default function NotFound() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
+              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
             >
               Log in
             </button>
@@ -312,7 +312,7 @@ export default function NotFound() {
               href="/gc"
               // target="_blank"
               // rel="noopener noreferrer"
-              className="h-11 px-4 rounded-full bg-background hover:bg-secondary border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-10 px-4 rounded-full bg-background hover:bg-secondary border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Ask CloseAI
             </Link>

@@ -195,7 +195,7 @@ export function ProfileImageModal({
             type="button"
             onClick={selectedFile ? handleSave : () => fileInputRef.current?.click()}
             disabled={loading}
-            className="w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <Loader className="w-5 h-5 animate-spin mr-2" />
@@ -207,7 +207,7 @@ export function ProfileImageModal({
             type="button"
             onClick={() => onOpenChange(false)}
             disabled={loading}
-            className="w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary transition-all cursor-pointer select-none"
+            className="w-full h-10 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary transition-all cursor-pointer select-none"
           >
             Cancel
           </button>

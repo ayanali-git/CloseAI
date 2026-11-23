@@ -60,14 +60,14 @@ export default function CareersPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/company/contact"
-            className="rounded-full h-11 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
+            className="rounded-full h-10 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
           >
             Contact us
           </Link>
 
           <Button
             asChild
-            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-10 px-4 bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <Link
               href="/company/careers/open-roles"
@@ -315,7 +315,7 @@ export default function CareersPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-11 px-4 bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
+                className="group rounded-full h-10 px-4 bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
               >
                 <Link href="/research/overview">
                   <span>Explore research</span>
@@ -361,7 +361,7 @@ export default function CareersPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-11 px-4 bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
+                className="group rounded-full h-10 px-4 bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-sm"
               >
                 <Link href="/research/safety">
                   <span>Explore safety</span>
@@ -472,7 +472,7 @@ export default function CareersPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center gap-1.5"
+            className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center gap-1.5"
           >
             <Link
               href="/company/careers/open-roles"

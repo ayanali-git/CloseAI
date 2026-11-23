@@ -233,7 +233,7 @@ export function ReportBugModal({
             disabled={!isSubmitEnabled || isSubmitting}
             onClick={handleSubmit}
             className={cn(
-              "w-full h-11 rounded-full font-medium text-sm sm:text-base transition-all select-none flex items-center justify-center outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
+              "w-full h-10 rounded-full font-medium text-sm sm:text-base transition-all select-none flex items-center justify-center outline-none focus:outline-none active:outline-none focus:ring-0 active:ring-0",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"

@@ -96,7 +96,7 @@ export function DeleteMessageModal({
               onConfirm();
             }}
             className={cn(
-              "w-full h-11 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              "w-full h-10 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-card"
@@ -108,7 +108,7 @@ export function DeleteMessageModal({
             type="button"
             onClick={() => onOpenChange(false)}
             className={cn(
-              "w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
+              "w-full h-10 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-card"

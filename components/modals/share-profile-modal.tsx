@@ -211,7 +211,7 @@ export function ShareProfileModal({
             type="button"
             onClick={handleShareX}
             className={cn(
-              "h-11 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
+              "h-10 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "border-border/80 dark:border-white/10 dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
@@ -228,7 +228,7 @@ export function ShareProfileModal({
             type="button"
             onClick={handleShareLinkedIn}
             className={cn(
-              "h-11 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
+              "h-10 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "border-border/80 dark:border-white/10 dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
@@ -245,7 +245,7 @@ export function ShareProfileModal({
             type="button"
             onClick={handleShareReddit}
             className={cn(
-              "h-11 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
+              "h-10 rounded-2xl border transition-all cursor-pointer outline-none focus:outline-none flex items-center justify-center text-foreground",
               "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
               isGuest
                 ? "border-border/80 dark:border-white/10 dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"

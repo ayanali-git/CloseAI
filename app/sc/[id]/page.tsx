@@ -454,7 +454,7 @@ export default function PublicSharedChatPage() {
         <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
         <div
           className={cn(
-            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mr-3 sm:ml-0.5 h-11 px-3 bg-background border select-none",
+            "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mr-3 sm:ml-0.5 h-10 px-3 bg-background border select-none",
             isGuest
               ? "rounded-full border-border/80 dark:border-none"
               : "rounded-sm border-border/80 dark:border-none"
@@ -495,7 +495,7 @@ export default function PublicSharedChatPage() {
                     disabled={isSharing}
                     onClick={handleShareClick}
                     className={cn(
-                      "group h-11 w-11 border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
+                      "group h-10 w-10 border text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none",
                       isGuest
                         ? "rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
                         : "rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
@@ -527,7 +527,7 @@ export default function PublicSharedChatPage() {
                     }
                   }}
                   className={cn(
-                    "group h-11 w-11 rounded-sm xl:rounded-full border text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
+                    "group h-10 w-10 rounded-sm xl:rounded-full border text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
                     isGuest
                       ? "rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] border-border/80 dark:border-white/10"
                       : "rounded-sm bg-background hover:bg-secondary active:bg-secondary border-border/80 dark:border-none"
@@ -639,7 +639,7 @@ export default function PublicSharedChatPage() {
                                     scrollToBottom();
                                   }}
                                   className={cn(
-                                    "group w-11 h-11 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
+                                    "group w-10 h-10 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center transition-all cursor-pointer",
                                     isGuest
                                       ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border border-border/80 dark:border-white/10"
                                       : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border border-border/80"

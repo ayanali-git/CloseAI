@@ -974,7 +974,7 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
             Log in
           </button>
@@ -985,7 +985,7 @@ export function Sidebar({
               closeCard();
               (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
             }}
-            className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+            className="h-10 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
           >
             Sign up for free
           </button>
@@ -1187,7 +1187,7 @@ export function Sidebar({
           </button>
         ) : (
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-1 text-base rounded-xl cursor-pointer">
+            <DropdownMenuSubTrigger className="flex items-center gap-2.5 px-2 py-2 text-base rounded-xl cursor-pointer">
               <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                 <AvatarImage src={avatarUrl} />
                 <AvatarFallback className="text-base font-semibold bg-secondary text-foreground">
@@ -1211,7 +1211,7 @@ export function Sidebar({
               alignOffset={-66}
               className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80"
             >
-              <DropdownMenuItem className="flex items-center justify-between px-2 py-1 rounded-xl cursor-pointer">
+              <DropdownMenuItem className="flex items-center justify-between px-2 py-2 rounded-xl cursor-pointer">
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   <Avatar className="w-8 h-8 rounded-full border border-border shrink-0">
                     <AvatarImage src={avatarUrl} />
@@ -1687,16 +1687,11 @@ export function Sidebar({
           )}
         />
 
-        {/* Persistent Non-Blinking Profile Avatar for Authenticated Users.
-            left-[14px] = (60px rail - 32px avatar) / 2 → centered in the 44px (w-11) button
-            when collapsed, and lines up with the profile row when expanded. */}
+        {/* Keep one desktop avatar centered in the rail while the sidebar expands. */}
         {user && !showProfileSkeleton && (
           <div
             suppressHydrationWarning
-            className="absolute left-[14px] z-30 pointer-events-none select-none transition-none hidden xl:block"
-            style={{
-              bottom: "calc(max(env(safe-area-inset-bottom), 0.5rem) + 6px)",
-            }}
+            className="pointer-events-none absolute bottom-[max(env(safe-area-inset-bottom),0.5rem)] left-0 z-30 hidden h-12 w-[60px] select-none items-center justify-center xl:flex"
           >
             {renderAvatarContent()}
           </div>
@@ -1710,10 +1705,9 @@ export function Sidebar({
             suppressHydrationWarning
             className={cn(
               "w-[60px] h-full flex flex-col items-center shrink-0 absolute top-0 left-0 z-10 max-xl:hidden",
-              mounted && "transition-opacity duration-200",
               !isOpen
-                ? "opacity-100 pointer-events-auto visible"
-                : "opacity-0 pointer-events-none invisible"
+                ? "pointer-events-auto visible"
+                : "pointer-events-none invisible"
             )}
             aria-hidden={isOpen}
             onMouseLeave={() => {
@@ -1741,7 +1735,7 @@ export function Sidebar({
                       onBlur={() => setIsLogoHovered(false)}
                       style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
                       className={cn(
-                        "group w-11 h-11 rounded-sm xl:rounded-full flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                        "group w-10 h-10 rounded-sm xl:rounded-full flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                         isAuthenticated
                           ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
                           : "cursor-pointer [&_*]:cursor-pointer"
@@ -1784,7 +1778,7 @@ export function Sidebar({
                       onClick={() => {
                         handleNewChatAction();
                       }}
-                      className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="New Chat"
                     >
                       <SquarePen className="w-5 h-5" />
@@ -1808,7 +1802,7 @@ export function Sidebar({
                       onClick={() => {
                         handleOpenSearchModal();
                       }}
-                      className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Search chats"
                     >
                       <Search className="w-5 h-5" />
@@ -1830,7 +1824,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Pinned chats"
                         >
                           <Pin className="w-5 h-5" />
@@ -1850,7 +1844,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Archived chats"
                         >
                           <Archive className="w-5 h-5" />
@@ -1871,7 +1865,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Create Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1892,7 +1886,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Web Search"
                         >
                           <Globe className="w-5 h-5" />
@@ -1919,7 +1913,7 @@ export function Sidebar({
                               description: "To continue with Create images",
                             });
                           }}
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1958,7 +1952,7 @@ export function Sidebar({
                             (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
-                            "w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                            "w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             railWebSearchHoverOpen &&
                               "bg-secondary text-foreground"
                           )}
@@ -2012,7 +2006,7 @@ export function Sidebar({
             {/* Rail Bottom Dock (mt-auto) */}
             <div className="mt-auto w-full pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 flex flex-col items-center gap-1.5 relative z-20">
               {isAuthLoading ? (
-                <div className="w-11 h-11 flex items-center justify-center animate-pulse">
+                <div className="w-12 h-12 flex items-center justify-center animate-pulse">
                   <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80" />
                 </div>
               ) : user ? (
@@ -2025,7 +2019,7 @@ export function Sidebar({
                         onClick={() => {
                           toast.info("App coming soon");
                         }}
-                        className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Download app"
                       >
                         <Store className="w-5 h-5 shrink-0" />
@@ -2054,7 +2048,7 @@ export function Sidebar({
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-full flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-12 h-12 rounded-full flex items-center justify-center hover:bg-secondary data-[state=open]:bg-secondary transition-colors cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               collapsedAccountMenuOpen && "bg-secondary"
                             )}
                             aria-label="Account menu"
@@ -2097,7 +2091,7 @@ export function Sidebar({
                         target="_blank"
                         rel="noopener noreferrer"
                         tabIndex={isOpen ? -1 : 0}
-                        className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Plans"
                       >
                         <CreditCard className="w-5 h-5 shrink-0" />
@@ -2124,7 +2118,7 @@ export function Sidebar({
                             type="button"
                             tabIndex={isOpen ? -1 : 0}
                             className={cn(
-                              "w-11 h-11 rounded-xl flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-10 h-10 rounded-xl flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               "text-muted-foreground hover:text-foreground hover:bg-secondary",
                               railHelpOpen && "bg-secondary text-foreground"
                             )}
@@ -2166,7 +2160,7 @@ export function Sidebar({
                             isMobileScreen ? undefined : "general"
                           )
                         }
-                        className="w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Settings"
                       >
                         <Settings className="w-5 h-5 shrink-0" />
@@ -2191,10 +2185,9 @@ export function Sidebar({
             suppressHydrationWarning
             className={cn(
               "w-full xl:w-[250px] xl:min-w-[250px] h-full flex flex-col shrink-0 absolute top-0 left-0 z-10",
-              mounted && "xl:transition-[opacity,visibility] xl:duration-200",
               isOpen
-                ? "opacity-100 pointer-events-auto visible"
-                : "max-xl:opacity-100 max-xl:visible max-xl:pointer-events-none xl:opacity-0 xl:pointer-events-none xl:invisible"
+                ? "pointer-events-auto visible"
+                : "pointer-events-none xl:invisible"
             )}
             aria-hidden={!isOpen}
           >
@@ -2228,10 +2221,9 @@ export function Sidebar({
                       <PopoverTrigger asChild>
                         <Link
                           href="/"
-                          className="h-11 px-3 flex items-center text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
+                          className="h-10 px-3 flex items-center text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background group select-none"
                         >
-                          <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">
-CloseAI</span>
+                          <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">CloseAI</span>
                           {/* <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground shrink-0 transition-colors" /> */}
                         </Link>
                       </PopoverTrigger>
@@ -2263,7 +2255,7 @@ CloseAI</span>
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
                               Log in
                             </button>
@@ -2274,7 +2266,7 @@ CloseAI</span>
                                 setGuestPopoverOpen(false);
                                 handleOpenLoginModal();
                               }}
-                              className="h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
+                              className="h-10 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none"
                             >
                               Sign up for free
                             </button>
@@ -2308,7 +2300,7 @@ CloseAI</span>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-11 h-11 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                        className="w-10 h-10 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                         onClick={handleOpenSearchModal}
                       >
                         <Search className="w-5 h-5" />
@@ -2330,7 +2322,7 @@ CloseAI</span>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="hidden xl:inline-flex w-11 h-11 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                          className="hidden xl:inline-flex w-10 h-10 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                           onClick={() => {
                             handleOpenSearchModal();
                           }}
@@ -2355,7 +2347,7 @@ CloseAI</span>
                           description: "To continue with Web search chats",
                         });
                       }}
-                      className="xl:hidden w-11 h-11 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
+                      className="xl:hidden w-10 h-10 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
                       aria-label="Search chats"
                     >
                       <Search className="w-5 h-5 shrink-0" />
@@ -2372,7 +2364,7 @@ CloseAI</span>
                         setIsEmptySpaceHovered(false);
                         onToggle();
                       }}
-                      className="xl:hidden w-11 h-11 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
+                      className="xl:hidden w-10 h-10 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0"
                       aria-label="Close sidebar"
                     >
                       <X className="w-5 h-5 shrink-0" />
@@ -2387,7 +2379,7 @@ CloseAI</span>
                       size="icon"
                       aria-label="Close sidebar"
                       className={cn(
-                        "w-11 h-11 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "w-10 h-10 rounded-sm xl:rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         !user && "hidden xl:inline-flex"
                       )}
                       onClick={(e) => {
@@ -2434,7 +2426,7 @@ CloseAI</span>
                   handleNewChatAction();
                 }}
                 className={cn(
-                  "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                  "w-full flex items-center justify-between h-10 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-colors duration-150 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                   isNewChat && "max-xl:bg-secondary/70",
                   "max-xl:hidden"
                 )}
@@ -2451,7 +2443,7 @@ CloseAI</span>
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                    className="w-full flex items-center justify-between h-10 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 !cursor-not-allowed" />
@@ -2467,7 +2459,7 @@ CloseAI</span>
                   <button
                     type="button"
                     tabIndex={!isOpen ? -1 : 0}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                    className="w-full flex items-center justify-between h-10 pl-3 pr-2.5 rounded-xl hover:bg-secondary text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                   >
                     <div className="flex items-center gap-2.5">
                       <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 !cursor-not-allowed" />
@@ -2491,7 +2483,7 @@ CloseAI</span>
                         description: "To continue with Create images",
                       });
                     }}
-                    className="w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                    className="w-full flex items-center justify-between h-10 pl-3 pr-2.5 rounded-xl hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 text-left outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
                   >
                     <div className="flex items-center gap-2.5">
                       <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -2540,7 +2532,7 @@ CloseAI</span>
                           });
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between h-11 pl-3 pr-2.5 rounded-xl hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                          "w-full flex items-center justify-between h-10 pl-3 pr-2.5 rounded-xl hover:bg-secondary dark:max-xl:hover:bg-[#404040] text-foreground text-base group cursor-pointer transition-all duration-150 data-[state=open]:bg-secondary outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                           webSearchHoverOpen && "bg-secondary"
                         )}
                       >
@@ -2578,7 +2570,7 @@ CloseAI</span>
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none"
+                        className="w-full mt-3 h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none"
                       >
                         Log in
                       </button>
@@ -2749,22 +2741,22 @@ CloseAI</span>
               {isAuthLoading ? (
                 /* Profile skeleton while the session loads */
                 <>
-                  <div className="hidden xl:flex w-full h-11 items-center gap-2.5 pl-[6px] pr-2 animate-pulse">
+                  <div className="hidden xl:flex w-full h-12 items-center gap-2.5 pl-[6px] pr-2 animate-pulse">
                     <div className="w-8 h-8 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
                     <div className="flex-1 space-y-1.5">
                       <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
                       <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
                     </div>
                   </div>
-                  <div className="xl:hidden w-full h-11 flex items-center justify-between gap-3 animate-pulse">
-                    <div className="h-11 w-32 rounded-full bg-secondary/80 dark:bg-neutral-800/80" />
-                    <div className="w-11 h-11 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
+                  <div className="xl:hidden w-full h-10 flex items-center justify-between gap-3 animate-pulse">
+                    <div className="h-10 w-32 rounded-full bg-secondary/80 dark:bg-neutral-800/80" />
+                    <div className="w-10 h-10 rounded-full bg-secondary/80 dark:bg-neutral-800/80 shrink-0" />
                   </div>
                 </>
               ) : user ? (
                 <>
                   {/* Desktop Only: Authenticated User Profile Row */}
-                  <div className="hidden xl:flex w-full h-11 items-center justify-between relative">
+                  <div className="hidden xl:flex w-full h-12 items-center justify-between relative">
                     <DropdownMenu
                       open={accountMenuOpen && !isMobileScreen}
                       onOpenChange={(open) => {
@@ -2786,7 +2778,7 @@ CloseAI</span>
                               }}
                               onMouseLeave={() => setIsDownloadHovered(false)}
                               className={cn(
-                                "w-full h-12 flex items-center justify-between rounded-xl transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
+                                "w-full h-full flex items-center justify-between rounded-xl transition-colors duration-200 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background pl-[6px] pr-1.5 min-w-0",
                                 !isDownloadHovered && "hover:bg-secondary",
                                 accountMenuOpen && "bg-secondary"
                               )}
@@ -2799,7 +2791,7 @@ CloseAI</span>
                                     <div className="w-8 h-8 rounded-full shrink-0 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
                                     <div className="flex-1 min-w-0 space-y-1.5 animate-pulse">
                                       <div className="h-3 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80" />
-                                      <div className="h-2.5 w-11 rounded bg-secondary/70 dark:bg-neutral-800/60" />
+                                      <div className="h-2.5 w-10 rounded bg-secondary/70 dark:bg-neutral-800/60" />
                                     </div>
                                   </>
                                 ) : (
@@ -2851,7 +2843,7 @@ CloseAI</span>
                   >
                     <div
                       ref={dockRef}
-                      className="xl:hidden w-full h-11 flex items-center justify-between gap-3"
+                      className="xl:hidden w-full h-10 flex items-center justify-between gap-3"
                     >
                       {/* Chat button */}
                       <button
@@ -2859,7 +2851,7 @@ CloseAI</span>
                         onClick={() => {
                           handleNewChatAction();
                         }}
-                        className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-all cursor-pointer outline-none focus:outline-none select-none"
+                        className="h-10 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-all cursor-pointer outline-none focus:outline-none select-none"
                       >
                         <SquarePen className="w-5 h-5 shrink-0" />
                         <span>Chat</span>
@@ -2872,7 +2864,7 @@ CloseAI</span>
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
+                              "w-10 h-10 rounded-sm text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
                               mobileAccountMenuOpen && "bg-secondary text-foreground"
                             )}
                             aria-label="Account menu"
@@ -2906,7 +2898,7 @@ CloseAI</span>
                       target="_blank"
                       rel="noopener noreferrer"
                       tabIndex={!isOpen ? -1 : 0}
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-full h-10 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Plans"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2931,7 +2923,7 @@ CloseAI</span>
                           type="button"
                           tabIndex={!isOpen ? -1 : 0}
                           className={cn(
-                            "w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                            "w-full h-10 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             guestHelpMenuOpen && !isMobileScreen && "bg-secondary"
                           )}
                           aria-label="Help"
@@ -2967,7 +2959,7 @@ CloseAI</span>
                           isMobileScreen ? undefined : "general"
                         )
                       }
-                      className="w-full h-11 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-full h-10 pl-3 pr-2.5 flex items-center justify-between rounded-xl hover:bg-secondary text-foreground group cursor-pointer transition-colors duration-150 select-none overflow-hidden outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Settings"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -2993,7 +2985,7 @@ CloseAI</span>
                       <button
                         type="button"
                         onClick={() => handleOpenLoginModal()}
-                        className="w-full mt-3 h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-full mt-3 h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       >
                         Log in
                       </button>
@@ -3018,7 +3010,7 @@ CloseAI</span>
                         onClick={() => {
                           handleNewChatAction();
                         }}
-                        className="h-11 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-all cursor-pointer outline-none focus:outline-none select-none"
+                        className="h-10 px-4 rounded-full bg-send-btn text-send-btn-foreground font-medium text-[15px] flex items-center gap-2 hover:opacity-90 active:opacity-60 transition-all cursor-pointer outline-none focus:outline-none select-none"
                       >
                         <SquarePen className="w-5 h-5 shrink-0" />
                         <span>Chat</span>
@@ -3030,7 +3022,7 @@ CloseAI</span>
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
+                              "w-10 h-10 rounded-full bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
                               mobileGuestSettingsMenuOpen && "bg-secondary dark:bg-[#404040] text-foreground"
                             )}
                             aria-label="Settings"

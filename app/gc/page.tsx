@@ -255,7 +255,7 @@ function GuestChatContent() {
                         handleToggleSidebar();
                       }}
                       className={cn(
-                        "xl:hidden w-11 h-11 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
+                        "xl:hidden w-10 h-10 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
                         user
                           ? "bg-background hover:bg-secondary active:bg-secondary"
                           : "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
@@ -290,7 +290,7 @@ function GuestChatContent() {
 
           {/* Center Brand Text — properly centered on small screens */}
           <div className="xl:hidden absolute inset-0 pt-[env(safe-area-inset-top,0px)] flex items-center justify-center pointer-events-none">
-            <span className="bg-background rounded-full h-11 px-4 flex items-center justify-center font-medium text-2xl tracking-tight text-foreground select-none">
+            <span className="bg-background rounded-full h-10 px-4 flex items-center justify-center font-medium text-2xl tracking-tight text-foreground select-none">
               CloseAI
             </span>
           </div>
@@ -304,7 +304,7 @@ function GuestChatContent() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-11 px-2 sm:px-4 flex items-center gap-1.5 rounded-sm hover:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-10 px-2 sm:px-4 flex items-center gap-1.5 rounded-sm hover:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -342,7 +342,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-10 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-white/10 dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
                         Sign up for free
                       </button>
@@ -352,7 +352,7 @@ function GuestChatContent() {
                           setModelDropdownOpen(false);
                           handleOpenLogin();
                         }}
-                        className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                        className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                       >
                         Log in
                       </button>
@@ -368,7 +368,7 @@ function GuestChatContent() {
               <button
                 type="button"
                 onClick={() => handleOpenLogin()}
-                className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 Log in
               </button>
@@ -376,7 +376,7 @@ function GuestChatContent() {
               <button
                 type="button"
                 onClick={() => handleOpenLogin()}
-                className="max-xl:hidden h-11 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
+                className="max-xl:hidden h-10 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
               >
                 Sign up for free
               </button>
@@ -422,7 +422,7 @@ function GuestChatContent() {
               />
 
               {/* Suggestion pill — only visible when input is empty */}
-              <div className="w-full flex justify-center h-11 pt-10">
+              <div className="w-full flex justify-center h-10 pt-10">
                 {message.trim().length === 0 && uploadedFiles.length === 0 && (
                   <button
                     type="button"
@@ -436,7 +436,7 @@ function GuestChatContent() {
                         handleStartGuestChat(prompt, []);
                       }, 150);
                     }}
-                    className="h-11 px-4 rounded-full text-base transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
+                    className="h-10 px-4 rounded-full text-base transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
                   >
                     What can CloseAI do?
                   </button>

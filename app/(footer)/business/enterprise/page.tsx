@@ -46,11 +46,11 @@ export default function EnterprisePage() {
         <div className="flex flex-wrap items-center gap-4">
           <Link
             href="/company/contact"
-            className="rounded-full h-11 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
+            className="rounded-full h-10 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
           >
             Contact us
           </Link>
-          <Button asChild className="group rounded-full h-11 px-4 font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
+          <Button asChild className="group rounded-full h-10 px-4 font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
             <Link href="/product/plans" className="inline-flex items-center justify-center">
               <span>View plans</span>
               <AnimatedArrow size={20} />
@@ -69,7 +69,7 @@ export default function EnterprisePage() {
               className="p-8 rounded-sm border border-border/80 dark:border-none bg-card transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="w-11 h-11 rounded-2xl bg-secondary flex items-center justify-center mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-secondary flex items-center justify-center mb-6">
                   <Icon className="w-6 h-6 text-foreground" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">{feat.title}</h3>
@@ -88,7 +88,7 @@ export default function EnterprisePage() {
         <p className="text-muted-foreground text-base max-w-lg mx-auto mb-8">
           Join thousands of enterprises transforming productivity with closeAI's secure reasoning infrastructure.
         </p>
-        <Button asChild className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
+        <Button asChild className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
           <Link href="/company/contact" className="flex items-center">
             <span>Schedule now</span>
             <AnimatedArrow size={20} />

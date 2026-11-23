@@ -1554,7 +1554,7 @@ export function MessageList({
                                           "w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-colors",
                                           (changePrompts[msgId] || "").trim()
                                             ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:opacity-60"
-                                            : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                                            : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
                                         )}
                                         aria-label="Send change request"
                                       >
@@ -1713,7 +1713,7 @@ export function MessageList({
                                                     changePrompts[msgId] || ""
                                                   ).trim()
                                                     ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:opacity-60"
-                                                    : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
+                                                    : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
                                                 )}
                                                 aria-label="Send change request"
                                               >

@@ -763,7 +763,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("main");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Select models</span>
@@ -780,7 +780,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("model-picker");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <span className="font-medium shrink-0 mr-1.5">Model</span>
             <ModelMarqueeText text={model} isHovered={isMobileModelRowHovered} />
@@ -797,7 +797,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("effort");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <span className="font-medium shrink-0 mr-1.5">Effort</span>
             <ModelMarqueeText
@@ -818,7 +818,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("speed");
             }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <span className="shrink-0 font-medium mr-1.5">Speed</span>
             <ModelMarqueeText text={speed} isHovered={isMobileSpeedRowHovered} />
@@ -835,7 +835,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("advanced");
             }}
-            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <span>Advanced</span>
             <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -854,7 +854,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Model</span>
@@ -874,7 +874,7 @@ export function PlusMenuContent({
                 }}
                 onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                 onMouseLeave={() => setHoveredModelIdx(null)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
               >
                 <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                 {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -897,7 +897,7 @@ export function PlusMenuContent({
                 }}
                 onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                 onMouseLeave={() => setHoveredModelIdx(null)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
               >
                 <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                 {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -918,7 +918,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Effort</span>
@@ -936,7 +936,7 @@ export function PlusMenuContent({
               }}
               onMouseEnter={() => setHoveredTierIdx(idx)}
               onMouseLeave={() => setHoveredTierIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
             >
               <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
               {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -956,7 +956,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Speed</span>
@@ -974,7 +974,7 @@ export function PlusMenuContent({
               }}
               onMouseEnter={() => setHoveredSpeedIdx(idx)}
               onMouseLeave={() => setHoveredSpeedIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
             >
               <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
               {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -994,7 +994,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               setSubView("models");
             }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2]" />
             <span>Advanced</span>
@@ -1022,7 +1022,7 @@ export function PlusMenuContent({
         {/* 1. Attach photos */}
         <DropdownMenuItem
           onClick={onAddPhotos}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
         >
           <Images className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
@@ -1038,7 +1038,7 @@ export function PlusMenuContent({
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Files" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
         >
           <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
@@ -1049,7 +1049,7 @@ export function PlusMenuContent({
           onClick={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Create images" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Create images</span>
@@ -1061,7 +1061,7 @@ export function PlusMenuContent({
             if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
             else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
           }}
-          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+          className="flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
         >
           <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Web search</span>
@@ -1078,7 +1078,7 @@ export function PlusMenuContent({
               e.stopPropagation();
               (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
             }}
-            className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none focus:outline-none focus-visible:outline-none whitespace-nowrap text-left hover:bg-[#404040] hover:text-white active:bg-[#404040] active:text-white"
+            className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none focus:outline-none focus-visible:outline-none whitespace-nowrap text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
           >
             <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
             <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1095,7 +1095,7 @@ export function PlusMenuContent({
               onMouseEnter={() => setIsSelectModelsHovered(true)}
               onMouseLeave={() => setIsSelectModelsHovered(false)}
               chevronClassName="-ml-0.5"
-              className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white data-[state=open]:bg-[#404040] data-[state=open]:text-white"
+              className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
             >
               <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
               <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
@@ -1124,7 +1124,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsModelSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white data-[state=open]:bg-[#404040] data-[state=open]:text-white"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Model</span>
                   <ModelMarqueeText
@@ -1151,7 +1151,7 @@ export function PlusMenuContent({
                         onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                         {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1169,7 +1169,7 @@ export function PlusMenuContent({
                         onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                         onMouseEnter={() => setHoveredModelIdx(globalIdx)}
                         onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
                       >
                         <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
                         {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1186,7 +1186,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsEffortSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white data-[state=open]:bg-[#404040] data-[state=open]:text-white"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
                 >
                   <span className="font-medium shrink-0 mr-1.5">Effort</span>
                   <ModelMarqueeText
@@ -1212,7 +1212,7 @@ export function PlusMenuContent({
                       onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                       onMouseEnter={() => setHoveredTierIdx(idx)}
                       onMouseLeave={() => setHoveredTierIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
                     >
                       <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
                       {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1228,7 +1228,7 @@ export function PlusMenuContent({
                   onMouseLeave={() => setIsSpeedSubHovered(false)}
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                   chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white data-[state=open]:bg-[#404040] data-[state=open]:text-white"
+                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
                 >
                   <span className="shrink-0 font-medium mr-1.5">Speed</span>
                   <ModelMarqueeText
@@ -1253,7 +1253,7 @@ export function PlusMenuContent({
                       onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
                       onMouseEnter={() => setHoveredSpeedIdx(idx)}
                       onMouseLeave={() => setHoveredSpeedIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white"
+                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
                     >
                       <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
                       {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
@@ -1269,7 +1269,7 @@ export function PlusMenuContent({
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger
                   onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                  className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left hover:bg-[#404040] hover:text-white focus:bg-[#404040] focus:text-white data-[highlighted]:bg-[#404040] data-[highlighted]:text-white data-[state=open]:bg-[#404040] data-[state=open]:text-white"
+                  className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
                 >
                   <span className="shrink-0">Advanced</span>
                 </DropdownMenuSubTrigger>

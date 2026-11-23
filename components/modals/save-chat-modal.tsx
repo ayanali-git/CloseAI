@@ -122,7 +122,7 @@ export function SaveChatModal({
             disabled={isSaving}
             onClick={handleSave}
             className={cn(
-              "w-full h-11 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none",
+              "w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-card"
@@ -142,7 +142,7 @@ export function SaveChatModal({
             disabled={isSaving}
             onClick={() => onOpenChange(false)}
             className={cn(
-              "w-full h-11 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50",
+              "w-full h-10 rounded-full border border-border/80 bg-transparent text-foreground font-normal text-sm hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none disabled:opacity-50",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-card"

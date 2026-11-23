@@ -59,7 +59,7 @@ export default function SafetyPage() {
               className="p-8 rounded-sm border border-border/80 dark:border-none bg-card transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="w-11 h-11 rounded-2xl bg-secondary flex items-center justify-center mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-secondary flex items-center justify-center mb-6">
                   <Icon className="w-6 h-6 text-foreground" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">
@@ -82,7 +82,7 @@ export default function SafetyPage() {
         <p className="text-muted-foreground text-base max-w-lg mb-6">
           Detailed technical reports on training mitigations, bias benchmarks, and safety evaluation suites across our model family.
         </p>
-        <Button asChild className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
+        <Button asChild className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
           <Link
             href="/research/overview"
             className="inline-flex items-center justify-center"

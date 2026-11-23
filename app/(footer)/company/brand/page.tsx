@@ -53,14 +53,14 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 sm:mb-16">
           <Link
             href="/company/contact"
-            className="rounded-full h-11 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
+            className="rounded-full h-10 px-4 font-normal bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 cursor-pointer inline-flex items-center justify-center text-base transition-colors select-none"
           >
             Contact us
           </Link>
 
           <Button
             asChild
-            className="group rounded-full h-11 px-4 bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
+            className="group rounded-full h-10 px-4 bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center justify-center font-medium text-base"
           >
             <Link
               href="/company/brand/brand-guidelines"
@@ -95,7 +95,7 @@ export default function CompanyBrandPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
             <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex flex-col items-center justify-center p-6 text-center">
-              <div className="w-11 h-11 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
+              <div className="w-10 h-10 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
                 <ShieldCheck className="w-6 h-6 text-foreground" />
               </div>
               <span className="text-base font-semibold tracking-tight text-foreground">
@@ -118,7 +118,7 @@ export default function CompanyBrandPage() {
 
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
             <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex flex-col items-center justify-center p-6 text-center">
-              <div className="w-11 h-11 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
+              <div className="w-10 h-10 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
                 <Sparkles className="w-6 h-6 text-foreground" />
               </div>
               <span className="text-base font-semibold tracking-tight text-foreground">
@@ -141,7 +141,7 @@ export default function CompanyBrandPage() {
 
           <div className="p-6 sm:p-8 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
             <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex flex-col items-center justify-center p-6 text-center">
-              <div className="w-11 h-11 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
+              <div className="w-10 h-10 rounded-2xl bg-card border border-border/80 dark:border-none flex items-center justify-center mb-3">
                 <Layers className="w-6 h-6 text-foreground" />
               </div>
               <span className="text-base font-semibold tracking-tight text-foreground">
@@ -329,7 +329,7 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center gap-1.5"
+            className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center gap-1.5"
           >
             <Link
               href="/company/brand/brand-guidelines"
