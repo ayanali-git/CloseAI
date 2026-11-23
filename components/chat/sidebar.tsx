@@ -2866,13 +2866,13 @@ CloseAI</span>
                       </button>
 
                       {/* Settings Button */}
-                      <div className="flex items-center gap-1.5 shrink-0">
+                      <div className="flex items-center justify-between gap-3">
                         {/* Settings Button (triggers dropdown menu, ghost button like search button) */}
                         <DropdownMenuTrigger asChild>
                           <button
                             type="button"
                             className={cn(
-                              "w-11 h-11 rounded-xl text-muted-foreground hover:text-foreground border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
+                              "w-11 h-11 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none shrink-0",
                               mobileAccountMenuOpen && "bg-secondary text-foreground"
                             )}
                             aria-label="Account menu"

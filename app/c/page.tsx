@@ -349,7 +349,7 @@ function NewChatContent() {
                       <button
                         type="button"
                         onClick={() => handleToggleSidebar()}
-                        className="group h-11 w-11 rounded-xl xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-xl xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -453,7 +453,7 @@ function NewChatContent() {
                       type="button"
                       onClick={handleToggleTemporaryChat}
                       className={cn(
-                        "group h-11 w-11 rounded-xl xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "group h-11 w-11 rounded-xl xl:rounded-full bg-background hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isTemporary
                           ? "bg-secondary text-foreground"
                           : "text-muted-foreground hover:text-foreground"
