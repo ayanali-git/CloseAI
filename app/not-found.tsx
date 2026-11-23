@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
+import { useModalTheme } from "@/hooks/use-modal-theme";
 import { AnimatedArrowUpRight } from "@/components/ui/animated";
 import { LoginModal } from "@/components/modals/log-in-modal";
 
@@ -16,7 +18,7 @@ const TOP_ROWS: PromptItem[][] = [
     { text: "How come orange juice prices have dropped?" },
     { text: "Me ajuda a estudar vocabulário pro vestibular" },
     { text: "Máximos goleadores de la Champions y mejores momentos de los partidos" },
-    { text: "Meilleurs buteurs de la Ligue des champions et temps forts des matchs" },
+    { text: "What are the best ways to stay motivated while learning a new skill?" },
     { text: "料理好きの友だちへのプレゼントのアイデアを教えて" },
     { text: "Erstelle einen Content-Kalender für einen TikTok-Account" },
     { text: "Explain quantum computing in simple terms for a beginner" },
@@ -85,10 +87,12 @@ function PromptCardRow({
   row,
   rowIndex,
   isToLeft,
+  isGuest,
 }: {
   row: PromptItem[];
   rowIndex: number;
   isToLeft: boolean;
+  isGuest: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   // Duplicate 3 times for a completely seamless loop on any screen width
@@ -124,8 +128,8 @@ function PromptCardRow({
 
         if (isDark) {
           // Dark mode:
-          // bg: #2f2f2f (56) → #0d0d0d (13)
-          const bgVal = lerp(56, 13, muteFactor);
+          // Fade the active palette toward #0d0d0d at the edges.
+          const bgVal = lerp(isGuest ? 48 : 16, 13, muteFactor);
           card.style.backgroundColor = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
 
           // border: rgba(255,255,255,0.1) → match bg
@@ -166,7 +170,7 @@ function PromptCardRow({
 
     rafId = requestAnimationFrame(checkCards);
     return () => cancelAnimationFrame(rafId);
-  }, []);
+  }, [isGuest]);
 
   return (
     <div ref={containerRef} className="marquee-row overflow-hidden whitespace-nowrap py-1 flex items-center">
@@ -181,7 +185,7 @@ function PromptCardRow({
             href={`/gc?p=${encodeURIComponent(item.text)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group shrink-0 w-[250px] sm:w-[275px] md:w-[300px] h-[70px] sm:h-[80px] px-3 py-1.5 sm:py-3 rounded-sm bg-white hover:bg-secondary border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] flex flex-col justify-center transition-colors duration-150 cursor-pointer select-none text-left whitespace-normal overflow-hidden"
+            className={`group shrink-0 w-[250px] sm:w-[275px] md:w-[300px] h-[70px] sm:h-[80px] px-3 py-1.5 sm:py-3 rounded-sm bg-white hover:!bg-[#f4f4f5] border border-border/80 dark:border-none ${isGuest ? "dark:bg-[#303030] dark:hover:!bg-[#404040]" : "dark:bg-[#101010] dark:hover:!bg-secondary"} flex flex-col justify-center transition-colors duration-150 cursor-pointer select-none text-left whitespace-normal overflow-hidden`}
           >
             <span className="text-[14px] sm:text-base leading-[1.3] text-foreground transition-colors line-clamp-4 whitespace-normal break-words">
               {item.text}
@@ -197,11 +201,18 @@ function PromptCardRow({
   );
 }
 
+export function RootPageContent({ children }: { children: React.ReactNode }) {
+  // Next 13 selects the default child slot for an unmatched URL.
+  const segment = useSelectedLayoutSegment();
+  return segment === "__DEFAULT__" ? <NotFound /> : <>{children}</>;
+}
+
 export default function NotFound() {
+  const { isGuest } = useModalTheme();
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
-    <div className="relative w-screen h-[100dvh] overflow-hidden bg-background text-foreground flex flex-col justify-between items-center select-none">
+    <div className="relative w-full h-[100dvh] overflow-hidden bg-background text-foreground flex flex-col justify-between items-center select-none">
       <style>{`
         @keyframes marquee-to-left {
           0% { transform: translate3d(0, 0, 0); }
@@ -228,12 +239,6 @@ export default function NotFound() {
         .marquee-row:hover .marquee-track-left,
         .marquee-row:hover .marquee-track-right {
           animation-play-state: paused;
-        }
-        .dark [data-prompt-card]:hover {
-          background-color: #1f1f1f !important;
-        }
-        html:not(.dark) [data-prompt-card]:hover {
-          background-color: #f4f4f5 !important;
         }
         .mask-top-fade {
           -webkit-mask-image: linear-gradient(
@@ -276,6 +281,7 @@ export default function NotFound() {
             <PromptCardRow
               key={`top-${index}`}
               row={row}
+              isGuest={isGuest}
               rowIndex={index}
               isToLeft={index % 2 === 0}
             />
@@ -297,16 +303,18 @@ export default function NotFound() {
             <button
               type="button"
               onClick={() => setShowLoginModal(true)}
-              className="h-11 px-4 rounded-full bg-white hover:bg-secondary text-black border border-border/80 dark:border-none dark:bg-[#303030] dark:hover:bg-[#404040] dark:text-white text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
+              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
             >
               Log in
             </button>
+
             <Link
               href="/gc"
-              className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
+              // target="_blank"
+              // rel="noopener noreferrer"
+              className="h-11 px-4 rounded-full bg-background hover:bg-secondary border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Ask CloseAI
-              <AnimatedArrowUpRight size={20} />
             </Link>
           </div>
         </div>
@@ -319,6 +327,7 @@ export default function NotFound() {
             <PromptCardRow
               key={`bottom-${index}`}
               row={row}
+              isGuest={isGuest}
               rowIndex={index + 4}
               isToLeft={index % 2 !== 0}
             />
@@ -326,7 +335,7 @@ export default function NotFound() {
         </div>
       </div>
 
-      {/* Auth Modal for Sign up */}
+      {/* Auth Modal for Log in */}
       <LoginModal
         open={showLoginModal}
         onOpenChange={setShowLoginModal}

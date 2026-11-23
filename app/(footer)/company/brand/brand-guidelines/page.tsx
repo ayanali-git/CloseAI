@@ -87,7 +87,7 @@ export default function CompanyBrandGuidelinesPage() {
       {/* HERO POSTER BANNER (SARVAM POSTER DESIGN) */}
       <div className="p-8 sm:p-14 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card mb-12 sm:mb-16 flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="max-w-md">
-          <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3 block">
+          <span className="text-xs uppercase tracking-widest text-muted-foreground mb-3 block">
             CloseAI Brand Kit
           </span>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mb-4 leading-tight">
@@ -571,16 +571,16 @@ export default function CompanyBrandGuidelinesPage() {
         <div className="p-8 sm:p-12 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="relative rounded-2xl p-10 sm:p-14 bg-secondary flex items-center justify-center">
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[11px] font-mono text-muted-foreground">
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[11px] text-muted-foreground">
                 0.5X Clear Space
               </div>
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] font-mono text-muted-foreground">
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] text-muted-foreground">
                 0.5X Clear Space
               </div>
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] font-mono text-muted-foreground">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] text-muted-foreground">
                 0.5X
               </div>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-[11px] font-mono text-muted-foreground">
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-[11px] text-muted-foreground">
                 0.5X
               </div>
 
@@ -937,7 +937,7 @@ export default function CompanyBrandGuidelinesPage() {
                 <h3 className="text-base font-semibold text-foreground mb-1">{color.name}</h3>
                 <p className="text-xs text-muted-foreground leading-normal mb-3">{color.role}</p>
               </div>
-              <div className="pt-3 border-t border-border/60 text-xs font-mono text-muted-foreground">
+              <div className="pt-3 border-t border-border/60 text-xs text-muted-foreground">
                 {color.hex}
               </div>
             </div>

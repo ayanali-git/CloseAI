@@ -233,26 +233,6 @@ export default function UserProfilePage() {
           {!editDrawerOpen && (
             <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
               <div className="flex items-center gap-2">
-                {/* Edit profile button */}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={() => setEditDrawerOpen(true)}
-                      className="group h-11 w-11 gap-1.5 rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                      aria-label="Edit profile"
-                    >
-                      <Pencil className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="bottom"
-                    sideOffset={5}
-                    className="text-base"
-                  >
-                    Edit profile
-                  </TooltipContent>
-                </Tooltip>
                 {/* Share your profile button */}
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -266,7 +246,7 @@ export default function UserProfilePage() {
                           setShareModalOpen(true);
                         }, 300);
                       }}
-                      className="group h-11 w-11 rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none shrink-0"
+                      className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none shrink-0"
                       aria-label="Share your profile"
                     >
                       {isSharing ? (
@@ -283,6 +263,27 @@ export default function UserProfilePage() {
                     className="text-base"
                   >
                     Share profile
+                  </TooltipContent>
+                </Tooltip>
+                
+                {/* Edit profile button */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => setEditDrawerOpen(true)}
+                      className="group h-11 w-11 gap-1.5 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      aria-label="Edit profile"
+                    >
+                      <Pencil className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    Edit profile
                   </TooltipContent>
                 </Tooltip>
               </div>

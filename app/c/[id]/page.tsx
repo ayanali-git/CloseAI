@@ -1453,6 +1453,45 @@ export default function ActiveChatPage() {
                 ) : (
                   /* Separate Share and Chat options buttons with gap-2 */
                   <div className="flex items-center gap-2">
+                    {/* Share button */}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          disabled={isSharing}
+                          onClick={async () => {
+                            setIsSharing(true);
+                            try {
+                              const shareUrl = `${window.location.origin}/sc/${chatId}`;
+                              await navigator.clipboard.writeText(shareUrl);
+                              toast.success(
+                                "Public link copied"
+                              );
+                            } catch (e) {
+                              toast.error("Failed to copy public link");
+                            } finally {
+                              setTimeout(() => setIsSharing(false), 300);
+                            }
+                          }}
+                          className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
+                        >
+                          {isSharing ? (
+                            <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
+                          ) : (
+                            <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                          )}
+                          {/* <span className="hidden sm:inline">Share</span> */}
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="bottom"
+                        sideOffset={5}
+                        className="text-base"
+                      >
+                        Share chat
+                      </TooltipContent>
+                    </Tooltip>
+                    
                     {/* Three Dots Options Menu */}
                     <DropdownMenu open={optionsMenuOpen} onOpenChange={setOptionsMenuOpen}>
                       <Tooltip open={optionsMenuOpen ? false : undefined}>
@@ -1559,45 +1598,6 @@ export default function ActiveChatPage() {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-
-                    {/* Share button */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          disabled={isSharing}
-                          onClick={async () => {
-                            setIsSharing(true);
-                            try {
-                              const shareUrl = `${window.location.origin}/sc/${chatId}`;
-                              await navigator.clipboard.writeText(shareUrl);
-                              toast.success(
-                                "Public link copied"
-                              );
-                            } catch (e) {
-                              toast.error("Failed to copy public link");
-                            } finally {
-                              setTimeout(() => setIsSharing(false), 300);
-                            }
-                          }}
-                          className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none xl:disabled:opacity-50 disabled:pointer-events-auto disabled:cursor-not-allowed select-none"
-                        >
-                          {isSharing ? (
-                            <Loader className="w-5 h-5 shrink-0 animate-spin text-muted-foreground group-hover:text-foreground" />
-                          ) : (
-                            <Upload className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
-                          )}
-                          {/* <span className="hidden sm:inline">Share</span> */}
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="bottom"
-                        sideOffset={5}
-                        className="text-base"
-                      >
-                        Share chat
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                 )}
               </div>

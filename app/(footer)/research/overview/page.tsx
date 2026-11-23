@@ -55,7 +55,7 @@ export default function ResearchOverviewPage() {
       </div>
 
       {/* Hero Research Spotlight */}
-      <div className="rounded-sm border border-border/80 dark:border-none bg-card p-8 sm:p-12 mb-16">
+      <div className="rounded-sm border border-border/80 dark:border-white/10 bg-background p-8 sm:p-12 mb-16">
         <div className="flex items-center gap-2 mb-4">
           <span className="text-base font-semibold uppercase tracking-wider text-foreground">
             Featured Breakthrough
@@ -71,7 +71,7 @@ export default function ResearchOverviewPage() {
           href={user ? "/c" : "/gc"}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center text-base font-semibold text-foreground"
+          className="h-11 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center  gap-0.5 justify-center text-center leading-none"
         >
           <span>Try Now</span>
           <AnimatedArrow size={20} />
@@ -105,7 +105,7 @@ export default function ResearchOverviewPage() {
               <p className="text-base text-muted-foreground mb-4 leading-relaxed">
                 {paper.abstract}
               </p>
-              <p className="text-base text-muted-foreground font-mono">{paper.authors}</p>
+              <p className="text-base text-muted-foreground">{paper.authors}</p>
             </div>
           ))}
         </div>

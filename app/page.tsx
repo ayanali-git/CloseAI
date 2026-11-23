@@ -180,7 +180,10 @@ export default function LandingPage() {
                   textareaRef.current?.focus({ preventScroll: true });
                 }
               }}
-              className="relative w-full rounded-[25px] sm:rounded-3xl bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text"
+              className={cn(
+                "relative w-full rounded-[25px] sm:rounded-3xl bg-white border border-border/80 dark:border-none p-3 flex items-end gap-2 transition-all cursor-text select-text",
+                user ? "dark:bg-[#101010]" : "dark:bg-[#303030]"
+              )}
             >
               <textarea
                 ref={textareaRef}
@@ -202,9 +205,12 @@ export default function LandingPage() {
                 type="submit"
                 disabled={!heroPrompt.trim() || isSubmitting}
                 className={cn(
-                  "w-11 h-11 rounded-full flex items-center justify-center transition-colors shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]",
+                  "w-11 h-11 rounded-full flex items-center justify-center transition-colors shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+                  user ? "dark:focus-visible:ring-offset-[#101010]" : "dark:focus-visible:ring-offset-[#303030]",
                   heroPrompt.trim().length > 0 && !isSubmitting
                     ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:opacity-60"
+                    : user
+                    ? "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
                     : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-muted-foreground cursor-not-allowed opacity-50"
                 )}
                 aria-label="Send prompt"
@@ -747,7 +753,6 @@ export default function LandingPage() {
             <div className="pt-2">
               <Button
                 asChild
-                size="lg"
                 className="group rounded-full h-11 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">

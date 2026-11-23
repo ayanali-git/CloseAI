@@ -101,7 +101,7 @@ export default function CompanyBrandPage() {
               <span className="text-base font-semibold tracking-tight text-foreground">
                 Safety First
               </span>
-              <span className="text-xs font-mono text-muted-foreground mt-1">
+              <span className="text-xs text-muted-foreground mt-1">
                 Formal Verification
               </span>
             </div>
@@ -124,7 +124,7 @@ export default function CompanyBrandPage() {
               <span className="text-base font-semibold tracking-tight text-foreground">
                 Broad Benefit
               </span>
-              <span className="text-xs font-mono text-muted-foreground mt-1">
+              <span className="text-xs text-muted-foreground mt-1">
                 Open Collaboration
               </span>
             </div>
@@ -147,7 +147,7 @@ export default function CompanyBrandPage() {
               <span className="text-base font-semibold tracking-tight text-foreground">
                 Empirical Rigour
               </span>
-              <span className="text-xs font-mono text-muted-foreground mt-1">
+              <span className="text-xs text-muted-foreground mt-1">
                 Mathematical Gravity
               </span>
             </div>
@@ -266,7 +266,7 @@ export default function CompanyBrandPage() {
                   alt="Emblem"
                   className="w-6 h-6 object-contain hidden dark:block"
                 />
-                <span className="text-[10px] font-mono text-muted-foreground">
+                <span className="text-[10px] text-muted-foreground">
                   ID &middot; 2026
                 </span>
               </div>
@@ -285,7 +285,7 @@ export default function CompanyBrandPage() {
               <span className="text-3xl font-semibold tracking-tight text-foreground mb-1 font-sans">
                 CloseAI
               </span>
-              <span className="text-xs font-mono tracking-widest text-muted-foreground uppercase">
+              <span className="text-xs tracking-widest text-muted-foreground uppercase">
                 Alignment &middot; Research
               </span>
             </div>

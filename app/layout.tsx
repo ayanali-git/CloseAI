@@ -1,4 +1,5 @@
 import './globals.css';
+import { RootPageContent } from './not-found';
 import 'katex/dist/katex.min.css';
 import 'goey-toast/styles.css';
 import type { Metadata } from 'next';
@@ -90,7 +91,7 @@ export default async function RootLayout({
           <TooltipProvider delayDuration={150}>
             <AuthProvider initialUser={initialUser}>
               <SubscriptionProvider>
-                {children}
+                <RootPageContent>{children}</RootPageContent>
                 <SettingsHost />
                 <ToasterProvider />
               </SubscriptionProvider>

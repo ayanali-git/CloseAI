@@ -50,7 +50,7 @@ export default function EnterprisePage() {
           >
             Contact us
           </Link>
-          <Button asChild size="lg" className="group rounded-full h-11 px-4 font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
+          <Button asChild className="group rounded-full h-11 px-4 font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
             <Link href="/product/plans" className="inline-flex items-center justify-center">
               <span>View plans</span>
               <AnimatedArrow size={20} />

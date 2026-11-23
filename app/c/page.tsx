@@ -341,15 +341,15 @@ function NewChatContent() {
 
           {/* Left Header Area: Sidebar toggle on small screens */}
           {showHeaderButtons && (
-            <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
+            <div className="flex shrink-0 items-center pl-3 sm:flex-1 sm:pl-0">
               {!sidebarOpen && (
-                <div className="xl:hidden flex items-center">
+                <div className="pointer-events-auto xl:hidden flex items-center">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
                         type="button"
                         onClick={() => handleToggleSidebar()}
-                        className="group h-11 w-11 rounded-xl xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        className="group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                         aria-label="Open sidebar"
                       >
                         <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -369,10 +369,37 @@ function NewChatContent() {
             </div>
           )}
 
+          {showHeaderButtons && !isTemporary && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  role="group"
+                  aria-label="Chat and Work"
+                  aria-disabled="true"
+                  tabIndex={0}
+                  className="pointer-events-auto mx-1 flex h-9 w-56 min-w-0 cursor-not-allowed opacity-50 items-stretch rounded-full bg-white dark:bg-[#101010] border border-border/80 dark:border-none text-sm font-normal focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
+                >
+                  <span
+                    aria-current="true"
+                    className="relative -my-px -ml-px flex flex-1 items-center justify-center rounded-full bg-secondary bg-background"
+                  >
+                    Chat
+                  </span>
+                  <span className="flex flex-1 items-center justify-center text-muted-foreground">
+                    Work
+                  </span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" sideOffset={5}>
+                Coming soon
+              </TooltipContent>
+            </Tooltip>
+          )}
+
           {/* Right Header Area: Temporary Chat Controls */}
           {showHeaderButtons && (
-            <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
-              <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center justify-end pr-3 sm:flex-1 sm:pr-1">
+              <div className="pointer-events-auto flex items-center gap-2">
                 {isTemporary && (
                   <DropdownMenu
                     open={isPersonalizedMenuOpen}
@@ -408,7 +435,7 @@ function NewChatContent() {
                     <DropdownMenuContent
                       align="end"
                       sideOffset={5}
-                      className="w-full rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80 z-50"
+                      className="sm:w-full w-screen rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80 z-50"
                     >
                       <DropdownMenuItem
                         onClick={() => handleSetPersonalized(true)}
@@ -453,7 +480,7 @@ function NewChatContent() {
                       type="button"
                       onClick={handleToggleTemporaryChat}
                       className={cn(
-                        "group h-11 w-11 rounded-xl xl:rounded-full bg-background hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
+                        "group h-11 w-11 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary flex items-center justify-center transition-colors cursor-pointer select-none shrink-0 focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background",
                         isTemporary
                           ? "bg-secondary text-foreground"
                           : "text-muted-foreground hover:text-foreground"

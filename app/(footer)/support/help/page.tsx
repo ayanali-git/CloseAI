@@ -266,7 +266,7 @@ export default function HelpPage() {
               }
             }}
             placeholder="Search questions"
-            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-card border border-border/80 dark:border-white/10 rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-foreground transition-all"
+            className="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-background border border-border/80 dark:border-white/10 rounded-full text-base outline-none focus:outline-none text-foreground placeholder:text-foreground transition-all"
           />
         </div>
       </header>
@@ -277,7 +277,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('getting-started')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-background rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'getting-started'
               ? "border border-border/80 dark:border-white/10 bg-secondary"
               : "border border-border/80 dark:border-white/10 hover:bg-secondary"
@@ -295,7 +295,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('account-billing')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-background rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'account-billing'
               ? "border border-border/80 dark:border-white/10 bg-secondary"
               : "border border-border/80 dark:border-white/10 hover:bg-secondary"
@@ -313,7 +313,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('troubleshooting')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-background rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'troubleshooting'
               ? "border border-border/80 dark:border-white/10 bg-secondary"
               : "border border-border/80 dark:border-white/10 hover:bg-secondary"
@@ -331,7 +331,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('privacy')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-background rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'privacy'
               ? "border border-border/80 dark:border-white/10 bg-secondary"
               : "border border-border/80 dark:border-white/10 hover:bg-secondary"
@@ -349,7 +349,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('careers')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-background rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'careers'
               ? "border border-border/80 dark:border-white/10 bg-secondary"
               : "border border-border/80 dark:border-white/10 hover:bg-secondary"
@@ -367,7 +367,7 @@ export default function HelpPage() {
           type="button"
           onClick={() => handleCategoryClick('brand')}
           className={cn(
-            "p-5 sm:p-6 bg-card rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+            "p-5 sm:p-6 bg-background rounded-xl cursor-pointer text-left transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
             selectedCategory === 'brand'
               ? "border border-border/80 dark:border-white/10 bg-secondary"
               : "border border-border/80 dark:border-white/10 hover:bg-secondary"
