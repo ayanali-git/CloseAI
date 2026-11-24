@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Download } from "lucide-react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { useAuth } from "@/hooks/use-auth";
+import { AnimatePresence } from "framer-motion";
+import { PreviewDialog } from "@/components/ui/dialog";
 import { useModalTheme } from "@/hooks/use-modal-theme";
 import { cn } from "@/lib/utils";
 
@@ -42,8 +41,7 @@ export function ImagePreview({
     controlledOnOpenChange?.(next);
   };
 
-  const handleDownload = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleDownload = () => {
     if (!src) return;
     const a = document.createElement("a");
     a.href = src;
@@ -71,67 +69,15 @@ export function ImagePreview({
         />
       )}
 
-      <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
-        <DialogPrimitive.Portal>
-          {/* Simple dark backdrop without animation */}
-          <DialogPrimitive.Overlay
-            className="fixed inset-0 z-50 bg-background/80 cursor-default"
-          />
-
-          {/* Simple content container covering full screen */}
-          <DialogPrimitive.Content
-            className="fixed inset-0 z-50 w-full h-[100dvh] px-3 sm:px-6 pt-14 pb-[max(env(safe-area-inset-bottom,0px),1rem)] bg-transparent border-0 outline-none focus:outline-none flex items-center justify-center pointer-events-auto cursor-default"
-            onClick={() => setIsOpen(false)}
+      <AnimatePresence>
+        {isOpen && (
+          <PreviewDialog
+            kind="image"
+            title={alt || "Image preview"}
+            isGuest={isGuestMode}
+            onOpenChange={setIsOpen}
+            onDownload={src ? handleDownload : undefined}
           >
-            <DialogPrimitive.Title className="sr-only">
-              {alt || "Image preview"}
-            </DialogPrimitive.Title>
-            <DialogPrimitive.Description className="sr-only">
-              Preview image full size
-            </DialogPrimitive.Description>
-
-            {/* Header toolbar matching Share & More buttons position */}
-            <header className="fixed top-0 left-0 right-0 z-50 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-end select-none pointer-events-none bg-transparent">
-              <div
-                className="flex items-center pointer-events-auto pr-3 sm:pr-1 select-none gap-2"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {src && (
-                  <button
-                    type="button"
-                    onClick={handleDownload}
-                    className={cn(
-                      "group h-10 w-10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
-                      isGuestMode
-                        ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                        : "rounded-sm xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
-                    )}
-                    title="Download image"
-                    aria-label="Download image"
-                  >
-                    <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                    <span className="sr-only">Download</span>
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "group h-10 w-10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
-                    isGuestMode
-                      ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                      : "rounded-sm xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
-                  )}
-                  title="Close image preview"
-                  aria-label="Close image preview"
-                >
-                  <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                  <span className="sr-only">Close</span>
-                </button>
-              </div>
-            </header>
-
-            {/* Centered Image Container */}
             <div
               className="relative inline-block max-w-full max-h-[75dvh] overflow-hidden rounded-2xl border border-border/80 dark:border-none"
               onClick={(e) => e.stopPropagation()}
@@ -142,9 +88,9 @@ export function ImagePreview({
                 className="max-h-[75dvh] max-w-full object-contain select-none block"
               />
             </div>
-          </DialogPrimitive.Content>
-        </DialogPrimitive.Portal>
-      </DialogPrimitive.Root>
+          </PreviewDialog>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

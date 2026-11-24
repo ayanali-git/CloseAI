@@ -2,10 +2,12 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Globe, X, Check } from "lucide-react";
 import { AnimatedSearchClose } from "@/components/ui/animated";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
+import { SWIPE_SETTLE, useMobilePanelLayout, useSwipeDismiss } from "@/lib/touch";
 import languagesData from "@/data/languages.json";
 import {
   getLanguagePref,
@@ -97,6 +99,9 @@ export function LangDropdownMenu({
 
   const isControlledOpen = controlledOpen !== undefined;
   const isOpen = isControlledOpen ? controlledOpen : internalOpen;
+  const isMobile = useMobilePanelLayout();
+  const reduceMotion = useReducedMotion();
+  const panelRef = React.useRef<HTMLDivElement>(null);
 
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const [triggerRect, setTriggerRect] = React.useState<{
@@ -131,6 +136,15 @@ export function LangDropdownMenu({
     },
     [isControlledOpen, setControlledOpen]
   );
+
+  const { offset, backdropOpacity, bind } = useSwipeDismiss({
+    direction: "down",
+    enabled: isOpen && isMobile,
+    panelRef,
+    onRelease: ({ shouldDismiss }) => {
+      if (shouldDismiss) handleOpenChange(false);
+    },
+  });
 
   // Sync language with preferences and listen for updates; default to "en-IN"
   React.useEffect(() => {
@@ -271,11 +285,13 @@ export function LangDropdownMenu({
       {trigger}
 
       {mounted &&
-        isOpen &&
         createPortal(
-          <div className="fixed inset-0 z-[100] select-none">
-            <div
+          <AnimatePresence>
+          {isOpen && (
+          <div key="language-picker" className="fixed inset-0 z-[100] select-none">
+            <motion.div
               className="fixed inset-0 bg-background/80 cursor-default"
+              style={{ opacity: isMobile ? backdropOpacity : 1 }}
               onClick={() => handleOpenChange(false)}
             />
 
@@ -293,7 +309,7 @@ export function LangDropdownMenu({
 
               return (
                 <div
-                  className="fixed z-[101] flex flex-col items-center pointer-events-none px-4"
+                  className="fixed z-[101] flex flex-col items-center pointer-events-none px-4 max-xl:overflow-hidden"
                   style={{
                     bottom: `${bottomOffset}px`,
                     left: triggerRect
@@ -304,9 +320,14 @@ export function LangDropdownMenu({
                     maxWidth: "380px",
                   }}
                 >
-                  <div
+                  <motion.div
+                    ref={panelRef}
+                    initial={isMobile && !reduceMotion ? { y: "100%" } : false}
+                    animate={{ y: "0%" }}
+                    exit={{ y: isMobile ? "100%" : "0%" }}
+                    transition={isMobile && !reduceMotion ? SWIPE_SETTLE : { duration: 0 }}
                     className="w-full flex flex-col pointer-events-auto"
-                    style={{ gap: `${MIDDLE_GAP}px` }}
+                    style={{ gap: `${MIDDLE_GAP}px`, y: offset }}
                     role="dialog"
                     aria-modal="true"
                     aria-label="Select language"
@@ -326,13 +347,15 @@ export function LangDropdownMenu({
                     >
                   {/* Header */}
                   <div
+                    {...bind}
                     className={cn(
-                      "flex items-center justify-between px-5 py-4 border-b shrink-0 transition-colors duration-200",
+                      "relative flex items-center justify-between px-5 py-4 border-b shrink-0 transition-colors duration-200 max-xl:touch-none max-xl:cursor-grab max-xl:active:cursor-grabbing",
                       isListScrolled
                         ? "border-border/80 dark:border-white/10"
                         : "border-transparent"
                     )}
                   >
+                    <div aria-hidden="true" className="absolute top-2 left-1/2 h-1 w-10 -translate-x-1/2 rounded-full bg-muted-foreground xl:hidden" />
                     <h2 className="text-xl font-semibold text-foreground">
                       Select language
                     </h2>
@@ -464,11 +487,13 @@ export function LangDropdownMenu({
                     className="w-full px-4 py-3 rounded-full pl-12 text-base placeholder:text-foreground bg-background border border-border/80 dark:border-white/10 outline-none focus:outline-none transition-colors"
                   />
                 </div>
-              </div>
+              </motion.div>
             </div>
           );
         })()}
-          </div>,
+          </div>
+          )}
+          </AnimatePresence>,
           document.body
         )}
     </>

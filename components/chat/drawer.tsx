@@ -3,6 +3,7 @@
 import React, {
   useState,
   useEffect,
+  useLayoutEffect,
   createContext,
   useContext,
   forwardRef,
@@ -11,7 +12,7 @@ import React, {
   useRef,
 } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useMotionValueEvent, useIsPresent, useReducedMotion, type MotionValue } from "framer-motion";
 import {
   X,
   FileText,
@@ -36,6 +37,7 @@ import {
   getFileExtension,
 } from "@/lib/file-utils";
 import { cn } from "@/lib/utils";
+import { SWIPE_SETTLE, useMobilePanelLayout, useSwipeDismiss } from "@/lib/touch";
 import {
   AvatarShapeId,
   AVATAR_SHAPES,
@@ -100,6 +102,7 @@ interface DrawerContextValue {
 }
 
 const DrawerContext = createContext<DrawerContextValue | null>(null);
+const DrawerBackdropOpacity = createContext<MotionValue<number> | null>(null);
 
 export function useOverlayState(initialOpen = false) {
   const [isOpen, setIsOpen] = useState(initialOpen);
@@ -230,6 +233,7 @@ function DrawerBackdrop({
 }: DrawerBackdropProps) {
   const { isOpen, close, isDismissable: ctxDismissable, backdrop: ctxBackdrop } = useDrawer();
   const [mounted, setMounted] = useState(false);
+  const opacity = useMotionValue(1);
 
   useEffect(() => {
     setMounted(true);
@@ -247,31 +251,30 @@ function DrawerBackdrop({
   };
 
   return createPortal(
-    <AnimatePresence>
-      {isOpen && (
-        <div className="drawer__wrapper fixed inset-0 z-50 overflow-hidden">
-          {/* Backdrop overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
-            onClick={() => {
-              if (dismissable) close();
-            }}
-            className={cn(
-              "drawer__backdrop fixed inset-0 pointer-events-auto",
-              backdropVariants[activeVariant] || backdropVariants.blur,
-              className
-            )}
-            aria-hidden="true"
-          />
+    <DrawerBackdropOpacity.Provider value={opacity}>
+      <AnimatePresence>
+        {isOpen && (
+          <div className="drawer__wrapper fixed inset-0 z-50 overflow-hidden">
+            {/* Backdrop overlay */}
+            <motion.div
+              style={{ opacity }}
+              onClick={() => {
+                if (dismissable) close();
+              }}
+              className={cn(
+                "drawer__backdrop fixed inset-0 pointer-events-auto",
+                backdropVariants[activeVariant] || backdropVariants.blur,
+                className
+              )}
+              aria-hidden="true"
+            />
 
-          {/* Render Drawer.Content inside wrapper */}
-          {children}
-        </div>
-      )}
-    </AnimatePresence>,
+            {/* Render Drawer.Content inside wrapper */}
+            {children}
+          </div>
+        )}
+      </AnimatePresence>
+    </DrawerBackdropOpacity.Provider>,
     document.body
   );
 }
@@ -290,8 +293,26 @@ function DrawerContent({
   placement: propPlacement,
   className,
 }: DrawerContentProps) {
-  const { placement: ctxPlacement } = useDrawer();
+  const { placement: ctxPlacement, close, isDismissable } = useDrawer();
   const currentPlacement = propPlacement || ctxPlacement;
+  const horizontal = currentPlacement === "right" || currentPlacement === "left";
+  const panelRef = useRef<HTMLDivElement>(null);
+  const present = useIsPresent();
+  const reduceMotion = useReducedMotion();
+  const opacity = useContext(DrawerBackdropOpacity);
+  const direction = currentPlacement === "top" ? "up" : currentPlacement === "bottom" ? "down" : currentPlacement;
+  const { offset, backdropOpacity, bind } = useSwipeDismiss({
+    direction,
+    enabled: present && isDismissable,
+    panelRef,
+    onRelease: ({ shouldDismiss }) => {
+      if (shouldDismiss) close();
+    },
+  });
+  useMotionValueEvent(backdropOpacity, "change", (value) => opacity?.set(value));
+  useLayoutEffect(() => {
+    opacity?.set(backdropOpacity.get());
+  }, [opacity, backdropOpacity]);
 
   const placementConfigs: Record<
     DrawerPlacement,
@@ -306,28 +327,28 @@ function DrawerContent({
       containerClasses:
         "fixed inset-y-0 right-0 h-full w-full max-w-full sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-l-0 sm:border-l border-border/80",
       initial: { x: "100%" },
-      animate: { x: 0 },
+      animate: { x: "0%" },
       exit: { x: "100%" },
     },
     left: {
       containerClasses:
         "fixed inset-y-0 left-0 h-full w-full max-w-full sm:w-[250px] sm:max-w-[250px] sm:max-w-full border-r-0 sm:border-r border-border/80",
       initial: { x: "-100%" },
-      animate: { x: 0 },
+      animate: { x: "0%" },
       exit: { x: "-100%" },
     },
     top: {
       containerClasses:
         "fixed inset-x-0 top-0 max-h-[85vh] w-full border-b border-border/80",
       initial: { y: "-100%" },
-      animate: { y: 0 },
+      animate: { y: "0%" },
       exit: { y: "-100%" },
     },
     bottom: {
       containerClasses:
         "fixed inset-x-0 bottom-0 max-h-[85vh] w-full border-t border-border/80",
       initial: { y: "100%" },
-      animate: { y: 0 },
+      animate: { y: "0%" },
       exit: { y: "100%" },
     },
   };
@@ -336,10 +357,18 @@ function DrawerContent({
 
   return (
     <motion.div
+      ref={panelRef}
+      {...bind}
+      onPointerDown={(event) => {
+        if (horizontal || (event.target instanceof Element && event.target.closest(".drawer__handle"))) {
+          bind.onPointerDown(event);
+        }
+      }}
+      style={horizontal ? { x: offset, touchAction: "pan-y pinch-zoom" } : { y: offset }}
       initial={config.initial}
       animate={config.animate}
       exit={config.exit}
-      transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
+      transition={reduceMotion ? { duration: 0 } : SWIPE_SETTLE}
       className={cn(
         "drawer__content pointer-events-auto flex flex-col z-50 bg-sidebar text-foreground",
         config.containerClasses,
@@ -369,7 +398,7 @@ const DrawerDialog = forwardRef<HTMLDivElement, DrawerDialogProps>(
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          "drawer__dialog flex flex-col h-full w-full overflow-hidden select-none bg-sidebar",
+          "drawer__dialog flex flex-col h-full w-full overflow-hidden select-none bg-sidebar [touch-action:inherit]",
           className
         )}
         {...props}
@@ -393,11 +422,13 @@ function DrawerHandle({ className, ...props }: DrawerHandleProps) {
     <div
       aria-hidden="true"
       className={cn(
-        "drawer__handle mx-auto my-2.5 h-1.5 w-10 rounded-full bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-600 transition-colors shrink-0 cursor-grab active:cursor-grabbing",
+        "drawer__handle flex h-8 w-full justify-center items-center touch-none shrink-0 cursor-grab active:cursor-grabbing",
         className
       )}
       {...props}
-    />
+    >
+      <span className="h-1 w-10 rounded-full bg-muted-foreground" />
+    </div>
   );
 }
 
@@ -488,7 +519,7 @@ function DrawerBody({ className, children, ...props }: DrawerBodyProps) {
   return (
     <div
       className={cn(
-        "drawer__body flex-1 overflow-y-auto p-4 scrollbar-thin",
+        "drawer__body flex-1 overflow-y-auto p-4 scrollbar-thin [touch-action:inherit]",
         className
       )}
       {...props}
@@ -855,16 +886,7 @@ export function FilesDrawer({
   const isControlled = controlledIsOpen !== undefined;
   const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkScreen = () => {
-      setIsMobile(window.innerWidth < 1280);
-    };
-    checkScreen();
-    window.addEventListener("resize", checkScreen);
-    return () => window.removeEventListener("resize", checkScreen);
-  }, []);
+  const isMobile = useMobilePanelLayout();
 
   const handleOpenChange = (open: boolean) => {
     if (!isControlled) {
@@ -994,7 +1016,7 @@ export function FilesDrawer({
                 )}
 
                 {/* Body: Vertically Scrollable List of Files matching desktop p-2 */}
-                <div className="flex-1 overflow-y-auto p-2 sidebar-scroll">
+                <div className="flex-1 overflow-y-auto p-2 sidebar-scroll [touch-action:inherit]">
                   {files.length === 0 ? (
                     <div className="h-full min-h-[260px] flex flex-col items-center justify-center text-center p-6 select-none">
                       <p className="text-sm sm:text-base text-muted-foreground">
@@ -1065,17 +1087,8 @@ export function EditProfileDrawer({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMobilePanelLayout();
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const checkScreen = () => {
-      setIsMobile(window.innerWidth < 1280);
-    };
-    checkScreen();
-    window.addEventListener("resize", checkScreen);
-    return () => window.removeEventListener("resize", checkScreen);
-  }, []);
 
   // Sync state whenever drawer opens with fresh props
   useEffect(() => {

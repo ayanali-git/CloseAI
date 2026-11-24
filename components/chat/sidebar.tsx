@@ -91,11 +91,8 @@ import { SearchModal } from "@/components/modals/search-modal";
 import toast from "@/lib/toast";
 import { openSettings, isSettingsHash, SettingsSection } from "@/lib/settings-hash";
 import { useSidebarContext } from "@/components/chat/sidebar-context";
-import { EASE_DRAWER } from "@/lib/ease";
-import { motion, useDragControls, type PanInfo } from "framer-motion";
-
-const DRAWER = { duration: 0.35, ease: EASE_DRAWER } as const;
-const SIDEBAR_SPRING = { type: "spring", damping: 30, stiffness: 320 } as const;
+import { SWIPE_SETTLE, useSwipeDismiss } from "@/lib/touch";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface SidebarProps {
   user: User | null;
@@ -796,9 +793,16 @@ export function Sidebar({
     return false;
   });
   const [mounted, setMounted] = useState(false);
-  const [isReadyToAnimate, setIsReadyToAnimate] = useState(false);
-
-  const dragControls = useDragControls();
+  const panelRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { offset, backdropOpacity, bind } = useSwipeDismiss({
+    direction: "left",
+    enabled: mounted && isMobileScreen && isOpen,
+    panelRef,
+    onRelease: ({ shouldDismiss }) => {
+      if (shouldDismiss) setSidebarOpen(false);
+    },
+  });
 
   const handleNewChatAction = useCallback(() => {
     onNewChat();
@@ -813,29 +817,9 @@ export function Sidebar({
     }
   }, [onNewChat, isGuestMode, isOpen, setSidebarOpen]);
 
-  const onSidebarDragEnd = useCallback(
-    (_: unknown, info: PanInfo) => {
-      if (!isMobileScreen) return;
-      const velocity = info.velocity.x;
-      const offset = info.offset.x;
-
-      // Consistent with bottom-sheet logic adapted for horizontal dismiss:
-      // Moving half-way towards left (offset < -20) or swiping left (velocity < -80) automatically closes the sidebar.
-      if (velocity < -80 || offset < -20) {
-        setSidebarOpen(false);
-        return;
-      }
-    },
-    [isMobileScreen, setSidebarOpen]
-  );
-
   useEffect(() => {
     setIsMobileScreen(window.innerWidth < 1280);
     setMounted(true);
-
-    const timer = setTimeout(() => {
-      setIsReadyToAnimate(true);
-    }, 120);
 
     const checkMobile = () => {
       const isMob = window.innerWidth < 1280;
@@ -852,7 +836,6 @@ export function Sidebar({
     };
     window.addEventListener("resize", checkMobile);
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
@@ -1616,34 +1599,24 @@ export function Sidebar({
   return (
     <>
       {/* Mobile overlay backdrop */}
-      <div
+      <motion.div
+        style={{ opacity: mounted && isMobileScreen ? backdropOpacity : 0 }}
         className={cn(
-          "fixed inset-0 z-40 bg-black/60 xl:hidden transition-opacity duration-200",
-          isOpen && mounted
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          "fixed inset-0 z-40 bg-black/60 xl:hidden",
+          isOpen && mounted ? "pointer-events-auto" : "pointer-events-none"
         )}
         onClick={onToggle}
       />
 
       {/* Main Sidebar (Expands smoothly from 50px to 250px on Desktop, slides over on Mobile) */}
       <motion.aside
+        ref={panelRef}
         suppressHydrationWarning
-        initial={!isMobileScreen ? false : { x: "-100%" }}
-        animate={{ x: isMobileScreen ? (isOpen ? 0 : "-100%") : 0 }}
-        drag={isMobileScreen && isOpen ? "x" : false}
-        dragControls={dragControls}
-        dragListener={isMobileScreen && isOpen}
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={{ left: 0.4, right: 0.02 }}
-        dragMomentum={false}
-        dragSnapToOrigin={true}
-        onDragEnd={onSidebarDragEnd}
-        transition={
-          !isMobileScreen
-            ? { duration: 0 }
-            : DRAWER
-        }
+        {...bind}
+        style={{ x: offset }}
+        initial={false}
+        animate={{ x: isMobileScreen && !isOpen ? "-100%" : "0%" }}
+        transition={isMobileScreen && !reduceMotion ? SWIPE_SETTLE : { duration: 0 }}
         className={cn(
           "h-[100dvh] max-h-[100dvh] bg-sidebar border-r border-border/80 dark:border-white/10 flex flex-col shrink-0 select-none overflow-hidden relative group/sidebar",
           isGuestMode && "max-xl:bg-white dark:max-xl:bg-[#303030]",
@@ -1651,7 +1624,7 @@ export function Sidebar({
             "xl:transition-[width] xl:duration-300 xl:ease-in-out xl:will-change-[width]",
           // Small screens: always a fixed drawer (never `hidden`) so it can slide out.
           // xl and up: normal in-flow sidebar (60px rail / 250px open), same as before.
-          "fixed xl:relative inset-y-0 left-0 w-[75%] max-w-[75%] sm:w-[250px] sm:max-w-[250px]",
+          "fixed xl:relative inset-y-0 left-0 w-[75%] max-w-[75%] sm:w-[250px] sm:max-w-[250px] max-xl:[touch-action:pan-y_pinch-zoom]",
           isOpen ? "z-50 xl:z-20" : "max-xl:z-50 xl:w-[60px]",
           // Before mount, hide mobile drawer completely so it never flashes, overlaps, or sits at 0 on reload
           !mounted && "max-xl:hidden"
@@ -2588,7 +2561,7 @@ export function Sidebar({
                   updateChatListScrollBorders(e.currentTarget);
                 }}
                 className={cn(
-                  "flex-1 px-2 overflow-y-auto border-t transition-colors duration-200 sidebar-scroll min-h-0",
+                  "flex-1 px-2 overflow-y-auto border-t transition-colors duration-200 sidebar-scroll min-h-0 max-xl:[touch-action:pan-y_pinch-zoom]",
                   chatStreamScrolled
                     ? "border-border/80 dark:border-white/10"
                     : "border-transparent"

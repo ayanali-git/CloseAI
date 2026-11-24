@@ -1,14 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  X,
-  FileText,
-  Loader,
-  Download,
-} from "lucide-react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { useAuth } from "@/hooks/use-auth";
+import { AnimatePresence } from "framer-motion";
+import { FileText, Loader } from "lucide-react";
+import { PreviewDialog } from "@/components/ui/dialog";
 import { useModalTheme } from "@/hooks/use-modal-theme";
 import {
   isImageFile,
@@ -28,26 +23,31 @@ export interface FilePreviewModalProps {
 
 export function FilePreviewModal({
   open,
-  onOpenChange,
   file,
-  isGuest: controlledIsGuest,
+  ...props
 }: FilePreviewModalProps) {
-  const { isGuest: isGuestMode } = useModalTheme(controlledIsGuest, open);
+  return (
+    <AnimatePresence>
+      {open && file && <FilePreview file={file} {...props} />}
+    </AnimatePresence>
+  );
+}
+
+function FilePreview({
+  file,
+  onOpenChange,
+  isGuest: controlledIsGuest,
+}: Omit<FilePreviewModalProps, "open">) {
+  const { isGuest: isGuestMode } = useModalTheme(controlledIsGuest, true);
 
   const [fileUrl, setFileUrl] = useState<string>("");
   const [textContent, setTextContent] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!open || !file) {
-      setFileUrl("");
-      setTextContent(null);
-      setIsLoading(false);
-      return;
-    }
-
     setIsLoading(true);
     let createdBlobUrl = "";
+    let loadingTimer: number | undefined;
     const resolvedUrl =
       file instanceof File
         ? (createdBlobUrl = URL.createObjectURL(file))
@@ -88,21 +88,20 @@ export function FilePreviewModal({
         setIsLoading(false);
       }
     } else {
-      const timer = setTimeout(() => {
+      loadingTimer = window.setTimeout(() => {
         setIsLoading(false);
       }, 200);
-      return () => clearTimeout(timer);
     }
 
     return () => {
+      window.clearTimeout(loadingTimer);
       if (createdBlobUrl) {
         URL.revokeObjectURL(createdBlobUrl);
       }
     };
-  }, [open, file]);
+  }, [file]);
 
-  const handleDownload = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleDownload = () => {
     if (!fileUrl) return;
     const a = document.createElement("a");
     a.href = fileUrl;
@@ -111,8 +110,6 @@ export function FilePreviewModal({
     a.click();
     document.body.removeChild(a);
   };
-
-  if (!open || !file) return null;
 
   const fileName = file.name || file.filename || "Attachment";
   const { Icon, label, colorClass, badgeBg } = getFileIconInfo(file);
@@ -192,95 +189,39 @@ export function FilePreviewModal({
   );
 
   return (
-    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
-      <DialogPrimitive.Portal>
-        {/* Simple dark backdrop without animation */}
-        <DialogPrimitive.Overlay
-          className="fixed inset-0 z-50 bg-background/80 cursor-default"
-        />
-
-        {/* Simple content container covering full screen */}
-        <DialogPrimitive.Content
-          className="fixed inset-0 z-50 w-full h-[100dvh] px-3 sm:px-6 pt-14 pb-[max(env(safe-area-inset-bottom,0px),1rem)] bg-transparent border-0 outline-none focus:outline-none flex items-center justify-center pointer-events-auto cursor-default"
-          onClick={() => onOpenChange(false)}
+    <PreviewDialog
+      kind="file"
+      title={fileName}
+      isGuest={isGuestMode}
+      onOpenChange={onOpenChange}
+      onDownload={fileUrl ? handleDownload : undefined}
+    >
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center gap-3 text-muted-foreground py-16">
+          <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
+        </div>
+      ) : isImg && fileUrl ? (
+        <div
+          className="relative inline-block max-w-full max-h-[75dvh] overflow-hidden rounded-2xl border border-border/80 dark:border-none"
+          onClick={(e) => e.stopPropagation()}
         >
-          <DialogPrimitive.Title className="sr-only">
-            {fileName || "File preview"}
-          </DialogPrimitive.Title>
-          <DialogPrimitive.Description className="sr-only">
-            Preview file full size
-          </DialogPrimitive.Description>
-
-          {/* Header toolbar matching Share & More buttons position */}
-          <header className="fixed top-0 left-0 right-0 z-50 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-end select-none pointer-events-none bg-transparent">
-            <div
-              className="flex items-center pointer-events-auto pr-3 sm:pr-1 select-none gap-2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {fileUrl && (
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className={cn(
-                    "group h-10 w-10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
-                    isGuestMode
-                      ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                      : "rounded-sm xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
-                  )}
-                  title="Download file"
-                  aria-label="Download file"
-                >
-                  <Download className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                  <span className="sr-only">Download</span>
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => onOpenChange(false)}
-                className={cn(
-                  "group h-10 w-10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0",
-                  isGuestMode
-                    ? "rounded-full bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040] text-muted-foreground hover:text-foreground"
-                    : "rounded-sm xl:rounded-full bg-background border border-border/80 dark:border-none hover:bg-secondary active:bg-secondary text-foreground"
-                )}
-                title="Close file preview"
-                aria-label="Close file preview"
-              >
-                <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                <span className="sr-only">Close</span>
-              </button>
-            </div>
-          </header>
-
-          {/* Centered Content Container */}
-          {isLoading ? (
-            <div className="flex flex-col items-center justify-center gap-3 text-muted-foreground py-16">
-              <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
-            </div>
-          ) : isImg && fileUrl ? (
-            <div
-              className="relative inline-block max-w-full max-h-[75dvh] overflow-hidden rounded-2xl border border-border/80 dark:border-none"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={fileUrl}
-                alt={fileName}
-                className="max-h-[75dvh] max-w-full object-contain select-none block"
-              />
-            </div>
-          ) : (
-            <div
-              className="relative w-full max-w-5xl h-[75dvh] max-h-[75dvh] flex flex-col bg-background/95 dark:bg-[#1e1e1e]/95 rounded-2xl border border-border/80 dark:border-none overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex-1 w-full h-full overflow-hidden p-0 flex flex-col min-h-0">
-                {previewContent}
-              </div>
-            </div>
-          )}
-        </DialogPrimitive.Content>
-      </DialogPrimitive.Portal>
-    </DialogPrimitive.Root>
+          <img
+            src={fileUrl}
+            alt={fileName}
+            className="max-h-[75dvh] max-w-full object-contain select-none block"
+          />
+        </div>
+      ) : (
+        <div
+          className="relative w-full max-w-5xl h-[75dvh] max-h-[75dvh] flex flex-col bg-background/95 dark:bg-[#1e1e1e]/95 rounded-2xl border border-border/80 dark:border-none overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex-1 w-full h-full overflow-hidden p-0 flex flex-col min-h-0">
+            {previewContent}
+          </div>
+        </div>
+      )}
+    </PreviewDialog>
   );
 }
 

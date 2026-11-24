@@ -3,15 +3,12 @@
 import {
   AnimatePresence,
   motion,
-  type PanInfo,
-  useDragControls,
   useReducedMotion,
 } from "framer-motion";
-import { type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { Fragment, type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { SWIPE_SETTLE, useMobilePanelLayout, useSwipeDismiss } from "@/lib/touch";
 import { EASE_DRAWER } from "@/lib/ease";
-import { PresenceGate } from "@/components/ui/presence-gate";
-import { TOUCH_GESTURE_CONTENT_CLASS } from "@/lib/touch";
 import { cn } from "@/lib/utils";
 
 const DRAWER = { duration: 0.35, ease: EASE_DRAWER } as const;
@@ -90,7 +87,7 @@ export function BottomSheet({
   description,
   children,
   className,
-  dismissThreshold = 120,
+  dismissThreshold,
   forceModal = false,
   scrollable = false,
   contentClassName,
@@ -99,11 +96,9 @@ export function BottomSheet({
 }: BottomSheetProps) {
   const [snap, setSnap] = useState(defaultSnap);
   const [mounted, setMounted] = useState(false);
-  const [isMobileScreenRaw, setIsMobileScreenRaw] = useState(false);
-  const dragControls = useDragControls();
+  const isMobileScreenRaw = useMobilePanelLayout();
   const sheetRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const heightRef = useRef(0);
   const uid = useId();
   const titleId = `${uid}-title`;
   const descriptionId = `${uid}-description`;
@@ -115,15 +110,26 @@ export function BottomSheet({
   const showTopBar =
     (isMobileScreen && !forceModal) || Boolean(title || description);
   const isBigScreen = !isMobileScreenRaw;
+  const { offset, backdropOpacity, bind } = useSwipeDismiss({
+    direction: "down",
+    enabled: open && isMobileScreen,
+    panelRef: sheetRef,
+    dismissThreshold,
+    onRelease: ({ distance, velocity, shouldDismiss }) => {
+      if (shouldDismiss) {
+        if (snap > 0 && velocity < 800 && distance < 130) {
+          setSnap(snap - 1);
+        } else {
+          onOpenChange(false);
+        }
+      } else if (distance < -80 || velocity < -500) {
+        setSnap((current) => Math.min(snapPoints.length - 1, current + 1));
+      }
+    },
+  });
 
   useEffect(() => {
     setMounted(true);
-    const checkMobile = () => {
-      setIsMobileScreenRaw(window.innerWidth < 1280);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   useEffect(() => {
@@ -162,33 +168,6 @@ export function BottomSheet({
     return () => window.removeEventListener("keydown", onKey, true);
   }, [open, onOpenChange]);
 
-  const onDragEnd = (_: unknown, info: PanInfo) => {
-    if (!isMobileScreen) return;
-    const velocity = info.velocity.y;
-    const offset = info.offset.y;
-
-    if (velocity > 300 || offset > 80) {
-      const smaller = snapPoints.map((_, i) => i).filter((i) => i < snap);
-      if (smaller.length && velocity < 800 && offset < 130) {
-        setSnap(smaller[smaller.length - 1]);
-      } else {
-        onOpenChange(false);
-      }
-      return;
-    }
-
-    if (velocity < -500) {
-      setSnap((current) => Math.min(snapPoints.length - 1, current + 1));
-      return;
-    }
-
-    setSnap((current) => {
-      if (offset > 80 && current > 0) return current - 1;
-      if (offset < -80 && current < snapPoints.length - 1) return current + 1;
-      return current;
-    });
-  };
-
   const snapValue = snapPoints[snap];
   const clampCap = Math.min(Math.max(maxSnap, 0.35), 0.98);
   const clampedSnap =
@@ -202,177 +181,148 @@ export function BottomSheet({
       ? { maxHeight: maxHeightCss }
       : { height: `${clampedSnap * 100}dvh`, maxHeight: maxHeightCss }
     : {};
+  const trackBackdrop = isMobileScreen && !reduce;
+  const transition = isBigScreen
+    ? { duration: 0 }
+    : reduce
+    ? { duration: 0.12 }
+    : isMobileScreen
+    ? SWIPE_SETTLE
+    : DRAWER;
 
   if (!mounted) return null;
 
   return createPortal(
     <AnimatePresence onExitComplete={() => setExitComplete(true)}>
       {open ? (
-        <PresenceGate key="backdrop">
-          {({ gate }) => (
+        <Fragment key="sheet">
+          <motion.div
+            style={trackBackdrop ? { opacity: backdropOpacity } : undefined}
+            initial={trackBackdrop || isBigScreen ? false : { opacity: 0 }}
+            animate={trackBackdrop ? undefined : { opacity: 1 }}
+            exit={trackBackdrop ? undefined : { opacity: 0 }}
+            transition={transition}
+            data-bottom-sheet-backdrop="true"
+            className="pointer-events-auto fixed inset-0 z-[100] bg-background/80 cursor-default"
+            onClick={() => {
+              const sheets = document.querySelectorAll(
+                "[data-bottom-sheet='true']"
+              );
+              const top = sheets[sheets.length - 1];
+              if (sheetRef.current !== top) return;
+              onOpenChange(false);
+            }}
+          />
+          <div
+            className={cn(
+              "fixed inset-0 z-[100] flex pointer-events-none cursor-default pb-1",
+              isMobileScreen
+                ? "items-end justify-center"
+                : "items-center justify-center p-4"
+            )}
+          >
             <motion.div
-              initial={isBigScreen ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={isBigScreen ? { duration: 0 } : DRAWER}
-              {...gate}
-              data-bottom-sheet-backdrop="true"
-              className="pointer-events-auto fixed inset-0 z-[100] bg-background/80 cursor-default"
-              onClick={() => {
-                const sheets = document.querySelectorAll(
-                  "[data-bottom-sheet='true']"
-                );
-                const top = sheets[sheets.length - 1];
-                if (sheetRef.current !== top) return;
-                onOpenChange(false);
-              }}
-            />
-          )}
-        </PresenceGate>
-      ) : null}
-      {open ? (
-        <PresenceGate key="sheet">
-          {({ gate }) => (
-            <div
+              ref={sheetRef}
+              initial={
+                isBigScreen
+                  ? false
+                  : reduce
+                  ? { opacity: 0, y: "0%" }
+                  : isMobileScreen
+                  ? { y: "100%" }
+                  : { opacity: 0, scale: 0.96, y: 8 }
+              }
+              animate={
+                reduce
+                  ? { opacity: 1, y: "0%" }
+                  : isMobileScreen
+                  ? { y: "0%" }
+                  : { opacity: 1, scale: 1, y: 0 }
+              }
+              exit={
+                reduce
+                  ? { opacity: 0 }
+                  : isMobileScreen
+                  ? { y: "100%" }
+                  : { opacity: 0, scale: 0.96, y: 8 }
+              }
+              transition={transition}
+              style={isMobileScreen ? { ...heightStyle, y: offset } : undefined}
               className={cn(
-                "fixed inset-0 z-[100] flex pointer-events-none cursor-default pb-1",
+                "pointer-events-auto flex flex-col overflow-hidden bg-card border border-border/80 dark:border-none will-change-transform",
                 isMobileScreen
-                  ? "items-end justify-center"
-                  : "items-center justify-center p-4"
+                  ? "w-full max-w-2xl rounded-t-[75px] rounded-b-[25px]"
+                  : "w-full max-w-2xl rounded-3xl max-h-[85vh]",
+                className
               )}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={title ? titleId : undefined}
+              aria-describedby={description ? descriptionId : undefined}
+              aria-label={title ? undefined : "Modal dialog"}
+              data-bottom-sheet="true"
             >
-              <motion.div
-                ref={sheetRef}
-                drag={isMobileScreen ? "y" : false}
-                dragControls={dragControls}
-                dragListener={isMobileScreen}
-                dragConstraints={{ top: 0, bottom: 0 }}
-                dragElastic={{ top: 0.02, bottom: 0.4 }}
-                dragMomentum={false}
-                onDragEnd={onDragEnd}
-                initial={
-                  isBigScreen
-                    ? false
-                    : reduce
-                    ? { opacity: 0 }
-                    : isMobileScreen
-                    ? { y: "100%" }
-                    : { opacity: 0, scale: 0.96, y: 8 }
-                }
-                animate={
-                  reduce
-                    ? { opacity: 1 }
-                    : isMobileScreen
-                    ? { y: 0 }
-                    : { opacity: 1, scale: 1, y: 0 }
-                }
-                exit={
-                  reduce
-                    ? { opacity: 0 }
-                    : isMobileScreen
-                    ? { y: "100%" }
-                    : { opacity: 0, scale: 0.96, y: 8 }
-                }
-                transition={
-                  isBigScreen
-                    ? { duration: 0 }
-                    : reduce
-                    ? { duration: 0.18, ease: EASE_DRAWER }
-                    : DRAWER
-                }
-                onAnimationComplete={() => {
-                  if (sheetRef.current)
-                    heightRef.current = sheetRef.current.offsetHeight;
-                }}
-                {...gate}
-                style={
-                  isMobileScreen
-                    ? { ...heightStyle, ...(gate.style as Record<string, any>) }
-                    : { ...(gate.style as Record<string, any>) }
-                }
-                className={cn(
-                  "pointer-events-auto flex flex-col overflow-hidden bg-card border border-border/80 dark:border-none will-change-transform",
-                  isMobileScreen
-                    ? "w-full max-w-2xl rounded-t-[75px] rounded-b-[25px]"
-                    : "w-full max-w-2xl rounded-3xl max-h-[85vh]",
-                  className
-                )}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby={title ? titleId : undefined}
-                aria-describedby={description ? descriptionId : undefined}
-                aria-label={title ? undefined : "Modal dialog"}
-                data-bottom-sheet="true"
-              >
-                {showTopBar && (
-                  <div
-                    onPointerDown={(event) => {
-                      if (isMobileScreen) dragControls.start(event);
-                    }}
-                    className={cn(
-                      "flex flex-col items-center px-6 pb-2 pt-4 shrink-0",
-                      isMobileScreen && "cursor-grab active:cursor-grabbing touch-none select-none"
-                    )}
-                  >
-                    {/* Drag handle pill only on mobile */}
-                    {isMobileScreen && (
-                      <div
-                        className={cn(
-                          "flex items-center justify-center py-1 mb-1 pointer-events-none",
-                          TOUCH_GESTURE_CONTENT_CLASS
-                        )}
-                      >
-                        <div className="h-1 w-10 rounded-full bg-muted-foreground" />
-                      </div>
-                    )}
-                    {title || description ? (
-                      <div className="mt-1 w-full text-left">
-                        {title ? (
-                          <h2
-                            id={titleId}
-                            className="text-lg font-semibold text-foreground tracking-tight"
-                          >
-                            {title}
-                          </h2>
-                        ) : null}
-                        {description ? (
-                          <p
-                            id={descriptionId}
-                            className="mt-1 text-sm text-muted-foreground leading-relaxed"
-                          >
-                            {description}
-                          </p>
-                        ) : null}
-                      </div>
-                    ) : null}
-                  </div>
-                )}
+              {showTopBar && (
                 <div
+                  {...(isMobileScreen ? bind : {})}
                   className={cn(
-                    "flex-1 min-h-0 bottom-sheet-content",
-                    !unpadded && "px-6",
-                    !unpadded && !showTopBar && "pt-6",
-                    scrollable
-                      ? "overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                      : unpadded
-                      ? "overflow-hidden"
-                      : "overflow-visible",
-                    contentClassName
+                    "flex flex-col items-center px-6 pb-2 pt-4 shrink-0",
+                    isMobileScreen && "cursor-grab active:cursor-grabbing touch-none select-none"
                   )}
-                  style={{
-                    paddingBottom: unpadded
-                      ? 0
-                      : isMobileScreen
-                      ? "max(1.5rem, calc(1rem + env(safe-area-inset-bottom, 0px)))"
-                      : "1.5rem",
-                  }}
                 >
-                  {children}
+                  {/* Drag handle pill only on mobile */}
+                  {isMobileScreen && (
+                    <div className="flex items-center justify-center py-1 mb-1 pointer-events-none">
+                      <div className="h-1 w-10 rounded-full bg-muted-foreground" />
+                    </div>
+                  )}
+                  {title || description ? (
+                    <div className="mt-1 w-full text-left">
+                      {title ? (
+                        <h2
+                          id={titleId}
+                          className="text-lg font-semibold text-foreground tracking-tight"
+                        >
+                          {title}
+                        </h2>
+                      ) : null}
+                      {description ? (
+                        <p
+                          id={descriptionId}
+                          className="mt-1 text-sm text-muted-foreground leading-relaxed"
+                        >
+                          {description}
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
-              </motion.div>
-            </div>
-          )}
-        </PresenceGate>
+              )}
+              <div
+                className={cn(
+                  "flex-1 min-h-0 bottom-sheet-content",
+                  !unpadded && "px-6",
+                  !unpadded && !showTopBar && "pt-6",
+                  scrollable
+                    ? "overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    : unpadded
+                    ? "overflow-hidden"
+                    : "overflow-visible",
+                  contentClassName
+                )}
+                style={{
+                  paddingBottom: unpadded
+                    ? 0
+                    : isMobileScreen
+                    ? "max(1.5rem, calc(1rem + env(safe-area-inset-bottom, 0px)))"
+                    : "1.5rem",
+                }}
+              >
+                {children}
+              </div>
+            </motion.div>
+          </div>
+        </Fragment>
       ) : null}
     </AnimatePresence>,
     document.body
