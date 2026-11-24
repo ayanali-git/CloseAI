@@ -800,13 +800,12 @@ export function MarketingHeader() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-4 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => openLoginModal()}
+                    <Link
+                      href="/company/contact"
                       className="h-10 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                     >
-                      <span>Log in</span>
-                    </button>
+                      <span>Contact us</span>
+                    </Link>
                     
                     <button
                       className="h-10 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center text-[15px] font-normal transition-all cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
@@ -1254,7 +1253,7 @@ export function MarketingHeader() {
   
                     {loginDropdownOpen && (
                       <div className="absolute top-full right-0 pt-1.5 z-50">
-                        <div className="min-w-[200px] p-2 rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none space-y-0.5 select-none">
+                        <div className="min-w-[200px] p-2 rounded-sm bg-card border border-border/80 dark:border-none space-y-0.5 select-none">
                           <button
                             type="button"
                             onClick={() => {

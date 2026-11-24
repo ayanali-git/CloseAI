@@ -81,12 +81,12 @@ export default function EnterprisePage() {
       </div>
 
       {/* Customer Trust Banner */}
-      <div className="rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <div className="rounded-sm bg-card border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4">
           Trusted by millions of users
         </h2>
         <p className="text-muted-foreground text-base max-w-lg mx-auto mb-8">
-          Join thousands of enterprises transforming productivity with closeAI's secure reasoning infrastructure.
+          Join thousands of enterprises transforming productivity with closeAI&apos;s secure reasoning infrastructure.
         </p>
         <Button asChild className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer">
           <Link href="/company/contact" className="flex items-center">

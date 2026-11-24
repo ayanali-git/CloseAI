@@ -47,8 +47,8 @@ function ChatWorkPill() {
       className="pointer-events-auto mx-1 flex h-10 w-80 min-w-0 items-stretch rounded-full bg-white dark:bg-[#101010] border border-border/80 dark:border-none text-sm font-normal"
     >
       {[
-        ["Chat", "Coming", "Ask questions and explore ideas"],
-        ["Work", "Soon", "Get tasks done with your files and more"],
+        ["Chat", "Coming", "Ask questions with your files, images, and more"],
+        ["Work", "Soon", "Get tasks done with your files, images, and more"],
       ].map(([label, feedback, description]) => (
         <Tooltip key={label} open={showComingSoon ? false : undefined}>
           <TooltipTrigger asChild>

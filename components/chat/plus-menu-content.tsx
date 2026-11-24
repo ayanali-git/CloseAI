@@ -1605,7 +1605,7 @@ export function PlusMenuContent({
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
-        className="group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left"
       >
         <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
@@ -1618,7 +1618,7 @@ export function PlusMenuContent({
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
-        className="group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center gap-2.5 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left"
       >
         <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText

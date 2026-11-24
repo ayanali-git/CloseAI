@@ -459,7 +459,7 @@ export default function CareersPage() {
       </section>
 
       {/* 7. BOTTOM CTA SECTION */}
-      <section className="rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <section className="rounded-sm bg-card border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-3xl sm:text-5xl font-semibold text-foreground mb-4">
           Shape the future of technology
         </h2>

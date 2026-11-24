@@ -300,13 +300,12 @@ export default function NotFound() {
           </p>
 
           <div className="pointer-events-auto flex items-center justify-center gap-3 mt-6 sm:mt-8">
-            <button
-              type="button"
-              onClick={() => setShowLoginModal(true)}
+            <Link
+              href="/company/contact"
               className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
             >
-              Log in
-            </button>
+              Contact us
+            </Link>
 
             <Link
               href="/gc"

@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { Globe, X, Check } from "lucide-react";
 import { AnimatedSearchClose } from "@/components/ui/animated";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
 import languagesData from "@/data/languages.json";
 import {
   getLanguagePref,
@@ -25,6 +26,7 @@ export interface LangDropdownMenuProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   className?: string;
+  isGuest?: boolean;
 }
 
 // Global scroll-lock helper matching marketing header & bottom-sheet
@@ -76,7 +78,10 @@ export function LangDropdownMenu({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   className,
+  isGuest: isGuestProp,
 }: LangDropdownMenuProps) {
+  const { user, loading: authLoading } = useAuth();
+  const isGuest = isGuestProp !== undefined ? isGuestProp : (!authLoading && !user);
   const [internalOpen, setInternalOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const [search, setSearch] = React.useState("");
@@ -310,8 +315,9 @@ export function LangDropdownMenu({
                     <div
                       className={cn(
                         "flex flex-col rounded-3xl overflow-hidden",
-                        "bg-white dark:bg-[#303030] text-foreground",
-                        "border border-border/80 dark:border-none"
+                        "bg-white border border-border/80 dark:border-none",
+                        isGuest ? "dark:bg-[#303030]" : "dark:bg-[#101010]"
+                        
                       )}
                       style={{
                         height: `${maxTopBoxHeight}px`,
@@ -335,8 +341,9 @@ export function LangDropdownMenu({
                       onClick={() => handleOpenChange(false)}
                       className={cn(
                         "p-3 rounded-full flex items-center justify-center cursor-pointer transition-colors",
-                        "text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#404040]",
-                        "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        "text-muted-foreground hover:text-foreground hover:bg-secondary",
+                        "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                        isGuest ? "dark:hover:bg-[#404040]" : "dark:hover:bg-[#202020]"
                       )}
                       aria-label="Close language selector"
                     >
@@ -384,7 +391,9 @@ export function LangDropdownMenu({
                               key={lang.code}
                               type="button"
                               onClick={() => handleSelectLanguage(lang.code)}
-                              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-muted-foreground hover:text-foreground hover:bg-secondary dark:hover:bg-[#404040] focus:bg-secondary dark:focus:bg-[#404040] focus:text-foreground cursor-pointer transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+                              className={cn("w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-muted-foreground hover:text-foreground hover:bg-secondary focus:bg-secondary focus:text-foreground cursor-pointer transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0",
+                              isGuest ? "dark:hover:bg-[#404040] dark:focus:bg-[#404040]" : "dark:hover:bg-[#202020] dark:focus:bg-[#202020]"
+                              )}
                             >
                               <div className="flex flex-col min-w-0 pr-3">
                                 <span className="text-base font-medium leading-snug truncate text-foreground">

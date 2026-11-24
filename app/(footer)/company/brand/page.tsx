@@ -317,7 +317,7 @@ export default function CompanyBrandPage() {
       </section>
 
       {/* 5. BOTTOM CTA SECTION (BRAND GUIDELINES) */}
-      <section className="rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-10 sm:p-20 text-center">
+      <section className="rounded-sm bg-card border border-border/80 dark:border-none p-10 sm:p-20 text-center">
         <h2 className="text-3xl sm:text-5xl font-semibold text-foreground mb-4">
           Explore our brand guidelines
         </h2>

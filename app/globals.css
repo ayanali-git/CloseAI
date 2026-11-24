@@ -86,6 +86,14 @@
     --emerald: 160 84% 39%;
   }
 
+  .dark [data-marketing-guest="true"] {
+    --card: 0 0% 18.823529%; /* #303030 */
+  }
+
+  .dark [data-marketing-guest="false"] {
+    --card: 0 0% 6.27451%; /* #101010 */
+  }
+
   /* Guest mode in dark mode: keeps #303030 (18.4%) */
   .dark [data-guest="true"],
   .dark[data-guest="true"] {

@@ -156,7 +156,10 @@ export default function LandingPage() {
     )}`;
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col select-none antialiased">
+    <div
+      data-marketing-guest={!user}
+      className="min-h-screen bg-background text-foreground flex flex-col select-none antialiased"
+    >
       <MarketingHeader />
 
       <main className="flex-1">
@@ -742,7 +745,7 @@ export default function LandingPage() {
         {/* BOTTOM CALL TO ACTION BANNER */}
         {/* ---------------------------------------------------------------- */}
         <section className="px-6 sm:px-8 max-w-[1500px] mx-auto py-16">
-          <div className="rounded-sm bg-white dark:bg-[#303030] border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
+          <div className="rounded-sm bg-card border border-border/80 dark:border-none p-16 sm:p-32 text-center flex flex-col items-center justify-center space-y-6">
             <h2 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground">
               Get started with CloseAI
             </h2>
