@@ -398,30 +398,29 @@ function NewChatContent() {
           {/* Left Header Area: Sidebar toggle on small screens */}
           {showHeaderButtons && (
             <div className="flex shrink-0 items-center pl-3 sm:flex-1 sm:pl-0">
-              {!sidebarOpen && (
-                <div className="pointer-events-auto xl:hidden flex items-center">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        onClick={() => handleToggleSidebar()}
-                        className="group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                        aria-label="Open sidebar"
-                      >
-                        <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      align="start"
-                      sideOffset={5}
-                      className="text-base"
+              <div className="pointer-events-auto xl:hidden flex items-center">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={() => handleToggleSidebar()}
+                      className="group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      disabled={sidebarOpen}
+                      aria-label="Open sidebar"
                     >
-                      Open sidebar
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              )}
+                      <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="bottom"
+                    align="start"
+                    sideOffset={5}
+                    className="text-base"
+                  >
+                    Open sidebar
+                  </TooltipContent>
+                </Tooltip>
+              </div>
             </div>
           )}
           {showHeaderButtons && !isTemporary && <ChatWorkPill />}

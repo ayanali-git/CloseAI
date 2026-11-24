@@ -73,7 +73,7 @@ export function NewChatModal({
               onClick={handleLogin}
               className="font-normal text-foreground hover:opacity-90 active:opacity-60 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
             >
-              Sign up for free
+              Sign up
             </button>{" "}
             to save your current conversation.
           </p>

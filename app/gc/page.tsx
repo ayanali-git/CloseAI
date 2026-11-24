@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { PanelRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import {
   AnimatedArrowUpRight,
 } from "@/components/ui/animated";
@@ -244,48 +244,47 @@ function GuestChatContent() {
 
           {/* Left area */}
           <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
-            {!sidebarOpen && (
-              <div className="xl:hidden flex items-center gap-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsSidebarBtnHovered(false);
-                        handleToggleSidebar();
-                      }}
-                      className={cn(
-                        "xl:hidden w-10 h-10 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
-                        user
-                          ? "bg-background hover:bg-secondary active:bg-secondary"
-                          : "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-                      )}
-                      aria-label="Open sidebar"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="w-6 h-6 shrink-0"
-                        aria-hidden="true"
-                      >
-                        <path d="M11.666 12.669a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33zM16.666 6.002a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33z" />
-                      </svg>
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="bottom"
-                    align="start"
-                    sideOffset={5}
-                    className="text-base"
+            <div className="xl:hidden flex items-center gap-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    disabled={sidebarOpen}
+                    onClick={() => {
+                      setIsSidebarBtnHovered(false);
+                      handleToggleSidebar();
+                    }}
+                    className={cn(
+                      "xl:hidden w-10 h-10 rounded-full text-muted-foreground hover:text-foreground border border-border/80 dark:border-white/10 flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none shrink-0",
+                      user
+                        ? "bg-background hover:bg-secondary active:bg-secondary"
+                        : "bg-white dark:bg-[#303030] hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
+                    )}
+                    aria-label="Open sidebar"
                   >
-                    Open sidebar
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-            )}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="w-6 h-6 shrink-0"
+                      aria-hidden="true"
+                    >
+                      <path d="M11.666 12.669a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33zM16.666 6.002a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33z" />
+                    </svg>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="bottom"
+                  align="start"
+                  sideOffset={5}
+                  className="text-base"
+                >
+                  Open sidebar
+                </TooltipContent>
+              </Tooltip>
+            </div>
           </div>
 
           {/* Center Brand Text — properly centered on small screens */}

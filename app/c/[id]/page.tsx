@@ -1367,64 +1367,63 @@ export default function ActiveChatPage() {
             /* NORMAL CHAT HEADER: Sidebar toggle on left, Share & Chat options on right */
             <>
               <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
-                {!sidebarOpen && (
-                  /* Separate Open sidebar and Chat buttons with gap-2 */
-                  <div className="xl:hidden flex items-center gap-2">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setIsSidebarBtnHovered(false);
-                            handleToggleSidebar();
-                          }}
-                          onMouseEnter={() => setIsSidebarBtnHovered(true)}
-                          onMouseLeave={() => setIsSidebarBtnHovered(false)}
-                          onBlur={() => setIsSidebarBtnHovered(false)}
-                          className="group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                          aria-label="Open sidebar"
-                        >
-                          <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="bottom"
-                        align="start"
-                        sideOffset={5}
-                        className="text-base"
+                <div className="xl:hidden flex items-center gap-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsSidebarBtnHovered(false);
+                          handleToggleSidebar();
+                        }}
+                        onMouseEnter={() => setIsSidebarBtnHovered(true)}
+                        onMouseLeave={() => setIsSidebarBtnHovered(false)}
+                        onBlur={() => setIsSidebarBtnHovered(false)}
+                        className="group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        disabled={sidebarOpen}
+                        aria-label="Open sidebar"
                       >
-                        Open sidebar
-                      </TooltipContent>
-                    </Tooltip>
+                        <PanelRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      align="start"
+                      sideOffset={5}
+                      className="text-base"
+                    >
+                      Open sidebar
+                    </TooltipContent>
+                  </Tooltip>
 
-                    {/* Chat button for small screen devices */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (typeof window !== "undefined" && window.innerWidth < 1280) {
-                              setSidebarOpen(false);
-                            }
-                            router.push("/c");
-                          }}
-                          className="sm:hidden group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
-                          aria-label="New Chat"
-                        >
-                          <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="bottom"
-                        align="start"
-                        sideOffset={5}
-                        className="text-base"
+                  {/* Chat button for small screen devices */}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (typeof window !== "undefined" && window.innerWidth < 1280) {
+                            setSidebarOpen(false);
+                          }
+                          router.push("/c");
+                        }}
+                        className="sm:hidden group h-10 w-10 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                        disabled={sidebarOpen}
+                        aria-label="New Chat"
                       >
-                        New Chat
-                      </TooltipContent>
-                    </Tooltip>
-                  </div>
-                )}
+                        <SquarePen className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      align="start"
+                      sideOffset={5}
+                      className="text-base"
+                    >
+                      New Chat
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
               </div>
 
               <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
