@@ -288,11 +288,11 @@ function GuestChatContent() {
           </div>
 
           {/* Center Brand Text — properly centered on small screens */}
-          <div className="xl:hidden absolute inset-0 pt-[env(safe-area-inset-top,0px)] flex items-center justify-center pointer-events-none">
+          {/* <div className="xl:hidden absolute inset-0 pt-[env(safe-area-inset-top,0px)] flex items-center justify-center pointer-events-none">
             <span className="bg-background rounded-full h-10 px-4 flex items-center justify-center font-medium text-2xl tracking-tight text-foreground select-none">
               CloseAI
             </span>
-          </div>
+          </div> */}
 
             {/* CloseAI with ChevronDown and Popover — small screen devices only (xl:hidden) */}
             {/* <div className="xl:hidden group -ml-1">
@@ -303,7 +303,7 @@ function GuestChatContent() {
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="h-10 px-2 sm:px-4 flex items-center gap-1.5 rounded-sm hover:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
+                    className="h-10 px-2 sm:px-4 flex items-center gap-2 rounded-sm hover:bg-secondary text-foreground text-2xl font-medium tracking-tight transition-colors cursor-pointer data-[state=open]:bg-secondary"
                   >
                     <span className="leading-none">CloseAI</span>
                     <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
@@ -334,7 +334,7 @@ function GuestChatContent() {
                     <p className="text-[13px] text-muted-foreground dark:text-neutral-300 mt-1.5 leading-relaxed">
                       Get efficient responses, upload files, plus thinking capabilities, upload files, and more by logging in.
                     </p>
-                    <div className="flex items-center gap-2.5 mt-4">
+                    <div className="flex items-center gap-2 mt-4">
                       <button
                         type="button"
                         onClick={() => {
@@ -362,22 +362,22 @@ function GuestChatContent() {
             </div> */}
 
           {/* Right area */}
-          <div className="flex items-center pointer-events-auto pr-3 sm:pr-1">
+          <div className="flex items-center pointer-events-auto pr-3 sm:pr-0">
             <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleOpenLogin()}
+                className="h-10 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
+              >
+                Sign up for free
+              </button>
+
               <button
                 type="button"
                 onClick={() => handleOpenLogin()}
                 className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-[15px] font-semibold transition-all cursor-pointer flex items-center justify-center text-center leading-none shrink-0 select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background"
               >
                 Log in
-              </button>
-              
-              <button
-                type="button"
-                onClick={() => handleOpenLogin()}
-                className="max-xl:hidden h-10 px-4 rounded-full bg-background hover:bg-secondary text-foreground border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none outline-none focus:outline-none focus-visible:outline-none xl:focus-visible:ring-2 xl:focus-visible:ring-ring xl:focus-visible:ring-offset-2 xl:ring-offset-background select-none shrink-0"
-              >
-                Sign up for free
               </button>
             </div>
           </div>

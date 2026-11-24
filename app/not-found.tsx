@@ -301,19 +301,19 @@ export default function NotFound() {
 
           <div className="pointer-events-auto flex items-center justify-center gap-3 mt-6 sm:mt-8">
             <Link
-              href="/company/contact"
-              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
-            >
-              Contact us
-            </Link>
-
-            <Link
               href="/gc"
               // target="_blank"
               // rel="noopener noreferrer"
               className="h-10 px-4 rounded-full bg-background hover:bg-secondary border border-border/80 dark:border-white/10 text-base font-normal transition-colors cursor-pointer flex items-center justify-center text-center leading-none"
             >
               Ask CloseAI
+            </Link>
+            
+            <Link
+              href="/company/contact"
+              className="h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 text-base font-medium transition-colors cursor-pointer inline-flex items-center gap-0.5 justify-center text-center leading-none"
+            >
+              Contact us
             </Link>
           </div>
         </div>

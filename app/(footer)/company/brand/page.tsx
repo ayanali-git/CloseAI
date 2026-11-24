@@ -66,7 +66,7 @@ export default function CompanyBrandPage() {
               href="/company/brand/brand-guidelines"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5"
+              className="inline-flex items-center justify-center gap-2"
             >
               <span>Brand guidelines</span>
               <AnimatedArrowUpRight size={20} />
@@ -329,13 +329,13 @@ export default function CompanyBrandPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center gap-1.5"
+            className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 transition-all cursor-pointer inline-flex items-center gap-2"
           >
             <Link
               href="/company/brand/brand-guidelines"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5"
+              className="inline-flex items-center justify-center gap-2"
             >
               <span>Brand guidelines</span>
               <AnimatedArrowUpRight size={20} />

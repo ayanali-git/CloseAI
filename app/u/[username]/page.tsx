@@ -199,7 +199,7 @@ export default function UserProfilePage() {
                   </TooltipContent>
                 </Tooltip>
 
-                {/* Chat button right side of the sidebar open button */}
+                {/* New chat button right side of the sidebar open button */}
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
@@ -272,7 +272,7 @@ export default function UserProfilePage() {
                     <button
                       type="button"
                       onClick={() => setEditDrawerOpen(true)}
-                      className="group h-10 w-10 gap-1.5 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
+                      className="group h-10 w-10 gap-2 rounded-sm xl:rounded-full bg-background hover:bg-secondary active:bg-secondary text-foreground flex items-center justify-center text-sm sm:text-base font-medium transition-colors cursor-pointer outline-none focus:outline-none select-none shrink-0"
                       aria-label="Edit profile"
                     >
                       <Pencil className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground" />

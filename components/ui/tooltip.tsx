@@ -3,6 +3,7 @@
 import * as React from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
+import { useAuth } from '@/hooks/use-auth';
 import { cn } from '@/lib/utils';
 
 const TooltipProvider = TooltipPrimitive.Provider;
@@ -265,21 +266,27 @@ TooltipTrigger.displayName = TooltipPrimitive.Trigger.displayName;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
->(({ className, sideOffset = 6, collisionPadding = 12, ...props }, ref) => (
-  <TooltipPrimitive.Portal>
-    <TooltipPrimitive.Content
-      ref={ref}
-      sideOffset={sideOffset}
-      collisionPadding={collisionPadding}
-      className={cn(
-        'z-[9999] overflow-hidden rounded-full bg-foreground dark:bg-secondary px-3 py-1 text-[15px] font-normal text-white select-none',
-        className
-      )}
-      {...props}
-    />
-  </TooltipPrimitive.Portal>
-));
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & { isGuest?: boolean }
+>(({ className, sideOffset = 6, collisionPadding = 12, isGuest: isGuestProp, ...props }, ref) => {
+  const { user, loading } = useAuth();
+  const isGuest = isGuestProp ?? (!loading && !user);
+
+  return (
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Content
+        ref={ref}
+        sideOffset={sideOffset}
+        collisionPadding={collisionPadding}
+        className={cn(
+          'z-[9999] overflow-hidden rounded-full bg-secondary border px-3 py-1 text-[15px] font-normal text-secondary-foreground select-none',
+          isGuest ? 'dark:bg-[#303030] border-border/80 dark:border-white/10' : 'dark:bg-[#101010] border-border/80',
+          className
+        )}
+        {...props}
+      />
+    </TooltipPrimitive.Portal>
+  );
+});
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

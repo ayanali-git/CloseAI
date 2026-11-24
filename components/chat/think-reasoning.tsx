@@ -361,7 +361,7 @@ export function ThinkReasoning({
       <button
         type="button"
         data-state={open ? "open" : "closed"}
-        className="inline-flex items-center gap-1.5 self-start min-h-[22px] p-0 border-0 bg-transparent cursor-pointer outline-none select-none group"
+        className="inline-flex items-center gap-2 self-start min-h-[22px] p-0 border-0 bg-transparent cursor-pointer outline-none select-none group"
         aria-expanded={open}
         aria-label="Toggle thinking steps"
         onClick={toggle}
@@ -371,7 +371,7 @@ export function ThinkReasoning({
             <span className="font-medium text-foreground">Worked</span> for {formattedElapsed}
           </span>
         ) : (
-          <span className="inline-flex items-center gap-1.5 text-[13.5px] leading-[18px] text-muted-foreground">
+          <span className="inline-flex items-center gap-2 text-[13.5px] leading-[18px] text-muted-foreground">
             <span className="font-medium text-base animate-shimmer-text text-muted-foreground">Thinking…</span>
             <span className="font-normal text-base opacity-90 text-muted-foreground">{formattedElapsed}</span>
           </span>

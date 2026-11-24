@@ -153,7 +153,7 @@ export function ReportBugModal({
                 type="button"
                 onClick={() => handleSelectCategory(cat)}
                 className={cn(
-                  "group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] sm:text-sm font-normal transition-colors cursor-pointer outline-none select-none border focus:outline-none active:outline-none focus:ring-0 active:ring-0",
+                  "group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[13px] sm:text-sm font-normal transition-colors cursor-pointer outline-none select-none border focus:outline-none active:outline-none focus:ring-0 active:ring-0",
                   "focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                   isGuest
                     ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"

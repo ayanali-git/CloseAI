@@ -157,7 +157,7 @@ function FilePreviewCard({
     <div
       onClick={onPreview}
       className={cn(
-        "relative group flex items-center gap-2.5 hover:bg-secondary border border-border/80 dark:border-none rounded-2xl p-2.5 text-foreground min-w-0 cursor-pointer select-none transition-colors",
+        "relative group flex items-center gap-2 hover:bg-secondary border border-border/80 dark:border-none rounded-2xl p-2.5 text-foreground min-w-0 cursor-pointer select-none transition-colors",
         isGuest
           ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040]"
           : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020]"
@@ -929,7 +929,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
             "rounded-full flex items-center justify-center transition-all shrink-0 cursor-pointer select-none",
             isMobile
               ? "w-10 h-10 sm:w-10 sm:h-10"
-              : "h-10 sm:h-10 px-2.5 sm:px-5 gap-1.5 text-[13px] sm:text-[14px] font-medium",
+              : "h-10 sm:h-10 px-2.5 sm:px-5 gap-2 text-[13px] sm:text-[14px] font-medium",
             pillButtonFocusRing,
             thinkMode
               ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
@@ -1247,7 +1247,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
                 {renderSmallScreenThinkGroup()}
               </div>
 
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
+              <div className="flex items-center gap-2 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
                 {renderRightActions()}
               </div>
             </div>
@@ -1294,7 +1294,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               />
             </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
+            <div className="flex items-center gap-2 sm:gap-2 shrink-0 pr-0.5 sm:pr-1">
               {renderRightActions()}
             </div>
           </div>
@@ -1340,7 +1340,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               />
             </div>
 
-            <div className="col-start-2 row-start-2 flex items-center justify-self-end gap-1.5 sm:gap-2 shrink-0 pr-0.5 sm:pr-1 sm:order-3">
+            <div className="col-start-2 row-start-2 flex items-center justify-self-end gap-2 sm:gap-2 shrink-0 pr-0.5 sm:pr-1 sm:order-3">
               {renderRightActions()}
             </div>
           </div>

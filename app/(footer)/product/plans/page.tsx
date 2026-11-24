@@ -115,7 +115,7 @@ export default function PlansPage() {
                   Included features
                 </p>
                 {plan.features.map((feat, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-base text-foreground">
+                  <div key={i} className="flex items-center gap-2 text-base text-foreground">
                     <Check className="w-5 h-5 text-muted-foreground shrink-0" />
                     <span>{feat}</span>
                   </div>

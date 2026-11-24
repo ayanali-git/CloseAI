@@ -282,7 +282,7 @@ export default function CompanyBrandGuidelinesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card flex flex-col justify-between">
               <div className="h-44 sm:h-52 rounded-2xl bg-secondary flex items-center justify-center p-6 relative">
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2">
                   <img src="/closeai-new.png" alt="Mark" className="w-8 h-8 object-contain dark:hidden" />
                   <img src="/closeai-new-white.png" alt="Mark" className="w-8 h-8 object-contain hidden dark:block" />
                   <span className="text-2xl font-semibold tracking-tight text-foreground">CloseAI</span>
@@ -848,7 +848,7 @@ export default function CompanyBrandGuidelinesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 p-8 sm:p-14 rounded-2xl sm:rounded-sm border border-border/80 dark:border-none bg-card">
           {/* DO's COLUMN */}
           <div>
-            <div className="flex items-center gap-2.5 mb-6 pb-3 border-b border-border/60">
+            <div className="flex items-center gap-2 mb-6 pb-3 border-b border-border/60">
               <div className="w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center shrink-0">
                 <Check className="w-5 h-5 stroke-[2]" />
               </div>
@@ -880,7 +880,7 @@ export default function CompanyBrandGuidelinesPage() {
 
           {/* DONT's COLUMN */}
           <div>
-            <div className="flex items-center gap-2.5 mb-6 pb-3 border-b border-border/60">
+            <div className="flex items-center gap-2 mb-6 pb-3 border-b border-border/60">
               <div className="w-7 h-7 rounded-full bg-background text-foreground border border-border/80 dark:border-none flex items-center justify-center shrink-0">
                 <X className="w-5 h-5 stroke-[2]" />
               </div>

@@ -1307,7 +1307,7 @@ export default function ActiveChatPage() {
             activePreviewFile ? (
             /* PREVIEW HEADER: Filename on left, Download + Close on right */
             <>
-              <div className="flex items-center gap-2.5 pointer-events-auto pl-3 sm:pl-0 min-w-0 pr-3">
+              <div className="flex items-center gap-2 pointer-events-auto pl-3 sm:pl-0 min-w-0 pr-3">
                 <span className="text-foreground font-semibold text-[14.5px] sm:text-base truncate max-w-[260px] sm:max-w-md select-none">
                   {activePreviewFile.name ||
                     activePreviewFile.filename ||
@@ -1396,7 +1396,7 @@ export default function ActiveChatPage() {
                     </TooltipContent>
                   </Tooltip>
 
-                  {/* Chat button for small screen devices */}
+                  {/* New chat button for small screen devices */}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
@@ -1526,7 +1526,7 @@ export default function ActiveChatPage() {
                       >
                         <DropdownMenuItem
                           onClick={() => setIsFilesDrawerOpen(true)}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                          className="group flex items-center gap-2 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                         >
                           <Folder className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                           <span>View files in chat</span>
@@ -1553,7 +1553,7 @@ export default function ActiveChatPage() {
                               isStarred ? "Chat unpinned" : "Chat pinned"
                             );
                           }}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                          className="group flex items-center gap-2 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                         >
                           {chats.find((c) => c.id === chatId)?.starred ? (
                             <>
@@ -1574,7 +1574,7 @@ export default function ActiveChatPage() {
                             const isArchived = !!currentChat?.archived;
                             await handleToggleArchive(chatId, !isArchived);
                           }}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
+                          className="group flex items-center gap-2 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-foreground hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary transition-colors"
                         >
                           {chats.find((c) => c.id === chatId)?.archived ? (
                             <ArchiveX className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -1590,7 +1590,7 @@ export default function ActiveChatPage() {
 
                         <DropdownMenuItem
                           onClick={() => setShowDeleteModal(true)}
-                          className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
+                          className="group flex items-center gap-2 px-3 py-2 rounded-xl text-[15px] font-normal cursor-pointer text-red-600 hover:bg-red-500/10 transition-colors"
                         >
                           <Trash2 className="w-5 h-5 text-red-500 group-hover:text-red-600" />
                           <span>Delete</span>

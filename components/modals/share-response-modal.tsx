@@ -179,7 +179,7 @@ function CodeBlock({
         {/* Copy button as it is visually, but not in active action */}
         <div
           className="
-            flex items-center gap-1.5
+            flex items-center gap-2
             px-2 py-2
             rounded-full
             text-base

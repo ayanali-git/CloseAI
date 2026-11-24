@@ -54,7 +54,7 @@ export function CloseAIIcon({ className = 'w-6 h-6', size = 24, inverted = false
   );
 }
 
-export function CloseAILogo({ className = 'flex items-center gap-2.5', iconSize = 22 }: { className?: string; iconSize?: number }) {
+export function CloseAILogo({ className = 'flex items-center gap-2', iconSize = 22 }: { className?: string; iconSize?: number }) {
   return (
     <div className={className}>
       <CloseAIIcon size={iconSize} />

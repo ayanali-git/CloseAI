@@ -173,7 +173,7 @@ function FilePreview({
               Direct browser preview is not supported for this file format. You can download or open it in your system.
             </p>
           </div>
-          <div className="flex items-center gap-2.5 pt-2">
+          <div className="flex items-center gap-2 pt-2">
             <a
               href={fileUrl}
               target="_blank"

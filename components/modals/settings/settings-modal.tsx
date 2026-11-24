@@ -400,7 +400,7 @@ export function SettingsModal({
                       openSettings(item.id);
                     }}
                     className={cn(
-                      "group relative w-full flex items-center gap-2.5 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
+                      "group relative w-full flex items-center gap-2 rounded-sm px-3 text-[15px] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2",
                       isGuest
                         ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
                         : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]",
