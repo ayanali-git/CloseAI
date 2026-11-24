@@ -852,7 +852,7 @@ export function Sidebar({
         </Link>
       </DropdownMenuItem>
 
-      <DropdownMenuItem asChild>
+      {/* <DropdownMenuItem asChild>
         <Link
           href="/company/blog"
           className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-normal cursor-pointer text-foreground hover:bg-secondary dark:hover:bg-[#404040] dark:focus:bg-[#404040] data-[highlighted]:bg-secondary dark:data-[highlighted]:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]/80 transition-colors outline-none whitespace-nowrap text-left group"
@@ -860,7 +860,7 @@ export function Sidebar({
           <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
           <span>Release notes</span>
         </Link>
-      </DropdownMenuItem>
+      </DropdownMenuItem> */}
 
       <DropdownMenuItem
         asChild
@@ -1012,7 +1012,7 @@ export function Sidebar({
               <span>Help center</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          {/* <DropdownMenuItem asChild>
             <Link
               href="/company/blog"
               onClick={() => {
@@ -1026,7 +1026,7 @@ export function Sidebar({
               <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
               <span>Release notes</span>
             </Link>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem
             asChild
             onSelect={(e) => e.preventDefault()}
@@ -1191,7 +1191,7 @@ export function Sidebar({
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-66}
+              alignOffset={-73}
               className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80"
             >
               <DropdownMenuItem className="flex items-center justify-between px-2 py-2 rounded-xl cursor-pointer">
@@ -1305,7 +1305,7 @@ export function Sidebar({
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent
               sideOffset={5}
-              alignOffset={-238}
+              alignOffset={-200}
               className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-2 bg-white dark:bg-[#101010] border border-border/80"
             >
               <DropdownMenuItem asChild>
@@ -1317,7 +1317,7 @@ export function Sidebar({
                   <span>Help center</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              {/* <DropdownMenuItem asChild>
                 <Link
                   href="/company/blog"
                   className="flex items-center gap-2 px-2 py-2 cursor-pointer rounded-xl text-base"
@@ -1325,7 +1325,7 @@ export function Sidebar({
                   <PenLine className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
                   <span>Release notes</span>
                 </Link>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
                 className="flex items-center gap-2 px-2 py-2 rounded-xl text-base font-normal transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none whitespace-nowrap text-left !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50 select-none text-foreground hover:bg-secondary dark:hover:bg-[#404040]"
@@ -1426,7 +1426,7 @@ export function Sidebar({
               <span>Help center</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          {/* <DropdownMenuItem asChild>
             <Link
               href="/company/blog"
               onClick={() => {
@@ -1454,8 +1454,7 @@ export function Sidebar({
                 className="!cursor-not-allowed"
               />
             </div>
-          </DropdownMenuItem>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
+          </DropdownMenuItem> */}
           <DropdownMenuItem asChild>
             <Link
               href="/support/terms"
@@ -1471,6 +1470,7 @@ export function Sidebar({
               <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
             </Link>
           </DropdownMenuItem>
+          <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
           <DropdownMenuItem asChild>
             <Link
               href="/support/privacy"
@@ -1486,7 +1486,6 @@ export function Sidebar({
               <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 ml-auto transition-opacity duration-150 opacity-100 xl:opacity-0 xl:group-hover:opacity-100" />
             </Link>
           </DropdownMenuItem>
-          <div className="h-[1px] bg-neutral-200 dark:bg-[#404040] my-1" />
           <DropdownMenuItem
             onClick={() => {
               setMobileGuestSettingsMenuOpen(false);
