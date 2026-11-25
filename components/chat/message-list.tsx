@@ -335,7 +335,7 @@ const CodeBlock = React.memo(
             isGuest
               ? "flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none bg-transparent rounded-t-[25px] sm:rounded-t-3xl"
               : cn(
-                  "sticky top-10 sm:top-5 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
+                  "sticky top-0 z-10 flex items-center justify-between px-4 py-2 text-xs font-sans text-foreground select-none border-b border-transparent",
                   headerState === "stuck"
                     ? "bg-bubble rounded-b-[25px] sm:rounded-b-3xl border-bubble"
                     : headerState === "bottom"
