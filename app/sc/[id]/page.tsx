@@ -354,7 +354,7 @@ export default function PublicSharedChatPage() {
 
       {/* Transparent Floating Header - Buttons float cleanly on top, matching c/[id] exactly */}
       <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-        <div className="absolute top-0 left-0 right-4 sm:right-5 h-24 sm:h-12 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
+        <div className="absolute top-0 left-0 right-4 sm:right-5 h-28 sm:h-12 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
         <div
           className={cn(
             "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mr-3 sm:ml-0.5 h-10 px-3 bg-background border select-none",
