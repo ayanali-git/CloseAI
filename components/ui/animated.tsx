@@ -1,9 +1,61 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { cn } from "@/lib/utils";
+
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+export function OverflowMarquee({ text, className, textClassName, active, alignEnd, onMeasure }: {
+  text: string;
+  className?: string;
+  textClassName?: string;
+  active?: boolean;
+  alignEnd?: boolean;
+  onMeasure?: (textWidth: number) => void;
+}) {
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    const container = containerRef.current;
+    const label = textRef.current;
+    if (!container || !label) return;
+
+    let lastTextWidth: number | undefined;
+    const measure = () => {
+      const textWidth = label.scrollWidth;
+      const overflowWidth = Math.max(0, textWidth - container.clientWidth);
+      // Apply measurements before paint, including ResizeObserver updates during chat changes.
+      container.dataset.overflowing = String(overflowWidth > 0);
+      container.style.setProperty("--marquee-duration", `${Math.max(3.2, overflowWidth / 35 + 1.8)}s`);
+      container.style.setProperty("--marquee-dist", `${overflowWidth + 4}px`);
+      if (textWidth !== lastTextWidth) {
+        lastTextWidth = textWidth;
+        onMeasure?.(textWidth);
+      }
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+    observer.observe(label);
+    return () => observer.disconnect();
+  }, [text, onMeasure]);
+
+  return (
+    <span
+      ref={containerRef}
+      className={cn("overflow-marquee block min-w-0 overflow-hidden text-left", className)}
+      data-marquee-active={active || undefined}
+      data-marquee-align-end={alignEnd || undefined}
+    >
+      <span ref={textRef} className={cn("inline-block whitespace-nowrap select-none", textClassName)}>
+        {text}
+      </span>
+    </span>
+  );
+}
 
 export interface AnimatedArrowProps
   extends React.HTMLAttributes<HTMLSpanElement> {

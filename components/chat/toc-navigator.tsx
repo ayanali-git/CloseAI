@@ -6,6 +6,7 @@ import {
   useState,
   type MouseEvent,
 } from "react";
+import { OverflowMarquee } from "@/components/ui/animated";
 import { cn } from "@/lib/utils";
 import { Message } from "@/lib/chat-service";
 
@@ -26,92 +27,6 @@ export type Heading = {
   level?: number;
 };
 
-/** full TOC popup — shows all headings as a list with refined hover box */
-/**
- * Auto-scrolling title on hover (exact consistent logic with sidebar.tsx)
- */
-function TocTitleMarquee({
-  title,
-  isHovered,
-  isSelected,
-}: {
-  title: string;
-  isHovered: boolean;
-  isSelected: boolean;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [overflowWidth, setOverflowWidth] = useState(0);
-
-  useEffect(() => {
-    const measure = () => {
-      if (textRef.current && containerRef.current) {
-        const diff =
-          textRef.current.scrollWidth - containerRef.current.clientWidth;
-        setOverflowWidth(Math.max(diff, 0));
-      }
-    };
-
-    measure();
-
-    const ro = new ResizeObserver(() => measure());
-    if (containerRef.current) ro.observe(containerRef.current);
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [title]);
-
-  const isScrolling = overflowWidth > 0 && isHovered;
-  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative flex-1 min-w-0 overflow-hidden pr-1"
-      style={{
-        animation: isScrolling
-          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
-          : undefined,
-        maskImage:
-          overflowWidth > 0
-            ? isScrolling
-              ? undefined
-              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-            : "none",
-
-        WebkitMaskImage:
-          overflowWidth > 0
-            ? isScrolling
-              ? undefined
-              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-            : "none",
-      }}
-    >
-      {/* Heading title */}
-      <span
-        ref={textRef}
-        style={
-          {
-            "--marquee-dist": `${overflowWidth}px`,
-            animation: isScrolling
-              ? `chat-title-marquee ${duration}s ease-in-out infinite`
-              : "none",
-            transform: isScrolling ? undefined : "translateX(0px)",
-            transition: isScrolling ? "none" : "transform 0.25s ease-out",
-          } as React.CSSProperties
-        }
-        className="inline-block whitespace-nowrap text-[15px] leading-snug select-none will-change-transform"
-      >
-        {title || "Prompt"}
-      </span>
-    </div>
-  );
-}
-
 function TocItemRow({
   heading,
   isActive,
@@ -123,29 +38,21 @@ function TocItemRow({
   activeItemRef?: React.Ref<HTMLAnchorElement>;
   onNavigate: (event: MouseEvent<HTMLAnchorElement>, id: string) => void;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <a
       ref={activeItemRef}
       href={`#${heading.id}`}
       onClick={(event) => onNavigate(event, heading.id)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       data-selected={isActive ? "true" : undefined}
       title={heading.text}
       className={cn(
-        "hover-box relative mx-1 rounded-sm px-3 py-2 text-[15px] leading-snug cursor-pointer transition-colors duration-150 flex items-center min-w-0 overflow-hidden text-left",
+        "group hover-box relative mx-1 rounded-sm px-3 py-2 text-[15px] leading-snug cursor-pointer transition-colors duration-150 flex items-center min-w-0 overflow-hidden text-left",
         isActive
           ? "bg-secondary dark:bg-[#303030] text-foreground"
           : "text-muted-foreground hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#303030]"
       )}
     >
-      <TocTitleMarquee
-        title={heading.text}
-        isHovered={isHovered}
-        isSelected={isActive}
-      />
+      <OverflowMarquee text={heading.text || "Prompt"} className="flex-1 pr-1" />
     </a>
   );
 }

@@ -240,7 +240,7 @@ function GuestChatContent() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header with Unified 28px Alignment */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
+          <div className="absolute top-0 left-0 right-4 sm:right-5 h-24 sm:h-12 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
 
           {/* Left area */}
           <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
@@ -446,30 +446,32 @@ function GuestChatContent() {
         </div>
 
         {/* Bottom Disclaimer for Empty State */}
-        <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
-          <p className="pointer-events-auto max-w-4xl mx-auto text-xs sm:text-sm text-muted-foreground font-normal tracking-tight leading-tight select-none whitespace-normal sm:whitespace-nowrap">
-            CloseAI is AI. By using it, you agree to our{" "}
-            <Link
-              href="/support/terms"
-              className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
-            >
-              <span>Terms</span>
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/support/privacy"
-              className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
-            >
-              <span>Privacy</span>
-            </Link>
-            . Chats may be reviewed and used to improve AI models.{" "}
-            <Link
-              href="/support/help"
-              className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
-            >
-              <span>Learn</span>
-            </Link>
-          </p>
+        <div className="absolute bottom-0 left-0 right-0 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-2 sm:px-4 select-none pointer-events-none z-20 flex items-center justify-center text-center">
+          <div className="w-full max-w-[820px] px-6 [container-type:inline-size]">
+            <p className="pointer-events-auto text-xs text-muted-foreground font-normal tracking-tight leading-tight select-none [font-size:clamp(0.75rem,1.685cqi,0.875rem)]">
+              CloseAI is AI. By using it, you agree to our{" "}
+              <Link
+                href="/support/terms"
+                className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
+              >
+                <span>Terms of use</span>
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/support/privacy"
+                className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
+              >
+                <span>Privacy policy</span>
+              </Link>
+              . Chats may be reviewed and used to improve AI models.{" "}
+              <Link
+                href="/support/help"
+                className="text-foreground hover:opacity-90 transition-opacity whitespace-nowrap"
+              >
+                <span>Learn more</span>
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
 

@@ -83,6 +83,7 @@ import {
   AnimatedChevron,
   AnimatedComingSoonText,
   AnimatedSearchClose,
+  OverflowMarquee,
 } from "@/components/ui/animated";
 import { LogoutModal } from "@/components/modals/log-out-modal";
 import { DeleteModal } from "@/components/modals/delete-chat-modal";
@@ -113,96 +114,6 @@ interface SidebarProps {
   onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
   onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
   onWebSearchHover?: () => void;
-}
-
-/**
- * Auto-scrolling title on hover
- */
-function ChatTitleMarquee({
-  title,
-  isHovered,
-  isSelected,
-}: {
-  title: string;
-  isHovered: boolean;
-  isSelected: boolean;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [overflowWidth, setOverflowWidth] = useState(0);
-
-  useEffect(() => {
-    const measure = () => {
-      if (textRef.current && containerRef.current) {
-        const diff =
-          textRef.current.scrollWidth -
-          containerRef.current.clientWidth;
-
-        setOverflowWidth(Math.max(diff, 0));
-      }
-    };
-
-    measure();
-
-    const ro = new ResizeObserver(() => measure());
-    if (containerRef.current) ro.observe(containerRef.current);
-    if (textRef.current) ro.observe(textRef.current);
-
-    if (typeof document !== "undefined" && document.fonts) {
-      document.fonts.ready.then(measure);
-    }
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [title, isHovered, isSelected]);
-
-  const isScrolling = overflowWidth > 0 && isHovered;
-
-  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
-
-  return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "relative flex-1 min-w-0 overflow-hidden pr-1 max-xl:mr-[78px] group-hover:xl:mr-[78px]",
-        (isHovered || isSelected) && "xl:mr-[78px]"
-      )}
-      style={{
-        animation: isScrolling
-          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
-          : undefined,
-        maskImage: isScrolling
-          ? undefined
-          : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)",
-
-        WebkitMaskImage: isScrolling
-          ? undefined
-          : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)",
-      }}
-    >
-      {/* Chat title */}
-      <span
-        ref={textRef}
-        style={
-          {
-            "--marquee-dist": `${overflowWidth}px`,
-            animation: isScrolling
-              ? `chat-title-marquee ${duration}s ease-in-out infinite`
-              : "none",
-            transform: isScrolling ? undefined : "translateX(0px)",
-            transition: isScrolling ? "none" : "transform 0.25s ease-out",
-          } as React.CSSProperties
-        }
-        className="inline-block whitespace-nowrap text-[15px] leading-snug select-none will-change-transform"
-      >
-        {title || "Chat"}
-      </span>
-    </div>
-  );
 }
 
 const groupChats = (chats: Chat[]) => {
@@ -282,7 +193,6 @@ const SidebarChatItem = React.memo(
       <div
         ref={itemRef}
         onClick={() => {
-          setIsHovered(true);
           onChatSelectRef.current(chat.id);
           if (
             isOpen &&
@@ -312,19 +222,23 @@ const SidebarChatItem = React.memo(
               )
         )}
       >
-        {/* Title with Smooth Marquee on Hover */}
-        <ChatTitleMarquee
-          title={chat.title || "Chat"}
-          isHovered={isHovered}
-          isSelected={isSelected}
-        />
+        <button
+          type="button"
+          aria-current={isSelected ? "page" : undefined}
+          className={cn(
+            "group min-w-0 flex-1 cursor-pointer rounded-sm text-left focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 max-xl:mr-[78px] xl:group-hover:mr-[78px] xl:group-focus-within:mr-[78px]",
+            showActions && "xl:mr-[78px]"
+          )}
+        >
+          <OverflowMarquee text={chat.title || "Chat"} className="pr-1 text-[15px] leading-snug" />
+        </button>
 
         {/* Status indicators when not hovered and not selected (hidden on mobile where action buttons are always visible) */}
         {chat.starred && !showActions && (
-          <PinOff className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
+          <PinOff className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden xl:group-focus-within:hidden" />
         )}
         {chat.archived && !chat.starred && !showActions && (
-          <ArchiveX className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden" />
+          <ArchiveX className="w-5 h-5 text-muted-foreground shrink-0 ml-1.5 max-xl:hidden xl:group-hover:hidden xl:group-focus-within:hidden" />
         )}
 
         {/* Actions */}
@@ -339,7 +253,7 @@ const SidebarChatItem = React.memo(
             "max-xl:opacity-100 max-xl:pointer-events-auto",
             showActions
               ? "opacity-100 pointer-events-auto"
-              : "xl:opacity-0 xl:pointer-events-none xl:group-hover:opacity-100 xl:group-hover:pointer-events-auto"
+              : "xl:opacity-0 xl:pointer-events-none xl:group-hover:opacity-100 xl:group-hover:pointer-events-auto xl:group-focus-within:opacity-100 xl:group-focus-within:pointer-events-auto"
           )}
         >
           <Tooltip>
@@ -2326,7 +2240,7 @@ export function Sidebar({
                     </button>
 
                     {/* Small Screen Devices: Sidebar Close Button */}
-                    <button
+                    {/* <button
                       type="button"
                       onClick={(e) => {
                         (e.currentTarget as HTMLElement)?.blur();
@@ -2340,7 +2254,7 @@ export function Sidebar({
                       aria-label="Close sidebar"
                     >
                       <X className="w-5 h-5 shrink-0" />
-                    </button>
+                    </button> */}
                   </>
                 )}
 

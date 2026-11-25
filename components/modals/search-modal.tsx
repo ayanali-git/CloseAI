@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { OverflowMarquee } from "@/components/ui/animated";
 import { useModalTheme } from "@/hooks/use-modal-theme";
 import { Chat } from "@/lib/chat-service";
 import { cn } from "@/lib/utils";
@@ -73,87 +74,6 @@ function formatFileDate(dateStr?: string | Date): string {
   } catch (e) {
     return "";
   }
-}
-
-/**
- * Auto-scrolling title on hover — matches exact marquee behavior in sidebar chats
- */
-function ChatTitleMarquee({
-  title,
-  isHovered,
-}: {
-  title: string;
-  isHovered: boolean;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [overflowWidth, setOverflowWidth] = useState(0);
-
-  useEffect(() => {
-    const measure = () => {
-      if (textRef.current && containerRef.current) {
-        const diff =
-          textRef.current.scrollWidth - containerRef.current.clientWidth;
-        setOverflowWidth(Math.max(diff, 0));
-      }
-    };
-
-    measure();
-
-    const ro = new ResizeObserver(() => measure());
-    if (containerRef.current) ro.observe(containerRef.current);
-    if (textRef.current) ro.observe(textRef.current);
-
-    if (typeof document !== "undefined" && document.fonts) {
-      document.fonts.ready.then(measure);
-    }
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [title, isHovered]);
-
-  const isScrolling = overflowWidth > 0 && isHovered;
-  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative flex-1 min-w-0 overflow-hidden pr-1 h-full flex items-center"
-      style={{
-        animation: isScrolling
-          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
-          : undefined,
-        maskImage: isScrolling
-          ? undefined
-          : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)",
-
-        WebkitMaskImage: isScrolling
-          ? undefined
-          : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)",
-      }}
-    >
-      <span
-        ref={textRef}
-        style={
-          {
-            "--marquee-dist": `${overflowWidth}px`,
-            animation: isScrolling
-              ? `chat-title-marquee ${duration}s ease-in-out infinite`
-              : "none",
-            transform: isScrolling ? undefined : "translateX(0px)",
-            transition: isScrolling ? "none" : "transform 0.25s ease-out",
-          } as React.CSSProperties
-        }
-        className="inline-block whitespace-nowrap text-[14.5px] sm:text-[15px] leading-none select-none will-change-transform text-foreground font-normal"
-      >
-        {title || "Chat"}
-      </span>
-    </div>
-  );
 }
 
 const SearchChatItem = React.memo(function SearchChatItem({
@@ -233,9 +153,11 @@ const SearchChatItem = React.memo(function SearchChatItem({
 
       {/* Marquee Title */}
       <div className="flex-1 min-w-0 pr-1 h-full overflow-hidden flex items-center">
-        <ChatTitleMarquee
-          title={chat.title || "Chat"}
-          isHovered={isHovered}
+        <OverflowMarquee
+          text={chat.title || "Chat"}
+          active={isHovered || isKeyboardActive}
+          className="flex-1 pr-1"
+          textClassName="text-[14.5px] sm:text-[15px] leading-none text-foreground font-normal"
         />
       </div>
 

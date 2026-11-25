@@ -26,13 +26,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
+import { OverflowMarquee } from "@/components/ui/animated";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
-/**
- * Auto-scrolling marquee title for shared chat header on hover
- * Uses fixed container bounds so overflowWidth measures accurately, scrolling full text on hover without showing "..."
- */
+const sharedHeaderTitleClassName =
+  "relative flex-1 min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[253px] lg:max-w-[353px] xl:max-w-[453px] py-1 select-none";
+
 function SharedHeaderTitleMarquee({
   title,
   isLoading = false,
@@ -44,94 +44,31 @@ function SharedHeaderTitleMarquee({
   isError?: boolean;
   chatId?: string;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [overflowWidth, setOverflowWidth] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  if (isError) {
-    return null;
-  }
   useEffect(() => {
-    if (chatId && typeof window !== "undefined") {
-      const storedW = localStorage.getItem(`shared_title_w_${chatId}`);
-      if (storedW) {
-        const parsed = parseInt(storedW, 10);
-        if (!isNaN(parsed) && parsed > 0) {
-          document.documentElement.style.setProperty(
-            "--shared-title-w",
-            `${parsed}px`
-          );
-          return;
-        }
-      }
-      const storedTitle = localStorage.getItem(`shared_title_${chatId}`);
-      if (storedTitle) {
-        const w = Math.min(
-          Math.max(48, Math.round(storedTitle.length * 8.5)),
-          516
-        );
-        document.documentElement.style.setProperty(
-          "--shared-title-w",
-          `${w}px`
-        );
-      }
-    }
-  }, [chatId]);
+    if (!chatId || isError) return;
 
-  useEffect(() => {
-    if (textRef.current && title && chatId && typeof window !== "undefined") {
-      const actualWidth = Math.ceil(textRef.current.scrollWidth);
-      if (actualWidth > 0) {
-        document.documentElement.style.setProperty(
-          "--shared-title-w",
-          `${actualWidth}px`
-        );
-        document.cookie = `st_w_${chatId}=${actualWidth}; path=/; max-age=31536000; SameSite=Lax`;
-        localStorage.setItem(`shared_title_w_${chatId}`, String(actualWidth));
-        localStorage.setItem(`shared_title_${chatId}`, title);
-      }
-    }
-  }, [title, chatId]);
+    const storedWidth = parseInt(localStorage.getItem(`shared_title_w_${chatId}`) ?? "", 10);
+    const storedTitle = localStorage.getItem(`shared_title_${chatId}`);
+    const width = storedWidth > 0
+      ? storedWidth
+      : storedTitle && Math.min(Math.max(48, Math.round(storedTitle.length * 8.5)), 516);
+    if (width) document.documentElement.style.setProperty("--shared-title-w", `${width}px`);
+  }, [chatId, isError]);
 
-  const measure = useCallback(() => {
-    if (textRef.current && containerRef.current) {
-      const diff =
-        textRef.current.scrollWidth - containerRef.current.clientWidth;
-      setOverflowWidth(diff > 0 ? diff : 0);
-    }
-  }, []);
+  const cacheTitleWidth = useCallback((width: number) => {
+    if (!chatId || width <= 0) return;
 
-  useEffect(() => {
-    if (isLoading || !title) return;
-    measure();
-    const timer1 = setTimeout(measure, 100);
-    const timer2 = setTimeout(measure, 500);
+    const widthValue = String(Math.ceil(width));
+    document.documentElement.style.setProperty("--shared-title-w", `${widthValue}px`);
+    document.cookie = `st_w_${chatId}=${widthValue}; path=/; max-age=31536000; SameSite=Lax`;
+    localStorage.setItem(`shared_title_w_${chatId}`, widthValue);
+    localStorage.setItem(`shared_title_${chatId}`, title);
+  }, [chatId, title]);
 
-    const ro = new ResizeObserver(() => measure());
-    if (containerRef.current) ro.observe(containerRef.current);
-
-    window.addEventListener("resize", measure);
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [title, isLoading, measure]);
-
-  const handleMouseEnter = () => {
-    measure();
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
+  if (isError) return null;
   if (isLoading || !title) {
     return (
-      <div className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[253px] lg:max-w-[353px] xl:max-w-[453px] py-1 select-none flex items-center">
+      <div className={cn(sharedHeaderTitleClassName, "flex items-center overflow-hidden")}>
         <div
           style={{ width: "var(--shared-title-w, 180px)" }}
           className="h-4 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse shrink-0 max-w-full"
@@ -140,49 +77,15 @@ function SharedHeaderTitleMarquee({
     );
   }
 
-  const isScrolling = overflowWidth > 0 && isHovered;
-  const duration = Math.max(3.2, (overflowWidth / 35) + 1.8);
-
   return (
-    <div
-      ref={containerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="relative flex-1 overflow-hidden min-w-0 max-w-[140px] min-[400px]:max-w-[200px] min-[600px]:max-w-[280px] md:max-w-[253px] lg:max-w-[353px] xl:max-w-[453px] py-1 select-none pr-1"
-      style={{
-        animation: isScrolling
-          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
-          : undefined,
-        maskImage:
-          overflowWidth > 0
-            ? isScrolling
-              ? undefined
-              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-            : "none",
-
-        WebkitMaskImage:
-          overflowWidth > 0
-            ? isScrolling
-              ? undefined
-              : "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-            : "none",
-      }}
-    >
-      <span
-        ref={textRef}
-        style={{
-          '--marquee-dist': `${overflowWidth}px`,
-          animation: isScrolling
-            ? `chat-title-marquee ${duration}s ease-in-out infinite`
-            : "none",
-          transform: isScrolling ? undefined : "translateX(0px)",
-          transition: isScrolling ? "none" : "transform 0.25s ease-out",
-        } as React.CSSProperties}
-        className="inline-block whitespace-nowrap text-base sm:text-[15px] font-medium text-foreground select-none will-change-transform"
-      >
-        {title}
-      </span>
-    </div>
+    <span className={cn(sharedHeaderTitleClassName, "group")} tabIndex={0}>
+      <OverflowMarquee
+        text={title}
+        className="pr-1"
+        textClassName="text-base sm:text-[15px] font-medium text-foreground"
+        onMeasure={cacheTitleWidth}
+      />
+    </span>
   );
 }
 
@@ -451,7 +354,7 @@ export default function PublicSharedChatPage() {
 
       {/* Transparent Floating Header - Buttons float cleanly on top, matching c/[id] exactly */}
       <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-        <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
+        <div className="absolute top-0 left-0 right-4 sm:right-5 h-24 sm:h-12 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
         <div
           className={cn(
             "flex items-center gap-2 sm:gap-2.5 min-w-0 pointer-events-auto ml-3 mr-3 sm:ml-0.5 h-10 px-3 bg-background border select-none",

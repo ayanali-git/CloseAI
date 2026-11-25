@@ -49,6 +49,68 @@ import {
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+function getScrollMask({ scrollTop, scrollHeight, clientHeight }: HTMLElement) {
+  if (scrollHeight <= clientHeight + 1) return;
+
+  const hasTopOverflow = scrollTop > 2;
+  const hasBottomOverflow = Math.ceil(scrollTop + clientHeight) < scrollHeight - 2;
+
+  if (hasTopOverflow && hasBottomOverflow) {
+    return "linear-gradient(to bottom, transparent 0%, black 26px, black calc(100% - 26px), transparent 100%)";
+  }
+  if (hasTopOverflow) {
+    return "linear-gradient(to bottom, transparent 0%, black 26px, black 100%)";
+  }
+  if (hasBottomOverflow) {
+    return "linear-gradient(to bottom, black 0%, black calc(100% - 26px), transparent 100%)";
+  }
+}
+
+function PlusMenuScrollArea({ children }: React.PropsWithChildren) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const updateMask = useCallback(() => {
+    const viewport = viewportRef.current;
+    const content = contentRef.current;
+    if (!viewport || !content) return;
+
+    // Keep the fade aligned to the viewport while leaving the native scrollbar outside the mask.
+    const mask = getScrollMask(viewport);
+    const position = `0 ${viewport.scrollTop}px`;
+    const size = `100% ${viewport.clientHeight}px`;
+    const { style } = content;
+    style.maskImage = style.webkitMaskImage = mask ?? "none";
+    style.maskPosition = style.webkitMaskPosition = position;
+    style.maskSize = style.webkitMaskSize = size;
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    const viewport = viewportRef.current;
+    const content = contentRef.current;
+    if (!viewport || !content) return;
+
+    updateMask();
+    const observer = new ResizeObserver(updateMask);
+    observer.observe(viewport);
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, [updateMask]);
+
+  return (
+    <div
+      ref={viewportRef}
+      data-plus-menu-scroll
+      className="min-h-0 overflow-x-hidden overflow-y-auto"
+      onScroll={updateMask}
+    >
+      <div ref={contentRef} style={{ maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 interface ChatInputProps {
   message: string;
   onMessageChange: (msg: string) => void;
@@ -138,10 +200,10 @@ function FilePreviewCard({
             onRemove();
           }}
           className={cn(
-            "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
+            "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
             isGuest
-              ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040]"
-              : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020]"
+              ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border-border/80 dark:border-white/10"
+              : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border-border/80"
           )}
           title="Remove image"
           aria-label="Remove image"
@@ -184,10 +246,10 @@ function FilePreviewCard({
           onRemove();
         }}
         className={cn(
-          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border border-border/80 dark:border-none text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
+          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border text-muted-foreground hover:text-foreground hover:bg-secondary flex items-center justify-center cursor-pointer transition-transform z-10",
           isGuest
-            ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040]"
-            : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020]"
+            ? "bg-white dark:bg-[#303030] dark:hover:bg-[#404040] border-border/80 dark:border-white/10"
+            : "bg-white dark:bg-[#101010] dark:hover:bg-[#202020] border-border/80"
         )}
         title="Remove file"
         aria-label="Remove file"
@@ -253,9 +315,12 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   const [plusMenuOpen, setPlusMenuOpen] = useState(false);
   const [isMultiLine, setIsMultiLine] = useState(false);
   const [isFullyExpanded, setIsFullyExpanded] = useState(false);
-  const [menuSideOffset, setMenuSideOffset] = useState(14);
-  const [menuAlignOffset, setMenuAlignOffset] = useState(0);
-  const [menuWidth, setMenuWidth] = useState<number | undefined>(undefined);
+  const [plusMenuLayout, setPlusMenuLayout] = useState<{
+    width: number;
+    side: "top" | "bottom";
+    sideOffset: number;
+    alignOffset: number;
+  }>();
   const [isPlusTooltipOpen, setIsPlusTooltipOpen] = useState(false);
   const plusHoverTimerRef = useRef<NodeJS.Timeout | null>(null);
   const recognitionRef = useRef<any>(null);
@@ -407,35 +472,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
   // Update dynamic top and bottom gradient mask (consistent with sidebar chat mask)
   const updateScrollMask = useCallback(() => {
     const el = textareaRef.current;
-    if (!el) {
-      setScrollMask(undefined);
-      return;
-    }
-    const { scrollTop, scrollHeight, clientHeight } = el;
-    const isOverflowing = scrollHeight > clientHeight + 1;
-    if (!isOverflowing) {
-      setScrollMask(undefined);
-      return;
-    }
-
-    const hasTopOverflow = scrollTop > 2;
-    const hasBottomOverflow = Math.ceil(scrollTop + clientHeight) < scrollHeight - 2;
-
-    if (hasTopOverflow && hasBottomOverflow) {
-      setScrollMask(
-        "linear-gradient(to bottom, transparent 0%, black 26px, black calc(100% - 26px), transparent 100%)"
-      );
-    } else if (hasTopOverflow) {
-      setScrollMask(
-        "linear-gradient(to bottom, transparent 0%, black 26px, black 100%)"
-      );
-    } else if (hasBottomOverflow) {
-      setScrollMask(
-        "linear-gradient(to bottom, black 0%, black calc(100% - 26px), transparent 100%)"
-      );
-    } else {
-      setScrollMask(undefined);
-    }
+    setScrollMask(el ? getScrollMask(el) : undefined);
   }, []);
 
   // Auto-resize textarea height dynamically
@@ -550,66 +587,41 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
     return () => clearTimeout(timer);
   }, [isExpandedLayout]);
 
-  // Calculate dynamic menu & tooltip sideOffsets so they are ALWAYS positioned above the chat input pill
-  // Dynamic menu position and width
   const updateMenuPosition = useCallback(() => {
-    if (pillRef.current) {
-      const pillRect = pillRef.current.getBoundingClientRect();
-      const isMobile = window.innerWidth < 640;
+    if (!pillRef.current || !plusButtonRef.current) return;
 
-      const refButton = plusButtonRef.current;
-      if (refButton) {
-        const buttonRect = refButton.getBoundingClientRect();
-        if (isMobile) {
-          // On small screens: open directly above the plus button with a small gap
-          setMenuSideOffset(8);
-        } else {
-          // On desktop: position above the top edge of the chat input pill
-          const distToPillTop = Math.max(0, buttonRect.top - pillRect.top);
-          setMenuSideOffset(Math.round(distToPillTop + 8));
-        }
+    const pillRect = pillRef.current.getBoundingClientRect();
+    const buttonRect = plusButtonRef.current.getBoundingClientRect();
+    const isSmallScreen = window.innerWidth < 640;
+    const spaceBelow = window.innerHeight - pillRect.bottom;
+    const opensBelow = !isSmallScreen && isWelcomePage && (spaceBelow >= 288 || spaceBelow > pillRect.top);
+    const distanceToPillEdge = opensBelow
+      ? pillRect.bottom - buttonRect.bottom
+      : buttonRect.top - pillRect.top;
 
-        // Always align cleanly with the left edge of the chat input pill:
-        const distToPillLeft = Math.max(0, buttonRect.left - pillRect.left);
-        setMenuAlignOffset(-Math.round(distToPillLeft));
-      } else {
-        if (isMobile) {
-          setMenuSideOffset(8);
-        } else {
-          const estimatedDist = Math.max(0, pillRect.height - 44);
-          setMenuSideOffset(Math.round(estimatedDist + 8));
-        }
-      }
-
-      if (isMobile) {
-        // On small screen devices (< 640px), match the exact width of the input pill so left & right edges align
-        setMenuWidth(Math.round(pillRect.width));
-      } else if (isWelcomePage && (window.innerWidth >= 1024 || pillRect.width >= 720)) {
-        const colWidth = Math.round((pillRect.width + 9) / 3);
-        setMenuWidth(colWidth);
-      } else {
-        // On other pages (/c/[id], /gc/[id], etc.) keep standard width
-        setMenuWidth(undefined);
-      }
-    }
+    setPlusMenuLayout({
+      width: pillRect.width,
+      side: opensBelow ? "bottom" : "top",
+      sideOffset: isSmallScreen ? 8 : distanceToPillEdge + 8,
+      alignOffset: getComputedStyle(pillRef.current).direction === "rtl"
+        ? buttonRect.right - pillRect.right
+        : pillRect.left - buttonRect.left,
+    });
   }, [isWelcomePage]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
+    if (!plusMenuOpen) return;
     updateMenuPosition();
-  }, [message, isExpandedLayout, uploadedFiles.length, plusMenuOpen, updateMenuPosition]);
 
-  useEffect(() => {
     if (!pillRef.current) return;
-    const ro = new ResizeObserver(() => {
-      updateMenuPosition();
-    });
+    const ro = new ResizeObserver(updateMenuPosition);
     ro.observe(pillRef.current);
     window.addEventListener("resize", updateMenuPosition);
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", updateMenuPosition);
     };
-  }, [updateMenuPosition]);
+  }, [isExpandedLayout, plusMenuOpen, updateMenuPosition]);
 
   // Speech Recognition (Web Speech API)
   const toggleDictation = async () => {
@@ -797,6 +809,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
       : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"
   );
 
+  const handleThinkToggle = () => {
+    if (isGuest) {
+      (onOpenLoginModal ?? onOpenAdvancedFeaturesModal)?.({ description: "To continue with Think mode" });
+      return;
+    }
+    onThinkModeChange?.(!thinkMode);
+  };
+
   const renderPlusButton = () => (
     <DropdownMenu
       open={plusMenuOpen}
@@ -815,7 +835,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               type="button"
               disabled={isTyping || isUploading}
               onMouseEnter={() => {
-                updateMenuPosition();
                 if (plusMenuOpen) return;
                 if (plusHoverTimerRef.current) clearTimeout(plusHoverTimerRef.current);
                 plusHoverTimerRef.current = setTimeout(() => {
@@ -856,56 +875,53 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
         onCloseAutoFocus={(e) => {
           e.preventDefault();
         }}
-        side="top"
+        side={plusMenuLayout?.side ?? "top"}
         align="start"
-        sideOffset={menuSideOffset}
-        alignOffset={menuAlignOffset}
+        sideOffset={plusMenuLayout?.sideOffset ?? 8}
+        alignOffset={plusMenuLayout?.alignOffset ?? 0}
         avoidCollisions={false}
-        className={cn(
-          "rounded-2xl p-1.5 select-none outline-none max-h-[calc(100dvh-100px)] overflow-y-auto",
-          isGuest
-            ? "bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10"
-            : "bg-white dark:bg-[#101010] border border-border/80",
-          menuWidth ? "" : "w-[246px] max-w-[calc(100vw-24px)]"
-        )}
+        collisionPadding={8}
+        className="flex min-w-0 max-h-[var(--radix-dropdown-menu-content-available-height)] flex-col select-none"
         style={{
-          width: menuWidth ? `${menuWidth}px` : undefined,
+          width: plusMenuLayout?.width,
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale",
         }}
       >
-        <PlusMenuContent
-          onAddFiles={() => {
-            fileInputRef.current?.click();
-            setPlusMenuOpen(false);
-          }}
-          onAddPhotos={() => {
-            photoInputRef.current?.click();
-            setPlusMenuOpen(false);
-          }}
-          selectedModel={currentModel}
-          onModelChange={(newModel) => {
-            handleSelectModel(newModel);
-          }}
-          selectedTier={selectedTier}
-          onTierChange={onTierChange}
-          isOpen={plusMenuOpen}
-          disableAttach={disableAttach}
-          menuWidth={menuWidth}
-          isGuest={isGuest}
-          onOpenLoginModal={(opts) => {
-            setPlusMenuOpen(false);
-            onOpenLoginModal?.(opts);
-          }}
-          onOpenWebSearchModal={(opts) => {
-            setPlusMenuOpen(false);
-            onOpenWebSearchModal?.(opts);
-          }}
-          onOpenAdvancedFeaturesModal={(opts) => {
-            setPlusMenuOpen(false);
-            onOpenAdvancedFeaturesModal?.(opts);
-          }}
-        />
+        <PlusMenuScrollArea>
+          <PlusMenuContent
+            onAddFiles={() => {
+              fileInputRef.current?.click();
+              setPlusMenuOpen(false);
+            }}
+            onAddPhotos={() => {
+              photoInputRef.current?.click();
+              setPlusMenuOpen(false);
+            }}
+            selectedModel={currentModel}
+            onModelChange={(newModel) => {
+              handleSelectModel(newModel);
+            }}
+            selectedTier={selectedTier}
+            onTierChange={onTierChange}
+            thinkMode={thinkMode}
+            onToggleThink={handleThinkToggle}
+            disableAttach={disableAttach}
+            isGuest={isGuest}
+            onOpenLoginModal={(opts) => {
+              setPlusMenuOpen(false);
+              onOpenLoginModal?.(opts);
+            }}
+            onOpenWebSearchModal={(opts) => {
+              setPlusMenuOpen(false);
+              onOpenWebSearchModal?.(opts);
+            }}
+            onOpenAdvancedFeaturesModal={(opts) => {
+              setPlusMenuOpen(false);
+              onOpenAdvancedFeaturesModal?.(opts);
+            }}
+          />
+        </PlusMenuScrollArea>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -917,12 +933,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
           type="button"
           onClick={(e) => {
             (e.currentTarget as HTMLElement)?.blur();
-            if (isGuest) {
-              if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Think harder" });
-              else onOpenAdvancedFeaturesModal?.({ description: "To continue with Think harder" });
-              return;
-            }
-            onThinkModeChange?.(!thinkMode);
+            handleThinkToggle();
           }}
           onKeyDown={handlePillButtonKeyDown}
           className={cn(
@@ -936,14 +947,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               : "text-muted-foreground",
             !thinkMode && (isGuest ? "hover:bg-secondary dark:hover:bg-[#404040] hover:text-foreground" : "hover:bg-secondary hover:text-foreground")
           )}
-          aria-label="Think harder"
+          aria-label="Think mode"
         >
           <Brain className="w-5 h-5 transition-colors" />
           {!isMobile && <span className="hidden sm:inline">Think</span>}
         </button>
       </TooltipTrigger>
       <TooltipContent side="top" sideOffset={5} className="text-base">
-        Think harder
+        Think mode
       </TooltipContent>
     </Tooltip>
   );
@@ -957,7 +968,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
 
   const renderRightActions = () => (
     <>
-      {/* Think Harder Pill Button (Desktop only) */}
+      {/* Think mode Pill Button (Desktop only) */}
       <div className="hidden sm:flex items-center">
         {renderThinkButton(false)}
       </div>

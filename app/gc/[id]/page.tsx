@@ -582,7 +582,7 @@ export default function GuestChatSessionPage() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header - Buttons float cleanly on top, matching c/[id] and sc/[id] */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 pointer-events-none -z-10" />
+          <div className="absolute top-0 left-0 right-4 sm:right-5 h-24 sm:h-12 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
 
           {/* Left area: Sidebar toggle & New Chat on small screens */}
           <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from "react";
 import {
+  Brain,
   Paperclip,
   Package,
   ChevronRight,
@@ -9,21 +10,12 @@ import {
   Check,
   Globe,
   Image as ImageIcon,
-  FilePlus,
-  Sparkles,
   Files,
   Images,
 } from "lucide-react";
-import {
-  DropdownMenuItem,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { AnimatedComingSoonText } from "@/components/ui/animated";
+import { AnimatedComingSoonText, OverflowMarquee } from "@/components/ui/animated";
 
 export interface PlusMenuContentProps {
   onAddFiles: () => void;
@@ -32,10 +24,10 @@ export interface PlusMenuContentProps {
   onModelChange?: (model: string) => void;
   selectedTier?: number;
   onTierChange?: (tier: number) => void;
-  isOpen?: boolean;
+  thinkMode: boolean;
+  onToggleThink: () => void;
   disableAttach?: boolean;
   isGuest?: boolean;
-  menuWidth?: number;
   onOpenLoginModal?: (options?: { description?: string; title?: string }) => void;
   onOpenWebSearchModal?: (options?: { description?: string; title?: string }) => void;
   onOpenAdvancedFeaturesModal?: (options?: { description?: string; title?: string }) => void;
@@ -63,192 +55,23 @@ const MODEL_OPTIONS = [
   { key: "Gemini 3.8 flash", label: "Gemini 3.8 flash" },
 ];
 
-/**
- * Smooth auto-scrolling label on hover (matching sidebar chat list marquee)
- */
-function TierMarqueeText({
-  text,
-  isHovered,
-  className,
-}: {
-  text: string;
-  isHovered: boolean;
-  className?: string;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [overflowWidth, setOverflowWidth] = useState(0);
-  const [isSelfHovered, setIsSelfHovered] = useState(false);
-
-  useEffect(() => {
-    const measure = () => {
-      if (textRef.current && containerRef.current) {
-        const diff =
-          textRef.current.scrollWidth -
-          containerRef.current.clientWidth;
-
-        setOverflowWidth(Math.max(diff, 0));
-      }
-    };
-
-    measure();
-
-    const ro = new ResizeObserver(() => measure());
-    if (containerRef.current) ro.observe(containerRef.current);
-    if (textRef.current) ro.observe(textRef.current);
-
-    if (typeof document !== "undefined" && document.fonts) {
-      document.fonts.ready.then(measure);
-    }
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [text, isHovered]);
-
-  const effectiveHovered = isHovered || isSelfHovered;
-  const isScrolling = overflowWidth > 0 && effectiveHovered;
-  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
-
+function MenuDescription({ text, className }: { text: string; className?: string }) {
   return (
-    <div
-      ref={containerRef}
-      onMouseEnter={() => setIsSelfHovered(true)}
-      onMouseLeave={() => setIsSelfHovered(false)}
-      className={cn("relative flex-1 min-w-0 overflow-hidden pr-1 text-left", className)}
-      style={{
-        animation: isScrolling
-          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
-          : undefined,
-        maskImage: isScrolling
-          ? undefined
-          : overflowWidth > 0
-          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-          : "none",
-        WebkitMaskImage: isScrolling
-          ? undefined
-          : overflowWidth > 0
-          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-          : "none",
-      }}
-    >
-      <span
-        ref={textRef}
-        style={
-          {
-            "--marquee-dist": `${overflowWidth + 4}px`,
-            animation: isScrolling
-              ? `chat-title-marquee ${duration}s ease-in-out infinite`
-              : "none",
-            transform: isScrolling ? undefined : "translateX(0px)",
-            transition: isScrolling ? "none" : "transform 0.25s ease-out",
-          } as React.CSSProperties
-        }
-        className="inline-block whitespace-nowrap text-[15px] select-none text-left will-change-transform"
-      >
-        {text}
-      </span>
-    </div>
+    <OverflowMarquee
+      text={text}
+      className={cn("text-xs font-normal text-muted-foreground sm:text-sm", className)}
+    />
   );
 }
 
-/**
- * Auto-scrolling model name on hover (e.g. Gemini 3.8 flash)
- * Matching sidebar chat list marquee animation
- */
-function ModelMarqueeText({
-  text,
-  isHovered,
-  className,
-}: {
-  text: string;
-  isHovered: boolean;
-  className?: string;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [overflowWidth, setOverflowWidth] = useState(0);
-  const [isSelfHovered, setIsSelfHovered] = useState(false);
-
-  useEffect(() => {
-    const measure = () => {
-      if (textRef.current && containerRef.current) {
-        const diff =
-          textRef.current.scrollWidth -
-          containerRef.current.clientWidth;
-
-        setOverflowWidth(Math.max(diff, 0));
-      }
-    };
-
-    measure();
-
-    const ro = new ResizeObserver(() => measure());
-    if (containerRef.current) ro.observe(containerRef.current);
-    if (textRef.current) ro.observe(textRef.current);
-
-    if (typeof document !== "undefined" && document.fonts) {
-      document.fonts.ready.then(measure);
-    }
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [text, isHovered]);
-
-  const effectiveHovered = isHovered || isSelfHovered;
-  const isScrolling = overflowWidth > 0 && effectiveHovered;
-  const duration = Math.max(3.2, overflowWidth / 35 + 1.8);
-
+function ModelValue({ text, className }: { text: string; className?: string }) {
   return (
-    <div
-      ref={containerRef}
-      onMouseEnter={() => setIsSelfHovered(true)}
-      onMouseLeave={() => setIsSelfHovered(false)}
-      style={{
-        animation: isScrolling
-          ? `chat-title-marquee-mask ${duration}s ease-in-out infinite`
-          : undefined,
-        maskImage: isScrolling
-          ? undefined
-          : overflowWidth > 0
-          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-          : "none",
-        WebkitMaskImage: isScrolling
-          ? undefined
-          : overflowWidth > 0
-          ? "linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%)"
-          : "none",
-      }}
-      className={cn(
-        "relative flex-1 min-w-0 overflow-hidden text-muted-foreground font-normal pr-1",
-        overflowWidth === 0 ? "text-right" : "text-left",
-        className
-      )}
-    >
-      <span
-        ref={textRef}
-        style={
-          {
-            "--marquee-dist": `${overflowWidth + 4}px`,
-            animation: isScrolling
-              ? `chat-title-marquee ${duration}s ease-in-out infinite`
-              : "none",
-            transform: isScrolling ? undefined : "translateX(0px)",
-            transition: isScrolling ? "none" : "transform 0.25s ease-out",
-          } as React.CSSProperties
-        }
-        className="inline-block whitespace-nowrap text-[12.5px] sm:text-[15px] select-none text-inherit font-inherit will-change-transform"
-      >
-        {text}
-      </span>
-    </div>
+    <OverflowMarquee
+      text={text}
+      className={cn("flex-1 pr-1 text-muted-foreground font-normal", className)}
+      textClassName="text-[12.5px] sm:text-[15px]"
+      alignEnd
+    />
   );
 }
 
@@ -528,24 +351,22 @@ function ModelSliderCard({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!["ArrowRight", "ArrowUp", "ArrowLeft", "ArrowDown", "Home", "End"].includes(e.key)) return;
     e.stopPropagation();
+    e.preventDefault();
     if (e.key === "ArrowRight" || e.key === "ArrowUp") {
-      e.preventDefault();
       const next = Math.min(4, localTier + 1);
       setLocalTier(next);
       onTierChange(next);
       if (next === 4) fireConfetti();
     } else if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
-      e.preventDefault();
       const next = Math.max(0, localTier - 1);
       setLocalTier(next);
       onTierChange(next);
     } else if (e.key === "Home") {
-      e.preventDefault();
       setLocalTier(0);
       onTierChange(0);
     } else if (e.key === "End") {
-      e.preventDefault();
       setLocalTier(4);
       onTierChange(4);
       fireConfetti();
@@ -605,6 +426,7 @@ function ModelSliderCard({
         onPointerCancel={handlePointerUp}
         tabIndex={0}
         role="slider"
+        aria-label="Effort"
         aria-valuemin={0}
         aria-valuemax={4}
         aria-valuenow={localTier}
@@ -685,10 +507,10 @@ export function PlusMenuContent({
   onModelChange,
   selectedTier = 4,
   onTierChange,
-  isOpen = true,
+  thinkMode,
+  onToggleThink,
   disableAttach = false,
   isGuest = false,
-  menuWidth,
   onOpenLoginModal,
   onOpenWebSearchModal,
   onOpenAdvancedFeaturesModal,
@@ -696,37 +518,27 @@ export function PlusMenuContent({
   const [model, setModel] = useState<string>(selectedModel);
   const [tierIndex, setTierIndex] = useState<number>(selectedTier);
   const [speed, setSpeed] = useState<string>("Fast");
-  const [hoveredModelIdx, setHoveredModelIdx] = useState<number | null>(null);
-  const [hoveredTierIdx, setHoveredTierIdx] = useState<number | null>(null);
-  const [hoveredSpeedIdx, setHoveredSpeedIdx] = useState<number | null>(null);
   const [subView, setSubView] = useState<
     "main" | "models" | "model-picker" | "effort" | "speed" | "advanced"
   >("main");
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
-  const [isSelectModelsHovered, setIsSelectModelsHovered] = useState(false);
-  const [isModelSubHovered, setIsModelSubHovered] = useState(false);
-  const [isEffortSubHovered, setIsEffortSubHovered] = useState(false);
-  const [isSpeedSubHovered, setIsSpeedSubHovered] = useState(false);
-  const [isMobileSelectModelsHovered, setIsMobileSelectModelsHovered] = useState(false);
-  const [isMobileModelRowHovered, setIsMobileModelRowHovered] = useState(false);
-  const [isMobileEffortRowHovered, setIsMobileEffortRowHovered] = useState(false);
-  const [isMobileSpeedRowHovered, setIsMobileSpeedRowHovered] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const navigationRef = useRef(false);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobileScreen(window.innerWidth < 1280);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  useLayoutEffect(() => {
+    if (!navigationRef.current) return;
+    navigationRef.current = false;
 
-  // Reset subview when dropdown closes
-  useEffect(() => {
-    if (!isOpen) {
-      setSubView("main");
+    if (menuRef.current) {
+      menuRef.current.closest("[data-plus-menu-scroll]")?.scrollTo(0, 0);
+      menuRef.current.querySelector<HTMLElement>("[data-plus-menu-focus]")?.focus();
     }
-  }, [isOpen]);
+  }, [subView]);
+
+  const navigate = (event: Event, view: typeof subView) => {
+    event.preventDefault();
+    navigationRef.current = true;
+    setSubView(view);
+  };
 
   // Sync external changes
   useEffect(() => {
@@ -750,273 +562,31 @@ export function PlusMenuContent({
 
   const isUltra = tierIndex === 4;
   const currentTier = TIERS[tierIndex] || TIERS[4];
+  const guestLoginLabel = (
+    <span className="ml-auto hidden shrink-0 cursor-pointer text-xs font-medium no-underline transition-opacity group-hover:block group-hover:hover:opacity-90 group-focus-visible:block">
+      Log in
+    </span>
+  );
+  const thinkMenuItem = (
+    <DropdownMenuItem
+      role={isGuest ? "menuitem" : "menuitemcheckbox"}
+      aria-checked={isGuest ? undefined : thinkMode}
+      textValue="Think"
+      onSelect={onToggleThink}
+      className={cn(
+        "gap-2 rounded-xl font-medium whitespace-nowrap",
+        isGuest && "dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+      )}
+    >
+      <Brain className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+      <span>Think mode</span>
+      <MenuDescription text={!isGuest && thinkMode ? "Selected" : "Get efficient responses"} />
+      {isGuest && guestLoginLabel}
+    </DropdownMenuItem>
+  );
 
   // Unauthorized / Guest User Menu
   if (isGuest) {
-    if (isMobileScreen && subView === "models") {
-      return (
-        <div className="space-y-0.5 p-0.5" onPointerDown={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("main");
-            }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
-            <span>Select models</span>
-          </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-          {/* Row 1: Model */}
-          <button
-            type="button"
-            onMouseEnter={() => setIsMobileModelRowHovered(true)}
-            onMouseLeave={() => setIsMobileModelRowHovered(false)}
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("model-picker");
-            }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <span className="font-medium shrink-0 mr-1.5">Model</span>
-            <ModelMarqueeText text={model} isHovered={isMobileModelRowHovered} />
-            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-          </button>
-
-          {/* Row 2: Effort */}
-          <button
-            type="button"
-            onMouseEnter={() => setIsMobileEffortRowHovered(true)}
-            onMouseLeave={() => setIsMobileEffortRowHovered(false)}
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("effort");
-            }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <span className="font-medium shrink-0 mr-1.5">Effort</span>
-            <ModelMarqueeText
-              text={currentTier.key}
-              isHovered={isMobileEffortRowHovered}
-              className={isUltra ? "text-purple-400 font-medium" : "text-muted-foreground"}
-            />
-            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-          </button>
-
-          {/* Row 3: Speed */}
-          <button
-            type="button"
-            onMouseEnter={() => setIsMobileSpeedRowHovered(true)}
-            onMouseLeave={() => setIsMobileSpeedRowHovered(false)}
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("speed");
-            }}
-            className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <span className="shrink-0 font-medium mr-1.5">Speed</span>
-            <ModelMarqueeText text={speed} isHovered={isMobileSpeedRowHovered} />
-            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-          </button>
-
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-          {/* Row 4: Advanced */}
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("advanced");
-            }}
-            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <span>Advanced</span>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-          </button>
-        </div>
-      );
-    }
-
-    if (isMobileScreen && subView === "model-picker") {
-      return (
-        <div className="space-y-0.5 p-0.5" onPointerDown={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("models");
-            }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
-            <span>Model</span>
-          </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-          {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
-            const globalIdx = MODEL_OPTIONS.indexOf(m);
-            return (
-              <button
-                key={m.key}
-                type="button"
-                onClick={(e) => {
-                  (e.currentTarget as HTMLElement)?.blur();
-                  e.stopPropagation();
-                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-                }}
-                onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-                onMouseLeave={() => setHoveredModelIdx(null)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-              >
-                <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-              </button>
-            );
-          })}
-
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-          {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
-            const globalIdx = MODEL_OPTIONS.indexOf(m);
-            return (
-              <button
-                key={m.key}
-                type="button"
-                onClick={(e) => {
-                  (e.currentTarget as HTMLElement)?.blur();
-                  e.stopPropagation();
-                  (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-                }}
-                onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-                onMouseLeave={() => setHoveredModelIdx(null)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-              >
-                <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-              </button>
-            );
-          })}
-        </div>
-      );
-    }
-
-    if (isMobileScreen && subView === "effort") {
-      return (
-        <div className="space-y-0.5 p-0.5" onPointerDown={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("models");
-            }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
-            <span>Effort</span>
-          </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-          {TIERS.map((tier, idx) => (
-            <button
-              key={tier.key}
-              type="button"
-              onClick={(e) => {
-                (e.currentTarget as HTMLElement)?.blur();
-                e.stopPropagation();
-                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-              }}
-              onMouseEnter={() => setHoveredTierIdx(idx)}
-              onMouseLeave={() => setHoveredTierIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-            >
-              <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
-              {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-            </button>
-          ))}
-        </div>
-      );
-    }
-
-    if (isMobileScreen && subView === "speed") {
-      return (
-        <div className="space-y-0.5 p-0.5" onPointerDown={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("models");
-            }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
-            <span>Speed</span>
-          </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-          {SPEED_OPTIONS.map((s, idx) => (
-            <button
-              key={s.key}
-              type="button"
-              onClick={(e) => {
-                (e.currentTarget as HTMLElement)?.blur();
-                e.stopPropagation();
-                (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-              }}
-              onMouseEnter={() => setHoveredSpeedIdx(idx)}
-              onMouseLeave={() => setHoveredSpeedIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-            >
-              <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
-              {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-            </button>
-          ))}
-        </div>
-      );
-    }
-
-    if (isMobileScreen && subView === "advanced") {
-      return (
-        <div className="space-y-1.5 p-0.5" onPointerDown={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSubView("models");
-            }}
-            className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <ChevronLeft className="w-5 h-5 stroke-[2]" />
-            <span>Advanced</span>
-          </button>
-          <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-          <div
-            className="p-2 pt-1 cursor-pointer"
-            onPointerDown={(e) => {
-              e.stopPropagation();
-              (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-            }}
-            onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-          >
-            <ModelSliderCard
-              tierIndex={tierIndex}
-              onTierChange={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-            />
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div className="space-y-0.5 p-0.5">
         {/* 1. Attach photos */}
@@ -1026,38 +596,42 @@ export function PlusMenuContent({
         >
           <Images className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach photos</span>
+          <MenuDescription text="Upload photos" />
         </DropdownMenuItem>
 
-        {/* Divider with text: Log in to use */}
-        <div className="pt-2 pb-1 px-3 text-xs font-medium text-muted-foreground select-none">
+        <div className="px-3 pb-1 pt-2 text-xs font-medium text-muted-foreground select-none">
           Log in to use
         </div>
         
         {/* 2. Attach files */}
         <DropdownMenuItem
-          onClick={() => {
-            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Files" });
+          onSelect={() => {
+            (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
           }}
           className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
         >
           <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Attach files</span>
+          <MenuDescription text="Upload files" />
+          {guestLoginLabel}
         </DropdownMenuItem>
 
         {/* 3. Create images */}
         <DropdownMenuItem
-          onClick={() => {
+          onSelect={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Create images" });
           }}
           className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
         >
           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Create images</span>
-        </DropdownMenuItem> 
+          <MenuDescription text="Turn prompts into images" />
+          {guestLoginLabel}
+        </DropdownMenuItem>
 
         {/* 4. Web search */}
         <DropdownMenuItem
-          onClick={() => {
+          onSelect={() => {
             if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
             else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
           }}
@@ -1065,512 +639,228 @@ export function PlusMenuContent({
         >
           <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
           <span>Web search</span>
+          <MenuDescription text="Find real-time detailed info" />
+          {guestLoginLabel}
         </DropdownMenuItem>
 
-        {/* 5. Select models */}
-        {isMobileScreen ? (
-          <button
-            type="button"
-            onMouseEnter={() => setIsMobileSelectModelsHovered(true)}
-            onMouseLeave={() => setIsMobileSelectModelsHovered(false)}
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-            }}
-            className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none focus:outline-none focus-visible:outline-none whitespace-nowrap text-left hover:bg-secondary dark:hover:bg-[#404040] active:bg-secondary dark:active:bg-[#404040]"
-          >
-            <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
-            <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
-            <ModelMarqueeText
-              text={model}
-              isHovered={isMobileSelectModelsHovered}
-            />
-            <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-          </button>
-        ) : (
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger
-              onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-              onMouseEnter={() => setIsSelectModelsHovered(true)}
-              onMouseLeave={() => setIsSelectModelsHovered(false)}
-              chevronClassName="-ml-0.5"
-              className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
-            >
-              <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
-              <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
-              <ModelMarqueeText
-                text={model}
-                isHovered={isSelectModelsHovered}
-              />
-            </DropdownMenuSubTrigger>
+        {thinkMenuItem}
 
-            {/* Submenu: Models Menu */}
-            <DropdownMenuSubContent
-              sideOffset={4}
-              alignOffset={-133}
-              avoidCollisions={true}
-              collisionPadding={12}
-              style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-              className={cn(
-                "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none",
-                menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-              )}
-            >
-              {/* Row 1: Model */}
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger
-                  onMouseEnter={() => setIsModelSubHovered(true)}
-                  onMouseLeave={() => setIsModelSubHovered(false)}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                  chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
-                >
-                  <span className="font-medium shrink-0 mr-1.5">Model</span>
-                  <ModelMarqueeText
-                    text={model}
-                    isHovered={isModelSubHovered}
-                  />
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent
-                  sideOffset={4}
-                  alignOffset={-169}
-                  avoidCollisions={true}
-                  collisionPadding={12}
-                  style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                  className={cn(
-                    "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none",
-                    menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                  )}
-                >
-                  {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
-                    const globalIdx = MODEL_OPTIONS.indexOf(m);
-                    return (
-                      <DropdownMenuItem
-                        key={m.key}
-                        onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                        onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-                        onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
-                      >
-                        <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                        {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-                      </DropdownMenuItem>
-                    );
-                  })}
-
-                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-                  {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
-                    const globalIdx = MODEL_OPTIONS.indexOf(m);
-                    return (
-                      <DropdownMenuItem
-                        key={m.key}
-                        onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                        onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-                        onMouseLeave={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
-                      >
-                        <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                        {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-                      </DropdownMenuItem>
-                    );
-                  })}
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-
-              {/* Row 2: Effort */}
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger
-                  onMouseEnter={() => setIsEffortSubHovered(true)}
-                  onMouseLeave={() => setIsEffortSubHovered(false)}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                  chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
-                >
-                  <span className="font-medium shrink-0 mr-1.5">Effort</span>
-                  <ModelMarqueeText
-                    text={currentTier.key}
-                    isHovered={isEffortSubHovered}
-                    className={isUltra ? "text-purple-400 font-medium" : "text-muted-foreground"}
-                  />
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent
-                  sideOffset={4}
-                  alignOffset={-161}
-                  avoidCollisions={true}
-                  collisionPadding={12}
-                  style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                  className={cn(
-                    "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none",
-                    menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                  )}
-                >
-                  {TIERS.map((tier, idx) => (
-                    <DropdownMenuItem
-                      key={tier.key}
-                      onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                      onMouseEnter={() => setHoveredTierIdx(idx)}
-                      onMouseLeave={() => setHoveredTierIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
-                    >
-                      <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
-                      {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-
-              {/* Row 3: Speed */}
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger
-                  onMouseEnter={() => setIsSpeedSubHovered(true)}
-                  onMouseLeave={() => setIsSpeedSubHovered(false)}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                  chevronClassName="-ml-0.5"
-                  className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
-                >
-                  <span className="shrink-0 font-medium mr-1.5">Speed</span>
-                  <ModelMarqueeText
-                    text={speed}
-                    isHovered={isSpeedSubHovered}
-                  />
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent
-                  sideOffset={4}
-                  alignOffset={-84}
-                  avoidCollisions={true}
-                  collisionPadding={12}
-                  style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                  className={cn(
-                    "rounded-2xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none",
-                    menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                  )}
-                >
-                  {SPEED_OPTIONS.map((s, idx) => (
-                    <DropdownMenuItem
-                      key={s.key}
-                      onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                      onMouseEnter={() => setHoveredSpeedIdx(idx)}
-                      onMouseLeave={() => setHoveredSpeedIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors flex items-center justify-between min-w-0 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
-                    >
-                      <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
-                      {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-
-              {/* Divider */}
-              <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-              {/* Row 4: Advanced Submenu */}
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                  className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040] dark:data-[state=open]:bg-[#404040]"
-                >
-                  <span className="shrink-0">Advanced</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent
-                  sideOffset={4}
-                  alignOffset={-48}
-                  avoidCollisions={true}
-                  collisionPadding={12}
-                  style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                  className={cn(
-                    "rounded-2xl p-3 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none cursor-pointer",
-                    menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                  )}
-                  onPointerDown={(e) => {
-                    e.stopPropagation();
-                    (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" });
-                  }}
-                  onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                >
-                  <div onClick={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}>
-                    <ModelSliderCard
-                      tierIndex={tierIndex}
-                      onTierChange={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-                    />
-                  </div>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
-        )}
+        {/* Select models */}
+        <DropdownMenuItem
+          onSelect={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
+          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+        >
+          <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <span className="whitespace-nowrap font-medium shrink-0">Select models</span>
+          <MenuDescription text="Choose model" />
+          {guestLoginLabel}
+        </DropdownMenuItem>
       </div>
     );
   }
 
-  // Mobile In-Place Subviews (matching Profile Dropdown behavior)
-  if (isMobileScreen && subView === "models") {
+  if (subView === "models") {
     return (
-      <div className="space-y-0.5 p-0.5">
-        <button
-          type="button"
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("main");
-          }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+      <div className="space-y-0.5 py-0.5" ref={menuRef}>
+        <DropdownMenuItem
+          data-plus-menu-focus
+          onSelect={(event) => navigate(event, "main")}
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus-visible:outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Select models</span>
-        </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
+        </DropdownMenuItem>
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {/* Row 1: Model */}
-        <button
-          type="button"
-          onMouseEnter={() => setIsMobileModelRowHovered(true)}
-          onMouseLeave={() => setIsMobileModelRowHovered(false)}
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("model-picker");
-          }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+        <DropdownMenuItem
+          onSelect={(event) => navigate(event, "model-picker")}
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Model</span>
-          <ModelMarqueeText
-            text={model}
-            isHovered={isMobileModelRowHovered}
-          />
-          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-        </button>
+          <ModelValue text={model} />
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
+        </DropdownMenuItem>
 
         {/* Row 2: Effort */}
-        <button
-          type="button"
-          onMouseEnter={() => setIsMobileEffortRowHovered(true)}
-          onMouseLeave={() => setIsMobileEffortRowHovered(false)}
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("effort");
-          }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+        <DropdownMenuItem
+          onSelect={(event) => navigate(event, "effort")}
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Effort</span>
-          <ModelMarqueeText
+          <ModelValue
             text={currentTier.key}
-            isHovered={isMobileEffortRowHovered}
-            className={isUltra ? "text-purple-400 font-medium" : "text-muted-foreground"}
+            className={isUltra ? "text-purple-400 font-medium" : undefined}
           />
-          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-        </button>
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
+        </DropdownMenuItem>
 
         {/* Row 3: Speed */}
-        <button
-          type="button"
-          onMouseEnter={() => setIsMobileSpeedRowHovered(true)}
-          onMouseLeave={() => setIsMobileSpeedRowHovered(false)}
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("speed");
-          }}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+        <DropdownMenuItem
+          onSelect={(event) => navigate(event, "speed")}
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="shrink-0 font-medium mr-1.5">Speed</span>
-          <ModelMarqueeText
-            text={speed}
-            isHovered={isMobileSpeedRowHovered}
-          />
-          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-        </button>
+          <ModelValue text={speed} />
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
+        </DropdownMenuItem>
 
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {/* Row 4: Advanced */}
-        <button
-          type="button"
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("advanced");
-          }}
-          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[15px] text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus:bg-transparent focus-visible:outline-none"
+        <DropdownMenuItem
+          onSelect={(event) => navigate(event, "advanced")}
+          className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
         >
-          <span>Advanced</span>
-          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-        </button>
+          <span className="shrink-0 font-medium mr-1.5">Advanced</span>
+          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
+        </DropdownMenuItem>
       </div>
     );
   }
 
-  if (isMobileScreen && subView === "model-picker") {
+  if (subView === "model-picker") {
     return (
-      <div className="space-y-0.5 p-0.5">
-        <button
-          type="button"
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("models");
-          }}
+      <div className="space-y-0.5 py-0.5" ref={menuRef}>
+        <DropdownMenuItem
+          data-plus-menu-focus
+          onSelect={(event) => navigate(event, "models")}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Model</span>
-        </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
+        </DropdownMenuItem>
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
-        {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
-          const globalIdx = MODEL_OPTIONS.indexOf(m);
-          return (
-            <button
-              key={m.key}
-              type="button"
-              onClick={(e) => {
-                (e.currentTarget as HTMLElement)?.blur();
-                e.stopPropagation();
-                handleModelSelect(m.key);
-                setSubView("models");
-              }}
-              onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-              onMouseLeave={() => setHoveredModelIdx(null)}
-              onFocus={() => setHoveredModelIdx(globalIdx)}
-              onBlur={() => setHoveredModelIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
-            >
-              <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-              {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-            </button>
-          );
-        })}
+        {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => (
+          <DropdownMenuItem
+            key={m.key}
+            role="menuitemradio"
+            aria-checked={model === m.key}
+            onSelect={(event) => {
+              handleModelSelect(m.key);
+              navigate(event, "models");
+            }}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
+          >
+            <OverflowMarquee text={m.label} className="flex-1 pr-1" />
+            {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
+          </DropdownMenuItem>
+        ))}
 
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
-        {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
-          const globalIdx = MODEL_OPTIONS.indexOf(m);
-          return (
-            <button
-              key={m.key}
-              type="button"
-              onClick={(e) => {
-                (e.currentTarget as HTMLElement)?.blur();
-                e.stopPropagation();
-                handleModelSelect(m.key);
-                setSubView("models");
-              }}
-              onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-              onMouseLeave={() => setHoveredModelIdx(null)}
-              onFocus={() => setHoveredModelIdx(globalIdx)}
-              onBlur={() => setHoveredModelIdx(null)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
-            >
-              <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-              {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-            </button>
-          );
-        })}
+        {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => (
+          <DropdownMenuItem
+            key={m.key}
+            role="menuitemradio"
+            aria-checked={model === m.key}
+            onSelect={(event) => {
+              handleModelSelect(m.key);
+              navigate(event, "models");
+            }}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
+          >
+            <OverflowMarquee text={m.label} className="flex-1 pr-1" />
+            {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
+          </DropdownMenuItem>
+        ))}
       </div>
     );
   }
 
-  if (isMobileScreen && subView === "effort") {
+  if (subView === "effort") {
     return (
-      <div className="space-y-0.5 p-0.5">
-        <button
-          type="button"
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("models");
-          }}
+      <div className="space-y-0.5 py-0.5" ref={menuRef}>
+        <DropdownMenuItem
+          data-plus-menu-focus
+          onSelect={(event) => navigate(event, "models")}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Effort</span>
-        </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
+        </DropdownMenuItem>
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {TIERS.map((tier, idx) => (
-          <button
+          <DropdownMenuItem
             key={tier.key}
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
+            role="menuitemradio"
+            aria-checked={tierIndex === idx}
+            onSelect={(event) => {
               handleTierChange(idx);
-              setSubView("models");
+              navigate(event, "models");
             }}
-            onMouseEnter={() => setHoveredTierIdx(idx)}
-            onMouseLeave={() => setHoveredTierIdx(null)}
-            onFocus={() => setHoveredTierIdx(idx)}
-            onBlur={() => setHoveredTierIdx(null)}
             className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
-            <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
+            <OverflowMarquee text={tier.label} className="flex-1 pr-1" />
             {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-          </button>
+          </DropdownMenuItem>
         ))}
       </div>
     );
   }
 
-  if (isMobileScreen && subView === "speed") {
+  if (subView === "speed") {
     return (
-      <div className="space-y-0.5 p-0.5">
-        <button
-          type="button"
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("models");
-          }}
+      <div className="space-y-0.5 py-0.5" ref={menuRef}>
+        <DropdownMenuItem
+          data-plus-menu-focus
+          onSelect={(event) => navigate(event, "models")}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Speed</span>
-        </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
+        </DropdownMenuItem>
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
-        {SPEED_OPTIONS.map((s, idx) => (
-          <button
+        {SPEED_OPTIONS.map((s) => (
+          <DropdownMenuItem
             key={s.key}
-            type="button"
-            onClick={(e) => {
-              (e.currentTarget as HTMLElement)?.blur();
-              e.stopPropagation();
-              setSpeed(s.key as "Fast" | "Standard");
-              setSubView("models");
+            role="menuitemradio"
+            aria-checked={speed === s.key}
+            onSelect={(event) => {
+              setSpeed(s.key);
+              navigate(event, "models");
             }}
-            onMouseEnter={() => setHoveredSpeedIdx(idx)}
-            onMouseLeave={() => setHoveredSpeedIdx(null)}
-            onFocus={() => setHoveredSpeedIdx(idx)}
-            onBlur={() => setHoveredSpeedIdx(null)}
             className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
-            <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
+            <OverflowMarquee text={s.label} className="flex-1 pr-1" />
             {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-          </button>
+          </DropdownMenuItem>
         ))}
       </div>
     );
   }
 
-  if (isMobileScreen && subView === "advanced") {
+  if (subView === "advanced") {
     return (
-      <div className="space-y-1.5 p-0.5">
-        <button
-          type="button"
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("models");
+      <div className="space-y-1.5 p-0.5" ref={menuRef}>
+        <DropdownMenuItem
+          data-plus-menu-focus
+          onSelect={(event) => navigate(event, "models")}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowDown" || (event.key === "Tab" && !event.shiftKey)) {
+              event.preventDefault();
+              menuRef.current?.querySelector<HTMLElement>('[role="slider"]')?.focus();
+            }
           }}
           className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Advanced</span>
-        </button>
-        <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-        <div className="p-2 pt-1" onPointerDown={(e) => e.stopPropagation()}>
+        </DropdownMenuItem>
+        <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
+        <div
+          className="p-2 pt-1"
+          onPointerDown={(event) => event.stopPropagation()}
+          onKeyDown={(event) => {
+            if (event.key === "Tab" && event.shiftKey) {
+              event.preventDefault();
+              menuRef.current?.querySelector<HTMLElement>("[data-plus-menu-focus]")?.focus();
+            }
+          }}
+        >
           <ModelSliderCard
             tierIndex={tierIndex}
             onTierChange={handleTierChange}
@@ -1582,7 +872,7 @@ export function PlusMenuContent({
 
   // Default Main View
   return (
-    <div className="space-y-0.5">
+    <div className="space-y-0.5" ref={menuRef}>
       {/* Button 1: Attach anything */}
       <DropdownMenuItem
         onClick={disableAttach ? (e: any) => e.preventDefault() : onAddFiles}
@@ -1595,10 +885,11 @@ export function PlusMenuContent({
       >
         <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
         {disableAttach ? (
-          <AnimatedComingSoonText label="Attach anything" comingSoonText="Coming soon" />
+          <AnimatedComingSoonText label="Attach anything" comingSoonText="Coming soon" className="shrink-0" />
         ) : (
           <span className="whitespace-nowrap font-medium">Attach anything</span>
         )}
+        <MenuDescription text="Upload photos or files" />
       </DropdownMenuItem>
 
       {/* Button 2: Create images */}
@@ -1611,7 +902,9 @@ export function PlusMenuContent({
         <AnimatedComingSoonText
           label="Create images"
           comingSoonText="Coming soon"
+          className="shrink-0"
         />
+        <MenuDescription text="Turn prompts into images" />
       </DropdownMenuItem>
 
       {/* Button 3: Web search */}
@@ -1624,249 +917,26 @@ export function PlusMenuContent({
         <AnimatedComingSoonText
           label="Web search"
           comingSoonText="Coming soon"
+          className="shrink-0"
         />
+        <MenuDescription text="Find real-time detailed info" />
       </DropdownMenuItem>
 
-      {/* Button 4: Select models */}
-      {isMobileScreen ? (
-        <button
-          type="button"
-          onMouseEnter={() => setIsMobileSelectModelsHovered(true)}
-          onMouseLeave={() => setIsMobileSelectModelsHovered(false)}
-          onClick={(e) => {
-            (e.currentTarget as HTMLElement)?.blur();
-            e.stopPropagation();
-            setSubView("models");
-          }}
-          className="w-full flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left font-medium"
-        >
-          <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
-          <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
-          <ModelMarqueeText
-            text={model}
-            isHovered={isMobileSelectModelsHovered}
-          />
-          <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 -ml-0.5" />
-        </button>
-      ) : (
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger
-            onMouseEnter={() => setIsSelectModelsHovered(true)}
-            onMouseLeave={() => setIsSelectModelsHovered(false)}
-            chevronClassName="-ml-0.5"
-            className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary data-[highlighted]:bg-secondary data-[state=open]:bg-secondary transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left font-medium"
-          >
-            <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" />
-            <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
-            <ModelMarqueeText
-              text={model}
-              isHovered={isSelectModelsHovered}
-            />
-          </DropdownMenuSubTrigger>
+      {thinkMenuItem}
 
-          {/* Submenu 1: Models Menu */}
-          <DropdownMenuSubContent
-            sideOffset={4}
-            alignOffset={-133}
-            avoidCollisions={true}
-            collisionPadding={12}
-            style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-            className={cn(
-              "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 select-none outline-none",
-              menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-            )}
-          >
-            {/* Row 1: Model (Submenu dropdown on HOVER) */}
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger
-                onMouseEnter={() => setIsModelSubHovered(true)}
-                onMouseLeave={() => setIsModelSubHovered(false)}
-                chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary data-[state=open]:bg-secondary transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
-              >
-                <span className="font-medium shrink-0 mr-1.5">Model</span>
-                <ModelMarqueeText
-                  text={model}
-                  isHovered={isModelSubHovered}
-                />
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent
-                sideOffset={4}
-                alignOffset={-169}
-                avoidCollisions={true}
-                collisionPadding={12}
-                style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                className={cn(
-                  "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 select-none outline-none",
-                  menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                )}
-              >
-                <DropdownMenuRadioGroup
-                  value={model}
-                  onValueChange={(val) => handleModelSelect(val)}
-                >
-                  {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => {
-                    const globalIdx = MODEL_OPTIONS.indexOf(m);
-                    return (
-                      <DropdownMenuRadioItem
-                        key={m.key}
-                        value={m.key}
-                        onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-                        onMouseLeave={() => setHoveredModelIdx(null)}
-                        onFocus={() => setHoveredModelIdx(globalIdx)}
-                        onBlur={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary flex items-center justify-between min-w-0 text-left"
-                      >
-                        <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                      </DropdownMenuRadioItem>
-                    );
-                  })}
-
-                  <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-                  {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => {
-                    const globalIdx = MODEL_OPTIONS.indexOf(m);
-                    return (
-                      <DropdownMenuRadioItem
-                        key={m.key}
-                        value={m.key}
-                        onMouseEnter={() => setHoveredModelIdx(globalIdx)}
-                        onMouseLeave={() => setHoveredModelIdx(null)}
-                        onFocus={() => setHoveredModelIdx(globalIdx)}
-                        onBlur={() => setHoveredModelIdx(null)}
-                        className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary flex items-center justify-between min-w-0 text-left"
-                      >
-                        <TierMarqueeText text={m.label} isHovered={hoveredModelIdx === globalIdx} />
-                      </DropdownMenuRadioItem>
-                    );
-                  })}
-                </DropdownMenuRadioGroup>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-
-            {/* Row 2: Effort*/}
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger
-                onMouseEnter={() => setIsEffortSubHovered(true)}
-                onMouseLeave={() => setIsEffortSubHovered(false)}
-                chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary data-[state=open]:bg-secondary transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
-              >
-                <span className="font-medium shrink-0 mr-1.5">Effort</span>
-                <ModelMarqueeText
-                  text={currentTier.key}
-                  isHovered={isEffortSubHovered}
-                  className={isUltra ? "text-purple-400 font-medium" : "text-muted-foreground"}
-                />
-              </DropdownMenuSubTrigger>
-
-              <DropdownMenuSubContent
-                sideOffset={4}
-                alignOffset={-161}
-                avoidCollisions={true}
-                collisionPadding={12}
-                style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                className={cn(
-                  "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 select-none outline-none",
-                  menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                )}
-              >
-                <DropdownMenuRadioGroup
-                  value={String(tierIndex)}
-                  onValueChange={(val) => handleTierChange(Number(val))}
-                >
-                  {TIERS.map((tier, idx) => (
-                    <DropdownMenuRadioItem
-                      key={tier.key}
-                      value={String(idx)}
-                      onMouseEnter={() => setHoveredTierIdx(idx)}
-                      onMouseLeave={() => setHoveredTierIdx(null)}
-                      onFocus={() => setHoveredTierIdx(idx)}
-                      onBlur={() => setHoveredTierIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary flex items-center justify-between min-w-0 text-left"
-                    >
-                      <TierMarqueeText text={tier.label} isHovered={hoveredTierIdx === idx} />
-                    </DropdownMenuRadioItem>
-                  ))}
-                </DropdownMenuRadioGroup>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-
-            {/* Row 3: Speed */}
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger
-                onMouseEnter={() => setIsSpeedSubHovered(true)}
-                onMouseLeave={() => setIsSpeedSubHovered(false)}
-                chevronClassName="-ml-0.5"
-                className="flex items-center px-3 py-2 rounded-xl cursor-pointer text-base font-medium text-foreground hover:bg-secondary data-[state=open]:bg-secondary transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 text-left"
-              >
-                <span className="shrink-0 font-medium mr-1.5">Speed</span>
-                <ModelMarqueeText
-                  text={speed}
-                  isHovered={isSpeedSubHovered}
-                />
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent
-                sideOffset={4}
-                alignOffset={-84}
-                avoidCollisions={true}
-                collisionPadding={12}
-                style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                className={cn(
-                  "rounded-2xl p-1.5 bg-white dark:bg-[#101010] border border-border/80 select-none outline-none",
-                  menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                )}
-              >
-                <DropdownMenuRadioGroup
-                  value={speed}
-                  onValueChange={(val) => setSpeed(val as "Fast" | "Standard")}
-                >
-                  {SPEED_OPTIONS.map((s, idx) => (
-                    <DropdownMenuRadioItem
-                      key={s.key}
-                      value={s.key}
-                      onMouseEnter={() => setHoveredSpeedIdx(idx)}
-                      onMouseLeave={() => setHoveredSpeedIdx(null)}
-                      onFocus={() => setHoveredSpeedIdx(idx)}
-                      onBlur={() => setHoveredSpeedIdx(null)}
-                      className="cursor-pointer text-[15px] rounded-xl px-3 py-2 text-foreground transition-colors hover:bg-secondary flex items-center justify-between min-w-0 text-left"
-                    >
-                      <TierMarqueeText text={s.label} isHovered={hoveredSpeedIdx === idx} />
-                    </DropdownMenuRadioItem>
-                  ))}
-                </DropdownMenuRadioGroup>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-
-            {/* Divider */}
-            <div className={cn("h-[1px] bg-neutral-200 my-1 -mx-0.5", isGuest ? "dark:bg-[#404040]" : "dark:bg-[#202020]")} />
-
-            {/* Row 4: Advanced Submenu */}
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="flex items-center justify-between px-3 py-1.5 rounded-xl cursor-pointer text-[15px] text-foreground hover:bg-secondary data-[state=open]:bg-secondary transition-colors outline-none whitespace-nowrap [&>svg:last-child]:shrink-0 [&>svg:last-child]:ml-1 text-left">
-                <span className="shrink-0">Advanced</span>
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent
-                sideOffset={4}
-                alignOffset={-48}
-                avoidCollisions={true}
-                collisionPadding={12}
-                style={{ width: menuWidth ? `${menuWidth}px` : undefined }}
-                className={cn(
-                  "rounded-2xl p-3 bg-white dark:bg-[#101010] border border-border/80 select-none outline-none",
-                  menuWidth ? "" : "w-[241px] max-w-[calc(100vw-24px)]"
-                )}
-                onPointerDown={(e) => e.stopPropagation()}
-              >
-                <ModelSliderCard
-                  tierIndex={tierIndex}
-                  onTierChange={handleTierChange}
-                />
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-      )}
+      <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
+      {/* Select models */}
+      <DropdownMenuItem
+        data-plus-menu-focus
+        onSelect={(event) => navigate(event, "models")}
+        className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left font-medium"
+      >
+        {/* <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" /> */}
+        <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
+        <MenuDescription text="Choose model" className="mr-2" />
+        {/* <ModelValue text={model} className="min-w-[3rem] flex-auto" /> */}
+        <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
+      </DropdownMenuItem>
     </div>
   );
 }

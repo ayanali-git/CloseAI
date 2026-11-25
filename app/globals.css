@@ -738,6 +738,32 @@ html:not(.dark) .token.important {
   }
 }
 
+.overflow-marquee:not([data-overflowing="false"]) {
+  -webkit-mask-image: linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%);
+  mask-image: linear-gradient(to right, black 0%, black calc(100% - 10px), transparent 100%);
+}
+
+.overflow-marquee[data-marquee-align-end][data-overflowing="false"] {
+  text-align: end;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .overflow-marquee[data-overflowing="true"] {
+    animation: var(--marquee-mask-animation, none) var(--marquee-duration) ease-in-out infinite;
+  }
+
+  .overflow-marquee[data-overflowing="true"] > span {
+    animation: var(--marquee-text-animation, none) var(--marquee-duration) ease-in-out infinite;
+  }
+
+  .overflow-marquee[data-marquee-active],
+  .group:is(:hover, :focus-visible) > .overflow-marquee,
+  .group:hover > button > .overflow-marquee {
+    --marquee-mask-animation: chat-title-marquee-mask;
+    --marquee-text-animation: chat-title-marquee;
+  }
+}
+
 /* Modal and Bottom Sheet Scroll Lock & Scrollbar Suppression on Mobile/Small Screens */
 body.modal-open-no-scroll {
   overflow: hidden !important;
