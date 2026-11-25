@@ -1621,7 +1621,7 @@ export function Sidebar({
                       onBlur={() => setIsLogoHovered(false)}
                       style={{ cursor: isAuthenticated ? "ew-resize" : "pointer" }}
                       className={cn(
-                        "group w-10 h-10 rounded-sm xl:rounded-full flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                        "group w-10 h-10 rounded-full flex items-center justify-center text-foreground hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                         isAuthenticated
                           ? "!cursor-ew-resize [&_*]:!cursor-ew-resize"
                           : "cursor-pointer [&_*]:cursor-pointer"
@@ -1664,7 +1664,7 @@ export function Sidebar({
                       onClick={() => {
                         handleNewChatAction();
                       }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="New Chat"
                     >
                       <SquarePen className="w-5 h-5" />
@@ -1688,7 +1688,7 @@ export function Sidebar({
                       onClick={() => {
                         handleOpenSearchModal();
                       }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                       aria-label="Search chats"
                     >
                       <Search className="w-5 h-5" />
@@ -1710,7 +1710,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Pinned chats"
                         >
                           <Pin className="w-5 h-5" />
@@ -1730,7 +1730,7 @@ export function Sidebar({
                       <TooltipTrigger asChild>
                         <button
                           onClick={onToggle}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Archived chats"
                         >
                           <Archive className="w-5 h-5" />
@@ -1751,7 +1751,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Create Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1772,7 +1772,7 @@ export function Sidebar({
                         <button
                           type="button"
                           tabIndex={isOpen ? -1 : 0}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background !cursor-not-allowed [&_*]:!cursor-not-allowed opacity-50"
                           aria-label="Web Search"
                         >
                           <Globe className="w-5 h-5" />
@@ -1799,7 +1799,7 @@ export function Sidebar({
                               description: "To continue with Create images",
                             });
                           }}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                           aria-label="Images"
                         >
                           <ImageIcon className="w-5 h-5" />
@@ -1838,7 +1838,7 @@ export function Sidebar({
                             (handleOpenLoginModal || onOpenWebSearchModal)?.({ description: "To continue with Web search" });
                           }}
                           className={cn(
-                            "w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                            "w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                             railWebSearchHoverOpen &&
                               "bg-secondary text-foreground"
                           )}
@@ -1905,7 +1905,7 @@ export function Sidebar({
                         onClick={() => {
                           toast.info("App coming soon");
                         }}
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors select-none text-muted-foreground bg-transparent hover:bg-secondary active:bg-secondaryhover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Download app"
                       >
                         <Store className="w-5 h-5 shrink-0" />
@@ -1977,7 +1977,7 @@ export function Sidebar({
                         target="_blank"
                         rel="noopener noreferrer"
                         tabIndex={isOpen ? -1 : 0}
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Plans"
                       >
                         <CreditCard className="w-5 h-5 shrink-0" />
@@ -2004,7 +2004,7 @@ export function Sidebar({
                             type="button"
                             tabIndex={isOpen ? -1 : 0}
                             className={cn(
-                              "w-10 h-10 rounded-xl flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+                              "w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
                               "text-muted-foreground hover:text-foreground hover:bg-secondary",
                               railHelpOpen && "bg-secondary text-foreground"
                             )}
@@ -2029,7 +2029,7 @@ export function Sidebar({
                       onCloseAutoFocus={(e) => {
                         e.preventDefault();
                       }}
-                      className="w-64 max-w-[calc(100vw-24px)] rounded-xl p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
+                      className="w-64 max-w-[calc(100vw-24px)] rounded-full p-1.5 bg-white dark:bg-[#303030] border border-border/80 dark:border-white/10 select-none outline-none focus:outline-none ring-0 space-y-0.5"
                     >
                       {renderHelpMenuItems()}
                     </DropdownMenuContent>
@@ -2046,7 +2046,7 @@ export function Sidebar({
                             isMobileScreen ? undefined : "general"
                           )
                         }
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                         aria-label="Settings"
                       >
                         <Settings className="w-5 h-5 shrink-0" />

@@ -961,7 +961,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
 
   const renderSmallScreenThinkGroup = () => (
     <div className="flex sm:hidden items-center">
-      <div className="h-5 w-px bg-border/80 dark:bg-white/10 mx-1 shrink-0 select-none" />
+      <div className={cn(
+        "h-5 w-px", isGuest ? "bg-border/80 dark:bg-white/10" : "bg-border/80", "mx-1 shrink-0 select-none")} />
       {renderThinkButton(true)}
     </div>
   );

@@ -739,7 +739,7 @@ export function SearchModal({
                     inputRef.current?.focus();
                   }}
                   className={cn(
-                    "h-10 px-4 rounded-sm flex items-center justify-center text-[13.5px] font-normal text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none shrink-0 hover:bg-secondary active:bg-secondary focus-visible:z-10",
+                    "h-10 px-4 rounded-full flex items-center justify-center text-[13.5px] font-normal text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none shrink-0 hover:bg-secondary active:bg-secondary focus-visible:z-10",
                     getFocusRingClasses(isGuest),
                     darkHover
                   )}
@@ -747,16 +747,17 @@ export function SearchModal({
                 >
                   Clear search
                 </button>
-                <div className="hidden min-[1280px]:block h-4 w-px bg-border/80 dark:bg-white/10 mx-1 shrink-0 select-none" />
               </>
             )}
+            
+            <div className={cn("h-4 w-px", isGuest ? "bg-border/80 dark:bg-white/10" : "bg-border/80", "mx-1 shrink-0 select-none")} />
 
             {/* Desktop Close Button: no permanent background, only hover bg */}
             <button
               type="button"
               onClick={handleClose}
               className={cn(
-                "hidden min-[1280px]:flex w-10 h-10 rounded-sm items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer focus-visible:z-10",
+                "hidden min-[1280px]:flex w-10 h-10 rounded-full items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer focus-visible:z-10",
                 getFocusRingClasses(isGuest),
                 darkHover
               )}
