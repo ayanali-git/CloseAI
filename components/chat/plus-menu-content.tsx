@@ -73,7 +73,7 @@ function MenuDescription({ text, className }: { text: string; className?: string
   return (
     <OverflowMarquee
       text={text}
-      className={cn("text-xs font-normal text-muted-foreground sm:text-sm", className)}
+      className={cn("text-xs sm:text-sm font-normal text-muted-foreground", className)}
     />
   );
 }
@@ -577,7 +577,7 @@ export function PlusMenuContent({
   const isUltra = tierIndex === 4;
   const currentTier = TIERS[tierIndex] || TIERS[4];
   const guestLoginLabel = (
-    <span className="ml-auto hidden shrink-0 cursor-pointer text-xs font-medium no-underline opacity-90 group-data-[highlighted]:block">
+    <span className="ml-auto block shrink-0 cursor-pointer text-xs sm:text-sm font-medium no-underline hover:opacity-90 sm:hidden sm:group-data-[highlighted]:block">
       Log in
     </span>
   );
@@ -613,7 +613,7 @@ export function PlusMenuContent({
           <MenuDescription text="Upload photos" />
         </PlusMenuItem>
 
-        <div className="px-3 pb-1 pt-2 text-xs font-medium text-muted-foreground select-none">
+        <div className="px-3 pb-1 pt-2 text-xs sm:text-sm font-medium text-muted-foreground select-none">
           Log in to use
         </div>
         
