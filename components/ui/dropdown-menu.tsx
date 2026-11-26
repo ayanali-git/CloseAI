@@ -135,16 +135,18 @@ const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
     inset?: boolean;
+    useRadixHighlight?: boolean;
   }
->(({ className, inset, onPointerMove, ...props }, ref) => (
+>(({ className, inset, useRadixHighlight, onPointerMove, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
-    onPointerMove={(e) => {
+    onPointerMove={useRadixHighlight ? onPointerMove : (e) => {
       e.currentTarget.focus();
       onPointerMove?.(e);
     }}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-base outline-none transition-colors duration-75 hover:bg-secondary focus:bg-secondary data-[highlighted]:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
+      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-base outline-none transition-colors duration-75 data-[highlighted]:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-foreground group focus:outline-none focus:ring-0 ring-0 text-left',
+      !useRadixHighlight && 'hover:bg-secondary focus:bg-secondary',
       inset && 'pl-8',
       className
     )}

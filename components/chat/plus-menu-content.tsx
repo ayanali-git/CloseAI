@@ -17,6 +17,20 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { AnimatedComingSoonText, OverflowMarquee } from "@/components/ui/animated";
 
+function PlusMenuItem({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenuItem>) {
+  return (
+    <DropdownMenuItem
+      {...props}
+      useRadixHighlight
+      data-plus-menu-item
+      className={cn(className, "transition-none")}
+      onPointerDown={(event) => {
+        if (event.pointerType !== "mouse") event.currentTarget.focus({ preventScroll: true });
+      }}
+    />
+  );
+}
+
 export interface PlusMenuContentProps {
   onAddFiles: () => void;
   onAddPhotos?: () => void;
@@ -563,26 +577,26 @@ export function PlusMenuContent({
   const isUltra = tierIndex === 4;
   const currentTier = TIERS[tierIndex] || TIERS[4];
   const guestLoginLabel = (
-    <span className="ml-auto hidden shrink-0 cursor-pointer text-xs font-medium no-underline transition-opacity group-hover:block group-hover:hover:opacity-90 group-focus-visible:block">
+    <span className="ml-auto hidden shrink-0 cursor-pointer text-xs font-medium no-underline opacity-90 group-data-[highlighted]:block">
       Log in
     </span>
   );
   const thinkMenuItem = (
-    <DropdownMenuItem
+    <PlusMenuItem
       role={isGuest ? "menuitem" : "menuitemcheckbox"}
       aria-checked={isGuest ? undefined : thinkMode}
       textValue="Think"
       onSelect={onToggleThink}
       className={cn(
         "gap-2 rounded-xl font-medium whitespace-nowrap",
-        isGuest && "dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+        isGuest && "dark:data-[highlighted]:bg-[#404040]"
       )}
     >
-      <Brain className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+      <Brain className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0" />
       <span>Think mode</span>
       <MenuDescription text={!isGuest && thinkMode ? "Selected" : "Get efficient responses"} />
       {isGuest && guestLoginLabel}
-    </DropdownMenuItem>
+    </PlusMenuItem>
   );
 
   // Unauthorized / Guest User Menu
@@ -590,71 +604,71 @@ export function PlusMenuContent({
     return (
       <div className="space-y-0.5 p-0.5">
         {/* 1. Attach photos */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onClick={onAddPhotos}
-          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:data-[highlighted]:bg-[#404040]"
         >
-          <Images className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Images className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0" />
           <span>Attach photos</span>
           <MenuDescription text="Upload photos" />
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         <div className="px-3 pb-1 pt-2 text-xs font-medium text-muted-foreground select-none">
           Log in to use
         </div>
         
         {/* 2. Attach files */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Attach files" });
           }}
-          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:data-[highlighted]:bg-[#404040]"
         >
-          <Files className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Files className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0" />
           <span>Attach files</span>
           <MenuDescription text="Upload files" />
           {guestLoginLabel}
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         {/* 3. Create images */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={() => {
             (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Create images" });
           }}
-          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:data-[highlighted]:bg-[#404040]"
         >
-          <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <ImageIcon className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0" />
           <span>Create images</span>
           <MenuDescription text="Turn prompts into images" />
           {guestLoginLabel}
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         {/* 4. Web search */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={() => {
             if (onOpenLoginModal) onOpenLoginModal({ description: "To continue with Web search" });
             else if (onOpenWebSearchModal) onOpenWebSearchModal({ description: "To continue with Web search" });
           }}
-          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:data-[highlighted]:bg-[#404040]"
         >
-          <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Globe className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0" />
           <span>Web search</span>
           <MenuDescription text="Find real-time detailed info" />
           {guestLoginLabel}
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         {thinkMenuItem}
 
         {/* Select models */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={() => (onOpenLoginModal || onOpenAdvancedFeaturesModal)?.({ description: "To continue with Select models" })}
-          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:hover:bg-[#404040] dark:focus:bg-[#404040] dark:data-[highlighted]:bg-[#404040]"
+          className="flex items-center gap-2 px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left dark:data-[highlighted]:bg-[#404040]"
         >
-          <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0" />
+          <Package className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0" />
           <span className="whitespace-nowrap font-medium shrink-0">Select models</span>
           <MenuDescription text="Choose model" />
           {guestLoginLabel}
-        </DropdownMenuItem>
+        </PlusMenuItem>
       </div>
     );
   }
@@ -662,30 +676,30 @@ export function PlusMenuContent({
   if (subView === "models") {
     return (
       <div className="space-y-0.5 py-0.5" ref={menuRef}>
-        <DropdownMenuItem
+        <PlusMenuItem
           data-plus-menu-focus
           onSelect={(event) => navigate(event, "main")}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus-visible:outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none focus:outline-none focus-visible:outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Select models</span>
-        </DropdownMenuItem>
+        </PlusMenuItem>
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {/* Row 1: Model */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={(event) => navigate(event, "model-picker")}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Model</span>
           <ModelValue text={model} />
           <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         {/* Row 2: Effort */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={(event) => navigate(event, "effort")}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="font-medium shrink-0 mr-1.5">Effort</span>
           <ModelValue
@@ -693,28 +707,28 @@ export function PlusMenuContent({
             className={isUltra ? "text-purple-400 font-medium" : undefined}
           />
           <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         {/* Row 3: Speed */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={(event) => navigate(event, "speed")}
-          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
+          className="w-full flex items-center px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer text-left outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="shrink-0 font-medium mr-1.5">Speed</span>
           <ModelValue text={speed} />
           <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
-        </DropdownMenuItem>
+        </PlusMenuItem>
 
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {/* Row 4: Advanced */}
-        <DropdownMenuItem
+        <PlusMenuItem
           onSelect={(event) => navigate(event, "advanced")}
-          className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-base text-foreground [@media(hover:hover)]:hover:bg-secondary active:bg-secondary transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
+          className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-base text-foreground transition-colors cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
         >
           <span className="shrink-0 font-medium mr-1.5">Advanced</span>
           <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
-        </DropdownMenuItem>
+        </PlusMenuItem>
       </div>
     );
   }
@@ -722,18 +736,18 @@ export function PlusMenuContent({
   if (subView === "model-picker") {
     return (
       <div className="space-y-0.5 py-0.5" ref={menuRef}>
-        <DropdownMenuItem
+        <PlusMenuItem
           data-plus-menu-focus
           onSelect={(event) => navigate(event, "models")}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Model</span>
-        </DropdownMenuItem>
+        </PlusMenuItem>
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {MODEL_OPTIONS.filter((m) => !m.key.toLowerCase().includes("gemini")).map((m) => (
-          <DropdownMenuItem
+          <PlusMenuItem
             key={m.key}
             role="menuitemradio"
             aria-checked={model === m.key}
@@ -741,17 +755,17 @@ export function PlusMenuContent({
               handleModelSelect(m.key);
               navigate(event, "models");
             }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
             <OverflowMarquee text={m.label} className="flex-1 pr-1" />
             {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-          </DropdownMenuItem>
+          </PlusMenuItem>
         ))}
 
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {MODEL_OPTIONS.filter((m) => m.key.toLowerCase().includes("gemini")).map((m) => (
-          <DropdownMenuItem
+          <PlusMenuItem
             key={m.key}
             role="menuitemradio"
             aria-checked={model === m.key}
@@ -759,11 +773,11 @@ export function PlusMenuContent({
               handleModelSelect(m.key);
               navigate(event, "models");
             }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
             <OverflowMarquee text={m.label} className="flex-1 pr-1" />
             {model === m.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-          </DropdownMenuItem>
+          </PlusMenuItem>
         ))}
       </div>
     );
@@ -772,18 +786,18 @@ export function PlusMenuContent({
   if (subView === "effort") {
     return (
       <div className="space-y-0.5 py-0.5" ref={menuRef}>
-        <DropdownMenuItem
+        <PlusMenuItem
           data-plus-menu-focus
           onSelect={(event) => navigate(event, "models")}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Effort</span>
-        </DropdownMenuItem>
+        </PlusMenuItem>
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {TIERS.map((tier, idx) => (
-          <DropdownMenuItem
+          <PlusMenuItem
             key={tier.key}
             role="menuitemradio"
             aria-checked={tierIndex === idx}
@@ -791,11 +805,11 @@ export function PlusMenuContent({
               handleTierChange(idx);
               navigate(event, "models");
             }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
             <OverflowMarquee text={tier.label} className="flex-1 pr-1" />
             {tierIndex === idx && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-          </DropdownMenuItem>
+          </PlusMenuItem>
         ))}
       </div>
     );
@@ -804,18 +818,18 @@ export function PlusMenuContent({
   if (subView === "speed") {
     return (
       <div className="space-y-0.5 py-0.5" ref={menuRef}>
-        <DropdownMenuItem
+        <PlusMenuItem
           data-plus-menu-focus
           onSelect={(event) => navigate(event, "models")}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Speed</span>
-        </DropdownMenuItem>
+        </PlusMenuItem>
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
 
         {SPEED_OPTIONS.map((s) => (
-          <DropdownMenuItem
+          <PlusMenuItem
             key={s.key}
             role="menuitemradio"
             aria-checked={speed === s.key}
@@ -823,11 +837,11 @@ export function PlusMenuContent({
               setSpeed(s.key);
               navigate(event, "models");
             }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground hover:bg-secondary active:bg-secondary transition-colors cursor-pointer min-w-0 outline-none text-left"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[15px] text-foreground transition-colors cursor-pointer min-w-0 outline-none text-left"
           >
             <OverflowMarquee text={s.label} className="flex-1 pr-1" />
             {speed === s.key && <Check className="w-5 h-5 text-foreground shrink-0 ml-2" />}
-          </DropdownMenuItem>
+          </PlusMenuItem>
         ))}
       </div>
     );
@@ -836,7 +850,7 @@ export function PlusMenuContent({
   if (subView === "advanced") {
     return (
       <div className="space-y-1.5 p-0.5" ref={menuRef}>
-        <DropdownMenuItem
+        <PlusMenuItem
           data-plus-menu-focus
           onSelect={(event) => navigate(event, "models")}
           onKeyDown={(event) => {
@@ -845,11 +859,11 @@ export function PlusMenuContent({
               menuRef.current?.querySelector<HTMLElement>('[role="slider"]')?.focus();
             }
           }}
-          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground hover:bg-secondary active:bg-secondary rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
+          className="flex items-center gap-2 px-2.5 py-2 text-base font-medium text-foreground rounded-xl cursor-pointer w-full text-left transition-colors outline-none"
         >
           <ChevronLeft className="w-5 h-5 stroke-[2]" />
           <span>Advanced</span>
-        </DropdownMenuItem>
+        </PlusMenuItem>
         <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
         <div
           className="p-2 pt-1"
@@ -874,69 +888,69 @@ export function PlusMenuContent({
   return (
     <div className="space-y-0.5" ref={menuRef}>
       {/* Button 1: Attach anything */}
-      <DropdownMenuItem
+      <PlusMenuItem
         onClick={disableAttach ? (e: any) => e.preventDefault() : onAddFiles}
         className={cn(
           "group flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium transition-colors outline-none whitespace-nowrap text-left",
           disableAttach
-            ? "cursor-not-allowed opacity-50 select-none text-muted-foreground hover:bg-secondary data-[highlighted]:bg-secondary"
-            : "cursor-pointer text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary"
+            ? "cursor-not-allowed opacity-50 select-none text-muted-foreground"
+            : "cursor-pointer text-foreground"
         )}
       >
-        <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+        <Paperclip className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground transition-colors shrink-0" />
         {disableAttach ? (
           <AnimatedComingSoonText label="Attach anything" comingSoonText="Coming soon" className="shrink-0" />
         ) : (
           <span className="whitespace-nowrap font-medium">Attach anything</span>
         )}
         <MenuDescription text="Upload photos or files" />
-      </DropdownMenuItem>
+      </PlusMenuItem>
 
       {/* Button 2: Create images */}
-      <DropdownMenuItem
+      <PlusMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
-        className="group flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground transition-colors outline-none whitespace-nowrap text-left"
       >
-        <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+        <ImageIcon className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
           label="Create images"
           comingSoonText="Coming soon"
           className="shrink-0"
         />
         <MenuDescription text="Turn prompts into images" />
-      </DropdownMenuItem>
+      </PlusMenuItem>
 
       {/* Button 3: Web search */}
-      <DropdownMenuItem
+      <PlusMenuItem
         onSelect={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
-        className="group flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground hover:bg-secondary data-[highlighted]:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left"
+        className="group flex items-center gap-2 px-3 py-2 text-base rounded-xl font-medium cursor-not-allowed opacity-50 text-foreground transition-colors outline-none whitespace-nowrap text-left"
       >
-        <Globe className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+        <Globe className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground transition-colors shrink-0" />
         <AnimatedComingSoonText
           label="Web search"
           comingSoonText="Coming soon"
           className="shrink-0"
         />
         <MenuDescription text="Find real-time detailed info" />
-      </DropdownMenuItem>
+      </PlusMenuItem>
 
       {thinkMenuItem}
 
       <div className="h-[1px] bg-neutral-200 my-1 -mx-0.5 dark:bg-[#202020]" />
       {/* Select models */}
-      <DropdownMenuItem
+      <PlusMenuItem
         data-plus-menu-focus
         onSelect={(event) => navigate(event, "models")}
-        className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground hover:bg-secondary active:bg-secondary transition-colors outline-none whitespace-nowrap text-left font-medium"
+        className="flex items-center px-3 py-2 text-base rounded-xl cursor-pointer text-foreground transition-colors outline-none whitespace-nowrap text-left font-medium"
       >
-        {/* <Package className="w-5 h-5 text-muted-foreground group-hover:text-foreground shrink-0 mr-2" /> */}
+        {/* <Package className="w-5 h-5 text-muted-foreground group-data-[highlighted]:text-foreground shrink-0 mr-2" /> */}
         <span className="whitespace-nowrap font-medium shrink-0 mr-1.5">Select models</span>
         <MenuDescription text="Choose model" className="mr-2" />
         {/* <ModelValue text={model} className="min-w-[3rem] flex-auto" /> */}
         <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0 ml-auto" />
-      </DropdownMenuItem>
+      </PlusMenuItem>
     </div>
   );
 }

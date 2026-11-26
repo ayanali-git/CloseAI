@@ -757,7 +757,8 @@ html:not(.dark) .token.important {
   }
 
   .overflow-marquee[data-marquee-active],
-  .group:is(:hover, :focus-visible) > .overflow-marquee,
+  [data-plus-menu-item][data-highlighted] > .overflow-marquee,
+  .group:not([data-plus-menu-item]):is(:hover, :focus-visible) > .overflow-marquee,
   .group:hover > button > .overflow-marquee {
     --marquee-mask-animation: chat-title-marquee-mask;
     --marquee-text-animation: chat-title-marquee;

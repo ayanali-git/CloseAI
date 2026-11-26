@@ -75,6 +75,7 @@ function PlusMenuScrollArea({ children }: React.PropsWithChildren) {
     const content = contentRef.current;
     if (!viewport || !content) return;
 
+    viewport.toggleAttribute("data-scrollable", viewport.scrollHeight > viewport.clientHeight + 1);
     // Keep the fade aligned to the viewport while leaving the native scrollbar outside the mask.
     const mask = getScrollMask(viewport);
     const position = `0 ${viewport.scrollTop}px`;
@@ -101,8 +102,16 @@ function PlusMenuScrollArea({ children }: React.PropsWithChildren) {
     <div
       ref={viewportRef}
       data-plus-menu-scroll
-      className="min-h-0 overflow-x-hidden overflow-y-auto"
+      className="min-h-0 overflow-x-hidden overflow-y-auto max-sm:data-[scrollable]:pr-1.5"
       onScroll={updateMask}
+      onPointerCancelCapture={(event) => {
+        // Native touch scrolling cancels the row press. Clear its highlight together with its login label.
+        const viewport = event.currentTarget;
+        const focused = document.activeElement;
+        if (focused?.matches('[role^="menuitem"]') && viewport.contains(focused)) {
+          viewport.closest<HTMLElement>('[role="menu"]')?.focus({ preventScroll: true });
+        }
+      }}
     >
       <div ref={contentRef} style={{ maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat" }}>
         {children}
