@@ -393,7 +393,7 @@ function NewChatContent() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 left-0 right-4 sm:right-5 h-20 sm:h-10 pointer-events-none bg-gradient-to-b from-background via-background/95 to-transparent -z-10" />
+          <div className="absolute top-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent pt-5 mt-auto" />
 
           {/* Left Header Area: Sidebar toggle on small screens */}
           {showHeaderButtons && (

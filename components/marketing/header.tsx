@@ -1168,7 +1168,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="w-8 h-8 rounded-full hover:opacity-50 cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-8 h-8 rounded-full hover:opacity-50 transition-opacity cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1208,6 +1208,13 @@ export function MarketingHeader() {
               </>
             ) : (
               <>
+                <Link
+                  href="/company/contact"
+                  className="text-[15px] hover:opacity-90 transition-opacity py-1 px-1.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                >
+                  Talk to us
+                </Link>
+                
                 <button
                   type="button"
                   onClick={() => openLoginModal()}
@@ -1216,15 +1223,15 @@ export function MarketingHeader() {
                   <span>Sign up for free</span>
                 </button>
                 
-                <button
+                {/* <button
                   type="button"
                   onClick={() => openLoginModal()}
                   className="h-10 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                   >
                   <span>Log in</span>
-                </button>
+                </button> */}
                 
-                  {/* <div
+                  <div
                     ref={loginContainerRef}
                     className="relative"
                     onMouseEnter={handleLoginEnter}
@@ -1281,7 +1288,7 @@ export function MarketingHeader() {
                         </div>
                       </div>
                     )}
-                  </div> */}
+                  </div>
               </>
             )}
           </div>
@@ -1868,6 +1875,12 @@ export function MarketingHeader() {
                     </>
                   ) : (
                     <>
+                      <Link
+                        href="/company/contact"
+                        className="block text-3xl sm:text-4xl font-normal text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
+                      >
+                        <span>Talk to us</span>
+                      </Link>
                       <button
                         type="button"
                         onClick={() => {
@@ -1881,13 +1894,11 @@ export function MarketingHeader() {
 
                       <button
                         type="button"
-                        onClick={() => {
-                          setMobileNavOpen(false);
-                          openLoginModal();
-                        }}
+                        onClick={() => setMobileSubMenu("login")}
                         className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log in
+                        <AnimatedArrow size={26} />
                       </button>
                     </>
                   )}

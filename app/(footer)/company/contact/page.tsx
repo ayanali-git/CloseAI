@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowUpRight, Asterisk, Mail, MapPin, Loader } from "lucide-react";
 import { AnimatedArrow, AnimatedArrowUpRight } from "@/components/ui/animated";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import toast from "@/lib/toast";
 
@@ -14,6 +15,7 @@ interface FormErrors {
 }
 
 export default function ContactPage() {
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -21,6 +23,12 @@ export default function ContactPage() {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const fieldBorderClass = user ? "border-border/80" : "border-border/80 dark:border-white/10";
+  const contactLinkClass = cn(
+    "w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background",
+    user ? "dark:hover:bg-[#202020]" : "dark:hover:bg-[#404040]"
+  );
 
   const validate = (fields?: Partial<Record<keyof FormErrors, string>>) => {
     const n = fields?.name ?? name;
@@ -138,7 +146,7 @@ export default function ContactPage() {
                 className={`w-full p-3 bg-card border rounded-full focus:outline-none text-base placeholder:text-foreground transition-colors ${
                   errors.name && touched.name
                     ? "border-red-500/80"
-                    : "border-border/80"
+                    : fieldBorderClass
                 }`}
                 placeholder="Full name"
               />
@@ -165,7 +173,7 @@ export default function ContactPage() {
                 className={`w-full p-3 bg-card border rounded-full focus:outline-none text-base placeholder:text-foreground transition-colors ${
                   errors.email && touched.email
                     ? "border-red-500/80"
-                    : "border-border/80"
+                    : fieldBorderClass
                 }`}
                 placeholder="Email address"
               />
@@ -194,7 +202,7 @@ export default function ContactPage() {
                   "w-full min-h-[120px] max-h-[240px] p-3 bg-card rounded-2xl rounded-br-[4px] text-sm sm:text-base leading-relaxed placeholder:text-foreground transition-colors resize-y outline-none border",
                   errors.message && touched.message
                     ? "border-red-500/80"
-                    : "border-border/80"
+                    : fieldBorderClass
                 )}
               />
               {errors.message && touched.message && (
@@ -225,7 +233,7 @@ export default function ContactPage() {
             <div className="w-full space-y-3">
               <a
                 href="mailto:support@trycloseai.vercel.app"
-                className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                className={contactLinkClass}
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0">
@@ -245,7 +253,7 @@ export default function ContactPage() {
 
               <a
                 href="mailto:press@trycloseai.vercel.app"
-                className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                className={contactLinkClass}
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0">
@@ -273,7 +281,7 @@ export default function ContactPage() {
               href="https://www.google.com/maps/search/?api=1&query=1455+3rd+St%2C+San+Francisco%2C+CA+94158%2C+USA"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full group flex items-center justify-between p-4 bg-card hover:bg-secondary/50 border border-border/80 dark:border-none rounded-2xl transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+              className={contactLinkClass}
             >
               <div className="flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-xl border border-border/80 dark:border-none flex items-center justify-center shrink-0 mt-0.5">
