@@ -240,8 +240,6 @@ function GuestChatContent() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header with Unified 28px Alignment */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent pt-5 mt-auto" />
-
           {/* Left area */}
           <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
             <div className="xl:hidden flex items-center gap-2">
@@ -384,65 +382,70 @@ function GuestChatContent() {
         </header>
 
         {/* Content Stream */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pb-2 no-overscroll pt-10">
-          <WelcomeScreen
-            user={null}
-            resetKey={newChatKey}
-            maxWidthClass="max-w-[820px]"
-            onPromptSelect={(prompt) => {
-              handleStartGuestChat(prompt, []);
-            }}
-          >
-            <div className="w-full flex flex-col items-center">
-              <ChatInput
-                ref={chatInputRef}
-                className="max-w-[820px]"
-                isWelcomeScreen={true}
-                message={message}
-                onMessageChange={setMessage}
-                onSend={handleSend}
-                uploadedFiles={uploadedFiles}
-                onFilesChange={setUploadedFiles}
-                isTyping={false}
-                isUploading={isUploading}
-                selectedModel={selectedModel}
-                onModelChange={setSelectedModel}
-                selectedTier={selectedModelTier}
-                onTierChange={setSelectedModelTier}
-                thinkMode={thinkMode}
-                onThinkModeChange={setThinkMode}
-                isGuest={true}
-                isTemporary={false}
-                onOpenLoginModal={handleOpenLogin}
-                onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
-                onOpenAdvancedFeaturesModal={handleOpenLogin}
-                centered={false}
-                showDisclaimer={false}
-              />
+        <div className="flex-1 overflow-y-auto no-overscroll">
+          <div aria-hidden="true" className="pointer-events-none sticky top-0 z-20 h-0 shrink-0">
+            <div className="pt-5 pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent" />
+          </div>
+          <div className="min-h-full flex flex-col justify-center px-2 sm:px-4 pt-10 pb-2">
+            <WelcomeScreen
+              user={null}
+              resetKey={newChatKey}
+              maxWidthClass="max-w-[820px]"
+              onPromptSelect={(prompt) => {
+                handleStartGuestChat(prompt, []);
+              }}
+            >
+              <div className="w-full flex flex-col items-center">
+                <ChatInput
+                  ref={chatInputRef}
+                  className="max-w-[820px]"
+                  isWelcomeScreen={true}
+                  message={message}
+                  onMessageChange={setMessage}
+                  onSend={handleSend}
+                  uploadedFiles={uploadedFiles}
+                  onFilesChange={setUploadedFiles}
+                  isTyping={false}
+                  isUploading={isUploading}
+                  selectedModel={selectedModel}
+                  onModelChange={setSelectedModel}
+                  selectedTier={selectedModelTier}
+                  onTierChange={setSelectedModelTier}
+                  thinkMode={thinkMode}
+                  onThinkModeChange={setThinkMode}
+                  isGuest={true}
+                  isTemporary={false}
+                  onOpenLoginModal={handleOpenLogin}
+                  onOpenWebSearchModal={() => handleOpenLogin({ description: "To continue with Web search" })}
+                  onOpenAdvancedFeaturesModal={handleOpenLogin}
+                  centered={false}
+                  showDisclaimer={false}
+                />
 
-              {/* Suggestion pill — only visible when input is empty */}
-              <div className="w-full flex justify-center h-10 pt-10">
-                {message.trim().length === 0 && uploadedFiles.length === 0 && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const prompt = "What can CloseAI do?";
-                      setMessage(prompt);
-                      requestAnimationFrame(() => {
-                        chatInputRef.current?.focus();
-                      });
-                      setTimeout(() => {
-                        handleStartGuestChat(prompt, []);
-                      }, 150);
-                    }}
-                    className="h-10 px-4 rounded-full text-base transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
-                  >
-                    What can CloseAI do?
-                  </button>
-                )}
+                {/* Suggestion pill — only visible when input is empty */}
+                <div className="w-full flex justify-center h-10 pt-10">
+                  {message.trim().length === 0 && uploadedFiles.length === 0 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const prompt = "What can CloseAI do?";
+                        setMessage(prompt);
+                        requestAnimationFrame(() => {
+                          chatInputRef.current?.focus();
+                        });
+                        setTimeout(() => {
+                          handleStartGuestChat(prompt, []);
+                        }, 150);
+                      }}
+                      className="h-10 px-4 rounded-full text-base transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border border-border/80 dark:border-white/10 select-none cursor-pointer bg-background hover:bg-secondary text-foreground"
+                    >
+                      What can CloseAI do?
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </WelcomeScreen>
+            </WelcomeScreen>
+          </div>
         </div>
 
         {/* Bottom Disclaimer for Empty State */}

@@ -393,8 +393,6 @@ function NewChatContent() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent pt-5 mt-auto" />
-
           {/* Left Header Area: Sidebar toggle on small screens */}
           {showHeaderButtons && (
             <div className="flex shrink-0 items-center pl-3 sm:flex-1 sm:pl-0">
@@ -543,53 +541,58 @@ function NewChatContent() {
         </header>
 
         {/* Content Stream */}
-        <div className="flex-1 flex flex-col justify-center overflow-y-auto px-2 sm:px-4 pt-14 pb-[max(env(safe-area-inset-bottom),0.75rem)] sm:pb-8 no-overscroll">
-          {isAutoCreating ||
-          (queryPrompt && !autoCreateTriggeredRef.current) ||
-          isSigningOut ||
-          (loading && !user) ? (
-            <div className="flex-1 w-full h-full flex flex-col items-center justify-center space-y-3 pb-12 text-muted-foreground">
-              <Loader className="w-6 h-6 animate-spin text-muted-foreground" />
-            </div>
-          ) : (
-            <WelcomeScreen
-              user={user}
-              resetKey={newChatKey}
-              maxWidthClass="max-w-[820px]"
-              onPromptSelect={(prompt) => setMessage(prompt)}
-              customTitle={isTemporary ? "Temporary chat" : undefined}
-              customSubtitle={
-                isTemporary
-                  ? isPersonalized
-                    ? "This chat can reference memory, plugins, and custom instructions but it won't appear in your history"
-                    : "This chat will ignore memory, plugins, and custom instructions and it won't appear in your history"
-                  : undefined
-              }
-              bottomInputOnMobile={true}
-            >
-              <ChatInput
-                className="max-w-[820px]"
-                isWelcomeScreen={true}
-                message={message}
-                onMessageChange={setMessage}
-                onSend={handleSend}
-                uploadedFiles={uploadedFiles}
-                onFilesChange={setUploadedFiles}
-                isTyping={isTyping}
-                isUploading={isUploading}
-                selectedModel={selectedModel}
-                onModelChange={setSelectedModel}
-                selectedTier={selectedModelTier}
-                onTierChange={setSelectedModelTier}
-                thinkMode={thinkMode}
-                onThinkModeChange={setThinkMode}
-                centered={false}
-                showDisclaimer={false}
-                isTemporary={isTemporary}
-                isPersonalized={isPersonalized}
-              />
-            </WelcomeScreen>
-          )}
+        <div className="flex-1 overflow-y-auto no-overscroll">
+          <div aria-hidden="true" className="pointer-events-none sticky top-0 z-20 h-0 shrink-0">
+            <div className="pt-5 pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent" />
+          </div>
+          <div className="min-h-full flex flex-col justify-center px-2 sm:px-4 pt-14 pb-[max(env(safe-area-inset-bottom),0.75rem)] sm:pb-8">
+            {isAutoCreating ||
+            (queryPrompt && !autoCreateTriggeredRef.current) ||
+            isSigningOut ||
+            (loading && !user) ? (
+              <div className="flex-1 w-full h-full flex flex-col items-center justify-center space-y-3 pb-12 text-muted-foreground">
+                <Loader className="w-6 h-6 animate-spin text-muted-foreground" />
+              </div>
+            ) : (
+              <WelcomeScreen
+                user={user}
+                resetKey={newChatKey}
+                maxWidthClass="max-w-[820px]"
+                onPromptSelect={(prompt) => setMessage(prompt)}
+                customTitle={isTemporary ? "Temporary chat" : undefined}
+                customSubtitle={
+                  isTemporary
+                    ? isPersonalized
+                      ? "This chat can reference memory, plugins, and custom instructions but it won't appear in your history"
+                      : "This chat will ignore memory, plugins, and custom instructions and it won't appear in your history"
+                    : undefined
+                }
+                bottomInputOnMobile={true}
+              >
+                <ChatInput
+                  className="max-w-[820px]"
+                  isWelcomeScreen={true}
+                  message={message}
+                  onMessageChange={setMessage}
+                  onSend={handleSend}
+                  uploadedFiles={uploadedFiles}
+                  onFilesChange={setUploadedFiles}
+                  isTyping={isTyping}
+                  isUploading={isUploading}
+                  selectedModel={selectedModel}
+                  onModelChange={setSelectedModel}
+                  selectedTier={selectedModelTier}
+                  onTierChange={setSelectedModelTier}
+                  thinkMode={thinkMode}
+                  onThinkModeChange={setThinkMode}
+                  centered={false}
+                  showDisclaimer={false}
+                  isTemporary={isTemporary}
+                  isPersonalized={isPersonalized}
+                />
+              </WelcomeScreen>
+            )}
+          </div>
         </div>
 
 

@@ -41,9 +41,60 @@ interface SiteSearchItem {
 
 const SITE_SEARCH_INDEX: SiteSearchItem[] = [
   {
-    id: "res-6",
+    id: "res-62",
+    category: "Research",
+    title: "GPT-6.2 Astra: The Next Generation of AI",
+    description:
+      "We introduce GPT-6.2 Astra, a state-of-the-art model delivering 3x faster chain-of-thought verification with 94.2% accuracy on competitive Olympiad mathematics and complex algorithmic engineering benchmarks.",
+    url: "/research/overview",
+    date: "Oct 2026",
+    keywords: [
+      "6.2",
+      "GPT-6.2",
+      "astra",
+      "reasoning",
+      "multimodal",
+      "inference",
+    ],
+  },
+  {
+    id: "res-62-sol",
+    category: "Research",
+    title: "GPT-6.2 Sol: The Next Generation of AI",
+    description:
+      "Enhanced reasoning capabilities and real-time multimodal processing with GPT-6.2 Sol, the latest advancement in AI technology.",
+    url: "/research/overview",
+    date: "Oct 2026",
+    keywords: [
+      "6.2",
+      "GPT-6.2",
+      "sol",
+      "reasoning",
+      "multimodal",
+      "inference",
+    ],
+  },
+  {
+    id: "res-61",
     category: "Research",
     title: "GPT-6.1 Terra: The Next Paradigm in Multistep Deductive Inference",
+    description:
+      "Delivering 3x faster chain-of-thought verification with 94.2% accuracy on competitive Olympiad mathematics and complex algorithmic engineering benchmarks.",
+    url: "/research/overview",
+    date: "Sep 2026",
+    keywords: [
+      "6.1",
+      "GPT-6.1",
+      "terra",
+      "reasoning",
+      "multimodal",
+      "inference",
+    ],
+  },
+  {
+    id: "res-6",
+    category: "Research",
+    title: "GPT-6 Astra: The Next Paradigm in Multistep Deductive Inference",
     description:
       "Introducing the next generation of AI with enhanced reasoning capabilities and real-time multimodal processing.",
     url: "/research/overview",
@@ -1301,7 +1352,7 @@ export function MarketingHeader() {
                 setMobileNavOpen(false);
               }}
               className="w-9 h-9 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              aria-label={isSearchOpen ? "Close search" : "Search"}
+              aria-label={isSearchOpen ? "Close search" : "Open search"}
             >
               <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
             </button>
@@ -1382,6 +1433,24 @@ export function MarketingHeader() {
                       Latest Advancements
                     </p>
                     <ul className="space-y-3 text-base">
+                      <li>
+                        <Link
+                          href="/research/overview"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-foreground transition-colors"
+                        >
+                          GPT-6.2 Astra
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/research/overview"
+                          onClick={() => setActiveMenu(null)}
+                          className="text-foreground transition-colors"
+                        >
+                          GPT-6.2 Sol
+                        </Link>
+                      </li>
                       <li>
                         <Link
                           href="/research/overview"
@@ -1956,6 +2025,14 @@ export function MarketingHeader() {
                         </div>
                         <div className="space-y-2.5">
                           {[
+                            {
+                              label: "GPT-6.2 Astra",
+                              href: "/research/overview",
+                            },
+                            {
+                              label: "GPT-6.2 Sol",
+                              href: "/research/overview",
+                            },
                             { 
                               label: "GPT-6.1 Terra",
                               href: "/research/overview"
@@ -2301,7 +2378,7 @@ export function MarketingHeader() {
                           </button>
                           <button
                             type="button"
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 transition-opacity py-1 cursor-not-allowed opacity-50 w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground py-1 cursor-not-allowed opacity-50 w-full outline-none"
                           >
                             <AnimatedComingSoonText
                               label="API platform"

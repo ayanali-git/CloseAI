@@ -1049,7 +1049,7 @@ export function AnimatedComingSoonText({
       <motion.span
         style={{ y: comingY, opacity: comingOpacity }}
         className={cn(
-          "col-start-1 row-start-1 flex items-center whitespace-nowrap text-foreground",
+          "col-start-1 row-start-1 flex items-center whitespace-nowrap",
           align === "center" ? "justify-center" : "justify-start"
         )}
       >

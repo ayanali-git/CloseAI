@@ -172,8 +172,6 @@ export default function UserProfilePage() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header for small-screen sidebar toggle */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent pt-5 mt-auto" />
-
           {/* Left Header Area: Sidebar toggle on small screens */}
           <div className="flex items-center pointer-events-auto pl-3 sm:pl-0">
             {!sidebarOpen && (
@@ -292,15 +290,20 @@ export default function UserProfilePage() {
         </header>
 
         {/* Content Stream */}
-        <div className="flex-1 flex flex-col overflow-y-auto px-4 sm:px-6 pt-16 sm:pt-16 pb-[max(env(safe-area-inset-bottom),1.5rem)] sm:pb-12 no-overscroll">
-          <div className="w-full max-w-[820px] mx-auto py-2">
-            <ProfilePanel
-              isLoading={isChatsLoading || loading || !user}
-              onOpenEdit={() => setEditDrawerOpen(true)}
-              onUsernameUpdated={(newUsername) => {
-                router.replace(`/u/@${encodeURIComponent(newUsername)}`);
-              }}
-            />
+        <div className="flex-1 overflow-y-auto no-overscroll">
+          <div aria-hidden="true" className="pointer-events-none sticky top-0 z-20 h-0 shrink-0">
+            <div className="pt-5 pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent" />
+          </div>
+          <div className="px-4 sm:px-6 pt-16 pb-[max(env(safe-area-inset-bottom),1.5rem)] sm:pb-12">
+            <div className="w-full max-w-[820px] mx-auto py-2">
+              <ProfilePanel
+                isLoading={isChatsLoading || loading || !user}
+                onOpenEdit={() => setEditDrawerOpen(true)}
+                onUsernameUpdated={(newUsername) => {
+                  router.replace(`/u/@${encodeURIComponent(newUsername)}`);
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

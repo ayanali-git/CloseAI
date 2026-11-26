@@ -1302,7 +1302,6 @@ export default function ActiveChatPage() {
       <div className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden selection:bg-secondary selection:text-foreground">
         {/* Transparent Floating Header - Buttons float cleanly on top, no background bar/patti */}
         <header className="absolute top-0 left-0 right-0 z-30 h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 flex items-center justify-between select-none pointer-events-none bg-transparent">
-          <div className="absolute top-0 inset-x-0 z-20 pointer-events-none pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent pt-5 mt-auto" />
           {showHeaderButtons && (
             activePreviewFile ? (
             /* PREVIEW HEADER: Filename on left, Download + Close on right */
@@ -1611,6 +1610,9 @@ export default function ActiveChatPage() {
           onScroll={handleScroll}
           className="flex-1 w-full overflow-x-hidden relative flex flex-col overflow-y-auto overscroll-y-contain"
         >
+          <div aria-hidden="true" className="pointer-events-none sticky top-0 z-20 h-0 shrink-0">
+            <div className="pt-5 pb-[max(env(safe-area-inset-bottom,0px),0.5rem)] bg-gradient-to-b from-background via-background/80 to-transparent" />
+          </div>
           <div className="flex-1 flex flex-col min-h-full pt-14">
             {/* File Preview In-Page Viewer */}
             {activePreviewFile && (

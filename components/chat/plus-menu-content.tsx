@@ -62,6 +62,8 @@ const SPEED_OPTIONS = [
 ];
 
 const MODEL_OPTIONS = [
+  { key: "GPT-6.2 Astra", label: "GPT-6.2 Astra" },
+  { key: "GPT-6.2 Sol", label: "GPT-6.2 Sol" },
   { key: "GPT-6.1 Terra", label: "GPT-6.1 Terra" },
   { key: "GPT-6 Astra", label: "GPT-6 Astra" },
   { key: "GPT-5.6", label: "GPT-5.6" },
