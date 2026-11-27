@@ -23,8 +23,8 @@ export function NotificationsPanel() {
   if (!mounted) {
     return (
       <div className="space-y-3 pt-2">
-        <div className="h-16 rounded-xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="h-16 rounded-xl bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
+        <div className="h-16 rounded-xl bg-secondary dark:bg-neutral-800/80 animate-pulse" />
+        <div className="h-16 rounded-xl bg-secondary dark:bg-neutral-800/60 animate-pulse" />
       </div>
     );
   }

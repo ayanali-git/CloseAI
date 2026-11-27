@@ -457,7 +457,7 @@ export function LangDropdownMenu({
                     className={cn(
                       "absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
                       search
-                        ? "text-foreground cursor-pointer hover:opacity-90"
+                        ? "text-foreground cursor-pointer hover:opacity-75"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                     aria-label={search ? "Clear search" : "Search"}

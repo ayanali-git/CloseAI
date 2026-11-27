@@ -104,10 +104,10 @@ export function PlansPanel() {
   if (subLoading) {
     return (
       <div className="space-y-3 pt-2">
-        <div className="h-8 w-40 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="h-24 rounded-2xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="h-24 rounded-2xl bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
-        <div className="h-24 rounded-2xl bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
+        <div className="h-8 w-40 rounded-2xl bg-secondary dark:bg-neutral-800/80 animate-pulse" />
+        <div className="h-24 rounded-2xl bg-secondary dark:bg-neutral-800/80 animate-pulse" />
+        <div className="h-24 rounded-2xl bg-secondary dark:bg-neutral-800/60 animate-pulse" />
+        <div className="h-24 rounded-2xl bg-secondary dark:bg-neutral-800/50 animate-pulse" />
       </div>
     );
   }
@@ -134,7 +134,7 @@ export function PlansPanel() {
           type="button"
           onClick={handleManage}
           disabled={loading === "manage"}
-          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 transition-all select-none"
+          className="h-10 px-4 rounded-sm border border-border/80 text-sm text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 transition-all select-none"
         >
           {loading === "manage" ? (
             <Loader className="w-5 h-5 animate-spin inline" />
@@ -210,7 +210,7 @@ export function PlansPanel() {
                   type="button"
                   onClick={() => handleUpgrade(plan.id)}
                   disabled={loading !== null}
-                  className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 flex items-center justify-center transition-all select-none"
+                  className="w-full h-10 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-75 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background cursor-pointer disabled:opacity-50 flex items-center justify-center transition-all select-none"
                 >
                   {loading === plan.id ? (
                     <Loader className="w-5 h-5 animate-spin" />

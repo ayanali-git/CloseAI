@@ -579,7 +579,7 @@ export function PlusMenuContent({
   const isUltra = tierIndex === 4;
   const currentTier = TIERS[tierIndex] || TIERS[4];
   const guestLoginLabel = (
-    <span className="ml-auto block shrink-0 cursor-pointer text-xs sm:text-sm font-medium no-underline hover:opacity-90 sm:hidden sm:group-data-[highlighted]:block">
+    <span className="ml-auto block shrink-0 cursor-pointer text-xs sm:text-sm font-medium no-underline hover:opacity-75 sm:hidden sm:group-data-[highlighted]:block">
       Log in
     </span>
   );

@@ -63,7 +63,7 @@ export function NewChatModal({
             <button
               type="button"
               onClick={handleLogin}
-              className="font-normal text-foreground hover:opacity-90 active:opacity-60 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
+              className="font-normal text-foreground hover:opacity-75 active:opacity-50 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
             >
               Log in
             </button>{" "}
@@ -71,7 +71,7 @@ export function NewChatModal({
             <button
               type="button"
               onClick={handleLogin}
-              className="font-normal text-foreground hover:opacity-90 active:opacity-60 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
+              className="font-normal text-foreground hover:opacity-75 active:opacity-50 cursor-pointer rounded-full outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
             >
               Sign up
             </button>{" "}
@@ -84,7 +84,7 @@ export function NewChatModal({
           <button
             type="button"
             onClick={handleLogin}
-            className="w-full h-10 rounded-full bg-foreground text-background font-medium text-base hover:opacity-90 active:opacity-60 flex items-center justify-center border border-transparent outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030] transition-all cursor-pointer select-none"
+            className="w-full h-10 rounded-full bg-foreground text-background font-medium text-base hover:opacity-75 active:opacity-50 flex items-center justify-center border border-transparent outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030] transition-all cursor-pointer select-none"
           >
             Log in
           </button>

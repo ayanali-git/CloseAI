@@ -107,7 +107,7 @@ export function SaveChatModal({
         </div>
 
         {/* Info Box matching delete modal warning box style */}
-        <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
+        <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary text-left text-xs text-muted-foreground">
           <Bookmark className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
           <span className="leading-normal">
             This chat will now be included in your history. It will follow your
@@ -122,7 +122,7 @@ export function SaveChatModal({
             disabled={isSaving}
             onClick={handleSave}
             className={cn(
-              "w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none",
+              "w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-75 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none",
               isGuest
                 ? "dark:focus-visible:ring-offset-[#303030]"
                 : "dark:focus-visible:ring-offset-card"

@@ -211,7 +211,7 @@ export default function LandingPage() {
                   "w-10 h-10 rounded-full flex items-center justify-center transition-colors shrink-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white",
                   user ? "dark:focus-visible:ring-offset-[#101010]" : "dark:focus-visible:ring-offset-[#303030]",
                   heroPrompt.trim().length > 0 && !isSubmitting
-                    ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:opacity-60"
+                    ? "bg-foreground text-background cursor-pointer hover:opacity-75 active:opacity-50"
                     : user
                     ? "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
                     : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
@@ -263,7 +263,7 @@ export default function LandingPage() {
                       ? "bg-background hover:bg-secondary text-foreground cursor-not-allowed opacity-50 select-none"
                       : isSelected
                       ? "cursor-pointer bg-secondary text-foreground"
-                      : "cursor-pointer bg-background hover:bg-secondary text-foreground"
+                      : "cursor-pointer bg-background hover:bg-secondary text-muted-foreground"
                   )}
                 >
                   {pill.disabled ? (
@@ -748,7 +748,7 @@ export default function LandingPage() {
             <div className="pt-2">
               <Button
                 asChild
-                className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-90 active:opacity-60 cursor-pointer"
+                className="group rounded-full h-10 px-4 gap-0.5 text-base font-medium bg-foreground text-background hover:opacity-75 active:opacity-50 cursor-pointer"
               >
                 <Link href={user ? "/c" : "/gc"} target="_blank" rel="noopener noreferrer" className="flex items-center">
                   <span>Chat now</span>

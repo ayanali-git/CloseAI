@@ -602,17 +602,17 @@ export function ProfilePanel({
           {isProfileLoading ? (
             <div
               style={avatarClipStyle}
-              className="w-28 h-28 sm:w-32 sm:h-32 bg-secondary/80 dark:bg-neutral-800/80 animate-pulse mx-auto shrink-0 border border-border/40 select-none overflow-hidden"
+              className="w-28 h-28 sm:w-32 sm:h-32 bg-secondary dark:bg-neutral-800/80 animate-pulse mx-auto shrink-0 border border-border/40 select-none overflow-hidden"
             />
           ) : avatarUrl ? (
             <div
               style={avatarClipStyle}
-              className="relative w-28 h-28 sm:w-32 sm:h-32 overflow-hidden border border-border/80 dark:border-none select-none bg-secondary/80 dark:bg-neutral-800/80 shrink-0"
+              className="relative w-28 h-28 sm:w-32 sm:h-32 overflow-hidden border border-border/80 dark:border-none select-none bg-secondary dark:bg-neutral-800/80 shrink-0"
             >
               {!imageLoaded && !imageError && (
                 <div
                   style={avatarClipStyle}
-                  className="absolute inset-0 w-full h-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse"
+                  className="absolute inset-0 w-full h-full bg-secondary dark:bg-neutral-800/80 animate-pulse"
                 />
               )}
               <img
@@ -643,12 +643,12 @@ export function ProfilePanel({
           )}
         </div>
         {isProfileLoading && !displayName ? (
-          <div className="mt-3 h-6 w-36 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+          <div className="mt-3 h-6 w-36 rounded bg-secondary dark:bg-neutral-800/80 animate-pulse" />
         ) : (
           <h3 className="mt-3 text-lg font-medium text-foreground">{displayName}</h3>
         )}
         {isProfileLoading && !user ? (
-          <div className="mt-1.5 h-4 w-28 rounded bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
+          <div className="mt-1.5 h-4 w-28 rounded bg-secondary dark:bg-neutral-800/60 animate-pulse" />
         ) : (
           <p className="mt-0.5 text-sm text-muted-foreground">{usersubtitle}</p>
         )}
@@ -685,7 +685,7 @@ export function ProfilePanel({
             )}
           >
             {stat.value === null ? (
-              <div className="h-5 w-16 mx-auto rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+              <div className="h-5 w-16 mx-auto rounded bg-secondary dark:bg-neutral-800/80 animate-pulse" />
             ) : (
               <p className="text-[15px] font-medium text-foreground">{stat.value}</p>
             )}
@@ -714,7 +714,7 @@ export function ProfilePanel({
               ))}
             </div>
           </div>
-          <div className="h-[120px] xl:h-[130px] w-full rounded-xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+          <div className="h-[120px] xl:h-[130px] w-full rounded-xl bg-secondary dark:bg-neutral-800/80 animate-pulse" />
         </div>
       ) : (
         <ChatActivityHeatmap dates={activityDates} />
@@ -724,7 +724,7 @@ export function ProfilePanel({
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Email</span>
           {isProfileLoading && !user?.email ? (
-            <div className="h-4 w-40 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+            <div className="h-4 w-40 rounded bg-secondary dark:bg-neutral-800/80 animate-pulse" />
           ) : (
             <span className="text-foreground truncate ml-4">{user?.email}</span>
           )}
@@ -732,7 +732,7 @@ export function ProfilePanel({
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Username</span>
           {isProfileLoading && !activeSavedUsername ? (
-            <div className="h-4 w-24 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+            <div className="h-4 w-24 rounded bg-secondary dark:bg-neutral-800/80 animate-pulse" />
           ) : (
             <span className="text-foreground">@{activeSavedUsername}</span>
           )}
@@ -740,7 +740,7 @@ export function ProfilePanel({
         <div className="flex items-center justify-between py-2 border-b border-border/80">
           <span className="text-muted-foreground">Plan</span>
           {isProfileLoading && subLoading ? (
-            <div className="h-4 w-10 rounded bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
+            <div className="h-4 w-10 rounded bg-secondary dark:bg-neutral-800/80 animate-pulse" />
           ) : (
             <span className="text-foreground">{planLabel}</span>
           )}

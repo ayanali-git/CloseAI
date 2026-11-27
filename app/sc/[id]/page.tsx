@@ -71,7 +71,7 @@ function SharedHeaderTitleMarquee({
       <div className={cn(sharedHeaderTitleClassName, "flex items-center overflow-hidden")}>
         <div
           style={{ width: "var(--shared-title-w, 180px)" }}
-          className="h-4 rounded-md bg-secondary/80 dark:bg-neutral-800/80 animate-pulse shrink-0 max-w-full"
+          className="h-4 rounded-md bg-secondary dark:bg-neutral-800/80 animate-pulse shrink-0 max-w-full"
         />
       </div>
     );
@@ -364,7 +364,7 @@ export default function PublicSharedChatPage() {
         >
           <Link
             href="/"
-            className="flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
+            className="flex items-center gap-2 hover:opacity-75 transition-colors shrink-0"
           >
             <span className="font-semibold text-xl tracking-tight text-foreground">
               CloseAI

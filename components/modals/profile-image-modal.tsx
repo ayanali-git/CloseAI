@@ -182,7 +182,7 @@ export function ProfileImageModal({
         />
 
         {/* Info Box Note */}
-        <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
+        <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary text-left text-xs text-muted-foreground">
           <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
           <span className="leading-normal">
             This will update your profile picture across all CloseAI platforms.
@@ -195,7 +195,7 @@ export function ProfileImageModal({
             type="button"
             onClick={selectedFile ? handleSave : () => fileInputRef.current?.click()}
             disabled={loading}
-            className="w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-75 active:opacity-50 transition-all cursor-pointer select-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <Loader className="w-5 h-5 animate-spin mr-2" />

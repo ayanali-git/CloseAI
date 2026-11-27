@@ -88,7 +88,7 @@ const AvatarFallback = React.forwardRef<
       className={cn(
         'flex h-full w-full items-center justify-center rounded-full bg-muted',
         isLoading
-          ? 'animate-pulse bg-secondary/80 dark:bg-neutral-800/80 text-transparent select-none'
+          ? 'animate-pulse bg-secondary dark:bg-neutral-800/80 text-transparent select-none'
           : className
       )}
       {...props}

@@ -80,7 +80,7 @@ export function DeleteMessageModal({
         </div>
 
         {/* Warning / Info Box — from delete-modal style */}
-        <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
+        <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary text-left text-xs text-muted-foreground">
           <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
           <span className="leading-normal">
             This will permanently delete this prompt, any attached files, and its associated response.

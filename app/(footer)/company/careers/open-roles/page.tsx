@@ -104,7 +104,7 @@ export default function OpenRolesPage() {
               className={cn(
                 'absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10 outline-none rounded-full p-0.5',
                 searchQuery
-                  ? 'text-foreground cursor-pointer hover:opacity-90'
+                  ? 'text-foreground cursor-pointer hover:opacity-75'
                   : 'text-muted-foreground group-focus-within:text-foreground cursor-text'
               )}
               aria-label={searchQuery ? 'Clear search' : 'Search'}
@@ -223,7 +223,7 @@ export default function OpenRolesPage() {
                 href={role.url || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between p-4 sm:p-5 bg-background border border-border/80 dark:border-none rounded-xl hover:bg-secondary/50 transition-all cursor-pointer"
+                className="group flex items-center justify-between p-4 sm:p-5 bg-background border border-border/80 dark:border-none rounded-xl hover:bg-secondary transition-all cursor-pointer"
               >
                 <div>
                   <h3 className="text-base sm:text-lg font-medium text-foreground mb-1 group-hover:text-foreground">
@@ -246,7 +246,7 @@ export default function OpenRolesPage() {
           Want to learn more about our mission, culture, and benefits?{' '}
           <Link
             href="/company/careers"
-            className="rounded-full text-foreground hover:opacity-90 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="rounded-full text-foreground hover:opacity-75 cursor-pointer outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <span>Learn more</span>
           </Link>

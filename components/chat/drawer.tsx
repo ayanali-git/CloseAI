@@ -847,7 +847,7 @@ export function FilePreviewViewer({
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-foreground text-background font-semibold text-sm hover:opacity-75 active:opacity-50 cursor-pointer"
                   >
                     <Download className="w-5 h-5" />
                     Download File
@@ -1288,7 +1288,7 @@ export function EditProfileDrawer({
                         "w-10 h-10 bg-secondary flex items-center justify-center overflow-hidden transition-all duration-150",
                         isSelected
                           ? "ring-2 ring-foreground ring-offset-2 ring-offset-sidebar"
-                          : "hover:opacity-90"
+                          : "hover:opacity-75"
                       )}
                     >
                       {activeAvatar ? (
@@ -1393,7 +1393,7 @@ export function EditProfileDrawer({
                       type="button"
                       onClick={() => handleSave()}
                       disabled={saving || !hasChanges || !name.trim() || !username.trim()}
-                      className="h-10 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-90 active:opacity-60 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
+                      className="h-10 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-75 active:opacity-50 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
                     >
                       {saving ? (
                         <Loader className="w-5 h-5 animate-spin text-background" />
@@ -1438,7 +1438,7 @@ export function EditProfileDrawer({
                       type="button"
                       onClick={() => handleSave()}
                       disabled={saving || !hasChanges || !name.trim() || !username.trim()}
-                      className="h-10 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-90 active:opacity-60 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
+                      className="h-10 px-5 min-w-[76px] rounded-full bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-75 active:opacity-50 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center select-none"
                     >
                       {saving ? (
                         <Loader className="w-5 h-5 animate-spin text-background" />

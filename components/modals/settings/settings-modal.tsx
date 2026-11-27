@@ -311,7 +311,7 @@ export function SettingsModal({
                     className={cn(
                       "absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-10",
                       query
-                        ? "text-foreground cursor-pointer hover:opacity-90"
+                        ? "text-foreground cursor-pointer hover:opacity-75"
                         : "text-muted-foreground group-focus-within:text-foreground cursor-text"
                     )}
                   >
@@ -576,10 +576,10 @@ export function SettingsSelect<T extends string>({
 export function SettingsPanelSkeleton() {
   return (
     <div className="space-y-4 py-2">
-      <div className="h-4 w-28 rounded-sm bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-      <div className="h-10 w-full rounded-sm bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-      <div className="h-10 w-full rounded-sm bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
-      <div className="h-10 w-full rounded-sm bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
+      <div className="h-4 w-28 rounded-sm bg-secondary dark:bg-neutral-800/80 animate-pulse" />
+      <div className="h-10 w-full rounded-sm bg-secondary dark:bg-neutral-800/80 animate-pulse" />
+      <div className="h-10 w-full rounded-sm bg-secondary dark:bg-neutral-800/60 animate-pulse" />
+      <div className="h-10 w-full rounded-sm bg-secondary dark:bg-neutral-800/50 animate-pulse" />
     </div>
   );
 }

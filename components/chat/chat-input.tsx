@@ -189,7 +189,7 @@ function FilePreviewCard({
         title="Preview image"
       >
         <ImagePreview src={imageUrl || ""} alt={file.name}>
-          <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity-90 transition-all cursor-pointer">
+          <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#262626] flex items-center justify-center shrink-0 hover:opacity-75 transition-all cursor-pointer">
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -952,7 +952,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               : "h-10 sm:h-10 px-2.5 sm:px-5 gap-2 text-[13px] sm:text-[14px] font-medium",
             pillButtonFocusRing,
             thinkMode
-              ? "bg-send-btn text-send-btn-foreground hover:opacity-90"
+              ? "bg-send-btn text-send-btn-foreground hover:opacity-75"
               : "text-muted-foreground",
             !thinkMode && (isGuest ? "hover:bg-secondary dark:hover:bg-[#404040] hover:text-foreground" : "hover:bg-secondary hover:text-foreground")
           )}
@@ -1038,11 +1038,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(function Ch
               "w-10 h-10 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors shrink-0",
               pillButtonFocusRing,
               isTyping
-                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:opacity-60"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-75 active:opacity-50"
                 : isUploading
-                ? "bg-secondary text-foreground cursor-wait opacity-90"
+                ? "bg-secondary text-foreground cursor-wait opacity-75"
                 : hasContent
-                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-90 active:opacity-60"
+                ? "bg-send-btn text-send-btn-foreground cursor-pointer hover:opacity-75 active:opacity-50"
                 : isGuest || (effectiveIsTemporary && isPersonalized === false)
                 ? "bg-send-btn border border-border/80 dark:border-none text-send-btn-foreground cursor-not-allowed opacity-50"
                 : "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"

@@ -746,7 +746,7 @@ export function MarketingHeader() {
                   className={cn(
                     "w-10 h-10 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors shrink-0 ml-4 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 ring-offset-background",
                     searchQuery.trim().length > 0
-                      ? "bg-foreground text-background cursor-pointer hover:opacity-90 active:opacity-60"
+                      ? "bg-foreground text-background cursor-pointer hover:opacity-75 active:opacity-50"
                       : user
                       ? "bg-neutral-300 dark:bg-[#202020] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
                       : "bg-neutral-300 dark:bg-[#404040] border border-border/80 dark:border-none text-foreground cursor-not-allowed opacity-50"
@@ -867,7 +867,7 @@ export function MarketingHeader() {
                       href="/company/contact"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="h-10 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                      className="h-10 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                     >
                       <span>Contact us</span>
                       <AnimatedArrowUpRight size={20} />
@@ -911,7 +911,7 @@ export function MarketingHeader() {
               }}
               className="flex items-center gap-2 -ml-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-90">
+              <span className="font-medium text-2xl tracking-tight text-foreground hover:opacity-75">
                 CloseAI
               </span>
             </Link>
@@ -1219,7 +1219,7 @@ export function MarketingHeader() {
                   setActiveMenu(null);
                   setIsSearchOpen(!isSearchOpen);
                 }}
-                className="w-8 h-8 rounded-full hover:opacity-50 transition-opacity cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-10 h-10 rounded-full hover:opacity-75 transition-colors cursor-pointer flex items-center justify-center text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
               >
                 <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1237,8 +1237,8 @@ export function MarketingHeader() {
           >
             {loading ? (
               <>
-                <div className="w-[111px] h-[38px] rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse shrink-0 hidden sm:block" />
-                <div className="w-[121px] h-[36px] rounded-full bg-secondary/80 dark:bg-neutral-800/80 animate-pulse shrink-0 hidden sm:block" />
+                <div className="w-[111px] h-[38px] rounded-full bg-secondary dark:bg-neutral-800/80 animate-pulse shrink-0 hidden sm:block" />
+                <div className="w-[121px] h-[36px] rounded-full bg-secondary dark:bg-neutral-800/80 animate-pulse shrink-0 hidden sm:block" />
               </>
             ) : user ? (
               <>
@@ -1252,7 +1252,7 @@ export function MarketingHeader() {
                 <button
                   type="button"
                   onClick={() => setLogoutModalOpen(true)}
-                  className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+                  className="group rounded-full h-10 px-4 text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center gap-0.5 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
                 >
                   <span>Log out</span>
                 </button>
@@ -1261,7 +1261,7 @@ export function MarketingHeader() {
               <>
                 <Link
                   href="/company/contact"
-                  className="text-[15px] hover:opacity-90 transition-opacity py-1 px-1.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="text-[15px] hover:opacity-75 transition-colors py-1 px-1.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 >
                   Talk to us
                 </Link>
@@ -1274,15 +1274,15 @@ export function MarketingHeader() {
                   <span>Sign up for free</span>
                 </button>
                 
-                {/* <button
+                <button
                   type="button"
                   onClick={() => openLoginModal()}
-                  className="h-10 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-90 active:opacity-60 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
+                  className="h-10 px-4 rounded-full text-[15px] font-medium bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black dark:border-none hover:opacity-75 active:opacity-50 transition-colors cursor-pointer inline-flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background select-none"
                   >
                   <span>Log in</span>
-                </button> */}
+                </button>
                 
-                  <div
+                  {/* <div
                     ref={loginContainerRef}
                     className="relative"
                     onMouseEnter={handleLoginEnter}
@@ -1301,8 +1301,8 @@ export function MarketingHeader() {
                         });
                       }}
                       className={cn(
-                        "h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-2 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background hover:opacity-90 active:opacity-60",
-                        loginDropdownOpen && "opacity-90"
+                        "h-10 px-4 rounded-full bg-black hover:bg-neutral-800 text-white border border-transparent dark:bg-white dark:text-black flex items-center justify-center gap-2 text-[15px] font-medium cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background hover:opacity-75 active:opacity-50",
+                        loginDropdownOpen && "opacity-75"
                       )}
                     >
                       <span>Log in</span>
@@ -1313,8 +1313,8 @@ export function MarketingHeader() {
                     </button>
   
                     {loginDropdownOpen && (
-                      <div className="absolute top-full right-0 pt-1.5 z-50">
-                        <div className="min-w-[200px] p-2 rounded-sm bg-card border border-border/80 dark:border-none space-y-0.5 select-none">
+                      <div className="absolute top-full right-0 pt-2 z-50">
+                        <div className="min-w-[200px] p-2 rounded-sm bg-card border border-border/80 dark:border-white/10 space-y-0.5 select-none">
                           <button
                             type="button"
                             onClick={() => {
@@ -1339,7 +1339,7 @@ export function MarketingHeader() {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </div> */}
               </>
             )}
           </div>
@@ -1351,7 +1351,7 @@ export function MarketingHeader() {
                 setIsSearchOpen(!isSearchOpen);
                 setMobileNavOpen(false);
               }}
-              className="w-9 h-9 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="w-10 h-10 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               aria-label={isSearchOpen ? "Close search" : "Open search"}
             >
               <AnimatedSearchClose isOpen={isSearchOpen} size={20} />
@@ -1363,7 +1363,7 @@ export function MarketingHeader() {
                 setMobileNavOpen(!mobileNavOpen);
                 setMobileSubMenu(null);
               }}
-              className="w-9 h-9 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="w-10 h-10 rounded-full text-foreground transition-colors flex items-center justify-center outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
             >
               <AnimatedPanelToggle open={mobileNavOpen} size={20} />
@@ -1963,11 +1963,15 @@ export function MarketingHeader() {
 
                       <button
                         type="button"
-                        onClick={() => setMobileSubMenu("login")}
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          openLoginModal();
+                        }}
+                        // onClick={() => setMobileSubMenu("login")}
                         className="block text-3xl sm:text-4xl font-medium text-foreground hover:text-muted-foreground transition-colors py-1 text-left w-full cursor-pointer"
                       >
                         Log in
-                        <AnimatedArrow size={26} />
+                        {/* <AnimatedArrow size={26} /> */}
                       </button>
                     </>
                   )}
@@ -1980,7 +1984,7 @@ export function MarketingHeader() {
                   {/* Top Back Navigation Button */}
                   <button
                     onClick={() => setMobileSubMenu(null)}
-                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-90 transition-opacity cursor-pointer mb-6"
+                    className="flex items-center gap-2 text-base font-medium text-foreground hover:opacity-75 transition-colors cursor-pointer mb-6"
                   >
                     <ArrowLeft className="w-5 h-5 stroke-[2]" />
                     <span>Home</span>
@@ -2372,7 +2376,7 @@ export function MarketingHeader() {
                               setMobileSubMenu(null);
                               openLoginModal();
                             }}
-                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-90 transition-opacity py-1 cursor-pointer w-full outline-none"
+                            className="block text-left text-2xl sm:text-3xl font-medium tracking-tight text-foreground hover:opacity-75 transition-colors py-1 cursor-pointer w-full outline-none"
                           >
                             CloseAI chat
                           </button>

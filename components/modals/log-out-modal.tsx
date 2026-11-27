@@ -167,7 +167,7 @@ export function LogoutModal({
           )}
 
           {/* Warning / Info Box */}
-          <div className="w-full flex items-start gap-2.5 p-3 rounded-full bg-secondary/50 text-left text-xs text-muted-foreground">
+          <div className="w-full flex items-start gap-2.5 p-3 rounded-full bg-secondary text-left text-xs text-muted-foreground">
             <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
             <span className="leading-relaxed">
               This will log you out across all CloseAI platforms.
@@ -181,7 +181,7 @@ export function LogoutModal({
               disabled={isLoggingOut}
               onClick={handleConfirm}
               className={cn(
-                "w-full h-10 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-90 active:opacity-60 disabled:opacity-50 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 transition-all cursor-pointer select-none gap-2",
+                "w-full h-10 rounded-full bg-foreground text-background font-medium text-base flex items-center justify-center hover:opacity-75 active:opacity-50 disabled:opacity-50 disabled:pointer-events-none border border-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 transition-all cursor-pointer select-none gap-2",
                 isGuest
                   ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"
@@ -240,7 +240,7 @@ export function LogoutModal({
           )}
 
           {/* Warning / Info Box */}
-          <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary/50 text-left text-xs text-muted-foreground">
+          <div className="w-full flex items-start gap-2.5 p-3 rounded-2xl bg-secondary text-left text-xs text-muted-foreground">
             <AlertTriangle className="w-5 h-5 shrink-0 text-muted-foreground mt-0.5" />
             <span className="leading-normal">
               This will log you out across all CloseAI platforms.
@@ -254,7 +254,7 @@ export function LogoutModal({
               disabled={isLoggingOut}
               onClick={handleConfirm}
               className={cn(
-                "w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center",
+                "w-full h-10 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-75 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition-all cursor-pointer select-none flex items-center justify-center",
                 isGuest
                   ? "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#303030]"
                   : "focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010]"

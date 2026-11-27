@@ -61,9 +61,9 @@ export function PersonalizationPanel() {
   if (!mounted) {
     return (
       <div className="space-y-3 pt-2">
-        <div className="h-10 rounded-xl bg-secondary/80 dark:bg-neutral-800/80 animate-pulse" />
-        <div className="h-10 rounded-xl bg-secondary/70 dark:bg-neutral-800/60 animate-pulse" />
-        <div className="h-28 rounded-xl bg-secondary/70 dark:bg-neutral-800/50 animate-pulse" />
+        <div className="h-10 rounded-xl bg-secondary dark:bg-neutral-800/80 animate-pulse" />
+        <div className="h-10 rounded-xl bg-secondary dark:bg-neutral-800/60 animate-pulse" />
+        <div className="h-28 rounded-xl bg-secondary dark:bg-neutral-800/50 animate-pulse" />
       </div>
     );
   }
@@ -129,7 +129,7 @@ export function PersonalizationPanel() {
         type="button"
         onClick={handleSave}
         disabled={saving || !dirty}
-        className="w-full h-10 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-90 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
+        className="w-full h-10 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-75 active:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#101010] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all select-none"
       >
         {saving ? <Loader className="w-5 h-5 animate-spin" /> : "Save"}
       </button>

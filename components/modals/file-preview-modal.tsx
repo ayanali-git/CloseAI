@@ -140,19 +140,19 @@ function FilePreview({
       )}
 
       {isText && (
-        <div className="w-full h-full flex-1 flex flex-col overflow-y-auto bg-secondary/15 p-5 sm:p-6 font-mono text-xs sm:text-sm text-foreground whitespace-pre select-text">
+        <div className="w-full h-full flex-1 flex flex-col overflow-y-auto bg-secondary p-5 sm:p-6 font-mono text-xs sm:text-sm text-foreground whitespace-pre select-text">
           {textContent !== null ? (
             <code>{textContent}</code>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center gap-3 text-muted-foreground">
-              <FileText className="w-10 h-10 opacity-60" />
+              <FileText className="w-10 h-10 opacity-50" />
               <span>Preview not available for this text file.</span>
               {fileUrl && (
                 <a
                   href={fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-foreground text-background text-xs font-semibold hover:opacity-90 active:opacity-60"
+                  className="px-4 py-2 rounded-full bg-foreground text-background text-xs font-semibold hover:opacity-75 active:opacity-50"
                 >
                   Open in new tab
                 </a>
