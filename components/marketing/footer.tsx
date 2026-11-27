@@ -85,22 +85,6 @@ export function Footer() {
                     GPT-6 Astra
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/research/overview"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    GPT-5.6
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/research/overview"
-                    className="inline-flex items-center gap-1 text-foreground transition-colors -mx-1.5 px-1.5 py-0.5 rounded-full outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    GPT-5.5
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>

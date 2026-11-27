@@ -68,7 +68,7 @@ export class AIService {
     messages: Message[],
     fileContext?: string,
     imageUrls?: string[],
-    modelName: string = "GPT-5.6",
+    modelName: string = "GPT-6.2",
     think: boolean = false,
     userContext?: string
   ): Promise<AIResponse> {
@@ -91,10 +91,8 @@ export class AIService {
 
     let openAiModel = 'gpt-6';
     const lower = modelName.toLowerCase();
-    if (lower.includes('5.5')) {
-      openAiModel = 'gpt-5.5';
-    } else if (lower.includes('5.6')) {
-      openAiModel = 'gpt-5.6';
+    if (lower.includes('6.2')) {
+      openAiModel = 'gpt-6.2';
     } else {
       openAiModel = 'gpt-6';
     }
@@ -119,7 +117,7 @@ export class AIService {
       }
 
       const lastMessage = messages[messages.length - 1];
-      if (imageUrls && imageUrls.length > 0 && (openAiModel.startsWith('6') || openAiModel.startsWith('gpt-5'))) {
+      if (imageUrls && imageUrls.length > 0 && (openAiModel.startsWith('6') || openAiModel.startsWith('gpt-6.2'))) {
         const contentParts: any[] = [{ type: 'text', text: lastMessage.content }];
         for (const url of imageUrls) {
           contentParts.push({
@@ -186,7 +184,7 @@ export class AIService {
     if (!genAI) {
       const openaiClient = this.getOpenAIClient();
       if (openaiClient) {
-        return await this.generateOpenAIResponse(messages, fileContext, imageUrls, "GPT-5.6", think, userContext);
+        return await this.generateOpenAIResponse(messages, fileContext, imageUrls, "GPT-6.2", think, userContext);
       }
       throw new Error('Google Generative AI not initialized (Missing GOOGLE_API_KEY)');
     }

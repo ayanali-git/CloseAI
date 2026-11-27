@@ -747,7 +747,7 @@ export function SearchModal({
                 >
                   Clear search
                 </button>
-                <div className={cn("h-4 w-px", isGuest ? "bg-border/80 dark:bg-white/10" : "bg-border/80", "mx-1 shrink-0 select-none")} />
+                <div className={cn("hidden min-[1280px]:block h-4 w-px", isGuest ? "bg-border/80 dark:bg-white/10" : "bg-border/80", "mx-1 shrink-0 select-none")} />
               </>
             )}
             

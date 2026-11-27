@@ -109,40 +109,6 @@ const SITE_SEARCH_INDEX: SiteSearchItem[] = [
     ],
   },
   {
-    id: "res-56",
-    category: "Research",
-    title: "GPT-5.6 Frontier Model & Safety",
-    description:
-      "Our newest flagship model featuring enhanced multi-step reasoning, real-time multimodal processing, and breakthrough code synthesis capabilities.",
-    url: "/research/overview",
-    date: "Sep 2026",
-    keywords: [
-      "5.6",
-      "GPT-5.6",
-      "flagship",
-      "model",
-      "multimodal",
-      "reasoning",
-      "research",
-    ],
-  },
-  {
-    id: "res-55",
-    category: "Research",
-    title: "GPT-5.5 Deep Reasoning Architecture",
-    description:
-      "In-depth analysis of high-efficiency reasoning models with step-by-step chain of thought verification.",
-    url: "/research/overview",
-    date: "Aug 2026",
-    keywords: [
-      "5.5",
-      "reasoning",
-      "chain of thought",
-      "overview",
-      "benchmarks",
-    ],
-  },
-  {
     id: "res-safety",
     category: "Security",
     title: "Safety Framework & Red Teaming",
@@ -1469,24 +1435,6 @@ export function MarketingHeader() {
                           GPT-6 Astra
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          href="/research/overview"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          GPT-5.6
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/research/overview"
-                          onClick={() => setActiveMenu(null)}
-                          className="text-foreground transition-colors"
-                        >
-                          GPT-5.5
-                        </Link>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -2045,8 +1993,6 @@ export function MarketingHeader() {
                               label: "GPT-6 Astra",
                               href: "/research/overview"
                            },
-                            { label: "GPT-5.6", href: "/research/overview" },
-                            { label: "GPT-5.5", href: "/research/overview" },
                           ].map((adv, i) => (
                             <Link
                               key={i}
