@@ -1458,13 +1458,11 @@ export function MarketingHeader() {
                       <li>
                         <Link
                           href={user ? "/c" : "/gc"}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           onClick={() => setActiveMenu(null)}
                           className="text-2xl font-medium text-foreground transition-colors"
                         >
                           <span>CloseAI Chat</span>
-                          <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
+                          {/* <AnimatedArrowUpRight className="w-5 h-5 transition-colors" /> */}
                         </Link>
                       </li>
                       <li>
@@ -2017,13 +2015,11 @@ export function MarketingHeader() {
                         <div className="space-y-3">
                           <Link
                             href={user ? "/c" : "/gc"}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             onClick={() => setMobileNavOpen(false)}
                             className="block text-2xl sm:text-3xl font-medium tracking-tight text-foreground transition-colors py-1"
                           >
                             <span>CloseAI Chat</span>
-                            <AnimatedArrowUpRight className="w-5 h-5 transition-colors" />
+                            {/* <AnimatedArrowUpRight className="w-5 h-5 transition-colors" /> */}
                           </Link>
                           <Link
                             href="/product/features"

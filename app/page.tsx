@@ -399,7 +399,7 @@ export default function LandingPage() {
               >
                 <div className="relative w-full aspect-square rounded-sm overflow-hidden bg-black transition-all duration-300">
                   <Image
-                    src="/assets/images/image-2.6.png"
+                    src="/assets/images/images-2.6.png"
                     alt="Introducing Images 2.6"
                     fill
                     className="object-cover"
